@@ -5,6 +5,28 @@ anything**; the rest is per feature reference you can read when you reach that f
 
 ---
 
+## READ THIS FIRST: two sessions edited this build
+
+On 25 Aug a **second session ran a brand guide pass** and republished the about artifact. Its
+edits were sitting uncommitted on disk; they are now committed as `d95e77a`. Its reasoning is
+under "The brand guide pass, 25 August 2026" further down, and it is coherent, but **two things
+it removed were features Cydnie had asked for by name in the session before**:
+
+- **The letter signup pop-up.** She asked for "the pop up to sign up for the letter" and it was
+  built as a real signup inside the nudge. The nudge is gone; the letter door's opener is now a
+  link to `#questions`. **That is the twelve questions form, not the letter.** After this pass
+  there is no letter signup anywhere on the site, which is the state that existed before she
+  asked for one.
+- **The sticky bar.** It carried one of the six Sounding booking links she asked to have wired.
+  Home is down to five.
+
+Neither is necessarily wrong: both are named bans in the guide. But **she has not been told, and
+she has not chosen.** Ask before building either back, and do not quietly re-add them.
+
+Sections of this file written before 25 Aug still describe the gauge, the nudge, the sticky bar,
+`hero-breath` and the condition stepper rule as present. **They are not.** Trust the git log and
+the files over any prose here that predates `d95e77a`.
+
 ## START HERE: the one thing that is blocked
 
 The site is finished enough to deploy and **is committed to git**, four commits on `main`,
