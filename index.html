@@ -162,7 +162,6 @@
 
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="progress" aria-hidden="true"><span></span></div>
 
 <header class="hdr">
   <div class="wrap hdr-in">
@@ -184,22 +183,12 @@
         <li><a href="#story">About</a></li>
       </ul>
       <a class="btn" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
-        <span>One conversation</span>
+        <span>Book one conversation</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
     </nav>
   </div>
 </header>
-
-<!-- The gauge reads how far up the reader has come. -->
-<div class="gauge" aria-hidden="true">
-  <span class="gauge-label">Resurfacing</span>
-  <div class="gauge-track">
-    <div class="gauge-fill"></div>
-    <div class="gauge-dot"></div>
-  </div>
-  <span class="gauge-read">40m</span>
-</div>
 
 <main id="main">
 
@@ -227,15 +216,21 @@
     <div class="hero-copy">
       <p class="eyebrow r-fade">The resurfacing business</p>
       <h1 class="hero-line split" id="hero-h">You&rsquo;re not broken. <em>You&rsquo;re underwater.</em></h1>
-      <span class="hero-wl" aria-hidden="true"></span>
-      <p class="hero-call r-up" style="--d:200ms">Let&rsquo;s get you to the surface.</p>
-      <p class="hero-sub r-up" style="--d:280ms">Brand, operations and business development for women who are successful on paper and depleted underneath. Forest Lake, Minnesota.</p>
+      <!-- The drawn waterline is deliberately absent here and nowhere else.
+           The photograph carries a real surface line at roughly 24% from the
+           top; this rule sits under the headline, which is vertically
+           centred, so the two can never be made to read as one continuous
+           line across viewports. Two lines at two heights is worse than one
+           real one, so the drawn rule is dropped in the hero only. It is
+           still on the about page head and at the close. -->
+      <p class="hero-call r-up" style="--d:120ms">Let&rsquo;s get you to the surface.</p>
+      <p class="hero-sub r-up" style="--d:120ms">Brand, operations and business development for women who are successful on paper and depleted underneath. Forest Lake, Minnesota.</p>
 
       <!-- The paid entry point, kept, in the shape this layout can hold.
            It is the first thing offered and the only one carrying a price. -->
-      <div class="hero-acts r-up" style="--d:380ms">
+      <div class="hero-acts r-up" style="--d:180ms">
         <a class="hero-go hero-go--paid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
-          <span>Start with one conversation</span>
+          <span>Book one conversation</span>
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
         </a>
         <a class="hero-go" href="#method">
@@ -243,14 +238,14 @@
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
         </a>
       </div>
-      <p class="hero-terms r-up" style="--d:440ms"><b>$300.</b> Say it out loud once. Two days later a written page arrives.</p>
+      <p class="hero-terms r-up" style="--d:240ms"><b>$300.</b> Say it out loud once. Two days later a written page arrives.</p>
     </div>
 
     <!-- The path. Her own methodology, named in the structured data below
          as the offer catalogue "Resurface, Reclaim, Build" and spelled out
          in the FAQ: permission, a witness, and a plan, in that order. Each
          stop goes to the offer that carries that stage. -->
-    <nav class="hero-path r-up" style="--d:500ms" aria-label="The path">
+    <nav class="hero-path r-up" style="--d:240ms" aria-label="The path">
       <p class="hero-path-label">The path</p>
       <ol role="list">
         <li><a href="#sounding"><span class="pip" aria-hidden="true"></span>Resurface</a></li>
@@ -326,7 +321,7 @@
     <div class="turn-split">
       <div class="col-c">
         <h2 class="carved c-1 split" id="turn-h">You didn't lose yourself.<br>You got buried under<br><em>everyone who needed you.</em></h2>
-        <div class="body stack r-up" style="--d:280ms; margin-top:var(--s-7)">
+        <div class="body stack r-up" style="--d:120ms; margin-top:var(--s-7)">
           <p>Everything else in this category tells you that you have potential. You have a résumé full of evidence that you are capable, so flattery bounces off. What nothing has explained is why <em>capable</em> feels like this.</p>
           <p>Water explains it. You are not lacking anything and you are not behind. You are <em>under</em> something, and pressure is not a character flaw.</p>
           <p><strong>Nothing is wrong with you. Something is on top of you.</strong> Those are completely different problems, and only one of them is yours to fix.</p>
@@ -379,18 +374,18 @@
         <h2 class="carved c-2 split" id="method-h">Four ways in, in order.</h2>
       </div>
       <div class="col-e">
-        <p class="lead r-up" style="--d:180ms">Start wherever is honest. Most people start with the letter and never spend anything.</p>
+        <p class="lead r-up" style="--d:120ms">Start wherever is honest. Most people start with the letter and never spend anything.</p>
       </div>
     </div>
 
-    <div class="doors" data-stagger="110">
+    <div class="doors" data-stagger="60">
       <div class="door r-up" id="letter">
         <span class="door-stage">Free &middot; The entry point</span>
         <div>
           <h3 class="carved c-3">The letter</h3>
           <p>A letter on Sunday nights. There are no offers in them, ever. That is the whole arrangement.</p>
         </div>
-        <button class="door-note door-note--link" type="button" data-letter><span>Send it to me</span></button>
+        <a class="door-note door-note--link" href="#questions"><span>Send it to me</span></a>
       </div>
 
       <div class="door door--lead r-up" id="sounding">
@@ -399,7 +394,7 @@
           <h3 class="carved c-3">A Sounding</h3>
           <p>One honest conversation about whatever you are carrying. Two days later a written page arrives: what you said, in the order it actually goes, and one clear next thing to do.</p>
         </div>
-        <a class="door-note door-note--link" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6"><span>One conversation</span></a>
+        <a class="door-note door-note--link" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6"><span>Book one conversation</span></a>
       </div>
 
       <div class="door r-up">
@@ -423,7 +418,7 @@
 
     <div class="section-cta r-up">
       <a class="btn btn--warm" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
-        <span>Book a Sounding</span>
+        <span>Book one conversation</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
     </div>
@@ -435,7 +430,7 @@
   <div class="wrap">
     <h2 class="carved band-line split" id="band-h">Sometimes the answer is that you don't need me.</h2>
     <span class="band-rule" aria-hidden="true"></span>
-    <p class="band-sub r-up" style="--d:200ms">A Sounding ends with the truth, and that includes the version where the next move is not hiring me. The written page comes either way. Most people would have paid for the page on its own.</p>
+    <p class="band-sub r-up" style="--d:120ms">A Sounding ends with the truth, and that includes the version where the next move is not hiring me. The written page comes either way. Most people would have paid for the page on its own.</p>
   </div>
 </section>
 
@@ -450,10 +445,10 @@
       <div class="col-a">
         <p class="eyebrow r-fade">Before you book</p>
         <h2 class="head h-2 split" id="ready-h">You do not have to arrive ready.</h2>
-        <p class="ready-lede r-up" style="--d:200ms">Whichever one is actually stopping you, it is already answered.</p>
+        <p class="ready-lede r-up" style="--d:120ms">Whichever one is actually stopping you, it is already answered.</p>
       </div>
       <div class="col-b">
-        <div class="reversal r-up" data-reversal style="--d:120ms">
+        <div class="reversal r-up" data-reversal style="--d:60ms">
           <div class="rev">
             <p class="rev-q">I do not know what it is yet.</p>
             <p class="rev-a">Nothing to prepare. You do not have to know what it is yet.</p>
@@ -504,7 +499,7 @@
       <div class="fifteen-copy stack-lg">
         <p class="eyebrow r-fade">The room I build</p>
         <h2 class="head h-2 split" id="fifteen-h">You'll be alone here. And you'll never be alone again.</h2>
-        <div class="body stack r-up" style="--d:200ms">
+        <div class="body stack r-up" style="--d:120ms">
           <p>You want to be seen, and you want everyone to stop needing you. You have concluded those are opposites. They are not: your enemy was never invisibility, it is <em>extraction</em>.</p>
           <p><strong>Nobody will need anything from you. Nobody will leave you either.</strong> That is not a feeling. It is architecture.</p>
           <p class="tiny">Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance.</p>
@@ -576,11 +571,11 @@
         <h3 class="head h-3 r-up">Built to stand.</h3>
       </div>
       <div class="col-e">
-        <p class="small muted r-up" style="--d:120ms">A brand is only finished when it can carry weight. These are running.</p>
+        <p class="small muted r-up" style="--d:60ms">A brand is only finished when it can carry weight. These are running.</p>
       </div>
     </div>
 
-    <ul class="cards" data-stagger="70" role="list">
+    <ul class="cards" data-stagger="60" role="list">
       <li class="card r-up">
         <span class="card-n" aria-hidden="true">01</span>
         <h4>Mane Alchemist</h4>
@@ -627,14 +622,14 @@
       <div class="story-copy">
         <p class="eyebrow r-fade">Why me</p>
         <h2 class="head h-2 split" id="story-h">I was the client.</h2>
-        <p class="story-lede r-up" style="--d:180ms">Not as a story. As a timeline.</p>
-        <ol class="tline r-up" style="--d:260ms" role="list">
+        <p class="story-lede r-up" style="--d:120ms">Not as a story. As a timeline.</p>
+        <ol class="tline r-up" style="--d:120ms" role="list">
           <li>Three years of being bullied and targeted at a company where that was not unusual for women. Postpartum. Motherhood. And hospitals, because my children have a rare genetic mutation and we have not stopped going since.</li>
           <li>I had never taken a last-minute trip in my life. The invitation came and I said yes in three days, with no plan, after three years of not moving.</li>
           <li>I was alone in a group of fifteen, and I heard myself for the first time in years.</li>
           <li>That is the week I resurfaced. I came back and told that company I had a choice after all.</li>
         </ol>
-        <div class="stack r-up" style="--d:340ms; margin-top:var(--s-6)">
+        <div class="stack r-up" style="--d:180ms; margin-top:var(--s-6)">
           <p>I am not describing a woman I once coached. <strong>I lead with heart and close with operations.</strong> Heart alone is a nice conversation. Operations alone is why you are tired.</p>
           <p style="margin-top:var(--s-5)">
             <a class="more" href="/about/">
@@ -655,11 +650,11 @@
       <div class="retreat-copy">
         <p class="eyebrow r-fade">Open &middot; Waitlist</p>
         <h2 class="carved c-2 split" id="retreat-h">Rise Into Her<br>The Greece Edition</h2>
-        <div class="stack r-up" style="--d:240ms; margin-top:var(--s-5)">
+        <div class="stack r-up" style="--d:120ms; margin-top:var(--s-5)">
           <p class="lead">Eight days at Armonia Retreat Center in Douliana, Crete. Fourteen women. Twelve questions, and you answer the first before you get on the plane.</p>
           <p class="muted">Nobody will need anything from you for eight days. That is the entire brief.</p>
         </div>
-        <dl class="meta-list r-up" style="--d:320ms">
+        <dl class="meta-list r-up" style="--d:180ms">
           <div><dt>Dates</dt><dd><time datetime="2027-08-13">13</time>&ndash;<time datetime="2027-08-20">20 August 2027</time></dd></div>
           <div><dt>Where</dt><dd>Douliana, Crete</dd></div>
           <div><dt>Guests</dt><dd>14 at the main site</dd></div>
@@ -667,7 +662,7 @@
           <div><dt>Regular</dt><dd>$3,450</dd></div>
           <div><dt>Deposit</dt><dd>$500, non-refundable</dd></div>
         </dl>
-        <div class="actions r-up" style="--d:400ms; margin-top:var(--s-5)">
+        <div class="actions r-up" style="--d:180ms; margin-top:var(--s-5)">
           <a class="btn" href="#start"><span>Join the waitlist</span>
             <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a>
         </div>
@@ -693,10 +688,10 @@
         <h2 class="head h-2 split" id="ref-h">Here is what I won't do.</h2>
       </div>
       <div class="col-e">
-        <p class="lead r-up" style="--d:180ms">A refusal you can read in advance is worth more than a promise you have to take on trust.</p>
+        <p class="lead r-up" style="--d:120ms">A refusal you can read in advance is worth more than a promise you have to take on trust.</p>
       </div>
     </div>
-    <dl class="refuse" data-stagger="70">
+    <dl class="refuse" data-stagger="60">
       <div class="r-up"><dt>No flattery</dt><dd>If the honest answer is smaller, cheaper or slower than what you came for, that is the answer you get.</dd></div>
       <div class="r-up"><dt>No template</dt><dd>No package, no formula, no version of you I have already sold to someone else.</dd></div>
       <div class="r-up"><dt>No chasing</dt><dd>Help that has to be sold isn't help. The door stays open. Walking through it is yours.</dd></div>
@@ -754,15 +749,15 @@
       <div class="close-copy">
         <p class="eyebrow r-fade">Start here</p>
         <h2 class="carved c-1 split" id="start-h">Come up. There's no wrong way to do it.</h2>
-        <div class="body stack r-up" style="--d:220ms; margin-top:var(--s-6)">
+        <div class="body stack r-up" style="--d:120ms; margin-top:var(--s-6)">
           <p>One conversation. Nothing signed. You bring what is tangled and I will say it back to you plainly, including the part where you need less than you came for.</p>
         </div>
-        <div class="actions r-up" style="--d:340ms; margin-top:var(--s-6)">
+        <div class="actions r-up" style="--d:180ms; margin-top:var(--s-6)">
           <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6"><span>Book one conversation</span>
             <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a>
         </div>
       </div>
-      <div class="close-form r-up" id="questions" style="--d:260ms">
+      <div class="close-form r-up" id="questions" style="--d:120ms">
         <!-- WIRING REQUIRED: point action= at the Flodesk endpoint. Keep the hidden tag field. -->
         <form action="#" method="post" novalidate>
           <input type="hidden" name="tag" value="twelve-questions">
@@ -852,36 +847,6 @@
     </div>
   </div>
 </footer>
-
-<div class="sticky" aria-hidden="true">
-  <div class="wrap sticky-in">
-    <p><b>A Sounding.</b> One honest conversation, and a page two days later. <span class="sticky-price">$300</span></p>
-    <a class="btn btn--warm" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6"><span>Book a Sounding</span></a>
-  </div>
-</div>
-
-<!-- The letter, offered once and never again in the same visit. It signs you
-     up where it stands: the old version linked to #letter, which is a
-     paragraph about the letter with nothing to fill in. `inert` while it is
-     down, because a form parked off screen must not be reachable by tab. -->
-<aside class="nudge" aria-hidden="true" aria-label="The letter" inert>
-  <button class="nudge-close" type="button" aria-label="Dismiss this">
-    <span aria-hidden="true"></span><span aria-hidden="true"></span>
-  </button>
-  <p class="nudge-label">The letter</p>
-  <p>I write one on Sunday nights. There are no offers in them, ever.</p>
-  <!-- WIRING REQUIRED: point action= at the Flodesk endpoint. Keep the hidden tag field. -->
-  <form class="nudge-form" action="#" method="post" novalidate>
-    <input type="hidden" name="tag" value="letter">
-    <div class="field">
-      <label for="letter-email">Email</label>
-      <input id="letter-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="letter-hint">
-      <span class="hint" id="letter-hint">You can leave at any point.</span>
-    </div>
-    <button class="btn" type="submit"><span>Send it to me</span>
-      <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></button>
-  </form>
-</aside>
 
 <script src="assets/js/site.js" defer></script>
 </body>

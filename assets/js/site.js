@@ -53,7 +53,7 @@
             var w = document.createElement("span"); w.className = "w";
             var inner = document.createElement("i");
             inner.textContent = part;
-            inner.style.setProperty("--wd", (i * 44) + "ms");
+            inner.style.setProperty("--wd", (i * 40) + "ms");
             i++;
             w.appendChild(inner); frag.appendChild(w);
           });
@@ -96,7 +96,8 @@
       document.querySelectorAll(".r-up, .r-fade, .r-img, .split"));
 
     document.querySelectorAll("[data-stagger]").forEach(function (g) {
-      var step = parseInt(g.dataset.stagger, 10) || 90;
+      var step = parseInt(g.dataset.stagger, 10) || 60;
+      if (step > 60) step = 60;               /* the guide's ceiling */
       Array.prototype.slice.call(g.children).forEach(function (c, n) {
         c.style.setProperty("--d", (n * step) + "ms");
       });
@@ -133,26 +134,20 @@
     window.addEventListener("resize", check, { passive: true });
   }
 
-  /* ---------- 4. The gauge, and the in view pump ------------- */
+  /* ---------- 4. Parallax, and the in view pump ---------------
+     The resurfacing gauge used to live here. It was a fixed hairline whose
+     fill changed length as you scrolled, with a depth readout counting down
+     beside it, which is a scroll progress bar and a count up in one object.
+     Both are banned, and for the same reason: a rule that changes length
+     reads as a waterline that moves.
+
+     What is left is 12px of parallax travel, hard capped, and the pump. */
+  var PAR_MAX = 12;
+
   function initScroll() {
-    var fill = document.querySelector(".gauge-fill");
-    var dot = document.querySelector(".gauge-dot");
-    var read = document.querySelector(".gauge-read");
     var pars = Array.prototype.slice.call(document.querySelectorAll(".par"));
 
     function frame() {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      var p = h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
-
-      if (fill) {
-        fill.style.height = (p * 100) + "%";
-        if (dot) dot.style.top = (p * 100) + "%";
-        if (read) {
-          var m = Math.max(0, Math.round((1 - p) * 40));
-          read.textContent = m === 0 ? "Surface" : (m + "m");
-        }
-      }
-
       if (!reduce.matches) {
         var vh = window.innerHeight;
         pars.forEach(function (el) {
@@ -160,7 +155,10 @@
           if (r.bottom < -200 || r.top > vh + 200) return;
           var sp = parseFloat(el.dataset.speed || "0.08");
           var mid = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);
-          el.style.setProperty("--py", (mid * sp * -100).toFixed(2) + "px");
+          var y = mid * sp * -100;
+          if (y >  PAR_MAX) y =  PAR_MAX;
+          if (y < -PAR_MAX) y = -PAR_MAX;
+          el.style.setProperty("--py", y.toFixed(2) + "px");
         });
       }
       pump();
@@ -175,68 +173,23 @@
   }
 
   /* ---------- 5. Fifteen ------------------------------------
-     Fourteen filled, one open. A single point of light travels the ring.
-     The circles rest fully drawn, so a browser that never gives us a frame
-     still shows the mark. */
-  function initFifteen() {
-    var fig = document.querySelector(".fifteen-fig");
-    if (!fig) return;
-    var dots = Array.prototype.slice.call(fig.querySelectorAll(".dot"));
-    if (!dots.length || reduce.matches) return;
-
-    var CX = 80, CY = 80, TWO = Math.PI * 2;
-    var ring = dots.map(function (d) {
-      var a = Math.atan2(parseFloat(d.getAttribute("cx")) - CX,
-                         -(parseFloat(d.getAttribute("cy")) - CY));
-      if (a < 0) a += TWO;
-      return { el: d, a: a, her: d.classList.contains("is-her") };
-    }).sort(function (p, q) { return p.a - q.a; });
-
-    var running = false, started = 0, t = 0;
-
-    function tick(now) {
-      if (!running) return;
-      requestAnimationFrame(tick);
-      if (!started) started = now;
-      var settleIn = Math.min(1, (now - started) / 1000);
-      t += 0.0062;
-      var head = (t % 1) * TWO;
-
-      ring.forEach(function (p) {
-        var d = Math.abs(p.a - head);
-        if (d > Math.PI) d = TWO - d;
-        var lift = Math.pow(Math.max(0, 1 - d / 1.15), 2.2);
-        p.el.style.transform = "scale(" + (1 + lift * 0.26 * settleIn).toFixed(3) + ")";
-        p.el.style.opacity = (1 - settleIn * ((p.her ? 0.18 : 0.5) - lift * (p.her ? 0.18 : 0.5))).toFixed(3);
-      });
-    }
-
-    watch(fig, function () {
-      if (running) return;
-      running = true; started = 0; requestAnimationFrame(tick);
-    }, function () { running = false; }, false);
-  }
+     Fourteen filled, one open. A single point of light used to travel the
+     ring forever on an animation frame loop. Nothing on this site loops, so
+     the ring simply stands as drawn, which is also how it has always looked
+     in any browser that never handed us a frame. The mark is the argument;
+     it does not need to be doing something. */
 
   /* ---------- 6. The hero waterline -------------------------
-     One rule drawn under the headline. It used to have to meet the
-     photographic surface line of a plate beside it, which is what the
-     measuring here was for; the photograph is the whole hero now and that
-     alignment does not exist to get wrong. */
+     There is no drawn rule in the hero any more. The photograph carries a
+     real surface line at roughly 24% and the headline is centred, so the two
+     could not be held to one height across viewports, and shipping both at
+     different heights is the one thing that must not happen. This is now
+     only the parallax. */
   function initHero() {
     var hero = document.querySelector(".hero");
     if (!hero) return;
-    var wl = hero.querySelector(".hero-wl");
     var img = hero.querySelector(".hero-water img");
-    if (!wl || !img) return;
-
-    function draw() { hero.classList.add("is-drawn"); }
-
-    if (img.complete && img.naturalWidth) window.setTimeout(draw, 60);
-    else img.addEventListener("load", draw, { once: true });
-
-    /* the rule appears even if the photograph never does */
-    window.setTimeout(draw, 1400);
-
+    if (!img) return;
 
     /* 12px of travel, no more */
     if (reduce.matches) return;
@@ -248,118 +201,13 @@
     }, { passive: true });
   }
 
-  /* ---------- 7. Scroll progress as a rising waterline ------- */
-  function initProgress() {
-    var bar = document.querySelector(".progress span");
-    if (!bar) return;
-    function frame() {
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      var p = h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
-      bar.style.transform = "scaleX(" + p.toFixed(4) + ")";
-    }
-    frame();
-    window.addEventListener("scroll", frame, { passive: true });
-    window.addEventListener("resize", frame, { passive: true });
-  }
-
-  /* ---------- 8. The sticky bar -----------------------------
-     Appears once the hero is behind her, stands down at the footer so it
-     never covers the closing call. */
-  function initSticky() {
-    var bar = document.querySelector(".sticky");
-    var hero = document.querySelector(".hero");
-    var foot = document.querySelector(".ftr");
-    if (!bar || !hero) return;
-    var shown = false;
-    function check() {
-      var past = hero.getBoundingClientRect().bottom < 0;
-      var atEnd = foot ? foot.getBoundingClientRect().top < window.innerHeight : false;
-      var want = past && !atEnd;
-      if (want === shown) return;
-      shown = want;
-      bar.classList.toggle("is-up", want);
-      bar.setAttribute("aria-hidden", want ? "false" : "true");
-    }
-    check();
-    window.addEventListener("scroll", check, { passive: true });
-    window.addEventListener("resize", check, { passive: true });
-  }
-
-  /* ---------- 9. The nudge ----------------------------------
-     Offers the letter, never a discount, and signs you up where it stands.
-     Once per visit, dismissible, and it stays dismissed for the session,
-     but anything carrying data-letter can call it back, so dismissing it is
-     not the same as losing the only way to subscribe. */
-  function initNudge() {
-    var el = document.querySelector(".nudge");
-    if (!el) return;
-    var KEY = "cj-nudge";
-    var openers = Array.prototype.slice.call(document.querySelectorAll("[data-letter]"));
-
-    var dismissed = false;
-    try { dismissed = !!window.sessionStorage.getItem(KEY); } catch (e) {}
-
-    var trigger = document.querySelector("#sounding") || document.querySelector("#method");
-    var fired = false, up = false, landT = 0;
-
-    function show(focusIt) {
-      if (up) return;
-      up = true;
-      el.classList.add("is-up");
-      el.removeAttribute("inert");
-      el.setAttribute("aria-hidden", "false");
-
-      /* The slide up is a transition, and a transition that never receives a
-         frame would leave a pop up parked off screen forever. Check where it
-         landed and put it there if it did not arrive. */
-      window.clearTimeout(landT);
-      landT = window.setTimeout(function () {
-        var m = window.getComputedStyle(el).transform;
-        var ty = m.indexOf("matrix") === 0
-          ? parseFloat(m.slice(m.indexOf("(") + 1).split(",")[5]) : 0;
-        if (ty > 1) el.classList.add("is-instant");
-      }, 620);
-
-      /* Asked for, so land on the thing being asked for. Querying the first
-         input or button finds the dismiss cross, which is the one control
-         nobody opened this to press. */
-      if (focusIt) {
-        var field = el.querySelector("input[type='email']") || el.querySelector(".nudge-form button");
-        if (field) field.focus();
-      }
-    }
-
-    function hide(remember) {
-      up = false;
-      el.classList.remove("is-up");
-      el.setAttribute("inert", "");
-      el.setAttribute("aria-hidden", "true");
-      if (!remember) return;
-      try { window.sessionStorage.setItem(KEY, "1"); } catch (e) {}
-    }
-
-    var close = el.querySelector(".nudge-close");
-    if (close) close.addEventListener("click", function () { hide(true); });
-    el.addEventListener("keydown", function (e) { if (e.key === "Escape") hide(true); });
-
-    /* asked for on purpose, so it opens whether or not it was dismissed */
-    openers.forEach(function (b) {
-      b.addEventListener("click", function () { show(true); });
-    });
-
-    if (dismissed) return;
-
-    function check() {
-      if (fired || !trigger) return;
-      if (trigger.getBoundingClientRect().bottom < window.innerHeight * 0.5) {
-        fired = true;
-        show(false);                 /* never steal focus when uninvited */
-        window.removeEventListener("scroll", check);
-      }
-    }
-    window.addEventListener("scroll", check, { passive: true });
-    check();
-  }
+  /* ---------- 7, 8, 9. Removed ------------------------------
+     The scroll progress bar, the sticky bottom bar and the slide in letter
+     nudge are all out. A thin rule at the top that changes length reads as
+     a waterline that moves; a sticky bar and a nudge are both forms of the
+     manufactured urgency this brand does not use. The booking link stands
+     on its own in the nav, in the hero and once at the close, and the
+     letter is offered in the page, in the places it belongs. */
 
   /* ---------- 10. The condition, one recognition at a time ---
      The section holds a track five screens tall with a pinned stage
@@ -824,13 +672,22 @@
      taken off after a second whether or not the animation ever ran, so the
      rule ends up drawn either way: a keyframe from scaleX(0) would
      otherwise leave it invisible for as long as it sat on its first frame. */
+  /* Waterline rules draw left to right, 900ms, once. On load in the head,
+     on entry everywhere else. The resting state is the drawn one, so a
+     browser that never advances the animation still shows the rule. */
   function initRules() {
     var rules = Array.prototype.slice.call(document.querySelectorAll(".wl-rule"));
     if (!rules.length || reduce.matches) return;
-    rules.forEach(function (r) { r.classList.add("is-drawing"); });
-    window.setTimeout(function () {
-      rules.forEach(function (r) { r.classList.remove("is-drawing"); });
-    }, 1000);
+
+    function draw(r) {
+      r.classList.add("is-drawing");
+      window.setTimeout(function () { r.classList.remove("is-drawing"); }, 1000);
+    }
+
+    rules.forEach(function (r) {
+      if (r.closest(".ab-head, .hero")) draw(r);
+      else watch(r, function () { draw(r); }, null, true);
+    });
   }
 
   function initYear() {
@@ -845,11 +702,7 @@
     initReveals();
     initHeader();
     initScroll();
-    initFifteen();
     initHero();
-    initProgress();
-    initSticky();
-    initNudge();
     initCondition();
     initReversal();
     initQuotes();

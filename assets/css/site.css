@@ -101,18 +101,19 @@ button { font: inherit; color: inherit; }
    return to depth for the origin story, deep again for the footer.
    Each zone declares --from so its top edge fades out of the zone above
    it and the change never reads as a band. */
+/* The seam between two grounds used to be a gradient fading the zone above
+   into the zone below. Gradients are banned brand wide, and the brand's own
+   answer to two colours meeting is already written: two solid fields and a
+   hard edge. Most of these boundaries are between near identical grounds and
+   were invisible anyway; the one real light to dark change now lands as an
+   edge rather than a smear. */
 [data-zone] { position: relative; }
-[data-zone]::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 0;
-  height: clamp(3rem, 8vw, 7rem);
-  background: linear-gradient(180deg, var(--from, transparent), transparent);
-  pointer-events: none; z-index: 0;
-}
 [data-zone] > * { position: relative; z-index: 1; }
 
 .z-breath, .z-deep {
   --ink: var(--surface); --muted: #A8C4C0; --faint: #7E9E9B;
-  --accent: var(--meniscus); --warm: var(--claim);
+  --accent: var(--meniscus); --warm: var(--held-lift);
+  --label: var(--breath);
   --rule: rgba(159,204,198,.22); --field: var(--fathom);
   color: var(--ink);
 }
@@ -122,20 +123,28 @@ button { font: inherit; color: inherit; }
 .z-light, .z-silt {
   --ink: var(--fathom); --muted: #48666A; --faint: #456063;
   --accent: var(--deepwater); --warm: #8F4A47;
+  --label: var(--deepwater);
   --rule: rgba(12,40,48,.16); --field: var(--surface);
   color: var(--ink);
 }
 .z-light { background: var(--surface); }
 .z-silt  { background: #DCE4E1; --field: #DCE4E1; }
 
-/* The band where she surfaces. No text sits on the steep part of it. */
+/* The band where she surfaces. It used to be a six stop gradient, which the
+   guide bans outright. It is now the brand's own construction: two solid
+   fields meeting on a 1px Meniscus rule that runs the full width. Level,
+   and it does not move. */
 .rise-band {
   position: relative;
-  background: linear-gradient(180deg,
-    var(--fathom) 0%, #1B4048 26%, var(--deepwater) 52%,
-    #7FA5A5 76%, #C3D4D2 90%, var(--surface) 100%);
+  background:
+    linear-gradient(var(--fathom), var(--fathom)) top    / 100% 46% no-repeat,
+    linear-gradient(var(--surface), var(--surface)) bottom / 100% 54% no-repeat,
+    var(--surface);
   overflow: hidden;
 }
+/* No drawn rule here. The photograph on top of this band carries its own
+   surface line and it does not sit at 46%; a drawn rule would be a second
+   waterline at a second height, which is the one thing that must not ship. */
 
 /* ---------- 5. LAYOUT --------------------------------------- */
 .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
@@ -173,8 +182,8 @@ button { font: inherit; color: inherit; }
   color: var(--ink);
 }
 .c-1 { font-size: clamp(1.7rem, 3.6vw, 3rem);    line-height: 1.14; letter-spacing: .035em; }
-.c-2 { font-size: clamp(1.35rem, 2.5vw, 2.05rem); }
-.c-3 { font-size: clamp(1.15rem, 1.7vw, 1.45rem); letter-spacing: .09em; }
+.c-2 { font-size: clamp(1.45rem, 2.5vw, 2.05rem); }
+.c-3 { font-size: clamp(1.4rem, 1.8vw, 1.6rem); letter-spacing: .09em; }
 
 /* Sans headlines carry the longer sentences. Clean. Clear. Direct. */
 .head {
@@ -213,13 +222,13 @@ button { font: inherit; color: inherit; }
 
 .pull {
   font-family: var(--carved);
-  font-size: clamp(1.15rem, 1.9vw, 1.55rem);
+  font-size: clamp(1.4rem, 1.9vw, 1.7rem);
   line-height: 1.24; letter-spacing: .05em; color: var(--ink);
 }
-.num { font-family: var(--carved); font-size: 1rem; letter-spacing: .12em; color: var(--warm); }
+.num { font-family: var(--utility); font-size: .75rem; letter-spacing: .28em; color: var(--label); }
 
 /* ---------- 7. LINKS + BUTTONS ------------------------------ */
-.link { text-decoration: none; position: relative; display: inline-block; color: var(--accent); padding-bottom: 2px; }
+.link { text-decoration: none; position: relative; display: inline-block; color: var(--label); padding-bottom: 2px; }
 .link::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
   background: currentColor; transform: scaleX(0); transform-origin: right;
@@ -249,16 +258,14 @@ button { font: inherit; color: inherit; }
 .btn .arw { flex: none; transition: transform var(--t-mid) var(--ease-out); }
 .btn:hover .arw { transform: translateX(4px); }
 
-.btn--warm {
-  position: relative;
-  background: transparent; color: var(--held-lift); border-color: var(--held);
-}
-.btn--warm::before { background: var(--held); }
-.btn--warm:hover, .btn--warm:focus-visible { color: var(--surface); border-color: var(--held); }
+/* Held is one element per page and the hero's paid entry point is already
+   it, so this variant now differs from .btn only in the rule it extends
+   beneath itself on hover. */
+.btn--warm { position: relative; }
 /* a Held rule extends beneath it on hover, rather than a shine */
 .btn--warm::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 1px;
-  background: var(--held); transform: scaleX(0); transform-origin: left;
+  background: var(--breath); transform: scaleX(0); transform-origin: left;
   transition: transform 180ms var(--ease-out);
 }
 .btn--warm:hover::after, .btn--warm:focus-visible::after { transform: scaleX(1); }
@@ -281,7 +288,7 @@ button { font: inherit; color: inherit; }
   display: inline-flex; align-items: center; gap: .7rem;
   min-height: 44px;
   font-size: .8125rem; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--accent); text-decoration: none;
+  color: var(--label); text-decoration: none;
   position: relative;
 }
 .more span { position: relative; padding-bottom: 3px; }
@@ -339,32 +346,11 @@ button { font: inherit; color: inherit; }
   .brand-mark { width: 8.5rem; }
 }
 
-/* ---------- 9. THE RESURFACING GAUGE ------------------------- */
-/* Not decoration: it reports how far up the reader has come. */
-.gauge {
-  position: fixed; left: clamp(.75rem, 2vw, 2rem); top: 50%;
-  transform: translateY(-50%); z-index: 90;
-  display: none; pointer-events: none;
-  flex-direction: column; align-items: center; gap: var(--s-3);
-}
-@media (min-width: 62rem) { .gauge { display: flex; } }
-.gauge-label, .gauge-read {
-  writing-mode: vertical-rl;
-  font-size: .625rem; letter-spacing: .3em; text-transform: uppercase;
-  color: var(--muted); white-space: nowrap;
-  transition: color var(--t-slow) var(--ease-soft);
-}
-.gauge-read { letter-spacing: .18em; color: var(--accent); }
-.gauge-track { width: 1px; height: 26vh; background: var(--rule); position: relative; }
-.gauge-fill {
-  position: absolute; left: 0; top: 0; width: 1px; height: 0%;
-  background: linear-gradient(180deg, transparent, var(--accent));
-}
-.gauge-dot {
-  position: absolute; left: 50%; top: 0; width: 7px; height: 7px;
-  margin-left: -3.5px; margin-top: -3.5px; border-radius: 50%;
-  background: var(--accent);
-}
+/* ---------- 9. (was the resurfacing gauge) -------------------
+   Removed. A fixed hairline whose fill changes length is a scroll progress
+   bar, and a rule that changes length reads as a waterline that moves. The
+   depth readout counted, which the guide bans for the same reason: counting
+   turns restraint into a slot machine. */
 
 /* ---------- 10. THE HERO -------------------------------------
    The reader is in the water, so the photograph is the hero and the words
@@ -384,24 +370,37 @@ button { font: inherit; color: inherit; }
 /* full bleed, oversized so 12px of parallax never shows an edge */
 .hero-water { position: absolute; inset: 0; z-index: -2; }
 
-/* A slow breath, on the wrapper rather than the image, because the image is
-   already carrying the scroll parallax as an inline transform and an
-   animation would win the cascade and kill it. Two nested transforms
-   compose; one fighting one does not. 34s, and it never returns to where it
-   started in the same direction twice, so it does not read as a loop. */
-@keyframes hero-breath {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(0, -10px, 0) scale(1.035); }
+/* The fallback under both heroes, and it is not a gradient. Two solid
+   fields, Meniscus over the top 24% and Fathom below, meeting on a 1px
+   Meniscus rule that runs the full width and overhangs both edges. A
+   missing or slow photograph degrades to the brand's own construction
+   rather than to a hole in the layout. */
+.hero-water, .ab-head-water {
+  background:
+    linear-gradient(var(--meniscus), var(--meniscus)) top    / 100% 24% no-repeat,
+    linear-gradient(var(--fathom),   var(--fathom))   bottom / 100% 76% no-repeat,
+    var(--fathom);
 }
-@media (prefers-reduced-motion: no-preference) {
-  .hero-water { animation: hero-breath 34s var(--ease-soft) infinite alternate; }
+.hero-water::after, .ab-head-water::after {
+  content: ""; position: absolute; top: 24%;
+  left: -2vw; right: -2vw; height: 1px;
+  background: var(--meniscus); z-index: 0; pointer-events: none;
 }
+.hero-water img, .ab-head-water img { z-index: 1; }
+
+
+
+/* No breath on the wrapper. The thesis is a level surface with a person
+   beneath it, and anything that rises and falls forever makes that state
+   temporary. The photograph is still; the only travel it gets is the 12px
+   of scroll parallax on the image itself. */
 .hero-water img {
   position: absolute; inset: 0;
   /* the reset caps every image at 100%, which quietly clipped the old
      plate's oversize too: 108% became 100% and the right edge went short */
   max-width: none;
-  width: 108%; height: 108%; left: -4%; top: -4%;
+  /* oversized to 112% so 12px of parallax travel never reveals an edge */
+  width: 112%; height: 112%; left: -6%; top: -6%;
   /* the waterline sits high in the frame, so the headline stands in the
      deep water under it rather than against the bright surface */
   object-fit: cover; object-position: 50% 22%;
@@ -450,24 +449,15 @@ button { font: inherit; color: inherit; }
 }
 .hero-line em { font-style: normal; color: var(--breath); display: block; }
 
-/* The waterline under the headline. It overhangs to the left, because a
-   waterline does not stop where the words stop. */
-.hero-wl {
-  display: block; position: relative;
-  height: 1px;
-  margin: clamp(var(--s-5), 4vh, var(--s-6)) 0 0;
-  margin-left: calc(var(--gutter) * -1);
-  width: calc(100% + var(--gutter));
-  max-width: calc(42rem + var(--gutter));
-  background: var(--meniscus);
-  transform: scaleX(0); transform-origin: left;
-}
-.is-drawn .hero-wl { transform: scaleX(1); transition: transform 900ms var(--ease-out); }
+/* The hero has no drawn waterline. The photograph's own surface line sits
+   at roughly 24% from the top and the headline is centred in the frame, so
+   the drawn rule cannot be held to the same height across viewports. Never
+   two lines at two heights. The rule stays everywhere else on the site. */
 
 .hero-call {
   margin: clamp(var(--s-5), 4vh, var(--s-6)) 0 0;
   font-family: var(--carved); font-style: italic;
-  font-size: clamp(1.2rem, 2.1vw, 1.75rem);
+  font-size: clamp(1.42rem, 2.1vw, 1.75rem);
   line-height: 1.3; letter-spacing: .03em; color: var(--surface);
 }
 .hero-sub {
@@ -487,7 +477,7 @@ button { font: inherit; color: inherit; }
   min-height: 44px; padding: var(--s-2) 0;
   border-bottom: 1px solid var(--rule);
   font-family: var(--utility); font-size: .75rem;
-  letter-spacing: .22em; text-transform: uppercase;
+  letter-spacing: .28em; text-transform: uppercase;
   text-decoration: none; color: var(--muted);
   transition: color var(--t-mid) var(--ease-out), border-color var(--t-mid) var(--ease-out);
 }
@@ -502,7 +492,7 @@ button { font: inherit; color: inherit; }
   margin: var(--s-4) 0 0;
   font-size: .9375rem; line-height: 1.6; color: #A8C4C0;
 }
-.hero-terms b { font-weight: 400; color: var(--held-lift); }
+.hero-terms b { font-weight: 400; color: var(--surface); }
 
 /* The path. A rule with four stops on it, each one a real door further
    down the page. */
@@ -523,7 +513,7 @@ button { font: inherit; color: inherit; }
   position: relative; display: flex; align-items: center; gap: var(--s-4);
   min-height: 44px;
   font-family: var(--utility); font-size: .75rem;
-  letter-spacing: .2em; text-transform: uppercase;
+  letter-spacing: .28em; text-transform: uppercase;
   /* Surface, not muted: this sits over the brightest part of the plate. */
   text-decoration: none; color: var(--ink);
   transition: color var(--t-mid) var(--ease-out);
@@ -534,7 +524,7 @@ button { font: inherit; color: inherit; }
   transition: opacity var(--t-mid) var(--ease-out), transform var(--t-mid) var(--ease-out);
 }
 .hero-path a:hover, .hero-path a:focus-visible { color: var(--ink); }
-.hero-path a:hover .pip, .hero-path a:focus-visible .pip { opacity: 1; transform: scale(1.3); }
+.hero-path a:hover .pip, .hero-path a:focus-visible .pip { opacity: 1; }
 
 /* The descent mark: three lines narrowing, and a line going down. */
 .hero-down {
@@ -549,21 +539,15 @@ button { font: inherit; color: inherit; }
 .hero-drop {
   display: block; width: 1px; height: clamp(2.5rem, 7vh, 4.5rem);
   margin-top: var(--s-3);
-  background: linear-gradient(180deg, var(--breath), transparent);
-  opacity: .55; transform-origin: top;
+  background: var(--meniscus);
+  opacity: .8; transform-origin: top;
+  transition: background-color 150ms var(--ease-out);
 }
-.hero-down:hover .hero-drop, .hero-down:focus-visible .hero-drop { opacity: .9; }
+.hero-down:hover .hero-drop, .hero-down:focus-visible .hero-drop { background: var(--breath); }
 @media (max-width: 61.99rem) { .hero-down { display: none; } }
 
-/* the line goes down the way the reader is about to */
-@keyframes hero-drop {
-  0%      { transform: scaleY(.35); opacity: .2; }
-  45%     { opacity: .7; }
-  100%    { transform: scaleY(1);   opacity: 0; }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .hero-drop { animation: hero-drop 3.6s var(--ease-soft) infinite; }
-}
+/* The line used to fall on a 3.6s loop. It is a static hairline now: it
+   answers the pointer and it does nothing on its own. */
 
 /* ---------- 11. THE CONDITION -------------------------------
    Five recognitions. This is the plain, always-correct state: the whole
@@ -596,13 +580,15 @@ button { font: inherit; color: inherit; }
 @media (min-width: 42rem) {
   .cond-item { grid-template-columns: 3.5rem minmax(0, 1fr); gap: var(--s-5); align-items: start; }
 }
-.cond-num { font-family: var(--carved); font-size: 1rem; letter-spacing: .12em; color: var(--warm); }
+.cond-num { font-family: var(--utility); font-size: .75rem; letter-spacing: .28em; color: var(--label); }
 .cond-item p { font-size: 1.125rem; line-height: 1.62; max-width: 42rem; }
 .cond-item strong { font-weight: 500; color: var(--ink); }
 
 /* the gauge under the ticks: how far down the five you are.
    Empty and unread until the stepped state turns it on. */
-.cond-gauge { display: none; height: 1px; margin-top: var(--s-4); background: var(--rule); }
+/* Was a 1px rule whose fill changed width as she stepped the five. A rule
+   that changes length implies the level moved. The ticks carry the position. */
+.cond-gauge { display: none !important; }
 .cond-gauge span {
   display: block; height: 100%; width: 100%;
   background: var(--breath);
@@ -640,7 +626,7 @@ button { font: inherit; color: inherit; }
   padding-block: clamp(5.5rem, 13vh, 8rem) clamp(2.5rem, 7vh, 4.5rem);
 }
 .cond.is-stepped .cond-in { width: 100%; }
-.cond.is-stepped .cond-gauge { display: block; }
+
 .cond.is-stepped .cond-head { align-self: center; }
 
 /* the five stack on one another; only the current one is lit */
@@ -666,7 +652,7 @@ button { font: inherit; color: inherit; }
 /* it is carrying the section alone now, so it is allowed to be the size of one */
 .cond.is-stepped .cond-num {
   font-size: clamp(1.75rem, 4.4vw, 2.75rem);
-  line-height: 1; color: var(--held);
+  line-height: 1; color: var(--muted);
 }
 .cond.is-stepped .cond-item p {
   font-size: clamp(1.3rem, 2.6vw, 1.95rem);
@@ -748,7 +734,7 @@ button { font: inherit; color: inherit; }
 }
 .door-stage {
   font-size: .75rem; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--warm); text-wrap: balance;
+  color: var(--label); text-wrap: balance;
 }
 .door h3 { margin-bottom: var(--s-3); }
 .door p { color: var(--muted); max-width: 40rem; }
@@ -776,7 +762,7 @@ button.door-note {
 /* the tap target is grown with a pseudo element rather than a min-height,
    which is what used to push this one note 27px off the others */
 .door-note--link::after { content: ""; position: absolute; inset: -13px -10px; }
-.door-note--link:hover, .door-note--link:focus-visible { color: var(--warm); }
+.door-note--link:hover, .door-note--link:focus-visible { color: var(--accent); }
 .door-note--link span { border-bottom: 1px solid currentColor; padding-bottom: 2px; }
 
 /* The lead offer is marked in the gutter, not indented out of the column.
@@ -789,13 +775,13 @@ button.door-note {
 }
 @media (max-width: 41.99rem) { .door--lead::before { display: none; } }
 @media (prefers-reduced-motion: no-preference) {
-  .door--lead::before { animation: breathe 6s var(--ease-soft) infinite; }
 }
-@keyframes breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
 
 .door .arw { transition: transform var(--t-mid) var(--ease-out); }
 .door { transition: transform 200ms var(--ease-out), border-color 200ms var(--ease-out); }
-.door:hover { transform: translateY(-2px); border-bottom-color: var(--accent); }
+/* Border colour, Meniscus to Breath, 150ms. No lift, no shadow, no scale. */
+.door { transition: border-color 150ms var(--ease-out); }
+.door:hover, .door:focus-within { border-color: var(--breath); }
 
 /* ---------- 13. FIFTEEN ------------------------------------- */
 .fifteen { display: grid; gap: var(--s-7); align-items: center; }
@@ -827,7 +813,7 @@ button.door-note {
 .q-pull {
   margin: 0;
   font-family: var(--carved);
-  font-size: clamp(1.15rem, 2.2vw, 1.85rem);
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
   line-height: 1.18; letter-spacing: .05em;
   text-transform: uppercase;
   color: var(--ink);
@@ -837,7 +823,7 @@ button.door-note {
 .quote figcaption {
   margin-top: auto;
   font-family: var(--utility); font-size: .6875rem;
-  letter-spacing: .22em; text-transform: uppercase; color: var(--muted);
+  letter-spacing: .28em; text-transform: uppercase; color: var(--muted);
   display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-3);
 }
 .quote figcaption b { font-weight: 400; color: var(--ink); }
@@ -918,7 +904,7 @@ button.door-note {
 .q-count {
   margin-left: auto;
   font-family: var(--utility); font-size: .6875rem;
-  letter-spacing: .22em; text-transform: uppercase; color: var(--muted);
+  letter-spacing: .28em; text-transform: uppercase; color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -961,21 +947,19 @@ button.door-note {
 }
 .card-n {
   font-family: var(--utility); font-size: .6875rem;
-  letter-spacing: .28em; color: var(--warm);
+  letter-spacing: .28em; color: var(--label);
 }
 .card h4 {
   margin: 0;
   font-family: var(--carved); font-weight: 400;
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem); letter-spacing: .05em;
+  font-size: clamp(1.4rem, 1.8vw, 1.55rem); letter-spacing: .05em;
   color: var(--ink);
-  transition: transform var(--t-mid) var(--ease-out);
 }
 .card p { color: var(--muted); font-size: .9375rem; line-height: 1.6; }
 
 @media (hover: hover) {
-  .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .card:hover { border-color: var(--breath); }
   .card:hover::before { transform: scaleX(1); }
-  .card:hover h4 { transform: translateX(4px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .card, .card h4, .card::before { transition: none; }
@@ -996,12 +980,12 @@ button.door-note {
 .story-fig figure { margin: 0; }
 .story-fig figcaption { margin-top: var(--s-3); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .story-copy p + p { margin-top: var(--s-4); }
-.story-copy .pull { margin-block: var(--s-6); padding-left: var(--s-5); border-left: 1px solid var(--warm); }
+.story-copy .pull { margin-block: var(--s-6); padding-left: var(--s-5); border-left: 1px solid var(--meniscus); }
 
 .story-lede {
   margin-top: var(--s-4);
   font-family: var(--carved); font-style: italic;
-  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-size: clamp(1.4rem, 1.7vw, 1.5rem);
   letter-spacing: .03em; color: var(--accent);
 }
 
@@ -1047,7 +1031,7 @@ button.door-note {
 .refuse { border-top: 1px solid var(--rule); }
 .refuse > div { padding-block: clamp(var(--s-4), 2.6vw, var(--s-5)); border-bottom: 1px solid var(--rule); display: grid; gap: var(--s-2); }
 @media (min-width: 48rem) { .refuse > div { grid-template-columns: 13rem 1fr; gap: var(--s-5); align-items: baseline; } }
-.refuse dt { font-family: var(--carved); font-size: .9375rem; letter-spacing: .14em; color: var(--warm); }
+.refuse dt { font-family: var(--utility); font-size: .6875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--label); }
 .refuse dd { margin: 0; font-size: 1.125rem; line-height: 1.6; max-width: 40rem; }
 
 /* ---------- 17b. THE STATEMENT ------------------------------
@@ -1065,12 +1049,9 @@ button.door-note {
 /* ---------- 17c. CONVERSION ---------------------------------- */
 
 /* Scroll progress as the thesis: one level rule, filling left to right. */
-.progress { position: fixed; inset: 0 0 auto 0; height: 1px; z-index: 200; pointer-events: none; }
-.progress span {
-  display: block; height: 100%; width: 100%;
-  background: var(--breath);
-  transform: scaleX(0); transform-origin: left;
-}
+/* The scroll progress bar is gone: a thin rule at the top that changes
+   length reads as a waterline that moves. */
+
 
 /* The band. One statement, one Held rule, nothing else. */
 .band { text-align: center; }
@@ -1079,7 +1060,7 @@ button.door-note {
   font-size: clamp(1.5rem, 3.2vw, 2.6rem);
   line-height: 1.28; letter-spacing: .03em; color: var(--surface);
 }
-.band-rule { display: block; width: 3.5rem; height: 1px; background: var(--held); margin: var(--s-5) auto 0; }
+.band-rule { display: block; width: 3.5rem; height: 1px; background: var(--meniscus); margin: var(--s-5) auto 0; }
 .band-sub { margin: var(--s-5) auto 0; max-width: 44rem; color: #A8C4C0; }
 
 /* Risk reversal. A drawn rule to the left of each line, no badges. */
@@ -1137,7 +1118,7 @@ button.door-note {
 .reversal.is-live .rev-a {
   margin: 0;
   font-family: var(--carved);
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-size: clamp(1.42rem, 2vw, 1.6rem);
   line-height: 1.32; letter-spacing: .04em;
   color: var(--ink);
 }
@@ -1155,74 +1136,12 @@ button.door-note {
 /* One CTA per section, and it sits on its own line. */
 .section-cta { margin-top: clamp(var(--s-6), 7vw, var(--s-8)); }
 
-/* The sticky bar. Sells A Sounding, never urgency. */
-.sticky {
-  position: fixed; inset: auto 0 0 0; z-index: 150;
-  background: var(--fathom);
-  border-top: 1px solid var(--meniscus);
-  transform: translateY(100%);
-  transition: transform 380ms var(--ease-out);
-}
-.sticky.is-up { transform: translateY(0); }
-.sticky-in {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--s-4); padding-block: var(--s-3);
-}
-.sticky p { font-size: .9375rem; color: #A8C4C0; }
-.sticky b { font-weight: 500; color: var(--surface); }
-.sticky-price { color: var(--surface); }
-.sticky .btn { padding: .7rem 1.25rem; font-size: .75rem; white-space: nowrap; }
-@media (max-width: 47.99rem) {
-  .sticky p b, .sticky p { font-size: .875rem; }
-  .sticky-in > p > b + * { display: none; }
-  .sticky p { display: flex; gap: .5rem; }
-  .sticky p b { display: none; }
-}
+/* The sticky bottom bar and the slide in nudge are both gone. The guide
+   forbids a sticky bar, and forbids a slide in nudge, an exit intent, a
+   modal and a popup of any kind. The primary booking link stands on its own
+   three times instead: the nav, the hero, and once at the close. */
 
-/* The nudge. Offers the letter, and nothing else. */
-.nudge {
-  position: fixed; right: var(--s-4); bottom: var(--s-4); z-index: 160;
-  width: min(21rem, calc(100vw - var(--s-5)));
-  background: var(--deepwater);
-  border: 1px solid var(--meniscus);
-  border-radius: 2px;
-  padding: var(--s-5);
-  transform: translateY(140%);
-  transition: transform 460ms var(--ease-out);
-}
-.nudge.is-up { transform: translateY(0); }
-/* Set by JS if the slide up is seen not to have landed. A pop up that never
-   arrives is worse than one that arrives without sliding. Only the tween is
-   dropped: pinning the transform here as well would leave the card stuck on
-   screen after it was dismissed, since is-instant outlives is-up. */
-.nudge.is-instant { transition: none; }
-/* while it is down it must not be clickable either, not just untabbable */
-.nudge:not(.is-up) { pointer-events: none; }
-.nudge p { font-size: .9375rem; line-height: 1.6; color: #A8C4C0; }
-.nudge-label {
-  font-family: var(--utility); font-size: .6875rem; letter-spacing: .28em;
-  text-transform: uppercase; color: var(--breath); margin-bottom: var(--s-2);
-}
-/* the form, sized for a corner card rather than a page */
-.nudge-form { margin-top: var(--s-4); }
-.nudge-form .field { margin-bottom: var(--s-3); }
-.nudge-form .field label { font-size: .6875rem; }
-.nudge-form .hint { font-size: .8125rem; }
-.nudge-form .btn {
-  width: 100%; justify-content: center;
-  padding: .8rem 1.2rem; min-height: 44px; font-size: .75rem;
-}
-.nudge-close {
-  position: absolute; top: .35rem; right: .35rem;
-  width: 44px; height: 44px; background: none; border: 0; cursor: pointer;
-}
-.nudge-close span {
-  position: absolute; left: 14px; right: 14px; top: 21px; height: 1px;
-  background: var(--breath);
-}
-.nudge-close span:first-child { transform: rotate(45deg); }
-.nudge-close span:last-child { transform: rotate(-45deg); }
-@media (max-width: 47.99rem) { .nudge { bottom: 5.5rem; } }
+
 
 /* ---------- 18. FAQ ----------------------------------------- */
 .faq { border-top: 1px solid var(--rule); }
@@ -1415,46 +1334,31 @@ button.door-note {
   color: var(--surface);
 }
 
-/* They rise, they widen as the pressure comes off them, they go at the
-   line. All three are drawn at the bottom and pulled apart by delay, so
-   the loop never has to jump anyone back down. */
-@keyframes breath-rise {
-  0%   { transform: translate(0, 6px) scale(.55);       opacity: 0; }
-  11%  {                                                opacity: var(--o, .6); }
-  42%  { transform: translate(2px, -28px) scale(.88); }
-  78%  { transform: translate(-1.5px, -56px) scale(1.06); opacity: var(--o, .6); }
-  100% { transform: translate(0, -70px) scale(1.18);    opacity: 0; }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .surfacing .bub { animation: breath-rise 6.4s var(--ease-soft) infinite; }
-  .surfacing .b1 { animation-delay: -0.3s; }
-  .surfacing .b2 { animation-delay: -2.4s; }
-  .surfacing .b3 { animation-delay: -4.5s; }
-}
-
-/* Standing still, they are still a column of three rising to a line. */
-@media (prefers-reduced-motion: reduce) {
-  .surfacing .b1 { transform: translateY(-6px)  scale(.7); }
-  .surfacing .b2 { transform: translateY(-32px) scale(.9); }
-  .surfacing .b3 { transform: translateY(-58px) scale(1.08); }
-}
+/* They used to rise on a 6.4s loop. They rest now, drawn, in the one
+   arrangement they always resolved to: a column of three going at the line.
+   Nothing on this site repeats. */
+.surfacing .b1 { transform: translateY(-6px)  scale(.7); }
+.surfacing .b2 { transform: translateY(-32px) scale(.9); }
+.surfacing .b3 { transform: translateY(-58px) scale(1.08); }
 
 /* ---------- 21. WATER LAYERS -------------------------------- */
 /* Light through the surface, drifting and reacting to the pointer.
    It sits behind everything and is never near the mark. */
 main > * { position: relative; z-index: 1; }
-.hdr, .gauge { z-index: 100; }
+.hdr { z-index: 100; }
 
 
 
 /* ---------- 22. MOTION -------------------------------------- */
 /* Authored complete. JS adds .js-motion and only then are offsets applied,
    so no-JS and reduced-motion both get the finished page. */
-.js-motion .r-up   { opacity: 0; transform: translateY(26px); }
+/* Low amplitude, once: 8px and 400ms, and the stagger between siblings is
+   capped at 60ms in site.js. No scale on anything that reveals. */
+.js-motion .r-up   { opacity: 0; transform: translateY(8px); }
 .js-motion .r-fade { opacity: 0; }
-.js-motion .r-img  { opacity: 0; transform: scale(1.03); }
+.js-motion .r-img  { opacity: 0; }
 .js-motion .r-up, .js-motion .r-fade, .js-motion .r-img {
-  transition: opacity var(--t-slow) var(--ease-out), transform var(--t-slow) var(--ease-out),;
+  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
   transition-delay: var(--d, 0ms);
 }
 .js-motion .is-in.r-up, .js-motion .is-in.r-img { opacity: 1; transform: none; }
@@ -1464,8 +1368,8 @@ main > * { position: relative; z-index: 1; }
 .js-motion .split .w { display: inline; }
 .js-motion .split .w > i {
   display: inline-block; font-style: inherit;
-  opacity: 0; transform: translateY(.42em);
-  transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out);
+  opacity: 0; transform: translateY(.18em);
+  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
   transition-delay: var(--wd, 0ms);
 }
 .js-motion .split.is-in .w > i { opacity: 1; transform: none; }
@@ -1501,7 +1405,6 @@ main > * { position: relative; z-index: 1; }
   background: var(--meniscus);
   transform-origin: left;
 }
-.wl-rule--short { width: min(8rem, 34%); }
 @keyframes wl-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @media (prefers-reduced-motion: no-preference) {
   .js-motion .wl-rule.is-drawing { animation: wl-draw 900ms var(--ease-out); }
@@ -1519,7 +1422,7 @@ main > * { position: relative; z-index: 1; }
 .ab-head-water img {
   max-width: none;
   position: absolute; inset: 0;
-  width: 106%; height: 106%; left: -3%; top: -3%;
+  width: 112%; height: 112%; left: -6%; top: -6%;
   /* The box is a wider ratio than the source, so cover crops vertically and
      the horizontal position is fixed. She cannot be moved sideways here;
      the words moved instead.
@@ -1564,7 +1467,15 @@ main > * { position: relative; z-index: 1; }
   }
 }
 .ab-head .lead { margin-top: clamp(var(--s-5), 5vh, var(--s-7)); }
-.ab-head h1 { text-wrap: balance; }
+/* Two words is very short for a display line, so it is given real size and
+   real air. At .c-1 it read as a placeholder rather than a person saying
+   her own name. */
+.ab-head h1 {
+  text-wrap: balance;
+  font-size: clamp(2.75rem, 6.2vw, 5rem);
+  letter-spacing: .02em;
+  margin-top: clamp(var(--s-4), 3vh, var(--s-6));
+}
 .ab-head .wl-rule { width: 100%; }
 
 /* 03. The account, and the one photograph on the page. */
@@ -1579,12 +1490,20 @@ main > * { position: relative; z-index: 1; }
 .ab-beliefs { display: grid; gap: var(--s-3); margin-top: var(--s-5); }
 .ab-beliefs li {
   position: relative; padding-left: var(--s-5);
-  font-family: var(--carved); font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  font-family: var(--carved); font-size: clamp(1.4rem, 1.9vw, 1.6rem);
   line-height: 1.3; letter-spacing: .04em; color: var(--ink);
 }
 .ab-beliefs li::before {
   content: ""; position: absolute; left: 0; top: .62em;
-  width: var(--s-3); height: 1px; background: var(--warm);
+  width: var(--s-3); height: 1px; background: var(--meniscus);
+}
+
+/* The page's one warm element. A single Held hairline over the foundation,
+   which is the block that earns it. There is no other Held on this page. */
+.held-rule {
+  display: block; width: clamp(3rem, 7vw, 5rem); height: 1px;
+  background: var(--held);
+  margin-bottom: var(--s-4);
 }
 
 /* 05. The triad. Numbered because the order is the argument. */
@@ -1597,39 +1516,18 @@ main > * { position: relative; z-index: 1; }
 @media (min-width: 42rem) {
   .triad li { grid-template-columns: 4rem minmax(0, 14rem) minmax(0, 1fr); gap: var(--s-5); align-items: baseline; }
 }
-.triad-n { font-family: var(--utility); font-size: .75rem; letter-spacing: .22em; color: var(--warm); }
+.triad-n { font-family: var(--utility); font-size: .75rem; letter-spacing: .28em; color: var(--label); }
 .triad h3 { margin: 0; }
 .triad p { color: var(--muted); max-width: 34rem; }
 
-/* 06. Also true. Tiles rather than a flat list, but held to four and set in
-   the carved face with no icons, so it stays nearer a set of statements than
-   a personality quiz. Nothing is hidden behind the hover. */
-.ab-true { display: grid; gap: var(--s-4); margin-top: var(--s-5); }
-@media (min-width: 34rem) { .ab-true { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 62rem) { .ab-true { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-5); } }
-.ab-true li {
-  position: relative;
-  display: grid; gap: var(--s-3); align-content: start;
-  padding-top: var(--s-4);
-  border-top: 1px solid var(--rule);
-  transition: transform var(--t-mid) var(--ease-out);
-}
-/* the rule runs out across the tile on approach */
-.ab-true li::before {
-  content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px;
-  background: var(--warm);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 460ms var(--ease-out);
-}
-.ab-true-n { font-family: var(--utility); font-size: .6875rem; letter-spacing: .28em; color: var(--warm); }
-.ab-true li p {
-  font-family: var(--carved);
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-  line-height: 1.28; letter-spacing: .04em; color: var(--ink);
-}
-@media (hover: hover) {
-  .ab-true li:hover { transform: translateY(-3px); }
-  .ab-true li:hover::before { transform: scaleX(1); }
+/* 06. The personal bit. A paragraph, not a list: a list of personal facts
+   is the fun facts format however it is styled. Set at reading size, not
+   shrunk into a caption, and given the width of a single held breath. */
+.ab-personal {
+  max-width: 46rem;
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  line-height: 1.62;
+  color: var(--ink);
 }
 
 /* The triad rows answer the pointer the way the doors on the home page do:
@@ -1638,7 +1536,6 @@ main > * { position: relative; z-index: 1; }
   .triad li { transition: background-color var(--t-mid) var(--ease-out); }
   .triad li > * { transition: transform var(--t-mid) var(--ease-out), color var(--t-mid) var(--ease-out); }
   .triad li:hover .triad-n { color: var(--accent); }
-  .triad li:hover h3 { transform: translateX(5px); }
   .triad li:hover p { color: var(--ink); }
 }
 
@@ -1651,7 +1548,7 @@ main > * { position: relative; z-index: 1; }
   letter-spacing: .28em; text-transform: uppercase; color: var(--muted);
   margin-bottom: var(--s-2);
 }
-.ab-facts dd { margin: 0; font-family: var(--carved); font-size: clamp(1.05rem, 1.5vw, 1.25rem); letter-spacing: .04em; color: var(--ink); }
+.ab-facts dd { margin: 0; font-family: var(--carved); font-size: clamp(1.4rem, 1.8vw, 1.55rem); letter-spacing: .04em; color: var(--ink); }
 
 /* 08. Three doors, one per word. Deepwater panels with a Meniscus hairline,
    2px radius, no shadow, matching the booking card the home page used. */
@@ -1666,6 +1563,17 @@ main > * { position: relative; z-index: 1; }
   border: 1px solid var(--meniscus);
   border-radius: 2px;
   padding: var(--s-5);
+  transition: border-color 150ms var(--ease-out);
+}
+.way:hover, .way:focus-within { border-color: var(--breath); }
+
+/* The risk reversal, on its own line at reading size, next to the doors.
+   It is a sentence, not a badge and not a guarantee seal. */
+.ways-reversal {
+  margin-top: var(--s-5);
+  max-width: 42rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.175rem);
+  line-height: 1.6; color: var(--ink);
 }
 .way-word { font-family: var(--utility); font-size: .6875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--breath); }
 .way h3 { margin: 0; }
@@ -1691,11 +1599,12 @@ main > * { position: relative; z-index: 1; }
 .ways-letters p { color: var(--muted); font-size: .9375rem; line-height: 1.6; max-width: 42rem; }
 .ways-letters b { font-weight: 400; color: var(--ink); }
 
-/* 09. One line, one short rule, and room under it. */
+/* 09. One line, one rule the same width as the head rule, and room under
+   it. Water is level, so the rule does not change between sections. */
 .ab-close { padding-block: clamp(var(--s-8), 14vw, var(--s-11)); }
 .ab-close-line {
   font-family: var(--carved);
-  font-size: clamp(1.35rem, 3vw, 2.4rem);
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
   line-height: 1.2; letter-spacing: .05em; color: var(--ink);
   max-width: 24em;
 }
@@ -1710,6 +1619,6 @@ main > * { position: relative; z-index: 1; }
 
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {
-  .hdr, .gauge,   main { background: #fff; }
+  .hdr, main { background: #fff; }
   body, .ftr, .z-light, .z-silt, .z-deep, .z-breath { background: #fff; color: #000; }
 }

@@ -47,6 +47,139 @@ handles trailing slashes, a year of immutable caching on `/assets`, and two secu
 
 ---
 
+## The brand guide pass, 25 August 2026
+
+The about page was taken to **wireframe v6** (`../CydnieJocelyn-Site/about-page-wireframe copy.html`,
+the newer of the two) and the whole build was audited against the guide. **Nothing was
+reordered and nothing was rebuilt.** The nine blocks are in the same sequence.
+
+### Copy, about page
+
+| Block | Was | Is |
+|---|---|---|
+| 01 | "Nothing is wrong with me. Something was on top of me..." | **"I'm Cydnie."** with the fourteen years line as the lede |
+| 02 | "You are not here because it is failing." | **"Most of the women I talk to are doing fine on paper."** Reported, not pointed at her |
+| 03 | "on three days' notice" | **"I decided in three days and the trip left in two weeks... I went as a guest."** |
+| 05 | v3 triad definitions | v6 definitions, plainer |
+| 06 | "Also true", four numbered tiles | **one paragraph, no header.** A list of personal facts is the fun facts format however it is styled |
+| 08 | "The twelve questions." | **"The Letters."** Plus the risk reversal on its own line above it |
+| 09 | close rule 128px, head rule 748px | **both full width.** A rule that changes length implies the level moved |
+
+Block 01's H1 is set much larger than `.c-1`: two words at 46px read as a placeholder.
+
+**The wireframe's open question on block 01 is still open.** The rule sits *under* "I'm Cydnie",
+which puts her above the surface on the one page arguing she was under it. Moving it above the
+name submerges it and matches the wordmark. It was left as drawn; it is a decision, not an
+oversight.
+
+### What came off the build, both pages
+
+Every one of these is a named ban in the guide, not a preference:
+
+- **The scroll progress bar.** A thin rule at the top that changes length reads as a waterline
+  that moves.
+- **The resurfacing gauge.** Same object on its side, plus a depth readout that counted.
+- **The condition's stepper rule**, for the same reason. The ticks carry the position.
+- **The sticky bottom bar** and **the slide in letter nudge**. The nudge's opener (`[data-letter]`
+  on the letter door) is now a real link to `#questions`, where the form actually is.
+- **Every loop.** `hero-breath` (34s, infinite alternate), `hero-drop` (3.6s), `breathe` on the
+  lead door, `breath-rise` on the bubbles, and the travelling light around the fifteen ring,
+  which was an endless `requestAnimationFrame`. The bubbles and the ring rest fully drawn.
+  Verified in the browser: zero elements with `animation-iteration-count: infinite`.
+- **The drawn waterline in the home hero, and only there.** The photograph carries a real
+  surface line at roughly 24% and the headline is vertically centred, so the two cannot be held
+  to one height across viewports. The guide's own instruction in that case is to drop the drawn
+  rule in the hero and keep it everywhere else, which is what this does. It is still on the
+  about head and at the about close.
+
+### Gradients
+
+The guide bans them brand wide. Removed: the six stop `.rise-band`, the `[data-zone]::before`
+seam that faded each zone into the next, the gauge fill, the hero descent line.
+
+`.rise-band` is now the brand's own construction: two solid fields with a hard edge. So are the
+zone seams, which is why the Surface to Silt to Fathom run now lands as edges rather than smears.
+Most of those boundaries were between near identical grounds and were invisible anyway.
+
+**Two gradients were deliberately kept and Cydnie should overrule if she disagrees:**
+
+- `.hero-scrim` and `.ab-head-scrim`. These are the reason type is legible on a photograph, not
+  colour decoration. Remove them and the headline is unreadable on both heroes.
+
+Nothing else. The `linear-gradient(colour, colour)` layers under the heroes and the rise band
+are solid fields expressed in gradient syntax, not gradients.
+
+### The two field hero fallback
+
+`.hero-water` and `.ab-head-water` now carry it: Meniscus over the top 24%, Fathom below, and a
+1px Meniscus rule at the meeting point overhanging both edges. The photograph paints over it at
+`z-index: 1`, so it is only ever seen when the image is missing or slow. A hole in the layout is
+no longer a possible state.
+
+**No drawn rule on the rise band.** The photograph on it has its own surface line and it is not
+at 46%; a drawn one would be a second waterline at a second height.
+
+### Motion, as it now stands
+
+- Reveals: opacity 0 to 1, translateY **8px**, **400ms**. Was 26px and 900ms.
+- Stagger **capped at 60ms in `initReveals`**, whatever a `data-stagger` attribute says. Inline
+  `--d` ladders were pulled down to a 60ms grid on both pages.
+- Parallax **hard capped at 12px** (`PAR_MAX` in `initScroll`), and every parallaxed image is
+  oversized to **112%** so the travel never reveals an edge. The hero was at 108% and the about
+  head at 106%.
+- Waterlines draw left to right, 900ms, once: **on load in the head, on entry elsewhere**. The
+  close rule used to draw on load while off screen, so nobody saw it.
+- Cards answer the pointer with **border colour only**, Meniscus to Breath, 150ms. Every lift,
+  scale and text nudge is gone from `.door`, `.card`, `.triad` and the hero pips.
+
+### Colour
+
+- **Held is one element per page.** About: a single Held hairline over block 04, which is where
+  the wireframe asked for it. Home: the hero's paid entry point. Verified by computed style —
+  exactly one element per page resolves to `#A65D5A` or `#CE908A`.
+- `--warm: var(--claim)` on the dark zones referenced a token **that has never existed**, so
+  `--warm` was silently falling back to the root value everywhere below the waterline. Nothing
+  reads `--warm` any more and the declaration is honest.
+- New role token **`--label`**, resolved per ground: Breath on dark water, Deepwater on Surface.
+  Every IBM Plex Mono label, `.link` and `.more` take it. Meniscus on Fathom measures about
+  2.4:1 and was being used as a text colour in several places.
+- Contrast sweep run on the about page: **one failure, `.held-rule`**, which is a decorative
+  hairline carrying no text.
+
+### Type
+
+- Every mono label is at **0.28em**, enforced by walking the rule blocks that set `var(--utility)`.
+  Several sat at .22em, .2em and .12em.
+- **Nothing in the carved face is below 1.4rem** any more, which is about 17pt. `.c-3`, `.pull`,
+  `.q-pull`, `.card h4`, `.story-lede`, `.ab-facts dd`, `.ab-beliefs` and `.ab-close-line` all
+  came up. `.num`, `.cond-num` and `.refuse dt` were carved at 15 and 16px, which is a display
+  face used as a label; they are IBM Plex Mono now.
+
+**IvyPresto Display still cannot be self hosted. There are no license files in this workspace** —
+`find` over the whole tree returns only August & Ivy, an unrelated script face. It stays first in
+the carved stack and the page renders in Instrument Serif until the files arrive. Nothing else
+will fix this.
+
+### Booking
+
+One wording everywhere: **"Book one conversation"**. Was "One conversation", "Start with one
+conversation", "Book a Sounding" and "Book one conversation" across the two pages.
+
+**The guide says the primary booking link appears three times. Home has five.** Cutting it to
+three means removing the Sounding door's own CTA and the CTA under The Work, which is a content
+decision about her doors, not a brand cleanup, so it was left for her.
+
+### Still open after this pass
+
+- **The home footer still links the She Rises Through It podcast.** The wireframe says it comes
+  off with the podcast shelved. The footer tagline it names does not exist in this build, so
+  only the link is left. Whether the podcast is actually shelved is still not in any file.
+- The two unwired forms, `/contact/` and `/legal/*`, and the push. All unchanged.
+- The home artifact at `df17491f` is **stale**: it predates this pass and the shared CSS and JS
+  moved under it. Rebuild with `python3 tools/build_artifact.py home` and republish to that URL.
+
+---
+
 ## Where things are
 
 | What | Where |
@@ -57,7 +190,7 @@ handles trailing slashes, a year of immutable caching on `/assets`, and two secu
 | Shared CSS and JS | `assets/css/site.css`, `assets/js/site.js`. **Both pages share them** |
 | Artifact build | `python3 tools/build_artifact.py home` or `... about` |
 | Brand source of truth | `../CydnieJocelyn-Site/Minestreaming Cydnie Jocelyn/Brand-Foundation.md` |
-| About page wireframe | `../CydnieJocelyn-Site/about-page-wireframe.html` |
+| About page wireframe | `../CydnieJocelyn-Site/about-page-wireframe copy.html` (v6, the current one). `about-page-wireframe.html` is v3 and superseded |
 | Brand photography, numbered | `../CydnieJocelyn-Site/Branding copy/Minnesota Wedding Photographer-NN.jpg` |
 | Abstract water imagery | `../CydnieJocelyn-Site/Website Images/` |
 | Logo artwork | `../CydnieJocelyn-Site/NEW LOGOS 2026 PROPER LOGOS/` |
