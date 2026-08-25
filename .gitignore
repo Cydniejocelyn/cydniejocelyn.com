@@ -1,0 +1,6 @@
+# Build output. `python3 tools/build_artifact.py [home|about]` regenerates these.
+tools/cydnie-jocelyn.html
+tools/cydnie-jocelyn-about.html
+
+# macOS
+.DS_Store
