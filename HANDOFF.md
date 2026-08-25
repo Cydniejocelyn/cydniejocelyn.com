@@ -156,6 +156,35 @@ quietly emitting `src=""`.
   The old `.hero-plate img` had the same 112% and the same clamp. `.hero-water img` now sets
   `max-width: none`.
 
+## Deploying
+
+The site is a git repo now: `cydniejocelyn-v2/`, branch `main`, three commits, working tree
+clean. `.gitignore` covers the two build outputs in `tools/` and `.DS_Store`. `vercel.json` sets
+`trailingSlash`, a year of immutable caching on `/assets`, and two security headers. No build
+step: Vercel serves the repo root as static and `/about/` resolves from `about/index.html`.
+
+**This machine cannot finish the push.** Verified, not assumed:
+
+| | |
+|---|---|
+| `gh` | not installed |
+| `node` / `npm` | not installed, so no Vercel CLI |
+| SSH keys | none in `~/.ssh` |
+| Credential helper | none was set; now `osxkeychain` locally |
+| Keychain entry for github.com | none |
+| `git ls-remote` on her existing private repo | `could not read Username` |
+| `GITHUB_TOKEN` / `VERCEL_TOKEN` | not in the environment |
+
+The existing `Cydniejocelyn/jocelyncotravel` repo is private and was pushed from somewhere with
+credentials that are not stored here.
+
+The remote is already set to `https://github.com/Cydniejocelyn/cydniejocelyn.git`. **Cydnie has
+to create the repo and authenticate once**; a token is hers to enter, not something to hand over.
+After that `git push -u origin main` works from here and the keychain holds it.
+
+Vercel should be connected through **Import Git Repository** on the dashboard rather than the
+CLI. It needs no Node locally and it gives push-to-deploy, which the CLI does not.
+
 ## Images, and what is not possible
 
 - **Hero is `hero-line-*.webp`**, from `Website Images/Wavy Horizon Beneath Pale Skies.png`
