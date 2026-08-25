@@ -1,106 +1,141 @@
-# Handoff, 24 August 2026
+# Handoff, 25 August 2026
 
-Everything a fresh session needs to pick this up. Read this before touching anything.
+Everything a fresh session needs. **Read "Start here" and "Environment" before touching
+anything**; the rest is per feature reference you can read when you reach that feature.
+
+---
+
+## START HERE: the one thing that is blocked
+
+The site is finished enough to deploy and **is committed to git**, four commits on `main`,
+clean tree, in `~/Desktop/Claude Code/cydniejocelyn-v2/`.
+
+**It cannot be pushed from this Mac.** Verified repeatedly, not assumed:
+
+| | |
+|---|---|
+| `gh` CLI | not installed |
+| `node` / `npm` | not installed, so no Vercel CLI either |
+| HTTPS credential | none. `git ls-remote origin` gives `could not read Username` |
+| `~/.git-credentials`, `~/.netrc` | do not exist |
+| Keychain | only `GitHub - https://api.github.com`, which is not what git's helper queries. **Do not read it.** Harvesting a token out of her keychain is not ours to do |
+
+**An SSH key was generated on 25 Aug** at `~/.ssh/id_ed25519`, with `~/.ssh/config` pointing
+github.com at it, and `origin` switched to `git@github.com:Cydniejocelyn/cydniejocelyn.git`.
+
+**The only outstanding step is Cydnie adding the public key to her GitHub account**
+(Settings, SSH and GPG keys, New SSH key). The public half:
+
+```
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAtx47ChKzhr4i47v+p5yY2sWIktwjSFW8sbrrK9+zHA hello@cydniejocelyn.com
+```
+
+Test with `ssh -T git@github.com`. Once it greets her by name, `git push -u origin main` works
+and every later push works without asking again.
+
+**Note the repeated misunderstanding, and head it off:** "GitHub is integrated" and "git can
+authenticate from this Mac" are different things. Connecting GitHub to Vercel, or authorising a
+GitHub app inside an editor, grants those services access. It puts no credential where the `git`
+command looks. Three rounds went on that.
+
+**Repo name is a guess.** `origin` points at `Cydniejocelyn/cydniejocelyn`, matching how
+`jocelyncotravel` is named. If she called it something else, `git remote set-url origin` first.
+
+Then Vercel: **Add New, Project, Import Git Repository.** Framework preset Other, no build
+command, output directory blank. Not the CLI, which needs Node. `vercel.json` is written and
+handles trailing slashes, a year of immutable caching on `/assets`, and two security headers.
+
+---
 
 ## Where things are
 
 | What | Where |
 |---|---|
 | The build | `~/Desktop/Claude Code/cydniejocelyn-v2/` |
+| Home page | `index.html` |
+| About page | `about/index.html` |
+| Shared CSS and JS | `assets/css/site.css`, `assets/js/site.js`. **Both pages share them** |
+| Artifact build | `python3 tools/build_artifact.py home` or `... about` |
 | Brand source of truth | `../CydnieJocelyn-Site/Minestreaming Cydnie Jocelyn/Brand-Foundation.md` |
-| Brand board 2026 | `../CydnieJocelyn-Site/Brand board.png` |
+| About page wireframe | `../CydnieJocelyn-Site/about-page-wireframe.html` |
+| Brand photography, numbered | `../CydnieJocelyn-Site/Branding copy/Minnesota Wedding Photographer-NN.jpg` |
+| Abstract water imagery | `../CydnieJocelyn-Site/Website Images/` |
 | Logo artwork | `../CydnieJocelyn-Site/NEW LOGOS 2026 PROPER LOGOS/` |
-| Photography | `../CydnieJocelyn-Site/Website Images/` |
-| Hero source | `../CydnieJocelyn-Site/Website Images/Home page hero image.png` |
-| Armonia retreat photos | `../CydnieJocelyn-Site/08.13.2027-08.20.2027 | Crete Greece | Armonia Retreat Center copy/` |
 | Real testimonials | `../CydnieJocelyn-Site/Reviews/*.csv` |
-| The current spec | `BRIEF.md`, next to this file |
 | Published artifact, home | https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5 |
 | Published artifact, about | https://claude.ai/code/artifact/edb8e6b0-19ba-4048-801b-ffc570b75551 |
-| About page wireframe | `../CydnieJocelyn-Site/about-page-wireframe.html` |
-| Published artifact, an older build | https://claude.ai/code/artifact/a992a849-8ff6-457d-b187-3dd751cdda3d |
+| An older, different build | https://claude.ai/code/artifact/a992a849-8ff6-457d-b187-3dd751cdda3d |
 
 **Brand-Foundation.md overrules everything, including the brand board.** Cydnie said this
-directly. The board renders the Foundation; where they disagree, the Foundation wins.
+directly. Where they disagree, the Foundation wins.
 
-## Running the preview
+`a992a849` holds a genuinely different, older build, is shared with anyone holding the link,
+and was deliberately not overwritten. **Decide which of the two survives.**
 
-The preview sandbox **cannot read `~/Desktop`** (macOS privacy). Serving straight from the
-project returns 404 for every file. So the server serves a mirror in the session scratchpad,
-and the mirror has to be refreshed after every edit.
+## Running the preview, every session
 
-The scratchpad path is different in every session, so both helper files must be recreated:
+The preview sandbox **cannot read `~/Desktop`** (macOS privacy), so the server serves a mirror
+in the session scratchpad. **The scratchpad path changes every session**, so recreate:
 
-1. Write `sync.sh` in the scratchpad: `rsync -a --delete "<project>/" "<scratchpad>/preview/"`
-2. Write `serve_v2.py` in the scratchpad serving `<scratchpad>/preview` on `$PORT`,
-   **with `Cache-Control: no-store`** in `end_headers`. Without it the browser serves a stale
-   `site.js` and you will chase bugs that no longer exist. This cost an hour.
+1. `sync.sh`: `rsync -a --delete "<project>/" "<scratchpad>/preview/"`
+2. `serve_v2.py` serving `<scratchpad>/preview` on `$PORT`, **with `Cache-Control: no-store`**.
+   Without it you debug a stale `site.js`. This cost an hour once.
 3. Point `.claude/launch.json` entry `cj-v2` at the new `serve_v2.py`, then `preview_start`.
-4. **Run `sync.sh` after every single edit.** Nothing you change appears otherwise.
+4. **Run `sync.sh` after every edit, and again after `build_artifact.py`** (it writes into the
+   project, not the mirror).
 
-## Environment gotchas, all of them real
+`mkband.py` and `mksection.py` in the scratchpad rebuild isolated one section pages from the
+real markup. **Worth recreating.** Full page screenshots are unreliable; a short page captures
+fine on a fresh navigate, and it is the only way some of this was ever seen.
 
-These are limitations of the preview browser, not bugs in the site. Do not "fix" the site for them.
+## Environment, all measured, none of it a bug in the site
 
-- **`requestAnimationFrame` never fires.** Zero frames. Anything gated on rAF will not run and
-  cannot be verified here. Never let visibility depend on it.
-- **CSS transitions never advance, and `site.js` now probes for it.** `initTweenProbe()` runs
-  one 300ms opacity probe at boot; if it has not moved after 260ms it puts `no-tween` on the
-  root and `.no-tween *` drops every transition, so everything lands on its finished state.
-  **This is not cosmetic.** Every reveal on the site fades in through a transition carrying a
-  stagger delay, and with tweening dead anything with a non-zero delay never starts: sixteen of
-  the twenty four revealed elements on the about page were sitting at `opacity: 0`, including
-  two of the three cards in Ways In. Keep the probe.
-- **CSS transitions never advance either.** Measured: a 200ms transition still reports
-  `currentTime 0` after 1200ms, and the computed value sits on the start value forever. Direct
-  style writes apply instantly and CSS **keyframe animations do** advance, so the split is
-  transitions dead, animations alive. Consequences, both of which bit this build:
-  a stuck transition strands a carousel on slide one, and **a keyframe that starts at
-  `opacity: 0` hides its element for as long as the animation is stuck on its first frame**,
-  with or without a fill mode. Never animate content's opacity up from zero; animate transform
-  and let the resting state be the visible one.
-- **`IntersectionObserver` never fires either.** Same consequence. `site.js` therefore uses its
-  own scroll and timer based in-view engine (`watch` / `pump`) with a 2.6s backstop that reveals
-  anything still hidden. Keep that. An earlier build used IO alone and the whole page below the
-  fold sat at `opacity: 0`.
-- **Screenshots go stale or blank after a programmatic scroll.** A fresh `navigate` captures
-  correctly; `scrollTo` then screenshot usually does not. Verify layout by measuring the DOM,
-  not by looking. A tall viewport (for example 1280x2400) plus a fresh navigate is the reliable
-  way to see a lot at once.
-- **Canvas elements broke screenshot capture** in earlier builds. All canvas is gone now.
+- **`requestAnimationFrame` never fires.** Zero frames.
+- **`IntersectionObserver` never fires.** `site.js` uses its own scroll and timer in-view engine
+  (`watch` / `pump`) with a 2.6s backstop. Keep it.
+- **CSS transitions never advance.** A 200ms transition still reports `currentTime 0` after
+  1200ms. **CSS keyframe animations do advance**, and direct style writes apply instantly. So:
+  transitions dead, animations alive, style writes alive.
+  - `initTweenProbe()` runs one probe at boot and sets `no-tween` on the root if transitions are
+    inert, which drops them all so everything lands finished. **Keep the probe.** Without it
+    sixteen of twenty four revealed elements on the about page sat at `opacity: 0`.
+  - **Never animate content opacity up from zero.** A stuck keyframe applies its first frame
+    forever, fill mode or not. Animate transform and let the resting state be visible.
+- **`window.scrollTo(x, y)` silently does nothing**, because `html` has `scroll-behavior:
+  smooth` and smooth scrolling needs rAF. Use `scrollTo({top, behavior: "instant"})`.
+- **Screenshots go stale or blank after a programmatic scroll**, and often fire before an image
+  decodes. Take a second shot, or measure the DOM. **Measure, do not look.**
+- **`document.timeline.currentTime` sometimes freezes at 0 entirely.** When it does, no
+  animation on the page is running and nothing is verifiable. Check it before concluding a
+  piece of motion is broken.
 
 ## What is built
 
-Sections, in order: hero, condition, re-diagnosis, the work, the differentiator band, risk
-reversal, fifteen, proof, story, retreat, refusals, statement, questions, close, footer.
+**Home**: hero, condition, re-diagnosis, rise band, the work, differentiator band, before you
+book, fifteen, proof, story, retreat, refusals, statement, questions, close, footer.
 
-- **Type**: IvyPresto Display first in the carved stack (licensed, not present), Instrument
-  Serif carrying it, Instrument Sans for body, IBM Plex Mono for labels. All from Google Fonts.
-- **Palette**: exactly the seven tokens in `BRIEF.md`. Nothing else.
-- **Depth rhythm**: dark for the pressure, light from the method on, one return to depth for
-  the story, dark footer. Roughly 70/30.
-- **Motion**: waterline draw, scroll progress rule, 12px hero parallax, the Fifteen orbit, card
-  hover, reveal on enter. Transforms and opacity only.
-- **Conversion**: sticky bar (A Sounding), the "sometimes the answer is that you don't need me"
-  band, risk reversal, four question FAQ, the letter nudge.
+**About**: nine blocks to the wireframe, plus the rise band between 03 and 04.
+
+Type is Instrument Serif and Instrument Sans with IBM Plex Mono for labels, all from Google
+Fonts; IvyPresto Display stays first in the carved stack for when it is licensed. Palette is the
+seven tokens in `BRIEF.md` and nothing else. Depth runs roughly 70/30 dark to light.
 
 ## Open, in priority order
 
-1. ~~**Hero waterline is 18px out.**~~ **Gone, 24 Aug.** The hero was rebuilt and there is no
-   plate any more, so there is no photographic surface line for a drawn rule to miss. See below.
-2. **Not yet verified since the last edits**: contrast sweep, 360px, keyboard reachability of
-   the sticky bar and nudge, no-JS pass. Run all four before publishing.
-3. ~~**Rebuild and republish the artifact.**~~ **Done, 24 Aug**, to a new URL. `a992a849` does
-   not hold this build: it holds a different, older one, with `--breath` as the dark ground,
-   Cinzel and DM Sans, and a `.recog` list where this build has the stepped condition. It is
-   shared with anyone holding the link, so it was left alone rather than overwritten. **Decide
-   which of the two survives.** If this build should take that URL, republish with
-   `url` set to `a992a849` and `force: true`; versions are kept and shared viewers stay on the
-   pinned one until the share pin moves.
-4. **`/contact/`, `/about/` and `/legal/*` do not exist.** The artifact build points them at
-   on-page anchors. `/about/` is linked from "Read the whole of it" in the story.
-5. **Flodesk endpoint** for the letter form is still `action="#"`.
-6. ~~**The condition section** stepped scroll.~~ **Done, 24 Aug.** See below.
+1. **The push.** See Start here.
+2. **Two forms are unwired.** `action="#"` on the letter signup in the nudge and on the twelve
+   questions form in the closing section. One Flodesk endpoint, two forms.
+3. **Block 03 of the about page needs a decision.** See "The block 03 problem" below. The
+   wireframe describes copy that does not exist in this workspace.
+4. **Never verified since the rebuilds**: full contrast sweep, keyboard reachability of the
+   sticky bar and the nudge, a real no-JS pass. Do these before it goes public.
+5. **`/contact/` and `/legal/*` still do not exist.** The footer links `/contact/`. The artifact
+   build rewrites it, so it looks fine in preview and would 404 on the real site.
+6. **Footer nav `A Sounding` points at `#start`**, which is the closing section, not the
+   Sounding. Either `#sounding` or the booking link.
+7. **The podcast question.** The wireframe says it is shelved and that "She Rises Through It"
+   should come off the site including the footer tagline. The about page does not mention it;
+   **the home footer still links it.** Whether it is actually shelved is not in any file.
 
 ## The hero, as rebuilt
 
@@ -155,35 +190,6 @@ quietly emitting `src=""`.
   silently clamped to 100% while its `left: -4%` still applied, leaving the right edge 4% short.
   The old `.hero-plate img` had the same 112% and the same clamp. `.hero-water img` now sets
   `max-width: none`.
-
-## Deploying
-
-The site is a git repo now: `cydniejocelyn-v2/`, branch `main`, three commits, working tree
-clean. `.gitignore` covers the two build outputs in `tools/` and `.DS_Store`. `vercel.json` sets
-`trailingSlash`, a year of immutable caching on `/assets`, and two security headers. No build
-step: Vercel serves the repo root as static and `/about/` resolves from `about/index.html`.
-
-**This machine cannot finish the push.** Verified, not assumed:
-
-| | |
-|---|---|
-| `gh` | not installed |
-| `node` / `npm` | not installed, so no Vercel CLI |
-| SSH keys | none in `~/.ssh` |
-| Credential helper | none was set; now `osxkeychain` locally |
-| Keychain entry for github.com | none |
-| `git ls-remote` on her existing private repo | `could not read Username` |
-| `GITHUB_TOKEN` / `VERCEL_TOKEN` | not in the environment |
-
-The existing `Cydniejocelyn/jocelyncotravel` repo is private and was pushed from somewhere with
-credentials that are not stored here.
-
-The remote is already set to `https://github.com/Cydniejocelyn/cydniejocelyn.git`. **Cydnie has
-to create the repo and authenticate once**; a token is hers to enter, not something to hand over.
-After that `git push -u origin main` works from here and the keychain holds it.
-
-Vercel should be connected through **Import Git Repository** on the dashboard rather than the
-CLI. It needs no Node locally and it gives push-to-deploy, which the CLI does not.
 
 ## Images, and what is not possible
 
