@@ -2317,6 +2317,23 @@ main > * { position: relative; z-index: 1; }
 }
 
 
+/* Care tiers. The price sits where the phase numeral sits, because it is
+   doing the same job: the thing you read first, in the utility face. */
+.offer-per { display: block; font-size: .6875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.phases--price li { grid-template-columns: 4.5rem minmax(0, 1fr); }
+.phases--price .n { font-size: .8125rem; letter-spacing: .1em; color: var(--ink); }
+.phases b { font-weight: 500; color: var(--ink); }
+
+/* The refusals on this page are four sentences, not four labelled rows. The
+   .refuse component wants a term for each one and the terms would have to be
+   written, and the copy on this page is final. A measured list instead. */
+.refuse-plain { border-top: 1px solid var(--rule); max-width: 44rem; }
+.refuse-plain li {
+  padding-block: clamp(var(--s-4), 2.4vw, var(--s-5));
+  border-bottom: 1px solid var(--rule);
+  font-size: 1.125rem; line-height: 1.6;
+}
+
 /* ---- The contract ----
    Not .meta-list. That component right aligns its value against a label,
    which is right for a one word reading and wrong here: two of these three

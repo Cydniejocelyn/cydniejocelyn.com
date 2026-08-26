@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retreats (Reclaim) — wireframe v1</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --mid:#6b6b6b; --light:#a8a8a8;
+    --rule:#d4d4d4; --box:#ececec; --page:#fafafa;
+    --deep:#3a3a3a; --note:#8a5a00; --noteBg:#fff8ea; --noteRule:#e8d5ab;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--page); color:var(--ink);
+    font:15px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  .shell{max-width:1240px;margin:0 auto;padding:0 24px 120px}
+  .row{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:start}
+  @media(max-width:940px){.row{grid-template-columns:1fr}}
+
+  /* wireframe blocks */
+  .band{border:1px solid var(--rule);background:#fff;padding:36px 32px;margin:0 0 18px}
+  .band.deep{background:var(--deep);border-color:var(--deep);color:#f2f2f2}
+  .band.deep .label,.band.deep .meta{color:#b9b9b9}
+  .band.deep .rule{background:#7a7a7a}
+  .band.deep .imgbox{border-color:#6b6b6b;color:#9a9a9a;background:#454545}
+  .band.deep .btn{border-color:#e8e8e8;color:#f2f2f2}
+  .band.deep .btn.ghost{border-color:#7a7a7a;color:#c9c9c9}
+
+  .label{font:11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--mid);margin:0 0 14px}
+  .h1{font:400 40px/1.12 Georgia,"Times New Roman",serif;margin:0 0 16px;max-width:20ch}
+  .h2{font:400 28px/1.2 Georgia,"Times New Roman",serif;margin:0 0 12px;max-width:24ch}
+  .h3{font:400 20px/1.25 Georgia,"Times New Roman",serif;margin:0 0 8px}
+  p{margin:0 0 12px;max-width:64ch;color:#2e2e2e}
+  .band.deep p{color:#dcdcdc}
+  .meta{font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+  .rule{height:1px;background:var(--rule);border:0;margin:22px 0}
+  .rule.water{height:2px;background:var(--ink)}
+  .imgbox{border:1px dashed var(--rule);background:var(--box);color:var(--light);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font:11px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.08em;padding:16px;min-height:150px}
+  .btn{display:inline-block;border:1px solid var(--ink);padding:11px 20px;margin:6px 8px 0 0;
+    font:11px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase}
+  .btn.ghost{border-color:var(--light);color:var(--mid)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+  .card{border:1px solid var(--rule);padding:22px;background:#fff}
+  .strike{color:var(--light);text-decoration:line-through}
+  .triad{font:12px/1 ui-monospace,Menlo,monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--light)}
+  .triad b{color:var(--ink);font-weight:400;border-bottom:2px solid var(--ink);padding-bottom:3px}
+  .band.deep .triad b{color:#fff;border-color:#fff}
+
+  /* annotations */
+  .note{background:var(--noteBg);border-left:2px solid var(--noteRule);padding:14px 16px;
+    margin:0 0 14px;font-size:13px;line-height:1.5;color:#5a4213}
+  .note b{color:var(--note);display:block;font:11px/1.4 ui-monospace,Menlo,monospace;
+    letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+  .note.stop{background:#fdeeee;border-left-color:#e3b4b4;color:#6d2020}
+  .note.stop b{color:#a33}
+  .stack{position:sticky;top:24px}
+  @media(max-width:940px){.stack{position:static}}
+
+  header.pg{padding:40px 0 26px;border-bottom:1px solid var(--rule);margin-bottom:28px}
+  header.pg h1{font:400 22px/1.2 Georgia,serif;margin:0 0 6px}
+  .navwire{display:flex;flex-wrap:wrap;gap:18px;align-items:center;
+    border:1px solid var(--rule);background:#fff;padding:16px 20px;margin:0 0 18px;
+    font:11px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+  .navwire .mark{color:var(--ink);letter-spacing:.2em}
+  .navwire .cur{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:3px}
+  .navwire .cta{margin-left:auto;border:1px solid var(--ink);color:var(--ink);padding:9px 16px}
+  .sec{margin:0 0 10px;font:11px/1 ui-monospace,Menlo,monospace;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--light)}
+  ul.tight{margin:0 0 12px;padding-left:18px;max-width:60ch}
+  ul.tight li{margin:0 0 6px}
+  .var{border-left:2px solid var(--rule);padding-left:14px;margin:0 0 14px}
+  .var .meta{margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header class="pg">
+  <h1>Retreats · Reclaim</h1>
+  <div class="meta">Wireframe v1 · structure and copy direction · grayscale, system type</div>
+</header>
+
+<!-- NAV -->
+<div class="row">
+<div>
+  <div class="sec">Global nav</div>
+  <div class="navwire">
+    <span class="mark">CYDNIE JOCELYN</span>
+    <span>The Build</span>
+    <span class="cur">Retreats</span>
+    <span>The Letters</span>
+    <span>About</span>
+    <span class="cta">A Sounding</span>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>Nav is settled</b>Four links and a button. Wordmark goes home. Contact in the footer only. The A Sounding button stays in the nav on every page, including this one, because it is global furniture. It does not appear anywhere in this page's body.</div>
+</div>
+</div>
+
+<!-- HERO -->
+<div class="row">
+<div>
+  <div class="sec">01 · Hero</div>
+  <div class="band deep">
+    <div class="triad">Resurface &nbsp;·&nbsp; <b>Reclaim</b> &nbsp;·&nbsp; Build</div>
+    <hr class="rule">
+    <div class="h1">[HEADLINE — three options below]</div>
+    <p>[Subhead. Two sentences. Names the format and the cap. Does not sell the destination.]</p>
+    <hr class="rule water">
+    <div class="imgbox" style="min-height:220px">HERO IMAGE — full bleed behind copy<br>Surface line in the photograph aligns to the drawn waterline rule</div>
+    <div style="margin-top:18px">
+      <span class="btn">See what's open</span>
+      <span class="btn ghost">Bring your own group</span>
+    </div>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>Deepwater band</b>This is the page's one dark band and it belongs here. Retreats is the page allowed to run deeper. Everything below this lightens as she descends.</div>
+  <div class="note"><b>Triad placement</b>Static text, Reclaim marked current. Not links. Same treatment as The Build page.</div>
+  <div class="note stop"><b>Cut from the live page</b>"Step away to come back to yourself" is coaching register and it argues she left. She did not leave. She got covered. The headline has to say that instead.</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+  <div class="sec">01a · Headline options</div>
+  <div class="band">
+    <div class="var">
+      <div class="meta">Option A</div>
+      <div class="h2">Fifteen seats. Eight days. No agenda you have to keep up with.</div>
+      <p>Subhead: A retreat is not a reward for working hard enough. It is the only week of the year nobody needs anything from you.</p>
+    </div>
+    <div class="var">
+      <div class="meta">Option B</div>
+      <div class="h2">Air.</div>
+      <p>Subhead: A small group, a real distance from home, and eight days where you are not the one holding it together. Fifteen women. That is the whole design.</p>
+    </div>
+    <div class="var">
+      <div class="meta">Option C</div>
+      <div class="h2">You are not tired. You are underneath something.</div>
+      <p>Subhead: Fifteen is a retreat built for women who are the reason everything works. It is capped at fifteen because that is how many people can actually be known in a week.</p>
+    </div>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>Read these flat</b>None of them do the negation-then-reversal move except C, which earns it because it is the brand thesis stated directly rather than a rhetorical flourish. If C still reads as a trick, A is the safest and B is the boldest.</div>
+</div>
+</div>
+
+<!-- WHAT FIFTEEN IS -->
+<div class="row">
+<div>
+  <div class="sec">02 · What Fifteen is</div>
+  <div class="band">
+    <div class="label">The format</div>
+    <div class="h2">Fifteen</div>
+    <p>[Two short paragraphs. What the number means and why it is a cap rather than a target. The cap is real scarcity, so it can be stated plainly with no urgency language around it.]</p>
+    <p>[One paragraph on what the days hold: rest, movement, food, conversation, and unstructured hours. Written as a description, not a promise of transformation.]</p>
+    <hr class="rule">
+    <div class="grid3">
+      <div><div class="meta">Capped at</div><div class="h3">15</div></div>
+      <div><div class="meta">Facilitated by</div><div class="h3">Cydnie</div></div>
+      <div><div class="meta">Prepared</div><div class="h3">Nothing</div></div>
+    </div>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>Why this section is new</b>The live page never names the format. It sells "retreat experiences" generically, then lists three business models. Fifteen is the product. It needs a name and a definition above the dates.</div>
+  <div class="note"><b>"Nothing to prepare"</b>Brand-wide principle, already in the Sounding copy. It carries here too and it is a genuine differentiator against the category, which sends a workbook.</div>
+</div>
+</div>
+
+<!-- UPCOMING -->
+<div class="row">
+<div>
+  <div class="sec">03 · Upcoming</div>
+  <div class="band">
+    <div class="label">Upcoming</div>
+    <div class="h2">Two dates</div>
+
+    <div class="card" style="margin-bottom:20px">
+      <div class="grid2">
+        <div class="imgbox">CRETE IMAGE</div>
+        <div>
+          <div class="meta">Crete, Greece · August 13–20, 2027</div>
+          <div class="h3">Greece</div>
+          <p>[Three sentences. Where, what the eight days are, and who is co-hosting. No "rise" language.]</p>
+          <div class="meta" style="margin-top:10px">With Kris Krause · Booking open</div>
+          <span class="btn">Greece details and booking</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="grid2">
+        <div class="imgbox" style="min-height:110px">NO IMAGE YET<br>rule or texture only</div>
+        <div>
+          <div class="meta">April 2027 · Location to be named</div>
+          <div class="h3">Coming</div>
+          <p>[One or two sentences. A hint, not a description. Enough to say it is real and shorter and closer to home than Greece, without committing to anything.]</p>
+          <div class="meta" style="margin-top:10px">Details not released</div>
+          <span class="btn ghost">Tell me when it opens</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>Two doors, applied</b>Greece books directly. No Sounding in front of it. The April card is the only thing on this page that captures rather than sells, because there is nothing to sell yet.</div>
+  <div class="note"><b>Deliberately unequal</b>The April card is visually lighter and smaller than Greece. That difference is the message. Do not give a placeholder the same weight as a confirmed date.</div>
+  <div class="note stop"><b>Order question for you</b>April 2027 falls before August 2027. You asked for it after Greece, which reads as "confirmed first, hinted second" rather than a calendar. That is defensible, but confirm it is intentional and not a year typo.</div>
+  <div class="note"><b>Schema</b>Greece gets Event schema with date, place, offer, and availability. The April card gets none until it has a date. Both reference /#business and /#cydnie rather than redeclaring.</div>
+</div>
+</div>
+
+<!-- VIDEO -->
+<div class="row">
+<div>
+  <div class="sec">04 · The video</div>
+  <div class="band">
+    <div class="label">Costa Rica · April 2026</div>
+    <div class="h2">[Pull quote from Melissa, shortened]</div>
+    <div class="imgbox" style="min-height:280px">VIDEO — YouTube DrrP4hdw0lo<br>16:9, poster frame, click to play, no autoplay</div>
+    <p style="margin-top:14px">[Two sentences of framing above or below the player. Names who she is, when she went, and nothing else. The video does the work.]</p>
+    <div class="meta" style="margin-top:10px">Melissa · Costa Rica, April 2026</div>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>This is the strongest asset on the page</b>It is a real person on camera saying she learned she matters too. Give it a full band of its own rather than burying it in a testimonial carousel. Poster frame, no autoplay, no loop.</div>
+  <div class="note stop"><b>Naming decision</b>The retreat was called Rise &amp; Reground. "Rise" is being removed sitewide. Three options: keep the historical name because it is a fact and appears in the video, label it by place and date only, or retire the name entirely and describe it as the Costa Rica retreat. I recommend place and date.</div>
+  <div class="note"><b>Carousel</b>The live page has five written testimonials after this. Cut to two. One of them is about vacation-rental hospitality and does not belong on a retreat page at all.</div>
+</div>
+</div>
+
+<!-- WHAT IT IS NOT -->
+<div class="row">
+<div>
+  <div class="sec">05 · What it holds</div>
+  <div class="band">
+    <div class="h2">[Section head]</div>
+    <p>[Prose, not cards. Four short paragraphs replacing the four numbered blocks on the live page. Structure, connection, space, and what changes when she gets home. Written flat, no headings, no numbers.]</p>
+    <hr class="rule">
+    <div class="label">Included</div>
+    <ul class="tight">
+      <li>[Lodging]</li>
+      <li>[Meals]</li>
+      <li>[All sessions and activities]</li>
+      <li>[Facilitation]</li>
+      <li>[What is not included: flights, and say so here rather than in the FAQ]</li>
+    </ul>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>Why prose</b>The live version is 01/02/03/04 with a heading each. Numbering implies a sequence and there is no sequence here. It is also the exact structure the category uses.</div>
+  <div class="note"><b>Inclusions belong on the retreat pages</b>If Greece and April differ, this list moves to each retreat page and this band carries the prose only.</div>
+</div>
+</div>
+
+<!-- PRIVATE -->
+<div class="row">
+<div>
+  <div class="sec">06 · Private groups</div>
+  <div class="band">
+    <div class="label">By inquiry</div>
+    <div class="h2">Bring your own fifteen</div>
+    <p>[Two sentences. Same format, your group, your date. Priced on inquiry because it depends on where and how long.]</p>
+    <span class="btn">Start a private inquiry</span>
+    <hr class="rule">
+    <div class="meta strike">Retreat development · strategic partnership · moved to The Build</div>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>Three paths becomes one</b>The live page offers signature, private, and retreat development. Development is a consulting engagement, not a retreat. It belongs on The Build as a line in the ladder. Leaving it here splits the page's job between selling seats and selling services.</div>
+  <div class="note stop"><b>Your call</b>If private groups are not something you actually want to run in the next year, cut this band too and let the page do exactly one thing.</div>
+</div>
+</div>
+
+<!-- FAQ -->
+<div class="row">
+<div>
+  <div class="sec">07 · Questions</div>
+  <div class="band">
+    <div class="h2">Questions</div>
+    <hr class="rule">
+    <div class="h3">Do I have to come with someone?</div>
+    <p>[Most come alone. Answer directly.]</p>
+    <hr class="rule">
+    <div class="h3">Is this a work thing or a rest thing?</div>
+    <p>[The real objection. She is deciding whether this counts. Answer honestly: it is not a mastermind and there is no deliverable.]</p>
+    <hr class="rule">
+    <div class="h3">What does it cost and how do I hold a seat?</div>
+    <p>[Point to the Greece page for the figure. Deposit terms. No payment language on this page.]</p>
+    <hr class="rule">
+    <div class="h3">Can I book a private retreat for my group?</div>
+    <p>[Yes. Link to inquiry.]</p>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>Five becomes four</b>"Who is the retreat for" is answered by the hero and the format section. Asking it again in an FAQ says the page above it failed.</div>
+  <div class="note stop"><b>Live FAQ contradicts the new rule</b>It currently says pre-register, no payment required, details shared when they go live. Greece is live and bookable. That answer has to change or it will stop a sale that is ready to happen.</div>
+</div>
+</div>
+
+<!-- CLOSE -->
+<div class="row">
+<div>
+  <div class="sec">08 · Close</div>
+  <div class="band">
+    <div class="h2">[Closing line]</div>
+    <p>[One paragraph. Not urgency. The cap is the only fact needed.]</p>
+    <span class="btn">Greece details and booking</span>
+    <span class="btn ghost">Join the list for April</span>
+    <hr class="rule">
+    <div class="meta">Footer: Contact · Privacy · The Build · Retreats · The Letters · About</div>
+  </div>
+</div>
+<div class="stack">
+  <div class="note"><b>No sticky bar here</b>The Sounding sticky bar is a consulting-page device. This page's action is booking a dated product, and the nav button plus two in-body actions is enough.</div>
+  <div class="note stop"><b>Footer tagline</b>Live footer still says "Faith-Rooted Brand Strategist · Retreat Host · She Rises Through It" in two places. Both go.</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>

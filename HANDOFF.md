@@ -41,7 +41,9 @@ CLIs read their own credentials. That is the point of them.
 | Home artifact | https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5 |
 | About artifact | https://claude.ai/code/artifact/edb8e6b0-19ba-4048-801b-ffc570b75551 |
 | **About copy, source of truth** | `CydnieJocelyn-Site/about.html` |
-| **Build copy, source of truth** | `The Build page/files/the-build-page-wireframe-v6.html` |
+| **Build copy, source of truth** | `The Build page/files/the-build-page-FINAL.html` — supersedes v6 |
+| Build wireframe, superseded | `The Build page/files/the-build-page-wireframe-v6.html` |
+| Build brief, **and it conflicts** | `The Build page/files/CLAUDE-CODE-BRIEF.md` — see §7c |
 | Colour system notes | `The Build page/files/color-system-notes.md` |
 | Client brand boards | `CydnieJocelyn-Site/Portfolio of Work copy/Brand Board Portfolio of Work/` |
 | Refinement command | `CydnieJocelyn-Site/about-page-refinement-command.md` |
@@ -218,6 +220,18 @@ production -> full engagement -> refusals -> questions -> close.
   are numbered, because those run in sequence.
 - Every price is published, and the figures appear in three places that must stay in sync:
   the visible page, the `Service` + `FAQPage` schema at the top of the file, and HoneyBook.
+  Currently nine offers and ten questions, verified matching in both places.
+- **Site care is published, not disclosed after the quote.** $95 Essential, $200 Complete,
+  $100/hr design work. A required recurring cost that appears after the quote reads as a
+  hidden fee however reasonable it is; published beside the build price it reads as ownership.
+  The refusals block is worded to match: it says no open ended **consulting** retainers, with
+  care named as the exception, because the old wording contradicted it outright.
+- **Settled by FINAL: A Sounding does not credit toward a Build.** It is complete on its own,
+  and crediting it would turn a finished deliverable into a deposit. This must match the
+  HoneyBook service description.
+- The retreats line at the close is **body text and a link, never a button.** A retreat is a
+  dated product with a cap and a price so it books directly; the single door rule governs
+  consulting, not everything on the site.
 
 ### The work block, and why the boards are not posted whole
 
@@ -465,6 +479,36 @@ Not wired, and why: the twelve questions form (§7.2); the specific podcast epis
 on and the podcast's status is itself unresolved (§7.6); and the retreat forms that have no
 section on the site yet — private retreat inquiry, choose your path, pre-register early bird,
 and the four Sauk Centre room checkouts. Those belong to a Retreats page that does not exist.
+
+## 7c. The brief in the build folder, and where this build departs from it
+
+`CLAUDE-CODE-BRIEF.md` arrived with `the-build-page-FINAL.html`. Both were sitting **inside
+`the-build/`**, which is a deployed directory, so both were publicly reachable. They are in
+`The Build page/files/` now. Do not put working documents in a served folder.
+
+The brief says: **"Only `/the-build` may be created or modified. Every other file in this
+repository is off limits."** It also says do not extract or use shared components, define the
+page's tokens locally, and keep the sticky bottom bar.
+
+**This build does not comply, on Cydnie's own instruction each time.** She asked, in order, to
+publish the prices and repoint the home page's Build door so the two stopped disagreeing; to
+add the links from the PDF across the whole site; and to rework the client section. Those are
+site-wide by definition. Files touched outside `/the-build/`:
+
+`assets/css/site.css`, `assets/js/site.js`, `index.html`, `about/index.html`, `tools/stamp.py`,
+`tools/build_artifact.py`, `sitemap.xml`, `llms.txt`, `.gitignore`, plus new images under
+`assets/img/work/` and `assets/img/mark-horiz-ink-*`.
+
+The page is also built **on** the shared stylesheet rather than defining tokens locally, which
+is the opposite of what the brief asks. That is a deliberate trade: a local token block would
+have meant a second copy of the palette to keep in sync, and two of the bugs this page exposed
+(the gauge inversion, the washed-out wordmark) were shared-stylesheet bugs that a scoped page
+would have hidden rather than surfaced. **If the brief's scope lock still matters to someone,
+this is the conversation to have, and it is not a small one.**
+
+**Still unresolved from the brief:** it says to keep the sticky bottom bar. `site.css` says the
+bar was removed because the brand guide forbids it, along with the nudge, the modal and the
+exit intent. Those cannot both be right. The bar is currently **not** on the page.
 
 ## 8. Recreate the preview each session
 
