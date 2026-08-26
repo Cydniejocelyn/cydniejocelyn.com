@@ -42,6 +42,7 @@
   --s-5: 2rem;   --s-6: 3rem;   --s-7: 4rem;  --s-8: 6rem;
   --s-9: 8rem;   --s-10: 11rem; --s-11: 15rem;
 
+  --hl: rgba(159, 204, 198, .16);   /* hover wash, redefined per ground */
   --measure: 34rem;
   --gutter: clamp(1.25rem, 5vw, 5rem);
   --maxw: 82.5rem;
@@ -121,6 +122,7 @@ button { font: inherit; color: inherit; }
 [data-zone] > * { position: relative; z-index: 1; }
 
 .z-breath, .z-deep {
+  --hl: rgba(159, 204, 198, .16);
   --ink: var(--surface); --muted: #A8C4C0; --faint: #7E9E9B;
   --accent: var(--meniscus); --warm: var(--held-lift);
   --label: var(--breath);
@@ -131,6 +133,7 @@ button { font: inherit; color: inherit; }
 .z-deep   { background: var(--fathom); }
 
 .z-light, .z-silt {
+  --hl: rgba(47, 90, 97, .10);
   --ink: var(--fathom); --muted: #48666A; --faint: #456063;
   --accent: var(--deepwater); --warm: #8F4A47;
   --label: var(--deepwater);
@@ -1494,6 +1497,9 @@ button.door-note {
 .layer-band img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .layer-band--wide { aspect-ratio: 2.6 / 1; }
 .layer-band--tall { aspect-ratio: 1.6 / 1; }
+/* A band that is a breath between two sections rather than a stop. */
+.layer-band--calm { aspect-ratio: 3.1 / 1; }
+@media (max-width: 47.99rem) { .layer-band--calm { aspect-ratio: 1.9 / 1; } }
 @media (max-width: 47.99rem) {
   .layer-band--wide { aspect-ratio: 1.7 / 1; }
   .layer-band--tall { aspect-ratio: 1.25 / 1; }
@@ -1518,6 +1524,12 @@ button.door-note {
   .triptych .layer-fig img,
   .pair .layer-fig img { aspect-ratio: 1.2 / 1; }
 }
+/* A pair that does not need the whole wrap. Two 0.62 portraits at 82.5rem
+   are 620px tall each and eat a screen and a half between them; these are a
+   supporting figure, not the subject. */
+.pair--calm { max-width: 58rem; }
+.pair--calm .layer-fig img { aspect-ratio: 1 / 1; }
+@media (max-width: 41.99rem) { .pair--calm .layer-fig img { aspect-ratio: 4 / 3; } }
 
 /* Column image, sits beside copy. */
 .layer-fig { margin: 0; }
@@ -1827,6 +1839,7 @@ main > * { position: relative; z-index: 1; }
 /* A panel ground for what held: Deepwater is a panel colour, not an ink. */
 .z-deepwater {
   background: var(--deepwater);
+  --hl: rgba(159, 204, 198, .16);
   --ink: var(--surface); --muted: #A8C4C0; --faint: #7E9E9B;
   --accent: var(--meniscus); --label: var(--breath);
   --rule: rgba(159,204,198,.22); --field: var(--deepwater);
@@ -2483,6 +2496,234 @@ main > * { position: relative; z-index: 1; }
 .rt-date p { color: var(--muted); max-width: 42rem; margin-top: var(--s-4); }
 .rt-date .actions { margin-top: var(--s-5); }
 
+/* --- THE PROPERTY RAIL.
+   Five tiles in a grid showed a sample of the house and made the reader
+   guess at the rest. This is the whole house, on a rail she drags. It is a
+   real overflow container with scroll snapping, so it works with no JS at
+   all -- a touch screen scrolls it natively and a keyboard tabs through the
+   tiles -- and site.js only adds pointer dragging and the two arrows.
+
+   It does not auto-advance. The guide's "nothing loops" is the most cited
+   rule in the handoff and a carousel that moves on its own is the clearest
+   case of it. The reader moves this one. */
+.gal {
+  position: relative;
+  margin-top: clamp(var(--s-5), 5vw, var(--s-6));
+}
+.gal-rail {
+  display: flex; gap: var(--s-4); align-items: flex-start;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  /* the rail runs to the edge of the screen and back into the wrap, so it
+     reads as a thing that continues rather than a box that ends */
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  padding-block-end: var(--s-3);
+  scrollbar-width: none;
+}
+.gal-rail::-webkit-scrollbar { display: none; }
+.gal.is-dragging .gal-rail { scroll-snap-type: none; cursor: grabbing; }
+.gal.is-live .gal-rail { cursor: grab; }
+
+/* One height, and the width follows the photograph. Fixing the width instead
+   and varying the ratio gave three different caption heights across the rail,
+   which reads as an accident rather than a rhythm. This way the tops and the
+   captions line up, the rail has a ragged right edge, and a portrait tile is
+   narrow because it is a portrait rather than because it was told to be. */
+.gal-item {
+  flex: 0 0 auto; margin: 0;
+  scroll-snap-align: start;
+}
+.gal-item img {
+  height: clamp(13rem, 29vh, 19rem);
+  width: auto; max-width: none;
+  object-fit: cover; background: var(--field);
+  transition: opacity var(--t-mid) var(--ease-out);
+}
+@media (max-width: 39.99rem) { .gal-item img { height: 13rem; } }
+.gal-item figcaption {
+  margin-top: var(--s-3); padding-top: var(--s-3);
+  border-top: 1px solid var(--rule);
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+  transition: color var(--t-mid) var(--ease-out);
+}
+.gal.is-live .gal-item { cursor: zoom-in; }
+.gal.is-live .gal-item:hover figcaption,
+.gal.is-live .gal-item:focus-within figcaption { color: var(--ink); }
+.gal-item button {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  background: none; border: 0; padding: 0; cursor: inherit;
+}
+.gal-item { position: relative; }
+.gal-item button:focus-visible { outline: 2px solid var(--breath); outline-offset: -3px; }
+
+/* Where you are on the rail, as a rule that fills. It is horizontal and it
+   is a scrollbar, so it is not the vertical depth gauge saying something
+   different from itself. */
+.gal-foot {
+  display: flex; align-items: center; gap: var(--s-4);
+  margin-top: var(--s-4);
+}
+.gal-bar { flex: 1; height: 1px; background: var(--rule); position: relative; }
+.gal-bar i {
+  position: absolute; inset: 0 auto 0 0; display: block;
+  background: var(--accent);
+  width: var(--gal-w, 25%); transform: translateX(var(--gal-x, 0));
+}
+.gal-nav { display: flex; gap: var(--s-2); }
+.gal-nav button {
+  width: 44px; height: 44px; display: grid; place-items: center;
+  background: none; border: 1px solid var(--rule); color: var(--ink);
+  cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease-out),
+              background-color var(--t-fast) var(--ease-out);
+}
+.gal-nav button:hover:not(:disabled) { border-color: var(--accent); background: var(--hl); }
+.gal-nav button:disabled { opacity: .3; cursor: default; }
+/* with no JS there is nothing for the arrows to do, so they are not there */
+.gal-foot { display: none; }
+.gal.is-live .gal-foot { display: flex; }
+
+/* --- FACTS AS FIGURES.
+   The place and the property both used to be a heading on the left and six
+   sentences on the right, which is a wall with a label on it. The numbers
+   come out and stand on their own; the sentences go behind a disclosure for
+   the reader who wants them. */
+.stats {
+  display: grid; gap: var(--s-4);
+  border-top: 1px solid var(--rule);
+}
+@media (min-width: 34rem) { .stats { grid-template-columns: repeat(2, 1fr); column-gap: var(--s-5); } }
+@media (min-width: 56rem) { .stats { grid-template-columns: repeat(4, 1fr); } }
+.stats > div { padding-top: var(--s-4); border-bottom: 1px solid var(--rule); padding-bottom: var(--s-4); }
+@media (min-width: 34rem) { .stats > div { border-bottom: 0; } }
+.stats b {
+  display: block; font-family: var(--carved); font-weight: 400;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1; color: var(--ink);
+}
+.stats b small { font-size: .46em; letter-spacing: .02em; }
+.stats span {
+  display: block; margin-top: var(--s-2);
+  font-family: var(--utility); font-size: .625rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--muted);
+}
+
+/* --- DISCLOSURE ROWS.
+   The detail, on demand. Same mechanics as the FAQ but tighter, and it is
+   `<details>`, so it opens with no JS and a find-in-page still reaches the
+   text inside it. */
+.drop { border-top: 1px solid var(--rule); }
+.drop details { border-bottom: 1px solid var(--rule); }
+/* A grid, not a flex row. As flex it wrapped differently on every row on a
+   phone -- one label inline, the next on its own line, one plus sign orphaned
+   below its own summary -- because each row wrapped wherever its own text
+   happened to run out. The grid puts the label, the line and the sign in the
+   same place on every row at every width. */
+.drop summary {
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: baseline; gap: var(--s-1) var(--s-3);
+  padding-block: var(--s-4); padding-inline: var(--s-3);
+  margin-inline: calc(var(--s-3) * -1);
+  font-size: 1.0625rem; color: var(--ink);
+  transition: background-color var(--t-fast) var(--ease-out);
+}
+@media (min-width: 34rem) { .drop summary { grid-template-columns: 6.5rem 1fr auto; } }
+.drop summary::-webkit-details-marker { display: none; }
+.drop summary:hover, .drop summary:focus-visible { background: var(--hl); }
+.drop summary::after {
+  content: ""; grid-column: -2; grid-row: 1;
+  width: 11px; height: 11px; align-self: center;
+  background:
+    linear-gradient(currentColor, currentColor) center/100% 1px no-repeat,
+    linear-gradient(currentColor, currentColor) center/1px 100% no-repeat;
+  transition: transform var(--t-mid) var(--ease-out);
+}
+.drop details[open] summary::after { transform: rotate(90deg); background-size: 100% 1px, 0 100%; }
+.drop .k {
+  font-family: var(--utility); font-size: .625rem;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--label);
+}
+/* on a phone the label is its own line above, always */
+@media (max-width: 33.99rem) { .drop .k { grid-column: 1 / -1; } }
+.drop .a { padding: 0 var(--s-3) var(--s-5); color: var(--muted); max-width: 46rem; }
+@media (min-width: 34rem) { .drop .a { padding-left: calc(6.5rem + var(--s-3) + var(--s-3)); } }
+.drop .a p { color: inherit; }
+
+/* --- THE JOURNEY.
+   Getting there was five rows of a definition list, which is a table of
+   facts about a thing that is actually a sequence. It is a sequence now:
+   numbered, in order, with a rule running through it. */
+.trip { counter-reset: trip; display: grid; gap: 0; margin-top: var(--s-5); }
+@media (min-width: 56rem) { .trip { grid-template-columns: repeat(5, 1fr); gap: var(--s-5); } }
+.trip > li {
+  position: relative; counter-increment: trip;
+  padding-top: var(--s-6);
+  padding-bottom: var(--s-5);
+}
+@media (max-width: 55.99rem) {
+  .trip > li { padding-left: var(--s-6); padding-top: var(--s-4); }
+}
+/* the rule the sequence runs along, and the stop on it */
+.trip > li::before {
+  content: ""; position: absolute; background: var(--rule);
+}
+@media (min-width: 56rem) {
+  .trip > li::before { left: 0; right: calc(var(--s-5) * -1); top: 0; height: 1px; }
+  .trip > li:last-child::before { right: 0; }
+}
+@media (max-width: 55.99rem) {
+  .trip > li::before { left: 5px; top: 0; bottom: 0; width: 1px; }
+  .trip > li:last-child::before { bottom: auto; height: var(--s-5); }
+}
+.trip > li::after {
+  content: ""; position: absolute; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--field); border: 1px solid var(--accent);
+}
+@media (min-width: 56rem) { .trip > li::after { left: 0; top: -5px; } }
+@media (max-width: 55.99rem) { .trip > li::after { left: 1px; top: -4px; } }
+/* the last stop is the one that is filled: it is the only one that is an end */
+.trip > li:last-child::after { background: var(--accent); }
+.trip .n {
+  display: block; font-family: var(--utility); font-size: .625rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--label);
+}
+.trip h4 {
+  margin-top: var(--s-2); font-weight: 400;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.3; color: var(--ink);
+}
+.trip p { margin-top: var(--s-3); font-size: .9375rem; color: var(--muted); }
+
+/* --- Questions in two columns. Nine of them in one stack is a scroll; in
+   two it is a page you can see the end of. CSS columns rather than grid,
+   because the items are not equal heights and a grid would leave holes. */
+@media (min-width: 56rem) {
+  .faq--two { column-count: 2; column-gap: var(--s-7); }
+  .faq--two details { break-inside: avoid; }
+}
+
+/* --- The hover highlight, site wide.
+   A wash the colour of the ground's own accent, behind the thing under the
+   pointer. It is the same token on every ground so hover means one thing,
+   and it is a background rather than a colour change so nothing moves. */
+.link, .more, .rt-shot, .gal-item, .drop summary, .faq summary { transition: background-color var(--t-fast) var(--ease-out); }
+.faq summary:hover, .faq summary:focus-visible { background: var(--hl); }
+/* Links get a wash that wipes in from the left, in the same 380ms the
+   underline already uses, so the two read as one gesture rather than two. */
+.link::before {
+  content: ""; position: absolute; inset: -.15em -.3em;
+  background: var(--hl); z-index: -1;
+  transform: scaleX(0); transform-origin: right;
+  transition: transform var(--t-mid) var(--ease-out);
+}
+.link { z-index: 0; }
+.link:hover::before, .link:focus-visible::before { transform: scaleX(1); transform-origin: left; }
+@media (prefers-reduced-motion: reduce) {
+  .link::before { transition: none; }
+}
+
 /* --- April 2027, which has no photograph because it has no location.
    A stock picture of somewhere it is not would be a lie and an empty grey
    box is a hole in the layout, so the card carries a map of the country
@@ -2660,10 +2901,16 @@ main > * { position: relative; z-index: 1; }
 .rt-person + .rt-person { margin-top: clamp(var(--s-7), 7vw, var(--s-9)); padding-top: clamp(var(--s-6), 6vw, var(--s-8)); border-top: 1px solid var(--rule); }
 @media (min-width: 48rem) {
   .rt-person { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(var(--s-5), 5vw, var(--s-7)); }
+  /* Reversing the pair has to reverse the columns as well. `order: 2` alone
+     moved the portrait into the 8fr column, so Kris was drawn half again as
+     wide as Cydnie and the two stopped reading as a pair. */
+  .rt-person--flip { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
   .rt-person--flip > figure { order: 2; }
 }
 .rt-person figure { margin: 0; }
-.rt-person img { width: 100%; object-fit: cover; aspect-ratio: 4 / 5; }
+.rt-person img { width: 100%; object-fit: cover; aspect-ratio: 4 / 5; display: block; }
+/* The two sources are 4:5 and 2:3. Both are cropped to 4:5 here, so the pair
+   matches whatever is dropped in. */
 .rt-person figcaption {
   margin-top: var(--s-3);
   font-family: var(--utility); font-size: .6875rem;

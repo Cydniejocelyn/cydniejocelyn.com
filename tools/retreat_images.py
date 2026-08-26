@@ -31,6 +31,7 @@ import os
 from PIL import Image, ImageOps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BRANDING = os.path.join(ROOT, "CydnieJocelyn-Site", "Branding copy")
 ARMONIA = os.path.join(
     ROOT,
     "CydnieJocelyn-Site",
@@ -41,23 +42,37 @@ ARMONIA = os.path.join(
 COSTA = os.path.join(ROOT, "Costa Rica copy")
 
 # slug -> (source file, [widths])
+# The property gallery is a rail now, not five tiles, so it carries the whole
+# house rather than a sample of it. Emitted at 600 and 900: a rail tile is
+# about 360px wide on a desktop, so 900 covers it to 2.5x and anything larger
+# is weight nobody sees.
 GREECE = {
+    # the rooms
+    "room":      ("MK_09994en-ps.jpg",   [600, 1000]),
+    "bath":      ("Bathroom 3.jpg",      [600, 900]),
+    # the shared rooms
+    "lounge":    ("MK_00162en.jpg",      [600, 900]),
+    "dining":    ("MK_00132en.jpg",      [600, 900]),
+    "kitchen":   ("MK_00197en.jpg",      [600, 900]),
+    "studio":    ("studio.jpg",          [600, 1200]),
+    # water and heat
+    "pool":      ("NIK_5065.jpg",        [600, 1200]),
+    "pool-view": ("NIK_5070.jpg",        [600, 1200, 1800]),
+    "sauna":     ("IMG_5367.JPG",        [600, 900]),
+    "barrel":    ("NIK_5097.jpg",        [600, 900]),
+    # outside
     "house":     ("IMG_5369.JPG",        [600, 1200]),
     "drive":     ("MK_00872en-ps.jpg",   [600, 1200, 1800]),
     "olive":     ("MK_00878en.jpg",      [600, 1200]),
     "path":      ("IMG_5378.JPG",        [600, 1200]),
-    "room":      ("MK_09994en-ps.jpg",   [600, 1000]),
-    "bath":      ("Bathroom 3.jpg",      [600, 1200]),
-    "lounge":    ("MK_00162en.jpg",      [600, 1000]),
-    "kitchen":   ("MK_00197en.jpg",      [600, 1000]),
-    "pool":      ("NIK_5065.jpg",        [600, 1200]),
-    "pool-view": ("NIK_5070.jpg",        [600, 1200, 1800]),
-    "studio":    ("studio.jpg",          [600, 1200]),
+    "grounds":   ("MK_00950en-ps.jpg",   [600, 900]),
+    "lawn":      ("MK_00449.jpg",        [600, 900]),
     "deck":      ("IMG_5365.JPG",        [600, 1200]),
     "dinner":    ("IMG_5381.JPG",        [600, 1200]),
     "pergola":   ("MK_01199enf-ps.jpg",  [600, 1000]),
     "table":     ("IMG_5371.JPG",        [600, 736]),
 }
+
 
 COSTA_RICA = {
     # The first pass used the pool candids. They are true and they are not the
@@ -70,6 +85,15 @@ COSTA_RICA = {
     "cr-cards":   ("DSC09127.jpg", [600, 1000]),
     "cr-water":   ("IMG_4900.jpg", [600, 1000]),
     "kris":       ("DSC08832.JPG", [600, 1000]),
+}
+
+# Cydnie's own portrait for the hosts block. The three portraits already on the
+# site -- cydnie-hero, cydnie-reading, cydnie-veil -- are all seated and all
+# spoken for by the home and About pages. This one stands, three-quarter, warm
+# ground, which is the same shape as Kris's and the reason the pair now reads
+# as a pair.
+CYDNIE = {
+    "cydnie-greece": ("Minnesota Wedding Photographer-93.jpg", [600, 1000]),
 }
 
 
@@ -122,6 +146,8 @@ if __name__ == "__main__":
     run(GREECE, ARMONIA, "greece")
     print("Costa Rica:")
     run(COSTA_RICA, COSTA, "retreats")
+    print("Branding:")
+    run(CYDNIE, BRANDING, "retreats")
 
 
 # Considered, not shipped. Paths are relative to `Costa Rica copy/` unless

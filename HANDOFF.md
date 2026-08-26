@@ -857,6 +857,77 @@ leaves it:
 
 Nothing loops. Nothing is scroll-scrubbed except the parallax, which was already here.
 
+### The Greece rework: the page is a funnel now, not a document
+
+The first build shipped every fact the retreat has, in order, in prose. Cydnie's read was
+right: it was a long read with big pictures in it, and it did not take a buyer anywhere. The
+rework is structural, not cosmetic.
+
+**The order changed, and that is the conversion move.** The hosts block used to sit *after* the
+booking band, where it could only reassure someone who had already decided. Trust is what a
+woman buys before she buys a seat, so it is now above the price. And the four things that
+actually stop a booking were nine-tenths of the way down inside a list of nine questions; they
+are a picker directly above the figure now.
+
+Order: hero → premise → the lane in → **the week, stepped** → who this is not for → the place →
+the property → **the two of us** → included → **objections → the price** → getting there →
+questions → the grounds → close.
+
+**Four blocks were rebuilt rather than trimmed:**
+
+| Was | Is | Why |
+|---|---|---|
+| The week: four paragraphs | **`.cond`, the home page's stepped section.** Five moments, pinned, advanced by the scroll | It was the longest unbroken block on the page, in the place a reader decides whether she wants the week at all |
+| The place: a heading and five `<dl>` rows | **Four figures, then four disclosure rows** | A woman deciding on Crete wants to know how far the water is before she wants a paragraph about the water |
+| The property: a heading, a wall, five tiles | **Four figures, a sixteen-tile rail, four disclosure rows** | Five tiles showed a sample of the house and left her to guess at the rest |
+| Getting there: five `<dl>` rows | **`.trip`, five stops on one rule** | It is a sequence with dates on it, not a table of facts. The two things people get wrong -- the arrival time and the buffer night -- are stops, not a footnote |
+| Questions: nine, one column | **Eight, two columns.** Four objections lifted out entirely | Nine in a stack was a second scroll at the point the page should be closing |
+
+**Everything reuses machinery that was already here.** `initCondition` drives the week,
+`initReversal` drives the objections, `initGallery` opens rail tiles as well as grid tiles.
+The only new component is the rail.
+
+### The rail, and why it does not auto-advance
+
+`initRail` in `site.js`. The markup is a real overflow container with CSS scroll snapping, so
+it works before any JS: a touch screen scrolls it natively, a keyboard tabs the tiles. The
+script adds pointer dragging, two arrows, and the rule that reads position. `is-live` goes on
+last, so the grab cursor and the arrows never appear before they do something.
+
+**Cydnie asked for "scrolling loop/gallery" and this is the gallery.** "Nothing loops" is the
+most cited rule in the handoff and a carousel that moves on its own is the plainest case of
+breaking it. If she wants it to advance on its own that is a fourth deliberate override and
+belongs in §4 beside the other three.
+
+**Tiles are one height and the width follows the photograph.** Fixing the width and varying the
+aspect gave three different caption heights across the rail, which reads as an accident rather
+than a rhythm. One height means the tops and the captions line up and the right edge is ragged
+because the pictures are different shapes.
+
+**Fifteen of the sixteen tiles never load until she scrolls the rail.** They are lazy and they
+sit off to the right, so a vertical read of the page fetches one of them. That is the point.
+The test asserts on images within reach rather than on all of them.
+
+### The two portraits were different sizes, and it was a real bug
+
+`.rt-person--flip` set `order: 2` on the figure but left the columns at `4fr 8fr`, so reversing
+the pair moved Kris's portrait into the **wide** column. She was drawn half again as big as
+Cydnie. The flip modifier now reverses the column definition as well, and both images are
+cropped to 4:5 by the stylesheet rather than relying on the two source files matching.
+Measured on the shipped page: both 340 x 425.
+
+**Cydnie's portrait is new to the site.** `cydnie-hero`, `cydnie-reading` and `cydnie-veil` are
+all seated and all spoken for by the home and About pages. This one stands, three-quarter,
+warm ground, which is the same shape as Kris's, out of the 154-frame brand shoot in
+`CydnieJocelyn-Site/Branding copy/`.
+
+### The hover highlight
+
+`--hl` is a new role token, defined on `:root` and redefined per ground the same way `--ink`
+and `--rule` are, so hover means one thing on Surface and on Fathom. It is a background wash
+rather than a colour change, so nothing moves. Links get it as a wipe from the left in the
+same 380ms their underline already uses, so the two read as one gesture.
+
 ### Melissa's video is a phone Short, and the poster proves it
 
 `DrrP4hdw0lo` is 9:16, recorded on her phone in her car on the drive home. YouTube's
@@ -881,6 +952,7 @@ All three follow §3's rules: nothing depends on `requestAnimationFrame`, on
   locked; focus returns to the tile. **The tile is passed into `open()` rather than read off
   `document.activeElement`**, because a click does not always leave focus on what was clicked
   and closing to `<body>` puts the reader back at the top of the page.
+- **`initRail` (16b).** The property rail. See the section above.
 - **`initCursor` (17).** A disc that follows the pointer and names what is under it: View,
   Play, Drag. Scoped to `[data-cursor]`, never a site-wide cursor replacement, and off for
   coarse pointers and for reduced motion. Every element that declares `data-cursor` also sets a

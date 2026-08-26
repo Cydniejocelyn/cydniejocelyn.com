@@ -925,7 +925,8 @@
 
     var shots = [];
     gals.forEach(function (g) {
-      Array.prototype.slice.call(g.querySelectorAll(".rt-shot")).forEach(function (fig) {
+      /* .rt-shot is the grid tile, .gal-item is the rail tile. Both open. */
+      Array.prototype.slice.call(g.querySelectorAll(".rt-shot, .gal-item")).forEach(function (fig) {
         var img = fig.querySelector("img");
         if (!img) return;
         var cap = fig.querySelector("figcaption");
@@ -948,7 +949,9 @@
         fig.appendChild(b);
         fig.classList.add("is-live");
         /* the tile only claims to be openable once it demonstrably is */
-        if (!fig.hasAttribute("data-cursor")) fig.setAttribute("data-cursor", "View");
+        if (!fig.hasAttribute("data-cursor")) {
+          fig.setAttribute("data-cursor", fig.closest("[data-rail]") ? "Open" : "View");
+        }
       });
     });
     if (!shots.length) return;
@@ -1022,6 +1025,113 @@
         f[(n + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
       }
     });
+  }
+
+  /* ---------- 16b. The property rail ------------------------
+     A real overflow container with scroll snapping, so it already works
+     before this runs: a touch screen scrolls it, a keyboard tabs through
+     it, and a reader with no JS loses nothing but the arrows.
+
+     This adds pointer dragging, the two arrows, and the rule that reads
+     how far along it she is. `is-live` is added at the end, so the grab
+     cursor and the arrows only appear once they do something.
+
+     It does not auto-advance and it does not wrap. "Nothing loops" is the
+     guide's rule and a carousel that moves on its own is the plainest case
+     of breaking it. The reader moves this one. */
+  function initRail() {
+    Array.prototype.slice.call(document.querySelectorAll("[data-rail]")).forEach(buildRail);
+  }
+
+  function buildRail(gal) {
+    var rail = gal.querySelector(".gal-rail");
+    if (!rail) return;
+    var items = Array.prototype.slice.call(rail.children);
+    if (items.length < 2) return;
+
+    var foot = document.createElement("div");
+    foot.className = "gal-foot";
+    foot.innerHTML =
+      '<div class="gal-bar" aria-hidden="true"><i></i></div>' +
+      '<div class="gal-nav">' +
+        '<button type="button" data-go="-1" aria-label="Scroll the gallery back">' +
+          '<svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M5 1L1 5l4 4M1 5h13" stroke="currentColor" stroke-width="1.2"/></svg></button>' +
+        '<button type="button" data-go="1" aria-label="Scroll the gallery on">' +
+          '<svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></button>' +
+      '</div>';
+    gal.appendChild(foot);
+
+    var fill = foot.querySelector(".gal-bar i");
+    var prev = foot.querySelector('[data-go="-1"]');
+    var next = foot.querySelector('[data-go="1"]');
+
+    function read() {
+      var max = rail.scrollWidth - rail.clientWidth;
+      var frac = rail.clientWidth / rail.scrollWidth;
+      gal.style.setProperty("--gal-w", (frac * 100).toFixed(2) + "%");
+      /* the thumb travels the track's own length minus its width, which is
+         what keeps its right edge landing on the right edge at the end */
+      var p = max > 0 ? rail.scrollLeft / max : 0;
+      gal.style.setProperty("--gal-x", "calc(" + (p * 100).toFixed(2) + "% * " +
+        ((1 - frac) / (frac || 1)).toFixed(4) + ")");
+      prev.disabled = rail.scrollLeft <= 1;
+      next.disabled = rail.scrollLeft >= max - 1;
+    }
+
+    /* one tile plus its gap, measured rather than assumed, so the arrows
+       still land on a snap point when the tile width changes at a breakpoint */
+    function step() {
+      var a = items[0].getBoundingClientRect();
+      var b = items[1] ? items[1].getBoundingClientRect() : a;
+      return Math.max(1, Math.round(b.left - a.left));
+    }
+
+    foot.addEventListener("click", function (e) {
+      var b = e.target.closest ? e.target.closest("[data-go]") : null;
+      if (!b) return;
+      rail.scrollBy({ left: step() * parseInt(b.dataset.go, 10),
+                      behavior: reduce.matches ? "auto" : "smooth" });
+    });
+
+    rail.addEventListener("scroll", read, { passive: true });
+    window.addEventListener("resize", read, { passive: true });
+
+    /* Pointer dragging. Snapping is turned off for the duration, or the rail
+       fights the hand; it comes back on release and the nearest tile takes
+       it from there. */
+    var down = false, x0 = 0, left0 = 0, moved = 0;
+    rail.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "touch") return;      /* native scrolling is better */
+      down = true; moved = 0;
+      x0 = e.clientX; left0 = rail.scrollLeft;
+      gal.classList.add("is-dragging");
+    });
+    rail.addEventListener("pointermove", function (e) {
+      if (!down) return;
+      var dx = e.clientX - x0;
+      moved = Math.max(moved, Math.abs(dx));
+      rail.scrollLeft = left0 - dx;
+    });
+    function release() {
+      if (!down) return;
+      down = false;
+      gal.classList.remove("is-dragging");
+      read();
+    }
+    rail.addEventListener("pointerup", release);
+    rail.addEventListener("pointercancel", release);
+    rail.addEventListener("pointerleave", release);
+    /* a drag that ends on a tile must not also open it */
+    rail.addEventListener("click", function (e) {
+      if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; }
+    }, true);
+    rail.addEventListener("dragstart", function (e) { e.preventDefault(); });
+
+    gal.classList.add("is-live");
+    read();
+    /* the tiles are lazy images and every one of them changes the width */
+    var n = 0;
+    (function settle() { read(); if (++n < 12) window.setTimeout(settle, 200); })();
   }
 
   /* ---------- 17. The pointer companion ---------------------
@@ -1104,6 +1214,7 @@
     initRules();
     initVideo();
     initGallery();
+    initRail();
     initCursor();
     initYear();
   }

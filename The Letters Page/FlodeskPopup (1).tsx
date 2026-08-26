@@ -3,46 +3,39 @@ import { useEffect } from 'react';
 declare global {
   interface Window {
     FlodeskObject?: string;
-    fd?: ((...args: any[]) => void) & { q?: IArguments[] };
-    __fdLettersInit?: boolean;
+    fd?: (...args: any[]) => void;
   }
 }
 
-const FLODESK_FORM_ID = '6a8f553c9f30a024ac4f2a82';
-
 export default function FlodeskPopup() {
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    const existingScript = document.querySelector('script[src*="flodesk"]');
 
-    if (!document.querySelector('script[src*="assets.flodesk.com"]')) {
+    if (!existingScript) {
       (function (w: any, d: Document, t: string, h: string, s: string, n: string) {
         w.FlodeskObject = n;
-        const fn = function (this: any) {
+        const fn = function () {
           (w[n].q = w[n].q || []).push(arguments);
         };
         w[n] = w[n] || fn;
-
+        const f = d.getElementsByTagName(t)[0];
         const v = '?v=' + Math.floor(new Date().getTime() / (120 * 1000)) * 60;
-        const target = d.head || d.getElementsByTagName('script')[0]?.parentNode;
-
         const sm = d.createElement(t) as HTMLScriptElement;
         sm.async = true;
         sm.type = 'module';
         sm.src = h + s + '.mjs' + v;
-        target?.appendChild(sm);
-
+        f.parentNode?.insertBefore(sm, f);
         const sn = d.createElement(t) as HTMLScriptElement;
         sn.async = true;
         sn.noModule = true;
         sn.src = h + s + '.js' + v;
-        target?.appendChild(sn);
+        f.parentNode?.insertBefore(sn, f);
       })(window, document, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
     }
 
-    if (window.__fdLettersInit) return;
-    window.__fdLettersInit = true;
-
-    window.fd?.('form', { formId: FLODESK_FORM_ID });
+    window.fd?.('form', {
+      formId: '6a8f553c9f30a024ac4f2a82',
+    });
   }, []);
 
   return null;
