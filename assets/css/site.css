@@ -154,13 +154,34 @@ button { font: inherit; color: inherit; }
   min-height: 13rem;
   max-height: 34rem;
   display: grid; place-items: center;
-  /* solid fields behind it, split where the photograph's own horizon sits,
-     so a failed image degrades to the construction rather than to a hole */
+  isolation: isolate;
+  /* the grounds this band sits between. Each page sets --band-into if what
+     follows is not the light ground. */
+  --band-from: var(--fathom);
+  --band-into: var(--surface);
   background:
-    linear-gradient(var(--fathom), var(--fathom)) top    / 100% 40% no-repeat,
-    linear-gradient(var(--surface), var(--surface)) bottom / 100% 60% no-repeat,
-    var(--fathom);
+    linear-gradient(var(--band-from), var(--band-from)) top / 100% 40% no-repeat,
+    linear-gradient(var(--band-into), var(--band-into)) bottom / 100% 60% no-repeat,
+    var(--band-from);
 }
+
+/* No hard line stops. The band dissolves out of the section above it and
+   into the section below it, so the photograph arrives and leaves rather
+   than starting and stopping on an edge. */
+.rise-band::before,
+.rise-band::after {
+  content: ""; position: absolute; left: 0; right: 0;
+  z-index: 1; pointer-events: none;
+}
+.rise-band::before {
+  top: 0; height: 38%;
+  background: linear-gradient(180deg, var(--band-from) 0%, transparent 100%);
+}
+.rise-band::after {
+  bottom: 0; height: 34%;
+  background: linear-gradient(0deg, var(--band-into) 0%, transparent 100%);
+}
+.rise-band .wrap { z-index: 2; }
 /* No drawn rule here. The photograph on top of this band carries its own
    surface line and it does not sit at 46%; a drawn rule would be a second
    waterline at a second height, which is the one thing that must not ship. */
@@ -1549,57 +1570,37 @@ button.door-note {
   color: var(--surface);
 }
 
-/* THE BREATH, AS MOTION -------------------------------------
-   Three earlier attempts at this failed for the same reason: they were
-   driven by requestAnimationFrame or by a transition, and in this build
-   neither can be relied on to advance. **CSS keyframe animations do.**
-   So the rise is a keyframe, and it is the only thing on this site that
-   animates of its own accord.
+/* THE BREATH -------------------------------------------------
+   This is the movement from the earlier build, restored. It was taken out
+   on a reading of "nothing loops"; Cydnie has asked for it back three
+   times and overruled that here, so it loops. Three bubbles leave the
+   dark, widen as the pressure comes off them, and go at the line. They
+   are drawn together at the bottom and pulled apart by negative delays,
+   so the cycle never has to jump anyone back down where it can be seen.
 
-   It still does not loop. One iteration, `forwards`, and it is done: the
-   air leaves the dark, weaves the way air actually does, and goes at the
-   surface. Then it stays there. `.is-breathing` is added by site.js when
-   she reaches the band, so it plays on arrival rather than on load.
-
-   The weave is in the keyframe rather than in script: each one has its own
-   set, so the three never move as one object. */
+   Opacity is part of the keyframe rather than a starting state, and the
+   resting transform below is a full column, so a browser that never
+   animates still shows three bubbles rising rather than three on the floor. */
 .surfacing .bub { transform-box: fill-box; transform-origin: center; }
 
-@keyframes bub-1 {
-  0%   { transform: translate(0, 0)      scale(1); }
-  30%  { transform: translate(1.6px, -7px)  scale(1.04); }
-  62%  { transform: translate(-1.4px, -14px) scale(1.09); }
-  100% { transform: translate(0, -20px)  scale(1.14); }
-}
-@keyframes bub-2 {
-  0%   { transform: translate(0, 0)      scale(1); }
-  28%  { transform: translate(-2.1px, -9px)  scale(1.07); }
-  60%  { transform: translate(2.2px, -19px)  scale(1.16); }
-  100% { transform: translate(0, -29px)  scale(1.24); }
-}
-@keyframes bub-3 {
-  0%   { transform: translate(0, 0)      scale(1); }
-  26%  { transform: translate(2.6px, -12px) scale(1.1); }
-  58%  { transform: translate(-2.4px, -25px) scale(1.22); }
-  100% { transform: translate(0, -38px)  scale(1.34); }
+@keyframes breath-rise {
+  0%   { transform: translate(0, 6px) scale(.55);         opacity: 0; }
+  11%  {                                                  opacity: var(--o, .6); }
+  42%  { transform: translate(2px, -28px) scale(.88); }
+  78%  { transform: translate(-1.5px, -56px) scale(1.06); opacity: var(--o, .6); }
+  100% { transform: translate(0, -70px) scale(1.18);      opacity: 0; }
 }
 
-/* Resting, and the state a browser that never animates is left in: already
-   up. Nothing here can strand them on the floor. */
-.surfacing .b1 { transform: translateY(-20px) scale(1.14); }
-.surfacing .b2 { transform: translateY(-29px) scale(1.24); }
-.surfacing .b3 { transform: translateY(-38px) scale(1.34); }
+/* standing still they are still a column of three going at the line */
+.surfacing .b1 { transform: translateY(-6px)  scale(.7); }
+.surfacing .b2 { transform: translateY(-32px) scale(.9); }
+.surfacing .b3 { transform: translateY(-58px) scale(1.08); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .rise-band.is-breathing .b1 { animation: bub-1 2200ms var(--ease-soft) 0ms    1 forwards; }
-  .rise-band.is-breathing .b2 { animation: bub-2 2400ms var(--ease-soft) 260ms  1 forwards; }
-  .rise-band.is-breathing .b3 { animation: bub-3 2600ms var(--ease-soft) 520ms  1 forwards; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .surfacing .b1 { transform: translateY(-20px) scale(1.14) !important; animation: none !important; }
-  .surfacing .b2 { transform: translateY(-29px) scale(1.24) !important; animation: none !important; }
-  .surfacing .b3 { transform: translateY(-38px) scale(1.34) !important; animation: none !important; }
+  .surfacing .bub { animation: breath-rise 6.4s var(--ease-soft) infinite; }
+  .surfacing .b1 { animation-delay: -0.3s; }
+  .surfacing .b2 { animation-delay: -2.4s; }
+  .surfacing .b3 { animation-delay: -4.5s; }
 }
 
 /* ---------- 21. WATER LAYERS -------------------------------- */
@@ -1738,6 +1739,17 @@ main > * { position: relative; z-index: 1; }
   margin-top: clamp(var(--s-4), 3vh, var(--s-6));
 }
 .ab-head .wl-rule { width: 100%; }
+
+/* A heading beside a long column of prose used to scroll away and leave
+   half the screen empty for the rest of the section. It holds instead, so
+   there is always something on both sides of the page. Only where the
+   column is genuinely long, and only where there is height to do it. */
+@media (min-width: 56rem) {
+  .grid-12--hold > .col-d {
+    position: sticky; top: clamp(7rem, 16vh, 9rem);
+    align-self: start;
+  }
+}
 
 /* THE TYPOGRAPHIC HEAD -----------------------------------------
    No photograph. A full bleed Fathom field, a 1px Meniscus rule at 38%
