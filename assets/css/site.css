@@ -1912,6 +1912,7 @@ main > * { position: relative; z-index: 1; }
    shrunk into a caption, and given the width of a single held breath. */
 .ab-personal {
   max-width: 46rem;
+  /* it sits on the dark ground now, directly after the account */
   font-size: clamp(1.125rem, 1.5vw, 1.25rem);
   line-height: 1.62;
   color: var(--ink);
