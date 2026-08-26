@@ -298,9 +298,21 @@ sit directly on the page.
 
   | | |
   |---|---|
-  | bezel | 3.6% of width, even on all four sides |
-  | corner | 11.5% of width — and the screen's corner is that **minus the bezel**, so the two curves are concentric. Non-concentric corners are the single thing that makes a drawn phone look drawn. |
+  | bezel | 2.5% of width, even on all four sides |
+  | corner | 12.5% of width — and the screen's corner is that **minus the bezel**, so the two curves are concentric. Non-concentric corners are the single thing that makes a drawn phone look drawn. |
   | island | 30% wide, 8.5% tall, a bezel's depth below the top, over the screen the way it really sits |
+
+  **12.5%, not the 11.5% of a real iPhone body, and that is deliberate.** The screenshot has
+  Apple's corner rounding already baked into it, measured at **10.0%** of its own width. The
+  frame has to be concentric with *that* curve, not with an abstract target, so the numbers are
+  solved from `R = r + b` with `r` fixed. Change the bezel and the corner has to move with it.
+
+  **The corners are cut out of the image file, not just clipped in CSS.** The crop used to be a
+  plain rectangle, so each corner carried a wedge of the board's white page, and the CSS clip
+  sat at 8.5% where the baked curve is 10.0%: four white notches inside the frame. The wedges
+  are transparent in the file now, cut on the phone's own curve and masked slightly deeper
+  (10.5%) so the anti-aliased fringe goes with them. The chassis shows through instead of the
+  page, which is what a bezel wrapping a screen corner actually looks like.
 
   **Every part of the frame derives from `--dev-w`, so the mobile override must set `--dev-w`
   and never `width`.** It set `width` at first, which left a 76px phone drawing a 96px phone's
@@ -330,10 +342,18 @@ to the panel's own bounding box first; and **Mane's second lockup panel is dark 
 that reaches it makes the snap span both panels and turns the white page gap between them into
 an opaque bar across the finished mark.
 
-Crop boxes, in the board's own 900x900 preview space, scaled by `6250/900`: Mane
-`(40,72,295,316)`, SRS `(38,70,290,315)`, SolyRey `(38,70,286,315)`, each snapped to its panel
-then trimmed to ink; screen `(639,536) -> (802,818)`. Cydnie's own board is deliberately
-absent: it is the retired teal-and-cream brand.
+Crop boxes for the marks, in the board's own 900x900 preview space, scaled by `6250/900`:
+Mane `(40,72,295,316)`, SRS `(38,70,290,315)`, SolyRey `(38,70,286,315)`, each snapped to its
+panel then trimmed to ink.
+
+**The phone is `(4432, 3561) -> (5568, 6049)` in source pixels, identical on all three boards**
+— 1136x2488, aspect 0.4566. Found by asking for the first and last row whose **central 60%**
+is solid. The central 60% is the part that matters: SRS Performance has the board's own
+"Minneapolis, MN 55403" caption running above its phone, and a naive top-edge test locks onto
+that text instead. An earlier crop started one pixel high and carried a slice of it into the
+shipped image.
+
+Cydnie's own board is deliberately absent: it is the retired teal-and-cream brand.
 
 Fixed in the same pass, site wide: **the depth gauge's numeric read was printing over the text
 column on any phone under 480px.** The gutter bottoms out at 20px there and the read is 16px

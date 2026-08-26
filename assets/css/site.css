@@ -2250,8 +2250,12 @@ main > * { position: relative; z-index: 1; }
   position: relative;
   margin: 0;
   --dev-w: clamp(6rem, 11.5vw, 8.5rem);
-  --bezel: calc(var(--dev-w) * .036);
-  --corner: calc(var(--dev-w) * .115);
+  --bezel: calc(var(--dev-w) * .025);
+  /* 12.5%, not the 11.5% of a real iPhone body, and that is the right trade:
+     the corners have to be concentric with the curve already cut into the
+     screenshot, and that curve is the mockup's, not Apple's. Solved from
+     R = r + b with r fixed at the image's baked 10.5%. */
+  --corner: calc(var(--dev-w) * .125);
   width: var(--dev-w);
   padding: var(--bezel);
   background: #15191C;
@@ -2262,6 +2266,9 @@ main > * { position: relative; z-index: 1; }
     0 0 0 1px rgba(7, 26, 31, .16),
     0 1.15rem 2.25rem -1rem rgba(7, 26, 31, .42);
 }
+/* The corners are cut out of the file itself, on the phone's own curve, so
+   the frame shows through them rather than the board's white page. The radius
+   here lands on the same curve and keeps the edge crisp. */
 .case-screen img {
   width: 100%; height: auto; display: block;
   border-radius: calc(var(--corner) - var(--bezel));
