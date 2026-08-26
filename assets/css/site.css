@@ -150,9 +150,15 @@ button { font: inherit; color: inherit; }
   /* The photograph is 1800x690. The band takes that shape, so `cover` has
      nothing to crop: it was being sliced 118px off the sides and chopped
      flat at the foot. Capped so it cannot become a wall on a wide screen. */
+  /* Width is authoritative and the height follows it. `max-height: 34rem`
+     used to sit here and it is what made the band stop short of the right
+     edge: the cap clamped the height, and then aspect-ratio derived the
+     WIDTH back from that height, so anything wider than about 1419px got a
+     band narrower than the screen with the page showing beside it. No cap,
+     so the photograph is always exactly full width and never cropped. */
+  width: 100%;
   aspect-ratio: 1800 / 690;
   min-height: 13rem;
-  max-height: 34rem;
   display: grid; place-items: center;
   isolation: isolate;
   /* the grounds this band sits between. Each page sets --band-into if what
