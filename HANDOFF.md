@@ -506,6 +506,44 @@ viewport falls back to the list and back again on resize, and nothing below the 
 of them showed step 01 while the DOM was on 05, and a reload-and-capture came back garbled.
 Measure the DOM. Do not chase what the screenshot shows.
 
+## The three movements, and what each one is protected against
+
+All three resolve once and stop. Nothing on this site loops.
+
+**The breath**, `initBreath`. Plays once when she reaches the band: the three are released
+220ms apart, 1.5s each, eased out so they leave the floor fast and slow as the pressure comes
+off them. All settled by about 1.94s.
+
+> **They are only ever moved down from inside an animation frame.** If frames never come,
+> nothing touches them and the CSS resting state stands, which is the three already at the
+> surface. An earlier shape dropped them to the floor first and then waited to find out, which
+> would have stranded them on the floor in exactly the browser this build has to survive.
+
+A `setTimeout` backstop settles them if the rise has not finished in time.
+
+**Fifteen**, `initFifteen`. The divisor is the whole dial: `vh * 0.38 + h * 0.30`. It was
+`0.62vh + 0.5h`, which took about 700px of scroll and read as sluggish; it is 370px now and is
+full while the mark is still mid screen rather than dribbling on as it leaves.
+
+**The movement bar** now runs on a phone too, instrument without the words: no label, an 18vh
+track, smaller dot and readout, tucked into `env(safe-area-inset-left)`.
+
+> It hides behind the open menu panel via **`menu-open` on the root**, set by `initNav`. Two
+> traps there, both hit: a sibling selector cannot reach the gauge, because it sits *before* the
+> header in the DOM; and a `transition` on the opacity **never advanced**, leaving the gauge
+> fully visible on top of the panel. No transition on it now.
+
+### Verifying motion in this preview
+
+`requestAnimationFrame` never fires here, so **the breath cannot be watched in the preview** and
+neither can anything else rAF driven. Do not conclude it is broken. What can be done instead:
+
+- Check the **resting state** is correct, which is the thing that actually has to be right
+- **Drive the tween with synthetic timestamps** in the console, replicating the constants, and
+  read the curve out as numbers. That is how the rise above was checked
+- Scroll linked motion (the gauge, the ring) *is* verifiable, because it is a direct style write
+  on a scroll event rather than a frame loop
+
 ## The rise band, as rebuilt
 
 `.surfacing` had no CSS at all, so the ornament SVG took its width from the wrap and stood
