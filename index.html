@@ -48,7 +48,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=89168141">
+<link rel="stylesheet" href="assets/css/site.css?v=4539d401">
 <script>document.documentElement.className += " js-motion";</script>
 
 <script type="application/ld+json">
@@ -183,9 +183,15 @@
            srcset="assets/img/mark-horiz-light-500.webp 500w, assets/img/mark-horiz-light-800.webp 800w, assets/img/mark-horiz-light-1200.webp 1200w"
            sizes="(min-width: 56rem) 240px, 180px" width="2198" height="410" decoding="async"
            alt="Cydnie Jocelyn, the resurfacing business">
-      <img class="brand-mark brand-mark--dark" src="assets/img/mark-horiz-dark-800.webp"
-           srcset="assets/img/mark-horiz-dark-500.webp 500w, assets/img/mark-horiz-dark-800.webp 800w, assets/img/mark-horiz-dark-1200.webp 1200w"
-           sizes="(min-width: 56rem) 240px, 180px" width="2250" height="412" decoding="async"
+      <!-- The ink mark, for once the reader has surfaced. The old
+           mark-horiz-dark asset is the wordmark drawn half submerged, so its
+           top half is near white and its subline is Breath; on Surface that
+           left the logo washed out. Same drawing, repainted in Fathom and
+           Meniscus. Same aspect ratio as the light mark, so the swap does
+           not shift the header. -->
+      <img class="brand-mark brand-mark--dark" src="assets/img/mark-horiz-ink-800.webp"
+           srcset="assets/img/mark-horiz-ink-500.webp 500w, assets/img/mark-horiz-ink-800.webp 800w, assets/img/mark-horiz-ink-1200.webp 1200w"
+           sizes="(min-width: 56rem) 240px, 180px" width="1200" height="224" decoding="async"
            alt="" aria-hidden="true">
     </a>
     <nav class="nav" aria-label="Primary">
@@ -195,7 +201,7 @@
       </button>
       <div class="nav-menu" id="nav-menu">
       <ul class="nav-links" role="list">
-        <li><a href="#build">The Build</a></li>
+        <li><a href="/the-build/">The Build</a></li>
         <li><a href="#retreat">Retreats</a></li>
         <li><a href="#questions">The Letters</a></li>
         <li><a href="/about/">About</a></li>
@@ -269,7 +275,7 @@
       <ol role="list">
         <li><a href="#sounding"><span class="pip" aria-hidden="true"></span>Resurface</a></li>
         <li><a href="#fifteen"><span class="pip" aria-hidden="true"></span>Reclaim</a></li>
-        <li><a href="#build"><span class="pip" aria-hidden="true"></span>Build</a></li>
+        <li><a href="/the-build/"><span class="pip" aria-hidden="true"></span>Build</a></li>
       </ol>
     </nav>
   </div>
@@ -426,12 +432,12 @@
       </div>
 
       <div class="door r-up" id="build">
-        <span class="door-stage">The longer builds</span>
+        <span class="door-stage">$1,500 to $15,000 &middot; The longer builds</span>
         <div>
           <h3 class="carved c-3">Somewhere to Stand</h3>
-          <p>Brand, operations and business development, scoped after listening and never before. So that whatever surfaced has somewhere to stand.</p>
+          <p>Brand, operations and business development, scoped after listening and never before. So that whatever surfaced has somewhere to stand. Every price is published.</p>
         </div>
-        <span class="door-note">By conversation</span>
+        <a class="door-note door-note--link" href="/the-build/"><span>See The Build</span></a>
       </div>
     </div>
 
@@ -586,6 +592,9 @@
       </figure>
     </div>
 
+    <p class="small r-up" style="margin-top:var(--s-5)">One of them said it on camera.
+      <a class="link" href="https://www.youtube.com/watch?v=DrrP4hdw0lo" rel="noopener">Watch Melissa&rsquo;s review</a>.</p>
+
     <div class="grid-12" style="margin-bottom:var(--s-6)">
       <div class="col-d">
         <h3 class="head h-3 r-up">Built to stand.</h3>
@@ -683,7 +692,7 @@
           <div><dt>Deposit</dt><dd>$500, non-refundable</dd></div>
         </dl>
         <div class="actions r-up" style="--d:180ms; margin-top:var(--s-5)">
-          <a class="btn" href="#start"><span>Join the waitlist</span>
+          <a class="btn" href="https://clients.cydniejocelyn.com/public/6a21d07b6dcfbe3d85c663b6" rel="noopener"><span>Join the waitlist</span>
             <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a>
         </div>
       </div>
@@ -825,7 +834,7 @@
           <ul role="list">
             <li><a href="#start">A Sounding</a></li>
             <li><a href="#retreat">Retreats</a></li>
-            <li><a href="#start">The Build</a></li>
+            <li><a href="/the-build/">The Build</a></li>
             <li><a href="#proof">Client work</a></li>
           </ul>
         </div>
@@ -850,6 +859,9 @@
             <li><a href="https://open.spotify.com/show/2DywRwAnPlfLJ9wXHhL0Fu" rel="noopener" aria-label="Spotify">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M7.4 9.6c3-.8 6.2-.5 8.9 1M8 13c2.4-.6 4.9-.4 7.1.8M8.6 16.1c1.9-.4 3.8-.3 5.5.6"/></svg>
             </a></li>
+            <li><a href="https://www.pinterest.com/Cydniejocelyn/" rel="me noopener" aria-label="Pinterest">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10.4 17.6l1.3-5.1M9.9 10.3c0-1.4 1-2.4 2.3-2.4 1.2 0 2 .8 2 1.9 0 1.4-.8 3.1-2.1 3.1-.7 0-1.2-.5-1.1-1.2"/></svg>
+            </a></li>
             <li><a href="https://www.youtube.com/@Cydniejocelyn" rel="me noopener" aria-label="YouTube">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.4" y="5.6" width="19.2" height="12.8" rx="3.6"/><path class="fill" d="M10.2 9.3v5.4l4.6-2.7z"/></svg>
             </a></li>
@@ -863,15 +875,18 @@
     <div class="ftr-btm">
       <p>&copy; <span data-year>2026</span> Cydnie Jocelyn LLC. Forest Lake, Minnesota.</p>
       <p>To never feel alone while doing hard things.</p>
-      <!-- Privacy and Terms were linked here and both 404: the pages do not
-           exist. A link that goes nowhere is worse than no link, so they are
-           out until there is copy. Restore this line verbatim once
-           /legal/privacy/index.html and /legal/terms/index.html exist:
-           <p><a href="/legal/privacy/">Privacy</a> &middot; <a href="/legal/terms/">Terms</a></p> -->
+      <p><a href="https://cydniejocelyn.com/privacy-policy">Privacy policy</a></p>
+      <!-- Privacy is the live page from the client's own links list and is
+           absolute on purpose: it resolves now on the Vercel URL, and it
+           resolves to the same place after the domain cuts over. BEFORE
+           CUTOVER, that path has to exist in this build or this link breaks.
+           Terms is still unwritten and stays out. A link that goes nowhere is
+           worse than no link. Restore it here once there is copy:
+           <a href="/legal/terms/">Terms</a> -->
     </div>
   </div>
 </footer>
 
-<script src="assets/js/site.js?v=89168141" defer></script>
+<script src="assets/js/site.js?v=4539d401" defer></script>
 </body>
 </html>

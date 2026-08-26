@@ -34,13 +34,18 @@ CLIs read their own credentials. That is the point of them.
 | The build | `~/Desktop/cydniejocelyn-v2/` |
 | Home page | `index.html` |
 | About page | `about/index.html` |
+| The Build page | `the-build/index.html` |
 | Shared CSS and JS | `assets/css/site.css`, `assets/js/site.js` — **both pages share them** |
 | GitHub | https://github.com/Cydniejocelyn/cydniejocelyn.com **(private)**, over HTTPS through `gh` |
 | Vercel project | `cydniejocelyn-v2` under team `cydnie-jocelyn`, linked in `.vercel/` |
 | Home artifact | https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5 |
 | About artifact | https://claude.ai/code/artifact/edb8e6b0-19ba-4048-801b-ffc570b75551 |
 | **About copy, source of truth** | `CydnieJocelyn-Site/about.html` |
+| **Build copy, source of truth** | `The Build page/files/the-build-page-wireframe-v6.html` |
+| Colour system notes | `The Build page/files/color-system-notes.md` |
+| Client brand boards | `CydnieJocelyn-Site/Portfolio of Work copy/Brand Board Portfolio of Work/` |
 | Refinement command | `CydnieJocelyn-Site/about-page-refinement-command.md` |
+| **The link list, source of truth for every URL** | `CydnieJocelyn-Site/Website Links.pdf` |
 | Brand foundation | `CydnieJocelyn-Site/Minestreaming Cydnie Jocelyn/Brand-Foundation.md` |
 
 An earlier note said `origin` was `Cydniejocelyn/cydniejocelyn`. **That repository never
@@ -68,6 +73,7 @@ export PATH="$HOME/.local/bin:$PATH"
 cd ~/Desktop/cydniejocelyn-v2
 
 python3 tools/stamp.py                  # ALWAYS, after editing site.css or site.js
+                                        # it stamps all THREE pages; add any new one to it
 python3 tools/build_artifact.py home
 python3 tools/build_artifact.py about
 git add -A && git commit -F <file>      # -F a file, NOT -m: see below
@@ -192,6 +198,64 @@ the rise band → what held → what I do now → where to start → close.
 **Home page:** hero, condition, re-diagnosis, rise band, the work, differentiator band, before
 you book, fifteen, proof, story, retreat, refusals, statement, questions, close, footer.
 
+**The Build page** (`/the-build/`), built from wireframe v6 and the colour notes beside it.
+
+Order: hero -> the condition -> three areas -> the work -> **A Sounding** -> the two shapes ->
+production -> full engagement -> refusals -> questions -> close.
+
+- **It is the only page on the site that opens light**, and that is the whole colour argument.
+  Home and About open dark because both open on the condition. Here the condition is the
+  price, so the page runs light and goes to full depth **once**, on A Sounding, which is the
+  only action offered anywhere on it. `z-deep` appears exactly once. Do not add a second.
+- **The full engagement is `z-deepwater`, not `z-deep`.** It was the darkest band in v3, which
+  put maximum weight behind the most expensive item, and that reads as pressure.
+- **There is no sticky bottom bar.** v6 drew one; the guide forbids it, and `site.css` already
+  records that the bar and the slide-in nudge were removed. The booking link stands three
+  times instead: nav, door, close.
+- **Held is the refusal labels and nothing else.** A warm tick in the hero was built and then
+  removed, because `.refuse` already sets its labels in `--warm` and that made two.
+- **The three areas are not numbered** (`.triad--flat`). They are held at once. The phase lists
+  are numbered, because those run in sequence.
+- Every price is published, and the figures appear in three places that must stay in sync:
+  the visible page, the `Service` + `FAQPage` schema at the top of the file, and HoneyBook.
+
+### The work block, and why the boards are not posted whole
+
+The three client brand boards are **one template with three fills** — same title bar, same two
+logo panels, same palette diagram, same mood grid, same phone. Posting them whole would show
+three businesses that look exactly like each other, which is the opposite of what the caption
+above them claims. So each board is taken apart, by `PIL`, into:
+
+- `assets/img/work/<slug>-mark-{600,900}.webp`, the primary logo lockup;
+- `assets/img/work/<slug>-screen-{500,800}.webp`, the phone's screen interior with the status
+  bar and browser chrome trimmed off;
+- and a **palette rebuilt natively in CSS** from hex values sampled off the board, which runs
+  the full width of the row and is the divider between one case and the next.
+
+The scripts that cut them are gone with the scratchpad. The crop boxes, in the board's own
+900x900 preview space, were: lockup detected per client by alpha run inside x<300, y 60..340;
+screen `(639, 536) -> (802, 818)`, scaled by `6250/900`. Cydnie's own board is deliberately
+absent: it is the retired teal-and-cream brand.
+
+### Two shared-asset fixes this page forced, which affect every page
+
+1. **`.is-surfaced` never reached the gauge.** Four rules in `site.css` invert the depth gauge
+   on a light ground, written as bare `.is-surfaced .gauge-*` descendant selectors. `.gauge` is
+   a **sibling** of `.hdr`, not a child, so they never matched and the instrument stayed pale
+   teal over every light section on the whole site. `initHeader` now mirrors the flag onto
+   `document.documentElement`. Every other `is-surfaced` rule is prefixed `.hdr`, so nothing
+   else moved.
+2. **`mark-horiz-dark-*.webp` is unreadable on Surface.** It is the wordmark drawn half
+   submerged: the top half fades to near white and the subline is Breath. On `#E7ECE8` the
+   logo washed out, and on The Build, which is light from the first pixel, that was the first
+   thing anyone saw. `mark-horiz-ink-{500,800,1200}.webp` is the same drawing repainted from
+   the light mark's alpha channel — Fathom for the wordmark, Meniscus for the subline, same
+   aspect ratio so the swap does not shift the header. All three pages now use it. The old
+   asset is still on disk and is no longer referenced.
+
+Also fixed in passing: `about/index.html` closed its footer with `.ftr-base`, which is not a
+class that exists. It is `.ftr-btm`.
+
 **Navigation, both pages:** The Build · Retreats · The Letters · About, with **A Sounding** as
 the call. Per `about.html`.
 
@@ -236,13 +300,31 @@ load, all revealed once scrolled past, and **with JS off every paragraph is visi
 ## 7. Open, in priority order
 
 1. **Deployment Protection.** §1. Hers to turn off. Nothing else blocks launch.
-2. **One form is unwired.** `index.html:782`, `action="#"` — the twelve questions form in the
-   closing section. Needs the Flodesk endpoint. Keep the hidden tag field.
-3. **Privacy and Terms do not exist.** Both links were removed from the footer rather than
-   shipped as 404s. The exact line to restore is **commented out in the markup** at the footer.
-   Restore it once `/legal/privacy/index.html` and `/legal/terms/index.html` exist. (A regex
-   link-checker will report these as 404s; they are inside that comment, not live. `/` and
-   `/about/` are the only live internal links and both resolve.)
+2. **One form is still unwired, and the link list does not resolve it.** The twelve questions
+   form in the closing section of `index.html` is still `action="#"`, so a submission reloads
+   the page and the address is lost. Two things block it:
+
+   - The form is built as a native POST expecting a **Flodesk** endpoint. The link list has no
+     Flodesk URL at all.
+   - The nearest thing on the list is **Join the collective**,
+     `honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/6a19d46a5cb4c5d7f86446a9`,
+     filed under Home Page. That is a **hosted HoneyBook form page, not a POST endpoint**, so
+     the native form cannot be pointed at it: it would have to become a link, or a HoneyBook
+     embed. And "the collective" is not obviously the same product as "twelve questions, one a
+     month, not a newsletter."
+
+   It was left alone rather than wired to a guess, because a signup landing on the wrong list
+   is worse to unpick than a signup that never fired. **Ask Cydnie which one it is.** Keep the
+   hidden `tag` field either way.
+3. **Privacy is linked. Terms still does not exist, and privacy has a cutover trap.**
+   `https://cydniejocelyn.com/privacy-policy` is on the client's link list, returns 200 today,
+   and is now in the footer of all three pages. It is **absolute on purpose**: it resolves now
+   on the Vercel URL, and it resolves to the same place after the domain cuts over.
+
+   **The trap:** that page lives on the OLD site. The moment `cydniejocelyn.com` points at this
+   build, the path 404s unless `/privacy-policy/index.html` exists here. Either port the copy
+   into this repo before cutover or add a redirect. Terms was never written and stays out of
+   the markup; the line to restore is commented at the footer of `index.html`.
 4. **`IvyPresto Display` is not self-hosted.** It is licensed, not on Google Fonts, and the
    files are **not in this workspace**. The stack names it first and falls back to Instrument
    Serif, which is what is actually rendering. Ask her for the Adobe license files.
@@ -250,11 +332,50 @@ load, all revealed once scrolled past, and **with JS off every paragraph is visi
    Contrast has been checked in places, not swept.
 6. **The podcast.** The home footer still links "She Rises Through It". The old wireframe said
    it was shelved. Whether that is true is not in any file.
-7. **Nav targets.** The Letters points at `/#questions` and The Build at `/#build`, both
-   anchors on the home page. `about.html` implies standalone pages (`/the-build`, `/letters`).
-   Those pages do not exist yet.
+7. **Nav targets.** The Build is now a real page at `/the-build/` and every nav, footer and
+   hero-path link across all three pages points at it. **Retreats** (`/#retreat`) and
+   **The Letters** (`/#questions`) are still anchors on the home page; `about.html` implies
+   standalone pages for both. Those two do not exist yet.
+
+8. **Client permission for the work block.** Three clients' marks and shipped pages are now
+   published at `/the-build/#work`. Confirm written permission from Mane Alchemist, SRS
+   Performance and SolyRey before this goes public. Nothing else on the page is blocked.
+
+9. **The prices are now public, in three places.** The page, the JSON-LD in its head, and
+   HoneyBook. If one figure changes, all three change, and the home page's Build door
+   (`index.html`, `$1,500 to $15,000`) is a fourth. There is one open copy question v6 left
+   unanswered: **does the $300 credit toward a Build?** v6's read is no, because crediting
+   turns a complete deliverable into a deposit. If Cydnie decides yes, a line goes in the
+   A Sounding block and in the HoneyBook service description.
 
 ---
+
+## 7b. The links, and the three booking IDs that are not interchangeable
+
+`CydnieJocelyn-Site/Website Links.pdf` is the authority. All eight URLs used from it were
+checked and return 200. **There are three different scheduling IDs and they are three
+different offers:**
+
+| ID | What it is | Where it belongs |
+|---|---|---|
+| `6a185c26693e14802690e9f6` | **1:1 Session** | This is **A Sounding**. Every "Book one conversation" on all three pages. Correct everywhere already. |
+| `69f9f2a095c611cc2401eec7` | **Branding session** (also listed as "Book a consult" and "Discovery call") | The Build. **Deliberately not used** — see below. |
+| `6a18613d417c9c7126ec42e3` | **Book a call**, filed under Home Page | Not used. A generic call from the old site with no equivalent block here. |
+
+**The Build has no branding-session link and that is deliberate.** Wireframe v6 gives the page
+exactly one door and says so on the page: "Every engagement below begins here. There is no
+other way in." Adding `69f9f2a09...` would be a second door and would undo the block. If Cydnie
+wants the branding consult sold directly, that is a copy decision, not a missing link.
+
+Wired this pass: the Greece waitlist on the home retreat block (it pointed at `#start`, which
+sent a woman who wanted a retreat seat to a $300 call), Pinterest in the footer socials, the
+privacy policy on all three footers, and Melissa's recorded review under the written quotes.
+
+Not wired, and why: the twelve questions form (§7.2); the specific podcast episode
+"The Messy Middle" filed under Home Page, because this build has no podcast section to hang it
+on and the podcast's status is itself unresolved (§7.6); and the retreat forms that have no
+section on the site yet — private retreat inquiry, choose your path, pre-register early bird,
+and the four Sauk Centre room checkouts. Those belong to a Retreats page that does not exist.
 
 ## 8. Recreate the preview each session
 

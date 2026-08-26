@@ -152,7 +152,19 @@
         var r = z.getBoundingClientRect();
         return r.top <= edge && r.bottom > edge;
       });
-      if (up !== surfaced) { surfaced = up; hdr.classList.toggle("is-surfaced", up); }
+      if (up !== surfaced) {
+        surfaced = up;
+        hdr.classList.toggle("is-surfaced", up);
+        /* The gauge inverts on a light ground too, and its rules are written
+           as a bare `.is-surfaced` descendant selector. The gauge is a
+           SIBLING of the header, not a child of it, so those four rules
+           never matched and the instrument stayed pale teal over every light
+           section on the site. Mirroring the flag on the root makes them
+           match. Every other is-surfaced rule is prefixed `.hdr`, so nothing
+           else changes. This matters most on The Build, which is light from
+           top to bottom apart from two bands. */
+        document.documentElement.classList.toggle("is-surfaced", up);
+      }
     }
     check();
     window.addEventListener("scroll", check, { passive: true });

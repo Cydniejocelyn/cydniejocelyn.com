@@ -2030,8 +2030,183 @@ main > * { position: relative; z-index: 1; }
   transition: none !important;
 }
 
+/* ---------- 24. THE BUILD -----------------------------------
+   Wireframe v6, and the colour system notes that came with it.
+
+   The whole page is a translation of one rule: dark marks the moment the
+   condition is named, and light is where the answer lives. On this page the
+   condition is not the headline, it is the price, so the page runs light
+   from the top and goes to full depth exactly once, on A Sounding, which is
+   the only action offered anywhere on it.
+
+   The full engagement was the darkest band in v3, which put the heaviest
+   value in the palette behind the most expensive item on the page. That
+   reads as pressure. It sits on Deepwater now, one step up from Fathom:
+   separated, not emphasised. Fathom appears once. Do not add a second.
+
+   Almost everything here rides on components the home and about pages
+   already have: .wl-rule is the waterline, .triad is the three areas,
+   .refuse is the refusals, .faq is the questions, .meta-list is the
+   contract. Only the pieces with no equivalent get rules below.
+
+   There is no sticky bottom bar. v6 drew one and the guide forbids it,
+   the same way it forbids a nudge, a modal and an exit intent. The booking
+   link stands on its own three times instead: the nav, the door, the close.
+   ------------------------------------------------------------ */
+
+/* The hero. Light, and typographic: no photograph, so nothing can fail to
+   load and leave a hole where the first sentence goes. */
+.bd-head { padding-block: clamp(9rem, 20vh, 13rem) clamp(3rem, 7vw, 5rem); }
+.bd-head .wl-rule { margin-top: clamp(var(--s-4), 4vh, var(--s-5)); }
+
+/* There is no Held mark in this hero. A tick crossing the waterline was
+   drawn here first, the same device the about head uses, and it made two
+   Held elements on one page: .refuse sets its labels in --warm, and the
+   refusals are already where the warm note belongs on this page as they are
+   on the home page. Held is rare or it is not Held. The hero stays cold. */
+
+/* Cross links to the other two practice areas. Not decoration: each word
+   maps to a live offer or it does not appear. */
+.bd-cross { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin-bottom: var(--s-5); }
+.bd-cross a, .bd-cross span {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .28em; text-transform: uppercase;
+  text-decoration: none; color: var(--muted);
+  padding-bottom: 4px; border-bottom: 1px solid transparent;
+  min-height: 32px; display: inline-flex; align-items: center;
+  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+}
+.bd-cross a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+.bd-cross .here { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* The three areas run on .triad, which numbers its rows. Here they must not
+   be numbered: these are three things held at once, and a numeral would
+   promise an order that does not exist. The phase lists further down keep
+   their numerals, because those genuinely run in sequence. */
+@media (min-width: 42rem) {
+  .triad--flat li { grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); }
+}
+
+/* ---- Offers. A row is a name, a number, and what the number buys. ---- */
+.offers { border-top: 1px solid var(--rule); }
+.offer {
+  display: grid; gap: var(--s-2);
+  padding-block: clamp(var(--s-4), 3.2vw, var(--s-6));
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 42rem) {
+  .offer { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-6); align-items: baseline; }
+}
+.offer-name { font-family: var(--carved); font-size: clamp(1.3rem, 2.1vw, 1.75rem); line-height: 1.2; letter-spacing: .05em; margin: 0; color: var(--ink); }
+/* The figure is set in the utility face for the same reason the numerals
+   everywhere else are: a price is an instrument reading, not a claim. */
+.offer-price { font-family: var(--utility); font-size: clamp(1.1rem, 1.6vw, 1.35rem); color: var(--ink); white-space: nowrap; }
+@media (min-width: 42rem) { .offer-price { text-align: right; } }
+.offer-price em {
+  display: block; font-style: normal;
+  font-size: .6875rem; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 4px;
+}
+.offer-body { grid-column: 1 / -1; color: var(--muted); max-width: 42rem; }
+.offer--open { border-top: 0; border-bottom: 0; padding-top: 0; }
+
+/* Phases are numbered because the sequence is real. The three areas above
+   are not numbered, because they are held at once. */
+.phases { grid-column: 1 / -1; margin-top: var(--s-4); border-top: 1px solid var(--rule); }
+.phases li {
+  display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: var(--s-3);
+  padding-block: var(--s-2); border-bottom: 1px solid var(--rule); font-size: 1rem;
+}
+.phases li:last-child { border-bottom: 0; }
+.phases .n { font-family: var(--utility); font-size: .6875rem; letter-spacing: .28em; color: var(--label); }
+
+/* The two shapes, side by side, so the nesting is visible without being
+   explained: a season contains the day. */
+.shapes { display: grid; gap: var(--s-7); }
+@media (min-width: 56rem) { .shapes { grid-template-columns: 1fr 1fr; column-gap: clamp(var(--s-5), 5vw, var(--s-7)); align-items: start; } }
+.shape-dur {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--label);
+  margin: 0 0 var(--s-3); padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ---- The work ----------------------------------------------
+   The three brand boards are one template with three fills, so posting
+   them whole would prove the opposite of the caption: it would show three
+   businesses that look exactly like each other. Each board is taken apart
+   instead. The mark, the shipped page, the decision that produced both,
+   and the palette rebuilt natively in CSS out of its own hex values rather
+   than screenshotted, so it can run the full width of the row and carry
+   the client's colour the way the waterline carries the site's. */
+.cases { border-top: 1px solid var(--rule); }
+/* start, not stretch: the mark is square and the screen is tall, so a
+   stretched frame drew an empty bordered box under the shorter of the two */
+.case { display: grid; align-items: start; gap: var(--s-4) var(--s-5); padding-block: clamp(var(--s-5), 4vw, var(--s-7)); }
+@media (max-width: 55.99rem) {
+  .case { grid-template-columns: 1fr 1fr; }
+  .case-mark   { grid-column: 1; grid-row: 1; }
+  .case-screen { grid-column: 2; grid-row: 1; }
+  .case-copy   { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (min-width: 56rem) {
+  .case { grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) minmax(0, 3fr); column-gap: clamp(var(--s-5), 4vw, var(--s-6)); align-items: start; }
+}
+.case-mark, .case-screen { margin: 0; border: 1px solid var(--rule); overflow: hidden; }
+/* contain, not cover: a logo that has been cropped to fill a box is a
+   logo the client did not approve */
+.case-mark img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; background: var(--pane, var(--field)); }
+.case-screen img { width: 100%; height: auto; }
+.case-who { font-family: var(--utility); font-size: .6875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--label); margin: 0 0 var(--s-3); }
+.case-call { margin: 0 0 var(--s-3); }
+.case-body { color: var(--muted); max-width: 34rem; }
+/* The palette is the rule between one case and the next, so the divider on
+   this page is the client's colour rather than the site's. Level, and it
+   does not move. */
+.case-pal { grid-column: 1 / -1; display: flex; height: 12px; }
+.case-pal span { flex: 1 1 0; }
+
+/* ---- The contract ----
+   Not .meta-list. That component right aligns its value against a label,
+   which is right for a one word reading and wrong here: two of these three
+   rows are full sentences, and right aligned ragged left prose is not
+   readable. Label left, value left, both on the same baseline. */
+.crows { margin-top: var(--s-5); border-top: 1px solid var(--rule); }
+.crow {
+  display: grid; gap: var(--s-2);
+  padding-block: var(--s-4);
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 34rem) {
+  .crow { grid-template-columns: 9.5rem minmax(0, 1fr); column-gap: var(--s-5); align-items: baseline; }
+}
+.crow dt {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--muted);
+}
+.crow dd { margin: 0; max-width: 34rem; }
+.bd-figure { font-family: var(--utility); font-size: clamp(1.25rem, 2vw, 1.6rem); color: var(--ink); }
+
+/* The published-pricing line. It is the sharpest thing on the page and the
+   category cannot answer it, so it sits above the fold rather than buried
+   halfway down where v3 had it. */
+.bd-open { max-width: 40rem; color: var(--muted); }
+.bd-open b { color: var(--ink); font-weight: 500; }
+
+/* The one door, restated under the offers that have no button of their own.
+   A $15,000 engagement scoped over email is a $15,000 engagement scoped
+   badly, and a single way in also keeps the calendar clean. */
+.bd-only { margin-top: var(--s-5); font-size: 1rem; color: var(--muted); max-width: 38rem; }
+
+.bd-close-line {
+  font-family: var(--carved);
+  font-size: clamp(1.5rem, 3.4vw, 2.6rem);
+  line-height: 1.18; letter-spacing: .04em; color: var(--ink);
+  max-width: 19ch;
+}
+
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {
   .hdr, .gauge, main { background: #fff; }
-  body, .ftr, .z-light, .z-silt, .z-deep, .z-breath { background: #fff; color: #000; }
+  body, .ftr, .z-light, .z-silt, .z-deep, .z-deepwater, .z-breath { background: #fff; color: #000; }
 }

@@ -18,6 +18,7 @@ PAGE = (sys.argv[1] if len(sys.argv) > 1 else "home").lower()
 PAGES = {
     "home":  ("index.html",       "cydnie-jocelyn.html",       "The Resurfacing Business"),
     "about": ("about/index.html", "cydnie-jocelyn-about.html", "About Cydnie Jocelyn"),
+    "build": ("the-build/index.html", "cydnie-jocelyn-build.html", "The Build"),
 }
 if PAGE not in PAGES:
     raise SystemExit("unknown page %r, expected one of %s" % (PAGE, ", ".join(PAGES)))
@@ -50,7 +51,17 @@ PICK = {
     "cydnie-reading":     "cydnie-reading-1000.webp",
     "armonia-arch":       "armonia-arch-900.webp",
     "mark-horiz-light":   "mark-horiz-light-800.webp",
-    "mark-horiz-dark":    "mark-horiz-dark-800.webp",
+    # the ink wordmark, for once the reader has surfaced. mark-horiz-dark is
+    # the half submerged drawing and is no longer referenced by any page.
+    "mark-horiz-ink":     "mark-horiz-ink-800.webp",
+    # The Build's work block. Unused stems cost nothing: `data` is only ever
+    # consumed by `swap`, which matches against the src actually in the markup.
+    "mane-alchemist-mark":     "work/mane-alchemist-mark-900.webp",
+    "mane-alchemist-screen":   "work/mane-alchemist-screen-500.webp",
+    "srs-performance-mark":    "work/srs-performance-mark-900.webp",
+    "srs-performance-screen":  "work/srs-performance-screen-500.webp",
+    "solyrey-mark":            "work/solyrey-mark-900.webp",
+    "solyrey-screen":          "work/solyrey-screen-500.webp",
 }
 data = {}
 for stem, name in PICK.items():
@@ -86,7 +97,16 @@ SITE = "https://cydniejocelyn.com"
 ARTIFACT = {
     "home":  "https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5",
     "about": "https://claude.ai/code/artifact/edb8e6b0-19ba-4048-801b-ffc570b75551",
+    # The Build has not been published as an artifact yet. Until it is, a link
+    # to it resolves to the canonical URL, which at least says where it goes.
+    # Put the artifact URL here the first time it is published.
+    "build": None,
 }
+BUILD_HREF = ARTIFACT["build"] or (SITE + "/the-build/")
+body = body.replace('href="/the-build/#',
+                    'href="#' if PAGE == "build" else 'href="%s#' % BUILD_HREF)
+body = body.replace('href="/the-build/"',
+                    'href="#main"' if PAGE == "build" else 'href="%s"' % BUILD_HREF)
 # a link to the page you are already on is an anchor, not a trip out
 body = body.replace('href="/about/"',
                     'href="#main"' if PAGE == "about" else 'href="%s"' % ARTIFACT["about"])

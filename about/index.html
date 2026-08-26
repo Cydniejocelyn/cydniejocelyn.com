@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css?v=89168141">
+<link rel="stylesheet" href="../assets/css/site.css?v=4539d401">
 <script>document.documentElement.className += " js-motion";</script>
 
 <script type="application/ld+json">
@@ -86,9 +86,15 @@
            srcset="../assets/img/mark-horiz-light-500.webp 500w, ../assets/img/mark-horiz-light-800.webp 800w, ../assets/img/mark-horiz-light-1200.webp 1200w"
            sizes="(min-width: 56rem) 240px, 180px" width="2198" height="410" decoding="async"
            alt="Cydnie Jocelyn, the resurfacing business">
-      <img class="brand-mark brand-mark--dark" src="../assets/img/mark-horiz-dark-800.webp"
-           srcset="../assets/img/mark-horiz-dark-500.webp 500w, ../assets/img/mark-horiz-dark-800.webp 800w, ../assets/img/mark-horiz-dark-1200.webp 1200w"
-           sizes="(min-width: 56rem) 240px, 180px" width="2250" height="412" decoding="async"
+      <!-- The ink mark, for once the reader has surfaced. The old
+           mark-horiz-dark asset is the wordmark drawn half submerged, so its
+           top half is near white and its subline is Breath; on Surface that
+           left the logo washed out. Same drawing, repainted in Fathom and
+           Meniscus. Same aspect ratio as the light mark, so the swap does
+           not shift the header. -->
+      <img class="brand-mark brand-mark--dark" src="../assets/img/mark-horiz-ink-800.webp"
+           srcset="../assets/img/mark-horiz-ink-500.webp 500w, ../assets/img/mark-horiz-ink-800.webp 800w, ../assets/img/mark-horiz-ink-1200.webp 1200w"
+           sizes="(min-width: 56rem) 240px, 180px" width="1200" height="224" decoding="async"
            alt="" aria-hidden="true">
     </a>
     <nav class="nav" aria-label="Primary">
@@ -98,7 +104,7 @@
       </button>
       <div class="nav-menu" id="nav-menu">
       <ul class="nav-links" role="list">
-        <li><a href="/#build">The Build</a></li>
+        <li><a href="/the-build/">The Build</a></li>
         <li><a href="/#retreat">Retreats</a></li>
         <li><a href="/#questions">The Letters</a></li>
         <li><a href="/about/" aria-current="page">About</a></li>
@@ -377,8 +383,8 @@
           <ul role="list">
             <li><a href="/#sounding">A Sounding</a></li>
             <li><a href="/#retreat">Retreats</a></li>
-            <li><a href="/#build">Somewhere to Stand</a></li>
-            <li><a href="/#proof">Client work</a></li>
+            <li><a href="/the-build/">The Build</a></li>
+            <li><a href="/the-build/#work">Client work</a></li>
           </ul>
         </div>
         <div>
@@ -391,12 +397,13 @@
         </div>
       </div>
     </div>
-    <div class="ftr-base">
+    <div class="ftr-btm">
       <p>&copy; <span data-year>2026</span> Cydnie Jocelyn LLC. Forest Lake, Minnesota.</p>
+      <p><a href="https://cydniejocelyn.com/privacy-policy">Privacy policy</a></p>
     </div>
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=89168141" defer></script>
+<script src="../assets/js/site.js?v=4539d401" defer></script>
 </body>
 </html>
