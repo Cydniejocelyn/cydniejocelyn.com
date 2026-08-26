@@ -232,10 +232,45 @@ above them claims. So each board is taken apart, by `PIL`, into:
 - and a **palette rebuilt natively in CSS** from hex values sampled off the board, which runs
   the full width of the row and is the divider between one case and the next.
 
-The scripts that cut them are gone with the scratchpad. The crop boxes, in the board's own
-900x900 preview space, were: lockup detected per client by alpha run inside x<300, y 60..340;
-screen `(639, 536) -> (802, 818)`, scaled by `6250/900`. Cydnie's own board is deliberately
+**The first build of this block was rejected as gothy and blocky, and it was.** Every mark sat
+on the board's own panel inside a 1px border: three hard boxes in a column, one of them near
+black, on a page that is Surface from top to bottom. It has been rebuilt in the guide's own
+language and the current rules are:
+
+- **The panels are keyed out and the marks are transparent.** Each mark now sits on a soft
+  field taken from *that client's own palette* — Mane Alchemist on its primary green `#1C5128`
+  rather than the board's black, SolyRey on its `#E8D5C4` sand, SRS Performance on `#F6F5F7`.
+  SRS's own light neutral is `#DFDEE0`, which is four values off this section's `#DCE4E1`
+  ground and vanished into it; do not "correct" it back.
+- **No borders anywhere in the section.** Soft radius, generous padding.
+- **The shipped page hangs past the foot of its field**, a fixed `clamp(1rem, 2vw, 1.75rem)`
+  below it, computed off the field's own `--pad` so the overhang is the same at every width.
+  It carries the only shadow on the site: a page lying flat on a field of its own brand colour
+  reads as printed on it, and the point of the object is that it shipped.
+- **The field and the copy swap sides down the run** (`.case--flip`), so three cases do not
+  land as three identical stamps.
+- **The palette is circles with air between them**, the way the client boards draw it. The
+  flush bar of colour it replaced was the blockiest thing on the page.
+- **The cases are parted by the guide's divider**, a hairline with the four point mark at its
+  centre. Drawn with straight edges at 13px it read as a plus sign; it is concave at 16px now.
+
+Un-matting is why the marks have no fringe. A mark drawn light on black has edge pixels
+blended toward black, so setting alpha while keeping RGB leaves a dark halo on any other
+ground; `F = (P - (1-a)*BG) / a` recovers the foreground. Two traps if these are ever recut:
+the board's own page shows around each panel (255 beside a 250 panel), so the crop has to snap
+to the panel's own bounding box first; and **Mane's second lockup panel is dark too**, so a box
+that reaches it makes the snap span both panels and turns the white page gap between them into
+an opaque bar across the finished mark.
+
+Crop boxes, in the board's own 900x900 preview space, scaled by `6250/900`: Mane
+`(40,72,295,316)`, SRS `(38,70,290,315)`, SolyRey `(38,70,286,315)`, each snapped to its panel
+then trimmed to ink; screen `(639,536) -> (802,818)`. Cydnie's own board is deliberately
 absent: it is the retired teal-and-cream brand.
+
+Fixed in the same pass, site wide: **the depth gauge's numeric read was printing over the text
+column on any phone under 480px.** The gutter bottoms out at 20px there and the read is 16px
+wide starting at 8px. It is hidden below `30rem`, leaving the track and dot, which sit at 16px
+and clear it — "the instrument without the words", which is what mobile was always meant to be.
 
 ### Two shared-asset fixes this page forced, which affect every page
 
