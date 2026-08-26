@@ -28,391 +28,49 @@ Sections of this file written before 25 Aug still describe the gauge, the nudge,
 `hero-breath` and the condition stepper rule as present. **They are not.** Trust the git log and
 the files over any prose here that predates `d95e77a`.
 
-## START HERE: the one thing that is blocked
+## START HERE: nothing is blocked any more
 
-The site is finished enough to deploy and **is committed to git**, four commits on `main`,
-clean tree, in `~/Desktop/Claude Code/cydniejocelyn-v2/`.
+**It is pushed and it is deployed.** Both of the things earlier handoffs described as blocked
+were blocked by the same wrong belief: that this Mac had no tooling.
 
-**It cannot be pushed from this Mac.** Verified repeatedly, not assumed:
+### The tooling was never missing, it is just off PATH
 
-| | |
-|---|---|
-| `gh` CLI | not installed |
-| `node` / `npm` | not installed, so no Vercel CLI either |
-| HTTPS credential | none. `git ls-remote origin` gives `could not read Username` |
-| `~/.git-credentials`, `~/.netrc` | do not exist |
-| Keychain | only `GitHub - https://api.github.com`, which is not what git's helper queries. **Do not read it.** Harvesting a token out of her keychain is not ours to do |
-
-**An SSH key was generated on 25 Aug** at `~/.ssh/id_ed25519`, with `~/.ssh/config` pointing
-github.com at it, and `origin` switched to `git@github.com:Cydniejocelyn/cydniejocelyn.git`.
-
-**The only outstanding step is Cydnie adding the public key to her GitHub account**
-(Settings, SSH and GPG keys, New SSH key). The public half:
-
-```
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAtx47ChKzhr4i47v+p5yY2sWIktwjSFW8sbrrK9+zHA hello@cydniejocelyn.com
-```
-
-Test with `ssh -T git@github.com`. Once it greets her by name, `git push -u origin main` works
-and every later push works without asking again.
-
-**Note the repeated misunderstanding, and head it off:** "GitHub is integrated" and "git can
-authenticate from this Mac" are different things. Connecting GitHub to Vercel, or authorising a
-GitHub app inside an editor, grants those services access. It puts no credential where the `git`
-command looks. Three rounds went on that.
-
-**Repo name is a guess.** `origin` points at `Cydniejocelyn/cydniejocelyn`, matching how
-`jocelyncotravel` is named. If she called it something else, `git remote set-url origin` first.
-
-Then Vercel: **Add New, Project, Import Git Repository.** Framework preset Other, no build
-command, output directory blank. Not the CLI, which needs Node. `vercel.json` is written and
-handles trailing slashes, a year of immutable caching on `/assets`, and two security headers.
-
----
-
-## The brand guide pass, 25 August 2026
-
-The about page was taken to **wireframe v6** (`../CydnieJocelyn-Site/about-page-wireframe copy.html`,
-the newer of the two) and the whole build was audited against the guide. **Nothing was
-reordered and nothing was rebuilt.** The nine blocks are in the same sequence.
-
-### Copy, about page
-
-| Block | Was | Is |
-|---|---|---|
-| 01 | "Nothing is wrong with me. Something was on top of me..." | **"I'm Cydnie."** with the fourteen years line as the lede |
-| 02 | "You are not here because it is failing." | **"Most of the women I talk to are doing fine on paper."** Reported, not pointed at her |
-| 03 | "on three days' notice" | **"I decided in three days and the trip left in two weeks... I went as a guest."** |
-| 05 | v3 triad definitions | v6 definitions, plainer |
-| 06 | "Also true", four numbered tiles | **one paragraph, no header.** A list of personal facts is the fun facts format however it is styled |
-| 08 | "The twelve questions." | **"The Letters."** Plus the risk reversal on its own line above it |
-| 09 | close rule 128px, head rule 748px | **both full width.** A rule that changes length implies the level moved |
-
-Block 01's H1 is set much larger than `.c-1`: two words at 46px read as a placeholder.
-
-**The wireframe's open question on block 01 is still open.** The rule sits *under* "I'm Cydnie",
-which puts her above the surface on the one page arguing she was under it. Moving it above the
-name submerges it and matches the wordmark. It was left as drawn; it is a decision, not an
-oversight.
-
-### What came off the build, both pages
-
-Every one of these is a named ban in the guide, not a preference:
-
-- **The scroll progress bar.** A thin rule at the top that changes length reads as a waterline
-  that moves.
-- **The resurfacing gauge.** Same object on its side, plus a depth readout that counted.
-- **The condition's stepper rule**, for the same reason. The ticks carry the position.
-- **The sticky bottom bar** and **the slide in letter nudge**. The nudge's opener (`[data-letter]`
-  on the letter door) is now a real link to `#questions`, where the form actually is.
-- **Every loop.** `hero-breath` (34s, infinite alternate), `hero-drop` (3.6s), `breathe` on the
-  lead door, `breath-rise` on the bubbles, and the travelling light around the fifteen ring,
-  which was an endless `requestAnimationFrame`. The bubbles and the ring rest fully drawn.
-  Verified in the browser: zero elements with `animation-iteration-count: infinite`.
-- **The drawn waterline in the home hero, and only there.** The photograph carries a real
-  surface line at roughly 24% and the headline is vertically centred, so the two cannot be held
-  to one height across viewports. The guide's own instruction in that case is to drop the drawn
-  rule in the hero and keep it everywhere else, which is what this does. It is still on the
-  about head and at the about close.
-
-### Gradients
-
-The guide bans them brand wide. Removed: the six stop `.rise-band`, the `[data-zone]::before`
-seam that faded each zone into the next, the gauge fill, the hero descent line.
-
-`.rise-band` is now the brand's own construction: two solid fields with a hard edge. So are the
-zone seams, which is why the Surface to Silt to Fathom run now lands as edges rather than smears.
-Most of those boundaries were between near identical grounds and were invisible anyway.
-
-**Two gradients were deliberately kept and Cydnie should overrule if she disagrees:**
-
-- `.hero-scrim` and `.ab-head-scrim`. These are the reason type is legible on a photograph, not
-  colour decoration. Remove them and the headline is unreadable on both heroes.
-
-Nothing else. The `linear-gradient(colour, colour)` layers under the heroes and the rise band
-are solid fields expressed in gradient syntax, not gradients.
-
-### The two field hero fallback
-
-`.hero-water` and `.ab-head-water` now carry it: Meniscus over the top 24%, Fathom below, and a
-1px Meniscus rule at the meeting point overhanging both edges. The photograph paints over it at
-`z-index: 1`, so it is only ever seen when the image is missing or slow. A hole in the layout is
-no longer a possible state.
-
-**No drawn rule on the rise band.** The photograph on it has its own surface line and it is not
-at 46%; a drawn one would be a second waterline at a second height.
-
-### Motion, as it now stands
-
-- Reveals: opacity 0 to 1, translateY **8px**, **400ms**. Was 26px and 900ms.
-- Stagger **capped at 60ms in `initReveals`**, whatever a `data-stagger` attribute says. Inline
-  `--d` ladders were pulled down to a 60ms grid on both pages.
-- Parallax **hard capped at 12px** (`PAR_MAX` in `initScroll`), and every parallaxed image is
-  oversized to **112%** so the travel never reveals an edge. The hero was at 108% and the about
-  head at 106%.
-- Waterlines draw left to right, 900ms, once: **on load in the head, on entry elsewhere**. The
-  close rule used to draw on load while off screen, so nobody saw it.
-- Cards answer the pointer with **border colour only**, Meniscus to Breath, 150ms. Every lift,
-  scale and text nudge is gone from `.door`, `.card`, `.triad` and the hero pips.
-
-### Colour
-
-- **Held is one element per page.** About: a single Held hairline over block 04, which is where
-  the wireframe asked for it. Home: the hero's paid entry point. Verified by computed style —
-  exactly one element per page resolves to `#A65D5A` or `#CE908A`.
-- `--warm: var(--claim)` on the dark zones referenced a token **that has never existed**, so
-  `--warm` was silently falling back to the root value everywhere below the waterline. Nothing
-  reads `--warm` any more and the declaration is honest.
-- New role token **`--label`**, resolved per ground: Breath on dark water, Deepwater on Surface.
-  Every IBM Plex Mono label, `.link` and `.more` take it. Meniscus on Fathom measures about
-  2.4:1 and was being used as a text colour in several places.
-- Contrast sweep run on the about page: **one failure, `.held-rule`**, which is a decorative
-  hairline carrying no text.
-
-### Type
-
-- Every mono label is at **0.28em**, enforced by walking the rule blocks that set `var(--utility)`.
-  Several sat at .22em, .2em and .12em.
-- **Nothing in the carved face is below 1.4rem** any more, which is about 17pt. `.c-3`, `.pull`,
-  `.q-pull`, `.card h4`, `.story-lede`, `.ab-facts dd`, `.ab-beliefs` and `.ab-close-line` all
-  came up. `.num`, `.cond-num` and `.refuse dt` were carved at 15 and 16px, which is a display
-  face used as a label; they are IBM Plex Mono now.
-
-**IvyPresto Display still cannot be self hosted. There are no license files in this workspace** —
-`find` over the whole tree returns only August & Ivy, an unrelated script face. It stays first in
-the carved stack and the page renders in Instrument Serif until the files arrive. Nothing else
-will fix this.
-
-### Booking
-
-One wording everywhere: **"Book one conversation"**. Was "One conversation", "Start with one
-conversation", "Book a Sounding" and "Book one conversation" across the two pages.
-
-**The guide says the primary booking link appears three times. Home has five.** Cutting it to
-three means removing the Sounding door's own CTA and the CTA under The Work, which is a content
-decision about her doors, not a brand cleanup, so it was left for her.
-
-### About is now a destination, not an anchor
-
-`index.html` nav and footer both had **About pointing at `#story`**, the story block on the home
-page. The About page existed and nothing in the primary navigation reached it. Both now go to
-`/about/`, which with the story block's "Read the whole of it" makes three ways in from home.
-
-**`build_artifact.py` cross links the two artifacts.** A published artifact is one page, so
-`/about/` and `/` used to be rewritten to `https://cydniejocelyn.com/...`, a domain that is not
-live: every cross page link in the preview was a dead end. They now point at the other page's
-artifact, which is why the URLs are hardcoded in `ARTIFACT` at the top of the rewrite block.
-**If either artifact URL ever changes, change it there.** Root anchors (`/#retreat`) go to the
-home artifact with the anchor attached; on the home page itself they stay bare anchors.
-
-`href="/about/"` was also in the script's **dead links** tuple, alongside `/contact/` and the
-legal pages, which would have sent About to `#start`. It only ever worked because the replace
-above it had already consumed the string. Removed.
-
-Verified: **zero `href` attributes pointing at `cydniejocelyn.com` in either artifact.** The
-domain still appears in canonical, og and JSON-LD, which is correct.
-
-### The free product has one name
-
-It was **The letter** in the home door, **The twelve questions** in the closing form and both
-footers, and **The Letters** on the about page after the v6 copy went in. It is **The Letters**
-everywhere it is named now. Where the copy *describes* what arrives it still says the twelve
-questions, which is what those sentences are for: the product is The Letters, the contents are
-the twelve questions.
-
-### Block 04 is the same picker the home page uses before you book
-
-`initReversal` used to find `document.querySelector("[data-reversal]")`, the only one on the
-site. It now walks **every** `[data-reversal]` host and hands each to `buildReversal`. Two
-things moved onto the host so the two instances cannot collide:
-
-- `data-label` becomes the tablist's `aria-label`
-- `data-lede` is the line the picker writes into `.ready-lede` **in its own section**. That
-  lookup used to be a bare `document.querySelector(".ready-lede")`
-
-The markup lede never says "pick", because with no JS there is nothing to pick. The plain state
-is all three beliefs with their account under them, every word on the page, which is the only
-reason the picker is allowed to exist. **Verified with the head bootstrap stripped.**
-
-`.rev-pick[aria-selected="true"] .rev-mark` was hardcoded to Breath, which was right when the
-only picker sat on dark water and **invisible** on the Surface ground block 04 sits on. It takes
-`--label` now: Breath on dark, Deepwater on light.
-
-The old `.ab-beliefs li` rules are gone; the class is now spacing only and everything else comes
-from `.reversal`, so the two pickers cannot drift.
-
-**The three lines that open under the beliefs are not verbatim hers.** They are built from copy
-already on the page (the fourteen years, three days to decide and two weeks to leave, the room
-she stayed in) and they are account rather than argument, which is what "stated, not argued"
-asks for. **They need her eye before this is public.** There is a note to that effect in the
-markup above the block.
-
-### The display face on the about page
-
-Two headings moved from Instrument Sans to the carved stack, which is the face the home page
-sets "You didn't lose yourself" in:
-
-- 03 **"I came home and I quit."** — the end of the story used as the door
-- 04 **"God isn't an afterthought. He is the whole foundation."**
-
-Not the others. 02 is too long a sentence for a display face, and 05 and 08 are structural
-headings rather than liturgy, so the page alternates: carved for the personal, sans for the
-scaffolding. The CSS comment on `.carved` is the rule that decided it, and it was already
-written: *"Never for long lines; it is for the sentences that arrive as liturgy."*
-
-`.c-2` went from `clamp(1.45rem, 2.5vw, 2.05rem)` to `clamp(1.6rem, 2.9vw, 2.4rem)`. The carved
-face has a smaller x-height than Instrument Sans, so a carved heading set at `.h-2`'s size reads
-a step smaller than the sans headings beside it. **This also moves the home page's two `.c-2`
-headings**, Four ways in and the Greece edition, which is the point: they were quietly
-undersized too.
-
-### The workspace moved
-
-The project now lives at **`~/Desktop/cydniejocelyn-v2/`**, and the old `Claude Code` folder is
-inside it. Every path in an older note that starts `~/Desktop/Claude Code/cydniejocelyn-v2` is
-one level off. The preview mirror's `sync.sh` excludes `CydnieJocelyn-Site`, `cydniejocelyn` and
-the `* copy` folders, or the rsync copies 59GB of source material into the scratchpad.
-
-### The movement bar is back, on purpose
-
-It was removed in the brand pass as a scroll progress bar. Cydnie asked for it back and named
-what it is for: it shows the movement of resurfacing. It is also a **different object** from the
-one the guide bans, which is a thin rule *across the top* that changes length and so reads as a
-waterline that moves. This is vertical, on the side, and reports a depth. The fill is solid
-Breath now rather than a gradient, and the whole instrument inverts to Deepwater under
-`.is-surfaced` so it stays legible once the page goes light. Hidden below 62rem: there is no
-room for it on a phone.
-
-**The depth readout still counts** (40m down to Surface). That is the part nearest the guide's
-"no count up on numbers", and it is also the part that makes it read as resurfacing rather than
-as generic progress. Left in deliberately; it is a one line change if she wants it flat.
-
-### Two things that move without looping
-
-Both were loops that the brand pass killed. They are driven by the scroll instead, which is
-movement that resolves once and then stops, so neither implies weather.
-
-- **The breath**, `initBreath`. Three bubbles rise as the band crosses the viewport, staggered by
-  `lag`, capped by `travel`. The ramp is `RAMP = 0.5` and the last lag is `0.20`, so the last
-  bubble finishes at `p = 0.70`, **while the band is still on screen**. At the first values it
-  froze at -59px and never reached the surface. The out of view guard is ±400px for the same
-  reason. Transform written straight onto the element, because a transition may never advance
-  here and a keyframe would be a loop.
-- **Fifteen**, `initFifteen`. Fourteen fill in ring order as she passes and the fifteenth stays
-  open. The dots are sorted by angle from the open one, so the count runs all the way round and
-  stops where the argument is. `is-counting` and the empty state arrive **together**, inside the
-  watcher, and `frame()` runs immediately after, so the ring is never blank waiting for a frame.
-  A 2.6s backstop fills it if nothing ever reports.
-
-### Mobile, and the hamburger
-
-The old rule was `@media (max-width: 55.99rem) { .nav-links { display: none } }`. That is all it
-was: **a phone had no navigation at all**, and nothing to open.
-
-- The links and the header CTA are wrapped in `.nav-menu#nav-menu`. On desktop that wrapper is
-  `display: contents`, so the header row is exactly what it was. Under 56rem it becomes the panel.
-- **The CTA is inside the panel**, because `Book one conversation` at 375px ran 21px past the
-  gutter and was cut off at the screen edge. Full width, one tap in.
-- `has-menu` is set by `initNav` and nothing else. Without it none of the collapsing applies, so
-  **no JS gets the links as a plain wrapped row** rather than nothing. The hamburger is hidden in
-  that state too: an inert control is worse than no control.
-- Escape closes and returns focus to the button, a link closes on the way out, focus leaving the
-  panel closes it, clicking past it closes it, and `body` scroll is locked while it is open.
-  Crossing back over 56rem force closes, so a rotation cannot leave the body locked.
-- Verified at 375x812: **no horizontal overflow on either page**, every menu link 74px tall, and
-  the only sub 44px targets are inline links inside prose.
-
-### Correction: node, npm and the Vercel CLI ARE installed
-
-Earlier notes say "not installed, so no Vercel CLI either". That is **wrong** and it cost time.
-They are at **`~/.local/bin/`**, which is not on the PATH a non interactive shell gets:
-
-```
-~/.local/bin/node    v24.19.0
-~/.local/bin/npm
-~/.local/bin/vercel  59.5.0
-```
-
-Export it first and everything works:
+`node`, `npm`, `vercel` and `gh` are all in **`~/.local/bin/`**, which a non interactive shell
+does not inherit. Three sessions went looking for workarounds that were never needed. Always:
 
 ```
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-The CLI is **already authenticated** (`vercel whoami` gives `hello-66457178`) and the project is
-**already linked**: `.vercel/project.json` points at `cydniejocelyn-v2` under the `cydnie-jocelyn`
-team. There is a production deployment from 26 Aug on
-`https://cydniejocelyn-v2-79fkad442-cydnie-jocelyn.vercel.app`.
-
-**There is no custom domain on this project.** `vercel domains ls` lists only `famfundays.org`
-and `famfundays.com`, which belong to something else. So `--prod` here publishes to a
-`.vercel.app` URL, not to cydniejocelyn.com. Worth knowing before anyone worries about a
-production deploy.
-
-The auth token is at `~/Library/Application Support/com.vercel.cli/auth.json`. **Do not read it
-and do not put it in a request.** The CLI reads it itself; that is the whole point of it.
-
-### Three links will 404 the moment this deploys
-
-Checked against what actually exists in the repo:
-
-| Link | In | Exists |
-|---|---|---|
-| `/about/` | both pages | yes |
-| `/contact/` | home footer | **no** |
-| `/legal/privacy/` | home footer | **no** |
-| `/legal/terms/` | home footer | **no** |
-
-**This is invisible in the artifact preview**, because `build_artifact.py` rewrites all three to
-`#start`. It only shows up on the deployed site. `/contact/` has an obvious answer, since the
-same footer already carries `hello@cydniejocelyn.com` as a mailto. The two legal pages need
-either real copy or removal, and that is Cydnie's call, not one to make quietly: the letter form
-collects email addresses, so a privacy link is the kind of thing you want to be deliberate about.
-
-### It is deployed, and it is behind a login
-
-`vercel deploy --prod --yes` on 26 Aug:
-
-**https://cydniejocelyn-v2-ih9g1tilk-cydnie-jocelyn.vercel.app**
-
-**Deployment Protection is on**, so every request 302s to `vercel.com/sso-api` and only a signed
-in member of the `cydnie-jocelyn` team can see the site. A plain `curl` gets 200 on *everything*,
-including paths that do not exist, because it is being handed the login page. That is a trap:
-**do not test this deployment with plain curl and conclude anything.** Use `vercel curl`, which
-carries the auth and shows the real response.
-
-Turning it off is a project setting, in the dashboard, not in the CLI:
-**Project Settings, Deployment Protection, Vercel Authentication, Disabled.**
-
-Verified through the protection with `vercel curl`, so this is the real deployed output and not
-the login page:
-
 | | |
 |---|---|
-| `/` | the home page, correct `<title>` |
-| `/about/` | the about page, correct `<title>` |
-| `/about` | 307 to `/about/`, so `trailingSlash` works |
-| `/assets/css/site.css` | `text/css`, `max-age=31536000, immutable` |
-| headers | `x-content-type-options` and `referrer-policy` both applied |
+| `gh` | 2.98.0, logged in as `Cydniejocelyn`, scopes `read:org` and `repo` |
+| `vercel` | 59.5.0, authenticated as `hello-66457178` |
+| `node` | v24.19.0 |
 
-So `vercel.json` is doing its job: the year of immutable caching on `/assets` and both security
-headers are live.
+### GitHub
 
-**This project deploys from the CLI, not from Git.** The GitHub push being blocked does not block
-deploying. They are independent, and it is worth not conflating them again.
+**The old remote pointed at a repository that does not exist.** `Cydniejocelyn/cydniejocelyn`
+was a guess by an earlier session, based on how `jocelyncotravel` is named, and `gh repo view`
+resolves it to nothing. The SSH key generated on 25 Aug is also still not on her account, so
+`git@github.com` still answers `Permission denied (publickey)`.
 
-### Still open after this pass
+Neither mattered in the end. `gh` was already authenticated, so:
 
-- **The home footer still links the She Rises Through It podcast.** The wireframe says it comes
-  off with the podcast shelved. The footer tagline it names does not exist in this build, so
-  only the link is left. Whether the podcast is actually shelved is still not in any file.
-- The two unwired forms, `/contact/` and `/legal/*`, and the push. All unchanged.
-- Both artifacts were rebuilt and republished on 25 Aug. **`df17491f` is shared with anyone
-  holding the link and those viewers see a pinned earlier version**, not the live one, so
-  republishing does not change what they see. Repin it from the artifact's share menu when the
-  new build should go out.
+- `gh auth setup-git` wires `gh` in as the git credential helper over **HTTPS**
+- the repo was created: **https://github.com/Cydniejocelyn/cydniejocelyn.com**, **private**
+- `origin` is now `https://github.com/Cydniejocelyn/cydniejocelyn.com.git`
 
----
+Named to match her own convention: her other site repo is `famfundays.com`. Rename in the
+GitHub UI and `git remote set-url` if she wants something else.
+
+**The SSH key is now moot.** Do not spend another session on it. If SSH is ever wanted, the
+public half is in the old note below; otherwise HTTPS through `gh` works and needs nothing.
+
+### Vercel
+
+Deployed from the **CLI, not from Git**. The two are independent and have been conflated twice.
+See "It is deployed, and it is behind a login" below.
 
 ## Where things are
 
