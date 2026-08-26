@@ -924,6 +924,26 @@ outside its figure.
 and the rail all run to, because it was capped at `58rem` to keep it short. It runs the full
 wrap now and the height comes out of a 4:3 ratio instead.
 
+### No average rating, anywhere
+
+The Costa Rica form got six responses. That was published two ways: **9.7 out of 10** in the
+lede of the Costa Rica block on `/retreats/`, and an **`AggregateRating` of 4.8 from a
+`ratingCount` of 6** in the home page's structured data, which is the same claim in the form
+that surfaces as stars in a search result.
+
+**Cydnie took both out on 26 August 2026** and her reasoning is the right one: six is not a
+sample. One person moves it by two tenths, and printing it invites the arithmetic that makes
+the week look worse than the women's own words do.
+
+- The visible line now points at the quotes instead of scoring them.
+- `llms.txt` says explicitly that no average is published and none should be quoted.
+- The three individual `Review` entries on the home page **stay**. Each is a real, attributed
+  quotation already visible on the page; the objection was to an average, not to testimony.
+
+If a real sample ever exists, the figure goes back in **three places in the same commit**: the
+retreats page, `llms.txt`, and an `aggregateRating` on `#retreat-service`. The raw responses
+are in `CydnieJocelyn-Site/Reviews/`.
+
 ### No em dashes
 
 Cydnie asked for them out. There were three, all `&mdash;`, all on the Greece page, all from

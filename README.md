@@ -120,17 +120,24 @@ it answers the reader.
 column grids collapsed to a single narrow column all the way from 480px to 992px, which is what
 made the page look unresponsive on an iPad.
 
-## Ratings, and what is marked up
+## Ratings: there is no average anywhere, and that is deliberate
 
-The page shows two figures. **9.7 out of 10** is the average of the six Costa Rica feedback
-responses, which are first-party and in `CydnieJocelyn-Site/Reviews/`. **5.0 on Google** is
-shown as plain text only.
+**Nothing on this site publishes an average score.** The Costa Rica feedback form got six
+responses, and an average of six is not a rating: one person moves it by two tenths. It was on
+the retreats page as 9.7 out of 10 and in the home page's structured data as an
+`AggregateRating` of 4.8 from a `ratingCount` of 6, and Cydnie took both out on
+26 August 2026. She is right. The quotations are stronger than any figure derived from them.
 
-Only the retreat figure is in the structured data (`AggregateRating`, `ratingCount` 6). The
-Google rating is deliberately not marked up: Google's own structured-data guidelines exclude
-ratings collected from Google, and publishing a `reviewCount` that cannot be verified is the
-kind of claim that gets rich results suppressed. If you want Google in the schema, the review
-count has to come from the profile and be stated exactly.
+What stays: the individual `Review` entries in the home page's `@graph`. Each is a real,
+attributed quotation the site already shows on the page, not an average.
+
+The raw responses are first-party and live in `CydnieJocelyn-Site/Reviews/`. If a real sample
+ever exists, the figure goes back in three places in the same commit: the retreats page,
+`llms.txt`, and an `aggregateRating` on `#retreat-service`.
+
+**5.0 on Google** is plain text only and is deliberately not marked up: Google's own
+structured-data guidelines exclude ratings collected from Google, and a `reviewCount` that
+cannot be verified is the kind of claim that gets rich results suppressed.
 
 ## Before launch: required wiring
 
