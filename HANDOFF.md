@@ -276,10 +276,27 @@ sit directly on the page.
   a little larger than SRS's bold geometric letters to hold the same weight, so the rendered
   wordmark heights are 74/66/62px rather than dead level. That is deliberate. Retune the
   multiplier on the case, never the rule.
-- **The shipped page sits in a drawn device.** Chassis, bezel, corner radius and earpiece slot
-  are all CSS off a single `--bezel`, not baked into the image, so the frame stays sharp at any
-  size and the underlying crop stays reusable. A bare screenshot on an empty ground read as a
-  cropped picture rather than something running.
+- **The shipped page sits in a drawn iPhone.** Chassis, bezel, corner and Dynamic Island are
+  CSS, not baked into the image, so the frame stays sharp at any size and the crop underneath
+  stays reusable. The first version was a lozenge: its radius was a multiple of the bezel and
+  landed at **23% of the device width**, where a real iPhone's corner is about 10%. Everything
+  is now a fraction of `--dev-w`, taken off the real proportions:
+
+  | | |
+  |---|---|
+  | bezel | 3.6% of width, even on all four sides |
+  | corner | 11.5% of width — and the screen's corner is that **minus the bezel**, so the two curves are concentric. Non-concentric corners are the single thing that makes a drawn phone look drawn. |
+  | island | 30% wide, 8.5% tall, a bezel's depth below the top, over the screen the way it really sits |
+
+  **Every part of the frame derives from `--dev-w`, so the mobile override must set `--dev-w`
+  and never `width`.** It set `width` at first, which left a 76px phone drawing a 96px phone's
+  corner — 14.5% instead of 11.5%, straight back to the lozenge. Verified identical at 1440
+  and 375.
+
+  No side buttons: at 76–136px they land under two pixels wide and read as rendering artefacts
+  rather than hardware. The corners are CSS `border-radius`, a circular arc rather than Apple's
+  continuous squircle; at a 9–16px radius that difference is sub-pixel, and buying it would
+  cost a mask plus a filter-based shadow plus a wrapper element.
 - The mark's **height drives and width follows** (`width: auto`). `width: 100%` made the box
   wider than the ink, and on a phone that letterboxing opened a visible void between the mark
   and the phone beside it. For the same reason `.case-show` is `minmax(0, auto) auto` with
