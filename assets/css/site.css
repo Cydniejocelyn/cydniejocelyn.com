@@ -101,13 +101,23 @@ button { font: inherit; color: inherit; }
    return to depth for the origin story, deep again for the footer.
    Each zone declares --from so its top edge fades out of the zone above
    it and the change never reads as a band. */
-/* The seam between two grounds used to be a gradient fading the zone above
-   into the zone below. Gradients are banned brand wide, and the brand's own
-   answer to two colours meeting is already written: two solid fields and a
-   hard edge. Most of these boundaries are between near identical grounds and
-   were invisible anyway; the one real light to dark change now lands as an
-   edge rather than a smear. */
+/* The seam between two grounds. This was a gradient, then a hard edge for a
+   while on a reading of "no gradients anywhere", and it is a seam again
+   because a hard edge between a light section and a dark one reads as two
+   pages stapled together rather than one surface.
+
+   It is not a colour gradient. It is a single colour, the ground above,
+   fading out over its own transparency: an opacity ramp, not a spectrum.
+   Nothing changes hue across it and nothing shifts. `--from` is declared per
+   section, and a section that does not declare one has no seam at all. */
 [data-zone] { position: relative; }
+[data-zone]::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0;
+  height: clamp(2.5rem, 6vw, 5.5rem);
+  background: linear-gradient(180deg, var(--from, transparent), transparent);
+  pointer-events: none; z-index: 0;
+}
+[data-zone] > * { position: relative; z-index: 1; }
 [data-zone] > * { position: relative; z-index: 1; }
 
 .z-breath, .z-deep {
@@ -136,11 +146,20 @@ button { font: inherit; color: inherit; }
    and it does not move. */
 .rise-band {
   position: relative;
-  background:
-    linear-gradient(var(--fathom), var(--fathom)) top    / 100% 46% no-repeat,
-    linear-gradient(var(--surface), var(--surface)) bottom / 100% 54% no-repeat,
-    var(--surface);
   overflow: hidden;
+  /* The photograph is 1800x690. The band takes that shape, so `cover` has
+     nothing to crop: it was being sliced 118px off the sides and chopped
+     flat at the foot. Capped so it cannot become a wall on a wide screen. */
+  aspect-ratio: 1800 / 690;
+  min-height: 13rem;
+  max-height: 34rem;
+  display: grid; place-items: center;
+  /* solid fields behind it, split where the photograph's own horizon sits,
+     so a failed image degrades to the construction rather than to a hole */
+  background:
+    linear-gradient(var(--fathom), var(--fathom)) top    / 100% 40% no-repeat,
+    linear-gradient(var(--surface), var(--surface)) bottom / 100% 60% no-repeat,
+    var(--fathom);
 }
 /* No drawn rule here. The photograph on top of this band carries its own
    surface line and it does not sit at 46%; a drawn rule would be a second
@@ -1466,17 +1485,34 @@ button.door-note {
 .layer-slot span { display: block; margin-top: var(--s-2); letter-spacing: .04em; text-transform: none; font-size: .8125rem; color: var(--ink); }
 
 /* Image inside the rise band: it is the surface seen from underneath. */
+/* The photograph is the transition. It runs dark at the top and light at the
+   foot, so the band carries the reader from the deep section above into the
+   light one below without a drawn edge anywhere. It used to be masked away
+   from 62% down, which is what chopped the water off flat.
+
+   The mask is now only a short dissolve at each end, enough to marry the
+   photograph's own top and bottom to the exact brand colours behind it. */
 .rise-band .layer-band {
   position: absolute; inset: 0; background: none;
   aspect-ratio: auto;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 62%, transparent 96%);
-  mask-image: linear-gradient(180deg, transparent, #000 22%, #000 62%, transparent 96%);
-  opacity: .55;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 32%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 32%, #000 88%, transparent 100%);
+  opacity: .92;
+}
+.rise-band .layer-band img {
+  width: 100%; height: 100%; max-width: none;
+  object-fit: cover; object-position: 50% 50%;
 }
 /* The band is a breath between two long sections, so it is sized like one.
    It used to run 1469px, taller than the screen it sits on, because the
    ornament below had no width and took the wrap's. */
-.rise-band .wrap { position: relative; padding-block: clamp(var(--s-7), 13vw, var(--s-10)); text-align: center; }
+.rise-band .wrap {
+  position: relative; grid-area: 1 / 1;
+  padding-block: 0; text-align: center;
+  /* centred by the grid rather than pushed by padding: padding tall enough
+     to outgrow the aspect ratio makes the band taller than the photograph
+     and brings the cropping straight back */
+}
 
 /* ---------- THE BREATH --------------------------------------
    Three bubbles leaving the dark and breaking the surface. Small on
@@ -1489,6 +1525,9 @@ button.door-note {
   height: auto;
   margin-inline: auto;
   overflow: visible;
+  /* pushed down so they begin in the deep water rather than level with the
+     surface, and so the travel above stops short of breaking it */
+  transform: translateY(26%);
 }
 /* Pale fill with a dark rim, the way a bubble actually looks from under
    it. The rim is what keeps them on the lit part of the water: Breath
@@ -1503,6 +1542,7 @@ button.door-note {
 .surfacing .b2 { --o: .72; }
 .surfacing .b3 { --o: .9; }
 .surfacing p {
+  text-shadow: 0 1px 14px rgba(7, 26, 31, .55);
   margin-top: var(--s-4);
   font-family: var(--utility);
   font-size: .75rem; letter-spacing: .28em; text-transform: uppercase;
@@ -1519,15 +1559,15 @@ button.door-note {
    be relied on to apply, where a transition may never advance. The state
    below is the finished one, so a browser that never gives us a frame shows
    three bubbles at the surface rather than three bubbles on the floor. */
-.surfacing .b1 { transform: translateY(-34px) scale(1.16); }
-.surfacing .b2 { transform: translateY(-52px) scale(1.28); }
-.surfacing .b3 { transform: translateY(-74px) scale(1.40); }
+.surfacing .b1 { transform: translateY(-20px) scale(1.14); }
+.surfacing .b2 { transform: translateY(-29px) scale(1.24); }
+.surfacing .b3 { transform: translateY(-38px) scale(1.34); }
 
 @media (prefers-reduced-motion: reduce) {
   .surfacing .bub { transform: none; }
-  .surfacing .b1 { transform: translateY(-34px) scale(1.16) !important; }
-  .surfacing .b2 { transform: translateY(-52px) scale(1.28) !important; }
-  .surfacing .b3 { transform: translateY(-74px) scale(1.40) !important; }
+  .surfacing .b1 { transform: translateY(-20px) scale(1.14) !important; }
+  .surfacing .b2 { transform: translateY(-29px) scale(1.24) !important; }
+  .surfacing .b3 { transform: translateY(-38px) scale(1.34) !important; }
 }
 
 /* ---------- 21. WATER LAYERS -------------------------------- */
@@ -1786,6 +1826,31 @@ main > * { position: relative; z-index: 1; }
 }
 .ways-letters p { color: var(--muted); font-size: .9375rem; line-height: 1.6; max-width: 42rem; }
 .ways-letters b { font-weight: 400; color: var(--ink); }
+
+/* The booking link, as a link. Not a button, not a card, not a fill: a
+   Meniscus underline that answers the pointer. It reads the same in the
+   hero, in the offers and at the close, which is the whole point of it
+   appearing exactly three times. */
+.booking {
+  display: inline-block;
+  font-family: var(--utility);
+  font-size: .75rem; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
+  padding-bottom: var(--s-1);
+  border-bottom: 1px solid var(--meniscus);
+  transition: border-color 150ms var(--ease-out), color 150ms var(--ease-out);
+}
+.booking:hover, .booking:focus-visible { color: var(--breath); border-bottom-color: var(--breath); }
+.ab-head-book { margin-top: clamp(var(--s-5), 5vh, var(--s-6)); }
+.ab-close-book { margin-top: var(--s-6); }
+
+/* The quiet way to the Questions page, in body text, after the offers.
+   No accordion: that page already owns the objections. */
+.ways-questions {
+  margin-top: var(--s-5);
+  max-width: 42rem;
+  font-size: .9375rem; line-height: 1.6; color: var(--muted);
+}
 
 /* 09. One line, one rule the same width as the head rule, and room under
    it. Water is level, so the rule does not change between sections. */

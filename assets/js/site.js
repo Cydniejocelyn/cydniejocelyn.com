@@ -259,42 +259,54 @@
     var bubs = Array.prototype.slice.call(band.querySelectorAll(".bub"));
     if (!bubs.length) return;
 
-    /* Where each one ends up, and how far behind the one in front it goes.
-       The end state is also the resting state in the CSS, so if none of this
-       ever runs the three still stand as a column going at the line. */
+    /* Where each one ends up, how far behind the one in front it goes, and
+       the phase of its drift. The travel stops short of the surface: they
+       are air on its way up, not air that has already left. */
     var SET = [
-      { travel: -34, grow: 0.16, delay:   0 },
-      { travel: -52, grow: 0.28, delay: 220 },
-      { travel: -74, grow: 0.40, delay: 440 }
+      { travel: -20, grow: 0.14, delay:   0, phase: 0.0, sway: 2.6 },
+      { travel: -29, grow: 0.24, delay: 220, phase: 2.1, sway: 3.4 },
+      { travel: -38, grow: 0.34, delay: 440, phase: 4.2, sway: 4.2 }
     ];
     var RISE = 1500;                      /* one breath, not a hurry */
 
+    /* How far the band has crossed the viewport, nought to one. Everything
+       lateral is a function of this rather than of the clock, which is why
+       the drift is not a loop: it only moves while she does. */
+    function crossing() {
+      var r = band.getBoundingClientRect();
+      var vh = window.innerHeight || 1;
+      return Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
+    }
+
+    /* Air does not go straight up. Each one leans on its own phase, so the
+       three never move as one object. Amplitude is small on purpose. */
+    function drift(cfg, t) {
+      return Math.sin(crossing() * 5.2 + cfg.phase) * cfg.sway * t;
+    }
+
     function place(b, cfg, t) {
-      b.style.transform = "translateY(" + (t * cfg.travel).toFixed(2) + "px)"
-                        + " scale(" + (1 + t * cfg.grow).toFixed(3) + ")";
+      b.style.transform =
+        "translate(" + drift(cfg, t).toFixed(2) + "px," + (t * cfg.travel).toFixed(2) + "px)" +
+        " scale(" + (1 + t * cfg.grow).toFixed(3) + ")";
     }
     function settle() {
       bubs.forEach(function (b, i) { place(b, SET[i] || SET[2], 1); });
     }
 
-    /* Reduced motion, or no frames: they are simply already up. */
     if (reduce.matches) { settle(); return; }
 
-    /* Slow out. Fast off the floor, easing as the pressure comes off it,
-       which is how a bubble actually behaves and also how a held breath
-       leaves you. */
+    /* Slow out. Fast off the floor, easing as the pressure comes off it. */
     function ease(x) { return 1 - Math.pow(1 - x, 3); }
 
-    var started = false;
+    var started = false, risen = false;
 
     function play() {
       if (started) return;
       started = true;
 
-      /* They are only ever moved down from inside a frame. If frames never
-         come, nothing touches them and the CSS resting state stands, which
-         is the three already at the surface. Dropping them to the floor
-         first and then waiting to find out would strand them there. */
+      /* They are only ever moved from inside a frame. If frames never come,
+         nothing touches them and the CSS resting state stands, which is the
+         three already up. Dropping them first would strand them. */
       var t0 = null, done = false;
       function step(now) {
         if (done) return;
@@ -307,22 +319,27 @@
           place(b, cfg, ease(Math.max(0, Math.min(1, t))));
         });
         if (live) window.requestAnimationFrame(step);
-        else done = true;
+        else { done = true; risen = true; }
       }
       window.requestAnimationFrame(step);
 
-      /* Frames are not guaranteed here. If the rise has not finished by the
-         time it should have, put them where they were always going to end
-         up. Never leave them on the floor. */
       window.setTimeout(function () {
         if (done) return;
-        done = true;
+        done = true; risen = true;
         settle();
       }, RISE + SET[2].delay + 400);
     }
 
-    /* It plays once, when she reaches the band. Nothing loops. */
+    /* Once she is up, the drift keeps answering the scroll. It resolves at
+       every position rather than repeating on a clock, so nothing loops. */
+    function sway() {
+      if (!risen) return;
+      settle();
+    }
+
     watch(band, play, null, true);
+    window.addEventListener("scroll", sway, { passive: true });
+    window.addEventListener("resize", sway, { passive: true });
   }
 
   /* ---------- 5c. The menu ----------------------------------
