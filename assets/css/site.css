@@ -632,6 +632,22 @@ button { font: inherit; color: inherit; }
       rgba(7,26,31,.28) 60%, rgba(7,26,31,.80) 90%, var(--fathom) 100%);
 }
 
+/* A photograph that is bright exactly where the words are. Both retreat
+   heroes are: a pool at noon and a lit house against a dusk sky. The shared
+   scrim falls to .06 at 22% of the height because the home page's
+   photograph is already dark through the middle, and on these two that put
+   Surface type over open water at around 3:1. This one does not fall as
+   far. Same two gradients, same construction, higher floor. */
+.hero--bright .hero-scrim {
+  background:
+    linear-gradient(90deg,
+      rgba(7,26,31,.94) 0%, rgba(7,26,31,.88) 34%,
+      rgba(7,26,31,.66) 60%, rgba(7,26,31,.46) 82%, rgba(7,26,31,.40) 100%),
+    linear-gradient(180deg,
+      rgba(7,26,31,.78) 0%, rgba(7,26,31,.52) 10%, rgba(7,26,31,.34) 24%,
+      rgba(7,26,31,.46) 60%, rgba(7,26,31,.84) 90%, var(--fathom) 100%);
+}
+
 .hero-in { display: grid; gap: var(--s-7); align-items: center; width: 100%; }
 @media (min-width: 62rem) {
   .hero-in { grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-8); }
@@ -2379,6 +2395,316 @@ main > * { position: relative; z-index: 1; }
   font-size: clamp(1.5rem, 3.4vw, 2.6rem);
   line-height: 1.18; letter-spacing: .04em; color: var(--ink);
   max-width: 19ch;
+}
+
+/* ---------- 25. THE RETREATS --------------------------------
+   /retreats/ and /retreats/greece/. Per the colour notes, retreats is the
+   one place allowed to run deeper than the rest of the site: dark reads as
+   evening and away here rather than as weight. Both pages open deep, come
+   up for the practical middle, and go back down for the close.
+
+   Almost everything here is a photograph, which is the opposite of every
+   other page. So the rules below are mostly about giving pictures a frame
+   that is not a box: fixed aspect so nothing reflows, a caption in the
+   utility face, and a hairline rather than a border.
+   ------------------------------------------------------------ */
+
+/* --- The hero fact strip. Dates, place, seats: the three things a woman
+   deciding on a retreat looks for before she reads a word of the prose.
+   A definition list, so it is those three things to a screen reader too. */
+.rt-facts {
+  display: grid; gap: var(--s-4);
+  margin-top: var(--s-6);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--rule);
+}
+@media (min-width: 30rem) { .rt-facts { grid-template-columns: repeat(3, auto); justify-content: start; column-gap: clamp(var(--s-5), 6vw, var(--s-8)); } }
+.rt-facts dt {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--label);
+}
+.rt-facts dd { margin: var(--s-1) 0 0; font-size: 1.0625rem; color: var(--ink); }
+
+/* --- Status. One word about whether a date can be bought, said in the
+   same register as the eyebrow so it never reads as a badge or a counter.
+   No number of seats remaining anywhere: that is a countdown, and this
+   brand does not run those. */
+.rt-status {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--muted);
+}
+.rt-status::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor; flex: none;
+}
+.rt-status--open { color: var(--label); }
+.rt-status--full { color: var(--warm); }
+
+/* --- The figures. Two or three numerals with a line of type under each.
+   Carved, because these are the certainties on the page. */
+.rt-count { display: grid; gap: var(--s-5); margin-top: clamp(var(--s-6), 6vw, var(--s-8)); }
+@media (min-width: 34rem) { .rt-count { grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--s-6); } }
+.rt-count > div { padding-top: var(--s-4); border-top: 1px solid var(--rule); }
+.rt-count b {
+  display: block; font-family: var(--carved); font-weight: 400;
+  font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1; color: var(--ink);
+}
+.rt-count span {
+  display: block; margin-top: var(--s-3);
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--muted);
+}
+
+/* --- The calendar. Each date is a row with a photograph, not a card: same
+   refusal of the box that governs the offers on the home page. The whole
+   row is not a link, because a row with two destinations in it that is
+   also itself a link is a trap for anyone tabbing. */
+.rt-cal { border-top: 1px solid var(--rule); }
+.rt-date {
+  display: grid; gap: var(--s-5);
+  padding-block: clamp(var(--s-6), 5vw, var(--s-8));
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 48rem) {
+  .rt-date { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(var(--s-5), 4vw, var(--s-7)); align-items: center; }
+  /* the second date leads with its copy, so two dates do not land as two
+     identical stamps down the page */
+  .rt-date--flip .rt-date-fig { order: 2; }
+}
+.rt-date-fig { margin: 0; position: relative; overflow: hidden; }
+.rt-date-fig img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.rt-date-when {
+  font-family: var(--utility); font-size: .75rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+  margin-top: var(--s-3);
+}
+.rt-date h3 { margin-top: var(--s-2); }
+.rt-date p { color: var(--muted); max-width: 42rem; margin-top: var(--s-4); }
+.rt-date .actions { margin-top: var(--s-5); }
+
+/* --- The property gallery. A grid that gives one picture more room than
+   the rest, because five equal tiles read as a contact sheet and a retreat
+   is not a listing. Every tile is a button that opens the lightbox; with
+   no JS they are plain figures and the page is unharmed. */
+.rt-gal { display: grid; gap: var(--s-3); margin-top: clamp(var(--s-6), 6vw, var(--s-7)); }
+@media (min-width: 40rem) {
+  .rt-gal { grid-template-columns: repeat(4, 1fr); gap: var(--s-4); }
+  .rt-gal > *:first-child { grid-column: span 2; grid-row: span 2; }
+}
+.rt-shot { margin: 0; position: relative; overflow: hidden; background: var(--field); }
+.rt-shot img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.rt-gal > .rt-shot:first-child img { aspect-ratio: 1 / 1; }
+@media (max-width: 39.99rem) { .rt-gal > .rt-shot:first-child img { aspect-ratio: 4 / 3; } }
+.rt-shot figcaption {
+  margin-top: var(--s-2);
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+}
+/* The whole tile is the control once JS is here. `is-live` is added by
+   site.js, so nothing advertises an interaction that cannot happen. */
+.rt-shot.is-live { cursor: zoom-in; }
+.rt-shot.is-live img { transition: transform var(--t-slow) var(--ease-out); }
+.rt-shot.is-live:hover img,
+.rt-shot.is-live:focus-within img { transform: scale(1.028); }
+.rt-shot button {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  background: none; border: 0; padding: 0; cursor: inherit;
+}
+.rt-shot button:focus-visible { outline: 2px solid var(--breath); outline-offset: -3px; }
+
+/* --- The lightbox. Deliberately plain: the picture, its caption, and the
+   two ways out. No captions animating in, no counter, no thumbnails. */
+.lbx {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; grid-template-rows: 1fr auto;
+  background: rgba(7, 26, 31, .96);
+  padding: clamp(var(--s-4), 4vw, var(--s-6));
+}
+.lbx[hidden] { display: none; }
+.lbx-stage { display: grid; place-items: center; min-height: 0; }
+.lbx-stage img {
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto; object-fit: contain;
+}
+.lbx-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-4); padding-top: var(--s-4); margin-top: var(--s-4);
+  border-top: 1px solid rgba(159, 204, 198, .22);
+}
+.lbx-cap {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .2em; text-transform: uppercase; color: #A8C4C0;
+}
+.lbx-nav { display: flex; gap: var(--s-2); }
+.lbx-nav button, .lbx-x {
+  background: none; border: 1px solid rgba(159, 204, 198, .3);
+  color: var(--surface); width: 44px; height: 44px;
+  display: grid; place-items: center; cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.lbx-nav button:hover, .lbx-x:hover { border-color: var(--breath); color: var(--breath); }
+.lbx-x { position: absolute; top: clamp(var(--s-4), 4vw, var(--s-6)); right: clamp(var(--s-4), 4vw, var(--s-6)); }
+
+/* --- The video. A poster and a play control until it is asked for, so
+   nothing from YouTube loads, and nobody is tracked, unless she presses it.
+
+   Melissa recorded this on her phone in her car, so the frame is 9:16 and
+   the poster is the real one rather than YouTube's padded plate. Framing it
+   as a wide player would promise a production that does not exist. */
+.rt-video { display: grid; gap: clamp(var(--s-5), 5vw, var(--s-7)); align-items: center; }
+@media (min-width: 48rem) { .rt-video { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); } }
+/* An anchor, not a button: with no JS it is simply a link out to the video,
+   which is a working answer rather than a dead control. */
+.rt-play {
+  position: relative; display: block; width: 100%; max-width: 22rem;
+  padding: 0; border: 0; background: var(--fathom); cursor: pointer;
+  text-decoration: none; aspect-ratio: 9 / 16; overflow: hidden;
+}
+.rt-play img { width: 100%; height: 100%; object-fit: cover; }
+.rt-play iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.rt-play::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(7,26,31,.06), rgba(7,26,31,.42));
+  pointer-events: none;
+}
+.rt-play.is-playing::after, .rt-play.is-playing .rt-play-btn { display: none; }
+.rt-play-btn {
+  position: absolute; left: 50%; top: 50%; z-index: 2;
+  width: 4.5rem; height: 4.5rem; margin: -2.25rem 0 0 -2.25rem;
+  border-radius: 50%; border: 1px solid rgba(231, 236, 232, .6);
+  background: rgba(7, 26, 31, .38);
+  display: grid; place-items: center; color: var(--surface);
+  transition: background var(--t-mid) var(--ease-out), border-color var(--t-mid) var(--ease-out);
+}
+.rt-play:hover .rt-play-btn, .rt-play:focus-visible .rt-play-btn {
+  background: var(--breath); border-color: var(--breath); color: var(--fathom);
+}
+.rt-play-btn svg { margin-left: 3px; }
+
+/* --- The hosts. Portrait beside the account, and the second one reverses,
+   which is the same rule the client cases follow on The Build. */
+.rt-person { display: grid; gap: var(--s-5); align-items: start; }
+.rt-person + .rt-person { margin-top: clamp(var(--s-7), 7vw, var(--s-9)); padding-top: clamp(var(--s-6), 6vw, var(--s-8)); border-top: 1px solid var(--rule); }
+@media (min-width: 48rem) {
+  .rt-person { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(var(--s-5), 5vw, var(--s-7)); }
+  .rt-person--flip > figure { order: 2; }
+}
+.rt-person figure { margin: 0; }
+.rt-person img { width: 100%; object-fit: cover; aspect-ratio: 4 / 5; }
+.rt-person figcaption {
+  margin-top: var(--s-3);
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+}
+.rt-role {
+  font-family: var(--utility); font-size: .75rem;
+  letter-spacing: .14em; color: var(--muted); margin-top: var(--s-2);
+}
+.rt-person .stack { margin-top: var(--s-5); }
+
+/* --- Labelled rows. Region, the sea, walking, the airport: a table of
+   facts that is not a table, because half of these are a sentence long. */
+.rt-rows { border-top: 1px solid var(--rule); }
+.rt-rows > div {
+  display: grid; gap: var(--s-2);
+  padding-block: var(--s-4);
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 34rem) { .rt-rows > div { grid-template-columns: 8rem minmax(0, 1fr); column-gap: var(--s-5); align-items: baseline; } }
+.rt-rows dt {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--label);
+}
+.rt-rows dd { margin: 0; color: var(--muted); }
+
+/* --- What is and is not included. One list, because splitting them into
+   two columns lets a reader take in the left one and miss the right, and
+   the right one is the airfare. */
+.rt-incl { border-top: 1px solid var(--rule); }
+.rt-incl li {
+  display: grid; grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: var(--s-3); align-items: baseline;
+  padding-block: var(--s-3); border-bottom: 1px solid var(--rule);
+}
+.rt-incl li::before { content: "\002B"; color: var(--label); font-family: var(--utility); font-size: .8125rem; }
+.rt-incl .no { color: var(--muted); }
+.rt-incl .no::before { content: "\2212"; color: var(--muted); }
+
+/* --- The two rates. Published, the way every price on this site is, and
+   the early one is not styled as a prize. */
+.rt-rates { display: grid; gap: var(--s-4); margin-top: var(--s-6); }
+@media (min-width: 40rem) { .rt-rates { grid-template-columns: 1fr 1fr; gap: var(--s-5); } }
+.rt-rate { padding: var(--s-5); background: var(--field); border: 1px solid var(--rule); }
+.rt-rate dt {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--label);
+}
+.rt-rate dd { margin: var(--s-3) 0 0; }
+.rt-rate b {
+  display: block; font-family: var(--carved); font-weight: 400;
+  font-size: clamp(2.1rem, 4.6vw, 3rem); line-height: 1; color: var(--ink);
+}
+.rt-rate p { margin-top: var(--s-3); font-size: .9375rem; color: var(--muted); }
+
+/* --- Terms, in plain language, before the deposit rather than after. */
+.rt-terms { display: grid; gap: var(--s-4); margin-top: var(--s-5); }
+@media (min-width: 46rem) { .rt-terms { grid-template-columns: repeat(3, 1fr); gap: var(--s-5); } }
+.rt-terms > div { padding-top: var(--s-4); border-top: 1px solid var(--rule); }
+.rt-terms dt {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--label);
+  margin-bottom: var(--s-3);
+}
+.rt-terms dd { margin: 0; color: var(--muted); font-size: .9375rem; }
+
+/* --- The pointer companion.
+   A small disc that follows the cursor and names what the thing under it
+   will do: View, Play, Drag. It exists because half of both pages is
+   pictures, and a picture that opens is otherwise indistinguishable from a
+   picture that does not.
+
+   It never replaces the system cursor and it never appears on its own: it
+   is scoped to elements that declare `data-cursor`, and every one of those
+   also sets a real CSS cursor, so the meaning survives with JS off, on a
+   touch screen, and under reduced motion. */
+/* Two elements, and that is not decoration. The outer one is moved by a
+   direct style write, which is one of the two mechanisms that always
+   applies; the inner one is scaled by a keyframe, which is the other. Put
+   both on one element and the keyframe overwrites the position every
+   frame, and the disc sits in the corner. */
+.crs {
+  position: fixed; left: 0; top: 0; z-index: 150;
+  pointer-events: none; will-change: transform;
+}
+.crs i {
+  display: grid; place-items: center; font-style: normal;
+  width: 5.25rem; height: 5.25rem; margin: -2.625rem 0 0 -2.625rem;
+  border-radius: 50%;
+  background: var(--breath); color: var(--fathom);
+  font-family: var(--utility); font-size: .625rem;
+  letter-spacing: .22em; text-transform: uppercase;
+  opacity: 0; transform: scale(.4);
+}
+/* Keyframes rather than a transition: a transition is the one mechanism
+   that does not reliably advance in the preview pane, and an invitation
+   that never arrives is worse than none. Both end on their resting state. */
+.crs.is-on  i { animation: crs-in  260ms var(--ease-out) forwards; }
+.crs.is-off i { animation: crs-out 180ms var(--ease-soft) forwards; }
+@keyframes crs-in  { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: scale(1); } }
+@keyframes crs-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(.4); } }
+/* Coarse pointers have no cursor to companion, and a reader who has asked
+   for less movement has asked for exactly this. */
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .crs { display: none; }
+}
+
+/* --- Full-bleed bands on these two pages carry a caption under them, in
+   the wrap, so the picture itself stays edge to edge. */
+.rt-band-cap {
+  margin-top: var(--s-3);
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
 }
 
 /* ---------- 23. PRINT --------------------------------------- */

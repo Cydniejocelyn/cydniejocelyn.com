@@ -1,6 +1,7 @@
 # Handoff — Cydnie Jocelyn, the resurfacing business
 
-**Rewritten at the end of session one, extended at the end of session two, 26 August 2026.**
+**Rewritten at the end of session one, extended at the end of sessions two and three,
+26 August 2026.**
 Everything before the rewrite was appended in layers and several of those layers contradicted
 each other, because decisions were reversed along the way. Where an old commit message and this
 file disagree, **this file is right.** Where two parts of this file disagree, that is a bug:
@@ -8,18 +9,17 @@ fix it rather than working around it.
 
 ---
 
-## 0. State as of 26 August 2026, end of session two
+## 0. State as of 26 August 2026, end of session three
 
 **Everything below §1 is reference. This section is where a new session starts.**
 
-Three pages are built, shipped and deployed: home, About, and **The Build** (`/the-build/`),
-which was the whole of session two. Last production deploy:
-`https://cydniejocelyn-v2-kh1b3ixjq-cydnie-jocelyn.vercel.app`, built from commit `f504737`.
-Anything committed after that is documentation only — **the deployed site and `main` agree.**
+**Five pages are built:** home, About, **The Build** (`/the-build/`), **Retreats**
+(`/retreats/`) and **Greece** (`/retreats/greece/`). Sessions one and two built the first
+three; session three built the last two and is described in §10.
 
-The Build page is **finished to the copy in `the-build-page-FINAL.html`** and every figure is
-matched in the page, the JSON-LD, and (pending her check) HoneyBook. Nine offers, ten
-questions, verified matching.
+**Nothing after `f504737` has been deployed.** The last production deploy is
+`https://cydniejocelyn-v2-kh1b3ixjq-cydnie-jocelyn.vercel.app`, built from `f504737`, and it
+predates both retreat pages. **`main` is ahead of production.** Run §2 to ship.
 
 ### Nothing is half-done. What is left is hers to decide.
 
@@ -29,24 +29,40 @@ questions, verified matching.
 | 2 | **The twelve questions form** still has `action="#"`. Which list does it feed? | §7.2 |
 | 3 | **The sticky bar.** The brief says keep it, `site.css` says the guide forbids it. It is currently OFF. | §7c |
 | 4 | **Mane Alchemist's mark is repainted** in its Foundation ink. Her client's artwork, altered for presentation. | §6 |
-| 5 | **Written permission** from all three clients before this is public. | §7.8 |
+| 5 | **Written permission** from all three brand clients before this is public. | §7.8 |
 | 6 | **Privacy 404s at domain cutover.** | §7.3 |
 | 7 | **Two client sites render broken on mobile.** Not ours, but she should know. | §7b2 |
 | 8 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
-| 9 | **The Greece retreat page** is the obvious next build, and its seat count already contradicts `llms.txt`. | §9 |
+| 9 | **Single occupancy in Crete** is offered or it is not, and at what supplement. Not published. | §10 |
+| 10 | **"Choose your path"** is the same HoneyBook URL as the branding page's "Lets talk". Unwired. | §10 |
+| 11 | **The Sauk Centre retreat, 8 October 2026,** has four live checkout links and is on no page. She said leave it off. | §10 |
+| 12 | **`A Sounding/a-sounding-wireframe-v2.html`** appeared in the project folder mid-session. Unbuilt, and now excluded from the deploy. | §10 |
 
-### What changed in session two, in one list
+### The four decisions she made in session three, and they are load bearing
 
-- `/the-build/` built from `the-build-page-FINAL.html` (which **supersedes** wireframe v6).
-- Prices published site-wide; the home page's Build door repointed and reworded to match.
-- Every link from `Website Links.pdf` wired: Greece waitlist, Pinterest, privacy, the review.
-- The client work block rebuilt three times, ending as transparent marks on no ground with
-  drawn iPhones. **See §6 before touching it — the sizing has a derivation, not a taste.**
-- Four shared bugs fixed that were never about this page: the gauge inversion never matched,
-  the header wordmark was unreadable on light grounds, the gauge numeral overprinted text on
-  phones, and `about/index.html` closed with a class that does not exist.
+These were open contradictions between the drafts, the shipped home page and `llms.txt`.
+Everything built in session three follows them. **They are now stated in four places that must
+stay in sync: the two retreat pages, the home page's retreat block, and `llms.txt`.**
 
----
+1. **Greece is fifteen seats and all fifteen are taken.** The waitlist is open and is called in
+   order. The home page and `llms.txt` said fourteen with the waitlist open; both are corrected.
+2. **The Sauk Centre retreat stays off the site**, live checkout links and all.
+3. **The Greece retreat keeps the name "Rise Into Her: The Greece Edition."** "Fifteen" is the
+   cap, not a title. The drafts titled it "Fifteen"; that title is not used anywhere.
+4. **The Costa Rica guest photographs are approved for publication**, faces included. She
+   confirmed she has permission from the women in them. **This is the only page on the site
+   with recognisable faces on it and it is deliberate.**
+
+### What changed in session three, in one list
+
+- `/retreats/` and `/retreats/greece/` built, on the shared stylesheet, in the shared chrome.
+- `site.css` gained **section 25, the retreats**, and a `.hero--bright` scrim variant.
+- `site.js` gained **initVideo, initGallery and initCursor** (sections 15, 16, 17).
+- `tools/retreat_images.py` cuts every retreat photograph out of the source libraries. The v2
+  drafts hotlinked Showit URLs and captioned Costa Rica frames as Crete; see §10.
+- Nav repointed site-wide: **Retreats is `/retreats/`, not `/#retreat`**, on all five pages.
+- `stamp.py`, `build_artifact.py`, `sitemap.xml`, `llms.txt` and `.vercelignore` all extended.
+- **`Retreats/` was renamed `Retreat drafts/`** and the reason is a trap worth knowing: §10.
 
 ## 1. Read this before touching anything
 
@@ -76,6 +92,8 @@ CLIs read their own credentials. That is the point of them.
 | Home page | `index.html` |
 | About page | `about/index.html` |
 | The Build page | `the-build/index.html` |
+| Retreats page | `retreats/index.html` |
+| Greece page | `retreats/greece/index.html` |
 | Shared CSS and JS | `assets/css/site.css`, `assets/js/site.js` — **all three pages share them** |
 | GitHub | https://github.com/Cydniejocelyn/cydniejocelyn.com **(private)**, over HTTPS through `gh` |
 | Vercel project | `cydniejocelyn-v2` under team `cydnie-jocelyn`, linked in `.vercel/` |
@@ -85,6 +103,12 @@ CLIs read their own credentials. That is the point of them.
 | **About copy, source of truth** | `CydnieJocelyn-Site/about.html` |
 | **Build copy, source of truth** | `The Build page/files/the-build-page-FINAL.html` — supersedes v6 |
 | Build wireframe, superseded | `The Build page/files/the-build-page-wireframe-v6.html` |
+| **Retreats copy, source** | `Retreat drafts/retreats-visual-v2.html` |
+| **Greece copy, source** | `Greece Retreat/greece-v2 copy.html` — the `copy` is the later of the two |
+| Greece draft, superseded | `Greece Retreat/greece-v2.html` — still sells seats, has TKs |
+| Armonia photography | `CydnieJocelyn-Site/08.13.2027-.../Armonia Retreat Center/wetransfer_.../` |
+| Costa Rica photography | `Costa Rica copy/` and `Costa Rica copy/Maxime Photos copy/` |
+| Costa Rica feedback, 6 responses | `CydnieJocelyn-Site/Reviews/Rise & Reground_ ... Feedback.csv` |
 | Build brief, **and it conflicts** | `The Build page/files/CLAUDE-CODE-BRIEF.md` — see §7c |
 | Colour system notes | `The Build page/files/color-system-notes.md` |
 | Client brand boards | `CydnieJocelyn-Site/Portfolio of Work copy/Brand Board Portfolio of Work/` |
@@ -117,10 +141,12 @@ export PATH="$HOME/.local/bin:$PATH"
 cd ~/Desktop/cydniejocelyn-v2
 
 python3 tools/stamp.py                  # ALWAYS, after editing site.css or site.js
-                                        # it stamps all THREE pages; add any new one to it
+                                        # it stamps all FIVE pages; add any new one to it
 python3 tools/build_artifact.py home
 python3 tools/build_artifact.py about
 python3 tools/build_artifact.py build
+python3 tools/build_artifact.py retreats
+python3 tools/build_artifact.py greece
 git add -A && git commit -F <file>      # -F a file, NOT -m: see below
 git push origin main
 vercel deploy --prod --yes
@@ -501,10 +527,11 @@ load, all revealed once scrolled past, and **with JS off every paragraph is visi
    Contrast has been checked in places, not swept.
 6. **The podcast.** The home footer still links "She Rises Through It". The old wireframe said
    it was shelved. Whether that is true is not in any file.
-7. **Nav targets.** The Build is now a real page at `/the-build/` and every nav, footer and
-   hero-path link across all three pages points at it. **Retreats** (`/#retreat`) and
-   **The Letters** (`/#questions`) are still anchors on the home page; `about.html` implies
-   standalone pages for both. Those two do not exist yet.
+7. **Nav targets.** The Build (`/the-build/`) and Retreats (`/retreats/`) are both real pages
+   now and every nav, footer and cross-link on all five pages points at them. **The Letters**
+   (`/#questions`) is still an anchor on the home page and is the last one outstanding.
+   `index.html` still has a `#retreat` section, which is the home page's Greece block; it is
+   no longer a nav target and it now links out to `/retreats/greece/`.
 
 8. **Client permission for the work block.** Three clients' marks and shipped pages are now
    published at `/the-build/#work`. Confirm written permission from Mane Alchemist, SRS
@@ -672,23 +699,17 @@ nearly as dark as the frame around it.
 
 ## 9. What is next, and one trap that just cost a deploy
 
-### The Greece retreat page
+### The Greece retreat page — BUILT. See §10.
 
-`Greece Retreat/greece-v2.html` and `greece-v2 copy.html` appeared during session two and were
-not touched. The `copy` is the later of the two (800 lines) and is presumably the live one —
-**confirm which before building from either.** It is titled *"Fifteen: A Women's Retreat in
-Crete, Greece. August 2027."* and its sections run: eight days in Crete, the re-diagnosis, built
-for the Tuesday after, who this is not for, Douliana, Armonia, what is included, seats, the two
-hosts, flying into Chania, questions, close.
+Both drafts in `Greece Retreat/` were resolved and the page shipped. The `copy` was indeed the
+later of the two and is what the page was built from. **The seat-count contradiction is
+settled:** fifteen, all taken, waitlist open. `llms.txt` and the home page were corrected to
+match rather than the other way round. The waitlist links are wired, including the two
+`/1-Contact_Information` variants for pay-in-full and the six month plan.
 
-**It already contradicts `llms.txt`.** The page says *"All fifteen seats are taken."* `llms.txt`
-says 14 guests at the main site with the waitlist open and early bird at $3,265. One of those is
-out of date. Resolve it before publishing either, and remember §7b's rule: the retreat books
-directly, no Sounding, and the Greece waitlist link is
-`clients.cydniejocelyn.com/public/6a21d07b6dcfbe3d85c663b6`.
-
-Per the colour notes, **Retreats is the one page allowed to run deeper than the others** — dark
-reads as evening and away rather than as weight there.
+Per the colour notes, **retreats is still the one page family allowed to run deeper than the
+others**, and both pages use that: each opens deep, comes up for the practical middle, and goes
+back down for the close.
 
 ### Working documents get served. Check `.vercelignore` first.
 
@@ -704,3 +725,169 @@ Both folders are excluded now. **The rule: the same day a folder of working docu
 add it to `.vercelignore`, and never park one inside a route directory.** Verify with
 `vercel curl "$URL/<path>"` and expect a 404 — plain `curl` cannot tell you anything while
 Deployment Protection is on.
+
+---
+
+## 10. The two retreat pages
+
+Built in session three from `Retreat drafts/retreats-visual-v2.html` and
+`Greece Retreat/greece-v2 copy.html`. Both drafts define their own token block and their own
+palette; **neither was used**. The pages are built on `site.css` in the shared chrome, the same
+trade The Build made and for the same reason: a second copy of the palette is a second thing to
+keep in sync, and a scoped page hides shared bugs instead of surfacing them.
+
+### The captions were wrong in the drafts, and that is the important part
+
+Both v2 drafts hotlinked `static.showit.com` URLs. Several of those frames are **Costa Rica
+photographs captioned as Crete**, and the rest are mislabelled against each other:
+
+| Draft caption | What the file actually is |
+|---|---|
+| "The coastline of western Crete" | Costa Rica |
+| "The harbour at Chania" (`img_5366`) | the lounge at Armonia |
+| "A trail above the village" (`img_5369`) | the stone house at Armonia |
+| "A meal at the retreat" (`img_5367`) | the sauna interior |
+| "Cretan ingredients" (`img_5370`) | the house at night |
+| "The table set for dinner" (`img_5376`) | a window nook with plants |
+| "The lounge" (`mk_09949`) | a second bedroom |
+| "The pool" (`mk_00944`) | a plastered arch |
+
+Every mapping on the shipped pages was checked against the actual pixels. **The rule this
+page now follows: where a caption cannot be honoured by a real photograph, the figure is
+dropped and the fact becomes prose.** That is why the Greece page has no picture of Chania
+harbour, of Kera Beach, or of the gorge trails — there is no photograph of any of them. They
+are rows in the place section instead. If she supplies real Crete landscape photography later,
+those rows are where the figures go.
+
+Two consequences worth keeping:
+
+- **Nothing crosses between `assets/img/greece/` and `assets/img/retreats/`.** Greece is
+  Armonia and Douliana. Retreats is Costa Rica and Kris. The split is enforced by
+  `tools/retreat_images.py` having two tables and two destinations.
+- **Kris's portrait is captioned "Costa Rica, April 2026"** on the Greece page, because it is,
+  and neither host has been photographed in Crete yet.
+
+### `tools/retreat_images.py`
+
+Cuts every retreat photograph out of the source libraries. Re-runnable, idempotent, no
+upscaling. Quality falls with width (82 / 76 / 70) because these two pages carry twenty
+photographs between them and the wide variants alone ran over 4MB at a flat 82.
+
+**Several Armonia sources are only 1000–1075px wide**, so the emitted widths are capped at the
+source. That is why the gallery tiles top out at 1000w while the pool, which came from a
+5917px original, goes to 1800.
+
+**Kris is identified by her vest.** `DSC08832` and `DSC08962` both show a black tank printed
+"Your Time Fitness · Sauk Centre MN", which is her company. That is how the portrait was picked
+out of 127 unlabelled candids.
+
+### Melissa's video is a phone Short, and the poster proves it
+
+`DrrP4hdw0lo` is 9:16, recorded on her phone in her car on the drive home. YouTube's
+`maxresdefault` is that frame padded onto a 16:9 plate with a blurred fill, and using it would
+have framed a phone selfie as a produced piece. `melissa-poster-405.webp` is the true frame,
+centre-cropped out of the plate at `round(H*9/16)`, and `.rt-play` is `aspect-ratio: 9/16`.
+
+There is **no `oardefault.jpg`** for this video; it 404s. `frame0.jpg` is the right aspect but
+only 268px wide.
+
+### The three new behaviours in `site.js`
+
+All three follow §3's rules: nothing depends on `requestAnimationFrame`, on
+`IntersectionObserver`, or on a CSS transition advancing.
+
+- **`initVideo` (15).** `.rt-play` ships as an **anchor to the watch URL**, so with no JS it is
+  a working link rather than a dead button. On click it swaps in a `youtube-nocookie` iframe.
+  **Nothing is fetched from YouTube until she presses it.**
+- **`initGallery` (16).** Builds the button inside each `.rt-shot`, the one lightbox for the
+  page, and adds `is-live` only once both exist — so nothing on the page advertises an
+  interaction that is not there. Escape, arrows and a focus cycle all work; the page behind is
+  locked; focus returns to the tile. **The tile is passed into `open()` rather than read off
+  `document.activeElement`**, because a click does not always leave focus on what was clicked
+  and closing to `<body>` puts the reader back at the top of the page.
+- **`initCursor` (17).** A disc that follows the pointer and names what is under it: View,
+  Play, Drag. Scoped to `[data-cursor]`, never a site-wide cursor replacement, and off for
+  coarse pointers and for reduced motion. Every element that declares `data-cursor` also sets a
+  real CSS cursor, so the meaning survives with JS off.
+
+  **It is two elements and that is not decoration.** The outer one is moved by a direct style
+  write, the inner one is scaled by a keyframe — the only two mechanisms §3 says always work.
+  Put both on one element and the keyframe overwrites the position every frame and the disc
+  sits in the corner.
+
+### `.hero--bright`, and why the shared scrim was not enough
+
+The shared `.hero-scrim` falls to `.06` opacity at 22% of the height, because the home page's
+photograph is already dark through the middle. Both retreat heroes are bright exactly where the
+words are — a pool at noon and a lit house against a dusk sky — and Surface type over open
+water measured around 3:1. `.hero--bright` is the same two gradients, same construction, higher
+floor. Both retreat pages use it. **Do not raise the floor on the shared scrim instead: it
+would flatten the home page's photograph, which does not need it.**
+
+### Held is spent once per page, and both pages spend it on the same thing
+
+The status line. `.rt-status--full` is `--warm`, and it is the only Held element on either
+page. **The hero's first action is deliberately not `.hero-go--paid`** — that class carries a
+Held underline that marks the home page's one paid entry point, and neither retreat hero's
+first action is a payment. One is an anchor, the other is a free waitlist.
+
+Measured: 5.42:1 on Surface, 5.01:1 on Silt, 6.78:1 on Fathom. Every other new pairing on both
+pages is between 4.80:1 and 14.93:1.
+
+### The case-insensitive folder trap, which cost a real detour
+
+`Retreats/` held the drafts. The new route directory is `retreats/`. **On macOS those are the
+same directory**, so writing `retreats/index.html` put the new page inside the drafts folder,
+and `git mv Retreats "Retreat drafts"` then carried both new pages away with it.
+
+Worse, it was nearly a production bug: `.vercelignore` had `Retreats/` in it, and Vercel
+uploads from that same case-insensitive filesystem, so the ignore could have taken the real
+`/retreats/` page out of the deploy with no error anywhere.
+
+**The drafts folder is `Retreat drafts/` now and `.vercelignore` names it.** The rule: never
+give a working-document folder a name that differs from a route directory only by case.
+
+### `A Sounding/` appeared mid-session
+
+`A Sounding/a-sounding-wireframe-v2.html` was not there at the start of session three and was
+not created by it. It is a working document in a folder that was not in `.vercelignore`, so it
+would have been served. **It is excluded now.** Nothing was built from it; if that page is
+wanted, it is a new job.
+
+### Verifying these pages when the preview pane dies
+
+The Browser pane went unresponsive partway through session three — `computer` timed out with
+"the Browser pane is currently hidden" and would not come back. Headless Chrome is the fallback
+and **a naive tall-window full-page capture does not work here**: `.hero { min-height: 100vh }`
+means a 9600px window gives a 9600px hero.
+
+Two throwaway harnesses were written into the served tree, and they are the reason anything
+could be checked at all. Both are in the session scratchpad, not in the repo, and both must be
+re-laid after every `sync.sh` because that runs `rsync --delete`:
+
+- **`_shot.html?p=<path>&y=<px>&w=&h=`** — loads the page in a fixed-size iframe and walks the
+  scroll down to `y` in 600px steps, so lazy images load and the scroll watcher fires. `100vh`
+  resolves against the iframe, not the capture window. `&id=<element-id>` scrolls to an element
+  instead.
+- **`_test.html?p=<path>`** — drives the real page in an iframe and prints PASS/FAIL lines big
+  enough to screenshot. It covers the gallery, the lightbox including focus and scroll lock,
+  the cursor, the video facade, the FAQ, the reveals, overflow and image decoding. **38
+  assertions, all passing** at the end of session three. Re-run it after touching `site.js`.
+
+Two traps inside `_test.html` worth not rediscovering: a real pointer event targets the element
+under the cursor, so dispatching `pointermove` on `document` gives `e.target === document` and
+no `closest()` will ever match it; and setting two `<details open>` in the same tick races their
+`toggle` events, so the exclusive-FAQ check has to open them one at a time.
+
+### What is deliberately not on these pages
+
+- **No seats-remaining count anywhere.** "Full" is a fact; "3 seats left" is a countdown, and
+  this brand does not run countdowns.
+- **No sticky bar**, matching The Build and §7c.
+- **No single-occupancy line.** The draft carried `TK, offered or not, and at what supplement`.
+  A TK does not ship and a guess is worse, so the line is out. It is item 9 in §0.
+- **"Choose your path"** (`69fa372ccd31fefc073c5d28`) is unwired. It is the same URL as the
+  branding page's "Lets talk", so which product it belongs to is not resolvable from the link
+  list. Item 10 in §0. Same principle as the twelve questions form in §7.2: a form pointed at a
+  guess is worse to unpick than a form that never fired.
+- **The four Sauk Centre checkout links** stay unwired on her instruction. Item 11 in §0.

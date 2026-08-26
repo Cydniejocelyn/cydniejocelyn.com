@@ -1,7 +1,10 @@
-# Build output. `python3 tools/build_artifact.py [home|about|build]` regenerates these.
+# Build output. `python3 tools/build_artifact.py [home|about|build|retreats|greece]`
+# regenerates these.
 tools/cydnie-jocelyn.html
 tools/cydnie-jocelyn-about.html
 tools/cydnie-jocelyn-build.html
+tools/cydnie-jocelyn-retreats.html
+tools/cydnie-jocelyn-greece.html
 
 # macOS
 .DS_Store

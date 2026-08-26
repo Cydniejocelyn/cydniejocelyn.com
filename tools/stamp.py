@@ -18,8 +18,15 @@ def h(rel):
 
 V = hashlib.sha1((h("assets/css/site.css") + h("assets/js/site.js")).encode()).hexdigest()[:8]
 
-for page, pre in (("index.html", "assets/"), ("about/index.html", "../assets/"),
-                  ("the-build/index.html", "../assets/")):
+PAGES = (
+    ("index.html",                 "assets/"),
+    ("about/index.html",           "../assets/"),
+    ("the-build/index.html",       "../assets/"),
+    ("retreats/index.html",        "../assets/"),
+    ("retreats/greece/index.html", "../../assets/"),   # two levels down
+)
+
+for page, pre in PAGES:
     p = os.path.join(ROOT, page)
     s = io.open(p, encoding="utf-8").read()
     s = re.sub(r'href="' + re.escape(pre) + r'css/site\.css(\?v=[0-9a-f]+)?"',

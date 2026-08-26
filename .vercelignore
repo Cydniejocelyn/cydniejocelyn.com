@@ -24,3 +24,11 @@ README.md
 # directory like the-build/.
 The Build page/
 Greece Retreat/
+# Renamed from `Retreats/`. A draft folder whose name differs from a route
+# directory only by case is a trap: this project is uploaded from a
+# case-insensitive filesystem, so `Retreats/` here could have taken the
+# real `/retreats/` page out of the deploy with it.
+Retreat drafts/
+# Arrived mid-session on 26 August 2026, unasked for and unbuilt. Excluded
+# the same day, per the rule above.
+A Sounding/

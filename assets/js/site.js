@@ -880,6 +880,207 @@
     });
   }
 
+  /* ---------- 15. The video ---------------------------------
+     Melissa's review, and nothing from YouTube is fetched until she asks
+     for it. The markup is an anchor to the video with the real first frame
+     as its poster, so with no JS at all it is a working link; here it is
+     turned into a player in place.
+
+     The poster is the true 9:16 frame, cropped out of YouTube's padded
+     plate. She recorded it on her phone in her car. Framing that as a wide
+     player would promise a production that does not exist. */
+  function initVideo() {
+    Array.prototype.slice.call(document.querySelectorAll("[data-video]"))
+      .forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          if (a.classList.contains("is-playing")) return;
+          e.preventDefault();
+          var f = document.createElement("iframe");
+          f.src = "https://www.youtube-nocookie.com/embed/" + a.dataset.video +
+                  "?autoplay=1&start=" + (a.dataset.start || "0") +
+                  "&rel=0&modestbranding=1&playsinline=1";
+          f.title = a.dataset.title || "Video";
+          f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+          f.setAttribute("allowfullscreen", "");
+          a.classList.add("is-playing");
+          a.innerHTML = "";
+          a.appendChild(f);
+        });
+      });
+  }
+
+  /* ---------- 16. The gallery ------------------------------
+     Armonia sent a folder of photographs and the property is most of what
+     a woman is deciding about, so they open. The markup is plain figures;
+     this adds the control and the lightbox, and `is-live` is only added
+     once both exist, so nothing on the page advertises an interaction that
+     is not there.
+
+     One lightbox for the page, built once and reused. Escape and the arrow
+     keys work, focus goes into it and comes back to the tile that opened
+     it, and the page behind it does not scroll. */
+  function initGallery() {
+    var gals = Array.prototype.slice.call(document.querySelectorAll("[data-gallery]"));
+    if (!gals.length) return;
+
+    var shots = [];
+    gals.forEach(function (g) {
+      Array.prototype.slice.call(g.querySelectorAll(".rt-shot")).forEach(function (fig) {
+        var img = fig.querySelector("img");
+        if (!img) return;
+        var cap = fig.querySelector("figcaption");
+        var i = shots.length;
+        shots.push({
+          src: fig.dataset.full || img.currentSrc || img.src,
+          alt: img.getAttribute("alt") || "",
+          cap: cap ? cap.textContent.trim() : "",
+          fig: fig
+        });
+        var b = document.createElement("button");
+        b.type = "button";
+        b.innerHTML = '<span class="vh">Open: ' +
+          (cap ? cap.textContent.trim() : "photograph") + '</span>';
+        /* the control is passed in rather than read off document.activeElement:
+           a click does not always leave focus on what was clicked, and closing
+           to a focus ring on <body> puts the reader back at the top of the
+           page rather than at the picture she was looking at */
+        b.addEventListener("click", function () { open(i, b); });
+        fig.appendChild(b);
+        fig.classList.add("is-live");
+        /* the tile only claims to be openable once it demonstrably is */
+        if (!fig.hasAttribute("data-cursor")) fig.setAttribute("data-cursor", "View");
+      });
+    });
+    if (!shots.length) return;
+
+    var box = document.createElement("div");
+    box.className = "lbx";
+    box.hidden = true;
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-modal", "true");
+    box.setAttribute("aria-label", "Photograph");
+    box.innerHTML =
+      '<div class="lbx-stage"><img alt=""></div>' +
+      '<div class="lbx-bar">' +
+        '<p class="lbx-cap"></p>' +
+        '<div class="lbx-nav">' +
+          '<button type="button" data-go="-1" aria-label="Previous photograph">' +
+            '<svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M5 1L1 5l4 4M1 5h13" stroke="currentColor" stroke-width="1.2"/></svg></button>' +
+          '<button type="button" data-go="1" aria-label="Next photograph">' +
+            '<svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></button>' +
+        '</div>' +
+      '</div>' +
+      '<button type="button" class="lbx-x" aria-label="Close">' +
+        '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.2"/></svg></button>';
+    document.body.appendChild(box);
+
+    var stage = box.querySelector(".lbx-stage img");
+    var cap   = box.querySelector(".lbx-cap");
+    var back  = null, at = 0;
+
+    function show(i) {
+      at = (i + shots.length) % shots.length;
+      var s = shots[at];
+      stage.src = s.src;
+      stage.alt = s.alt;
+      cap.textContent = s.cap;
+    }
+
+    function open(i, from) {
+      back = from || document.activeElement;
+      show(i);
+      box.hidden = false;
+      document.documentElement.style.overflow = "hidden";
+      box.querySelector(".lbx-x").focus();
+    }
+
+    function close() {
+      box.hidden = true;
+      document.documentElement.style.overflow = "";
+      /* back to the tile she came from, not to the top of the page */
+      if (back && back.focus) back.focus();
+    }
+
+    box.querySelector(".lbx-x").addEventListener("click", close);
+    Array.prototype.slice.call(box.querySelectorAll("[data-go]")).forEach(function (b) {
+      b.addEventListener("click", function () { show(at + parseInt(b.dataset.go, 10)); });
+    });
+    /* the ground around the picture closes it, the picture itself does not */
+    box.addEventListener("click", function (e) {
+      if (e.target === box || e.target.classList.contains("lbx-stage")) close();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (box.hidden) return;
+      if (e.key === "Escape") { e.preventDefault(); close(); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); show(at + 1); }
+      else if (e.key === "ArrowLeft")  { e.preventDefault(); show(at - 1); }
+      else if (e.key === "Tab") {
+        /* three controls, so the trap is a cycle rather than a calculation */
+        var f = Array.prototype.slice.call(box.querySelectorAll("button"));
+        var n = f.indexOf(document.activeElement);
+        e.preventDefault();
+        f[(n + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    });
+  }
+
+  /* ---------- 17. The pointer companion ---------------------
+     Half of the retreat pages is photographs, and a photograph that opens
+     looks exactly like one that does not. This names what is under the
+     cursor -- View, Play, Drag -- in the same small caps the rest of the
+     page labels things in.
+
+     It is scoped to elements that declare `data-cursor` and it never
+     replaces the system cursor. Every element that declares one also sets a
+     real CSS cursor, so the meaning survives with JS off, on a touch
+     screen, and for a reader who has asked for less movement. */
+  function initCursor() {
+    if (!document.querySelector("[data-cursor]")) return;
+    var fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+    if (!fine.matches || reduce.matches) return;
+
+    var el = document.createElement("div");
+    el.className = "crs";
+    el.setAttribute("aria-hidden", "true");
+    el.innerHTML = "<i></i>";
+    document.body.appendChild(el);
+    var label = el.firstChild, host = null, shown = false;
+
+    /* A direct style write, which applies instantly here. The scale lives
+       on the child, on a keyframe, so the two never fight. */
+    function move(e) {
+      el.style.transform = "translate3d(" + e.clientX + "px," + e.clientY + "px,0)";
+    }
+
+    function enter(next) {
+      if (next === host) return;
+      host = next;
+      label.textContent = next.dataset.cursor || "";
+      if (!shown) { shown = true; el.classList.remove("is-off"); el.classList.add("is-on"); }
+    }
+
+    function leave() {
+      if (!shown) return;
+      shown = false; host = null;
+      el.classList.remove("is-on");
+      el.classList.add("is-off");
+    }
+
+    document.addEventListener("pointermove", function (e) {
+      if (e.pointerType && e.pointerType !== "mouse") return;
+      var next = e.target && e.target.closest ? e.target.closest("[data-cursor]") : null;
+      if (next) { move(e); enter(next); }
+      else if (shown) { move(e); leave(); }
+    }, { passive: true });
+
+    /* leaving the window entirely fires no move, so it is caught here */
+    document.addEventListener("pointerleave", leave);
+    window.addEventListener("blur", leave);
+    /* a plug-in mouse can arrive after load, and a plug-out can leave the
+       disc stranded; either way the resting state is correct */
+    if (fine.addEventListener) fine.addEventListener("change", leave);
+  }
+
   function initYear() {
     document.querySelectorAll("[data-year]").forEach(function (el) {
       el.textContent = String(new Date().getFullYear());
@@ -901,6 +1102,9 @@
     initQuotes();
     initFaq();
     initRules();
+    initVideo();
+    initGallery();
+    initCursor();
     initYear();
   }
 

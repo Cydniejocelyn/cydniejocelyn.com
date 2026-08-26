@@ -48,7 +48,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=a8e79848">
+<link rel="stylesheet" href="assets/css/site.css?v=a5041615">
 <script>document.documentElement.className += " js-motion";</script>
 
 <script type="application/ld+json">
@@ -117,17 +117,21 @@
     { "@type": "WebPage", "@id": "https://cydniejocelyn.com/#webpage", "url": "https://cydniejocelyn.com/", "name": "Cydnie Jocelyn | The Resurfacing Business, Forest Lake MN", "description": "You're not broken. You're underwater. Brand strategy and small-group retreats for women who are perfect on paper and holding their breath underneath.", "isPartOf": { "@id": "https://cydniejocelyn.com/#website" }, "about": { "@id": "https://cydniejocelyn.com/#organization" }, "inLanguage": "en-US" },
     {
       "@type": "Event", "@id": "https://cydniejocelyn.com/retreats/greece/#event",
+      "_comment": "This @id is also emitted on /retreats/greece/, which is its canonical page and the source of truth. Change one, change both in the same commit.",
       "name": "Rise Into Her: The Greece Edition",
-      "description": "An eight-day resurfacing retreat for fourteen women at Armonia Retreat Center in Douliana, Crete. Structured solitude inside a small group. Movement led by Kris Krause of Your Time Fitness LLC.",
+      "description": "An eight-day resurfacing retreat for fifteen women at Armonia Retreat Center in Douliana, Crete. Structured solitude inside a small group. Movement led by Kris Krause of Your Time Fitness LLC.",
       "startDate": "2027-08-13", "endDate": "2027-08-20",
       "eventStatus": "https://schema.org/EventScheduled",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "maximumAttendeeCapacity": 14,
-      "image": "https://cydniejocelyn.com/assets/img/retreat-steps-1200.webp",
+      "maximumAttendeeCapacity": 15,
+      "image": "https://cydniejocelyn.com/assets/img/greece/house-1200.webp",
       "location": { "@type": "Place", "name": "Armonia Retreat Center", "address": { "@type": "PostalAddress", "addressLocality": "Douliana", "addressRegion": "Crete", "addressCountry": "GR" } },
       "organizer": { "@id": "https://cydniejocelyn.com/#organization" },
       "performer": { "@id": "https://cydniejocelyn.com/#cydnie" },
-      "offers": { "@type": "Offer", "name": "Early bird", "price": "3265", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder", "url": "https://cydniejocelyn.com/retreats/greece/" }
+      "offers": [
+        { "@type": "Offer", "name": "Early rate, through 6 September 2026", "price": "3265", "priceCurrency": "USD", "availability": "https://schema.org/SoldOut", "url": "https://cydniejocelyn.com/retreats/greece/#booking", "validThrough": "2026-09-06" },
+        { "@type": "Offer", "name": "Standard rate, from 7 September 2026", "price": "3450", "priceCurrency": "USD", "availability": "https://schema.org/SoldOut", "url": "https://cydniejocelyn.com/retreats/greece/#booking", "validFrom": "2026-09-07" }
+      ]
     },
     {
       "@type": "Service", "@id": "https://cydniejocelyn.com/#retreat-service",
@@ -202,7 +206,7 @@
       <div class="nav-menu" id="nav-menu">
       <ul class="nav-links" role="list">
         <li><a href="/the-build/">The Build</a></li>
-        <li><a href="#retreat">Retreats</a></li>
+        <li><a href="/retreats/">Retreats</a></li>
         <li><a href="#questions">The Letters</a></li>
         <li><a href="/about/">About</a></li>
       </ul>
@@ -428,7 +432,7 @@
           <h3 class="carved c-3">Fifteen</h3>
           <p>The retreat. Fifteen seats, because above a certain number solitude becomes performance. Booking opens in September for the April getaway.</p>
         </div>
-        <a class="door-note door-note--link" href="#retreat"><span>Join the waitlist</span></a>
+        <a class="door-note door-note--link" href="/retreats/greece/"><span>See the dates</span></a>
       </div>
 
       <div class="door r-up" id="build">
@@ -677,24 +681,26 @@
   <div class="wrap">
     <div class="retreat-grid">
       <div class="retreat-copy">
-        <p class="eyebrow r-fade">Open &middot; Waitlist</p>
+        <p class="eyebrow r-fade">Full &middot; Waitlist open</p>
         <h2 class="carved c-2 split" id="retreat-h">Rise Into Her<br>The Greece Edition</h2>
         <div class="stack r-up" style="--d:120ms; margin-top:var(--s-5)">
-          <p class="lead">Eight days at Armonia Retreat Center in Douliana, Crete. Fourteen women. Twelve questions, and you answer the first before you get on the plane.</p>
+          <p class="lead">Eight days at Armonia Retreat Center in Douliana, Crete. Fifteen women. Twelve questions, and you answer the first before you get on the plane.</p>
           <p class="muted">Nobody will need anything from you for eight days. That is the entire brief.</p>
         </div>
         <dl class="meta-list r-up" style="--d:180ms">
           <div><dt>Dates</dt><dd><time datetime="2027-08-13">13</time>&ndash;<time datetime="2027-08-20">20 August 2027</time></dd></div>
           <div><dt>Where</dt><dd>Douliana, Crete</dd></div>
-          <div><dt>Guests</dt><dd>14 at the main site</dd></div>
-          <div><dt>Early bird</dt><dd>$3,265</dd></div>
-          <div><dt>Regular</dt><dd>$3,450</dd></div>
+          <div><dt>Seats</dt><dd>15, all taken</dd></div>
+          <div><dt>Early rate</dt><dd>$3,265</dd></div>
+          <div><dt>Standard</dt><dd>$3,450</dd></div>
           <div><dt>Deposit</dt><dd>$500, non-refundable</dd></div>
         </dl>
         <div class="actions r-up" style="--d:180ms; margin-top:var(--s-5)">
-          <a class="btn" href="https://clients.cydniejocelyn.com/public/6a21d07b6dcfbe3d85c663b6" rel="noopener"><span>Join the waitlist</span>
+          <a class="btn" href="/retreats/greece/"><span>Everything about Greece</span>
             <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a>
+          <a class="link" href="https://clients.cydniejocelyn.com/public/6a21d07b6dcfbe3d85c663b6" rel="noopener">Join the waitlist</a>
         </div>
+        <p class="tiny r-up" style="--d:240ms; margin-top:var(--s-4)">A second date lands in April 2027. Both are on the <a class="link" href="/retreats/">retreats page</a>.</p>
       </div>
       <figure class="retreat-fig r-img">
         <img src="assets/img/armonia-arch-900.webp"
@@ -833,7 +839,7 @@
           <h3>The work</h3>
           <ul role="list">
             <li><a href="#start">A Sounding</a></li>
-            <li><a href="#retreat">Retreats</a></li>
+            <li><a href="/retreats/">Retreats</a></li>
             <li><a href="/the-build/">The Build</a></li>
             <li><a href="#proof">Client work</a></li>
           </ul>
@@ -887,6 +893,6 @@
   </div>
 </footer>
 
-<script src="assets/js/site.js?v=a8e79848" defer></script>
+<script src="assets/js/site.js?v=a5041615" defer></script>
 </body>
 </html>

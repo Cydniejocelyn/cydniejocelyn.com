@@ -19,6 +19,10 @@ PAGES = {
     "home":  ("index.html",       "cydnie-jocelyn.html",       "The Resurfacing Business"),
     "about": ("about/index.html", "cydnie-jocelyn-about.html", "About Cydnie Jocelyn"),
     "build": ("the-build/index.html", "cydnie-jocelyn-build.html", "The Build"),
+    "retreats": ("retreats/index.html", "cydnie-jocelyn-retreats.html", "Retreats"),
+    # two levels down, so its asset paths are ../../assets rather than ../assets
+    "greece":   ("retreats/greece/index.html", "cydnie-jocelyn-greece.html",
+                 "Rise Into Her: The Greece Edition"),
 }
 if PAGE not in PAGES:
     raise SystemExit("unknown page %r, expected one of %s" % (PAGE, ", ".join(PAGES)))
@@ -26,7 +30,9 @@ SRCFILE, OUTFILE, TITLE = PAGES[PAGE]
 OUT = os.path.join(SRC, "tools", OUTFILE)
 
 html = open(os.path.join(SRC, SRCFILE), encoding="utf-8").read()
-html = html.replace("../assets/", "assets/")
+# ../../ first: replacing ../assets/ on the Greece page would leave a stray
+# ../ in front of every path it just rewrote.
+html = html.replace("../../assets/", "assets/").replace("../assets/", "assets/")
 css  = open(os.path.join(SRC, "assets/css/site.css"), encoding="utf-8").read()
 js   = open(os.path.join(SRC, "assets/js/site.js"), encoding="utf-8").read()
 
@@ -62,6 +68,31 @@ PICK = {
     "srs-performance-screen":  "work/srs-performance-screen-500.webp",
     "solyrey-mark":            "work/solyrey-mark-900.webp",
     "solyrey-screen":          "work/solyrey-screen-500.webp",
+    # The retreat pages. One resolution each, the 600 wide variant, because
+    # these two pages carry twenty photographs between them and the artifact
+    # inlines every one of them as base64.
+    "retreat-steps":      "retreat-steps-1200.webp",
+    "retreats/cr-pool":   "retreats/cr-pool-600.webp",
+    "retreats/cr-hold":   "retreats/cr-hold-600.webp",
+    "retreats/cr-jump":   "retreats/cr-jump-600.webp",
+    "retreats/kris-lead": "retreats/kris-lead-600.webp",
+    "retreats/kris-":     "retreats/kris-600.webp",
+    "melissa-poster":     "retreats/melissa-poster-405.webp",
+    "greece/house":       "greece/house-600.webp",
+    "greece/drive":       "greece/drive-600.webp",
+    "greece/olive":       "greece/olive-600.webp",
+    "greece/path":        "greece/path-600.webp",
+    "greece/deck":        "greece/deck-600.webp",
+    "greece/studio":      "greece/studio-600.webp",
+    "greece/room":        "greece/room-600.webp",
+    "greece/bath":        "greece/bath-600.webp",
+    "greece/lounge":      "greece/lounge-600.webp",
+    "greece/pool-view":   "greece/pool-view-600.webp",
+    "greece/pool-":       "greece/pool-600.webp",
+    "greece/dinner":      "greece/dinner-600.webp",
+    "greece/table":       "greece/table-600.webp",
+    "greece/kitchen":     "greece/kitchen-600.webp",
+    "greece/pergola":     "greece/pergola-600.webp",
 }
 data = {}
 for stem, name in PICK.items():
@@ -75,7 +106,11 @@ body = re.sub(r'\s+sizes="[^"]*"', "", body)
 
 missing = []
 def swap(m):
-    for stem, uri in data.items():
+    # Longest stem first. These are substring matches, so `greece/pool-`
+    # would otherwise claim `greece/pool-view-600.webp` and both tiles would
+    # show the same photograph.
+    for stem in sorted(data, key=len, reverse=True):
+        uri = data[stem]
         if stem in m.group(1):
             return 'src="%s"' % uri
     missing.append(m.group(1))
@@ -101,6 +136,10 @@ ARTIFACT = {
     # to it resolves to the canonical URL, which at least says where it goes.
     # Put the artifact URL here the first time it is published.
     "build": None,
+    # Neither retreat page has been published as an artifact yet. Put the URL
+    # here the first time one is.
+    "retreats": None,
+    "greece":   None,
 }
 BUILD_HREF = ARTIFACT["build"] or (SITE + "/the-build/")
 body = body.replace('href="/the-build/#',
@@ -115,6 +154,18 @@ body = body.replace('href="/about/"',
 body = body.replace('href="/#', 'href="#' if PAGE == "home" else 'href="%s#' % ARTIFACT["home"])
 body = body.replace('href="/"',
                     'href="#main"' if PAGE == "home" else 'href="%s"' % ARTIFACT["home"])
+
+# The retreats pages, same rule as The Build: an anchor when you are already
+# on that page, the other artifact when there is one, the canonical URL when
+# there is not.
+RETREATS_HREF = ARTIFACT["retreats"] or (SITE + "/retreats/")
+GREECE_HREF   = ARTIFACT["greece"]   or (SITE + "/retreats/greece/")
+body = body.replace('href="/retreats/greece/"',
+                    'href="#main"' if PAGE == "greece" else 'href="%s"' % GREECE_HREF)
+body = body.replace('href="/retreats/#',
+                    'href="#' if PAGE == "retreats" else 'href="%s#' % RETREATS_HREF)
+body = body.replace('href="/retreats/"',
+                    'href="#main"' if PAGE == "retreats" else 'href="%s"' % RETREATS_HREF)
 
 # pages that do not exist yet resolve to the on-page CTA. About is not one of
 # them: it exists, it is in the nav, and it was only ever in this list because
