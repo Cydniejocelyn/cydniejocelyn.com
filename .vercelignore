@@ -15,3 +15,12 @@ tools/
 HANDOFF.md
 BRIEF.md
 README.md
+
+# Working documents. These are wireframes, briefs and copy decks that arrive
+# as folders beside the site, and Vercel serves whatever it is given: the
+# build brief was live at /The Build page/files/CLAUDE-CODE-BRIEF.md and
+# returning 200 to anyone who guessed the path. Add the folder here the same
+# day a new one lands, and never park a working document inside a route
+# directory like the-build/.
+The Build page/
+Greece Retreat/

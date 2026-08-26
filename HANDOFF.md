@@ -1,9 +1,50 @@
 # Handoff — Cydnie Jocelyn, the resurfacing business
 
-**Rewritten 26 August 2026, end of session.** Everything before this was appended in layers
-and several of those layers now contradict each other, because decisions were reversed along
-the way. This file replaces them. Where an old commit message and this file disagree, **this
-file is right.**
+**Rewritten at the end of session one, extended at the end of session two, 26 August 2026.**
+Everything before the rewrite was appended in layers and several of those layers contradicted
+each other, because decisions were reversed along the way. Where an old commit message and this
+file disagree, **this file is right.** Where two parts of this file disagree, that is a bug:
+fix it rather than working around it.
+
+---
+
+## 0. State as of 26 August 2026, end of session two
+
+**Everything below §1 is reference. This section is where a new session starts.**
+
+Three pages are built, shipped and deployed: home, About, and **The Build** (`/the-build/`),
+which was the whole of session two. Last production deploy:
+`https://cydniejocelyn-v2-kh1b3ixjq-cydnie-jocelyn.vercel.app`, built from commit `f504737`.
+Anything committed after that is documentation only — **the deployed site and `main` agree.**
+
+The Build page is **finished to the copy in `the-build-page-FINAL.html`** and every figure is
+matched in the page, the JSON-LD, and (pending her check) HoneyBook. Nine offers, ten
+questions, verified matching.
+
+### Nothing is half-done. What is left is hers to decide.
+
+| # | Waiting on Cydnie | Where |
+|---|---|---|
+| 1 | **Deployment Protection is ON.** Nobody outside the team can see any of it. | §1 |
+| 2 | **The twelve questions form** still has `action="#"`. Which list does it feed? | §7.2 |
+| 3 | **The sticky bar.** The brief says keep it, `site.css` says the guide forbids it. It is currently OFF. | §7c |
+| 4 | **Mane Alchemist's mark is repainted** in its Foundation ink. Her client's artwork, altered for presentation. | §6 |
+| 5 | **Written permission** from all three clients before this is public. | §7.8 |
+| 6 | **Privacy 404s at domain cutover.** | §7.3 |
+| 7 | **Two client sites render broken on mobile.** Not ours, but she should know. | §7b2 |
+| 8 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
+| 9 | **The Greece retreat page** is the obvious next build, and its seat count already contradicts `llms.txt`. | §9 |
+
+### What changed in session two, in one list
+
+- `/the-build/` built from `the-build-page-FINAL.html` (which **supersedes** wireframe v6).
+- Prices published site-wide; the home page's Build door repointed and reworded to match.
+- Every link from `Website Links.pdf` wired: Greece waitlist, Pinterest, privacy, the review.
+- The client work block rebuilt three times, ending as transparent marks on no ground with
+  drawn iPhones. **See §6 before touching it — the sizing has a derivation, not a taste.**
+- Four shared bugs fixed that were never about this page: the gauge inversion never matched,
+  the header wordmark was unreadable on light grounds, the gauge numeral overprinted text on
+  phones, and `about/index.html` closed with a class that does not exist.
 
 ---
 
@@ -35,11 +76,12 @@ CLIs read their own credentials. That is the point of them.
 | Home page | `index.html` |
 | About page | `about/index.html` |
 | The Build page | `the-build/index.html` |
-| Shared CSS and JS | `assets/css/site.css`, `assets/js/site.js` — **both pages share them** |
+| Shared CSS and JS | `assets/css/site.css`, `assets/js/site.js` — **all three pages share them** |
 | GitHub | https://github.com/Cydniejocelyn/cydniejocelyn.com **(private)**, over HTTPS through `gh` |
 | Vercel project | `cydniejocelyn-v2` under team `cydnie-jocelyn`, linked in `.vercel/` |
-| Home artifact | https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5 |
-| About artifact | https://claude.ai/code/artifact/edb8e6b0-19ba-4048-801b-ffc570b75551 |
+| Home artifact — **STALE** | https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5 |
+| About artifact — **STALE** | https://claude.ai/code/artifact/edb8e6b0-19ba-4048-801b-ffc570b75551 |
+| The Build artifact | **never published.** Put its URL in `ARTIFACT["build"]` in `tools/build_artifact.py` the first time it is |
 | **About copy, source of truth** | `CydnieJocelyn-Site/about.html` |
 | **Build copy, source of truth** | `The Build page/files/the-build-page-FINAL.html` — supersedes v6 |
 | Build wireframe, superseded | `The Build page/files/the-build-page-wireframe-v6.html` |
@@ -78,12 +120,19 @@ python3 tools/stamp.py                  # ALWAYS, after editing site.css or site
                                         # it stamps all THREE pages; add any new one to it
 python3 tools/build_artifact.py home
 python3 tools/build_artifact.py about
+python3 tools/build_artifact.py build
 git add -A && git commit -F <file>      # -F a file, NOT -m: see below
 git push origin main
 vercel deploy --prod --yes
 ```
 
-Then republish both artifacts with the `Artifact` tool, passing each one's existing URL.
+Then republish the artifacts with the `Artifact` tool, passing each one's existing URL.
+
+**The two published artifacts are stale.** They were last published in session one and none of
+session two reached them: no ink wordmark, no gauge fix, no repointed nav, no published
+prices, no Build page. The `.html` files under `tools/` are current — they are rebuilt every
+time — but nobody has pushed them to the artifact URLs. Republish before showing anyone an
+artifact link, or send the Vercel URL instead.
 
 **Use `git commit -F` with a heredoc, never `-m` with backticks in the message.** Backticks in
 a `-m` string are executed by the shell. One commit here lost a word that way.
@@ -375,8 +424,9 @@ and clear it — "the instrument without the words", which is what mobile was al
 Also fixed in passing: `about/index.html` closed its footer with `.ftr-base`, which is not a
 class that exists. It is `.ftr-btm`.
 
-**Navigation, both pages:** The Build · Retreats · The Letters · About, with **A Sounding** as
-the call. Per `about.html`.
+**Navigation, all three pages:** The Build · Retreats · The Letters · About, with **A Sounding**
+as the call. Per `about.html`. The Build now points at `/the-build/` everywhere; Retreats and
+The Letters are still home-page anchors. See §7.7.
 
 ### The three movements
 
@@ -460,12 +510,29 @@ load, all revealed once scrolled past, and **with JS off every paragraph is visi
    published at `/the-build/#work`. Confirm written permission from Mane Alchemist, SRS
    Performance and SolyRey before this goes public. Nothing else on the page is blocked.
 
-9. **The prices are now public, in three places.** The page, the JSON-LD in its head, and
-   HoneyBook. If one figure changes, all three change, and the home page's Build door
-   (`index.html`, `$1,500 to $15,000`) is a fourth. There is one open copy question v6 left
-   unanswered: **does the $300 credit toward a Build?** v6's read is no, because crediting
-   turns a complete deliverable into a deposit. If Cydnie decides yes, a line goes in the
-   A Sounding block and in the HoneyBook service description.
+9. **The prices are public in four places and they must not drift.** The page, the JSON-LD in
+   its head, the home page's Build door (`index.html`, `$1,500 to $15,000`), and HoneyBook.
+   Change one, change all four in the same commit. Currently nine offers and ten questions,
+   verified matching between the markup and the schema.
+
+   **v6's open question is closed.** FINAL settles it: a Sounding does **not** credit toward a
+   Build. It is complete on its own and crediting it would turn a finished deliverable into a
+   deposit. **This has to match the HoneyBook service description** — worth checking that it
+   does, because nothing here can verify it.
+
+10. **The sticky bottom bar.** `CLAUDE-CODE-BRIEF.md` says keep it. `site.css` records that it
+    was removed because the brand guide forbids it, along with the nudge, the modal and the
+    exit intent. Both cannot be right. **It is currently off.** See §7c.
+
+11. **Mane Alchemist's mark is repainted and Cydnie has not seen the question.** Its lockup is
+    cream on black and vanishes on Surface, so the script is repainted in Mane's own Foundation
+    `#1C1B1A` with the gold motif untouched. That is the positive version of a lockup delivered
+    reversed, which is what a brand kit contains — but it is still a client's artwork altered
+    for presentation. If she would rather it stayed cream, the fix is to give that one case a
+    coloured field back. See §6.
+
+12. **Two of the three live client sites render broken on a phone**, which is not this repo's
+    problem but is worth telling her before anyone follows a link from the portfolio. §7b2.
 
 ---
 
@@ -551,19 +618,89 @@ exit intent. Those cannot both be right. The bar is currently **not** on the pag
 ## 8. Recreate the preview each session
 
 The preview sandbox **cannot read `~/Desktop`**, so the server serves a mirror in the session
-scratchpad, and **the scratchpad path changes every session**.
+scratchpad, and **the scratchpad path changes every session.** `.claude/launch.json` is
+gitignored for exactly that reason: it points at last session's path and is always stale.
 
-1. `sync.sh`: `rsync -a --delete` from the project to `<scratchpad>/preview/`, **excluding**
-   `CydnieJocelyn-Site`, `cydniejocelyn`, and the `* copy` folders — otherwise it copies ~59GB
-   of brand library and video into the scratchpad.
-2. A server on `$PORT` with **`Cache-Control: no-store`**. Without it you debug a stale
-   `site.js`. This cost an hour once.
-3. Point `.claude/launch.json` at it, then `preview_start`.
-4. **Run `sync.sh` after every edit**, and again after `build_artifact.py`.
+Set `SP` to the new session's scratchpad, then:
 
-To look at one section, cut it into a short standalone page and navigate fresh — full-page
-screenshots after a programmatic scroll are unreliable. There is a working pattern for this in
-the session transcript; recreating it takes a minute.
+- **`$SP/sync.sh`** — `rsync -a --delete` from `/Users/cydniebrown/Desktop/cydniejocelyn-v2/`
+  into `$SP/preview/`, excluding `CydnieJocelyn-Site`, `cydniejocelyn`, `* copy`, `.git`,
+  `.vercel` and `The Build page`. The excludes are not optional: without them rsync copies
+  ~59GB of brand library and video into the scratchpad.
+- **`$SP/serve.py`** — a `SimpleHTTPRequestHandler` bound to `$SP/preview` that adds
+  `Cache-Control: no-store, max-age=0` in `end_headers`. **Not optional either.** Without it
+  you debug a stale `site.js`. That cost an hour once.
+- Write `.claude/launch.json` with `runtimeExecutable: "python3"` and
+  `runtimeArgs: ["$SP/serve.py", "$SP/preview", "8787"]`, `port: 8787`, then `preview_start`.
 
-`.gitignore` excludes the ~59GB of source material that lives inside the project folder, the
-two built artifacts, `.vercel`, and `.claude/`. Keep it that way.
+**Run `sync.sh` after every edit**, and again after `build_artifact.py`. Nothing you change is
+visible in the preview until you do.
+
+`.gitignore` excludes the ~59GB of source material inside the project folder, the three built
+artifacts, `.vercel`, and `.claude/`. Keep it that way.
+
+### Screenshotting a live site
+
+Headless Chrome is the only way to get a real page to disk here: the preview pane can render
+one but cannot save it. Chrome **does not exit** after `--screenshot`, so background it, poll
+for the file, then kill it, or the call hangs until the tool times out.
+
+    CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    UA="Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 \
+    (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1"
+    ( "$CHROME" --headless=new --disable-gpu --hide-scrollbars --no-first-run \
+        --user-data-dir="$SP/cp" --window-size=393,852 --force-device-scale-factor=3 \
+        --user-agent="$UA" --virtual-time-budget=12000 \
+        --screenshot="$SP/out.png" "https://example.com/" >/dev/null 2>&1 ) &
+    pid=$!; for i in $(seq 1 40); do [ -s "$SP/out.png" ] && sleep 2 && break; sleep 1; done
+    kill $pid 2>/dev/null
+
+393x852 at DPR 3 gives 1179x2556, which is an iPhone 15/16 Pro screen exactly. A fixed cookie
+banner can be pushed out of frame by capturing taller (`--window-size=393,1150`) and cropping
+the top 852. **Do not dismiss a consent banner to get a clean shot** — that is consenting on
+her behalf, and it is not ours to do.
+
+### Reading the boards and the marks
+
+`PIL` and `numpy` are both available; ImageMagick and `cwebp` are not. Pillow writes WebP with
+alpha (`exact=True`). The three brand boards are **pixel-identical apart from their screens**,
+which is the trick that made every measurement in §6 possible: diff two boards and what differs
+is the screen, what matches is the chassis. Thresholding fails on SRS, whose screenshot is
+nearly as dark as the frame around it.
+
+---
+
+## 9. What is next, and one trap that just cost a deploy
+
+### The Greece retreat page
+
+`Greece Retreat/greece-v2.html` and `greece-v2 copy.html` appeared during session two and were
+not touched. The `copy` is the later of the two (800 lines) and is presumably the live one —
+**confirm which before building from either.** It is titled *"Fifteen: A Women's Retreat in
+Crete, Greece. August 2027."* and its sections run: eight days in Crete, the re-diagnosis, built
+for the Tuesday after, who this is not for, Douliana, Armonia, what is included, seats, the two
+hosts, flying into Chania, questions, close.
+
+**It already contradicts `llms.txt`.** The page says *"All fifteen seats are taken."* `llms.txt`
+says 14 guests at the main site with the waitlist open and early bird at $3,265. One of those is
+out of date. Resolve it before publishing either, and remember §7b's rule: the retreat books
+directly, no Sounding, and the Greece waitlist link is
+`clients.cydniejocelyn.com/public/6a21d07b6dcfbe3d85c663b6`.
+
+Per the colour notes, **Retreats is the one page allowed to run deeper than the others** — dark
+reads as evening and away rather than as weight there.
+
+### Working documents get served. Check `.vercelignore` first.
+
+`vercel deploy` uploads the working directory, **not** what git tracks, and `.vercelignore` is
+explicit rather than inherited. Two documents were live in production for several deploys:
+
+- `the-build-page-FINAL.html` and `CLAUDE-CODE-BRIEF.md` sat inside `the-build/`, a route
+  directory, and were reachable at `/the-build/…`.
+- Moving them to `The Build page/files/` did **not** fix it. That folder was not in
+  `.vercelignore` either, so `/The Build page/files/CLAUDE-CODE-BRIEF.md` kept returning 200.
+
+Both folders are excluded now. **The rule: the same day a folder of working documents lands,
+add it to `.vercelignore`, and never park one inside a route directory.** Verify with
+`vercel curl "$URL/<path>"` and expect a 404 — plain `curl` cannot tell you anything while
+Deployment Protection is on.
