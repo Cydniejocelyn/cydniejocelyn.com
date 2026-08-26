@@ -908,6 +908,35 @@ because the pictures are different shapes.
 sit off to the right, so a vertical read of the page fetches one of them. That is the point.
 The test asserts on images within reach rather than on all of them.
 
+### A figcaption was falling out of its own figure, site wide
+
+`.layer-fig img` carried `height: 100%`, which was there so a picture filled a figure that a
+grid row had stretched. Inside `.pair` that made a loop: the row was sized from the image and
+the image was sized from the row, so the figure ended up **exactly as tall as its picture** and
+its `<figcaption>` hung out of the bottom, over whatever came next. On the Greece page that was
+the caption of the deck photograph printing on top of the excursion note.
+
+The aspect ratio already gives every one of these a height, so nothing needed the 100%. It is
+`height: auto` now. Swept afterward: 57 figures across all five pages, none with a caption
+outside its figure.
+
+`.pair--calm` also stopped 250px short of the right edge that the stats, the disclosure rows
+and the rail all run to, because it was capped at `58rem` to keep it short. It runs the full
+wrap now and the height comes out of a 4:3 ratio instead.
+
+### No em dashes
+
+Cydnie asked for them out. There were three, all `&mdash;`, all on the Greece page, all from
+this session, and all three read fine as commas. **The sweep covers every shipped `.html`,
+`.txt`, `.xml`, `.css` and `.js`, ignoring comments, and it is at zero.** Re-run it before
+shipping copy:
+
+    grep -rn '—\|&mdash;\|&#8212;' index.html about/ the-build/ retreats/ llms.txt
+
+**En dashes are a different mark and three remain, all in `13&ndash;20 August 2027`.** That is
+the correct mark for a date range and she did not ask about it. If she wants those gone too the
+answer is "13 to 20 August 2027" in three places plus `llms.txt`.
+
 ### The two portraits were different sizes, and it was a real bug
 
 `.rt-person--flip` set `order: 2` on the figure but left the columns at `4fr 8fr`, so reversing

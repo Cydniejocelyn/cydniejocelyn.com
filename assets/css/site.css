@@ -1524,16 +1524,32 @@ button.door-note {
   .triptych .layer-fig img,
   .pair .layer-fig img { aspect-ratio: 1.2 / 1; }
 }
-/* A pair that does not need the whole wrap. Two 0.62 portraits at 82.5rem
-   are 620px tall each and eat a screen and a half between them; these are a
-   supporting figure, not the subject. */
-.pair--calm { max-width: 58rem; }
-.pair--calm .layer-fig img { aspect-ratio: 1 / 1; }
+/* A pair that is a supporting figure rather than the subject: two 0.62
+   portraits at 82.5rem are 620px tall each and eat a screen and a half.
+
+   It runs the full wrap. Capping it at 58rem made it shorter but left it
+   stopping 250px short of the right edge that every other block on the page
+   runs to -- the stats, the disclosure rows and the rail all reach it -- so
+   the height came out of the ratio instead.
+
+   `height: auto` is the fix for a real bug and not a tidy-up. `.layer-fig
+   img` sets `height: 100%`, and inside a stretched grid item that resolves
+   against the row, which was itself being sized from the image: the figure
+   ended up exactly as tall as its picture and its caption hung out of the
+   bottom of it, over whatever came next. */
+.pair--calm .layer-fig img { aspect-ratio: 4 / 3; height: auto; }
 @media (max-width: 41.99rem) { .pair--calm .layer-fig img { aspect-ratio: 4 / 3; } }
 
-/* Column image, sits beside copy. */
+/* Column image, sits beside copy.
+
+   `height: 100%` was here so the picture filled a figure that had been
+   stretched by a grid row. It also meant the figure never grew to hold its
+   own figcaption: inside `.pair` the row was sized from the image, the image
+   was sized from the row, and the caption fell out of the bottom. The aspect
+   ratio below already gives every one of these a height, so nothing needs
+   the 100%. */
 .layer-fig { margin: 0; }
-.layer-fig img { width: 100%; height: 100%; object-fit: cover; }
+.layer-fig img { width: 100%; height: auto; object-fit: cover; }
 .layer-fig img { aspect-ratio: 0.62 / 1; }
 .layer-fig--landscape img { aspect-ratio: 1.5 / 1; }
 
