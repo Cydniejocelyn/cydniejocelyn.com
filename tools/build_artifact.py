@@ -76,14 +76,30 @@ body = body.replace('<script src="assets/js/site.js" defer></script>', "")
 # to reach. Rewriting `/#retreat` to `#retreat` made twelve dead anchors that
 # swallowed the click silently; absolute URLs at least say where they go.
 SITE = "https://cydniejocelyn.com"
-body = body.replace('href="/#', 'href="%s/#' % SITE)
-body = body.replace('href="/about/"', 'href="%s/about/"' % SITE)
-body = body.replace('href="/"', 'href="%s/"' % SITE)
 
-# pages that do not exist yet resolve to the on-page CTA
-for dead in ('href="/contact/"', 'href="/legal/privacy/"', 'href="/legal/terms/"', 'href="/about/"'):
+# The two pages are published as two artifacts, so a cross page link inside
+# one of them is pointed at the other one's artifact. Without this, About in
+# the nav sent the reader to a domain that is not live yet, and the preview
+# stopped being a site you could walk. On the real build these stay `/about/`
+# and `/`; only the artifact is rewritten.
+ARTIFACT = {
+    "home":  "https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5",
+    "about": "https://claude.ai/code/artifact/edb8e6b0-19ba-4048-801b-ffc570b75551",
+}
+# a link to the page you are already on is an anchor, not a trip out
+body = body.replace('href="/about/"',
+                    'href="#main"' if PAGE == "about" else 'href="%s"' % ARTIFACT["about"])
+# a root anchor is a section of the home page: an anchor when you are on it,
+# a trip to the home artifact when you are not
+body = body.replace('href="/#', 'href="#' if PAGE == "home" else 'href="%s#' % ARTIFACT["home"])
+body = body.replace('href="/"',
+                    'href="#main"' if PAGE == "home" else 'href="%s"' % ARTIFACT["home"])
+
+# pages that do not exist yet resolve to the on-page CTA. About is not one of
+# them: it exists, it is in the nav, and it was only ever in this list because
+# the replace above had already consumed it.
+for dead in ('href="/contact/"', 'href="/legal/privacy/"', 'href="/legal/terms/"'):
     body = body.replace(dead, 'href="#start"')
-body = body.replace('href="/"', 'href="#main"')
 
 entities = lambda t: "".join(c if ord(c) < 128 else "&#%d;" % ord(c) for c in t)
 FOLD = {"—": "--", "–": "-", "’": "'", "‘": "'",

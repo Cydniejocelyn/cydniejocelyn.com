@@ -146,7 +146,7 @@
   <div class="wrap">
     <div class="ab-split">
       <div class="ab-acct">
-        <h2 class="head h-2 split" id="ab-acct">I came home and I quit.</h2>
+        <h2 class="carved c-2 split" id="ab-acct">I came home and I quit.</h2>
         <div class="body stack-lg r-up" style="--d:60ms; margin-top:var(--s-6)">
           <p>For fourteen years I performed a strength I did not have. I was competent and respected and completely hollow, and I could not say that out loud anywhere, least of all at work.</p>
           <p>I missed the first two and a half years of my firstborn's life inside postpartum depression, giving everything I had to a company that taught me to devalue myself. That is the sentence it took me years to be able to write.</p>
@@ -195,17 +195,40 @@
     <div class="grid-12">
       <div class="col-d">
         <span class="held-rule" aria-hidden="true"></span>
-        <h2 class="head h-2 split" id="ab-god">God isn't an afterthought. He is the whole foundation.</h2>
+        <h2 class="carved c-2 split" id="ab-god">God isn't an afterthought. He is the whole foundation.</h2>
+        <p class="ready-lede r-up" style="--d:60ms">Three things I believe, and where each one came from.</p>
       </div>
       <div class="col-e">
         <div class="body stack r-up" style="--d:60ms">
           <p>A women's bible study came first. Then church, which I had been avoiding with the specific energy of someone who suspects it will ask something of them. Then baptism, and Brandis Mager, who gave me the courage to go through with it.</p>
         </div>
-        <ul class="ab-beliefs r-up" style="--d:120ms" role="list">
-          <li>You were made on purpose.</li>
-          <li>The pivots are where God does His best work.</li>
-          <li>You were never meant to stay in rooms that required you to be less.</li>
-        </ul>
+
+        <!-- The same picker the home page uses before you book. The plain
+             state is all three beliefs with their account under them: every
+             word is on the page and the block does its whole job with no
+             JS, which is the only reason the picker is allowed to exist.
+
+             Stated, not argued, as the wireframe asks. What opens under a
+             belief is where it came from, which is account rather than
+             apologetics. NOTE: those three lines are drawn from copy
+             already on this page but they are not verbatim hers. They need
+             her eye before this goes live. -->
+        <div class="reversal ab-beliefs r-up" data-reversal
+             data-label="Three beliefs"
+             data-lede="Pick one to see where it came from." style="--d:120ms">
+          <div class="rev">
+            <p class="rev-q">You were made on purpose.</p>
+            <p class="rev-a">I could not have said that about myself out loud. It was true anyway.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">The pivots are where God does His best work.</p>
+            <p class="rev-a">Three days to decide. Two weeks to leave. None of that was a plan.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">You were never meant to stay in rooms that required you to be less.</p>
+            <p class="rev-a">I stayed in one for fourteen years and called it being competent.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -357,7 +380,7 @@
           <ul role="list">
             <li><a href="/about/">About Cydnie</a></li>
             <li><a href="/#faq">Questions</a></li>
-            <li><a href="/#questions">The twelve questions</a></li>
+            <li><a href="/#questions">The Letters</a></li>
           </ul>
         </div>
       </div>

@@ -354,15 +354,18 @@
      Home and End to the ends. Nothing here decides whether the words
      exist, only which one is in front. */
   function initReversal() {
-    var host = document.querySelector("[data-reversal]");
-    if (!host) return;
+    Array.prototype.slice.call(document.querySelectorAll("[data-reversal]"))
+      .forEach(buildReversal);
+  }
+
+  function buildReversal(host) {
     var revs = Array.prototype.slice.call(host.querySelectorAll(".rev"));
     if (revs.length < 2) return;
 
     var picks = document.createElement("div");
     picks.className = "rev-picks";
     picks.setAttribute("role", "tablist");
-    picks.setAttribute("aria-label", "What is stopping you");
+    picks.setAttribute("aria-label", host.dataset.label || "Choose one");
 
     var panels = document.createElement("div");
     panels.className = "rev-panels";
@@ -408,9 +411,11 @@
     host.classList.add("is-live");
 
     /* The lede in the markup does not tell anyone to pick, because with no
-       JS there is nothing to pick. Now there is, so say so. */
-    var lede = document.querySelector(".ready-lede");
-    if (lede) lede.textContent = "Pick the one that is actually stopping you.";
+       JS there is nothing to pick. Now there is, so say so. Scoped to this
+       picker's own section, and each picker carries its own line. */
+    var sec = host.closest("section");
+    var lede = sec && sec.querySelector(".ready-lede");
+    if (lede && host.dataset.lede) lede.textContent = host.dataset.lede;
 
     /* Hold the panel at the height of the longest answer. Measured with
        all of them shown, because a hidden one has no height to read. */

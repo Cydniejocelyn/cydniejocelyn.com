@@ -4,3 +4,13 @@ tools/cydnie-jocelyn-about.html
 
 # macOS
 .DS_Store
+
+# Source material that lives beside the site, not in it. These moved inside
+# the project folder on 26 Aug and total roughly 59GB: the brand library, the
+# retreat photography and the video. GitHub would refuse them and the push
+# would be unrecoverable. The site's own assets are in assets/ and tracked.
+/CydnieJocelyn-Site/
+/Costa Rica copy/
+/Family Travel copy/
+/Fonts copy/
+/cydniejocelyn/

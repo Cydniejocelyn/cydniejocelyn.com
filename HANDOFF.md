@@ -13,10 +13,11 @@ under "The brand guide pass, 25 August 2026" further down, and it is coherent, b
 it removed were features Cydnie had asked for by name in the session before**:
 
 - **The letter signup pop-up.** She asked for "the pop up to sign up for the letter" and it was
-  built as a real signup inside the nudge. The nudge is gone; the letter door's opener is now a
-  link to `#questions`. **That is the twelve questions form, not the letter.** After this pass
-  there is no letter signup anywhere on the site, which is the state that existed before she
-  asked for one.
+  built as a real signup inside the nudge. **The nudge is gone.** The letter door now links to
+  `#questions`, and since the free product was unified as The Letters that form is the right
+  destination, so the dead end she originally complained about is fixed. What is gone is the
+  pop-up itself: nothing surfaces the signup unprompted any more. She has not been asked whether
+  that is what she wanted.
 - **The sticky bar.** It carried one of the six Sounding booking links she asked to have wired.
   Home is down to five.
 
@@ -191,14 +192,90 @@ conversation", "Book a Sounding" and "Book one conversation" across the two page
 three means removing the Sounding door's own CTA and the CTA under The Work, which is a content
 decision about her doors, not a brand cleanup, so it was left for her.
 
+### About is now a destination, not an anchor
+
+`index.html` nav and footer both had **About pointing at `#story`**, the story block on the home
+page. The About page existed and nothing in the primary navigation reached it. Both now go to
+`/about/`, which with the story block's "Read the whole of it" makes three ways in from home.
+
+**`build_artifact.py` cross links the two artifacts.** A published artifact is one page, so
+`/about/` and `/` used to be rewritten to `https://cydniejocelyn.com/...`, a domain that is not
+live: every cross page link in the preview was a dead end. They now point at the other page's
+artifact, which is why the URLs are hardcoded in `ARTIFACT` at the top of the rewrite block.
+**If either artifact URL ever changes, change it there.** Root anchors (`/#retreat`) go to the
+home artifact with the anchor attached; on the home page itself they stay bare anchors.
+
+`href="/about/"` was also in the script's **dead links** tuple, alongside `/contact/` and the
+legal pages, which would have sent About to `#start`. It only ever worked because the replace
+above it had already consumed the string. Removed.
+
+Verified: **zero `href` attributes pointing at `cydniejocelyn.com` in either artifact.** The
+domain still appears in canonical, og and JSON-LD, which is correct.
+
+### The free product has one name
+
+It was **The letter** in the home door, **The twelve questions** in the closing form and both
+footers, and **The Letters** on the about page after the v6 copy went in. It is **The Letters**
+everywhere it is named now. Where the copy *describes* what arrives it still says the twelve
+questions, which is what those sentences are for: the product is The Letters, the contents are
+the twelve questions.
+
+### Block 04 is the same picker the home page uses before you book
+
+`initReversal` used to find `document.querySelector("[data-reversal]")`, the only one on the
+site. It now walks **every** `[data-reversal]` host and hands each to `buildReversal`. Two
+things moved onto the host so the two instances cannot collide:
+
+- `data-label` becomes the tablist's `aria-label`
+- `data-lede` is the line the picker writes into `.ready-lede` **in its own section**. That
+  lookup used to be a bare `document.querySelector(".ready-lede")`
+
+The markup lede never says "pick", because with no JS there is nothing to pick. The plain state
+is all three beliefs with their account under them, every word on the page, which is the only
+reason the picker is allowed to exist. **Verified with the head bootstrap stripped.**
+
+`.rev-pick[aria-selected="true"] .rev-mark` was hardcoded to Breath, which was right when the
+only picker sat on dark water and **invisible** on the Surface ground block 04 sits on. It takes
+`--label` now: Breath on dark, Deepwater on light.
+
+The old `.ab-beliefs li` rules are gone; the class is now spacing only and everything else comes
+from `.reversal`, so the two pickers cannot drift.
+
+**The three lines that open under the beliefs are not verbatim hers.** They are built from copy
+already on the page (the fourteen years, three days to decide and two weeks to leave, the room
+she stayed in) and they are account rather than argument, which is what "stated, not argued"
+asks for. **They need her eye before this is public.** There is a note to that effect in the
+markup above the block.
+
+### The display face on the about page
+
+Two headings moved from Instrument Sans to the carved stack, which is the face the home page
+sets "You didn't lose yourself" in:
+
+- 03 **"I came home and I quit."** — the end of the story used as the door
+- 04 **"God isn't an afterthought. He is the whole foundation."**
+
+Not the others. 02 is too long a sentence for a display face, and 05 and 08 are structural
+headings rather than liturgy, so the page alternates: carved for the personal, sans for the
+scaffolding. The CSS comment on `.carved` is the rule that decided it, and it was already
+written: *"Never for long lines; it is for the sentences that arrive as liturgy."*
+
+`.c-2` went from `clamp(1.45rem, 2.5vw, 2.05rem)` to `clamp(1.6rem, 2.9vw, 2.4rem)`. The carved
+face has a smaller x-height than Instrument Sans, so a carved heading set at `.h-2`'s size reads
+a step smaller than the sans headings beside it. **This also moves the home page's two `.c-2`
+headings**, Four ways in and the Greece edition, which is the point: they were quietly
+undersized too.
+
 ### Still open after this pass
 
 - **The home footer still links the She Rises Through It podcast.** The wireframe says it comes
   off with the podcast shelved. The footer tagline it names does not exist in this build, so
   only the link is left. Whether the podcast is actually shelved is still not in any file.
 - The two unwired forms, `/contact/` and `/legal/*`, and the push. All unchanged.
-- The home artifact at `df17491f` is **stale**: it predates this pass and the shared CSS and JS
-  moved under it. Rebuild with `python3 tools/build_artifact.py home` and republish to that URL.
+- Both artifacts were rebuilt and republished on 25 Aug. **`df17491f` is shared with anyone
+  holding the link and those viewers see a pinned earlier version**, not the live one, so
+  republishing does not change what they see. Repin it from the artifact's share menu when the
+  new build should go out.
 
 ---
 
