@@ -71,7 +71,8 @@ def swap(m):
     return 'src=""'
 
 body = re.sub(r'src="(assets/img/[^"]+)"', swap, body)
-body = body.replace('<script src="assets/js/site.js" defer></script>', "")
+# the asset links now carry a ?v= build id, so match past it
+body = re.sub(r'<script src="assets/js/site\.js[^"]*" defer></script>', "", body)
 # An artifact is one page, so a link to another page of the site has nothing
 # to reach. Rewriting `/#retreat` to `#retreat` made twelve dead anchors that
 # swallowed the click silently; absolute URLs at least say where they go.
