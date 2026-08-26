@@ -220,9 +220,12 @@
     function frame() {
       var r = fig.getBoundingClientRect();
       var vh = window.innerHeight || 1;
-      /* nought when the figure's top reaches the bottom of the screen,
-         one by the time its middle has come up to a third of the way */
-      var p = (vh - r.top) / (vh * 0.62 + r.height * 0.5);
+      /* Nought when the figure's top reaches the bottom of the screen, one
+         by the time it is well up the screen. The divisor is the whole dial:
+         it is the scroll distance the fourteen take to come in, so smaller
+         is faster. Was 0.62vh + 0.5h, which ran about 700px on a phone and
+         read as sluggish. */
+      var p = (vh - r.top) / (vh * 0.38 + r.height * 0.30);
       p = Math.max(0, Math.min(1, p));
       var n = Math.round(p * dots.length);
       dots.forEach(function (d, i) { d.classList.toggle("is-filled", i < n); });
