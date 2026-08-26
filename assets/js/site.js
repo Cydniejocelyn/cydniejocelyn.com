@@ -253,93 +253,19 @@
      Three bubbles leave the dark and go up to break the surface, once, as
      the reader crosses the band. Written as a direct style, because a
      transition may never advance here and a keyframe would be a loop. */
+  /* ---------- 5b. The breath ---------------------------------
+     All this does is add the class. The rise itself is a CSS keyframe,
+     because keyframes are the one kind of motion that can be relied on to
+     advance in this build: transitions do not, and animation frames do not
+     always arrive. Three earlier versions of this were driven by rAF and
+     never moved for anyone.
+
+     One iteration, forwards, and then it is done. Nothing loops. */
   function initBreath() {
     var band = document.querySelector(".rise-band");
     if (!band) return;
-    var bubs = Array.prototype.slice.call(band.querySelectorAll(".bub"));
-    if (!bubs.length) return;
-
-    /* Where each one ends up, how far behind the one in front it goes, and
-       the phase of its drift. The travel stops short of the surface: they
-       are air on its way up, not air that has already left. */
-    var SET = [
-      { travel: -20, grow: 0.14, delay:   0, phase: 0.0, sway: 2.6 },
-      { travel: -29, grow: 0.24, delay: 220, phase: 2.1, sway: 3.4 },
-      { travel: -38, grow: 0.34, delay: 440, phase: 4.2, sway: 4.2 }
-    ];
-    var RISE = 1500;                      /* one breath, not a hurry */
-
-    /* How far the band has crossed the viewport, nought to one. Everything
-       lateral is a function of this rather than of the clock, which is why
-       the drift is not a loop: it only moves while she does. */
-    function crossing() {
-      var r = band.getBoundingClientRect();
-      var vh = window.innerHeight || 1;
-      return Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
-    }
-
-    /* Air does not go straight up. Each one leans on its own phase, so the
-       three never move as one object. Amplitude is small on purpose. */
-    function drift(cfg, t) {
-      return Math.sin(crossing() * 5.2 + cfg.phase) * cfg.sway * t;
-    }
-
-    function place(b, cfg, t) {
-      b.style.transform =
-        "translate(" + drift(cfg, t).toFixed(2) + "px," + (t * cfg.travel).toFixed(2) + "px)" +
-        " scale(" + (1 + t * cfg.grow).toFixed(3) + ")";
-    }
-    function settle() {
-      bubs.forEach(function (b, i) { place(b, SET[i] || SET[2], 1); });
-    }
-
-    if (reduce.matches) { settle(); return; }
-
-    /* Slow out. Fast off the floor, easing as the pressure comes off it. */
-    function ease(x) { return 1 - Math.pow(1 - x, 3); }
-
-    var started = false, risen = false;
-
-    function play() {
-      if (started) return;
-      started = true;
-
-      /* They are only ever moved from inside a frame. If frames never come,
-         nothing touches them and the CSS resting state stands, which is the
-         three already up. Dropping them first would strand them. */
-      var t0 = null, done = false;
-      function step(now) {
-        if (done) return;
-        if (t0 === null) t0 = now;
-        var el = now - t0, live = false;
-        bubs.forEach(function (b, i) {
-          var cfg = SET[i] || SET[2];
-          var t = (el - cfg.delay) / RISE;
-          if (t < 1) live = true;
-          place(b, cfg, ease(Math.max(0, Math.min(1, t))));
-        });
-        if (live) window.requestAnimationFrame(step);
-        else { done = true; risen = true; }
-      }
-      window.requestAnimationFrame(step);
-
-      window.setTimeout(function () {
-        if (done) return;
-        done = true; risen = true;
-        settle();
-      }, RISE + SET[2].delay + 400);
-    }
-
-    /* Once she is up, the drift keeps answering the scroll. It resolves at
-       every position rather than repeating on a clock, so nothing loops. */
-    function sway() {
-      if (!risen) return;
-      settle();
-    }
-
-    watch(band, play, null, true);
-    window.addEventListener("scroll", sway, { passive: true });
-    window.addEventListener("resize", sway, { passive: true });
+    if (!band.querySelector(".bub")) return;
+    watch(band, function () { band.classList.add("is-breathing"); }, null, true);
   }
 
   /* ---------- 5c. The menu ----------------------------------

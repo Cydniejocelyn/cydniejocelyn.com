@@ -114,71 +114,73 @@
 
 <main id="main">
 
-<!-- 01 / PAGE HEAD. No photograph: the portrait is held until the account,
-     where it is evidence rather than the second face in ninety seconds. -->
-<section class="section ab-head z-deep" data-zone aria-labelledby="ab-h">
-  <!-- The home page opens on water. This one opens on her, and on the paper
-       in her hands, which is the thing she actually sells. The left third of
-       the frame is bare wall, which is where the words go. -->
-  <div class="ab-head-water" aria-hidden="true">
-    <img src="../assets/img/cydnie-hero-1400.webp"
-         srcset="../assets/img/cydnie-hero-900.webp 900w, ../assets/img/cydnie-hero-1400.webp 1400w, ../assets/img/cydnie-hero-2048.webp 2048w"
-         sizes="100vw" width="2048" height="1365"
-         fetchpriority="high" decoding="async" alt="">
-  </div>
-  <div class="ab-head-scrim" aria-hidden="true"></div>
+<!-- 01 / PAGE HEAD. Typographic, per the refinement command: full bleed
+     Fathom, a 1px Meniscus rule at 38% from the top running past both
+     edges, nothing above the rule, the name and lede below it, and a
+     single Held tick crossing the rule at the left margin.
 
+     The photograph is gone and no stock image replaces it. The
+     construction is its own fallback: nothing can fail to load, so
+     nothing can break. This tick is also the page's one Held element,
+     so there is no Held anywhere else on the page. -->
+<section class="section ab-head ab-head--type z-deep" data-zone aria-labelledby="ab-h">
+  <span class="ab-head-rule" aria-hidden="true"></span>
+  <span class="ab-head-tick" aria-hidden="true"></span>
   <div class="wrap">
     <div class="ab-head-copy">
-      <p class="eyebrow r-fade">About Cydnie</p>
       <h1 class="carved c-1 split" id="ab-h">I&rsquo;m Cydnie.</h1>
-      <!-- No drawn rule in this hero. A photograph is present, and a drawn
-           waterline plus a photographic one at two different heights is the
-           one thing that must never ship. The rule stays everywhere else. -->
-      <p class="lead r-up" style="--d:120ms">I spent fourteen years performing a strength I did not have. Most of what I do now comes out of that.</p>
-      <p class="r-up ab-head-book" style="--d:180ms"><a class="booking" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">Book one conversation</a></p>
+      <p class="lead r-up" style="--d:60ms">I work with women who are the only reason their business runs, and who have been the only reason for a long time.</p>
+      <p class="r-up ab-head-book" style="--d:120ms"><a class="booking" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">Book one conversation</a></p>
     </div>
   </div>
 </section>
 
-<!-- 02 / THE READER, BEFORE ME. She reads about me only after I prove I can
-     see her. Reported rather than pointed at her: "most of the women I talk
-     to" lets her recognise herself instead of being told. Four sentences is
-     the ceiling. No question marks. -->
+<!-- 02 / THE READER, BEFORE ME. She reads about me only after I have
+     proved I can see her. -->
 <section class="section z-deep" data-zone aria-labelledby="ab-you">
   <div class="wrap">
     <div class="grid-12">
       <div class="col-d">
-        <h2 class="head h-2 split" id="ab-you">Most of the women I talk to are doing fine on paper.</h2>
+        <p class="eyebrow r-fade" id="ab-you">Before I tell you about me</p>
       </div>
       <div class="col-e">
         <div class="body stack r-up" style="--d:60ms">
-          <p>The business works. They are the only reason it works, and they have been the only reason for a long time.</p>
-          <p>Nobody around them can see a problem, so at some point they stopped bringing it up.</p>
+          <p>Most of the women I talk to are doing fine on paper. The business works. They are the only reason it works, and they have been the only reason for a long time. Nobody around them can see a problem, so at some point they stopped bringing it up.</p>
+          <p>I know what that costs because I did it for longer than I should have, and nobody could see it on me either.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 03 / THE ACCOUNT. The three beats move through Resurface, Reclaim and
-     Build in order. Deliberately unlabelled: she should feel the shape here
-     and meet the words in 05. The one photograph on the page. -->
+<!-- 03 / THE ACCOUNT. COPY FREEZE.
+     Do not split the paragraph beginning "Then life smacked me in the
+     face." Do not tighten run on clauses joined with "and". Do not
+     elevate register. Do not add subheads, pull quotes or bullets, and
+     do not break this into anything scannable: a testimony that can be
+     skimmed is not read at all.
+
+     No motion in here beyond the single fade up. Nothing may animate
+     while someone is reading this. -->
 <section class="section z-deep" data-zone aria-labelledby="ab-acct">
   <div class="wrap">
     <div class="ab-split">
       <div class="ab-acct">
-        <h2 class="carved c-2 split" id="ab-acct">I came home and I quit.</h2>
+        <p class="eyebrow r-fade">What happened</p>
+        <h2 class="carved c-2 split" id="ab-acct">They told me I didn&rsquo;t have a choice.</h2>
         <div class="body stack-lg r-up" style="--d:60ms; margin-top:var(--s-6)">
-          <p>For fourteen years I performed a strength I did not have. I was competent and respected and completely hollow, and I could not say that out loud anywhere, least of all at work.</p>
-          <p>I missed the first two and a half years of my firstborn's life inside postpartum depression, giving everything I had to a company that taught me to devalue myself. That is the sentence it took me years to be able to write.</p>
-          <p>Then Costa Rica. I decided in three days and the trip left in two weeks, after three years of not moving. I went as a guest. I was alone in a group of fifteen, and I heard myself for the first time in years. Somebody asked me a question I could not answer and I sat in it for the rest of the year.</p>
-          <p>I came back and told that company I had a choice after all. What I built next, I built while my boys were in and out of hospitals with a rare genetic mutation and nobody was coming to do it for me.</p>
+          <p>I had been performing a strength I did not have since I was a teenager. Pushing, grinding, hustling to prove I was competent, hiding under achievements that never once made me feel successful.</p>
+          <p>Then life smacked me in the face. I got engaged, found out we were pregnant, and designed and planned a destination wedding in three months, and twenty weeks after that our first son arrived and I had no idea what I was about to miss. I lost the first two and a half years of his life to postpartum depression while giving everything I had to a company that taught me I was replaceable and that the only opinions worth anything belonged to the people who made money. I kept teaching myself the same lesson, that no matter how hard I pushed or how right I tried to get it, I was devaluing myself for somewhere that could be rid of me in an instant.</p>
+          <p>In 2025, with two boys fifteen months apart and my second having just turned one, I had an urge to book a trip. Not a family trip. A trip for myself. I decided in three days and it left in two weeks, after two and a half years of not moving, drowning in it, in and out of the hospital. I got on the plane hoping for something.</p>
+          <p>I went as a guest, in a group of fifteen, and I knew nobody, and it was the first time in years I had been alone, alone enough to hear myself again while I processed everything I had been carrying.</p>
+          <p>Two days in, after surfing for the first time in my life, I checked my personal phone hoping my husband had texted to check on me. It was work, telling me I didn't have a choice.</p>
+          <p>I texted back shaking that I did have a choice, and that I chose my family and my children's health. Moments later I was hyperventilating and bawling my eyes out, knowing this was part of the suffering too.</p>
+          <p>I decided right there that I was not going back. It took my husband three days to get on board with me leaving a job that was part of how we paid for our life. I came home and I put my notice in.</p>
+          <p>I built what came next while my boys were in and out of the hospital with a rare genetic mutation and while my husband had a stroke at thirty-six, and nobody was coming to do it for me. The time was finally mine to choose.</p>
         </div>
       </div>
       <figure class="ab-portrait">
-        <img class="par" data-speed="0.16"
-             src="../assets/img/cydnie-veil-1100.webp"
+        <img src="../assets/img/cydnie-veil-1100.webp"
              srcset="../assets/img/cydnie-veil-700.webp 700w, ../assets/img/cydnie-veil-1100.webp 1100w"
              sizes="(min-width: 56rem) 38vw, 100vw" width="1100" height="1650"
              loading="lazy" decoding="async"
@@ -188,8 +190,8 @@
   </div>
 </section>
 
-<!-- The rise. The same band the home page uses, in the one place on this
-     page where the copy has actually come up. -->
+<!-- The rise. The one place on this page where the copy has actually come
+     up, and the transition from the account into what held it up. -->
 <div class="rise-band" id="rise">
   <figure class="layer-band" aria-hidden="true">
     <img src="../assets/img/layer-surface-1800.webp"
@@ -206,118 +208,86 @@
   </div>
 </div>
 
-<!-- 04 / THE FOUNDATION. Not first, which would filter at the door. Not
-     last, which would read as bolted on. Directly under the story it held up.
-
-     This block carries the page's one Held element: a single warm hairline
-     above the headline. Held is one element per page, so every other warm
-     mark on this page was taken back to Meniscus to pay for it. -->
-<section class="section z-light" data-zone style="--from:var(--surface)" aria-labelledby="ab-god">
+<!-- 04 / WHAT HELD. COPY FREEZE applies here too: do not lengthen
+     "Days before, I almost backed out." It is the only short sentence in
+     the section and it is where the reader stops. -->
+<section class="section z-deepwater" data-zone aria-labelledby="ab-god">
   <div class="wrap">
     <div class="grid-12">
       <div class="col-d">
-        <span class="held-rule" aria-hidden="true"></span>
-        <h2 class="carved c-2 split" id="ab-god">God isn't an afterthought. He is the whole foundation.</h2>
-        <p class="ready-lede r-up" style="--d:60ms">Three things I believe, and where each one came from.</p>
+        <p class="eyebrow r-fade">What held</p>
+        <h2 class="carved c-2 split" id="ab-god">God isn&rsquo;t an afterthought. He is the whole foundation.</h2>
       </div>
       <div class="col-e">
         <div class="body stack r-up" style="--d:60ms">
-          <p>A women's bible study came first. Then church, which I had been avoiding with the specific energy of someone who suspects it will ask something of them. Then baptism, and Brandis Mager, who gave me the courage to go through with it.</p>
+          <p>Church was not something I was avoiding, it just was not part of my life, and neither was the bible.</p>
+          <p>In April 2025 I felt a need to join a women's bible study run by a local company where I live, which made no sense at the time and makes more sense now, because I was at my breaking point and God was finding a way to shepherd me to Him.</p>
+          <p>The first day I walked into that church I was in such need of hope that I raised my hand and surrendered my life to Him, and He kept going after that, opening doors and closing the ones that were never meant to stay open.</p>
+          <p>That fall He moved again and I felt the urge to be obedient and be baptized in His name. Days before, I almost backed out.</p>
+          <p>Moments before I stepped on stage in front of eight hundred people to give my testimony, I was tapping my chest trying to slow myself down, after fourteen years of not being able to say one true thing about myself out loud. I went under shaking and I have never felt relief like coming up out of that water.</p>
         </div>
+      </div>
+    </div>
 
-        <!-- The same picker the home page uses before you book. The plain
-             state is all three beliefs with their account under them: every
-             word is on the page and the block does its whole job with no
-             JS, which is the only reason the picker is allowed to exist.
-
-             Stated, not argued, as the wireframe asks. What opens under a
-             belief is where it came from, which is account rather than
-             apologetics. NOTE: those three lines are drawn from copy
-             already on this page but they are not verbatim hers. They need
-             her eye before this goes live. -->
-        <div class="reversal ab-beliefs r-up" data-reversal
-             data-label="Three beliefs"
-             data-lede="Pick one to see where it came from." style="--d:120ms">
-          <div class="rev">
-            <p class="rev-q">You were made on purpose.</p>
-            <p class="rev-a">I could not have said that about myself out loud. It was true anyway.</p>
-          </div>
-          <div class="rev">
-            <p class="rev-q">The pivots are where God does His best work.</p>
-            <p class="rev-a">Three days to decide. Two weeks to leave. None of that was a plan.</p>
-          </div>
-          <div class="rev">
-            <p class="rev-q">You were never meant to stay in rooms that required you to be less.</p>
-            <p class="rev-a">I stayed in one for fourteen years and called it being competent.</p>
-          </div>
-        </div>
+    <!-- The three beliefs, in a sentence rather than a list, each opening
+         the verse it rests on. Checkbox toggles, so it works with no JS
+         and nothing animates while she is reading. -->
+    <div class="creed r-up" style="--d:120ms">
+      <input type="checkbox" id="v1" class="vtoggle" aria-label="Show Ephesians 2:10">
+      <input type="checkbox" id="v2" class="vtoggle" aria-label="Show Isaiah 43:19">
+      <input type="checkbox" id="v3" class="vtoggle" aria-label="Show Galatians 1:10">
+      <p class="creed-line">I believe you were <label for="v1">made on purpose<sup>1</sup></label>, that <label for="v2">the pivots are where God does His best work<sup>2</sup></label>, and that you were never meant to stay in <label for="v3">rooms that required you to be less<sup>3</sup></label>. I stayed in one for fourteen years and called it being competent.</p>
+      <div class="vpanel" id="p1">
+        <span class="vref">Ephesians 2:10</span>
+        <p>For fourteen years I thought being useful was the same thing as being made for something, and it took losing the job to find out how much smaller useful is.</p>
+      </div>
+      <div class="vpanel" id="p2">
+        <span class="vref">Isaiah 43:19</span>
+        <p>Two and a half years of not moving, then three days to decide, and I still could not have told you why I booked it.</p>
+      </div>
+      <div class="vpanel" id="p3">
+        <span class="vref">Galatians 1:10</span>
+        <p>I was performing for people who could be rid of me in an instant, and I called that a career.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 05 / THE TRIAD, DEFINED. It lives as a tagline in the home hero. Here it
-     gets its definition, which is load bearing for the whole site. The
-     numbers are earned: you cannot reclaim what you have not surfaced. -->
-<section class="section z-light" data-zone id="triad" aria-labelledby="ab-triad">
+<!-- 05 / WHAT I DO NOW. The triad, defined, and named at the end so the
+     words arrive after the thing they describe. -->
+<section class="section z-light" data-zone style="--from:var(--deepwater)" id="triad" aria-labelledby="ab-triad">
   <div class="wrap">
-    <div class="grid-12" style="margin-bottom:var(--s-6)">
+    <div class="grid-12">
       <div class="col-d">
-        <p class="eyebrow r-fade">The method</p>
-        <h2 class="head h-2 split" id="ab-triad">Three words, in order.</h2>
+        <p class="eyebrow r-fade">What I do now</p>
+        <h2 class="head h-2 split" id="ab-triad">The work goes in an order.</h2>
+      </div>
+      <div class="col-e">
+        <div class="body stack r-up" style="--d:60ms">
+          <p>The first part is working out what is actually going on, which is almost never what you came in thinking it was. Most people arrive certain they have a marketing problem and leave knowing they have an operations one, or the other way around.</p>
+          <p>The second is getting back the hours and the decisions you gave away to keep it running. This is usually where the resistance is, because every one of those handoffs felt like relief at the time.</p>
+          <p>The third is setting it up so it does not fall over when you step back.</p>
+        </div>
+        <p class="ab-triad-name r-up" style="--d:120ms">Resurface, reclaim, build. I named them that way because that is the order I went in.</p>
       </div>
     </div>
-    <ol class="triad" data-stagger="60" role="list">
-      <li class="r-up">
-        <span class="triad-n" aria-hidden="true">01</span>
-        <h3 class="carved c-3">Resurface</h3>
-        <p>Working out what is actually going on. Usually it is not the thing you came in thinking it was.</p>
-      </li>
-      <li class="r-up">
-        <span class="triad-n" aria-hidden="true">02</span>
-        <h3 class="carved c-3">Reclaim</h3>
-        <p>Getting back the hours and the decisions you gave away to keep it running.</p>
-      </li>
-      <li class="r-up">
-        <span class="triad-n" aria-hidden="true">03</span>
-        <h3 class="carved c-3">Build</h3>
-        <p>Setting it up so it does not fall over when you step back.</p>
-      </li>
-    </ol>
   </div>
 </section>
 
-<!-- 06 / THE PERSONAL BIT. A paragraph, not a list: a list of personal
-     facts is the fun facts format however it is styled, and five sentences
-     running together sound like someone talking. No header; the spacing
-     carries it. -->
-<section class="section section--tight z-silt" data-zone style="--from:var(--surface)" aria-label="The personal bit">
+<!-- 06 / THE PERSONAL BIT. A paragraph, not a list, and no header. -->
+<section class="section section--tight z-light" data-zone aria-label="The personal bit">
   <div class="wrap">
-    <p class="ab-personal r-up">I'm married. I have two boys. There is a craft room in my house that I use more than I let on. I drink a lot of water and I'm unbothered about it. I sing, but not in front of people.</p>
+    <p class="ab-personal r-up">I&rsquo;m married. I have two boys. There is a craft room in my house that I use more than I let on. I drink a lot of water and I&rsquo;m unbothered about it. I sing, but not in front of people.</p>
   </div>
 </section>
 
-<!-- 07 / THE UNGLAMOROUS FACTS. Mono, small, no adjectives. Flat is more
-     convincing than a bio paragraph. Four cells: five looks like a resume. -->
-<section class="section section--tight z-silt" data-zone aria-label="Facts">
-  <div class="wrap">
-    <dl class="ab-facts" data-stagger="60">
-      <div class="r-up"><dt>Corporate marketing</dt><dd>14 years</dd></div>
-      <div class="r-up"><dt>Based</dt><dd>Forest Lake, Minnesota</dd></div>
-      <div class="r-up"><dt>Entity</dt><dd>Cydnie Jocelyn LLC</dd></div>
-      <div class="r-up"><dt>Board</dt><dd>LEGS Minneapolis</dd></div>
-    </dl>
-  </div>
-</section>
-
-<!-- 08 / WAYS IN. Three doors mapped to the three words, so the triad pays
-     off structurally instead of being restated. The letters sit underneath,
-     attached and lower contrast: they are not a fourth door. -->
-<section class="section z-deep" data-zone style="--from:#DCE4E1" id="ways" aria-labelledby="ab-ways">
+<!-- 07 / WHERE TO START. Three doors mapped to the three words. The
+     Letters sit underneath, attached and quieter: not a fourth door. -->
+<section class="section z-deep" data-zone style="--from:var(--surface)" id="ways" aria-labelledby="ab-ways">
   <div class="wrap">
     <div class="grid-12" style="margin-bottom:var(--s-7)">
       <div class="col-d">
-        <p class="eyebrow r-fade">Ways in</p>
+        <p class="eyebrow r-fade">Where to start</p>
         <h2 class="head h-2 split" id="ab-ways">Start wherever is honest.</h2>
       </div>
     </div>
@@ -326,7 +296,7 @@
       <div class="way r-up">
         <p class="way-word">01 / Resurface</p>
         <h3 class="carved c-3">A Sounding</h3>
-        <p class="way-meta">$300. One conversation, and a written page two days later.</p>
+        <p class="way-meta">Ninety minutes, then a written page two days later.</p>
         <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
           <span>Book one conversation</span>
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
@@ -335,7 +305,7 @@
       <div class="way r-up">
         <p class="way-word">02 / Reclaim</p>
         <h3 class="carved c-3">Retreats</h3>
-        <p class="way-meta">Small groups, capped at fifteen. Above that, solitude becomes performance.</p>
+        <p class="way-meta">Small groups, capped. I went as a guest once and it is the reason all of this exists.</p>
         <a class="btn btn--quiet" href="/#retreat">
           <span>See retreats</span>
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
@@ -343,10 +313,10 @@
       </div>
       <div class="way r-up">
         <p class="way-word">03 / Build</p>
-        <h3 class="carved c-3">Somewhere to Stand</h3>
-        <p class="way-meta">Brand, operations and business development, scoped after listening and never before.</p>
+        <h3 class="carved c-3">The Build</h3>
+        <p class="way-meta">Sustained work on the structure underneath, so it holds when you step back.</p>
         <a class="btn btn--quiet" href="/#build">
-          <span>See the build</span>
+          <span>See The Build</span>
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
         </a>
       </div>
@@ -355,33 +325,28 @@
     <p class="ways-reversal r-up" style="--d:120ms">The written page is yours whether or not we ever speak again.</p>
 
     <div class="ways-letters r-up" style="--d:120ms">
-      <p><b>The Letters.</b> The same twelve questions I send retreat guests before they fly. One a month. No newsletter.</p>
+      <p><b>The Letters.</b> The same questions I send retreat guests before they fly. One a month. Not a newsletter.</p>
       <a class="more" href="/#questions"><span>Send them</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
     </div>
 
-    <!-- Objections are answered on the Questions page and are not duplicated
-         here as an accordion. One quiet link, in body text. -->
-    <p class="ways-questions r-up" style="--d:120ms">If something is stopping you, it is probably already answered on the <a class="link" href="/#faq">Questions page</a>.</p>
+    <p class="ways-questions r-up" style="--d:120ms">If you are weighing whether any of this is for you, the <a class="link" href="/#faq">Questions</a> page answers the things people ask before they book.</p>
   </div>
 </section>
 
-<!-- 09 / CLOSE. One line, one rule, generous space beneath. The rule does
-     not change width between sections: a rule that changes length implies
-     the level moved, which is the argument that banned the wave.
-
-     The booking link appears here for the third and last time, worded
-     identically to the hero and the offers. A text link, not a button. -->
+<!-- 08 / CLOSE. The booking link for the third and last time in the page,
+     worded identically to the hero and the offers. -->
 <section class="section ab-close z-deep" data-zone aria-label="Close">
   <div class="wrap">
-    <p class="ab-close-line split">Come up. There's no wrong way to do it.</p>
+    <p class="ab-close-line split">Come up. There&rsquo;s no wrong way to do it.</p>
     <p class="r-up ab-close-book" style="--d:120ms"><a class="booking" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">Book one conversation</a></p>
     <span class="wl-rule" aria-hidden="true"></span>
   </div>
 </section>
 
 </main>
+
 
 <footer class="ftr">
   <div class="wrap">
