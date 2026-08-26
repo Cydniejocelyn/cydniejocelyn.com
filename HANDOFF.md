@@ -369,6 +369,38 @@ same footer already carries `hello@cydniejocelyn.com` as a mailto. The two legal
 either real copy or removal, and that is Cydnie's call, not one to make quietly: the letter form
 collects email addresses, so a privacy link is the kind of thing you want to be deliberate about.
 
+### It is deployed, and it is behind a login
+
+`vercel deploy --prod --yes` on 26 Aug:
+
+**https://cydniejocelyn-v2-ih9g1tilk-cydnie-jocelyn.vercel.app**
+
+**Deployment Protection is on**, so every request 302s to `vercel.com/sso-api` and only a signed
+in member of the `cydnie-jocelyn` team can see the site. A plain `curl` gets 200 on *everything*,
+including paths that do not exist, because it is being handed the login page. That is a trap:
+**do not test this deployment with plain curl and conclude anything.** Use `vercel curl`, which
+carries the auth and shows the real response.
+
+Turning it off is a project setting, in the dashboard, not in the CLI:
+**Project Settings, Deployment Protection, Vercel Authentication, Disabled.**
+
+Verified through the protection with `vercel curl`, so this is the real deployed output and not
+the login page:
+
+| | |
+|---|---|
+| `/` | the home page, correct `<title>` |
+| `/about/` | the about page, correct `<title>` |
+| `/about` | 307 to `/about/`, so `trailingSlash` works |
+| `/assets/css/site.css` | `text/css`, `max-age=31536000, immutable` |
+| headers | `x-content-type-options` and `referrer-policy` both applied |
+
+So `vercel.json` is doing its job: the year of immutable caching on `/assets` and both security
+headers are live.
+
+**This project deploys from the CLI, not from Git.** The GitHub push being blocked does not block
+deploying. They are independent, and it is worth not conflating them again.
+
 ### Still open after this pass
 
 - **The home footer still links the She Rises Through It podcast.** The wireframe says it comes
