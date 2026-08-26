@@ -19,10 +19,14 @@ first three; session three built the last two and then reworked both on Cydnie's
 
 | | |
 |---|---|
-| Production | `https://cydniejocelyn-v2-qc8b5jrjn-cydnie-jocelyn.vercel.app` |
-| Built from | `b288251` |
-| `main` vs production | **In sync.** Everything committed is deployed. |
+| Production | the newest **Ready** row in `vercel ls --prod` |
+| `main` vs production | **The site is deployed.** Any commit after the deploy is documentation only. Check with `git log --oneline` — a commit that touches `HANDOFF.md`, `README.md` or `tools/` changes nothing a visitor sees. |
+| If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
 | Interaction suite | **63 assertions, all passing** (43 Greece, 20 Retreats) |
+
+Do **not** write a deploy URL into this table. Session three did, and the next commit -- which
+was this file -- immediately made it wrong. `vercel ls --prod` is the answer and it cannot go
+stale.
 
 **Deployment Protection is still ON,** so nobody outside the team can see any of it. See §1.
 
