@@ -2170,7 +2170,8 @@ main > * { position: relative; z-index: 1; }
 
    The board's ratio holds: the page stays Surface, and the client's own ink
    is the only colour in the section. */
-.cases { display: grid; }
+/* one base, three multipliers: see the note above .case-mark */
+.cases { display: grid; --mark-base: clamp(3.9rem, 6.5vw, 5.3rem); }
 .case {
   display: grid;
   align-items: center;
@@ -2195,37 +2196,67 @@ main > * { position: relative; z-index: 1; }
   align-items: center;
   gap: clamp(var(--s-4), 4vw, var(--s-7));
 }
-/* Three lockups of three different shapes: Mane Alchemist is square, because
-   its deco motif runs the full height behind the wordmark, and the other two
-   are roughly 2:1. Matching their WIDTHS made Mane twice as tall as the rest.
-   Matching their HEIGHTS made it a postage stamp beside a 17rem SRS. Neither
-   is the right invariant.
+/* Sizing these three took four attempts, so the reasoning is here in full.
 
-   What has to match is the area each one covers, so every case carries its
-   own --mark-h, solved from h = sqrt(A / aspect) against a shared A and then
-   rounded to something that looks right. Retune the case, not this rule. */
+   Their bounding boxes are not comparable objects. Measured:
+
+     Mane Alchemist   900x883   11.6% ink   wordmark fills  54% of the height
+     SRS Performance  900x396   32.2% ink   wordmark fills 100% of the height
+     SolyRey          900x433    9.2% ink   wordmark fills  70% of the height
+
+   Mane's box is square only because its deco motif runs the full height
+   behind a wordmark that occupies just over half of it, and SolyRey's carries
+   a sunburst past the script. So matching WIDTHS made Mane twice as tall as
+   the others; matching HEIGHTS made it a postage stamp beside a 17rem SRS;
+   and matching bounding-box AREA still read wrong, because most of Mane's
+   area is empty. None of the three is the invariant.
+
+   What the eye actually compares is the wordmark. Each case is scaled so its
+   wordmark lands at the same height, which means dividing by the fractions
+   above: roughly 2.08x, 1x and 1.32x of a shared base. The multipliers live
+   on the cases and the base lives here, so the three can never drift apart at
+   some width nobody checked. Retune the multiplier, not this rule. */
 .case-mark { margin: 0; display: grid; place-items: center; }
 .case-mark img {
   /* height drives, width follows from the artwork's own proportion. A width
      of 100% made the box wider than the ink and letterboxed every mark. */
-  width: auto; height: var(--mark-h, 6.25rem);
+  width: auto; height: calc(var(--mark-base) * var(--mark-x, 1));
   max-width: 100%;
   object-fit: contain; object-position: center;
 }
 
-/* The page that shipped. The only DROP shadow on the site, the swatch rings
-   below being inset hairlines rather than shadows: with the field gone there
-   is nothing else holding these two objects in front of the page, and a
-   screenshot lying perfectly flat on Surface reads as a picture of a phone
-   rather than a thing that is running. */
+/* The page that shipped, in a device. A bare screenshot on an empty ground
+   reads as a cropped picture; the chassis is what says this is a phone and
+   the thing on it is running. Drawn rather than baked into the image, so it
+   stays sharp at any size and the crop underneath stays reusable.
+
+   Everything scales off --bezel, so the frame keeps its proportions from a
+   68px phone on a handset up to 124px on a wide screen. It carries the only
+   DROP shadow on the site; the swatch rings below are inset hairlines. */
 .case-screen {
+  position: relative;
   margin: 0;
-  width: clamp(5.5rem, 10.5vw, 7.75rem);
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0 1.15rem 2.25rem -1rem rgba(7, 26, 31, .38);
+  --bezel: clamp(.2rem, .42vw, .32rem);
+  width: clamp(6rem, 11.5vw, 8.5rem);
+  padding: calc(var(--bezel) * 2.8) var(--bezel) calc(var(--bezel) * 2.4);
+  background: #141D21;
+  border-radius: calc(var(--bezel) * 5.5);
+  box-shadow:
+    0 0 0 1px rgba(7, 26, 31, .14),
+    0 1.15rem 2.25rem -1rem rgba(7, 26, 31, .42);
 }
-.case-screen img { width: 100%; height: auto; }
+.case-screen img {
+  width: 100%; height: auto; display: block;
+  border-radius: calc(var(--bezel) * 3.1);
+}
+/* the earpiece slot, in the top bezel rather than over the screen */
+.case-screen::before {
+  content: "";
+  position: absolute; top: calc(var(--bezel) * 1.1); left: 50%;
+  transform: translateX(-50%);
+  width: 24%; height: 2px; border-radius: 2px;
+  background: rgba(159, 204, 198, .3);
+}
 
 .case-who {
   font-family: var(--utility); font-size: .6875rem;
@@ -2254,7 +2285,7 @@ main > * { position: relative; z-index: 1; }
 
 @media (max-width: 55.99rem) {
   .case-show { gap: var(--s-4); }
-  .case-screen { width: clamp(4.25rem, 16vw, 5.75rem); }
+  .case-screen { width: clamp(4.75rem, 17.5vw, 6.25rem); }
   /* the mark and the page it produced read as one object on a phone, so the
      copy follows closer than the run's own rhythm would put it */
   .case { gap: var(--s-5); padding-block: clamp(var(--s-6), 9vw, var(--s-7)); }

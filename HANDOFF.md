@@ -254,11 +254,32 @@ sit directly on the page.
   field gone nothing else holds these two objects in front of the page, and a screenshot lying
   flat on Surface reads as a picture of a phone rather than a thing that is running. The
   swatch rings are inset hairlines, not shadows.
-- **Marks are matched on AREA, not width and not height.** These are a square and two roughly
-  2:1 lockups. Matching widths made Mane twice as tall as the others; matching heights made it
-  a postage stamp beside a 17rem SRS. Each case carries its own `--mark-h`, solved from
-  `h = sqrt(A / aspect)` and rounded by eye; they land within 7% of each other. Retune the
-  case, never the rule.
+- **Marks are matched on their WORDMARK, and this took four attempts.** Their bounding boxes
+  are not comparable objects. Measured:
+
+  | | box | ink in box | wordmark fills |
+  |---|---|---|---|
+  | Mane Alchemist | 900x883 | 11.6% | **54%** of the height |
+  | SRS Performance | 900x396 | 32.2% | **100%** of the height |
+  | SolyRey | 900x433 | 9.2% | **70%** of the height |
+
+  Mane's box is square only because its deco motif runs the full height behind a wordmark that
+  fills just over half of it. So matching widths made Mane twice as tall as the others;
+  matching heights made it a postage stamp beside a 17rem SRS; and matching bounding-box
+  **area** — which is what shipped first and was rejected — still read wrong, because most of
+  Mane's area is empty. None of those three is the invariant.
+
+  What the eye compares is the wordmark, so each case is scaled by roughly the inverse of the
+  fraction above: `--mark-x` of **2.08 / 1 / 1.32** against a single `--mark-base` on `.cases`.
+  One base and three multipliers, so they cannot drift apart at some width nobody checked.
+  The multipliers are the measured inverses nudged by eye — Mane's delicate italic needs to run
+  a little larger than SRS's bold geometric letters to hold the same weight, so the rendered
+  wordmark heights are 74/66/62px rather than dead level. That is deliberate. Retune the
+  multiplier on the case, never the rule.
+- **The shipped page sits in a drawn device.** Chassis, bezel, corner radius and earpiece slot
+  are all CSS off a single `--bezel`, not baked into the image, so the frame stays sharp at any
+  size and the underlying crop stays reusable. A bare screenshot on an empty ground read as a
+  cropped picture rather than something running.
 - The mark's **height drives and width follows** (`width: auto`). `width: 100%` made the box
   wider than the ink, and on a phone that letterboxing opened a visible void between the mark
   and the phone beside it. For the same reason `.case-show` is `minmax(0, auto) auto` with
