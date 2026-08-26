@@ -33,10 +33,9 @@ predates both retreat pages. **`main` is ahead of production.** Run §2 to ship.
 | 6 | **Privacy 404s at domain cutover.** | §7.3 |
 | 7 | **Two client sites render broken on mobile.** Not ours, but she should know. | §7b2 |
 | 8 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
-| 9 | **Single occupancy in Crete** is offered or it is not, and at what supplement. Not published. | §10 |
-| 10 | **"Choose your path"** is the same HoneyBook URL as the branding page's "Lets talk". Unwired. | §10 |
-| 11 | **The Sauk Centre retreat, 8 October 2026,** has four live checkout links and is on no page. She said leave it off. | §10 |
-| 12 | **`A Sounding/a-sounding-wireframe-v2.html`** appeared in the project folder mid-session. Unbuilt, and now excluded from the deploy. | §10 |
+| 9 | **"Choose your path"** is the same HoneyBook URL as the branding page's "Lets talk". Unwired. | §10 |
+| 10 | **The Sauk Centre retreat, 8 October 2026,** has four live checkout links and is on no page. She said leave it off. | §10 |
+| 11 | **`A Sounding/a-sounding-wireframe-v2.html`** appeared in the project folder mid-session. Unbuilt, and now excluded from the deploy. | §10 |
 
 ### The four decisions she made in session three, and they are load bearing
 
@@ -52,6 +51,8 @@ stay in sync: the two retreat pages, the home page's retreat block, and `llms.tx
 4. **The Costa Rica guest photographs are approved for publication**, faces included. She
    confirmed she has permission from the women in them. **This is the only page on the site
    with recognisable faces on it and it is deliberate.**
+5. **Crete has no single occupancy.** Shared rooms only, twin beds, en-suite, no supplement.
+   Answered after the first build and now published in four places; see §10.
 
 ### What changed in session three, in one list
 
@@ -884,10 +885,13 @@ no `closest()` will ever match it; and setting two `<details open>` in the same 
 - **No seats-remaining count anywhere.** "Full" is a fact; "3 seats left" is a countdown, and
   this brand does not run countdowns.
 - **No sticky bar**, matching The Build and §7c.
-- **No single-occupancy line.** The draft carried `TK, offered or not, and at what supplement`.
-  A TK does not ship and a guess is worse, so the line is out. It is item 9 in §0.
+- **Single occupancy: there is none, and the page says so three times.** The draft carried
+  `TK, offered or not, and at what supplement`; Cydnie answered it on 26 August 2026. Crete is
+  shared rooms only, two to a room, twin beds, en-suite, no supplement to buy a single. It is
+  stated in the property rows, beside the price in the booking band, and as its own question in
+  the FAQ and the FAQPage schema, plus `llms.txt`. **Four places. Change one, change all four.**
 - **"Choose your path"** (`69fa372ccd31fefc073c5d28`) is unwired. It is the same URL as the
   branding page's "Lets talk", so which product it belongs to is not resolvable from the link
-  list. Item 10 in §0. Same principle as the twelve questions form in §7.2: a form pointed at a
+  list. Item 9 in §0. Same principle as the twelve questions form in §7.2: a form pointed at a
   guess is worse to unpick than a form that never fired.
-- **The four Sauk Centre checkout links** stay unwired on her instruction. Item 11 in §0.
+- **The four Sauk Centre checkout links** stay unwired on her instruction. Item 10 in §0.
