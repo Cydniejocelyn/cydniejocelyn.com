@@ -13,58 +13,95 @@ fix it rather than working around it.
 
 **Everything below §1 is reference. This section is where a new session starts.**
 
-**Five pages are built:** home, About, **The Build** (`/the-build/`), **Retreats**
-(`/retreats/`) and **Greece** (`/retreats/greece/`). Sessions one and two built the first
-three; session three built the last two and is described in §10.
+**Five pages are built, shipped and live.** Home, About, **The Build** (`/the-build/`),
+**Retreats** (`/retreats/`) and **Greece** (`/retreats/greece/`). Sessions one and two built the
+first three; session three built the last two and then reworked both on Cydnie's notes.
 
-**Nothing after `f504737` has been deployed.** The last production deploy is
-`https://cydniejocelyn-v2-kh1b3ixjq-cydnie-jocelyn.vercel.app`, built from `f504737`, and it
-predates both retreat pages. **`main` is ahead of production.** Run §2 to ship.
+| | |
+|---|---|
+| Production | `https://cydniejocelyn-v2-qc8b5jrjn-cydnie-jocelyn.vercel.app` |
+| Built from | `b288251` |
+| `main` vs production | **In sync.** Everything committed is deployed. |
+| Interaction suite | **63 assertions, all passing** (43 Greece, 20 Retreats) |
 
-### Nothing is half-done. What is left is hers to decide.
+**Deployment Protection is still ON,** so nobody outside the team can see any of it. See §1.
+
+### Start here, in this order
+
+1. `export PATH="$HOME/.local/bin:$PATH"` — nothing works without it. §1.
+2. Recreate the preview: `export SP=<this session's scratchpad>` then
+   `sh tools/preview/sync.sh` and `python3 tools/preview/serve.py "$SP/preview" 8791`.
+   **Read `tools/preview/README.md` first.** The Claude preview pane died mid-session and the
+   harnesses in there are how anything got verified. Four traps documented, all expensive once.
+3. Ship with §2. It is five pages now, not three.
+
+### What is left, and every one of them is Cydnie's decision
 
 | # | Waiting on Cydnie | Where |
 |---|---|---|
-| 1 | **Deployment Protection is ON.** Nobody outside the team can see any of it. | §1 |
-| 2 | **The twelve questions form** still has `action="#"`. Which list does it feed? | §7.2 |
-| 3 | **The sticky bar.** The brief says keep it, `site.css` says the guide forbids it. It is currently OFF. | §7c |
-| 4 | **Mane Alchemist's mark is repainted** in its Foundation ink. Her client's artwork, altered for presentation. | §6 |
-| 5 | **Written permission** from all three brand clients before this is public. | §7.8 |
-| 6 | **Privacy 404s at domain cutover.** | §7.3 |
-| 7 | **Two client sites render broken on mobile.** Not ours, but she should know. | §7b2 |
-| 8 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
-| 9 | **"Choose your path"** is the same HoneyBook URL as the branding page's "Lets talk". Unwired. | §10 |
+| 1 | **Deployment Protection is ON.** One dashboard toggle. Nothing else blocks launch. | §1 |
+| 2 | **The twelve questions form** is still `action="#"`. `The Letters Page/FlodeskPopup (1).tsx` carries a form id, `6a8f553c9f30a024ac4f2a82`, which is the missing half. It is a popup embed, not a POST endpoint. | §7.2, §10 |
+| 3 | **`sounding-popup.js`** landed at the root: a 45-second site-wide modal, which the guide forbids. **Not wired.** | §10 |
+| 4 | **"Choose your path"** is the same HoneyBook URL as the branding page's "Lets talk", so which product it belongs to is unresolvable from the link list. Unwired. | §10 |
+| 5 | **The sticky bar.** Brief says keep, `site.css` says the guide forbids. Currently OFF. | §7c |
+| 6 | **Mane Alchemist's mark is repainted** in its Foundation ink. A client's artwork, altered. | §6 |
+| 7 | **Written permission** from Mane Alchemist, SRS Performance and SolyRey before launch. | §7.8 |
+| 8 | **Privacy 404s at domain cutover.** Terms was never written. | §7.3 |
+| 9 | **Two client sites render broken on mobile.** Not ours, but she should know. | §7b2 |
 | 10 | **The Sauk Centre retreat, 8 October 2026,** has four live checkout links and is on no page. She said leave it off. | §10 |
-| 12 | **`sounding-popup.js`** landed at the root. A 45-second site-wide modal, which the guide forbids. Not wired. | §10 |
-| 11 | **`A Sounding/` and `The Letters Page/`** appeared in the project folder mid-session. Unbuilt, now excluded from the deploy. The latter carries a **Flodesk form id**, which is the missing half of item 2. | §10 |
+| 11 | **The Letters** (`/#questions`) is the last nav target with no page behind it. A wireframe arrived in `The Letters Page/`. | §7.7 |
+| 12 | **`IvyPresto Display` is not self-hosted.** Instrument Serif is what actually renders. | §7.4 |
+| 13 | **Never verified:** a full keyboard pass and a real screen-reader pass. | §7.5 |
+| 14 | **The podcast.** The footer links it; whether it is shelved is in no file. | §7.6 |
+| 15 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
 
-### The four decisions she made in session three, and they are load bearing
+### Decisions she made in session three. These are load bearing.
 
-These were open contradictions between the drafts, the shipped home page and `llms.txt`.
-Everything built in session three follows them. **They are now stated in four places that must
-stay in sync: the two retreat pages, the home page's retreat block, and `llms.txt`.**
+Every one of these settled a contradiction between the drafts, the shipped site and `llms.txt`.
+**Each is now stated in more than one place and those places must not drift.**
 
-1. **Greece is fifteen seats and all fifteen are taken.** The waitlist is open and is called in
-   order. The home page and `llms.txt` said fourteen with the waitlist open; both are corrected.
-2. **The Sauk Centre retreat stays off the site**, live checkout links and all.
-3. **The Greece retreat keeps the name "Rise Into Her: The Greece Edition."** "Fifteen" is the
-   cap, not a title. The drafts titled it "Fifteen"; that title is not used anywhere.
-4. **The Costa Rica guest photographs are approved for publication**, faces included. She
-   confirmed she has permission from the women in them. **This is the only page on the site
-   with recognisable faces on it and it is deliberate.**
-5. **Crete has no single occupancy.** Shared rooms only, twin beds, en-suite, no supplement.
-   Answered after the first build and now published in four places; see §10.
+1. **Greece is fifteen seats and all fifteen are taken.** Waitlist open, called in order.
+   Stated in: both retreat pages, the home retreat block, `llms.txt`, and two `Offer` blocks
+   marked `SoldOut`.
+2. **Crete has no single occupancy.** Shared rooms only, no supplement. Stated in **four**
+   places: the property rows, beside the price, the FAQ, the FAQPage schema, plus `llms.txt`.
+3. **No average rating anywhere.** Six responses is not a sample. Removed from the retreats
+   page *and* from the home page's `AggregateRating`, which was the same claim in the form that
+   surfaces as stars in search. Individual attributed `Review` entries stay. See §10.
+4. **No em dashes.** Zero in every shipped `.html`, `.txt`, `.xml`, `.css`, `.js`. En dashes
+   remain in `13&ndash;20 August 2027`, which is what that mark is for. See §10.
+5. **The Sauk Centre retreat stays off the site**, live checkout links and all.
+6. **Greece keeps the name "Rise Into Her: The Greece Edition."** "Fifteen" is the cap, not a
+   title.
+7. **The Costa Rica guest photographs are approved**, faces included; she confirmed permission.
+   This is the only page on the site with recognisable faces and it is deliberate.
 
-### What changed in session three, in one list
+### What session three actually did
 
-- `/retreats/` and `/retreats/greece/` built, on the shared stylesheet, in the shared chrome.
-- `site.css` gained **section 25, the retreats**, and a `.hero--bright` scrim variant.
-- `site.js` gained **initVideo, initGallery and initCursor** (sections 15, 16, 17).
-- `tools/retreat_images.py` cuts every retreat photograph out of the source libraries. The v2
-  drafts hotlinked Showit URLs and captioned Costa Rica frames as Crete; see §10.
-- Nav repointed site-wide: **Retreats is `/retreats/`, not `/#retreat`**, on all five pages.
-- `stamp.py`, `build_artifact.py`, `sitemap.xml`, `llms.txt` and `.vercelignore` all extended.
-- **`Retreats/` was renamed `Retreat drafts/`** and the reason is a trap worth knowing: §10.
+Built `/retreats/` and `/retreats/greece/` on the shared stylesheet and chrome, then reworked
+both. In order:
+
+- **The build.** Both pages, all imagery cut locally from the source libraries, every link from
+  `Website Links.pdf` wired, schema on both.
+- **The picture pass** on `/retreats/`. The pool candids sold a holiday; the hero is a headland
+  across still water now, which is the picture the brand is built from. April 2027 has a drawn
+  US map because it has no location to photograph.
+- **The Greece rework.** The page was a document; it is a funnel. Order changed (trust before
+  price, objections before the number), and four blocks were rebuilt rather than trimmed.
+- **Two real bugs found and fixed in shared CSS**, both of which affected more than the page
+  they showed up on: the host portraits were different sizes, and a `figcaption` was falling
+  out of its own figure. See §10.
+
+Shared additions: `site.css` **section 25**, `.hero--bright`, `--hl`; `site.js` **15, 16, 16b,
+17** (video, lightbox, rail, cursor); `tools/retreat_images.py`, `tools/us_map.py`,
+`tools/preview/`. `stamp.py`, `build_artifact.py`, `sitemap.xml`, `llms.txt` and
+`.vercelignore` all extended to five pages.
+
+### Three folders arrived mid-session and none of them is built
+
+`A Sounding/`, `The Letters Page/`, and `sounding-popup.js` at the root. All excluded from the
+deploy except the popup, which ships but is inert because no page references it. **Nothing was
+built from any of them.** See §10 and items 2, 3, 11 above.
 
 ## 1. Read this before touching anything
 
@@ -645,6 +682,23 @@ bar was removed because the brand guide forbids it, along with the nudge, the mo
 exit intent. Those cannot both be right. The bar is currently **not** on the page.
 
 ## 8. Recreate the preview each session
+
+**Everything below is now in `tools/preview/`, with its own README. Use that rather than
+rebuilding it.** Two commands:
+
+    export SP=<this session's scratchpad>
+    sh tools/preview/sync.sh
+    python3 tools/preview/serve.py "$SP/preview" 8791
+
+That folder also holds the three harnesses session three had to write when the Claude preview
+pane stopped responding: `_shot.html` for screenshots at a real viewport, `_test.html` for the
+63-assertion interaction suite, `_probe.html` for measuring one thing. **Read
+`tools/preview/README.md` before debugging anything visual** — it documents four traps that
+each cost real time once, including the one where a programmatic `scrollTo` inside an iframe
+does not fire a `scroll` event in headless Chrome and every scroll-driven behaviour therefore
+looks broken when it is not.
+
+The rest of this section is the reasoning behind those files.
 
 The preview sandbox **cannot read `~/Desktop`**, so the server serves a mirror in the session
 scratchpad, and **the scratchpad path changes every session.** `.claude/launch.json` is

@@ -1,0 +1,27 @@
+<!doctype html><meta charset="utf-8">
+<style>html,body{margin:0;font:14px/1.6 ui-monospace,Menlo,monospace;padding:12px;white-space:pre-wrap}
+iframe{position:fixed;right:0;bottom:0;width:1440px;height:900px;border:0;opacity:.001;pointer-events:none}</style>
+<div id="log">…</div><iframe id="f"></iframe>
+<script>
+var pages=['/','/about/','/the-build/','/retreats/','/retreats/greece/'];
+var f=document.getElementById('f'), out=[], i=0;
+function next(){
+  if(i>=pages.length){document.getElementById('log').textContent=out.join('\n');return;}
+  f.src=pages[i];
+}
+f.addEventListener('load',function(){
+  var w=f.contentWindow,d=f.contentDocument,page=pages[i];
+  var y=0,iv=setInterval(function(){y+=500;w.scrollTo({top:y,behavior:'instant'});w.dispatchEvent(new w.Event('scroll'));if(y>d.body.scrollHeight+500)clearInterval(iv);},18);
+  setTimeout(function(){
+    var bad=0, figs=d.querySelectorAll('figure');
+    figs.forEach(function(fg){
+      var cap=fg.querySelector('figcaption'); if(!cap) return;
+      if(cap.getBoundingClientRect().bottom > fg.getBoundingClientRect().bottom+1) bad++;
+    });
+    var ov=d.documentElement.scrollWidth-d.documentElement.clientWidth;
+    out.push(page.padEnd(20)+figs.length+' figures, '+bad+' captions overflowing their figure, h-overflow '+ov);
+    i++; next();
+  },4500);
+});
+next();
+</script>

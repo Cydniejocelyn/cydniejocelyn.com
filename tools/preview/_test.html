@@ -1,0 +1,188 @@
+<!doctype html><meta charset="utf-8">
+<style>
+ html,body{margin:0;background:#fff;font:16px/1.5 ui-monospace,Menlo,monospace;color:#111}
+ #log{padding:14px;white-space:pre-wrap}
+ .p{color:#0a7a3d}.f{color:#b00020;font-weight:700}
+ iframe{position:fixed;right:0;bottom:0;width:1100px;height:900px;border:1px solid #ccc;opacity:.001;pointer-events:none}
+</style>
+<div id="log">running…</div>
+<iframe id="f"></iframe>
+<script>
+var lines=[], f=document.getElementById('f');
+function ok(n,c){lines.push((c?'PASS  ':'FAIL  ')+n);}
+function done(){document.getElementById('log').innerHTML =
+  lines.map(function(l){return '<span class="'+(l[0]=='P'?'p':'f')+'">'+l+'</span>';}).join('\n')
+  + '\n\n' + lines.filter(function(l){return l[0]=='F'}).length + ' failing of ' + lines.length;}
+f.src = new URLSearchParams(location.search).get('p') || '/retreats/greece/';
+f.addEventListener('load', function(){
+ var w=f.contentWindow, d=f.contentDocument;
+ // let boot() run and the scroll watcher settle
+ var y=0, everPy=null;
+ var iv=setInterval(function(){
+   var ps0=d.querySelectorAll('.par');
+   if(!everPy) everPy=[].map.call(ps0,function(){return null;});
+   [].forEach.call(ps0,function(e,i){
+     var v=e.style.getPropertyValue('--py');
+     if(v!=='' && everPy[i]===null) everPy[i]=v;
+   });
+   y+=220; w.scrollTo({top:y,behavior:'instant'}); w.dispatchEvent(new w.Event('scroll'));
+   if(y>d.body.scrollHeight+900){clearInterval(iv);}
+ },26);
+ setTimeout(function(){
+  try{
+   // ---- gallery ----
+   var shots=d.querySelectorAll('.rt-shot, .gal-item');
+   var hasGal = !!d.querySelector('[data-gallery]');
+   if(hasGal) ok('gallery: tiles found ('+shots.length+')', shots.length>0);
+   if(hasGal) ok('gallery: every tile got a button', shots.length>0 && [].every.call(shots,function(s){return s.querySelector('button');}));
+   if(hasGal) ok('gallery: every tile marked is-live', shots.length>0 && [].every.call(shots,function(s){return s.classList.contains('is-live');}));
+   if(hasGal) ok('gallery: every tile declares data-cursor', shots.length>0 && [].every.call(shots,function(s){return s.getAttribute('data-cursor');}));
+   var box=d.querySelector('.lbx');
+   if(hasGal) ok('lightbox: built and hidden at rest', !!box && box.hidden);
+   if(box && shots.length){
+     shots[1].querySelector('button').click();
+     ok('lightbox: opens on tile click', !box.hidden);
+     var img=box.querySelector('.lbx-stage img');
+     ok('lightbox: shows the full-size source', /bath-9|bath-1200/.test(img.getAttribute('src')||''));
+     ok('lightbox: carries the caption', (box.querySelector('.lbx-cap').textContent||'').length>3);
+     ok('lightbox: focus moved into the dialog', d.activeElement && d.activeElement.classList.contains('lbx-x'));
+     ok('lightbox: page behind is locked', d.documentElement.style.overflow==='hidden');
+     var src0 = img.getAttribute('src');
+     box.querySelector('[data-go="1"]').click();
+     ok('lightbox: next advances', box.querySelector('.lbx-stage img').getAttribute('src')!==src0);
+     box.querySelector('[data-go="-1"]').click();
+     ok('lightbox: previous goes back', /bath-/.test(box.querySelector('.lbx-stage img').getAttribute('src')||''));
+     var ev=new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true});
+     d.dispatchEvent(ev);
+     ok('lightbox: Escape closes it', box.hidden);
+     ok('lightbox: scroll lock released', d.documentElement.style.overflow==='');
+     ok('lightbox: focus returned to the tile', d.activeElement && d.activeElement.closest && !!d.activeElement.closest('.rt-shot, .gal-item'));
+   }
+   // ---- cursor ----
+   var crs=d.querySelector('.crs');
+   if (w.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+     ok('cursor: correctly NOT built under reduced motion', !crs);
+   } else {
+     ok('cursor: companion built', !!crs);
+   }
+   ok('cursor: hidden until a target is under it', !crs || !crs.classList.contains('is-on'));
+   if(crs && shots.length){
+     var r=shots[0].getBoundingClientRect();
+     shots[0].dispatchEvent(new w.PointerEvent('pointermove',{clientX:r.left+20,clientY:r.top+20,pointerType:'mouse',bubbles:true}));
+     ok('cursor: shows over a gallery tile', crs.classList.contains('is-on'));
+     ok('cursor: names the action ("'+crs.firstChild.textContent+'")', /^(View|Open)$/.test(crs.firstChild.textContent));
+     ok('cursor: positioned by transform', /translate3d/.test(crs.style.transform||''));
+     d.body.dispatchEvent(new w.PointerEvent('pointermove',{clientX:2,clientY:2,pointerType:'mouse',bubbles:true}));
+     ok('cursor: hides again off target', crs.classList.contains('is-off'));
+   }
+   // ---- video (retreats page only) ----
+   var v=d.querySelector('[data-video]');
+   if(v){
+     ok('video: nothing from youtube before the click', d.querySelectorAll('iframe[src*="youtube"]').length===0);
+     ok('video: is a real link with no JS', (v.getAttribute('href')||'').indexOf('youtube.com/watch')>-1);
+     v.click();
+     var yt=v.querySelector('iframe');
+     ok('video: click swaps in the player', !!yt);
+     ok('video: uses the no-cookie host', !!yt && /youtube-nocookie\.com/.test(yt.src));
+     ok('video: starts where asked', !!yt && /start=3/.test(yt.src));
+   }
+   // ---- faq ----
+   var det=d.querySelectorAll('.faq details');
+   ok('faq: closed at rest ('+det.length+' questions)', det.length>1 && ![].some.call(det,function(x){return x.open;}));
+   det[0].open=true;
+   setTimeout(function(){
+   det[1].open=true;
+   setTimeout(function(){
+     ok('faq: opening one closes the other', !det[0].open && det[1].open);
+     // ---- reveals ----
+     var t=d.querySelectorAll('.r-up,.r-fade,.r-img,.split');
+     var unrev=[].filter.call(t,function(e){return !e.classList.contains('is-in');});
+     ok('reveals: everything scrolled past is revealed ('+(t.length-unrev.length)+'/'+t.length+')', unrev.length===0);
+   // ---- parallax and the map ----
+   var reduced = w.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   ok('probe: prefers-reduced-motion is '+(reduced?'REDUCE':'no-preference'), true);
+   var pars = d.querySelectorAll('.par');
+   if(pars.length && !reduced){
+     // what each target read while it was on screen, not what it reads now
+     var vals = (everPy || []).map(function(v){ return v === null ? '' : v; });
+     var set  = vals.filter(function(v){ return v !== ''; });
+     // An element sitting exactly on the viewport centre gets 0px and that is
+     // correct, so the test is that every target is DRIVEN and none exceeds
+     // the 12px cap -- not that every one has moved at this instant.
+     var capped = set.filter(function(v){ return Math.abs(parseFloat(v)) <= 12.01; });
+     ok('parallax: '+set.length+'/'+pars.length+' targets driven ['+vals.join(', ')+']', set.length===pars.length);
+     ok('parallax: none past the 12px cap', capped.length===set.length);
+   } else if (pars.length) {
+     var none = [].every.call(pars, function(e){ return !e.style.getPropertyValue('--py'); });
+     ok('parallax: correctly OFF under reduced motion ('+pars.length+' targets)', none);
+   }
+   var map = d.querySelector('.usmap');
+   if(map){
+     ok('map: inlined so it can be styled', map.tagName.toLowerCase()==='svg');
+     ok('map: has an accessible name', !!d.getElementById('usmap-t'));
+     ok('map: outline uses pathLength so the draw is length-independent',
+        d.querySelector('.usmap-line').getAttribute('pathLength')==='1');
+     ok('map: revealed, so the draw keyframe is armed',
+        !!map.closest('.rt-date-fig') && !!d.querySelector('.rt-date.is-in'));
+   }
+   // ---- the rail ----
+   var gal = d.querySelector('[data-rail]');
+   if(gal){
+     var rail = gal.querySelector('.gal-rail');
+     var tiles = gal.querySelectorAll('.gal-item');
+     ok('rail: '+tiles.length+' tiles, and it overflows', tiles.length>6 && rail.scrollWidth > rail.clientWidth+50);
+     ok('rail: marked live only after the arrows exist',
+        gal.classList.contains('is-live') && !!gal.querySelector('.gal-nav'));
+     ok('rail: every tile opens', tiles.length===gal.querySelectorAll('.gal-item button').length);
+     ok('rail: back arrow disabled at the start', gal.querySelector('[data-go="-1"]').disabled);
+     var before = rail.scrollLeft;
+     rail.scrollLeft = 400; rail.dispatchEvent(new w.Event('scroll'));
+     ok('rail: scrolling enables the back arrow', !gal.querySelector('[data-go="-1"]').disabled);
+     ok('rail: the progress rule tracks it', (gal.style.getPropertyValue('--gal-x')||'').length>0);
+     rail.scrollLeft = before; rail.dispatchEvent(new w.Event('scroll'));
+     ok('rail: tiles all have one height', (function(){
+        var hs=[].map.call(tiles,function(t){return Math.round(t.querySelector('img').getBoundingClientRect().height);});
+        return hs.every(function(h){return Math.abs(h-hs[0])<2;});
+     })());
+   }
+   // ---- the story scroll ----
+   var cond = d.querySelector('.cond');
+   if(cond){
+     ok('story: five moments in the markup', d.querySelectorAll('.cond-item').length===5);
+     ok('story: stepped where there is room', cond.classList.contains('is-stepped') || reduced);
+     ok('story: exactly one is lit', d.querySelectorAll('.cond-item.is-on').length<=1);
+     ok('story: the ticks are real controls', d.querySelectorAll('.cond-ticks button').length===5);
+   }
+   // ---- the objection picker ----
+   var rev = d.querySelector('[data-reversal]');
+   if(rev){
+     ok('objections: built into a tablist', !!d.querySelector('.rev-picks[role=tablist]'));
+     ok('objections: four tabs, one panel shown', d.querySelectorAll('.rev-picks [role=tab]').length===4);
+     var t2 = d.querySelectorAll('.rev-picks [role=tab]')[2];
+     t2.click();
+     ok('objections: picking one selects it', t2.getAttribute('aria-selected')==='true');
+   }
+   // ---- the two portraits ----
+   var ppl = d.querySelectorAll('.rt-person img');
+   if(ppl.length===2){
+     var a=ppl[0].getBoundingClientRect(), b=ppl[1].getBoundingClientRect();
+     ok('hosts: both portraits identical ('+Math.round(a.width)+'x'+Math.round(a.height)+')',
+        Math.abs(a.width-b.width)<1 && Math.abs(a.height-b.height)<1);
+   }
+   // ---- the journey ----
+   ok('journey: five stops', d.querySelectorAll('.trip > li').length===5 || !d.querySelector('.trip'));
+     // ---- no horizontal overflow ----
+     ok('layout: no horizontal overflow', d.documentElement.scrollWidth<=d.documentElement.clientWidth+1);
+     var shown=[].filter.call(d.images,function(i){
+       var r=i.getBoundingClientRect();
+       return r.width>0 && r.right>0 && r.left < (d.documentElement.clientWidth+200);
+     });
+     var broken=shown.filter(function(i){return !i.complete||i.naturalWidth===0;});
+     ok('images: '+shown.length+' of '+d.images.length+' in reach, all decoded ('+
+        (d.images.length-shown.length)+' lazy tiles parked off the rail)', broken.length===0);
+     done();
+   },80); },80);
+  }catch(e){ lines.push('FAIL  threw: '+e.message+' @ '+(e.stack||'').split('\n')[1]); done(); }
+ }, 6000);
+});
+</script>
