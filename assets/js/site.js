@@ -257,39 +257,72 @@
     var band = document.querySelector(".rise-band");
     if (!band) return;
     var bubs = Array.prototype.slice.call(band.querySelectorAll(".bub"));
-    if (!bubs.length || reduce.matches) return;
+    if (!bubs.length) return;
 
-    /* travel, growth, and how far behind the one in front it starts */
+    /* Where each one ends up, and how far behind the one in front it goes.
+       The end state is also the resting state in the CSS, so if none of this
+       ever runs the three still stand as a column going at the line. */
     var SET = [
-      { travel: -34, grow: 0.16, lag: 0.00 },
-      { travel: -52, grow: 0.28, lag: 0.10 },
-      { travel: -74, grow: 0.40, lag: 0.20 }
+      { travel: -34, grow: 0.16, delay:   0 },
+      { travel: -52, grow: 0.28, delay: 220 },
+      { travel: -74, grow: 0.40, delay: 440 }
     ];
-    /* The ramp has to finish while the band is still on screen or the last
-       bubble freezes part way up and never reaches the surface. Last lag
-       plus RAMP is 0.70, comfortably inside. */
-    var RAMP = 0.5;
+    var RISE = 1500;                      /* one breath, not a hurry */
 
-    function frame() {
-      var r = band.getBoundingClientRect();
-      var vh = window.innerHeight || 1;
-      if (r.bottom < -400 || r.top > vh + 400) return;
-      /* nought as the band enters from below, one as it leaves at the top */
-      var p = (vh - r.top) / (vh + r.height);
-      p = Math.max(0, Math.min(1, p));
-
-      bubs.forEach(function (b, i) {
-        var cfg = SET[i] || SET[SET.length - 1];
-        var t = (p - cfg.lag) / RAMP;
-        t = Math.max(0, Math.min(1, t));
-        b.style.transform = "translateY(" + (t * cfg.travel).toFixed(2) + "px)"
-                          + " scale(" + (1 + t * cfg.grow).toFixed(3) + ")";
-      });
+    function place(b, cfg, t) {
+      b.style.transform = "translateY(" + (t * cfg.travel).toFixed(2) + "px)"
+                        + " scale(" + (1 + t * cfg.grow).toFixed(3) + ")";
+    }
+    function settle() {
+      bubs.forEach(function (b, i) { place(b, SET[i] || SET[2], 1); });
     }
 
-    frame();
-    window.addEventListener("scroll", frame, { passive: true });
-    window.addEventListener("resize", frame, { passive: true });
+    /* Reduced motion, or no frames: they are simply already up. */
+    if (reduce.matches) { settle(); return; }
+
+    /* Slow out. Fast off the floor, easing as the pressure comes off it,
+       which is how a bubble actually behaves and also how a held breath
+       leaves you. */
+    function ease(x) { return 1 - Math.pow(1 - x, 3); }
+
+    var started = false;
+
+    function play() {
+      if (started) return;
+      started = true;
+
+      /* They are only ever moved down from inside a frame. If frames never
+         come, nothing touches them and the CSS resting state stands, which
+         is the three already at the surface. Dropping them to the floor
+         first and then waiting to find out would strand them there. */
+      var t0 = null, done = false;
+      function step(now) {
+        if (done) return;
+        if (t0 === null) t0 = now;
+        var el = now - t0, live = false;
+        bubs.forEach(function (b, i) {
+          var cfg = SET[i] || SET[2];
+          var t = (el - cfg.delay) / RISE;
+          if (t < 1) live = true;
+          place(b, cfg, ease(Math.max(0, Math.min(1, t))));
+        });
+        if (live) window.requestAnimationFrame(step);
+        else done = true;
+      }
+      window.requestAnimationFrame(step);
+
+      /* Frames are not guaranteed here. If the rise has not finished by the
+         time it should have, put them where they were always going to end
+         up. Never leave them on the floor. */
+      window.setTimeout(function () {
+        if (done) return;
+        done = true;
+        settle();
+      }, RISE + SET[2].delay + 400);
+    }
+
+    /* It plays once, when she reaches the band. Nothing loops. */
+    watch(band, play, null, true);
   }
 
   /* ---------- 5c. The menu ----------------------------------
@@ -312,6 +345,8 @@
       open = next;
       btn.setAttribute("aria-expanded", open ? "true" : "false");
       menu.classList.toggle("is-open", open);
+      /* the movement bar is fixed to the edge and would sit over the panel */
+      document.documentElement.classList.toggle("menu-open", open && !wide.matches);
       /* the page behind must not scroll under an open panel */
       document.body.style.overflow = open && !wide.matches ? "hidden" : "";
     }

@@ -446,7 +446,24 @@ button { font: inherit; color: inherit; }
   display: none; pointer-events: none;
   flex-direction: column; align-items: center; gap: var(--s-3);
 }
-@media (min-width: 62rem) { .gauge { display: flex; } }
+.gauge { display: flex; }
+
+/* Phone: the instrument only, no words. The track shortens and the whole
+   thing tucks against the edge, clear of the thumb. */
+@media (max-width: 61.99rem) {
+  .gauge { left: max(.5rem, env(safe-area-inset-left, 0px)); gap: var(--s-2); }
+  .gauge-label { display: none; }
+  .gauge-track { height: 18vh; }
+  .gauge-read { font-size: .5625rem; letter-spacing: .22em; }
+  .gauge-dot { width: 5px; height: 5px; margin-left: -2.5px; margin-top: -2.5px; }
+}
+/* Nothing fixed at the edges while the panel is over the page. `menu-open`
+   is set on the root by initNav; a sibling selector cannot reach the gauge,
+   which sits before the header in the DOM.
+
+   No transition on it. A transition that never advances leaves the gauge
+   fully visible over the panel, and this browser is one where that happens. */
+.menu-open .gauge { opacity: 0; visibility: hidden; }
 .gauge-label, .gauge-read {
   writing-mode: vertical-rl;
   font-family: var(--utility);
