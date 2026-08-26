@@ -103,13 +103,38 @@
       });
     });
 
+    var watcherWorks = false;
     targets.forEach(function (t) {
-      watch(t, function () { t.classList.add("is-in"); }, null, true);
+      watch(t, function () { t.classList.add("is-in"); watcherWorks = true; }, null, true);
     });
 
+    /* The backstop used to reveal everything on the page at 2.6s. That is
+       right for anything the reader can already see, and wrong for anything
+       further down: the account on the about page is eight paragraphs, and
+       blanket revealing them meant they were all already up before she got
+       there, so nothing arrived as she read.
+
+       So: at 2.6s reveal what is on screen or above it, which is the case
+       the backstop actually exists for. Everything below the fold is left
+       to the scroll watcher, with a long stop behind it in case the watcher
+       never runs at all. Nothing can end up permanently invisible. */
+    function revealAbove(limit) {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      targets.forEach(function (t) {
+        if (t.classList.contains("is-in")) return;
+        if (t.getBoundingClientRect().top < vh * limit) t.classList.add("is-in");
+      });
+    }
+    window.setTimeout(function () { revealAbove(1); }, 2600);
+
+    /* The long stop only exists for a browser where the scroll watcher never
+       runs. If the watcher has revealed anything at all it demonstrably
+       works, and blanket revealing the rest would rob a slow reader of the
+       arrival: eight paragraphs already up before she reached them. */
     window.setTimeout(function () {
+      if (watcherWorks) return;
       targets.forEach(function (t) { t.classList.add("is-in"); });
-    }, 2600);
+    }, 12000);
   }
 
   /* ---------- 3. Header ------------------------------------- */
