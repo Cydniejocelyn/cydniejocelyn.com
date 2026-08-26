@@ -322,6 +322,53 @@ was: **a phone had no navigation at all**, and nothing to open.
 - Verified at 375x812: **no horizontal overflow on either page**, every menu link 74px tall, and
   the only sub 44px targets are inline links inside prose.
 
+### Correction: node, npm and the Vercel CLI ARE installed
+
+Earlier notes say "not installed, so no Vercel CLI either". That is **wrong** and it cost time.
+They are at **`~/.local/bin/`**, which is not on the PATH a non interactive shell gets:
+
+```
+~/.local/bin/node    v24.19.0
+~/.local/bin/npm
+~/.local/bin/vercel  59.5.0
+```
+
+Export it first and everything works:
+
+```
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+The CLI is **already authenticated** (`vercel whoami` gives `hello-66457178`) and the project is
+**already linked**: `.vercel/project.json` points at `cydniejocelyn-v2` under the `cydnie-jocelyn`
+team. There is a production deployment from 26 Aug on
+`https://cydniejocelyn-v2-79fkad442-cydnie-jocelyn.vercel.app`.
+
+**There is no custom domain on this project.** `vercel domains ls` lists only `famfundays.org`
+and `famfundays.com`, which belong to something else. So `--prod` here publishes to a
+`.vercel.app` URL, not to cydniejocelyn.com. Worth knowing before anyone worries about a
+production deploy.
+
+The auth token is at `~/Library/Application Support/com.vercel.cli/auth.json`. **Do not read it
+and do not put it in a request.** The CLI reads it itself; that is the whole point of it.
+
+### Three links will 404 the moment this deploys
+
+Checked against what actually exists in the repo:
+
+| Link | In | Exists |
+|---|---|---|
+| `/about/` | both pages | yes |
+| `/contact/` | home footer | **no** |
+| `/legal/privacy/` | home footer | **no** |
+| `/legal/terms/` | home footer | **no** |
+
+**This is invisible in the artifact preview**, because `build_artifact.py` rewrites all three to
+`#start`. It only shows up on the deployed site. `/contact/` has an obvious answer, since the
+same footer already carries `hello@cydniejocelyn.com` as a mailto. The two legal pages need
+either real copy or removal, and that is Cydnie's call, not one to make quietly: the letter form
+collects email addresses, so a privacy link is the kind of thing you want to be deliberate about.
+
 ### Still open after this pass
 
 - **The home footer still links the She Rises Through It podcast.** The wireframe says it comes
