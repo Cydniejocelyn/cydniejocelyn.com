@@ -2225,62 +2225,63 @@ main > * { position: relative; z-index: 1; }
   object-fit: contain; object-position: center;
 }
 
-/* The page that shipped, in a device. A bare screenshot on an empty ground
-   reads as a cropped picture; the chassis is what says this is a phone and
-   the thing on it is running. Drawn rather than baked into the image, so it
-   stays sharp at any size and the crop underneath stays reusable.
+/* The page that shipped, in a device.
 
-   The first frame was a rounded rectangle, because its radius was a multiple
-   of the bezel and worked out at 23% of the device width. A real iPhone's
-   corner is about 10% of its width, so at 23% the thing read as a lozenge.
-   Every measurement here is a fraction of --dev-w instead, taken off the
-   real proportions, which is also what keeps them true as the frame scales
-   from 76px on a handset to 124px on a wide screen:
+   Every number below is derived from an iPhone 15/16 Pro rather than tuned by
+   eye, because tuning by eye is what produced three wrong frames in a row: a
+   lozenge at 23%, then an over-correction to 11.5%, then 12.5% chosen to be
+   concentric with a curve the screenshot happened to have. A real iPhone is
+   ROUNDER than any of those.
 
-     bezel   3.6% of width      thin and even, all four sides
-     corner  11.5% of width     and the screen's corner is that MINUS the
-                                bezel, so the two curves are concentric.
-                                Non concentric corners are the single thing
-                                that makes a drawn phone look drawn.
-     island  30% wide, 8.5% tall, sitting a bezel's depth below the top
+     screen        393 x 852 pt                aspect 0.46127
+     bezel         12.9pt (~2.2mm)             3.08% of body width
+     body corner   55pt screen + bezel         16.21% of body width
+     screen corner 55pt                        13.99% of SCREEN width
+     island        125 x 36.7pt, 11pt down     29.9% x 8.8% of body width
 
-   No side buttons. At this size they land under two pixels wide and read as
-   rendering artefacts rather than hardware. */
+   The check that matters: body corner minus bezel, over screen width, is
+   0.1399, and Apple's 55/393 is 0.1399. The two curves are concentric because
+   the arithmetic makes them concentric, not because a number looked right.
+
+   --dev-w is the BODY width and everything hangs off it, so the mobile
+   override must set --dev-w and never `width`.
+
+   The screen box owns its own aspect ratio and the image fills it with
+   `cover`. That is deliberate: the frame is then exactly an iPhone whatever
+   the source image happens to measure, and swapping a screenshot can never
+   put the proportions out again. */
 .case-screen {
   position: relative;
   margin: 0;
   --dev-w: clamp(6rem, 11.5vw, 8.5rem);
-  --bezel: calc(var(--dev-w) * .025);
-  /* 12.5%, not the 11.5% of a real iPhone body, and that is the right trade:
-     the corners have to be concentric with the curve already cut into the
-     screenshot, and that curve is the mockup's, not Apple's. Solved from
-     R = r + b with r fixed at the image's baked 10.5%. */
-  --corner: calc(var(--dev-w) * .125);
+  --bezel: calc(var(--dev-w) * .0308);
+  --corner: calc(var(--dev-w) * .1621);
   width: var(--dev-w);
   padding: var(--bezel);
   background: #15191C;
   border-radius: var(--corner);
   box-shadow:
-    /* the polished edge, then the rim against the page, then the drop */
     inset 0 0 0 1px rgba(255, 255, 255, .11),
     0 0 0 1px rgba(7, 26, 31, .16),
     0 1.15rem 2.25rem -1rem rgba(7, 26, 31, .42);
 }
-/* The corners are cut out of the file itself, on the phone's own curve, so
-   the frame shows through them rather than the board's white page. The radius
-   here lands on the same curve and keeps the edge crisp. */
 .case-screen img {
-  width: 100%; height: auto; display: block;
+  display: block;
+  width: 100%;
+  aspect-ratio: 393 / 852;
+  height: auto;
+  object-fit: cover;
+  object-position: top center;
   border-radius: calc(var(--corner) - var(--bezel));
 }
 /* the island, over the screen the way it actually sits */
 .case-screen::before {
   content: "";
   position: absolute; z-index: 2;
-  top: calc(var(--bezel) * 2);
+  top: calc(var(--bezel) + var(--dev-w) * .0263);
   left: 50%; transform: translateX(-50%);
-  width: calc(var(--dev-w) * .30);
-  height: calc(var(--dev-w) * .085);
+  width: calc(var(--dev-w) * .2985);
+  height: calc(var(--dev-w) * .0876);
   border-radius: 999px;
   background: #0B0E10;
 }

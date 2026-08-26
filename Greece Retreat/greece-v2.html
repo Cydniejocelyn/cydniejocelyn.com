@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fifteen: A Women's Retreat in Crete, Greece. August 2027.</title>
+<meta name="description" content="Fifteen guests, eight days in Douliana, Crete. August 13 to 20, 2027. Lodging, all meals, movement, and ground transport included. $500 holds a seat.">
+<link rel="canonical" href="https://cydniejocelyn.com/retreats/greece">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fifteen: A Women's Retreat in Crete, Greece. August 2027.">
+<meta property="og:description" content="Fifteen guests, eight days in Douliana, Crete. August 13 to 20, 2027.">
+<meta property="og:url" content="https://cydniejocelyn.com/retreats/greece">
+<meta property="og:image" content="TK-og-image">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="geo.region" content="GR-M">
+<meta name="geo.placename" content="Douliana, Crete, Greece">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS. Identical set to The Build and Retreats pages.
+   Hex values are the placeholders carried over. Replace with
+   the exact guide values on the real build.
+   ============================================================ */
+:root{
+  --deepwater:#0B1F26;
+  --fathom:#123B44;
+  --meniscus:#3E6B6E;
+  --breath:#A8C2BC;
+  --surface:#EDEEE9;
+  --held:#DDE3DF;
+  --held-lift:#E6EAE6;
+  --silt:#8A8F86;
+
+  --display:'IvyPresto Display','Bodoni Moda',Georgia,serif;
+  --body:'Instrument Sans',system-ui,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+
+  --measure:66ch;
+  --gutter:clamp(20px,5vw,72px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --depth:0;
+  --par:0px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--surface);color:var(--deepwater);
+  font-family:var(--body);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+
+/* SCROLL SURFACE. Level, directional, never resets. */
+.surfaceline{position:fixed;top:0;left:0;right:0;height:1px;z-index:99;
+  background:rgba(18,59,68,.14);pointer-events:none}
+.surfaceline i{display:block;height:100%;background:var(--breath);
+  transform:scaleX(var(--depth));transform-origin:left center}
+
+/* TYPE */
+.dsp{font-family:var(--display);font-weight:400;line-height:1.05;letter-spacing:-.015em;margin:0}
+.dsp-xl{font-size:clamp(40px,7vw,84px)}
+.dsp-l{font-size:clamp(28px,4.2vw,50px)}
+.dsp-m{font-size:clamp(22px,2.7vw,32px)}
+.dsp-s{font-size:clamp(19px,2vw,24px)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--meniscus);margin:0 0 18px;display:block}
+.lede{font-size:clamp(18px,2vw,21px);max-width:var(--measure);color:var(--fathom)}
+.plain{max-width:var(--measure)}
+.small{font-size:14.5px;color:var(--silt)}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--silt)}
+.tk{font-family:var(--mono);font-size:11px;letter-spacing:.1em;background:#F6E7C6;
+  color:#6b4c00;padding:2px 7px;border-radius:2px}
+
+/* LAYOUT */
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--gutter)}
+.band{padding:clamp(64px,9vw,120px) 0;position:relative}
+.band--deep{background:var(--deepwater);color:var(--breath)}
+.band--deep .dsp{color:var(--surface)}
+.band--deep .eyebrow{color:var(--meniscus)}
+.band--deep .plain,.band--deep .lede{color:var(--breath)}
+.band--held{background:var(--held-lift)}
+.band--fathom{background:var(--fathom);color:var(--breath)}
+.band--fathom .dsp{color:var(--surface)}
+.band--fathom .eyebrow{color:var(--breath)}
+.band--fathom .plain,.band--fathom .lede{color:var(--breath)}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:60;background:var(--deepwater);
+  border-bottom:1px solid rgba(168,194,188,.18)}
+.nav .wrap{display:flex;align-items:center;gap:26px;height:64px}
+.mark{font-family:var(--display);font-size:16px;letter-spacing:.22em;color:var(--surface);
+  text-transform:uppercase;text-decoration:none;position:relative;padding-bottom:4px}
+.mark::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--surface);opacity:.9}
+.navlinks{display:flex;gap:24px;align-items:center;margin-left:auto}
+.nav a.lnk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--breath);text-decoration:none;padding-bottom:3px;border-bottom:1px solid transparent;
+  transition:color .3s var(--ease),border-color .3s var(--ease)}
+.nav a.lnk:hover,.nav a.lnk[aria-current]{color:var(--surface);border-bottom-color:var(--surface)}
+.navcta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--surface);text-decoration:none;border:1px solid var(--breath);padding:10px 16px;
+  margin-left:26px;transition:background .3s var(--ease),color .3s var(--ease)}
+.navcta:hover{background:var(--breath);color:var(--deepwater)}
+@media(max-width:900px){.navlinks{display:none}.navcta{margin-left:auto}}
+
+/* WATERLINE */
+.waterline{height:1px;background:var(--breath);opacity:.5;transform:scaleX(0);
+  transform-origin:left center;transition:transform 1.5s var(--ease)}
+.waterline.in{transform:scaleX(1)}
+.waterline--dark{background:var(--fathom);opacity:.32}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;font-family:var(--mono);font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:15px 26px;
+  border:1px solid var(--deepwater);color:var(--deepwater);
+  transition:background .35s var(--ease),color .35s var(--ease)}
+.btn:hover{background:var(--deepwater);color:var(--surface)}
+.btn--solid{background:var(--deepwater);color:var(--surface)}
+.btn--solid:hover{background:var(--fathom)}
+.btn--onDeep{border-color:var(--breath);color:var(--surface)}
+.btn--onDeep:hover{background:var(--breath);color:var(--deepwater)}
+.btnrow{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+
+/* HERO */
+.hero{min-height:84vh;display:flex;align-items:center}
+.herogrid{display:grid;grid-template-columns:1.02fr .88fr;gap:clamp(32px,5vw,72px);align-items:center}
+@media(max-width:940px){.herogrid{grid-template-columns:1fr}}
+.heroimg{position:relative;aspect-ratio:4/5;background:var(--fathom);overflow:hidden}
+.heroimg img{position:absolute;inset:0;width:100%;height:calc(100% + 44px);object-fit:cover;
+  object-position:center 46%;transform:translate3d(0,var(--par),0)}
+.factline{display:flex;flex-wrap:wrap;gap:0;margin-top:38px;border-top:1px solid rgba(168,194,188,.28)}
+.factline div{padding:16px 26px 16px 0;margin-right:26px;border-right:1px solid rgba(168,194,188,.22)}
+.factline div:last-child{border-right:0;margin-right:0}
+.factline .k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--meniscus);display:block;margin-bottom:6px}
+.factline .v{font-family:var(--display);font-size:20px;color:var(--surface)}
+
+/* FIGURES */
+.figs{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:46px;background:var(--held)}
+.fig{background:var(--surface);padding:26px 22px}
+.fig .n{font-family:var(--display);font-size:36px;line-height:1;display:block;margin-bottom:8px}
+@media(max-width:700px){.figs{grid-template-columns:1fr}}
+
+/* GRIDS */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,64px)}
+.two--wide{grid-template-columns:1.1fr .9fr}
+@media(max-width:860px){.two,.two--wide{grid-template-columns:1fr}}
+
+/* PLACE ROWS */
+.rows{border-top:1px solid var(--held)}
+.rows .r{display:grid;grid-template-columns:.32fr 1fr;gap:24px;padding:22px 0;
+  border-bottom:1px solid var(--held)}
+.rows .r .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--meniscus)}
+.rows .r p{margin:0}
+@media(max-width:720px){.rows .r{grid-template-columns:1fr;gap:8px}}
+
+/* PROPERTY */
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}
+.shots img{aspect-ratio:4/5;object-fit:cover;width:100%;background:var(--held)}
+@media(max-width:720px){.shots{grid-template-columns:1fr 1fr}.shots img:last-child{display:none}}
+.amen{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;padding:0;list-style:none}
+.amen li{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  border:1px solid var(--held);color:var(--meniscus);padding:8px 12px}
+
+/* INCLUDED */
+.incl{list-style:none;padding:0;margin:0}
+.incl li{padding:13px 0;border-bottom:1px solid var(--held);font-size:16px}
+.incl li:first-child{border-top:1px solid var(--held)}
+.incl .no{color:var(--silt)}
+
+/* PRICE */
+.pricegrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(168,194,188,.22);
+  margin-top:8px}
+.pricegrid li{background:var(--fathom);padding:30px 28px;list-style:none}
+.pricegrid .lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--breath);display:block;margin-bottom:12px}
+.pricegrid .fig2{font-family:var(--display);font-size:clamp(30px,4vw,44px);color:var(--surface);
+  line-height:1;display:block}
+.pricegrid .note{color:var(--breath);font-size:14.5px;margin:12px 0 0}
+@media(max-width:700px){.pricegrid{grid-template-columns:1fr}}
+
+/* TERMS */
+.terms{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--held)}
+.terms li{background:var(--surface);padding:24px 26px}
+.terms .lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--meniscus);display:block;margin-bottom:8px}
+.terms .val{font-size:16px;line-height:1.5}
+@media(max-width:700px){.terms{grid-template-columns:1fr}}
+
+/* PEOPLE */
+.person{display:grid;grid-template-columns:.5fr 1fr;gap:clamp(24px,3.4vw,48px);align-items:start}
+.person + .person{margin-top:clamp(48px,6vw,86px);padding-top:clamp(48px,6vw,86px);
+  border-top:1px solid var(--held)}
+.person img{aspect-ratio:4/5;object-fit:cover;width:100%;background:var(--held)}
+@media(max-width:820px){.person{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{border-top:1px solid var(--held)}
+.faq details{border-bottom:1px solid var(--held)}
+.faq summary{list-style:none;cursor:pointer;padding:26px 0;display:flex;gap:20px;align-items:baseline;
+  font-family:var(--display);font-size:clamp(19px,2vw,23px);line-height:1.3}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";margin-left:auto;font-family:var(--mono);font-size:18px;color:var(--meniscus)}
+.faq details[open] summary::after{content:"\2013"}
+.faq .a{padding:0 0 26px;max-width:var(--measure);color:var(--fathom)}
+
+/* STICKY BAR */
+.stickybar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--deepwater);
+  border-top:1px solid rgba(168,194,188,.28);
+  transform:translate3d(0,110%,0);transition:transform .5s var(--ease);visibility:hidden}
+.stickybar.on{transform:translate3d(0,0,0);visibility:visible}
+.stickybar .wrap{display:flex;align-items:center;gap:20px;padding-top:14px;padding-bottom:14px}
+.stickybar .txt{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--breath)}
+.stickybar .txt b{color:var(--surface);font-weight:400}
+.stickybar .go{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;color:var(--deepwater);background:var(--breath);
+  padding:12px 20px;transition:background .3s var(--ease)}
+.stickybar .go:hover{background:var(--surface)}
+.stickybar .x{background:none;border:1px solid rgba(168,194,188,.4);color:var(--breath);
+  width:32px;height:32px;cursor:pointer;font-family:var(--mono);font-size:14px;line-height:1}
+@media(max-width:600px){.stickybar{display:none}}
+
+/* FOOTER */
+.foot{background:var(--deepwater);color:var(--breath);padding:64px 0 48px}
+.foot a{color:var(--breath);text-decoration:none;font-family:var(--mono);font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase}
+.foot a:hover{color:var(--surface)}
+.footgrid{display:flex;flex-wrap:wrap;gap:22px;align-items:center;
+  padding-top:26px;border-top:1px solid rgba(168,194,188,.2);margin-top:34px}
+
+/* FULL BLEED IMAGE BANDS */
+.full{position:relative;width:100%;background:var(--fathom);overflow:hidden}
+.full img{width:100%;height:100%;object-fit:cover;display:block}
+.full--tall{aspect-ratio:21/9}
+.full--mid{aspect-ratio:16/7}
+@media(max-width:760px){.full--tall,.full--mid{aspect-ratio:4/3}}
+
+/* CAPTION RAIL. Every image is labelled. This is the page's
+   editorial signature: documentary, not mood board. */
+.cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--silt);margin:10px 0 0;display:flex;gap:12px;align-items:baseline}
+.cap b{color:var(--meniscus);font-weight:400}
+.capwrap{max-width:1180px;margin:0 auto;padding:0 var(--gutter)}
+.band--deep .cap,.band--fathom .cap{color:var(--breath);opacity:.75}
+.band--deep .cap b,.band--fathom .cap b{color:var(--breath)}
+
+/* IMAGE SETS */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
+.pair img{aspect-ratio:4/5;object-fit:cover;width:100%;background:var(--held)}
+@media(max-width:700px){.pair{grid-template-columns:1fr}}
+.plates{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+.plates figure{margin:0}
+.plates img{aspect-ratio:1/1;object-fit:cover;width:100%;background:var(--held)}
+@media(max-width:760px){.plates{grid-template-columns:1fr 1fr}.plates figure:last-child{display:none}}
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.grid6 figure{margin:0}
+.grid6 img{aspect-ratio:4/5;object-fit:cover;width:100%;background:var(--held)}
+.grid6 figure:nth-child(1){grid-column:span 2}
+.grid6 figure:nth-child(1) img{aspect-ratio:8/5}
+@media(max-width:760px){.grid6{grid-template-columns:1fr 1fr}
+  .grid6 figure:nth-child(1){grid-column:span 2}}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.no-js .rv{opacity:1;transform:none}
+.no-js .waterline{transform:scaleX(1)}
+.no-js .heroimg img{transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .waterline{transform:scaleX(1);transition:none}
+  .heroimg img{transform:none!important}
+  .stickybar{transition:none}
+}
+:focus-visible{outline:2px solid var(--meniscus);outline-offset:3px}
+</style>
+</head>
+<body class="no-js">
+
+<div class="surfaceline" aria-hidden="true"><i></i></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap">
+    <a class="mark" href="/">Cydnie Jocelyn</a>
+    <div class="navlinks">
+      <a class="lnk" href="/the-build">The Build</a>
+      <a class="lnk" href="/retreats" aria-current="true">Retreats</a>
+      <a class="lnk" href="/the-letters">The Letters</a>
+      <a class="lnk" href="/about">About</a>
+    </div>
+    <a class="navcta" href="/a-sounding">A Sounding</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="band band--deep hero">
+  <div class="wrap">
+    <div class="herogrid">
+      <div class="rv">
+        <span class="eyebrow">Fifteen · Retreat two of two</span>
+        <h1 class="dsp dsp-xl">Eight days in Crete.</h1>
+        <div class="waterline" style="margin:30px 0 26px"></div>
+        <p class="lede">A small group women's retreat in Douliana, a hillside village in western Crete with about forty houses in it. Fifteen seats, one property, and eight days that ask nothing of you.</p>
+        <div class="btnrow">
+          <a class="btn btn--onDeep" href="#booking">Book your seat</a>
+          <a class="btn btn--onDeep" href="#week">What the week holds</a>
+        </div>
+        <div class="factline">
+          <div><span class="k">Dates</span><span class="v">Aug 13 to 20, 2027</span></div>
+          <div><span class="k">Where</span><span class="v">Douliana, Crete</span></div>
+          <div><span class="k">Guest seats</span><span class="v">Fifteen</span></div>
+        </div>
+      </div>
+      <div class="heroimg rv">
+        <img src="https://static.showit.com/800/MgFwTzDps0Zq-Ie25G9X0g/329498/img_4449.jpg"
+             alt="The coastline of western Crete" width="800" height="1000"
+             loading="eager" fetchpriority="high">
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- THE PREMISE -->
+<section class="band">
+  <div class="wrap">
+    <div class="two two--wide">
+      <div class="rv">
+        <span class="eyebrow">Why this exists</span>
+        <h2 class="dsp dsp-l">You are not tired because something is wrong with you.</h2>
+      </div>
+      <div class="rv">
+        <p class="plain">You are the one everything runs through. The business, the house, the calendar, the people. It works because you are holding it, and holding it is the part nobody sees.</p>
+        <p class="plain">Eight days will not fix that. What it does is put you somewhere the weight is not yours for a week, with women in the same position, and let you find out what you think when nothing is asking for you.</p>
+        <p class="plain">You do not need to prepare. That is true of everything I run.</p>
+      </div>
+    </div>
+    <div class="figs rv">
+      <div class="fig"><span class="n">15</span><span class="mono">Guest seats, capped</span></div>
+      <div class="fig"><span class="n">0</span><span class="mono">Preparation required</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL BLEED: THE WATER -->
+<div class="full full--tall rv">
+  <img src="https://static.showit.com/1200/I84fAs6D6d1GZqD9rRh_VA/329498/dsc09029.jpg"
+       alt="The coast of western Crete" loading="lazy">
+</div>
+<div class="capwrap" style="padding-top:14px;padding-bottom:0">
+  <p class="cap"><b>01</b> Apokoronas, western Crete <span class="tk">TK confirm subject</span></p>
+</div>
+
+<!-- THE WEEK -->
+<section class="band band--held" id="week">
+  <div class="wrap">
+    <div class="two">
+      <div class="rv">
+        <span class="eyebrow">The week</span>
+        <h2 class="dsp dsp-l">Built for the Tuesday after.</h2>
+        <div class="waterline waterline--dark" style="margin:26px 0 24px"></div>
+      </div>
+      <div class="rv">
+        <p class="plain">Mornings start with movement led by Kris Krause. Strength, mobility, and whatever your body will actually do that day. It is not a class you can be behind in.</p>
+        <p class="plain">Days alternate. Some are given over to Crete: the gorge trails, the harbour at Chania, the villages that have been there since the eighteenth century. Others are yours entirely, with nothing on them, and no one keeping track of where you went.</p>
+        <p class="plain">There are two sittings across the week where the group works through something together. <span class="tk">TK what these are called</span>. No workbook, no binder, and nothing you have to report back on.</p>
+        <p class="plain">Evenings are dinner. The first night and the last night are both dinners with the full group. In between, some nights that happens and some nights it does not.</p>
+        <p class="small" style="margin-top:26px">The excursion lineup is still being finalised. Everyone holding a seat gets the full schedule as it lands.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO THIS IS NOT FOR -->
+<section class="band band--fathom">
+  <div class="wrap">
+    <div class="two">
+      <div class="rv">
+        <span class="eyebrow">Read this part first</span>
+        <h2 class="dsp dsp-l">Who this is not for.</h2>
+      </div>
+      <div class="rv">
+        <p class="plain">If you want a mastermind, this is not one. There is no curriculum, no framework, and no deck.</p>
+        <p class="plain">If you need the week to produce something measurable, do not book it. You will spend eight days auditing the experience instead of having it.</p>
+        <p class="plain">If you cannot be unreachable for a stretch of days, book a year from now instead. Crete is nine hours ahead and the point of it is the distance.</p>
+        <p class="plain">I run diagnostic work and I am happy to talk business while we are there. That is not what the week is for, and it is not what you are paying for.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PLACE -->
+<section class="band">
+  <div class="wrap">
+    <div class="two two--wide" style="align-items:start">
+      <div class="rv">
+        <span class="eyebrow">The place</span>
+        <h2 class="dsp dsp-l">Douliana, Crete.</h2>
+        <p class="plain" style="margin-top:24px">Douliana sits a hundred metres above sea level in the Apokoronas region of western Crete, on a hilltop above Souda Bay. About forty houses. Stone streets, oaks and cypress at the entrance, and an architecture that has not changed much since the eighteenth century.</p>
+        <p class="plain">It is a village people live in rather than a resort town. That is why it was chosen.</p>
+        <figure style="margin:30px 0 0">
+          <img src="https://static.showit.com/1200/yNIsAVXN3NO706niI7e8ZA/329498/dsc09103.jpg"
+               alt="Stone streets in Douliana, Crete" loading="lazy"
+               style="aspect-ratio:4/3;object-fit:cover;width:100%">
+          <p class="cap"><b>02</b> Douliana village</p>
+        </figure>
+      </div>
+      <div class="rv">
+        <div class="rows">
+          <div class="r"><span class="k">Region</span><p>Apokoronas, western Crete. Traditional villages, mountains behind, water in front.</p></div>
+          <div class="r"><span class="k">The sea</span><p>Almirida, Kalyves, and Kera Beach are about fifteen minutes away. Kera is the quiet one and the last stretch is a forty minute walk in.</p></div>
+          <div class="r"><span class="k">Walking</span><p>Trails leave from the village through gorges and woodland and end at Agios Ioannis, a church built into a cave.</p></div>
+          <div class="r"><span class="k">Nearby</span><p>Chania old town and harbour, folklore museums, and the villages in between.</p></div>
+          <div class="r"><span class="k">Airport</span><p>Chania International (CHQ), about 33 km. Group transport to the property is included both ways.</p></div>
+        </div>
+        <div class="pair">
+          <figure style="margin:0">
+            <img src="https://static.showit.com/800/29waAU2fiyKvi5Coa3JPzg/329498/img_5366.jpg" alt="The harbour at Chania" loading="lazy">
+            <p class="cap"><b>03</b> Chania old town</p>
+          </figure>
+          <figure style="margin:0">
+            <img src="https://static.showit.com/800/nVX9wxqQe1CSAc51btKHAg/329498/img_5369.jpg" alt="A trail above the village" loading="lazy">
+            <p class="cap"><b>04</b> Trails out of Douliana</p>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROPERTY -->
+<section class="band band--held">
+  <div class="wrap">
+    <div class="two">
+      <div class="rv">
+        <span class="eyebrow">Where you stay</span>
+        <h2 class="dsp dsp-l">Armonia Retreat Center.</h2>
+        <div class="waterline waterline--dark" style="margin:26px 0 24px"></div>
+      </div>
+      <div class="rv">
+        <p class="plain">Four thousand square metres of grounds in the middle of the village. Indoor and outdoor gathering space, a full kitchen, a lounge, a gym, a pool, and a sauna.</p>
+        <p class="plain">Fifteen guests, two to a room, twin beds. Kris and I are in the house as well, which makes seventeen women on the property for the week. Every room has its own bathroom, air conditioning, linens, and towels. If you are travelling with someone, say so when you book and you will be roomed together.</p>
+        <p class="small" style="margin-top:20px">Single occupancy: <span class="tk">TK, offered or not, and at what supplement</span></p>
+        <ul class="amen">
+          <li>En-suite bathrooms</li><li>Air conditioning</li><li>Pool</li><li>Sauna</li>
+          <li>Gym</li><li>Indoor lounge</li><li>Outdoor space</li><li>Grounds</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid6 rv">
+      <figure>
+        <img src="https://static.showit.com/1200/LGEt2Nusf-lzA6HevVFl3A/329498/mk_09994en-ps.jpg" alt="A bedroom at Armonia Retreat Center" loading="lazy">
+        <p class="cap"><b>05</b> Your room</p>
+      </figure>
+      <figure>
+        <img src="https://static.showit.com/800/k3q_JysSDKknrzWjayhZ_A/329498/bathroom_3.jpg" alt="An en-suite bathroom at Armonia" loading="lazy">
+        <p class="cap"><b>06</b> En-suite, every room</p>
+      </figure>
+      <figure>
+        <img src="https://static.showit.com/800/tNMgziw5wsB2ykED-W2fjg/329498/mk_09949en-ps.jpg" alt="A shared space at Armonia" loading="lazy">
+        <p class="cap"><b>07</b> The lounge</p>
+      </figure>
+      <figure>
+        <img src="https://static.showit.com/800/OaEIQAXKksedqoUW_sp5vw/329498/mk_00944en-ps.jpg" alt="The pool at Armonia" loading="lazy">
+        <p class="cap"><b>08</b> The pool</p>
+      </figure>
+      <figure>
+        <img src="https://static.showit.com/800/QskxmlYfgAHf0AEWcW2tLg/329498/mk_01199enf-ps.jpg" alt="The grounds at Armonia" loading="lazy">
+        <p class="cap"><b>09</b> The grounds</p>
+      </figure>
+    </div>
+    <p class="small rv" style="margin-top:16px">Photography is from Armonia and the surrounding villages. <span class="tk">TK verify each caption against the actual photo</span></p>
+  </div>
+</section>
+
+<!-- INCLUDED -->
+<section class="band">
+  <div class="wrap">
+    <div class="two">
+      <div class="rv">
+        <span class="eyebrow">What the price covers</span>
+        <h2 class="dsp dsp-l">Everything once you land.</h2>
+        <p class="plain" style="margin-top:22px">Your flight is the only thing you book yourself. If you want help finding the right one, ask after you have a seat and I will sit down with the routes with you.</p>
+      </div>
+      <div class="rv">
+        <ul class="incl">
+          <li>Seven nights at Armonia, shared room, en-suite</li>
+          <li>Breakfast, lunch, and dinner, every day</li>
+          <li>Daily movement sessions with Kris</li>
+          <li>All group sessions and excursions</li>
+          <li>Pool and sauna, all week</li>
+          <li>Round trip ground transport from CHQ</li>
+          <li class="no">Airfare is not included</li>
+          <li class="no">Travel insurance is not included</li>
+          <li class="no">Personal spending and anything outside the schedule is not included</li>
+        </ul>
+        <p class="small" style="margin-top:20px">Airfare from Minneapolis in August runs roughly <span class="tk">TK range</span>. Better you hear it here than find it in a second tab.</p>
+      </div>
+    </div>
+    <div class="plates rv">
+      <figure>
+        <img src="https://static.showit.com/800/BZnHfppTqMnt_z43Xtc_nQ/329498/img_5367.jpg" alt="A meal at the retreat" loading="lazy">
+        <p class="cap"><b>10</b> Cooked on site</p>
+      </figure>
+      <figure>
+        <img src="https://static.showit.com/800/dA5JXaWYsuqYtBYwR3vdDQ/329498/img_5370.jpg" alt="Cretan ingredients" loading="lazy">
+        <p class="cap"><b>11</b> Local and seasonal</p>
+      </figure>
+      <figure>
+        <img src="https://static.showit.com/800/lNzKkPPeQur7DuoUJg7qsg/329498/img_5376.jpg" alt="The table set for dinner" loading="lazy">
+        <p class="cap"><b>12</b> Dinner, most nights</p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="band band--held" id="booking">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:34px">
+      <span class="eyebrow">The seat</span>
+      <h2 class="dsp dsp-l">One room type. One price.</h2>
+      <p class="plain" style="margin-top:20px">Shared room, twin beds, private bathroom. Published here rather than sent after a call.</p>
+    </div>
+    <ul class="pricegrid rv">
+      <li>
+        <span class="lab">Through September 6, 2026</span>
+        <span class="fig2">$3,265</span>
+        <p class="note">Early rate. It closes on the date, not when a counter runs out.</p>
+      </li>
+      <li>
+        <span class="lab">From September 7, 2026</span>
+        <span class="fig2">$3,450</span>
+        <p class="note">The standard rate for the remaining seats.</p>
+      </li>
+    </ul>
+    <div class="btnrow rv">
+      <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/public/6a21d07b6dcfbe3d85c663b6">Pay in full</a>
+      <a class="btn" href="https://clients.cydniejocelyn.com/public/6a21d63a1b6caddcac951777">Six month payment plan</a>
+    </div>
+    <p class="small rv" style="margin-top:20px">Current status: <span class="tk">TK. The live page says waitlisted. Booking open and waitlist cannot both be true.</span></p>
+
+    <div class="rv" style="margin-top:clamp(48px,6vw,80px)">
+      <span class="eyebrow">Terms, in plain language</span>
+      <h3 class="dsp dsp-m" style="margin-bottom:26px">Before you book, know this.</h3>
+      <ul class="terms">
+        <li><span class="lab">Deposit</span><span class="val">$500 holds your seat. It comes off the total, and it is not refundable.</span></li>
+        <li><span class="lab">Balance</span><span class="val"><span class="tk">TK payment schedule</span></span></li>
+        <li><span class="lab">If your plans change</span><span class="val"><span class="tk">TK transfer terms</span></span></li>
+        <li><span class="lab">Travel insurance</span><span class="val">Buy it, and buy it the day you book. Your deposit and your flights are both committed early. Insurance covers the things I cannot.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- THE WOMEN -->
+<section class="band">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:clamp(40px,5vw,64px)">
+      <span class="eyebrow">Who is running it</span>
+      <h2 class="dsp dsp-l">Two of us.</h2>
+    </div>
+
+    <div class="person rv">
+      <img src="https://static.showit.com/800/28kAzWSdLX_o3s0CFxnepQ/329498/dsc08770.jpg" alt="Cydnie Jocelyn">
+      <div>
+        <h3 class="dsp dsp-m">Cydnie Jocelyn</h3>
+        <p class="mono" style="margin:10px 0 22px">Brand and business development consultant</p>
+        <p class="plain">I spent fourteen years in corporate marketing. I went on a retreat, and it turned out to be the thing that ended that chapter. I left, I got baptised, and I built this out of obedience rather than a plan.</p>
+        <p class="plain">My consulting work is diagnostic. I find the thing underneath the thing, and I tell people what I see. That is a different job than this one. Here I am the person who booked the property, chose the village, and will make sure the week actually works, so that nobody in the room has to be the one holding it.</p>
+        <p class="plain">These retreats are the ones I needed and could not find.</p>
+      </div>
+    </div>
+
+    <div class="person rv">
+      <img src="https://static.showit.com/800/8-87RkSIgBVBtxKkS85ejg/329498/dsc08693.jpg" alt="Kris Krause">
+      <div>
+        <h3 class="dsp dsp-m">Kris Krause</h3>
+        <p class="mono" style="margin:10px 0 22px">Certified personal trainer · Minnesota</p>
+        <p class="plain">Kris is the founder of Your Time Fitness in Minnesota. For more than fifteen years she has worked with women on strength and mobility, mostly women who had written off both.</p>
+        <p class="plain">She was diagnosed with rheumatoid arthritis in her twenties and built her practice around what she learned doing it. She leads the morning movement in Crete and she meets you where your body is that morning, which on day four is a different place than it was on day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GETTING THERE -->
+<section class="band band--held">
+  <div class="wrap">
+    <div class="two">
+      <div class="rv">
+        <span class="eyebrow">Getting there</span>
+        <h2 class="dsp dsp-l">Fly into Chania.</h2>
+        <div class="waterline waterline--dark" style="margin:26px 0 24px"></div>
+      </div>
+      <div class="rv">
+        <p class="plain">Chania International (CHQ) is the closest airport, about 33 km from Douliana. Most major cities connect through Athens.</p>
+        <p class="plain">Be at CHQ by 3:00 PM on August 13 for the group transfer. Book your outbound for August 12. International travel takes a day and arriving with the buffer is worth more than the night of hotel it costs you.</p>
+        <p class="plain">Departure is August 20, with the return transfer to CHQ.</p>
+        <p class="plain">Once you hold a seat you get the full pre-travel guide: what to pack, what the weather does in August, how the transfer works, and what to expect on arrival.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="band">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:34px">
+      <span class="eyebrow">Before you ask</span>
+      <h2 class="dsp dsp-l">Questions</h2>
+    </div>
+    <div class="faq rv">
+      <details>
+        <summary>Do I have to know someone going?</summary>
+        <div class="a">Most women come alone. That is the normal way to do this, not the brave version of it. Fifteen is small enough that by the second day you are not on the edge of anything.</div>
+      </details>
+      <details>
+        <summary>What fitness level does this require?</summary>
+        <div class="a">None in particular. Kris designs the movement around who is in the room. Some of the walking in Crete is on uneven ground and there are hills, so if stairs and trails are a real concern, tell me before you book and I will be straight with you about what the week involves.</div>
+      </details>
+      <details>
+        <summary>Is this a work thing or a rest thing?</summary>
+        <div class="a">Rest. There is no deliverable and nothing to report back on. I am a consultant and I do run diagnostic work, but that is A Sounding and it is a separate thing you can book any time.</div>
+      </details>
+      <details>
+        <summary>Can I come with a friend?</summary>
+        <div class="a">Yes, and you will be roomed together. Say so when you book. It does not change the price either way.</div>
+      </details>
+      <details>
+        <summary>Can you accommodate how I eat?</summary>
+        <div class="a">Yes. List anything when you book and it gets to the kitchen well before you land. Meals are cooked on site with Cretan ingredients, so most things are straightforward.</div>
+      </details>
+      <details>
+        <summary>Do I need travel insurance?</summary>
+        <div class="a">It is not required and I would buy it anyway. The deposit is non refundable and your flight will be booked months out. Insurance is the only thing covering either of those.</div>
+      </details>
+      <details>
+        <summary>What if I have a question you have not answered here?</summary>
+        <div class="a">Email me. A question you are sitting on for three weeks is worth two minutes of my time to answer.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FULL BLEED: THE SEA -->
+<div class="full full--mid rv">
+  <img src="https://static.showit.com/1200/0pMlRPx04TSrDKxmwGQ_2w/329498/img_4647.jpg"
+       alt="The sea near Almirida, Crete" loading="lazy">
+</div>
+<div class="capwrap" style="padding-top:14px">
+  <p class="cap"><b>13</b> Fifteen minutes from the village</p>
+</div>
+
+<!-- CLOSE -->
+<section class="band band--deep">
+  <div class="wrap">
+    <div class="rv" style="max-width:780px">
+      <span class="eyebrow">August 13 to 20, 2027</span>
+      <h2 class="dsp dsp-l">Fifteen seats in Crete.</h2>
+      <div class="waterline" style="margin:28px 0 24px"></div>
+      <p class="lede">Fifteen is the number, not a tactic. When they are gone the date closes and the next one is April. $500 holds yours.</p>
+      <div class="btnrow">
+        <a class="btn btn--onDeep" href="https://clients.cydniejocelyn.com/public/6a21d07b6dcfbe3d85c663b6">Book your seat</a>
+        <a class="btn btn--onDeep" href="/retreats">See both dates</a>
+      </div>
+      <p class="small" style="color:var(--breath);margin-top:26px">Costa Rica ran in April 2026. What the women said about it is on the <a href="/retreats" style="color:var(--surface)">retreats page</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <p class="dsp dsp-s" style="color:var(--surface);max-width:22ch">Where brand strategy meets real life.</p>
+    <div class="footgrid">
+      <a href="/the-build">The Build</a>
+      <a href="/retreats">Retreats</a>
+      <a href="/the-letters">The Letters</a>
+      <a href="/about">About</a>
+      <a href="/a-sounding">A Sounding</a>
+      <a href="/contact">Contact</a>
+      <span class="mono" style="margin-left:auto">© Cydnie Jocelyn LLC · Forest Lake, MN</span>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY BAR -->
+<aside class="stickybar" id="sticky" aria-label="Greece booking">
+  <div class="wrap">
+    <span class="txt"><b>Crete, August 13 to 20, 2027.</b> &nbsp;Fifteen guest seats. $500 holds one.</span>
+    <a class="go" href="#booking">Price and terms</a>
+    <button class="x" id="stickyX" aria-label="Dismiss">&times;</button>
+  </div>
+</aside>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"Event",
+      "@id":"https://cydniejocelyn.com/retreats/greece#event",
+      "name":"Fifteen: A Women's Retreat in Crete, Greece",
+      "description":"An eight day small group retreat for fifteen guests in Douliana, Crete. Lodging, all meals, daily movement, excursions, and ground transport included.",
+      "startDate":"2027-08-13",
+      "endDate":"2027-08-20",
+      "eventStatus":"https://schema.org/EventScheduled",
+      "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+      "maximumAttendeeCapacity":15,
+      "isAccessibleForFree":false,
+      "location":{
+        "@type":"Place",
+        "name":"Armonia Retreat Center",
+        "address":{
+          "@type":"PostalAddress",
+          "addressLocality":"Douliana",
+          "addressRegion":"Crete",
+          "addressCountry":"GR"
+        }
+      },
+      "organizer":{"@id":"https://cydniejocelyn.com/#business"},
+      "performer":[
+        {"@id":"https://cydniejocelyn.com/#cydnie"},
+        {"@type":"Person","name":"Kris Krause"}
+      ],
+      "offers":[
+        {
+          "@type":"Offer",
+          "name":"Early rate, shared room",
+          "price":"3265",
+          "priceCurrency":"USD",
+          "availability":"https://schema.org/InStock",
+          "url":"https://cydniejocelyn.com/retreats/greece#booking",
+          "validThrough":"2026-09-06"
+        },
+        {
+          "@type":"Offer",
+          "name":"Standard rate, shared room",
+          "price":"3450",
+          "priceCurrency":"USD",
+          "availability":"https://schema.org/InStock",
+          "url":"https://cydniejocelyn.com/retreats/greece#booking",
+          "validFrom":"2026-09-07"
+        }
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://cydniejocelyn.com/retreats/greece#faq",
+      "mainEntity":[
+        {"@type":"Question","name":"Do I have to know someone going?","acceptedAnswer":{"@type":"Answer","text":"Most women come alone. That is the normal way to do this, not the brave version of it. Fifteen is small enough that by the second day you are not on the edge of anything."}},
+        {"@type":"Question","name":"What fitness level does this require?","acceptedAnswer":{"@type":"Answer","text":"None in particular. Movement is designed around who is in the room. Some walking in Crete is on uneven ground with hills, so raise any concern before booking."}},
+        {"@type":"Question","name":"Is this a work thing or a rest thing?","acceptedAnswer":{"@type":"Answer","text":"Rest. There is no deliverable and nothing to report back on. Diagnostic consulting work is a separate offer called A Sounding."}},
+        {"@type":"Question","name":"Can I come with a friend?","acceptedAnswer":{"@type":"Answer","text":"Yes, and you will be roomed together. Say so when you book. It does not change the price."}},
+        {"@type":"Question","name":"Can you accommodate how I eat?","acceptedAnswer":{"@type":"Answer","text":"Yes. List anything when you book and it reaches the kitchen before you land. Meals are cooked on site with Cretan ingredients."}},
+        {"@type":"Question","name":"Do I need travel insurance?","acceptedAnswer":{"@type":"Answer","text":"It is not required but it is recommended. The deposit is non refundable and flights are booked months ahead."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+document.body.classList.remove('no-js');
+(function(){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv,.waterline').forEach(function(el){ io.observe(el); });
+
+  var root = document.documentElement, hero = document.querySelector('.heroimg img');
+  var bar = document.getElementById('sticky'), trigger = document.getElementById('week');
+  var dismissed = false, ticking = false;
+  document.getElementById('stickyX').addEventListener('click', function(){
+    dismissed = true; bar.classList.remove('on');
+  });
+  function frame(){
+    var y = window.scrollY || 0;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    root.style.setProperty('--depth', max > 0 ? (y / max).toFixed(4) : 0);
+    if(hero) root.style.setProperty('--par', Math.min(y * 0.06, 44) * -1 + 'px');
+    if(!dismissed && trigger){
+      var passed = trigger.getBoundingClientRect().bottom < 0;
+      bar.classList.toggle('on', passed);
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(frame); }
+  }, {passive:true});
+  frame();
+})();
+</script>
+</body>
+</html>

@@ -298,26 +298,22 @@ sit directly on the page.
 
   | | |
   |---|---|
-  | bezel | 2.5% of width, even on all four sides |
-  | corner | 12.5% of width — and the screen's corner is that **minus the bezel**, so the two curves are concentric. Non-concentric corners are the single thing that makes a drawn phone look drawn. |
-  | island | 30% wide, 8.5% tall, a bezel's depth below the top, over the screen the way it really sits |
+  | screen | **393 x 852pt**, locked as `aspect-ratio` on the box, image filling it with `cover` |
+  | bezel | 12.9pt (~2.2mm) = **3.08%** of body width |
+  | body corner | 55pt screen corner + bezel = **16.21%** of body width |
+  | screen corner | body corner minus bezel = **13.99% of SCREEN width**, which is Apple's 55/393 |
+  | island | 125 x 36.7pt, 11pt down = 29.9% x 8.8% of body width |
 
-  **12.5%, not the 11.5% of a real iPhone body, and that is deliberate.** The screenshot has
-  Apple's corner rounding already baked into it, measured at **10.0%** of its own width. The
-  frame has to be concentric with *that* curve, not with an abstract target, so the numbers are
-  solved from `R = r + b` with `r` fixed. Change the bezel and the corner has to move with it.
+  **Every number is derived from an iPhone 15/16 Pro, not tuned by eye.** Tuning by eye
+  produced three wrong frames in a row: a lozenge at 23%, an over-correction to 11.5%, then
+  12.5% picked to be concentric with a curve the screenshot happened to have. A real iPhone is
+  **rounder** than all three. The check that matters: body corner minus bezel over screen width
+  is 0.1399, and Apple's 55/393 is 0.1399. The curves are concentric because the arithmetic
+  makes them concentric. Do not nudge one of these without re-deriving the rest.
 
-  **The corners are cut out of the image file, not just clipped in CSS.** The crop used to be a
-  plain rectangle, so each corner carried a wedge of the board's white page, and the CSS clip
-  sat at 8.5% where the baked curve is 10.0%: four white notches inside the frame. The wedges
-  are transparent in the file now, cut on the phone's own curve and masked slightly deeper
-  (10.5%) so the anti-aliased fringe goes with them. The chassis shows through instead of the
-  page, which is what a bezel wrapping a screen corner actually looks like.
-
-  **Every part of the frame derives from `--dev-w`, so the mobile override must set `--dev-w`
-  and never `width`.** It set `width` at first, which left a 76px phone drawing a 96px phone's
-  corner — 14.5% instead of 11.5%, straight back to the lozenge. Verified identical at 1440
-  and 375.
+  **The screen box owns its aspect ratio and the image fills it with `cover`.** That is what
+  stops this drifting again: the frame is an iPhone whatever the source image measures, so
+  swapping a screenshot can never put the proportions out.
 
   No side buttons: at 76–136px they land under two pixels wide and read as rendering artefacts
   rather than hardware. The corners are CSS `border-radius`, a circular arc rather than Apple's
@@ -499,6 +495,28 @@ Not wired, and why: the twelve questions form (§7.2); the specific podcast epis
 on and the podcast's status is itself unresolved (§7.6); and the retreat forms that have no
 section on the site yet — private retreat inquiry, choose your path, pre-register early bird,
 and the four Sauk Centre room checkouts. Those belong to a Retreats page that does not exist.
+
+## 7b2. The live client sites cannot be screenshotted, and that is worth knowing
+
+Asked to rebuild the phone visuals from the real sites, all three were captured with headless
+Chrome at a true iPhone viewport (393x852 at DPR 3). **Two of the three render broken on a
+phone:**
+
+- **srsperform.com** — content sits in a white gutter offset to the right and the wordmark is
+  clipped off the right edge. (`srsperformance.com` is a parked for-sale domain; the live one
+  is `srsperform.com`, which is also what the mockup's own browser bar says.)
+- **solyrey.com** — the hero headline reads "Wander Freely. Discov" and the buttons read
+  "CURATED JOURNEY" and "PLAN MY TR". Still clipped at 430px wide.
+
+Not a capture artefact: identical at device pixel ratio 1 and 3, and at 393 and 430 wide. Both
+sites genuinely overflow horizontally on phones. **manealchemistsalon.com is clean.** SRS also
+carries a cookie banner that would have to be dismissed to get a clean shot, and dismissing it
+is consenting on Cydnie's behalf, which is not ours to do.
+
+So the section still uses the board mockups. They are her delivered work, they are consistent
+with each other, and they render correctly. **Tell Cydnie about the overflow** — it is a real
+bug on two client sites and she may want to fix it before anyone follows a link from her
+portfolio.
 
 ## 7c. The brief in the build folder, and where this build departs from it
 
