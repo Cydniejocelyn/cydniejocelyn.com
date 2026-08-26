@@ -1,0 +1,17 @@
+# Explicit, not inherited. Vercel falls back to .gitignore only when this
+# file is absent, and 59GB of brand library, retreat photography and video
+# now sit inside this folder. Not worth relying on a fallback for.
+CydnieJocelyn-Site/
+Costa Rica copy/
+Family Travel copy/
+Fonts copy/
+cydniejocelyn/
+
+.git/
+.DS_Store
+
+# build output and local tooling, not part of the deployed site
+tools/
+HANDOFF.md
+BRIEF.md
+README.md
