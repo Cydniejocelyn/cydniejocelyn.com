@@ -2144,26 +2144,32 @@ main > * { position: relative; z-index: 1; }
    businesses that look exactly like each other. Each board is taken apart
    instead, and put back together in the guide's own language.
 
-   The first build of this block set every mark on the board's own panel,
-   which meant a hard bordered box each time and a near black one for Mane
-   Alchemist. Three bordered boxes in a column is blocky, and the black one
-   reads gothic on a page that is Surface from top to bottom. So:
+   This block has been through three shapes. First every mark sat on the
+   board's own panel inside a 1px border: three hard boxes in a column, one
+   of them near black, which read gothic on a page that is Surface from top
+   to bottom. Then the panels were keyed out and each mark was given a soft
+   field in its client's own colour, which fixed the borders and kept a
+   coloured rectangle. There is no rectangle now at all.
 
-   - the panels are keyed out and the marks are transparent;
-   - each mark sits on a soft field drawn from that client's OWN palette,
-     no border, generous padding, a small radius. Nothing on this page is a
-     hard edged box any more;
-   - the shipped page hangs below its field rather than sitting beside it in
-     a third column, so the row has a silhouette instead of a grid;
-   - the field and the copy swap sides down the run, so three cases do not
-     land as three identical stamps;
-   - the palette is circles with air between them, the way the client boards
-     draw it, not a flush bar of colour;
-   - and the cases are parted by the guide's divider, a hairline with the
-     four point mark at its centre.
+   - The marks are transparent and sit directly on the page. Nothing in this
+     section has a background, a border or a corner.
+   - Mane Alchemist's lockup is drawn cream on black, so on Surface it had
+     nothing to sit on and that is the only reason it ever had a field. It is
+     repainted in its own Foundation ink instead, gold motif untouched: the
+     positive version of a lockup already delivered reversed, which is what a
+     brand kit contains. See the note in HANDOFF before touching it.
+   - The shipped page floats beside the mark on its own shadow, the one drop
+     shadow on the site, and that is what keeps three marks on an empty
+     ground from reading as clip art.
+   - The mark and the copy swap sides down the run, so three cases do not
+     land as three identical stamps.
+   - The palette is circles with air between them, the way the client boards
+     draw it, not a flush bar of colour.
+   - The cases are parted by the guide's divider, a hairline with the four
+     point mark at its centre.
 
-   The board's ratio still holds around all of it: the page stays Surface,
-   and the client colour is the only saturated thing in the section. */
+   The board's ratio holds: the page stays Surface, and the client's own ink
+   is the only colour in the section. */
 .cases { display: grid; }
 .case {
   display: grid;
@@ -2174,42 +2180,50 @@ main > * { position: relative; z-index: 1; }
 @media (min-width: 56rem) {
   .case { grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); column-gap: clamp(var(--s-6), 6vw, var(--s-8)); }
   /* every other case turns over. Same components, other hand. */
-  .case--flip .case-plate { order: 2; }
+  .case--flip .case-show { order: 2; }
 }
 
-/* The field. Its colour is set per case from that client's own palette, so
-   the only saturated thing in this section belongs to the client. */
-.case-plate {
-  position: relative;
-  background: var(--plate, var(--field));
-  border-radius: 5px;
+/* The mark and the page it produced, on nothing. */
+/* Both cells shrink to their contents and the pair centres as a pair. With
+   the mark cell on 1fr it absorbed every spare pixel, the mark centred inside
+   that stretched cell, and a void opened between the mark and the phone. It
+   is most of what was wrong on a narrow screen. */
+.case-show {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, auto) auto;
+  justify-content: center;
   align-items: center;
-  gap: clamp(var(--s-4), 3.5vw, var(--s-6));
-  --pad: clamp(var(--s-5), 4vw, 3.5rem);
-  padding: var(--pad);
+  gap: clamp(var(--s-4), 4vw, var(--s-7));
 }
-.case-mark { margin: 0; display: grid; place-items: center; }
-.case-mark img { width: 100%; max-width: 19rem; height: auto; }
+/* Three lockups of three different shapes: Mane Alchemist is square, because
+   its deco motif runs the full height behind the wordmark, and the other two
+   are roughly 2:1. Matching their WIDTHS made Mane twice as tall as the rest.
+   Matching their HEIGHTS made it a postage stamp beside a 17rem SRS. Neither
+   is the right invariant.
 
-/* The page that shipped, hanging past the foot of the field. This is the one
-   thing in the section that breaks its own container, and it is what stops
-   the run reading as a stack of rectangles. */
+   What has to match is the area each one covers, so every case carries its
+   own --mark-h, solved from h = sqrt(A / aspect) against a shared A and then
+   rounded to something that looks right. Retune the case, not this rule. */
+.case-mark { margin: 0; display: grid; place-items: center; }
+.case-mark img {
+  /* height drives, width follows from the artwork's own proportion. A width
+     of 100% made the box wider than the ink and letterboxed every mark. */
+  width: auto; height: var(--mark-h, 6.25rem);
+  max-width: 100%;
+  object-fit: contain; object-position: center;
+}
+
+/* The page that shipped. The only DROP shadow on the site, the swatch rings
+   below being inset hairlines rather than shadows: with the field gone there
+   is nothing else holding these two objects in front of the page, and a
+   screenshot lying perfectly flat on Surface reads as a picture of a phone
+   rather than a thing that is running. */
 .case-screen {
   margin: 0;
-  align-self: end;
-  width: clamp(4.75rem, 9.5vw, 7rem);
-  /* it clears the field's own padding and then hangs a fixed distance past
-     it. Two independent clamps were leaving a 30px overhang at 1024 and a
-     4px one on a phone, which is not an overhang, it is a rounding error. */
-  margin-bottom: calc((var(--pad) + clamp(1rem, 2vw, 1.75rem)) * -1);
-  border-radius: 4px;
+  width: clamp(5.5rem, 10.5vw, 7.75rem);
+  border-radius: 5px;
   overflow: hidden;
-  /* the only shadow on the site. It is here because a page lying flat on a
-     field of its own brand colour reads as printed on it rather than held
-     in front of it, and the whole point of the object is that it shipped. */
-  box-shadow: 0 1.25rem 2.25rem -0.9rem rgba(7, 26, 31, .45);
+  box-shadow: 0 1.15rem 2.25rem -1rem rgba(7, 26, 31, .38);
 }
 .case-screen img { width: 100%; height: auto; }
 
@@ -2239,8 +2253,11 @@ main > * { position: relative; z-index: 1; }
 .case-div svg path { fill: currentColor; }
 
 @media (max-width: 55.99rem) {
-  .case-plate { gap: var(--s-4); --pad: var(--s-5); }
-  .case-mark img { max-width: 13rem; }
+  .case-show { gap: var(--s-4); }
+  .case-screen { width: clamp(4.25rem, 16vw, 5.75rem); }
+  /* the mark and the page it produced read as one object on a phone, so the
+     copy follows closer than the run's own rhythm would put it */
+  .case { gap: var(--s-5); padding-block: clamp(var(--s-6), 9vw, var(--s-7)); }
 }
 
 

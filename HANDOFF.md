@@ -237,17 +237,33 @@ on the board's own panel inside a 1px border: three hard boxes in a column, one 
 black, on a page that is Surface from top to bottom. It has been rebuilt in the guide's own
 language and the current rules are:
 
-- **The panels are keyed out and the marks are transparent.** Each mark now sits on a soft
-  field taken from *that client's own palette* — Mane Alchemist on its primary green `#1C5128`
-  rather than the board's black, SolyRey on its `#E8D5C4` sand, SRS Performance on `#F6F5F7`.
-  SRS's own light neutral is `#DFDEE0`, which is four values off this section's `#DCE4E1`
-  ground and vanished into it; do not "correct" it back.
-- **No borders anywhere in the section.** Soft radius, generous padding.
-- **The shipped page hangs past the foot of its field**, a fixed `clamp(1rem, 2vw, 1.75rem)`
-  below it, computed off the field's own `--pad` so the overhang is the same at every width.
-  It carries the only shadow on the site: a page lying flat on a field of its own brand colour
-  reads as printed on it, and the point of the object is that it shipped.
-- **The field and the copy swap sides down the run** (`.case--flip`), so three cases do not
+There was then a second pass, because the coloured fields went too. **There is no rectangle in
+this section at all now** — no background, no border, no corner. The marks are transparent and
+sit directly on the page.
+
+- **Mane Alchemist's mark is repainted and this is the one thing here to check with Cydnie.**
+  Its lockup is drawn cream-on-black, so on Surface it has nothing to sit on, and that is the
+  only reason that case ever had a field. The script is repainted in Mane's own Foundation
+  `#1C1B1A` and **the gold motif is untouched**, so the two-tone survives and only the
+  colourway changes. It is the positive version of a lockup delivered reversed, which is what
+  a brand kit contains — but it is still that client's artwork altered for presentation. If
+  she would rather it stayed cream, the answer is to give that one case its field back.
+  Pixels are classified by saturation: `sat < 0.16 and max > 120` is the script, everything
+  else is the motif.
+- **The shipped page floats beside the mark on the one drop shadow on the site.** With the
+  field gone nothing else holds these two objects in front of the page, and a screenshot lying
+  flat on Surface reads as a picture of a phone rather than a thing that is running. The
+  swatch rings are inset hairlines, not shadows.
+- **Marks are matched on AREA, not width and not height.** These are a square and two roughly
+  2:1 lockups. Matching widths made Mane twice as tall as the others; matching heights made it
+  a postage stamp beside a 17rem SRS. Each case carries its own `--mark-h`, solved from
+  `h = sqrt(A / aspect)` and rounded by eye; they land within 7% of each other. Retune the
+  case, never the rule.
+- The mark's **height drives and width follows** (`width: auto`). `width: 100%` made the box
+  wider than the ink, and on a phone that letterboxing opened a visible void between the mark
+  and the phone beside it. For the same reason `.case-show` is `minmax(0, auto) auto` with
+  `justify-content: center`: on `1fr` the mark cell absorbed every spare pixel.
+- **The mark and the copy swap sides down the run** (`.case--flip`), so three cases do not
   land as three identical stamps.
 - **The palette is circles with air between them**, the way the client boards draw it. The
   flush bar of colour it replaced was the blockiest thing on the page.
