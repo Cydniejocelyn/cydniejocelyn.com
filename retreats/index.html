@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css?v=a5041615">
+<link rel="stylesheet" href="../assets/css/site.css?v=4533db39">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- The Greece Event itself lives on /retreats/greece/, which is its
@@ -146,18 +146,20 @@
      notes, retreats is the one page allowed to run deeper than the rest:
      here dark reads as evening and away rather than as weight.
 
-     The photograph is Costa Rica, April 2026, and it is real. It is the
-     only hero on this site with faces in it, because a retreat is the one
-     product where the people are the thing being sold. -->
-<section class="hero hero--bright z-deep" data-zone aria-labelledby="rt-h">
+     The photograph is Costa Rica, April 2026, taken from the boat on the
+     day the group went out. It is a level surface with a shore on the far
+     side of it, which is the same picture the home page opens on and the
+     same one the whole brand is built from -- except this one she took
+     herself, on one of these weeks. The pool candids are further down the
+     page, where they are about a week rather than about a promise. -->
+<section class="hero z-deep" data-zone aria-labelledby="rt-h">
 
   <div class="hero-water" aria-hidden="true">
-    <img src="../assets/img/retreats/cr-pool-1200.webp"
-         srcset="../assets/img/retreats/cr-pool-600.webp 600w, ../assets/img/retreats/cr-pool-1200.webp 1200w, ../assets/img/retreats/cr-pool-1800.webp 1800w"
+    <img src="../assets/img/retreats/cr-horizon-1200.webp"
+         srcset="../assets/img/retreats/cr-horizon-600.webp 600w, ../assets/img/retreats/cr-horizon-1200.webp 1200w, ../assets/img/retreats/cr-horizon-1800.webp 1800w"
          sizes="100vw" width="1800" height="1200"
-         style="object-position: 62% 50%"
          fetchpriority="high" decoding="async"
-         alt="Women standing in a pool with their hands raised during a morning movement session at the Costa Rica retreat.">
+         alt="A headland across still water under a pale sky, seen from the boat off the Nicoya coast, Costa Rica.">
   </div>
   <div class="hero-scrim" aria-hidden="true"></div>
 
@@ -237,17 +239,47 @@
 
     <div class="rt-cal">
 
+      <!-- No photograph, because there is no location to photograph yet. A
+           picture of somewhere it is not would be the one dishonest thing on
+           the page. The map is drawn by tools/us_map.py and inlined between
+           the markers below; re-run that script rather than editing the path
+           by hand. -->
       <article class="rt-date r-up" id="april" aria-labelledby="april-h">
-        <figure class="rt-date-fig">
-          <img src="../assets/img/retreat-steps-1200.webp"
-               width="1200" height="800" loading="lazy" decoding="async"
-               alt="Sunlit stone steps against a pale plastered wall, olive shadow falling across it.">
+        <figure class="rt-date-fig rt-date-fig--map">
+<!-- US-MAP:START -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 633"
+               role="img" aria-labelledby="usmap-t" class="usmap" preserveAspectRatio="xMidYMid meet">
+            <title id="usmap-t">A map of the United States with no location marked on it</title>
+            <defs>
+              <!-- The country fades at its edges rather than stopping on a hard line,
+                   which is the same seam construction the page's own sections use. -->
+              <radialGradient id="usmap-veil" cx="50%" cy="46%" r="62%">
+                <stop offset="0%"   stop-color="#fff" stop-opacity="1"/>
+                <stop offset="62%"  stop-color="#fff" stop-opacity="1"/>
+                <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+              </radialGradient>
+              <mask id="usmap-mask">
+                <rect width="1000" height="633" fill="url(#usmap-veil)"/>
+              </mask>
+            </defs>
+            <g mask="url(#usmap-mask)">
+              <path class="usmap-fill" fill-rule="evenodd" d="M65.0 18.1L93.9 12.0L185.8 36.9L294.0 58.0L386.7 69.3L450.1 73.5L493.5 74.8L526.1 65.8L554.6 83.4L568.3 89.4L594.8 94.1L614.8 95.2L638.7 112.4L683.3 118.7L701.9 122.4L698.6 138.4L735.8 145.2L749.5 185.0L746.4 201.0L732.5 232.8L774.5 220.4L793.6 202.7L804.0 192.4L802.0 183.7L842.0 167.9L844.5 155.2L858.6 141.1L865.6 128.3L917.8 114.9L922.4 106.5L930.0 82.1L938.3 51.1L958.2 48.7L968.7 70.3L988.0 90.1L977.6 109.7L947.4 138.7L942.7 159.7L958.5 176.0L934.8 199.8L903.8 225.4L901.6 255.7L893.7 272.1L894.0 293.8L886.3 319.0L900.0 340.8L904.0 356.3L887.9 374.9L863.8 398.0L832.7 430.4L815.9 450.6L809.1 483.8L826.1 517.2L837.1 534.7L854.8 575.5L853.0 611.3L825.4 598.8L790.4 554.3L782.4 525.2L742.1 517.3L726.5 508.4L676.8 507.5L650.5 513.2L658.2 538.9L635.5 536.9L555.3 530.9L525.3 549.2L483.1 576.6L487.8 621.1L445.9 609.3L420.3 557.8L408.9 535.7L367.1 537.7L333.1 520.4L301.9 469.7L267.3 465.4L265.9 476.0L208.5 467.3L142.5 421.3L94.8 415.3L79.7 382.7L42.1 355.0L40.4 330.0L29.6 298.7L26.5 268.3L13.1 235.8L12.0 198.7L23.5 163.8L32.9 134.6L47.6 107.1L59.8 69.9L62.9 52.2ZM696.5 138.6L676.2 158.8L678.2 184.8L682.1 212.9L672.6 239.9L660.4 241.1L652.2 208.7L658.3 173.7L661.2 159.2L673.3 147.3Z"/>
+              <path class="usmap-line" d="M65.0 18.1L93.9 12.0L185.8 36.9L294.0 58.0L386.7 69.3L450.1 73.5L493.5 74.8L526.1 65.8L554.6 83.4L568.3 89.4L594.8 94.1L614.8 95.2L638.7 112.4L683.3 118.7L701.9 122.4L698.6 138.4L735.8 145.2L749.5 185.0L746.4 201.0L732.5 232.8L774.5 220.4L793.6 202.7L804.0 192.4L802.0 183.7L842.0 167.9L844.5 155.2L858.6 141.1L865.6 128.3L917.8 114.9L922.4 106.5L930.0 82.1L938.3 51.1L958.2 48.7L968.7 70.3L988.0 90.1L977.6 109.7L947.4 138.7L942.7 159.7L958.5 176.0L934.8 199.8L903.8 225.4L901.6 255.7L893.7 272.1L894.0 293.8L886.3 319.0L900.0 340.8L904.0 356.3L887.9 374.9L863.8 398.0L832.7 430.4L815.9 450.6L809.1 483.8L826.1 517.2L837.1 534.7L854.8 575.5L853.0 611.3L825.4 598.8L790.4 554.3L782.4 525.2L742.1 517.3L726.5 508.4L676.8 507.5L650.5 513.2L658.2 538.9L635.5 536.9L555.3 530.9L525.3 549.2L483.1 576.6L487.8 621.1L445.9 609.3L420.3 557.8L408.9 535.7L367.1 537.7L333.1 520.4L301.9 469.7L267.3 465.4L265.9 476.0L208.5 467.3L142.5 421.3L94.8 415.3L79.7 382.7L42.1 355.0L40.4 330.0L29.6 298.7L26.5 268.3L13.1 235.8L12.0 198.7L23.5 163.8L32.9 134.6L47.6 107.1L59.8 69.9L62.9 52.2ZM696.5 138.6L676.2 158.8L678.2 184.8L682.1 212.9L672.6 239.9L660.4 241.1L652.2 208.7L658.3 173.7L661.2 159.2L673.3 147.3Z" pathLength="1"/>
+            </g>
+            <g class="usmap-pin" transform="translate(530.7 276.1)">
+              <circle class="usmap-ring" r="21"/>
+              <circle class="usmap-ring usmap-ring--out" r="38"/>
+            </g>
+          </svg>
+          <!-- US-MAP:END -->
+          <span class="usmap-note">Somewhere in the United States</span>
         </figure>
         <div>
           <p class="rt-status">Announcing this autumn</p>
           <p class="rt-date-when">April 2027 &middot; Location named this fall</p>
           <h3 class="head h-3" id="april-h">The next one is closer than Greece.</h3>
-          <p>Shorter. Closer to home. The same fifteen seats and the same absence of an agenda. Dates, location and price go to the list first, and the list is how the seats go.</p>
+          <p>Shorter, and in the States, so it costs you a flight rather than a day of travelling. The same fifteen seats and the same absence of an agenda. I am walking two properties this autumn and I will not announce one until I have slept in it.</p>
+          <p>Dates, location and price go to the list first, and the list is how the seats go. That is not a tactic either; it is that fifteen fills before anything needs advertising.</p>
           <div class="actions">
             <a class="btn btn--quiet" href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa3c69e63a7a4c9bb354f1" rel="noopener">
               <span>Hear about April first</span>
@@ -259,12 +291,15 @@
       </article>
 
       <article class="rt-date rt-date--flip r-up" id="greece" aria-labelledby="greece-h">
-        <figure class="rt-date-fig">
-          <img src="../assets/img/greece/house-600.webp"
-               srcset="../assets/img/greece/house-600.webp 600w, ../assets/img/greece/house-1200.webp 1200w"
+        <!-- Not the house: that is the Greece page's own hero, and a card
+             that shows the same picture as the page it opens reads as a
+             thumbnail rather than an invitation. -->
+        <figure class="rt-date-fig par" data-speed="0.05">
+          <img src="../assets/img/greece/dinner-600.webp"
+               srcset="../assets/img/greece/dinner-600.webp 600w, ../assets/img/greece/dinner-1200.webp 1200w"
                sizes="(min-width: 48rem) 40vw, 100vw" width="1200" height="1200"
                loading="lazy" decoding="async"
-               alt="The stone house at Armonia Retreat Center in Douliana, Crete, at dusk, with a vine pergola across its front.">
+               alt="The long table at Armonia laid for dinner at dusk, lanterns hung from the vine pergola above it.">
         </figure>
         <div>
           <p class="rt-status rt-status--full">Full &middot; Waitlist open</p>
@@ -360,37 +395,69 @@
       </div>
     </div>
 
-    <!-- Three portraits rather than two, because the slot is portrait
-         (0.62/1) and the session photograph is landscape: cropped to fit it
-         it stopped being a circle of women and became one face. These three
-         are shot portrait and are three different parts of a week --
-         arriving, moving, and the last morning. -->
-    <div class="triptych" style="margin-top:var(--s-6)">
+    <!-- The week in three beats, and they are in order: the room in the
+         morning, what the middle of it looks like from close up, and what
+         everyone does at some point on their own.
+
+         The first pass here was three pool candids. They are true and they
+         all said the same thing. These three say three different things, and
+         two of them have nobody's face in them, which is the board's own
+         direction: photograph from behind, above, or in fragment. -->
+    <figure class="layer-band layer-band--tall layer-band--par r-img" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
+      <img class="par" data-speed="0.06"
+           src="../assets/img/retreats/cr-room-1200.webp"
+           srcset="../assets/img/retreats/cr-room-600.webp 600w, ../assets/img/retreats/cr-room-1200.webp 1200w, ../assets/img/retreats/cr-room-1800.webp 1800w"
+           sizes="(min-width: 56rem) 76vw, 100vw" width="1800" height="1012"
+           loading="lazy" decoding="async"
+           alt="The open-sided pavilion at the Costa Rica retreat, mats and cushions laid out across the floor, the pool and the trees beyond it.">
+    </figure>
+    <p class="rt-band-line r-up"><b>Nine in the morning, day three.</b> Nobody was asked to be there and everybody was. That is the whole design: enough shape that the days do not drift, and no register taken.</p>
+
+    <div class="pair" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
       <figure class="layer-fig r-img">
-        <img src="../assets/img/retreats/cr-hold-600.webp"
-             srcset="../assets/img/retreats/cr-hold-600.webp 600w, ../assets/img/retreats/cr-hold-1000.webp 1000w"
-             sizes="(min-width: 42rem) 30vw, 100vw" width="1000" height="1500"
+        <img src="../assets/img/retreats/cr-cards-600.webp"
+             srcset="../assets/img/retreats/cr-cards-600.webp 600w, ../assets/img/retreats/cr-cards-1000.webp 1000w"
+             sizes="(min-width: 42rem) 44vw, 100vw" width="1000" height="1500"
              loading="lazy" decoding="async"
-             alt="Two women holding on to each other, laughing, at the Costa Rica retreat.">
-        <figcaption>Costa Rica, April 2026</figcaption>
+             alt="Hands laying cards out on a wooden floor in low afternoon light, one bare foot at the edge of the frame.">
+        <figcaption>The middle of the week, on the floor</figcaption>
       </figure>
       <figure class="layer-fig r-img">
-        <img src="../assets/img/retreats/kris-lead-600.webp"
-             srcset="../assets/img/retreats/kris-lead-600.webp 600w, ../assets/img/retreats/kris-lead-1200.webp 1200w"
-             sizes="(min-width: 42rem) 30vw, 100vw" width="1200" height="1800"
+        <img src="../assets/img/retreats/cr-water-600.webp"
+             srcset="../assets/img/retreats/cr-water-600.webp 600w, ../assets/img/retreats/cr-water-1000.webp 1000w"
+             sizes="(min-width: 42rem) 44vw, 100vw" width="1000" height="1778"
              loading="lazy" decoding="async"
-             alt="Kris Krause leading a movement session from the pool deck while the group works in the water below.">
-        <figcaption>Kris Krause, morning movement</figcaption>
-      </figure>
-      <figure class="layer-fig r-img">
-        <img src="../assets/img/retreats/cr-jump-600.webp"
-             srcset="../assets/img/retreats/cr-jump-600.webp 600w, ../assets/img/retreats/cr-jump-1000.webp 1000w"
-             sizes="(min-width: 42rem) 30vw, 100vw" width="1000" height="1500"
-             loading="lazy" decoding="async"
-             alt="A guest mid-air over the pool, having jumped in fully dressed.">
-        <figcaption>Also this, on the last day</figcaption>
+             alt="A woman walking alone out of the surf onto the wet sand, the sea behind her.">
+        <figcaption>Everyone does this at some point</figcaption>
       </figure>
     </div>
+  </div>
+</section>
+
+<!-- 04b / THE LAST EVENING.
+     One picture at full width, and it is the only unguarded thing on the
+     page. The rest of the site refuses this register on purpose -- no
+     sunsets, no promise of transformation -- and it is allowed here because
+     it is a photograph of a week that actually happened, captioned with the
+     day it happened on, rather than an image of a feeling being sold.
+
+     The band's own section declares no --from, because a photograph running
+     edge to edge is its own transition and a seam drawn over the top of one
+     reads as a smear. The section under it keeps its --from: that seam is
+     Fathom into Deepwater, two darks, and it is what stops the refusals
+     block reading as a separate page stapled on. -->
+<section class="section--tight z-deep" aria-label="The last evening in Costa Rica">
+  <figure class="layer-band layer-band--wide layer-band--par r-img">
+    <img class="par" data-speed="0.05"
+         src="../assets/img/retreats/cr-dusk-1200.webp"
+         srcset="../assets/img/retreats/cr-dusk-600.webp 600w, ../assets/img/retreats/cr-dusk-1200.webp 1200w, ../assets/img/retreats/cr-dusk-1536.webp 1536w"
+         sizes="100vw" width="1536" height="2048"
+         loading="lazy" decoding="async"
+         alt="Sunset over the tide flats, palms in silhouette on the horizon and the whole sky repeated in the wet sand.">
+  </figure>
+  <div class="wrap">
+    <p class="rt-band-cap">Costa Rica &middot; the last evening, 2 May 2026</p>
+    <p class="rt-band-line r-up">Low tide, and the beach was doing the thing where it holds the whole sky. <b>Nobody organised this part.</b> Everyone just walked down and stood in it, and then went and had dinner.</p>
   </div>
 </section>
 
@@ -604,6 +671,6 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=a5041615" defer></script>
+<script src="../assets/js/site.js?v=4533db39" defer></script>
 </body>
 </html>

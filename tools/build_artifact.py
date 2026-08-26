@@ -70,13 +70,16 @@ PICK = {
     "solyrey-screen":          "work/solyrey-screen-500.webp",
     # The retreat pages. One resolution each, the 600 wide variant, because
     # these two pages carry twenty photographs between them and the artifact
-    # inlines every one of them as base64.
+    # inlines every one of them as base64. This list is exactly what the two
+    # pages render: a stem here that no page uses keeps a file alive that
+    # nothing needs, which is how 3.5MB of dead assets accumulated once.
     "retreat-steps":      "retreat-steps-1200.webp",
-    "retreats/cr-pool":   "retreats/cr-pool-600.webp",
-    "retreats/cr-hold":   "retreats/cr-hold-600.webp",
-    "retreats/cr-jump":   "retreats/cr-jump-600.webp",
-    "retreats/kris-lead": "retreats/kris-lead-600.webp",
-    "retreats/kris-":     "retreats/kris-600.webp",
+    "retreats/cr-horizon": "retreats/cr-horizon-600.webp",
+    "retreats/cr-dusk":    "retreats/cr-dusk-600.webp",
+    "retreats/cr-room":    "retreats/cr-room-600.webp",
+    "retreats/cr-cards":   "retreats/cr-cards-600.webp",
+    "retreats/cr-water":   "retreats/cr-water-600.webp",
+    "retreats/kris":       "retreats/kris-600.webp",
     "melissa-poster":     "retreats/melissa-poster-405.webp",
     "greece/house":       "greece/house-600.webp",
     "greece/drive":       "greece/drive-600.webp",

@@ -2483,6 +2483,78 @@ main > * { position: relative; z-index: 1; }
 .rt-date p { color: var(--muted); max-width: 42rem; margin-top: var(--s-4); }
 .rt-date .actions { margin-top: var(--s-5); }
 
+/* --- April 2027, which has no photograph because it has no location.
+   A stock picture of somewhere it is not would be a lie and an empty grey
+   box is a hole in the layout, so the card carries a map of the country
+   with nothing marked on it. Drawn by `tools/us_map.py`, inlined into the
+   page so it can be coloured and animated from here.
+
+   The open ring is the site's own motif: the Fifteen mark on the home page
+   fills fourteen circles and leaves the fifteenth open, and the open one is
+   the argument. Here the same shape says the same thing about a location
+   that has not been decided. */
+/* No border and no field. The Build's client marks sit directly on the page
+   for the same reason: a rectangle around a drawing turns it into a slide.
+   The country is the shape, and the space around it is the page. */
+.rt-date-fig--map {
+  position: relative;
+  display: grid; place-items: center;
+  aspect-ratio: 4 / 3;
+  padding-bottom: var(--s-6);
+}
+.usmap { width: 100%; height: auto; max-height: 100%; display: block; }
+/* Meniscus rather than the rule token: the rule token is a near-neutral at
+   16% and the country came out the grey of an unloaded image. */
+.usmap-fill { fill: rgba(47, 90, 97, .14); }
+.usmap-line { fill: none; stroke: var(--meniscus); stroke-width: 2.4; opacity: .62; }
+.usmap-ring { fill: none; stroke: var(--accent); stroke-width: 2.6; }
+.usmap-ring--out { stroke-width: 1.4; opacity: .4; }
+
+/* Drawn on entry, once, and the resting state is the drawn one. Same rule as
+   the waterline: a keyframe starting at a dashoffset of 1 would leave the
+   border invisible for as long as the animation sat on its first frame, and
+   stuck is not hypothetical here. `pathLength="1"` is set on the path, so the
+   dash figures are the whole outline whatever its real length. */
+.js-motion .usmap-line { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.js-motion .is-in .usmap-line { animation: usmap-draw 1400ms var(--ease-out) both; }
+.js-motion .usmap-pin { opacity: 1; }
+.js-motion .is-in .usmap-pin { animation: usmap-pin 500ms var(--ease-out) 900ms both; }
+@keyframes usmap-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes usmap-pin  { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .is-in .usmap-line,
+  .js-motion .is-in .usmap-pin { animation: none; }
+}
+
+/* The label sits on the map rather than under it, because the map is the
+   answer to "where" and the label is the rest of that answer. */
+/* Under the map, on a rule, in the same register the eyebrows use. It is the
+   rest of the answer to "where", so it is not a caption. */
+.usmap-note {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding-top: var(--s-3); border-top: 1px solid var(--rule);
+  text-align: center;
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--muted);
+}
+
+/* --- Parallax inside a full-bleed band. `.par` translates the element it is
+   on, so putting it on the band itself would open a gap at one edge. The
+   image is oversized instead and travels inside a box that does not move.
+   12px of travel against 9% of overhang, which is a wide margin. */
+.layer-band--par { overflow: hidden; }
+.layer-band--par img {
+  height: 118%; position: relative; top: -9%;
+}
+
+/* A line of prose under a full-bleed band, in the body face rather than the
+   caption face, because it is a sentence and not a label. */
+.rt-band-line {
+  margin-top: var(--s-4); max-width: 46rem;
+  font-size: 1.0625rem; line-height: 1.62; color: var(--muted);
+}
+.rt-band-line b { font-weight: 400; color: var(--ink); }
+
 /* --- The property gallery. A grid that gives one picture more room than
    the rest, because five equal tiles read as a contact sheet and a retreat
    is not a listing. Every tile is a button that opens the lightbox; with

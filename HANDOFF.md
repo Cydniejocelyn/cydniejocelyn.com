@@ -35,7 +35,8 @@ predates both retreat pages. **`main` is ahead of production.** Run §2 to ship.
 | 8 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
 | 9 | **"Choose your path"** is the same HoneyBook URL as the branding page's "Lets talk". Unwired. | §10 |
 | 10 | **The Sauk Centre retreat, 8 October 2026,** has four live checkout links and is on no page. She said leave it off. | §10 |
-| 11 | **`A Sounding/a-sounding-wireframe-v2.html`** appeared in the project folder mid-session. Unbuilt, and now excluded from the deploy. | §10 |
+| 12 | **`sounding-popup.js`** landed at the root. A 45-second site-wide modal, which the guide forbids. Not wired. | §10 |
+| 11 | **`A Sounding/` and `The Letters Page/`** appeared in the project folder mid-session. Unbuilt, now excluded from the deploy. The latter carries a **Flodesk form id**, which is the missing half of item 2. | §10 |
 
 ### The four decisions she made in session three, and they are load bearing
 
@@ -760,13 +761,17 @@ harbour, of Kera Beach, or of the gorge trails — there is no photograph of any
 are rows in the place section instead. If she supplies real Crete landscape photography later,
 those rows are where the figures go.
 
-Two consequences worth keeping:
+Three consequences worth keeping:
 
 - **Nothing crosses between `assets/img/greece/` and `assets/img/retreats/`.** Greece is
   Armonia and Douliana. Retreats is Costa Rica and Kris. The split is enforced by
   `tools/retreat_images.py` having two tables and two destinations.
 - **Kris's portrait is captioned "Costa Rica, April 2026"** on the Greece page, because it is,
   and neither host has been photographed in Crete yet.
+- **`tools/retreat_images.py` and `PICK` in `build_artifact.py` are the same list.** The first
+  pass generated the whole shortlist and shipped a subset, which left 3.5MB of frames on disk
+  that no page pointed at, and `PICK` kept them looking alive. Add a row and a stem in the same
+  commit, or do not add either.
 
 ### `tools/retreat_images.py`
 
@@ -781,6 +786,76 @@ source. That is why the gallery tiles top out at 1000w while the pool, which cam
 **Kris is identified by her vest.** `DSC08832` and `DSC08962` both show a black tank printed
 "Your Time Fitness · Sauk Centre MN", which is her company. That is how the portrait was picked
 out of 127 unlabelled candids.
+
+### The picture pass, and why the pool candids came off the Retreats page
+
+The first build of `/retreats/` ran on the Costa Rica pool candids: the group with their hands
+up in the hero, a hug, Kris on the deck, a jump. They are true and they all said the same
+thing, and the hero in particular sold a holiday rather than the format.
+
+Cydnie has 296 photographs in `Costa Rica copy/` and the best of them are not of people at all.
+A third of that library is sea, sky and headland shot from the boat -- which is the picture the
+whole brand is built from. The Retreats page now runs on those:
+
+| Where | Frame | Why |
+|---|---|---|
+| Hero | `IMG_4352` | A headland across still water. A level surface with a far shore, which is the same picture the home page opens on, except she took this one on one of these weeks |
+| Costa Rica, wide | `IMG_0784` | The pavilion, mats down, the group seated. What a morning actually looks like |
+| Pair, left | `DSC09127` | Hands laying cards on a floor, one foot in frame. The board's own direction: from behind, above, or in fragment |
+| Pair, right | `IMG_4900` | One woman walking out of the surf on her own. "Alone in a group of fifteen", literally |
+| Full bleed | `e0a610b5-…` | Low tide holding the whole sky. The page's one unguarded moment, captioned with the evening it happened on |
+| Greece card | `greece/dinner` | **Not** `greece/house`: that is the Greece page's own hero, and a card showing the same picture as the page it opens reads as a thumbnail |
+
+The three figures each carry a line of prose now rather than a label, because the request was
+storytelling and a caption that says "Costa Rica, April 2026" is a filename. The last-evening
+band is the only place on this site that uses the sunset register at all; it is allowed there
+because it is a photograph of a week that happened, dated, not an image of a feeling.
+
+**`.hero--bright` is on Greece and not on Retreats.** It exists for a photograph that is bright
+where the words are. The headland is already dark; with the bright scrim over it the left two
+thirds went to near black and the picture was wasted. Measured on the shipped render, the worst
+case behind the headline is 6.17:1 and everything below it is over 11:1.
+
+### April 2027 has a map, not a photograph
+
+There is no location yet, so there is nothing to photograph. A picture of somewhere it is not
+would be the one dishonest thing on the page and an empty box is a hole in the layout. So the
+card carries the contiguous United States, drawn by `tools/us_map.py`: about ninety border
+points on a Lambert conformal conic, which is why the northern border curves rather than
+running flat. Lake Michigan is cut out with `fill-rule: evenodd`, because without it Michigan
+has no Lower Peninsula and that is the one omission a reader in Minnesota would notice.
+
+**The marker is an open ring and that is the site's own motif.** The Fifteen mark on the home
+page fills fourteen circles and leaves the fifteenth open, and the open one is the whole
+argument. Here the same shape says the same thing about a location that has not been decided.
+It is placed at 40.5N 95W, in the middle of the country, so it reads as "somewhere here" rather
+than as a pin in a town nobody has been told about.
+
+**The SVG is inlined into the page, and `us_map.py` does the inlining** between
+`<!-- US-MAP:START -->` and `<!-- US-MAP:END -->`. An `<img src=".svg">` cannot be coloured or
+animated from the stylesheet and this one is both, so the markup has to hold a copy of the
+geometry; the copy is written by the script rather than pasted. Re-run the script, do not edit
+the path.
+
+One trap in it, and it cost a render: the textbook LCC formula gives y increasing north, and
+screen y increases south. Getting that backwards draws a map that is upside down and still
+looks vaguely plausible, which is worse than one that looks obviously wrong.
+
+### The scroll motion, and what it is not
+
+The guide's register is 8px, 400ms, once, no scale, stagger capped at 60ms. Nothing added here
+leaves it:
+
+- **Three `.par` targets** on the Retreats page -- the Greece card, the pavilion, the last
+  evening -- using the engine that already existed, hard capped at 12px of travel. The two
+  inside full-bleed bands ride on `.layer-band--par`, which oversizes the image to 118% and
+  offsets it -9% so the box itself never moves and no edge can appear.
+- **The map draws its border on entry**, once, 1400ms, and the resting state is the drawn one.
+  Same rule as the waterline: a keyframe starting at a dashoffset of 1 would leave the country
+  invisible for as long as the animation sat on its first frame. The ring fades in 900ms later.
+- Everything else is the reveal classes that already existed.
+
+Nothing loops. Nothing is scroll-scrubbed except the parallax, which was already here.
 
 ### Melissa's video is a phone Short, and the poster proves it
 
@@ -822,8 +897,9 @@ The shared `.hero-scrim` falls to `.06` opacity at 22% of the height, because th
 photograph is already dark through the middle. Both retreat heroes are bright exactly where the
 words are — a pool at noon and a lit house against a dusk sky — and Surface type over open
 water measured around 3:1. `.hero--bright` is the same two gradients, same construction, higher
-floor. Both retreat pages use it. **Do not raise the floor on the shared scrim instead: it
-would flatten the home page's photograph, which does not need it.**
+floor. **Greece uses it; Retreats does not** -- see the picture pass above. Do not raise the
+floor on the shared scrim instead: it would flatten the home page's photograph, which does not
+need it.
 
 ### Held is spent once per page, and both pages spend it on the same thing
 
@@ -848,12 +924,41 @@ uploads from that same case-insensitive filesystem, so the ignore could have tak
 **The drafts folder is `Retreat drafts/` now and `.vercelignore` names it.** The rule: never
 give a working-document folder a name that differs from a route directory only by case.
 
-### `A Sounding/` appeared mid-session
+### `sounding-popup.js` appeared, and wiring it is a brand decision, not a task
 
-`A Sounding/a-sounding-wireframe-v2.html` was not there at the start of session three and was
-not created by it. It is a working document in a folder that was not in `.vercelignore`, so it
-would have been served. **It is excluded now.** Nothing was built from it; if that page is
-wanted, it is a new job.
+A self-contained site-wide popup for A Sounding landed at the repo root during session three,
+with instructions in its own header to add `<script src="/sounding-popup.js" defer></script>`
+before `</body>` on every page. It fires after 45 seconds, remembers a dismissal for 30 days,
+and points at the correct 1:1 scheduling link.
+
+**It is not wired to any page, deliberately.** `site.css` records that the sticky bar, the
+slide-in nudge, **the modal** and the exit intent were all removed because the brand guide
+forbids them, and §4 and §7c both turn on that. A timed interstitial is the same category. It
+is also the one interaction on this site that would interrupt the About page, which is a
+first-person account of postpartum depression, a child's diagnosis and a husband's stroke.
+
+The file is committed and it deploys, and unreferenced it does nothing. **Ask Cydnie before
+adding the script tag**, and if the answer is yes, ask whether About is in `SKIP_PATHS`.
+
+### Two folders appeared mid-session, and one of them answers §7.2
+
+`A Sounding/a-sounding-wireframe-v2.html` and `The Letters Page/` (a wireframe plus
+`FlodeskPopup (1).tsx`) were not there at the start of session three and were not created by
+it. Both are working documents in folders that were not in `.vercelignore`, so both would have
+been served. **Both are excluded now.** Nothing was built from either; if those pages are
+wanted, they are a new job.
+
+**The Flodesk component is the missing half of §7.2.** That section records that the twelve
+questions form is a native POST expecting a Flodesk endpoint, that the link list has no Flodesk
+URL, and that it was left at `action="#"` rather than pointed at a guess. The component carries
+a form id:
+
+    FLODESK_FORM_ID = '6a8f553c9f30a024ac4f2a82'
+
+That is a **popup embed**, not a POST endpoint, so the native form still cannot be pointed at
+it as-is: the choice is a Flodesk-hosted form URL, or replacing the markup with their embed.
+Worth asking her whether that id is the twelve questions list before wiring anything, because
+a signup landing on the wrong list is still worse to unpick than one that never fired.
 
 ### Verifying these pages when the preview pane dies
 
@@ -873,12 +978,23 @@ re-laid after every `sync.sh` because that runs `rsync --delete`:
 - **`_test.html?p=<path>`** — drives the real page in an iframe and prints PASS/FAIL lines big
   enough to screenshot. It covers the gallery, the lightbox including focus and scroll lock,
   the cursor, the video facade, the FAQ, the reveals, overflow and image decoding. **38
-  assertions, all passing** at the end of session three. Re-run it after touching `site.js`.
+  assertions, all passing** at the end of session three (19 on Retreats, 27 on Greece). Re-run it after touching `site.js`.
 
-Two traps inside `_test.html` worth not rediscovering: a real pointer event targets the element
-under the cursor, so dispatching `pointermove` on `document` gives `e.target === document` and
-no `closest()` will ever match it; and setting two `<details open>` in the same tick races their
-`toggle` events, so the exclusive-FAQ check has to open them one at a time.
+Three traps inside these harnesses, and the third is the expensive one:
+
+1. A real pointer event targets the element under the cursor, so dispatching `pointermove` on
+   `document` gives `e.target === document` and no `closest()` will ever match it.
+2. Setting two `<details open>` in the same tick races their `toggle` events, so the
+   exclusive-FAQ check has to open them one at a time.
+3. **A programmatic `scrollTo` inside the iframe does not reliably fire a `scroll` event in
+   headless Chrome.** Anything driven by the scroll handler -- the parallax, the depth gauge --
+   therefore never runs, and the test reports a site bug that does not exist. Both harnesses
+   now `dispatchEvent(new Event('scroll'))` after every step, which is what a real scroll does
+   anyway. Before that patch the parallax read 0/3 driven; after it, 3/3.
+
+Headless Chrome also reports **`prefers-reduced-motion: reduce` by default in some runs**, which
+correctly turns the parallax and the pointer companion off. The test probes the media query and
+asserts the right thing either way rather than assuming.
 
 ### What is deliberately not on these pages
 
