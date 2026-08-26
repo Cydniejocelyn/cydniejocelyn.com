@@ -134,20 +134,30 @@
     window.addEventListener("resize", check, { passive: true });
   }
 
-  /* ---------- 4. Parallax, and the in view pump ---------------
-     The resurfacing gauge used to live here. It was a fixed hairline whose
-     fill changed length as you scrolled, with a depth readout counting down
-     beside it, which is a scroll progress bar and a count up in one object.
-     Both are banned, and for the same reason: a rule that changes length
-     reads as a waterline that moves.
-
-     What is left is 12px of parallax travel, hard capped, and the pump. */
+  /* ---------- 4. The movement bar, parallax, and the pump -----
+     The gauge reads how far up the reader has come: a vertical depth
+     instrument on the side, not a rule across the top. Parallax is hard
+     capped at 12px of travel. */
   var PAR_MAX = 12;
 
   function initScroll() {
+    var fill = document.querySelector(".gauge-fill");
+    var dot  = document.querySelector(".gauge-dot");
+    var read = document.querySelector(".gauge-read");
     var pars = Array.prototype.slice.call(document.querySelectorAll(".par"));
 
     function frame() {
+      if (fill) {
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        var p = h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
+        fill.style.height = (p * 100) + "%";
+        if (dot) dot.style.top = (p * 100) + "%";
+        if (read) {
+          var m = Math.max(0, Math.round((1 - p) * 40));
+          read.textContent = m === 0 ? "Surface" : (m + "m");
+        }
+      }
+
       if (!reduce.matches) {
         var vh = window.innerHeight;
         pars.forEach(function (el) {
@@ -172,12 +182,169 @@
     (function early() { pump(); if (++n < 40) window.setTimeout(early, 120); })();
   }
 
-  /* ---------- 5. Fifteen ------------------------------------
-     Fourteen filled, one open. A single point of light used to travel the
-     ring forever on an animation frame loop. Nothing on this site loops, so
-     the ring simply stands as drawn, which is also how it has always looked
-     in any browser that never handed us a frame. The mark is the argument;
-     it does not need to be doing something. */
+  /* ---------- 5. Fifteen, filled by the scroll ---------------
+     Fourteen come in as she passes and the fifteenth stays open. It used to
+     be a point of light travelling the ring forever, which is a loop, and
+     nothing on this site loops. This resolves once: it fills on the way
+     down and it stays filled.
+
+     The empty state and the `is-counting` class arrive together, inside the
+     watcher, so the ring is never sitting empty waiting for a frame that
+     may never come. A backstop fills it whatever happens. */
+  function initFifteen() {
+    var fig = document.querySelector(".fifteen-fig");
+    if (!fig) return;
+    var dots = Array.prototype.slice.call(fig.querySelectorAll(".dot:not(.is-her)"));
+    if (!dots.length) return;
+
+    /* Ring order from just past the open one, clockwise, so the count runs
+       all the way round and stops at the circle that stays open. */
+    var CX = 80, CY = 80, TWO = Math.PI * 2;
+    dots.sort(function (a, b) {
+      function ang(d) {
+        var t = Math.atan2(parseFloat(d.getAttribute("cx")) - CX,
+                          -(parseFloat(d.getAttribute("cy")) - CY));
+        return t < 0 ? t + TWO : t;
+      }
+      return ang(a) - ang(b);
+    });
+
+    function fillAll() {
+      dots.forEach(function (d) { d.classList.add("is-filled"); });
+    }
+
+    if (reduce.matches) return;          /* the resting ring is the whole mark */
+
+    var live = false;
+
+    function frame() {
+      var r = fig.getBoundingClientRect();
+      var vh = window.innerHeight || 1;
+      /* nought when the figure's top reaches the bottom of the screen,
+         one by the time its middle has come up to a third of the way */
+      var p = (vh - r.top) / (vh * 0.62 + r.height * 0.5);
+      p = Math.max(0, Math.min(1, p));
+      var n = Math.round(p * dots.length);
+      dots.forEach(function (d, i) { d.classList.toggle("is-filled", i < n); });
+    }
+
+    watch(fig, function () {
+      if (live) return;
+      live = true;
+      fig.classList.add("is-counting");
+      frame();                                   /* never a blank first paint */
+      window.addEventListener("scroll", frame, { passive: true });
+      window.addEventListener("resize", frame, { passive: true });
+    }, null, true);
+
+    /* If the watcher never reports, or frames never arrive, the mark is
+       still the mark. */
+    window.setTimeout(function () {
+      if (!live) return;
+      var any = dots.some(function (d) { return d.classList.contains("is-filled"); });
+      if (!any) fillAll();
+    }, 2600);
+  }
+
+  /* ---------- 5b. The breath, driven by the scroll -----------
+     Three bubbles leave the dark and go up to break the surface, once, as
+     the reader crosses the band. Written as a direct style, because a
+     transition may never advance here and a keyframe would be a loop. */
+  function initBreath() {
+    var band = document.querySelector(".rise-band");
+    if (!band) return;
+    var bubs = Array.prototype.slice.call(band.querySelectorAll(".bub"));
+    if (!bubs.length || reduce.matches) return;
+
+    /* travel, growth, and how far behind the one in front it starts */
+    var SET = [
+      { travel: -34, grow: 0.16, lag: 0.00 },
+      { travel: -52, grow: 0.28, lag: 0.10 },
+      { travel: -74, grow: 0.40, lag: 0.20 }
+    ];
+    /* The ramp has to finish while the band is still on screen or the last
+       bubble freezes part way up and never reaches the surface. Last lag
+       plus RAMP is 0.70, comfortably inside. */
+    var RAMP = 0.5;
+
+    function frame() {
+      var r = band.getBoundingClientRect();
+      var vh = window.innerHeight || 1;
+      if (r.bottom < -400 || r.top > vh + 400) return;
+      /* nought as the band enters from below, one as it leaves at the top */
+      var p = (vh - r.top) / (vh + r.height);
+      p = Math.max(0, Math.min(1, p));
+
+      bubs.forEach(function (b, i) {
+        var cfg = SET[i] || SET[SET.length - 1];
+        var t = (p - cfg.lag) / RAMP;
+        t = Math.max(0, Math.min(1, t));
+        b.style.transform = "translateY(" + (t * cfg.travel).toFixed(2) + "px)"
+                          + " scale(" + (1 + t * cfg.grow).toFixed(3) + ")";
+      });
+    }
+
+    frame();
+    window.addEventListener("scroll", frame, { passive: true });
+    window.addEventListener("resize", frame, { passive: true });
+  }
+
+  /* ---------- 5c. The menu ----------------------------------
+     Under 56rem the links become a panel behind a two bar mark. `has-menu`
+     on the root is what turns the collapsing CSS on, and it is only set
+     here, so a phone with no JS gets the links as a plain stacked list
+     rather than no navigation at all. */
+  function initNav() {
+    var btn = document.querySelector(".nav-toggle");
+    var menu = document.getElementById("nav-menu");
+    if (!btn || !menu) return;
+
+    document.documentElement.classList.add("has-menu");
+
+    var open = false;
+    var wide = window.matchMedia("(min-width: 56rem)");
+
+    function set(next) {
+      if (next === open) return;
+      open = next;
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      menu.classList.toggle("is-open", open);
+      /* the page behind must not scroll under an open panel */
+      document.body.style.overflow = open && !wide.matches ? "hidden" : "";
+    }
+
+    btn.addEventListener("click", function () { set(!open); });
+
+    /* a link is a destination: take the panel down on the way */
+    menu.addEventListener("click", function (e) {
+      if (e.target.closest("a")) set(false);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape" || !open) return;
+      set(false);
+      btn.focus();
+    });
+
+    /* tab out of the panel, or click past it, and it closes */
+    document.addEventListener("focusin", function (e) {
+      if (!open) return;
+      if (menu.contains(e.target) || btn.contains(e.target)) return;
+      set(false);
+    });
+    document.addEventListener("click", function (e) {
+      if (!open) return;
+      if (menu.contains(e.target) || btn.contains(e.target)) return;
+      set(false);
+    });
+
+    /* rotating to landscape past the breakpoint must not leave the body
+       locked with a panel that is no longer on screen */
+    function sync() { if (wide.matches) set(false); }
+    if (wide.addEventListener) wide.addEventListener("change", sync);
+    else if (wide.addListener) wide.addListener(sync);
+    window.addEventListener("resize", sync, { passive: true });
+  }
 
   /* ---------- 6. The hero waterline -------------------------
      There is no drawn rule in the hero any more. The photograph carries a
@@ -707,6 +874,9 @@
     initReveals();
     initHeader();
     initScroll();
+    initFifteen();
+    initBreath();
+    initNav();
     initHero();
     initCondition();
     initReversal();

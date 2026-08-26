@@ -335,6 +335,88 @@ button { font: inherit; color: inherit; }
 
 .nav { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2rem); }
 .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2rem); }
+
+/* Two bars, not three: the mark is a surface and what is under it. It
+   becomes a cross when the panel is open. */
+.nav-toggle {
+  display: none;
+  align-items: center; justify-content: center;
+  width: 44px; height: 44px; margin-right: calc(var(--s-2) * -1);
+  padding: 0; background: none; border: 0; cursor: pointer;
+  color: var(--ink);
+}
+.nav-toggle-bars { display: block; position: relative; width: 22px; height: 12px; }
+.nav-toggle-bars span {
+  position: absolute; left: 0; right: 0; height: 1px;
+  background: currentColor;
+  transition: transform 200ms var(--ease-out), opacity 200ms var(--ease-out);
+}
+.nav-toggle-bars span:first-child { top: 3px; }
+.nav-toggle-bars span:last-child  { bottom: 3px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:first-child { transform: translateY(3px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:last-child  { transform: translateY(-3px) rotate(-45deg); }
+.hdr.is-surfaced .nav-toggle { color: var(--fathom); }
+
+/* Desktop: the wrapper is not a box, so the list and the button stay direct
+   children of .nav and the row is exactly what it was. */
+.nav-menu { display: contents; }
+
+/* `has-menu` is set by site.js. Without it none of the collapsing below
+   applies, so a phone with no JS gets the links as a plain stacked list
+   rather than no navigation at all. */
+@media (max-width: 55.99rem) {
+  /* only once JS is here to work it: an inert hamburger is worse than none */
+  .has-menu .nav-toggle { display: inline-flex; }
+  .nav { gap: var(--s-3); }
+  /* no JS: the links wrap under the brand rather than fighting it */
+  .nav { flex-wrap: wrap; justify-content: flex-end; }
+
+  /* The booking button does not fit beside the brand at 375px: it ran 21px
+     past the gutter. It comes inside the panel instead, full width, where
+     it is one tap away and can be read. */
+  .has-menu .nav-menu {
+    position: fixed; inset: 0 0 auto 0;
+    z-index: -1;
+    display: block;
+    padding: calc(var(--s-9) + env(safe-area-inset-top, 0px)) var(--gutter)
+             calc(var(--s-6) + env(safe-area-inset-bottom, 0px));
+    background: var(--fathom);
+    border-bottom: 1px solid var(--meniscus);
+    transform: translateY(-100%);
+    visibility: hidden;
+    max-height: 100svh; overflow-y: auto;
+    transition: transform 260ms var(--ease-out), visibility 0s linear 260ms;
+  }
+  .has-menu .nav-menu.is-open {
+    transform: none; visibility: visible;
+    transition: transform 260ms var(--ease-out), visibility 0s;
+  }
+
+  .has-menu .nav-links {
+    flex-direction: column; align-items: stretch; gap: 0;
+    border-top: 1px solid rgba(159,204,198,.16);
+  }
+  .has-menu .nav-links li { border-bottom: 1px solid rgba(159,204,198,.16); }
+  .has-menu .nav-links a {
+    display: flex; width: 100%;
+    padding-block: var(--s-4);
+    font-size: 1rem; letter-spacing: .14em; color: var(--muted);
+  }
+  .has-menu .nav-links a[aria-current="page"] { color: var(--breath); }
+
+  .has-menu .nav-menu .btn {
+    display: flex; width: 100%; margin-top: var(--s-5);
+    justify-content: center; padding: 1rem;
+    font-size: .75rem; letter-spacing: .1em;
+  }
+  /* the panel is its own dark ground, so it does not invert with the bar */
+  .hdr.is-surfaced .nav-menu .btn { color: var(--ink); border-color: var(--accent); }
+  .hdr.is-surfaced .nav-menu .btn::before { background: var(--accent); }
+}
+/* no transition where none is wanted; the panel still opens and closes */
+@media (prefers-reduced-motion: reduce) {
+  .has-menu .nav-links, .nav-toggle-bars span { transition: none !important; }
+}
 .nav-links a {
   text-decoration: none; font-size: .8125rem; letter-spacing: .12em;
   text-transform: uppercase; color: var(--muted); position: relative;
@@ -343,18 +425,64 @@ button { font: inherit; color: inherit; }
 }
 .nav-links a:hover { color: var(--ink); }
 .hdr .btn { padding: .7rem 1.25rem; font-size: .75rem; min-height: 44px; white-space: nowrap; }
-@media (max-width: 55.99rem) { .nav-links { display: none; } }
 @media (max-width: 30rem) {
   .hdr .btn { padding: .6rem .95rem; font-size: .75rem; letter-spacing: .04em; gap: .5rem; }
   .hdr .btn .arw { display: none; }
   .brand-mark { width: 8.5rem; }
 }
 
-/* ---------- 9. (was the resurfacing gauge) -------------------
-   Removed. A fixed hairline whose fill changes length is a scroll progress
-   bar, and a rule that changes length reads as a waterline that moves. The
-   depth readout counted, which the guide bans for the same reason: counting
-   turns restraint into a slot machine. */
+/* ---------- 9. THE MOVEMENT BAR -----------------------------
+   The gauge on the side, reading how far up the reader has come. It is
+   vertical and it reports a depth, which is a different object from the
+   thing the guide bans: a thin rule across the top that changes length
+   reads as a waterline that moves, and this neither runs across nor
+   pretends to be a surface. No gradient in the fill.
+
+   It inverts with the header, because it is fixed and the ground under it
+   is not: Breath on dark water, Deepwater once she has surfaced. */
+.gauge {
+  position: fixed; left: clamp(.75rem, 2vw, 2rem); top: 50%;
+  transform: translateY(-50%); z-index: 90;
+  display: none; pointer-events: none;
+  flex-direction: column; align-items: center; gap: var(--s-3);
+}
+@media (min-width: 62rem) { .gauge { display: flex; } }
+.gauge-label, .gauge-read {
+  writing-mode: vertical-rl;
+  font-family: var(--utility);
+  font-size: .625rem; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--muted); white-space: nowrap;
+  transition: color var(--t-mid) var(--ease-soft);
+}
+.gauge-read { color: var(--breath); }
+.gauge-track {
+  width: 1px; height: 26vh; position: relative;
+  background: var(--meniscus);
+  transition: background-color var(--t-mid) var(--ease-soft);
+}
+.gauge-fill {
+  position: absolute; left: 0; top: 0; width: 1px; height: 0%;
+  background: var(--breath);
+  transition: background-color var(--t-mid) var(--ease-soft);
+}
+.gauge-dot {
+  position: absolute; left: 50%; top: 0; width: 7px; height: 7px;
+  margin-left: -3.5px; margin-top: -3.5px; border-radius: 50%;
+  background: var(--breath);
+  transition: background-color var(--t-mid) var(--ease-soft);
+}
+/* she has surfaced: the instrument reads against the light ground */
+.is-surfaced .gauge-label { color: #48666A; }
+.is-surfaced .gauge-read,
+.is-surfaced .gauge-fill,
+.is-surfaced .gauge-dot { color: var(--deepwater); background-color: var(--deepwater); }
+.is-surfaced .gauge-read { background: none; color: var(--deepwater); }
+.is-surfaced .gauge-track { background-color: rgba(12,40,48,.22); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gauge-fill, .gauge-dot { transition: none; }
+}
+
 
 /* ---------- 10. THE HERO -------------------------------------
    The reader is in the water, so the photograph is the hero and the words
@@ -798,8 +926,32 @@ button.door-note {
   .fifteen-copy { grid-column: 7 / 13; }
 }
 .fifteen-fig svg { width: 100%; max-width: 22rem; margin-inline: auto; }
+
+/* The resting state is the whole ring, drawn. No JS, no frames, or reduced
+   motion, and the mark is complete: fourteen filled and one open. */
 .fifteen-fig .dot { fill: var(--accent); }
 .fifteen-fig .is-her { fill: none; stroke: var(--ink); stroke-width: 1.8; }
+
+/* Filled by the scroll. site.js adds `is-counting` only once it is going to
+   drive them, so the class and the empty state arrive together: the ring is
+   never empty and waiting for a frame that may not come. Fourteen come in as
+   she passes, in ring order, and stop at the one that stays open. */
+.fifteen-fig.is-counting .dot {
+  fill: none;
+  stroke: var(--accent); stroke-width: 1.2;
+  opacity: .3;
+  transition: fill 260ms var(--ease-out), opacity 260ms var(--ease-out);
+}
+.fifteen-fig.is-counting .dot.is-filled {
+  fill: var(--accent); opacity: 1;
+}
+/* the open one is the argument, so it never fills and it never dims */
+.fifteen-fig.is-counting .is-her {
+  fill: none; stroke: var(--ink); stroke-width: 1.8; opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fifteen-fig.is-counting .dot { transition: none; }
+}
 .fig-cap { margin-top: var(--s-4); text-align: center; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
 
 /* ---------- 14. PROOF --------------------------------------- */
@@ -1340,18 +1492,32 @@ button.door-note {
   color: var(--surface);
 }
 
-/* They used to rise on a 6.4s loop. They rest now, drawn, in the one
-   arrangement they always resolved to: a column of three going at the line.
-   Nothing on this site repeats. */
-.surfacing .b1 { transform: translateY(-6px)  scale(.7); }
-.surfacing .b2 { transform: translateY(-32px) scale(.9); }
-.surfacing .b3 { transform: translateY(-58px) scale(1.08); }
+/* They used to rise on a 6.4s loop, which is weather: it implied the state
+   was temporary. They are driven by the scroll instead. The reader comes up
+   through the band and they come up with her, once, and then they stay
+   where they landed. Nothing repeats and nothing runs on its own.
+
+   The transform is written straight onto the element by site.js. That is
+   deliberate: in this build a direct style write is the one thing that can
+   be relied on to apply, where a transition may never advance. The state
+   below is the finished one, so a browser that never gives us a frame shows
+   three bubbles at the surface rather than three bubbles on the floor. */
+.surfacing .b1 { transform: translateY(-34px) scale(1.16); }
+.surfacing .b2 { transform: translateY(-52px) scale(1.28); }
+.surfacing .b3 { transform: translateY(-74px) scale(1.40); }
+
+@media (prefers-reduced-motion: reduce) {
+  .surfacing .bub { transform: none; }
+  .surfacing .b1 { transform: translateY(-34px) scale(1.16) !important; }
+  .surfacing .b2 { transform: translateY(-52px) scale(1.28) !important; }
+  .surfacing .b3 { transform: translateY(-74px) scale(1.40) !important; }
+}
 
 /* ---------- 21. WATER LAYERS -------------------------------- */
 /* Light through the surface, drifting and reacting to the pointer.
    It sits behind everything and is never near the mark. */
 main > * { position: relative; z-index: 1; }
-.hdr { z-index: 100; }
+.hdr, .gauge { z-index: 100; }
 
 
 
@@ -1624,6 +1790,6 @@ main > * { position: relative; z-index: 1; }
 
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {
-  .hdr, main { background: #fff; }
+  .hdr, .gauge, main { background: #fff; }
   body, .ftr, .z-light, .z-silt, .z-deep, .z-breath { background: #fff; color: #000; }
 }

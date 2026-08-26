@@ -266,6 +266,62 @@ a step smaller than the sans headings beside it. **This also moves the home page
 headings**, Four ways in and the Greece edition, which is the point: they were quietly
 undersized too.
 
+### The workspace moved
+
+The project now lives at **`~/Desktop/cydniejocelyn-v2/`**, and the old `Claude Code` folder is
+inside it. Every path in an older note that starts `~/Desktop/Claude Code/cydniejocelyn-v2` is
+one level off. The preview mirror's `sync.sh` excludes `CydnieJocelyn-Site`, `cydniejocelyn` and
+the `* copy` folders, or the rsync copies 59GB of source material into the scratchpad.
+
+### The movement bar is back, on purpose
+
+It was removed in the brand pass as a scroll progress bar. Cydnie asked for it back and named
+what it is for: it shows the movement of resurfacing. It is also a **different object** from the
+one the guide bans, which is a thin rule *across the top* that changes length and so reads as a
+waterline that moves. This is vertical, on the side, and reports a depth. The fill is solid
+Breath now rather than a gradient, and the whole instrument inverts to Deepwater under
+`.is-surfaced` so it stays legible once the page goes light. Hidden below 62rem: there is no
+room for it on a phone.
+
+**The depth readout still counts** (40m down to Surface). That is the part nearest the guide's
+"no count up on numbers", and it is also the part that makes it read as resurfacing rather than
+as generic progress. Left in deliberately; it is a one line change if she wants it flat.
+
+### Two things that move without looping
+
+Both were loops that the brand pass killed. They are driven by the scroll instead, which is
+movement that resolves once and then stops, so neither implies weather.
+
+- **The breath**, `initBreath`. Three bubbles rise as the band crosses the viewport, staggered by
+  `lag`, capped by `travel`. The ramp is `RAMP = 0.5` and the last lag is `0.20`, so the last
+  bubble finishes at `p = 0.70`, **while the band is still on screen**. At the first values it
+  froze at -59px and never reached the surface. The out of view guard is ±400px for the same
+  reason. Transform written straight onto the element, because a transition may never advance
+  here and a keyframe would be a loop.
+- **Fifteen**, `initFifteen`. Fourteen fill in ring order as she passes and the fifteenth stays
+  open. The dots are sorted by angle from the open one, so the count runs all the way round and
+  stops where the argument is. `is-counting` and the empty state arrive **together**, inside the
+  watcher, and `frame()` runs immediately after, so the ring is never blank waiting for a frame.
+  A 2.6s backstop fills it if nothing ever reports.
+
+### Mobile, and the hamburger
+
+The old rule was `@media (max-width: 55.99rem) { .nav-links { display: none } }`. That is all it
+was: **a phone had no navigation at all**, and nothing to open.
+
+- The links and the header CTA are wrapped in `.nav-menu#nav-menu`. On desktop that wrapper is
+  `display: contents`, so the header row is exactly what it was. Under 56rem it becomes the panel.
+- **The CTA is inside the panel**, because `Book one conversation` at 375px ran 21px past the
+  gutter and was cut off at the screen edge. Full width, one tap in.
+- `has-menu` is set by `initNav` and nothing else. Without it none of the collapsing applies, so
+  **no JS gets the links as a plain wrapped row** rather than nothing. The hamburger is hidden in
+  that state too: an inert control is worse than no control.
+- Escape closes and returns focus to the button, a link closes on the way out, focus leaving the
+  panel closes it, clicking past it closes it, and `body` scroll is locked while it is open.
+  Crossing back over 56rem force closes, so a rotation cannot leave the body locked.
+- Verified at 375x812: **no horizontal overflow on either page**, every menu link 74px tall, and
+  the only sub 44px targets are inline links inside prose.
+
 ### Still open after this pass
 
 - **The home footer still links the She Rises Through It podcast.** The wireframe says it comes

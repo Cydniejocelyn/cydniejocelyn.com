@@ -15,3 +15,7 @@ tools/cydnie-jocelyn-about.html
 /Fonts copy/
 /cydniejocelyn/
 .vercel
+
+# Local tooling. launch.json points at a session scratchpad path that is
+# different every session, so it is not shareable.
+.claude/
