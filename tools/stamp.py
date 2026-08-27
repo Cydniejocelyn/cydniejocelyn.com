@@ -24,6 +24,8 @@ PAGES = (
     ("the-build/index.html",       "../assets/"),
     ("retreats/index.html",        "../assets/"),
     ("retreats/greece/index.html", "../../assets/"),   # two levels down
+    ("a-sounding/index.html",      "../assets/"),
+    ("the-letters/index.html",     "../assets/"),
 )
 
 for page, pre in PAGES:

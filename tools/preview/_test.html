@@ -60,7 +60,12 @@ f.addEventListener('load', function(){
    }
    // ---- cursor ----
    var crs=d.querySelector('.crs');
-   if (w.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+   /* initCursor() returns early on a page with no [data-cursor] targets, which
+      is every page that is not a gallery. Asserting the companion exists there
+      reports a site bug that is the site working. Found running /a-sounding/. */
+   if (!d.querySelector('[data-cursor]')) {
+     ok('cursor: correctly NOT built, this page declares no targets', !crs);
+   } else if (w.matchMedia('(prefers-reduced-motion: reduce)').matches) {
      ok('cursor: correctly NOT built under reduced motion', !crs);
    } else {
      ok('cursor: companion built', !!crs);
@@ -87,13 +92,28 @@ f.addEventListener('load', function(){
      ok('video: starts where asked', !!yt && /start=3/.test(yt.src));
    }
    // ---- faq ----
+   /* Guarded on the count. Not every page has questions: /the-letters/ has
+      none, and indexing det[0] there threw and took the whole run down before
+      any of that page's own assertions ran. Both `open` writes stay one per
+      tick, which is trap 4 in the README. */
    var det=d.querySelectorAll('.faq details');
-   ok('faq: closed at rest ('+det.length+' questions)', det.length>1 && ![].some.call(det,function(x){return x.open;}));
-   det[0].open=true;
-   setTimeout(function(){
-   det[1].open=true;
-   setTimeout(function(){
-     ok('faq: opening one closes the other', !det[0].open && det[1].open);
+   if(det.length<2){
+     ok('faq: this page has no questions block, correctly', det.length===0);
+     setTimeout(rest,0);
+   } else {
+     ok('faq: closed at rest ('+det.length+' questions)', ![].some.call(det,function(x){return x.open;}));
+     det[0].open=true;
+     setTimeout(function(){
+       det[1].open=true;
+       setTimeout(function(){
+         ok('faq: opening one closes the other', !det[0].open && det[1].open);
+         rest();
+       },80);
+     },80);
+   }
+
+   function rest(){
+    try{
      // ---- reveals ----
      var t=d.querySelectorAll('.r-up,.r-fade,.r-img,.split');
      var unrev=[].filter.call(t,function(e){return !e.classList.contains('is-in');});
@@ -171,6 +191,49 @@ f.addEventListener('load', function(){
    }
    // ---- the journey ----
    ok('journey: five stops', d.querySelectorAll('.trip > li').length===5 || !d.querySelector('.trip'));
+   // ---- A Sounding ----
+   var sd = d.querySelector('.sd-head');
+   if(sd){
+     ok('sounding: one h1, and it is the offer', d.querySelectorAll('h1').length===1);
+     ok('sounding: the price is above the fold', /\$300/.test((d.querySelector('.sd-terms')||{}).textContent||''));
+     var cross = d.querySelectorAll('.bd-cross a, .bd-cross span');
+     ok('sounding: triad is three, Resurface current and not a link',
+        cross.length===3 && cross[0].tagName==='SPAN' && cross[0].getAttribute('aria-current')==='page');
+     ok('sounding: the nav button scrolls rather than leaving the site',
+        (d.querySelector('.hdr .btn')||{getAttribute:function(){return '';}}).getAttribute('href')==='#book');
+     ok('sounding: six questions, mirrored in the FAQPage schema',
+        d.querySelectorAll('.faq details').length===6 &&
+        (d.querySelector('script[type="application/ld+json"]').textContent.match(/"@type": "Question"/g)||[]).length===6);
+     ok('sounding: the A Sounding popup is NOT on this page',
+        !d.querySelector('script[src*="sounding-popup"]') && !w.sdPopPreview);
+     var q=d.querySelector('.sd-quote');
+     ok('sounding: the quote is not indented by the figure default',
+        !!q && w.getComputedStyle(q).marginLeft==='0px');
+     var pn=d.querySelector('.sd-panel');
+     ok('sounding: the panel is a step off its ground, not the same colour',
+        !!pn && w.getComputedStyle(pn).backgroundColor !== w.getComputedStyle(pn.closest('section')).backgroundColor);
+   }
+   // ---- The Letters ----
+   var lt = d.querySelector('.lt-head');
+   if(lt){
+     ok('letters: one h1', d.querySelectorAll('h1').length===1);
+     var wls=d.querySelectorAll('.lt-waterline');
+     ok('letters: two waterlines, both full bleed', wls.length===2 &&
+        [].every.call(wls,function(r){var b=r.getBoundingClientRect();
+          return Math.round(b.left)===0 && Math.abs(b.width-d.documentElement.clientWidth)<2;}));
+     var sp=d.querySelector('.lt-specimen');
+     ok('letters: the specimen is light paper on the dark stretch',
+        !!sp && w.getComputedStyle(sp).backgroundColor!==w.getComputedStyle(sp.closest('section')).backgroundColor);
+     ok('letters: two items in the pair, deliberately not three',
+        d.querySelectorAll('.lt-pair > div').length===2);
+     var lb=d.getElementById('letters-open'), lfb=d.getElementById('letters-fallback');
+     ok('letters: exactly one of the signup button and the email fallback is showing',
+        !!lb && !!lfb && (lb.hidden !== lfb.hidden));
+     ok('letters: the A Sounding popup IS on this page',
+        !!d.querySelector('script[src*="sounding-popup"]'));
+     ok('letters: nav marks this page current',
+        !!d.querySelector('.nav-links a[href="/the-letters/"][aria-current="page"]'));
+   }
      // ---- no horizontal overflow ----
      ok('layout: no horizontal overflow', d.documentElement.scrollWidth<=d.documentElement.clientWidth+1);
      var shown=[].filter.call(d.images,function(i){
@@ -181,7 +244,8 @@ f.addEventListener('load', function(){
      ok('images: '+shown.length+' of '+d.images.length+' in reach, all decoded ('+
         (d.images.length-shown.length)+' lazy tiles parked off the rail)', broken.length===0);
      done();
-   },80); },80);
+    }catch(e){ lines.push('FAIL  threw in rest(): '+e.message+' @ '+(e.stack||'').split('\n')[1]); done(); }
+   }
   }catch(e){ lines.push('FAIL  threw: '+e.message+' @ '+(e.stack||'').split('\n')[1]); done(); }
  }, 6000);
 });

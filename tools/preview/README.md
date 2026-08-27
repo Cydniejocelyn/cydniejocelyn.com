@@ -49,6 +49,23 @@ portraits matching, overflow and image decoding.
 
 **Run it after touching `site.js` or `site.css`.**
 
+### Run it headless. The pane lies before it dies.
+
+    sh tools/preview/runsuite.sh "$SP" 8814            # all four covered pages
+    sh tools/preview/runsuite.sh "$SP" 8814 /a-sounding/
+
+The preview pane degraded again in session four, and the important part is that
+**it returned wrong answers before it returned errors.** Greece reported
+41 pass / 2 fail on a page nothing had touched: an IntersectionObserver does not
+fire in a pane the compositor has stopped drawing, so every reveal read as
+unrevealed and the images check read as half the page missing. The identical URL
+in headless Chrome: 43 / 0. Only after that did the pane start answering "the
+Browser pane is currently hidden".
+
+If the suite fails on a page you did not touch, run it headless before you
+believe it. Coverage is 95 assertions: 43 Greece, 20 Retreats, 17 A Sounding,
+15 The Letters.
+
 ## `_probe.html` — measuring one thing
 
 Edit it. It is a scratch file for answering "what is this element actually

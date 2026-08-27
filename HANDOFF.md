@@ -1,6 +1,6 @@
 # Handoff — Cydnie Jocelyn, the resurfacing business
 
-**Rewritten at the end of session one, extended at the end of sessions two and three,
+**Rewritten at the end of session one, extended at the end of sessions two, three and four,
 26 August 2026.**
 Everything before the rewrite was appended in layers and several of those layers contradicted
 each other, because decisions were reversed along the way. Where an old commit message and this
@@ -9,20 +9,24 @@ fix it rather than working around it.
 
 ---
 
-## 0. State as of 26 August 2026, end of session three
+## 0. State as of 26 August 2026, end of session four
 
 **Everything below §1 is reference. This section is where a new session starts.**
 
-**Five pages are built, shipped and live.** Home, About, **The Build** (`/the-build/`),
-**Retreats** (`/retreats/`) and **Greece** (`/retreats/greece/`). Sessions one and two built the
-first three; session three built the last two and then reworked both on Cydnie's notes.
+**Seven pages are built. Five are live; two are built and not yet deployed.** Home, About,
+**The Build** (`/the-build/`), **Retreats** (`/retreats/`) and **Greece** (`/retreats/greece/`)
+are live. **A Sounding** (`/a-sounding/`) and **The Letters** (`/the-letters/`) were built in
+session four and are on `main`, unshipped. Run §2.
+
+**Every nav target on this site now has a page behind it.** That was not true before session
+four: The Letters was an anchor to a form on the home page and A Sounding was a block on it.
 
 | | |
 |---|---|
 | Production | the newest **Ready** row in `vercel ls --prod` |
-| `main` vs production | **The site is deployed.** Any commit after the deploy is documentation only. Check with `git log --oneline` — a commit that touches `HANDOFF.md`, `README.md` or `tools/` changes nothing a visitor sees. |
+| `main` vs production | **Session four's two pages are NOT deployed.** Everything before them is. Check with `git log --oneline` — a commit that touches `HANDOFF.md`, `README.md` or `tools/` changes nothing a visitor sees. |
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
-| Interaction suite | **63 assertions, all passing** (43 Greece, 20 Retreats) |
+| Interaction suite | **95 assertions, all passing** (43 Greece, 20 Retreats, 17 A Sounding, 15 The Letters) |
 
 Do **not** write a deploy URL into this table. Session three did, and the next commit -- which
 was this file -- immediately made it wrong. `vercel ls --prod` is the answer and it cannot go
@@ -37,27 +41,29 @@ stale.
    `sh tools/preview/sync.sh` and `python3 tools/preview/serve.py "$SP/preview" 8791`.
    **Read `tools/preview/README.md` first.** The Claude preview pane died mid-session and the
    harnesses in there are how anything got verified. Four traps documented, all expensive once.
-3. Ship with §2. It is five pages now, not three.
+3. Ship with §2. It is seven pages now, and two of them have never been deployed.
 
 ### What is left, and every one of them is Cydnie's decision
 
 | # | Waiting on Cydnie | Where |
 |---|---|---|
 | 1 | **Deployment Protection is ON.** One dashboard toggle. Nothing else blocks launch. | §1 |
-| 2 | **The twelve questions form** is still `action="#"`. `The Letters Page/FlodeskPopup (1).tsx` carries a form id, `6a8f553c9f30a024ac4f2a82`, which is the missing half. It is a popup embed, not a POST endpoint. | §7.2, §10 |
-| 3 | **`sounding-popup.js`** landed at the root: a 45-second site-wide modal, which the guide forbids. **Not wired.** | §10 |
+| 2 | **The Flodesk popup cannot be reopened from the page.** The form is live and correct on `/the-letters/`, but its "Get the letters" button only works once Flodesk's own trigger is set to "on click" on `#letters-open`. **One dashboard setting.** Until then the button falls back to the email address. | §11 |
+| 3 | **The home page's `#questions` form is now redundant** and still `action="#"`. `/the-letters/` does the same job with a working list behind it. Left alone in session four because the instruction was not to touch shipped pages. | §11 |
 | 4 | **"Choose your path"** is the same HoneyBook URL as the branding page's "Lets talk", so which product it belongs to is unresolvable from the link list. Unwired. | §10 |
 | 5 | **The sticky bar.** Brief says keep, `site.css` says the guide forbids. Currently OFF. | §7c |
 | 6 | **Mane Alchemist's mark is repainted** in its Foundation ink. A client's artwork, altered. | §6 |
 | 7 | **Written permission** from Mane Alchemist, SRS Performance and SolyRey before launch. | §7.8 |
-| 8 | **Privacy 404s at domain cutover.** Terms was never written. | §7.3 |
+| 8 | **Privacy 404s at domain cutover, and the copy for the fix has now arrived.** `Privacy terms page/privacy-terms-copy-v1.md`, 19:19 on 26 August: privacy and terms in one document, both parts written. Excluded from the deploy, **not built**. It carries its own FLAG lines, including the last-updated date. | §7.3, §11 |
 | 9 | **Two client sites render broken on mobile.** Not ours, but she should know. | §7b2 |
 | 10 | **The Sauk Centre retreat, 8 October 2026,** has four live checkout links and is on no page. She said leave it off. | §10 |
-| 11 | **The Letters** (`/#questions`) is the last nav target with no page behind it. A wireframe arrived in `The Letters Page/`. | §7.7 |
+| 11 | **`/thequestions` is unbuilt.** A fourth wireframe arrived at 19:07 on 26 August: a QR landing page for the GATHER event tables. Excluded from the deploy, not built, and it carries three open copy decisions of its own. | §11 |
 | 12 | **`IvyPresto Display` is not self-hosted.** Instrument Serif is what actually renders. | §7.4 |
 | 13 | **Never verified:** a full keyboard pass and a real screen-reader pass. | §7.5 |
-| 14 | **The podcast.** The footer links it; whether it is shelved is in no file. | §7.6 |
-| 15 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
+| 14 | **`figure` default margin is unreset on `.quote`**, so the home page's quote carousel is indented 40px each side. Fixed on `.sd-quote` only; the shared fix moves a shipped page. | §11 |
+| 15 | **Angela's quote is excerpted on `/a-sounding/`.** Her full review opens "From our very first coaching call", and that page argues it is not coaching. Confirm she is comfortable appearing there. | §11 |
+| 16 | **The podcast.** The footer links it; whether it is shelved is in no file. | §7.6 |
+| 17 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
 
 ### Decisions she made in session three. These are load bearing.
 
@@ -99,13 +105,33 @@ both. In order:
 Shared additions: `site.css` **section 25**, `.hero--bright`, `--hl`; `site.js` **15, 16, 16b,
 17** (video, lightbox, rail, cursor); `tools/retreat_images.py`, `tools/us_map.py`,
 `tools/preview/`. `stamp.py`, `build_artifact.py`, `sitemap.xml`, `llms.txt` and
-`.vercelignore` all extended to five pages.
+`.vercelignore` all extended to five pages. Session four took every one of them to seven.
 
-### Three folders arrived mid-session and none of them is built
+### Decisions she made in session four. These are load bearing too.
 
-`A Sounding/`, `The Letters Page/`, and `sounding-popup.js` at the root. All excluded from the
-deploy except the popup, which ships but is inert because no page references it. **Nothing was
-built from any of them.** See §10 and items 2, 3, 11 above.
+1. **The Letters is a WEEKLY letter, not twelve questions once a month.** The shipped site said
+   the monthly thing in three places while the home page's own door said "A letter on Sunday
+   nights", so it contradicted itself before this session started. Weekly wins, and it is
+   corroborated by Flodesk: the live form's own headline reads "One letter a week."
+   **The twelve questions are a different product**: a numbered card deck used on tables at
+   GATHER events, which is what the `/thequestions` wireframe is for. They were never the list.
+2. **Flodesk form `6a8f553c9f30a024ac4f2a82` is the letters list**, and it is a popup form.
+3. **The A Sounding popup runs on four pages and is excluded from three:** `/a-sounding/`,
+   `/about/` and `/retreats/greece/`. See §11.
+4. **Angela's quote is excerpted, not quoted whole,** on `/a-sounding/`.
+
+### What session four did
+
+Built `/a-sounding/` and `/the-letters/` from the two wireframes, wired the popup, and
+repointed every nav and footer that had been aimed at an anchor on the home page. See §11.
+
+### The wireframe folders, and what became of them
+
+`A Sounding/` and `The Letters Page/` were built in session four. `the questions/` arrived at
+19:07 on 26 August, mid-session, and was **excluded from the deploy within the minute and not
+built**. All three stay in `.vercelignore`: they are working documents with annotation layers,
+notes toggles and, in the Letters draft, a live HoneyBook widget pointed at the retired
+Collective form.
 
 ## 1. Read this before touching anything
 
@@ -137,7 +163,9 @@ CLIs read their own credentials. That is the point of them.
 | The Build page | `the-build/index.html` |
 | Retreats page | `retreats/index.html` |
 | Greece page | `retreats/greece/index.html` |
-| Shared CSS and JS | `assets/css/site.css`, `assets/js/site.js` — **all three pages share them** |
+| A Sounding page | `a-sounding/index.html` |
+| The Letters page | `the-letters/index.html` |
+| Shared CSS and JS | `assets/css/site.css`, `assets/js/site.js` — **all seven pages share them** |
 | GitHub | https://github.com/Cydniejocelyn/cydniejocelyn.com **(private)**, over HTTPS through `gh` |
 | Vercel project | `cydniejocelyn-v2` under team `cydnie-jocelyn`, linked in `.vercel/` |
 | Home artifact — **STALE** | https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5 |
@@ -148,6 +176,9 @@ CLIs read their own credentials. That is the point of them.
 | Build wireframe, superseded | `The Build page/files/the-build-page-wireframe-v6.html` |
 | **Retreats copy, source** | `Retreat drafts/retreats-visual-v2.html` |
 | **Greece copy, source** | `Greece Retreat/greece-v2 copy.html` — the `copy` is the later of the two |
+| **A Sounding copy, source** | `A Sounding/a-sounding-wireframe-v2.html` |
+| **The Letters copy, source** | `The Letters Page/the-letters-v2.html`, except the cadence: see §11 |
+| `/thequestions`, **unbuilt** | `the questions/thequestions-wireframe-v2 (1).html` |
 | Greece draft, superseded | `Greece Retreat/greece-v2.html` — still sells seats, has TKs |
 | Armonia photography | `CydnieJocelyn-Site/08.13.2027-.../Armonia Retreat Center/wetransfer_.../` |
 | Costa Rica photography | `Costa Rica copy/` and `Costa Rica copy/Maxime Photos copy/` |
@@ -221,7 +252,7 @@ Fixed two ways, and **both are needed**:
 - The links carry `?v=<content hash>`. `immutable` means a browser will not even *ask*, so only
   a changed URL rescues a cache that is already poisoned.
 
-`stamp.py` regenerates that hash from the file contents. Current: `89168141`. Skip it and she
+`stamp.py` regenerates that hash from the file contents. Current: `438d51e3`. Skip it and she
 sees a stale site with no error anywhere.
 
 ---
@@ -570,9 +601,9 @@ load, all revealed once scrolled past, and **with JS off every paragraph is visi
    Contrast has been checked in places, not swept.
 6. **The podcast.** The home footer still links "She Rises Through It". The old wireframe said
    it was shelved. Whether that is true is not in any file.
-7. **Nav targets.** The Build (`/the-build/`) and Retreats (`/retreats/`) are both real pages
-   now and every nav, footer and cross-link on all five pages points at them. **The Letters**
-   (`/#questions`) is still an anchor on the home page and is the last one outstanding.
+7. **Nav targets. CLOSED in session four.** Every nav target now has a page behind it:
+   The Build, Retreats, **The Letters** (`/the-letters/`) and **A Sounding** (`/a-sounding/`).
+   `/#questions` and `/#sounding` no longer appear in any href on the site.
    `index.html` still has a `#retreat` section, which is the home page's Greece block; it is
    no longer a nav target and it now links out to `/retreats/greece/`.
 
@@ -1190,3 +1221,184 @@ asserts the right thing either way rather than assuming.
   list. Item 9 in §0. Same principle as the twelve questions form in §7.2: a form pointed at a
   guess is worse to unpick than a form that never fired.
 - **The four Sauk Centre checkout links** stay unwired on her instruction. Item 10 in §0.
+
+---
+
+## 11. Session four: A Sounding, The Letters, and the popup
+
+### The two pages
+
+Both are built on the shared stylesheet and the shared chrome, the same way The Build and the
+retreat pages are. Neither defines a local token block. New CSS is **section 26** (A Sounding)
+and **section 27** (The Letters); there is no new JavaScript in `site.js` at all, because
+between `.grid-12`, `.refuse`, `.faq`, `.quote`, `.wl-rule`, `.bd-cross` and the reveal classes
+there was nothing either page needed that the site did not already have.
+
+**`/a-sounding/` opens dark.** Home and About open dark because they open on the condition;
+The Build opens light because its subject is the price. This page opens on the condition, so it
+opens dark. That contrast is the argument and it is not a default. Its nav button is the only
+one on the site that does not leave for the scheduler: it scrolls to `#book`, because sending a
+reader off-site from the page making the argument loses the argument.
+
+**`/the-letters/` is the thesis, drawn.** A full-bleed waterline runs across the page twice.
+Above the first is light ground with the name, one sentence and one action. Between the two is
+Fathom, carrying the argument and the writing. Below the second is light again for the exit.
+The specimen letter is the only light object below the waterline, and that is the point: it is
+the product. The two rules are `hr` elements rather than borders because on that page they are
+content, not decoration.
+
+**Copy still to replace:** the specimen is the wireframe's placeholder. It is in her voice but
+it is not a letter she actually sent, and a specimen that was never mailed is a claim about the
+product rather than evidence of it. Swap in a real one before launch.
+
+### The popup: on four pages, off three
+
+`sounding-popup.js` is wired. The script tag is on the home page, The Build, Retreats and The
+Letters. It is **not** on three pages, and each of those is also named in `SKIP_PATHS` so the
+exclusion survives someone pasting the tag onto a page later:
+
+| Excluded | Why |
+|---|---|
+| `/a-sounding` | It exists to push a reader to that page. There it pushes her where she is. |
+| `/about` | A first-person account of postpartum depression, a child's diagnosis and a husband's stroke. Nothing interrupts that to sell a $300 call. |
+| `/retreats/greece` | A sold-out waitlist funnel with its own action. A consult modal competes with it. |
+
+**The file as delivered would have rendered salmon pink.** Its CSS was written against the
+wireframe's placeholder palette, where `--held-lift` was a near-white paper colour. On this site
+`--held-lift` is `#CE908A`, the hover state for the warm note, and `--breath` is mint, so the
+card came out pink with a mint border. It also asked for `--display`, `--body` and `--mono`,
+which this site calls `--carved`, `--level` and `--utility`. All of that is repointed at the
+real tokens, with literal hex behind each one so the modal survives the stylesheet failing.
+
+Three other things were added to it: a **focus trap**, because `aria-modal="true"` is a promise
+to assistive tech that focus is contained and Tab walked straight out of it; a **visibility
+guard**, so a background tab does not count down and fire the moment a reader returns to it; and
+a **560px breakpoint**, because at 375px the 38px title inside 38px of padding nearly touched
+both edges.
+
+### The Flodesk form, and the one thing that cannot be done from here
+
+The form is a **popup**, confirmed live: it fires on its own configured trigger and its own copy
+reads "One letter a week." The React component in `The Letters Page/` was translated into plain
+JS because this site has no React in it. Same script, same form id, same double-load guard.
+
+**Reopening it after a reader closes it is not possible from this repo.** Flodesk shows and
+hides that modal by rewriting an injected stylesheet, not by touching the DOM: open and closed
+are byte for byte identical in class list and in every attribute. There is no hook to drive, and
+`fd('open', ...)` is not a command their dispatcher answers. This was measured, not assumed.
+
+**The fix is one dashboard setting.** In Flodesk, set the form's display trigger to "on click"
+and point it at `#letters-open`. Nothing in the repo changes when you do. Until then the button
+tries anyway, checks 600ms later whether the modal actually became visible, and if it did not,
+puts the email address on screen instead. A reader is never left holding a dead button.
+
+### What was touched on the five shipped pages, and nothing else was
+
+The instruction was to leave finished pages alone apart from the popup. Three things had to
+happen anyway, because otherwise the new pages were orphaned and the site contradicted itself:
+
+1. **Nav and footer repointing.** `/#questions` became `/the-letters/` and `/#sounding` became
+   `/a-sounding/`, everywhere. Both were anchors into the home page.
+2. **The popup script tag**, on three of them.
+3. **The weekly copy fix**, in three sentences: the home page form's description, the home FAQ
+   answer under "What if I am not ready to spend $300?", and one line on About.
+
+The home page's `#questions` form was **not** touched beyond its description, and its hidden
+`tag` field still reads `twelve-questions`. It is still `action="#"` and still dead. Now that
+`/the-letters/` exists with a working list behind it, that form is redundant and the honest move
+is to replace it with a link. That is a design change to a shipped page, so it is item 3 in §0
+rather than something session four did unasked.
+
+### Two shared-stylesheet bugs, one fixed narrowly and one reported
+
+- **`.sd-panel` was invisible.** It was painted `var(--field)`, and on `.z-light` that resolves
+  to `var(--surface)`, which is the ground it sits on. It is `#DCE4E1` now, the same one step
+  off the light ground that `.z-silt` uses for its whole band.
+- **`figure` keeps its browser default `margin: 0 40px` on `.quote`.** Every other figure in the
+  stylesheet clears it: `.layer-fig`, `.retreat-fig`, `.story-fig figure`, `.rt-person figure`.
+  `.quote` never did, so the home page's quote carousel is indented 40px on each side, which
+  costs 80px of a 375px measure. **Fixed on `.sd-quote` only.** The one-line shared fix is
+  `.quote { margin: 0 }` and it moves a shipped page, so it is item 14 in §0.
+
+### The FAQ schema was drifting from the visible page
+
+The wireframe's `FAQPage` block and its visible questions were written separately and had
+already diverged: four of six answers differed, and two questions were worded differently.
+Google wants those identical. The schema on `/a-sounding/` is now **generated from the markup**,
+so the two cannot disagree. If you edit a question, regenerate rather than hand-editing both.
+
+### The harness grew, and it had two bugs of its own
+
+`_test.html` covers the new pages: **17 assertions on A Sounding, 15 on The Letters.** With the
+existing 43 on Greece and 20 on Retreats that is **95, all passing.**
+
+Both new-page runs failed at first, and neither was a site bug:
+
+1. **`cursor: companion built` failed on A Sounding.** `initCursor()` returns early on a page
+   with no `[data-cursor]` targets, which is every page that is not a gallery. The assertion was
+   unguarded. It now checks whether the page declares any targets first.
+2. **The whole run threw on The Letters.** The FAQ block indexed `det[0]` without checking the
+   count, and that page has no questions. It took the run down before any of the page's own
+   assertions executed. The block is guarded on the count now and the remainder of the suite
+   was lifted into a `rest()` function so both branches reach it.
+
+**The pane lies before it dies, and that is new.** Session three recorded that the preview pane
+went unresponsive. Session four found the worse failure that comes first: **it returns wrong
+answers while it is still answering.** Greece reported 41 pass / 2 fail on a page nothing had
+touched, because an IntersectionObserver does not fire in a pane the compositor has stopped
+drawing, so every reveal read as unrevealed. Headless Chrome, same URL, same second: 43 / 0.
+Only afterwards did the pane start returning "the Browser pane is currently hidden".
+`tools/preview/runsuite.sh` runs the suite headless and is the answer. **If the suite fails on a
+page you did not touch, run it headless before you believe it.**
+
+**A third trap, for whoever tests the popup next:** a selector of `[aria-label="Close"]` matches
+the popup's own close button. Clicking it writes the 30-day dismissal into `localStorage`, and
+the popup then silently declines to run on every page for a month. If it will not appear, run
+`localStorage.removeItem('sd_pop_dismissed')` before concluding anything is broken.
+
+**And one that is not ours:** a `serve.py` from an earlier session can still hold port 8791 and
+answer from a scratchpad that no longer exists, so new pages 404 while the old ones return 200.
+Check `lsof -nP -iTCP:8791 -sTCP:LISTEN` before debugging a route. Session four moved to 8814.
+
+### Two more folders arrived after the session's instructions, and neither was built
+
+Five working folders now sit in this root. **Every one of them is in `.vercelignore`**, and the
+two that arrived during session four were excluded within a minute of appearing, because an
+unexcluded folder here is a served folder and the build brief was once live at a guessable path.
+
+| Folder | Arrived | State |
+|---|---|---|
+| `A Sounding/` | session three | **Built** as `/a-sounding/` |
+| `The Letters Page/` | session three | **Built** as `/the-letters/` |
+| `the questions/` | 26 Aug, 19:07 | Excluded, not built. See below. |
+| `Privacy terms page/` | 26 Aug, 19:19 | Excluded, not built. See below. |
+
+**`Privacy terms page/privacy-terms-copy-v1.md` is the answer to §7.3** and it is not a sketch:
+privacy and terms in one document, both parts written, covering HoneyBook payments, Flodesk for
+The Letters, Google Analytics, retreat health disclosures, the MakeWellness affiliate
+relationship, intellectual property, a not-professional-advice clause, per-offer terms for A
+Sounding, The Build and Retreats, limitation of liability, governing law and accessibility.
+
+It was not built because building it was not asked for and because it carries decisions that are
+hers, flagged in the file itself: the last-updated date is to be set **on launch day and not
+before**, and the affiliate section is written for MakeWellness alone and expands or comes down
+depending on that partnership.
+
+**When it is built, it closes the cutover trap.** The footer of all seven pages links
+`https://cydniejocelyn.com/privacy-policy` absolutely, which resolves to the OLD site today and
+404s the moment the domain points here. The page has to exist at that path in this build, or a
+redirect has to. The document also settles the other half of §7.3: **terms now exist.**
+
+### `/thequestions` is a fourth page, and it was not built
+
+`the questions/thequestions-wireframe-v2 (1).html` arrived at 19:07 on 26 August, after the
+session's instructions were given. It is a QR destination for the GATHER event tables: someone
+picks a numbered card, scans the code, and gets the other eleven questions on one screen. It is
+`noindex` by design, its nav is stripped to the wordmark and one button, and it points its
+second door at The Letters.
+
+It was **excluded from the deploy immediately and not built**, because building it was not
+asked for and it carries three open decisions of its own: which of three copy variants to use in
+zone 6, whether the eyebrow swaps per event, and confirmation of the twelve questions as listed.
+It also records three fixes needed on the **old** live page at `cydniejocelyn.com/thequestions`:
+a typo in question 11, inconsistent casing, and the order running backwards.

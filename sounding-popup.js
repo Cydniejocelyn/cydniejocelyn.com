@@ -1,9 +1,20 @@
 /* ============================================================
    A Sounding. Site-wide popup.
-   Upload to the site root, then add one line before </body>
-   on every page:
+
+   Wired on 26 August 2026. The script tag goes before </body>:
 
      <script src="/sounding-popup.js" defer></script>
+
+   It is on the home page, The Build, Retreats and The Letters. It is
+   deliberately NOT on three pages, and each of those is also listed in
+   SKIP_PATHS below so the exclusion survives someone pasting the tag onto
+   a page later:
+
+     /a-sounding      it exists to push a reader to that page
+     /about           a first-person account of postpartum depression, a
+                      child's diagnosis and a husband's stroke. Nothing
+                      interrupts that to sell a $300 call.
+     /retreats/greece a sold-out waitlist funnel with its own action
 
    Everything below is self-contained. Edit only the CONFIG block.
    ============================================================ */
@@ -12,11 +23,11 @@
   /* ---------------- CONFIG ---------------- */
   var LINK          = 'https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6';
   var DELAY_MS      = 45000;   /* how long before it fires */
-  var SKIP_PATHS    = [];      /* e.g. ['/a-sounding'] to exclude a page */
+  var SKIP_PATHS    = ['/a-sounding', '/about', '/retreats/greece'];
   var REMEMBER_DAYS = 30;      /* how long a dismissal is honoured */
   var MEMORY_KEY    = 'sd_pop_dismissed';
 
-  var EYEBROW = 'Ninety minutes \u00A0/\u00A0 $300';
+  var EYEBROW = 'Ninety minutes  /  $300';
   var TITLE   = 'A Sounding';
   var BODY    = 'One conversation about what is actually happening in your business, and a written page two days later. Nothing to prepare beforehand.';
   var CTA     = 'Book a Sounding';
@@ -39,19 +50,31 @@
   }
   if (seen()) return;
 
+  /* The token names this file shipped with came from the wireframe's
+     placeholder palette, where --held-lift was a near-white paper colour.
+     On this site --held-lift is #CE908A, the hover state for the warm note,
+     so the card rendered salmon pink and the border rendered mint. The
+     custom properties below are the real ones from site.css section 1:
+     --surface is the light ground, --fathom the ink, --meniscus the rules,
+     --carved/--level/--utility the three faces. Literal hex stays as the
+     fallback so the modal survives the stylesheet failing to load. */
   var CSS = [
     '.sd-pop{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}',
     '.sd-pop[hidden]{display:none}',
-    '.sd-scrim{position:absolute;inset:0;background:rgba(10,26,34,.62)}',
-    '.sd-card{position:relative;background:var(--held-lift,#FBFAF7);border:1px solid var(--breath,#C9D6D8);border-radius:0;max-width:430px;width:100%;padding:44px 38px 34px;color:var(--fathom,#0A1A22)}',
-    '.sd-x{position:absolute;top:10px;right:12px;background:none;border:0;cursor:pointer;font-size:22px;line-height:1;color:var(--silt,#8C8578);padding:6px}',
-    '.sd-eyebrow{font-family:var(--mono,"IBM Plex Mono",monospace);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--silt,#8C8578);margin:0 0 16px}',
-    '.sd-title{font-family:var(--display,"IvyPresto Display",Georgia,serif);font-weight:400;font-size:38px;line-height:1;margin:0 0 14px}',
-    '.sd-body{font-family:var(--body,"Instrument Sans",Arial,sans-serif);font-size:16px;line-height:1.55;color:var(--deepwater,#123240);margin:0 0 26px}',
-    '.sd-btn{display:inline-block;font-family:var(--body,"Instrument Sans",Arial,sans-serif);font-size:12px;letter-spacing:.11em;text-transform:uppercase;padding:15px 26px;background:var(--fathom,#0A1A22);color:var(--held-lift,#FBFAF7);text-decoration:none;border:1px solid var(--fathom,#0A1A22)}',
-    '.sd-dismiss{display:block;margin-top:20px;background:none;border:0;padding:0;cursor:pointer;font-family:var(--mono,"IBM Plex Mono",monospace);font-size:12px;color:var(--silt,#8C8578);text-decoration:underline;text-underline-offset:4px}',
-    '.sd-btn:focus-visible,.sd-x:focus-visible,.sd-dismiss:focus-visible{outline:2px solid var(--meniscus,#7E9AA3);outline-offset:3px}',
-    '@media(max-width:480px){.sd-card{padding:38px 26px 28px}.sd-title{font-size:32px}}'
+    '.sd-scrim{position:absolute;inset:0;background:rgba(7,26,31,.72)}',
+    '.sd-card{position:relative;background:var(--surface,#E7ECE8);border:1px solid var(--meniscus,#2F5A61);border-radius:0;max-width:430px;width:100%;max-height:calc(100dvh - 40px);overflow-y:auto;padding:44px 38px 34px;color:var(--fathom,#071A1F)}',
+    '.sd-x{position:absolute;top:6px;right:8px;background:none;border:0;cursor:pointer;font-size:22px;line-height:1;color:#5B6B6E;width:44px;height:44px;display:flex;align-items:center;justify-content:center}',
+    '.sd-eyebrow{font-family:var(--utility,"IBM Plex Mono",ui-monospace,monospace);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#5B6B6E;margin:0 0 16px}',
+    '.sd-title{font-family:var(--carved,"IvyPresto Display","Instrument Serif",Georgia,serif);font-weight:400;font-size:38px;line-height:1.05;letter-spacing:.03em;margin:0 0 14px}',
+    '.sd-body{font-family:var(--level,"Instrument Sans",-apple-system,Helvetica,sans-serif);font-size:16px;line-height:1.55;color:#123240;margin:0 0 26px}',
+    '.sd-btn{display:inline-flex;align-items:center;min-height:44px;font-family:var(--level,"Instrument Sans",-apple-system,Helvetica,sans-serif);font-size:12px;letter-spacing:.11em;text-transform:uppercase;padding:14px 26px;background:var(--fathom,#071A1F);color:var(--surface,#E7ECE8);text-decoration:none;border:1px solid var(--fathom,#071A1F)}',
+    '.sd-btn:hover{background:var(--deepwater,#0C2830);border-color:var(--deepwater,#0C2830)}',
+    '.sd-dismiss{display:inline-flex;align-items:center;min-height:44px;margin-top:12px;background:none;border:0;padding:0;cursor:pointer;font-family:var(--utility,"IBM Plex Mono",ui-monospace,monospace);font-size:12px;color:#5B6B6E;text-decoration:underline;text-underline-offset:4px}',
+    '.sd-btn:focus-visible,.sd-x:focus-visible,.sd-dismiss:focus-visible{outline:2px solid var(--meniscus,#2F5A61);outline-offset:3px}',
+    /* 480px was too late. At 375px the 38px title and 38px of side padding
+       left roughly 260px of measure, and "A Sounding" set solid nearly
+       touched both edges. */
+    '@media(max-width:560px){.sd-pop{padding:14px}.sd-card{padding:34px 22px 26px}.sd-title{font-size:30px}.sd-body{font-size:15px;margin-bottom:22px}.sd-btn{width:100%;justify-content:center;padding:14px 18px}}'
   ].join('');
 
   function build() {
@@ -70,12 +93,17 @@
         '<p class="sd-eyebrow">' + EYEBROW + '</p>' +
         '<h2 class="sd-title" id="sdTitle">' + TITLE + '</h2>' +
         '<p class="sd-body" id="sdBody">' + BODY + '</p>' +
-        '<a class="sd-btn" href="' + LINK + '">' + CTA + '</a>' +
+        '<div><a class="sd-btn" href="' + LINK + '">' + CTA + '</a></div>' +
         '<button class="sd-dismiss" type="button" data-sd-close>' + DISMISS + '</button>' +
       '</div>';
     document.body.appendChild(pop);
 
     var lastFocus = null;
+    var timer = null;
+
+    function focusable() {
+      return pop.querySelectorAll('a[href], button:not([disabled])');
+    }
 
     function open() {
       lastFocus = document.activeElement;
@@ -93,12 +121,34 @@
     pop.addEventListener('click', function (e) {
       if (e.target.hasAttribute('data-sd-close')) close();
     });
+
+    /* aria-modal is a promise to assistive tech that focus is contained.
+       Without a trap, Tab walks straight out of the dialog and into a page
+       the screen reader has been told is inert, which is worse than not
+       claiming it. */
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !pop.hidden) close();
+      if (pop.hidden) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key !== 'Tab') return;
+      var f = focusable();
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
+
     pop.querySelector('.sd-btn').addEventListener('click', remember);
 
-    window.setTimeout(open, DELAY_MS);
+    /* A background tab still counts down, so a reader who opened three
+       pages and came back to one finds it already fired. The timer only
+       runs while the page is actually being looked at. */
+    function start() { if (!timer) timer = window.setTimeout(open, DELAY_MS); }
+    function stop()  { if (timer) { window.clearTimeout(timer); timer = null; } }
+    if (document.visibilityState === 'visible') start();
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') start(); else stop();
+    });
+
     window.sdPopPreview = open; /* testing: run sdPopPreview() in the console */
   }
 

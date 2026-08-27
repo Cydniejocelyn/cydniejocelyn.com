@@ -23,6 +23,8 @@ PAGES = {
     # two levels down, so its asset paths are ../../assets rather than ../assets
     "greece":   ("retreats/greece/index.html", "cydnie-jocelyn-greece.html",
                  "Rise Into Her: The Greece Edition"),
+    "sounding": ("a-sounding/index.html", "cydnie-jocelyn-sounding.html", "A Sounding"),
+    "letters":  ("the-letters/index.html", "cydnie-jocelyn-letters.html", "The Letters"),
 }
 if PAGE not in PAGES:
     raise SystemExit("unknown page %r, expected one of %s" % (PAGE, ", ".join(PAGES)))
@@ -149,6 +151,9 @@ ARTIFACT = {
     # here the first time one is.
     "retreats": None,
     "greece":   None,
+    # Neither new page has been published as an artifact yet either.
+    "sounding": None,
+    "letters":  None,
 }
 BUILD_HREF = ARTIFACT["build"] or (SITE + "/the-build/")
 body = body.replace('href="/the-build/#',
@@ -175,6 +180,18 @@ body = body.replace('href="/retreats/#',
                     'href="#' if PAGE == "retreats" else 'href="%s#' % RETREATS_HREF)
 body = body.replace('href="/retreats/"',
                     'href="#main"' if PAGE == "retreats" else 'href="%s"' % RETREATS_HREF)
+
+# A Sounding and The Letters, same rule again. Both are in the nav and the
+# footer of every page now, so without this an export carries two root
+# relative hrefs that resolve to nothing inside an artifact.
+SOUNDING_HREF = ARTIFACT["sounding"] or (SITE + "/a-sounding/")
+LETTERS_HREF  = ARTIFACT["letters"]  or (SITE + "/the-letters/")
+body = body.replace('href="/a-sounding/#',
+                    'href="#' if PAGE == "sounding" else 'href="%s#' % SOUNDING_HREF)
+body = body.replace('href="/a-sounding/"',
+                    'href="#main"' if PAGE == "sounding" else 'href="%s"' % SOUNDING_HREF)
+body = body.replace('href="/the-letters/"',
+                    'href="#main"' if PAGE == "letters" else 'href="%s"' % LETTERS_HREF)
 
 # pages that do not exist yet resolve to the on-page CTA. About is not one of
 # them: it exists, it is in the nav, and it was only ever in this list because

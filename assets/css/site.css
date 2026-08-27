@@ -1,5 +1,5 @@
 /* ============================================================
-   Cydnie Jocelyn — the resurfacing business
+   Cydnie Jocelyn, the resurfacing business
    Built from Brand Board 2026 and, above it, Brand-Foundation.md.
 
    The Foundation sets the shape of the page:
@@ -291,6 +291,19 @@ button { font: inherit; color: inherit; }
   transition: transform var(--t-mid) var(--ease-out);
 }
 .link:hover::after, .link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+/* A .link is drawn only on hover, and it leans on --label to be legible at
+   rest. On a dark ground --label is Breath, which reads as a link. On a light
+   ground it is Deepwater #0C2830 against ink #071A1F, which is not a visible
+   difference, so an inline link there is indistinguishable from the sentence
+   around it until a pointer touches it, and on a touch screen never.
+
+   This modifier draws the rule at rest and retracts it on hover, so the link
+   is always a link and the hover still has somewhere to go. It is used on the
+   light-ground body links added in session four. The shared `.link` is left
+   alone because changing it moves five shipped pages; see item 14 in §0 of
+   HANDOFF.md. */
+.link--ruled::after { transform: scaleX(1); transform-origin: left; }
+.link--ruled:hover::after, .link--ruled:focus-visible::after { transform: scaleX(0); transform-origin: right; }
 
 .btn {
   position: relative; display: inline-flex; align-items: center; gap: var(--s-3);
@@ -3041,6 +3054,156 @@ main > * { position: relative; z-index: 1; }
   font-family: var(--utility); font-size: .6875rem;
   letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
 }
+
+/* ---------- 26. A SOUNDING ----------------------------------
+   The single-offer page. It exists because the site sold a $300
+   conversation from four different blocks on four different pages and had
+   no page to send anyone to that answered "is this another discovery
+   call" before she scrolled.
+
+   It opens dark, like home and about, because it opens on the condition.
+   The Build is the one page that opens light, and it opens light because
+   its subject is the price. That contrast is the argument, not a default.
+
+   Almost all of it runs on components that already exist: .bd-cross is the
+   three practice areas, .refuse is the four facts about the ninety
+   minutes, .faq is the questions, .quote is the testimonial, .wl-rule is
+   the waterline. Only the four pieces with no equivalent are below.
+
+   There is no sticky bar and no modal on this page. The A Sounding popup
+   is excluded here by SKIP_PATHS in sounding-popup.js: it exists to push a
+   reader to this page, and here it would push her where she already is.
+   ------------------------------------------------------------ */
+
+/* The hero. Typographic, no photograph: nothing can fail to load and leave
+   a hole where the first sentence goes. Shorter than the home hero, which
+   is a landing; this is a chapter with one thing to say. */
+.sd-head { padding-block: clamp(7.5rem, 17vh, 11rem) clamp(2.5rem, 6vw, 4.5rem); }
+.sd-head .wl-rule { margin-top: clamp(var(--s-4), 4vh, var(--s-5)); }
+.sd-head .actions { margin-top: clamp(var(--s-5), 5vw, var(--s-6)); }
+
+/* The price and the two refusals, directly under the lede. This is the
+   line the page is built to get in front of her, so it is not muted. */
+.sd-terms {
+  margin-top: var(--s-5);
+  font-family: var(--utility);
+  font-size: .8125rem; letter-spacing: .12em;
+  line-height: 1.7; color: var(--muted);
+  max-width: 34rem;
+}
+.sd-terms b { font-weight: 400; color: var(--ink); }
+
+/* The panel beside the written page. Held for a photograph of a real
+   printed page one day; type until then, which is what the wireframe
+   asked for rather than a placeholder box. */
+/* Silt, not var(--field). On a light ground `.z-light` resolves --field to
+   var(--surface), which is the ground itself, so a panel painted with it is
+   invisible apart from its hairline. #DCE4E1 is the same one step off the
+   light ground that `.z-silt` uses for its whole band, so the panel reads as
+   lifted without introducing a colour the palette does not already have. */
+.sd-panel {
+  background: #DCE4E1;
+  border: 1px solid var(--rule);
+  padding: clamp(var(--s-5), 4vw, var(--s-6));
+}
+.sd-panel .eyebrow { margin-bottom: var(--s-3); }
+.sd-panel p + p { margin-top: var(--s-4); }
+.sd-panel p { color: var(--muted); }
+
+/* The offer. One rule above it, the figure, then the argument. It is not a
+   card and it is not a table: there is one price on this page, and a card
+   implies a row of siblings that do not exist. */
+.sd-offer { border-top: 1px solid var(--ink); padding-top: var(--s-5); max-width: 40rem; }
+.sd-offer .body { margin-top: var(--s-5); }
+.sd-price {
+  margin-top: var(--s-3);
+  font-family: var(--utility);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  letter-spacing: .04em; color: var(--ink);
+  display: flex; align-items: baseline; gap: var(--s-4); flex-wrap: wrap;
+}
+.sd-price em {
+  font-style: normal; font-size: .6875rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--muted);
+}
+
+/* One quote, not a wall. .quote sets the rest; this only widens the pull,
+   because a single testimonial standing alone can carry more size than one
+   sitting in a row of three.
+
+   The margin reset is not cosmetic. `.quote` is a `figure`, and the browser
+   default is `margin: 0 40px`, which `.quote` never clears the way
+   `.layer-fig`, `.retreat-fig`, `.story-fig figure` and `.rt-person figure`
+   all do. Here that indented the quote 40px past the eyebrow above it. The
+   same 40px is on the home page's quote carousel, where it costs 80px of a
+   375px measure; that is a shared-stylesheet bug and fixing it moves a
+   shipped page, so it is scoped here and reported rather than fixed in
+   `.quote` unasked. */
+.sd-quote { margin: 0; max-width: 46rem; }
+.sd-quote .q-pull { font-size: clamp(1.3rem, 3vw, 1.9rem); }
+
+
+/* ---------- 27. THE LETTERS ---------------------------------
+   The free door, and the last nav target that had no page behind it: it
+   was an anchor to a form near the bottom of the home page.
+
+   The page has one structural idea and everything else follows it. A
+   waterline runs full bleed across the page twice. Above the first one is
+   light ground, the name, one sentence and one action. Between the two is
+   Fathom, where the argument and the writing are. Below the second is
+   light again, for the exit. The page is the thesis, drawn.
+
+   The lines are `hr` elements rather than borders because they are content
+   here, not decoration: they are the only structure the page has.
+   ------------------------------------------------------------ */
+
+.lt-head { padding-block: clamp(6rem, 14vh, 9rem) clamp(3rem, 7vw, 5rem); }
+.lt-head .wl-rule { margin-top: clamp(var(--s-4), 4vh, var(--s-5)); }
+.lt-head .actions { margin-top: clamp(var(--s-5), 5vw, var(--s-6)); }
+
+/* Full bleed, level, static, one pixel. Never a wave and never looping.
+   `.wrap` caps at 82.5rem, so this is deliberately outside it. */
+.lt-waterline {
+  height: 1px; border: 0; margin: 0;
+  background: var(--meniscus);
+}
+
+/* The specimen. A letter on paper, set on the light ground it would be
+   read on, sitting in the dark stretch of the page. It is the only light
+   object below the waterline and that is the point: it is the product. */
+.lt-specimen {
+  background: var(--surface); color: var(--fathom);
+  border: 1px solid var(--rule);
+  padding: clamp(var(--s-5), 5vw, var(--s-7));
+  max-width: 40rem;
+}
+.lt-specimen p { max-width: none; }
+.lt-slug {
+  font-family: var(--utility);
+  font-size: .6875rem; letter-spacing: .2em; text-transform: uppercase;
+  color: #5B6B6E;
+  margin-bottom: var(--s-5);
+}
+.lt-sig {
+  font-family: var(--carved);
+  font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+  letter-spacing: .05em;
+  margin-top: var(--s-5);
+}
+
+/* Two items, deliberately not three. A third would be filler and the page
+   would start arguing with its own restraint. */
+.lt-pair { display: grid; gap: clamp(var(--s-5), 5vw, var(--s-7)); }
+.lt-pair h3 { margin-bottom: var(--s-3); }
+.lt-pair p { max-width: 26rem; }
+@media (min-width: 48rem) { .lt-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Signup. The button ships hidden and JS reveals it once Flodesk has
+   really loaded, so `hidden` has to survive `.btn { display: inline-flex }`.
+   Without this the button is visible before the script that drives it. */
+.btn[hidden], #letters-fallback[hidden] { display: none; }
+#letters-fallback { color: var(--muted); max-width: 30rem; }
+
 
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {

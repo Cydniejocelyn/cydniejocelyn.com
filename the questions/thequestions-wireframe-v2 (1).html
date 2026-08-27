@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe v2 - /thequestions</title>
+<style>
+  :root{
+    /* Wireframe greys only. Replace with brand tokens at build:
+       page bg = Breath, body copy = Fathom, rules = Silt,
+       numerals = Meniscus, CTA fill = Deepwater, CTA label = Surface */
+    --ink:#1c1c1c;
+    --mid:#6b6b6b;
+    --rule:#d6d3ce;
+    --bg:#f6f5f2;
+    --note:#0b5c63;
+    --noteBg:#e6f0f0;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+    font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 24px}
+  .serif{font-family:"IvyPresto Display",Georgia,"Times New Roman",serif;font-weight:400}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+
+  /* annotation layer, not part of the page */
+  .note{
+    background:var(--noteBg);border-left:2px solid var(--note);
+    color:var(--note);font-size:12px;line-height:1.5;
+    padding:10px 12px;margin:14px 0;
+    font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  .note b{font-weight:600}
+  .zone{
+    font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mid);border-top:1px solid var(--rule);
+    padding-top:10px;margin-top:0;
+  }
+  section{padding:56px 0}
+  section + section{border-top:1px solid var(--rule)}
+
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;
+      padding:20px 0;border-bottom:1px solid var(--rule)}
+  .wordmark{font-family:"IvyPresto Display",Georgia,serif;font-size:19px;letter-spacing:.02em}
+  .btn{
+    display:inline-block;background:var(--ink);color:var(--bg);
+    padding:12px 22px;font-size:13px;letter-spacing:.12em;
+    text-transform:uppercase;text-decoration:none;
+  }
+  .btn.small{padding:9px 16px;font-size:11px}
+
+  h1{font-family:"IvyPresto Display",Georgia,serif;font-weight:400;
+     font-size:44px;line-height:1.1;margin:18px 0 20px;letter-spacing:-.01em}
+  h2{font-family:"IvyPresto Display",Georgia,serif;font-weight:400;
+     font-size:28px;line-height:1.2;margin:0 0 18px}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+     font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin:0}
+  p{margin:0 0 16px;max-width:52ch}
+  .lede{font-size:19px}
+
+  /* waterline rule: level, static, never a wave */
+  .waterline{height:1px;background:var(--ink);opacity:.55;margin:34px 0;width:100%}
+
+  /* the twelve */
+  ol.questions{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+  ol.questions li{display:flex;gap:18px;align-items:baseline;
+    padding:16px 0;border-bottom:1px solid var(--rule)}
+  ol.questions .num{
+    font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    font-size:12px;color:var(--mid);width:26px;flex:none;padding-top:3px}
+  ol.questions .q{font-family:"IvyPresto Display",Georgia,serif;font-size:21px;line-height:1.3}
+
+  .price{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+     font-size:13px;letter-spacing:.08em;color:var(--mid);margin-bottom:22px}
+
+  footer{padding:44px 0 60px;border-top:1px solid var(--rule);color:var(--mid);font-size:13px}
+  footer a{color:var(--mid);text-decoration:none;margin-right:18px}
+  .footnav{margin-bottom:18px}
+  @media (max-width:520px){
+    h1{font-size:34px}
+    ol.questions .q{font-size:18px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<div class="note"><b>WIREFRAME v2 · cydniejocelyn.com/thequestions</b><br>
+Teal blocks are notes to you, not page copy. Everything outside them is real proposed copy.<br>
+Greys are placeholders. Brand tokens noted in the CSS comment at the top.<br>
+Page job: someone at the GATHER table picked a numbered card, scanned the code, and is standing there holding a phone. One screen, one thread, one action.<br><br>
+<b>Settled since v1:</b> event name stays in the eyebrow and gets swapped per event. Zone 6 is a text link to The Letters. Zone 4 uses variant A. Page stays noindex.</div>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <span class="wordmark">Cydnie Jocelyn</span>
+  <a class="btn small" href="#sounding">A Sounding</a>
+</nav>
+
+<div class="note">Stripped nav on purpose. Wordmark plus the one button. Full five item nav lives in the footer so the page has a single forward path but no dead end. The live page currently carries the old nav: podcast, the collective, brand strategy. All three are gone.</div>
+
+<!-- ============ 1. HERO ============ -->
+<section>
+  <p class="zone">Zone 1 · Hero</p>
+  <p class="eyebrow">GATHER · The Journey · Minneapolis</p>
+  <h1>You picked one.</h1>
+  <p class="lede">There were twelve on the table. Here are the other eleven. Take them with you and use them on someone this week.</p>
+  <div class="waterline"></div>
+</section>
+
+<div class="note"><b>Eyebrow is the swappable line.</b> Event name, venue, city. Next table, change these three words and nothing else on the page moves.<br><br>
+Headline holds at "You picked one." It assumes the room, which is the only thing a QR destination can safely assume.</div>
+
+<!-- ============ 2. WHY ============ -->
+<section>
+  <p class="zone">Zone 2 · Why the questions exist</p>
+  <h2>I ask questions like these because most rooms don't.</h2>
+  <p>We get asked what we do and where we work and how the kids are, and we answer all of it without ever saying anything true.</p>
+</section>
+
+<div class="note">Both lines are yours, lifted from the current page. Kept intact.</div>
+
+<!-- ============ 3. THE TWELVE ============ -->
+<section>
+  <p class="zone">Zone 3 · The twelve</p>
+  <h2>The questions</h2>
+  <ol class="questions">
+    <li><span class="num">01</span><span class="q">What made you laugh this week?</span></li>
+    <li><span class="num">02</span><span class="q">What's a compliment you've never forgotten?</span></li>
+    <li><span class="num">03</span><span class="q">Where were you the last time you felt completely at ease?</span></li>
+    <li><span class="num">04</span><span class="q">What's one small thing that made this week better?</span></li>
+    <li><span class="num">05</span><span class="q">What do people come to you for?</span></li>
+    <li><span class="num">06</span><span class="q">What are you better at now than you were a year ago?</span></li>
+    <li><span class="num">07</span><span class="q">What did you love doing when you were ten?</span></li>
+    <li><span class="num">08</span><span class="q">Who would be proud of where you are right now?</span></li>
+    <li><span class="num">09</span><span class="q">What are you building that no one has seen yet?</span></li>
+    <li><span class="num">10</span><span class="q">What would you do this year if it didn't have to be impressive?</span></li>
+    <li><span class="num">11</span><span class="q">What would you say yes to if you knew it would work?</span></li>
+    <li><span class="num">12</span><span class="q">Where do you want to go that you haven't been?</span></li>
+  </ol>
+</section>
+
+<div class="note"><b>Fixes carried in from the live page:</b><br>
+· Question 11 currently reads "what would you say yest to." Typo.<br>
+· Casing is inconsistent on the live page (wHERE, wHO, wHAT). Sentence case throughout here.<br>
+· Order is reversed on the live page, 05 down to 01 then 12 down to 06. Runs 01 to 12 here so a person holding card 07 can find 07.<br><br>
+<b>Numbering is functional, not decorative.</b> The cards on the table are numbered, so the numerals are how someone locates the one in their hand. Keep them.<br><br>
+<b>Structure:</b> one flat list, hairline rules, no cards, no columns, no reveal on scroll. Twelve rows is a long scroll on a phone and that is fine. The scroll is the experience.</div>
+
+<!-- ============ 4. WHO ============ -->
+<section>
+  <p class="zone">Zone 4 · Who is asking</p>
+  <h2>Who's asking</h2>
+  <p>I'm Cydnie. I'm a brand strategist and consultant in Forest Lake, Minnesota. I work with women who are running something real and carrying most of it by themselves.</p>
+  <p>By the time someone gets to me, the business usually works. What's stopped working is her ability to see it clearly from underneath everything sitting on top of it.</p>
+</section>
+
+<div class="note">Second paragraph is variant A, locked.<br><br>
+The horizontal rule under the hero is the only waterline reference on the page. Level, static, one instance.</div>
+
+<!-- ============ 5. A SOUNDING ============ -->
+<section id="sounding">
+  <p class="zone">Zone 5 · The one action</p>
+  <h2>A Sounding</h2>
+  <p>Ninety minutes on a call. Two days later you get a written page: what I heard, what I think is actually going on, and what I'd do about it.</p>
+  <p>Nothing to prepare. Bring the thing you keep circling.</p>
+  <p class="price">$300</p>
+  <a class="btn" href="#">Book a Sounding</a>
+</section>
+
+<div class="note"><b>This is the only button on the page besides the nav, and they point to the same place.</b><br>
+The live page has two competing calls, "Let's Build What's Next" and "Let's Talk," pointing at two different scheduling links. Both are replaced by A Sounding.<br><br>
+Link target: the HoneyBook session record for A Sounding. Price shown here has to match the HoneyBook service record and The Build page on launch day.<br><br>
+"Sometimes the answer is that you don't need me" belongs on The Build page, not here. This audience just met you and hasn't been sold anything yet, so the differentiator has nothing to reverse.</div>
+
+<!-- ============ 6. THE LETTERS ============ -->
+<section>
+  <p class="zone">Zone 6 · Quiet second door</p>
+  <p>If $300 isn't where you are tonight, I write letters. <a href="#">You can get those here.</a></p>
+</section>
+
+<div class="note"><b>Text link, never a button.</b> That is the whole difference between a second door and a second ask.<br><br>
+Points at The Letters signup on the main site, so no Flodesk embed on this page and no second form to maintain.<br><br>
+<b>Copy variants for the line, pick one:</b><br>
+A. If $300 isn't where you are tonight, I write letters. You can get those here.<br>
+B. I also write letters. They're here.<br>
+C. There's a letter that goes out from me. You can get it here.<br><br>
+A names the price gap out loud, which is honest but puts money in the last thing she reads. B is the flattest and does not mention the price at all. I'd take B unless you want the page to work harder.<br><br>
+I don't know the cadence or subject of The Letters well enough to describe them. If you want a line of description in there, tell me what they are and I'll write it.</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footnav">
+    <a href="#">The Build</a><a href="#">Retreats</a><a href="#">The Letters</a><a href="#">About</a><a href="#">Contact</a>
+  </div>
+  <p style="margin-bottom:8px">Brand strategy and consulting. Forest Lake, Minnesota.</p>
+  <p style="margin:0">© Cydnie Jocelyn LLC · Privacy Policy · Terms of Use</p>
+</footer>
+
+<div class="note"><b>Footer cleanup:</b> the live page still runs "Faith-Rooted Brand Strategist · Retreat Host · She Rises Through It" twice, plus podcast and the collective in both nav and footer. All removed. Social icons intentionally left out of this wireframe, add back if you want them, but they're an exit and this page is one screen deep.<br><br>
+<b>Head tags:</b> noindex stays, since the URL is event scoped rather than permanent. Two things still need fixing in the head: the OG image is currently a wedding photographer file from the old library, and the meta description names GATHER, so it gets swapped alongside the eyebrow each event.</div>
+
+<div style="height:40px"></div>
+</div>
+</body>
+</html>

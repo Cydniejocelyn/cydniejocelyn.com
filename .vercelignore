@@ -29,7 +29,23 @@ Greece Retreat/
 # case-insensitive filesystem, so `Retreats/` here could have taken the
 # real `/retreats/` page out of the deploy with it.
 Retreat drafts/
-# Both arrived mid-session on 26 August 2026, unasked for and unbuilt.
-# Excluded the same day, per the rule above.
+# Both arrived mid-session on 26 August 2026 and were built on 26 August into
+# /a-sounding/ and /the-letters/. The wireframes stay excluded: they carry an
+# annotation layer, a notes toggle and, in the Letters draft, a live HoneyBook
+# widget pointed at the retired Collective form.
+#
+# Checked against the case-insensitive-filesystem trap above: lowercased,
+# `a sounding` and `the letters page` are neither of them `a-sounding` or
+# `the-letters`, so neither draft can take a route directory out of the
+# deploy with it. Keep it that way when renaming either.
 A Sounding/
 The Letters Page/
+# Arrived 26 August 2026, 19:07, mid-session. Excluded before anything else
+# was done with it, per the rule above: an unexcluded folder in this root is
+# served, and the build brief was once live at a guessable path.
+the questions/
+# Arrived 26 August 2026, later the same evening. Excluded on sight, same
+# rule. It looks like the answer to the privacy/terms cutover trap in
+# HANDOFF section 7.3, but it is a working document until something is
+# built from it, and a working document in this root is a served document.
+Privacy terms page/
