@@ -129,6 +129,33 @@ The button had been patched for this once already, years of sessions ago; the
 links and the bar chrome never were. If you add anything to that panel,
 add it here.
 
+## `_carousel.html` — the reviews on a touch screen
+
+    sh tools/preview/runcarousel.sh "$SP" 8814
+
+**The flags in that script are the whole point.** Headless Chrome reports
+`pointer: fine` by default, so without them `site.js` takes the desktop
+branch and this harness quietly tests the wrong carousel and passes:
+
+    --blink-settings=primaryPointerType=2,availablePointerTypes=2,primaryHoverType=1,availableHoverTypes=1
+
+Two things an offscreen iframe under `--virtual-time-budget` will not do, and
+both of them look like site bugs:
+
+1. **`requestAnimationFrame` does not tick.** A frame the compositor has
+   stopped drawing gets no animation frames. This is not only a test
+   artefact: the first version of the scroll sync threw its work into rAF
+   behind a `pending` guard, so in any throttled frame the guard stayed true
+   and the dots froze for the life of the page. There is a timer behind rAF
+   now and the harness proves it by never letting rAF run.
+2. **`scroll` does not fire on a sub-scroller.** A listener attached by hand
+   inside the harness saw zero events while `scrollLeft` changed underneath
+   it. The sync test dispatches the event explicitly; that still exercises
+   the whole handler.
+
+Smooth scrolling does not advance under virtual time either, so the arrow and
+dot tests assert the painting and not the travel.
+
 ## `_probe.html` — measuring one thing
 
 Edit it. It is a scratch file for answering "what is this element actually

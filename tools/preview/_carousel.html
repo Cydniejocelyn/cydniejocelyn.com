@@ -1,0 +1,139 @@
+<!doctype html><meta charset="utf-8">
+<title>touch carousel</title>
+<style>
+ body{font:12.5px/1.5 ui-monospace,Menlo,monospace;white-space:pre-wrap;padding:10px}
+ .bad{color:#b00020;font-weight:700}.ok{color:#0a7a3d}
+ iframe{position:fixed;left:-9999px;top:0;width:390px;height:844px;border:0}
+</style>
+<div id="log">measuring…</div><iframe id="f" src="/retreats/"></iframe>
+<script>
+/* The reviews carousel on a touch screen.
+   MUST be run with a coarse pointer or it silently tests the desktop path:
+
+     --blink-settings=primaryPointerType=2,availablePointerTypes=2,primaryHoverType=1,availableHoverTypes=1
+
+   `tools/preview/runcarousel.sh` passes that. Two things this cannot check
+   under `--virtual-time-budget`, both noted where they are asserted: smooth
+   scrolling does not advance, and requestAnimationFrame does not tick in an
+   offscreen iframe. */
+var L = [], bad = 0, f = document.getElementById('f');
+function ok(c, s) {
+  if (!c) bad++;
+  L.push('<span class="' + (c ? 'ok' : 'bad') + '">' + (c ? 'PASS  ' : 'FAIL  ') + s + '</span>');
+  document.getElementById('log').innerHTML = L.join('\n');
+}
+function note(s) { L.push(s); document.getElementById('log').innerHTML = L.join('\n'); }
+f.addEventListener('load', function () {
+  var w = f.contentWindow, d = f.contentDocument, y = 0;
+  var iv = setInterval(function () {
+    y += 500; w.scrollTo(0, y); w.dispatchEvent(new w.Event('scroll'));
+    if (y > d.body.scrollHeight + 900) { clearInterval(iv); setTimeout(go, 2600); }
+  }, 22);
+  function go() {
+   try {
+    var host = d.querySelector('[data-quotes]'), view = d.querySelector('.q-view'), track = d.querySelector('.q-track');
+    var slides = [].slice.call(d.querySelectorAll('.q-slide')), dots = [].slice.call(d.querySelectorAll('.q-dot'));
+    function curDot() { return dots.findIndex(function (x) { return x.getAttribute('aria-current'); }); }
+    function off(i) {
+      var v = view.getBoundingClientRect(), s = slides[i].getBoundingClientRect();
+      return Math.round((s.left + s.width / 2) - (v.left + v.width / 2));
+    }
+    function centre(i) {
+      var s = slides[i].getBoundingClientRect(), v = view.getBoundingClientRect();
+      view.scrollTo({ left: view.scrollLeft + (s.left - v.left) - (v.width - s.width) / 2, behavior: 'auto' });
+    }
+    ok(w.matchMedia('(pointer: coarse)').matches, 'harness is emulating a coarse pointer');
+    ok(host.classList.contains('q-native'), 'carousel switched to the native scroller');
+    var cs = w.getComputedStyle(view);
+    ok(cs.overflowX === 'auto', 'view scrolls horizontally  (' + cs.overflowX + ')');
+    ok(cs.scrollSnapType.indexOf('x') > -1, 'snapping on  (' + cs.scrollSnapType + ')');
+    ok(w.getComputedStyle(track).transform === 'none', 'the JS transform is gone');
+    ok(view.scrollWidth > view.clientWidth, 'it is a real scroller  ' + view.scrollWidth + '/' + view.clientWidth);
+    ok(Math.abs(off(0)) <= 2, 'first review starts centred  (' + off(0) + 'px)');
+
+    var i = 0;
+    (function step() {
+      if (i >= slides.length) { sync(); return; }
+      centre(i);
+      setTimeout(function () {
+        ok(Math.abs(off(i)) <= 3, 'review ' + (i + 1) + ' centres  (' + off(i) + 'px)');
+        i++; step();
+      }, 380);
+    })();
+
+    /* The dots follow the scroll.
+
+       An offscreen iframe under virtual time does not fire `scroll` on a
+       sub-scroller at all -- a listener attached by hand in this very
+       harness saw zero -- so the event is dispatched explicitly. That still
+       exercises the whole handler, which is the part that had the bug: it
+       threw its work into requestAnimationFrame, rAF does not tick in a
+       frame the compositor has stopped drawing either, and the `pending`
+       guard then stayed true for the life of the page. Dots frozen, in
+       exactly the conditions nobody tests in. There is a timer behind rAF
+       now and this is what proves it. */
+    function sync() {
+      centre(2);
+      setTimeout(function () {
+        view.dispatchEvent(new w.Event('scroll'));
+        setTimeout(function () {
+          ok(curDot() === 2, 'the dot follows a scroll without rAF  (dot ' + (curDot() + 1) + ')');
+          ok(d.querySelectorAll('.q-slide.is-on').length === 1, 'exactly one review is lit');
+          centre(0);
+          setTimeout(function () {
+            view.dispatchEvent(new w.Event('scroll'));
+            setTimeout(function () {
+              ok(curDot() === 0, 'and follows back to the first  (dot ' + (curDot() + 1) + ')');
+              controls();
+            }, 350);
+          }, 350);
+        }, 350);
+      }, 400);
+    }
+
+    /* Arrows and dots paint immediately and then scroll. The scroll itself is
+       `behavior: smooth`, which does not advance under virtual time, so only
+       the painting is asserted here. */
+    function controls() {
+      d.querySelector('.q-arrow[data-dir="1"]').click();
+      setTimeout(function () {
+        ok(curDot() === 1, 'next arrow selects review 2  (dot ' + (curDot() + 1) + ')');
+        dots[3].click();
+        setTimeout(function () {
+          ok(curDot() === 3, 'a dot selects its review  (dot ' + (curDot() + 1) + ')');
+          flick();
+        }, 500);
+      }, 500);
+    }
+
+    /* The reported bug. A vertical flick starting on a review used to drag it
+       sideways by however far the thumb wandered, then snap back when the
+       browser claimed the scroll. */
+    function flick() {
+      centre(2);
+      setTimeout(function () {
+        var before = view.scrollLeft;
+        var r = slides[2].getBoundingClientRect();
+        var x = r.left + r.width / 2, y0 = r.top + r.height / 2;
+        var el = d.elementFromPoint(x, y0) || view;
+        ['pointerdown', 'pointermove', 'pointermove', 'pointermove', 'pointerup'].forEach(function (t, k) {
+          var ev; try {
+            ev = new w.PointerEvent(t, { bubbles: true, cancelable: true, clientX: x + k * 3, clientY: y0 - k * 45,
+              pointerId: 1, pointerType: 'touch', isPrimary: true, buttons: t === 'pointerup' ? 0 : 1 });
+          } catch (e) { ev = null; }
+          if (ev) el.dispatchEvent(ev);
+        });
+        setTimeout(function () {
+          ok(Math.abs(view.scrollLeft - before) < 2,
+             'a vertical flick does not drag the reviews sideways  (moved ' +
+             Math.round(Math.abs(view.scrollLeft - before)) + 'px)');
+          ok(!view.classList.contains('is-dragging'), 'no drag state left behind');
+          note('\n' + bad + ' failing of ' + L.length);
+          note('DONE');
+        }, 500);
+      }, 400);
+    }
+   } catch (e) { ok(false, 'threw ' + e.message); note('DONE'); }
+  }
+});
+</script>

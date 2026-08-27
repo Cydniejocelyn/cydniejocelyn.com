@@ -1175,6 +1175,37 @@ button.door-note {
   cursor: grab;
   padding-block: var(--s-2);
 }
+
+/* THE TOUCH CAROUSEL. `q-native` is set by site.js on a coarse pointer, and
+   from here the browser owns the gesture: it picks the axis, it carries the
+   momentum, and it snaps. None of the transform dragging runs.
+
+   The old behaviour on a phone was a vertical flick that started on a review
+   dragging it sideways by however far the thumb wandered, then snapping back
+   when the browser claimed the scroll. There is nothing left to fight.
+
+   `overscroll-behavior-inline: contain` stops a swipe past the last review
+   turning into a back-navigation gesture. The scrollbar is hidden because
+   the dots underneath already say where you are. */
+.quotes.q-native .q-view {
+  overflow-x: auto;
+  overflow-y: hidden;
+  touch-action: pan-x pan-y;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  cursor: default;
+}
+.quotes.q-native .q-view::-webkit-scrollbar { display: none; }
+.quotes.q-native .q-track {
+  transform: none !important;
+  transition: none;
+  will-change: auto;
+}
+.quotes.q-native .q-slide { scroll-snap-align: center; }
+/* A slide set back by 6% is a slide whose snap point is 6% narrower, and the
+   browser rounds toward it. Dimming stays; the scale does not. */
+.quotes.q-native .q-slide { transform: none; }
 .q-view.is-dragging { cursor: grabbing; }
 .q-view:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 

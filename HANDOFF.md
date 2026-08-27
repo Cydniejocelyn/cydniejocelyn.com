@@ -29,6 +29,7 @@ four: The Letters was an anchor to a form on the home page and A Sounding was a 
 | Interaction suite | **121 assertions, all passing** (51 Greece, 33 Retreats, 19 A Sounding, 18 The Letters) |
 | Responsive audit | **7 pages clean at 320, 375, 430 and 768.** `tools/preview/_audit.html` |
 | Mobile menu | **112 contrast measurements, 0 failing.** `tools/preview/_menu.html` |
+| Touch carousel | **19 assertions on Retreats, 21 on Home, 0 failing.** `tools/preview/runcarousel.sh` |
 
 Do **not** write a deploy URL into this table. Session three did, and the next commit -- which
 was this file -- immediately made it wrong. `vercel ls --prod` is the answer and it cannot go
@@ -1744,3 +1745,55 @@ against the panel behind it. **112 measurements, 0 failing**, minimum
 entirely, which is the trap worth remembering: on this site the header has
 four states, and `surfaced` without `stuck` is the one nobody thinks to
 check.
+
+---
+
+## 15. The reviews carousel has two implementations now
+
+On a mouse it drags a transform under the pointer and snaps on release. That
+is right for a mouse: there is no competing gesture, and one to one tracking
+feels like handling the thing. **None of that changed.**
+
+On a touch screen it was wrong in a way that could not be tuned out.
+`pointerdown` captured the pointer and `pointermove` moved the track by raw
+`dx` **with no axis lock**, so a vertical flick that began anywhere on a
+review dragged it sideways by however far the thumb wandered while the page
+scrolled underneath. Then `touch-action: pan-y` did its job, the browser
+claimed the gesture as a scroll and fired `pointercancel`, and the release
+handler animated the track back. Jerk, then snap, every time you scrolled
+past the section.
+
+**On a coarse pointer none of that runs now.** `site.js` sets `q-native`, the
+view becomes a real horizontal scroller with CSS scroll snapping, and the
+browser owns the gesture: it picks the axis, it carries the momentum, and it
+cannot fight itself. The JS only listens, to keep the dots and the dimming in
+step. The whole fork is one `matchMedia("(pointer: coarse)")` and a class.
+
+### Three things that were wrong inside the fix
+
+Worth reading, because two of them would have shipped looking fine.
+
+1. **`offsetLeft` is relative to the nearest positioned ancestor, not to the
+   scroller.** Nothing between a slide and `.wrap` is positioned, so every
+   scroll target came back measured from the wrap and was about 60px out. The
+   arrows scrolled to not-quite-a-slide and the snap dragged it the rest of
+   the way, which looked like the carousel arguing with itself. It measures
+   from rectangles now.
+2. **The scroll sync threw its work into `requestAnimationFrame` behind a
+   `pending` guard.** rAF does not tick in a frame the compositor has stopped
+   drawing: a background tab, an offscreen iframe, a device saving power. The
+   guard then stayed true and the dots stopped following the scroll
+   permanently. There is a timer behind rAF now, whichever arrives first
+   wins. **This is the kind of bug that only appears in the conditions nobody
+   tests in**, and it was only found because the harness itself runs in one
+   of them.
+3. **Trailing padding on a flex scroll container is not reliably counted in
+   `scrollWidth`.** The scroller ran out before the last review reached the
+   middle and it sat about 19px right of centre. The leading side is padding;
+   the trailing side is a real spacer element, which is always counted.
+
+### Verifying it
+
+`tools/preview/runcarousel.sh`. **It must run with a coarse pointer or it
+tests the desktop path and passes.** See `tools/preview/README.md` for the
+flags and for the two things an offscreen frame will not do.

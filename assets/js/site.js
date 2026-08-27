@@ -743,6 +743,58 @@
     host.appendChild(bar);
     host.classList.add("is-live");
 
+    /* TWO CAROUSELS, AND THE SECOND ONE IS THE BROWSER'S.
+
+       On a mouse this drags a transform under the pointer, which is exactly
+       right: there is no competing gesture, and one to one tracking with a
+       snap on release feels like handling the thing.
+
+       On a touch screen it was wrong in a way that could not be tuned out.
+       `pointerdown` captured the pointer and `pointermove` moved the track by
+       raw dx with no axis lock, so a vertical flick that started anywhere on
+       a review dragged it sideways by whatever few pixels the thumb wandered
+       while the page scrolled underneath. Then `touch-action: pan-y` did its
+       job, the browser claimed the gesture as a scroll, fired
+       `pointercancel`, and the release handler animated the track back. Jerk,
+       then snap, on every scroll past the section.
+
+       So on a coarse pointer none of that runs. The view becomes a real
+       horizontal scroller with CSS scroll snapping and the browser owns the
+       gesture: it decides the axis, it carries the momentum, and it cannot
+       fight itself. The JS only listens, to keep the dots and the dimming in
+       step with wherever the scroll ended up.
+
+       Nothing below changes the desktop path. */
+    var coarse = window.matchMedia("(pointer: coarse)");
+    var native = coarse.matches;
+    if (native) host.classList.add("q-native");
+
+    /* Snapping centres a slide in the scrollport, and the first and last
+       cannot centre without something to scroll past. This is that
+       something, measured rather than guessed because the slide is
+       `min(42rem, 80vw)` and the view is whatever the gutter leaves.
+
+       The leading side is padding and the trailing side is a real element.
+       Trailing padding on a flex scroll container is not reliably counted in
+       `scrollWidth`, so the scroller runs out before the last review reaches
+       the middle: it ended up sitting about 19px right of centre, which on a
+       350px column is enough to look like a bug. A spacer is an actual flex
+       item and is always counted. */
+    var tail = null;
+    function padTrack() {
+      if (!native) return;
+      var slack = Math.max(0, (view.clientWidth - figs[0].offsetWidth) / 2);
+      track.style.paddingInline = "0px";
+      track.style.paddingLeft = slack + "px";
+      if (!tail) {
+        tail = document.createElement("span");
+        tail.setAttribute("aria-hidden", "true");
+        tail.style.cssText = "flex:0 0 auto;align-self:stretch";
+        track.appendChild(tail);
+      }
+      tail.style.width = slack + "px";
+    }
+
     function pad(n) { return (n < 10 ? "0" : "") + n; }
 
     /* where the track has to sit for slide i to be centred in the view */
@@ -775,8 +827,10 @@
       }, 700);
     }
 
-    function goTo(i, animate) {
-      i = Math.max(0, Math.min(N - 1, i));
+    /* Everything that says which review you are on, and nothing that moves
+       anything. Split out because the native scroller has to be able to
+       repaint from a scroll event without scrolling again and looping. */
+    function paint(i) {
       cur = i;
       figs.forEach(function (f, n) { f.classList.toggle("is-on", n === i); });
       dotEls.forEach(function (d, n) {
@@ -786,13 +840,83 @@
       prev.disabled = i === 0;
       next.disabled = i === N - 1;
       count.textContent = pad(i + 1) + " / " + pad(N);
+    }
+
+    /* Where the scroller has to sit for slide i to be centred.
+
+       Measured off rectangles rather than `offsetLeft`, which is relative to
+       the nearest POSITIONED ancestor and not to the scroller. Nothing
+       between a slide and `.wrap` is positioned, so `offsetLeft` came back
+       measured from the wrap and every target was about 60px out: the arrows
+       scrolled to not-quite-a-slide and the snap dragged it the rest of the
+       way, which looked like the carousel arguing with itself. Rects do not
+       care what is positioned. */
+    function scrollFor(i) {
+      var s = figs[i].getBoundingClientRect();
+      var v = view.getBoundingClientRect();
+      return Math.round(view.scrollLeft + (s.left - v.left) - (v.width - s.width) / 2);
+    }
+
+    function goTo(i, animate) {
+      i = Math.max(0, Math.min(N - 1, i));
+      paint(i);
+      if (native) {
+        var opts = { left: scrollFor(i) };
+        /* `smooth` is honoured unless the reader has asked for less, and a
+           carousel that jumps is still a carousel that works. */
+        if (animate !== false && !reduce.matches) opts.behavior = "smooth";
+        if (view.scrollTo) view.scrollTo(opts); else view.scrollLeft = opts.left;
+        return;
+      }
       place(xFor(i), animate !== false);
+    }
+
+    /* The scroll is the source of truth in native mode. rAF because a
+       momentum scroll fires this a lot, and repainting five slides on every
+       one of those is how a smooth scroll turns into a stuttering one. */
+    var lastScroll = 0;
+    if (native) {
+      var pending = false;
+
+      function syncFromScroll() {
+        pending = false;
+        var at = view.scrollLeft, best = 0, bestD = Infinity;
+        for (var i = 0; i < N; i++) {
+          var dd = Math.abs(scrollFor(i) - at);
+          if (dd < bestD) { bestD = dd; best = i; }
+        }
+        if (best !== cur) paint(best);
+      }
+
+      view.addEventListener("scroll", function () {
+        lastScroll = Date.now();
+        if (pending) return;
+        pending = true;
+
+        /* Throttled, because a momentum scroll fires this a lot and
+           repainting five slides on every one of those is how a smooth
+           scroll turns into a stuttering one.
+
+           rAF where it runs, and a timer behind it where it does not.
+           requestAnimationFrame does not tick in a frame the compositor has
+           stopped drawing -- a background tab, an offscreen iframe, a device
+           saving power -- and the first version of this held `pending` true
+           waiting for a frame that was never coming. The dots then stopped
+           following the scroll permanently, for the rest of the page's life,
+           and only in the conditions nobody tests in. Whichever arrives
+           first wins and the other becomes a no-op. */
+        var done = false;
+        function run() { if (done) return; done = true; syncFromScroll(); }
+        if (window.requestAnimationFrame) window.requestAnimationFrame(run);
+        window.setTimeout(run, 120);
+      }, { passive: true });
     }
 
     /* --- drag. Follows the pointer one to one, then snaps to whichever
        slide the release landed nearest. --- */
     var down = false, startX = 0, baseX = 0, dx = 0;
 
+    if (!native) {
     view.addEventListener("pointerdown", function (e) {
       if (e.button) return;
       down = true; dx = 0;
@@ -837,13 +961,27 @@
 
     /* a slide dragged half off screen must not drag the page with it */
     view.addEventListener("dragstart", function (e) { e.preventDefault(); });
+    }
 
+    padTrack();
     goTo(0, false);
-    window.addEventListener("resize", function () { goTo(cur, false); }, { passive: true });
+    window.addEventListener("resize", function () {
+      padTrack();
+      goTo(cur, false);
+    }, { passive: true });
 
     /* the faces land after this runs and every width moves when they do */
     var n = 0;
-    (function settle() { if (!down) goTo(cur, false); if (++n < 12) window.setTimeout(settle, 200); })();
+    (function settle() {
+      /* Re-centring under the reader's thumb mid-flick is its own glitch,
+         and this loop runs every 200ms for two and a half seconds while the
+         webfonts land. In native mode it waits for the scroller to be still
+         first; a momentum scroll keeps stamping `lastScroll`, so "still"
+         means the reader has actually stopped. */
+      var busy = native && (Date.now() - lastScroll) < 500;
+      if (!down && !busy) { padTrack(); goTo(cur, false); }
+      if (++n < 12) window.setTimeout(settle, 200);
+    })();
   }
 
   /* ---------- 13. FAQ, one at a time ------------------------ */
