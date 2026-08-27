@@ -9,43 +9,101 @@ fix it rather than working around it.
 
 ---
 
-## 0. State as of 26 August 2026, end of session four
+## 0. State as of 27 August 2026
 
-**Everything below §1 is reference. This section is where a new session starts.**
+**Everything below §1 is reference. This section is where a new session starts.
+If this section and anything below it disagree, this section is right.**
 
-**Seven pages are built. Five are live; two are built and not yet deployed.** Home, About,
-**The Build** (`/the-build/`), **Retreats** (`/retreats/`) and **Greece** (`/retreats/greece/`)
-are live. **A Sounding** (`/a-sounding/`) and **The Letters** (`/the-letters/`) were built in
-session four and are on `main`, unshipped. Run §2.
+**All seven pages are built, shipped and live.** Home, About,
+**The Build** (`/the-build/`), **Retreats** (`/retreats/`), **Greece**
+(`/retreats/greece/`), **A Sounding** (`/a-sounding/`) and **The Letters**
+(`/the-letters/`). Every one returns 200 in production.
 
-**Every nav target on this site now has a page behind it.** That was not true before session
-four: The Letters was an anchor to a form on the home page and A Sounding was a block on it.
+**Every nav target has a page behind it and every form goes somewhere real.**
+Neither was true two days ago: The Letters was an anchor to a dead form on the home page,
+A Sounding was a block on it, and the home page carried a `<form action="#">` that reloaded
+the page and threw the address away. There is no `action="#"` and no `<form>` element
+anywhere on the site now.
 
 | | |
 |---|---|
 | Production | the newest **Ready** row in `vercel ls --prod` |
-| `main` vs production | **Session four's two pages are NOT deployed.** Everything before them is. Check with `git log --oneline` — a commit that touches `HANDOFF.md`, `README.md` or `tools/` changes nothing a visitor sees. |
+| `main` vs production | **In sync.** Verify rather than assume: `git status --short` should be empty and `git rev-parse --short HEAD origin/main` should print the same hash twice. To prove production matches the tree, hash a page both ways: `shasum index.html` against `vercel curl <prod>/ -s \| shasum`. |
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
 | Interaction suite | **140 assertions, all passing** (57 Greece, 38 Retreats, 23 A Sounding, 22 The Letters) |
-| Responsive audit | **7 pages clean at 320, 375, 430 and 768.** `tools/preview/_audit.html` |
-| Mobile menu | **112 contrast measurements, 0 failing.** `tools/preview/_menu.html` |
-| Touch carousel | **19 assertions on Retreats, 21 on Home, 0 failing.** `tools/preview/runcarousel.sh` |
+| Responsive audit | **7 pages clean at 320, 375, 430 and 768** |
+| Mobile menu | **112 contrast measurements, 0 failing** |
+| Touch carousel | **19 on Retreats, 21 on Home, 0 failing** |
 | Footer | **One footer, byte for byte on all seven pages.** Asserted in the suite. |
 
-Do **not** write a deploy URL into this table. Session three did, and the next commit -- which
-was this file -- immediately made it wrong. `vercel ls --prod` is the answer and it cannot go
-stale.
+Do **not** write a deploy URL into this table. An earlier session did, and the very next
+commit -- which was this file -- immediately made it wrong. `vercel ls --prod` is the answer
+and it cannot go stale.
 
-**Deployment Protection is still ON,** so nobody outside the team can see any of it. See §1.
+**Deployment Protection is still ON,** so nobody outside the team can see any of it. It is one
+dashboard toggle and it is the only thing between this build and launch. See §1.
 
 ### Start here, in this order
 
 1. `export PATH="$HOME/.local/bin:$PATH"` — nothing works without it. §1.
-2. Recreate the preview: `export SP=<this session's scratchpad>` then
-   `sh tools/preview/sync.sh` and `python3 tools/preview/serve.py "$SP/preview" 8791`.
-   **Read `tools/preview/README.md` first.** The Claude preview pane died mid-session and the
-   harnesses in there are how anything got verified. Four traps documented, all expensive once.
-3. Ship with §2. It is seven pages now, and two of them have never been deployed.
+2. Recreate the preview:
+
+       export SP=<this session's scratchpad>
+       sh tools/preview/sync.sh
+       python3 tools/preview/serve.py "$SP/preview" 8814
+
+   **Check the port first.** A `serve.py` from an earlier session can still be holding one and
+   answering from a scratchpad that no longer exists, so new pages 404 while old ones return
+   200. `lsof -nP -iTCP:8814 -sTCP:LISTEN` before you debug a single route. Port 8791 was
+   still held at the end of this session.
+
+   **Re-run `sync.sh` after every edit.** Nothing you change is visible until you do, and it
+   re-lays the harnesses, which `rsync --delete` wipes.
+
+3. **Read `tools/preview/README.md` before debugging anything visual.** Six harnesses live in
+   `tools/preview/` and each exists because something expensive happened once:
+
+   | | |
+   |---|---|
+   | `runsuite.sh` | The 140-assertion interaction suite, headless. Run after touching `site.js` or `site.css`. |
+   | `_audit.html` | Seven pages at four widths: overflow, tap targets, stacked buttons, carousel, tiny text. |
+   | `_menu.html` | The open mobile menu, measured against its panel, at two scroll positions per page. |
+   | `runcarousel.sh` | The reviews on a touch screen. **Must run with the coarse-pointer flags or it tests the desktop path and passes.** |
+   | `_shot.html` | Screenshots at a real viewport. A tall window does not work here; `100vh` needs an iframe. |
+   | `_probe.html` | Scratch file for measuring one thing. |
+
+4. **Run the suite headless, and believe it over the preview pane.** The pane returns *wrong
+   answers* before it returns errors: it reported 41 of 43 on a page nothing had touched,
+   because an IntersectionObserver does not fire in a pane the compositor has stopped drawing.
+   It also suppresses `scroll` events on sub-scrollers entirely. If something fails on a page
+   you did not touch, run it headless before you believe it.
+
+5. Ship with §2.
+
+### A note on the section numbering below
+
+§11 through §17 are labelled "session four" through "session nine". **They were one
+continuous working session** across 26 and 27 August 2026, not six separate ones. Treat those
+labels as work phases in order, not as calendar sessions. Everything in them is current.
+
+### Where the recent work is
+
+| Looking for | Go to |
+|---|---|
+| A Sounding and The Letters, how they were built | §11 |
+| The A Sounding popup: which pages, and why three are excluded | §11 |
+| Flodesk, and why the popup cannot be reopened from the page | §11, §12 |
+| **The six HoneyBook form ids and what each one is** | §12 |
+| The Costa Rica picture pass, and the image grade and crop tooling | §12 |
+| **The single-column grid guard, and the blowout it prevents** | §13 |
+| The phone pass: buttons, tap targets, micro labels | §13 |
+| The mobile menu contrast bug | §14 |
+| **The reviews carousel: two implementations, and three bugs inside the fix** | §15 |
+| The one canonical footer, and the unboxed social marks | §16 |
+| The held heading, and the seam rule for full-bleed photographs | §17 |
+
+**The four that will bite hardest if you do not read them** are marked in bold: they are the
+ones where the correct-looking thing is wrong.
 
 ### What is left, and every one of them is Cydnie's decision
 
@@ -219,15 +277,49 @@ export PATH="$HOME/.local/bin:$PATH"
 cd ~/Desktop/cydniejocelyn-v2
 
 python3 tools/stamp.py                  # ALWAYS, after editing site.css or site.js
-                                        # it stamps all FIVE pages; add any new one to it
-python3 tools/build_artifact.py home
-python3 tools/build_artifact.py about
-python3 tools/build_artifact.py build
-python3 tools/build_artifact.py retreats
-python3 tools/build_artifact.py greece
+                                        # it stamps all SEVEN pages; add any new one to it
+sh tools/preview/runsuite.sh "$SP" 8814 # 140 assertions. Do not ship a red suite.
 git add -A && git commit -F <file>      # -F a file, NOT -m: see below
 git push origin main
 vercel deploy --prod --yes
+```
+
+`tools/build_artifact.py` takes seven page names now -- `home about build retreats greece
+sounding letters` -- and is only needed when republishing an artifact, which nothing has done
+since session one. It is not part of shipping the site.
+
+**Then verify, because "Ready" only means the build finished.** Deployment Protection makes
+plain `curl` useless here: it returns 200 with a login page for every path including ones that
+do not exist. Use `vercel curl`.
+
+```
+URL=<the deployment URL the deploy printed>
+for p in / /about/ /the-build/ /retreats/ /retreats/greece/ /a-sounding/ /the-letters/; do
+  printf "%-20s %s\n" "$p" "$(vercel curl "$URL$p" -s -o /dev/null -w '%{http_code}')"
+done
+```
+
+Seven 200s. Then prove production is actually *this* tree rather than merely a recent one, by
+hashing both sides:
+
+```
+shasum index.html | cut -c1-8
+vercel curl "$URL/" -s | shasum | cut -c1-8
+```
+
+Two identical hashes means production is the working tree, byte for byte. A deploy that
+succeeded and a deploy that shipped what you wrote are different claims.
+
+**The working documents must stay 404.** Twelve folders in this repo are excluded in
+`.vercelignore`: five media libraries totalling about 59GB, and **seven folders of working
+documents** -- `The Build page/`, `Greece Retreat/`, `Retreat drafts/`, `A Sounding/`,
+`The Letters Page/`, `the questions/` and `Privacy terms page/`. The build brief was once live
+at a guessable path. **Add a folder to `.vercelignore` the same day it lands**, before doing
+anything else with it. After any deploy that
+added a folder, check:
+
+```
+vercel curl "$URL/HANDOFF.md" -s -o /dev/null -w '%{http_code}'      # must be 404
 ```
 
 Then republish the artifacts with the `Artifact` tool, passing each one's existing URL.
@@ -256,7 +348,7 @@ Fixed two ways, and **both are needed**:
 - The links carry `?v=<content hash>`. `immutable` means a browser will not even *ask*, so only
   a changed URL rescues a cache that is already poisoned.
 
-`stamp.py` regenerates that hash from the file contents. Current: `438d51e3`. Skip it and she
+`stamp.py` regenerates that hash from the file contents. Current: `33b9e7a7`, and it changes every time you touch either file, so do not trust a hash written down here over `python3 tools/stamp.py`. Skip it and she
 sees a stale site with no error anywhere.
 
 ---
@@ -522,13 +614,13 @@ and clear it — "the instrument without the words", which is what mobile was al
    logo washed out, and on The Build, which is light from the first pixel, that was the first
    thing anyone saw. `mark-horiz-ink-{500,800,1200}.webp` is the same drawing repainted from
    the light mark's alpha channel — Fathom for the wordmark, Meniscus for the subline, same
-   aspect ratio so the swap does not shift the header. All three pages now use it. The old
+   aspect ratio so the swap does not shift the header. All seven pages use it. The old
    asset is still on disk and is no longer referenced.
 
 Also fixed in passing: `about/index.html` closed its footer with `.ftr-base`, which is not a
 class that exists. It is `.ftr-btm`.
 
-**Navigation, all three pages:** The Build · Retreats · The Letters · About, with **A Sounding**
+**Navigation, all seven pages:** The Build · Retreats · The Letters · About, with **A Sounding**
 as the call. Per `about.html`. The Build now points at `/the-build/` everywhere; Retreats and
 The Letters are still home-page anchors. See §7.7.
 
@@ -591,7 +683,7 @@ load, all revealed once scrolled past, and **with JS off every paragraph is visi
    hidden `tag` field either way.
 3. **Privacy is linked. Terms still does not exist, and privacy has a cutover trap.**
    `https://cydniejocelyn.com/privacy-policy` is on the client's link list, returns 200 today,
-   and is now in the footer of all three pages. It is **absolute on purpose**: it resolves now
+   and is in the footer of all seven pages. It is **absolute on purpose**: it resolves now
    on the Vercel URL, and it resolves to the same place after the domain cuts over.
 
    **The trap:** that page lives on the OLD site. The moment `cydniejocelyn.com` points at this
@@ -649,7 +741,7 @@ different offers:**
 
 | ID | What it is | Where it belongs |
 |---|---|---|
-| `6a185c26693e14802690e9f6` | **1:1 Session** | This is **A Sounding**. Every "Book one conversation" on all three pages. Correct everywhere already. |
+| `6a185c26693e14802690e9f6` | **1:1 Session** | This is **A Sounding**. Every "Book one conversation" across the site, and the destination of the A Sounding popup. |
 | `69f9f2a095c611cc2401eec7` | **Branding session** (also listed as "Book a consult" and "Discovery call") | The Build. **Deliberately not used** — see below. |
 | `6a18613d417c9c7126ec42e3` | **Book a call**, filed under Home Page | Not used. A generic call from the old site with no equivalent block here. |
 
@@ -727,7 +819,7 @@ rebuilding it.** Two commands:
 
     export SP=<this session's scratchpad>
     sh tools/preview/sync.sh
-    python3 tools/preview/serve.py "$SP/preview" 8791
+    python3 tools/preview/serve.py "$SP/preview" 8814   # check the port is free first
 
 That folder also holds the three harnesses session three had to write when the Claude preview
 pane stopped responding: `_shot.html` for screenshots at a real viewport, `_test.html` for the
@@ -1010,7 +1102,7 @@ its `<figcaption>` hung out of the bottom, over whatever came next. On the Greec
 the caption of the deck photograph printing on top of the excursion note.
 
 The aspect ratio already gives every one of these a height, so nothing needed the 100%. It is
-`height: auto` now. Swept afterward: 57 figures across all five pages, none with a caption
+`height: auto` now. Swept afterward: 57 figures across the five pages that existed then, none with a caption
 outside its figure.
 
 `.pair--calm` also stopped 250px short of the right edge that the stats, the disclosure rows
@@ -1383,7 +1475,7 @@ the popup then silently declines to run on every page for a month. If it will no
 
 **And one that is not ours:** a `serve.py` from an earlier session can still hold port 8791 and
 answer from a scratchpad that no longer exists, so new pages 404 while the old ones return 200.
-Check `lsof -nP -iTCP:8791 -sTCP:LISTEN` before debugging a route. Session four moved to 8814.
+Check `lsof -nP -iTCP:<port> -sTCP:LISTEN` before debugging a route. 8791 was still held at the end of 27 August; 8814 is what everything since has used.
 
 ### Two more folders arrived after the session's instructions, and neither was built
 
