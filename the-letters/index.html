@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css?v=77e82fa4">
+<link rel="stylesheet" href="../assets/css/site.css?v=795d2777">
 <script>document.documentElement.className += " js-motion";</script>
 
 <script type="application/ld+json">
@@ -144,7 +144,7 @@
     <span class="wl-rule" aria-hidden="true"></span>
     <p class="lead r-up" style="--d:60ms">One letter a week about what it actually costs to run the thing you built.</p>
     <div class="actions r-up" style="--d:120ms">
-      <a class="btn" href="#signup">
+      <a class="btn" href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/6a19d46a5cb4c5d7f86446a9" rel="noopener">
         <span>Get the letters</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
@@ -215,18 +215,16 @@
 </section>
 
 <!-- 05 / SIGNUP.
-     The list runs on Flodesk, form 6a8f553c9f30a024ac4f2a82, which Cydnie
-     confirmed on 26 August 2026 is a POPUP form rather than an inline one.
-     A popup form cannot be rendered into this section, so this block gives
-     it a button and opens it on click.
+     One destination, HoneyBook, on Cydnie's instruction of 26 August 2026.
+     It is a plain link out rather than a form or a scripted control, which
+     means it works with JavaScript off, it can be opened in a new tab, and
+     there is nothing here that can fail silently.
 
-     VERIFY ON THE LIVE SITE: Flodesk's popup forms are usually configured
-     with their own trigger in the dashboard (timed, exit intent, or on
-     click). If this button does not open it, set that form's trigger to
-     "on click" in Flodesk and point it at #letters-open, which is the id
-     below. The button only appears once Flodesk has actually loaded, so a
-     blocked or failed script leaves the email address behind instead of a
-     dead control. -->
+     This replaced a button that opened the Flodesk popup. That button could
+     never be made to work from this page: Flodesk evaluates a popup's
+     trigger once, at init, and exposes no command to reopen it. See the note
+     above the Flodesk snippet at the foot of this file, which is still
+     loaded and still collecting on its own trigger. -->
 <section class="section z-deepwater" data-zone style="--from:var(--fathom)" id="signup" aria-labelledby="lt-signup">
   <div class="wrap">
     <p class="eyebrow r-fade">Free</p>
@@ -236,12 +234,10 @@
       <p>Weekly. You can leave whenever you want, and the link to do it is at the bottom of every one.</p>
     </div>
     <div class="actions r-up" style="--d:120ms; margin-top:var(--s-6)">
-      <button class="btn btn--solid" type="button" id="letters-open" hidden data-flodesk-form="6a8f553c9f30a024ac4f2a82">
+      <a class="btn btn--solid" href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/6a19d46a5cb4c5d7f86446a9" rel="noopener">
         <span>Get the letters</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
-      </button>
-      <!-- Shown until Flodesk answers, and left standing if it never does. -->
-      <p class="small" id="letters-fallback">Send me your address at <a class="link" href="mailto:hello@cydniejocelyn.com?subject=The%20Letters">hello@cydniejocelyn.com</a> and I will add you.</p>
+      </a>
     </div>
     <p class="tiny r-up" style="--d:180ms; margin-top:var(--s-5)">No onboarding sequence, and no pitch on arrival.</p>
   </div>
@@ -291,6 +287,7 @@
             <li><a href="/about/">About Cydnie</a></li>
             <li><a href="/a-sounding/#faq">Questions</a></li>
             <li><a href="/the-letters/">The Letters</a></li>
+            <li><a href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa372ccd31fefc073c5d28" rel="noopener">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -302,57 +299,39 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=77e82fa4" defer></script>
+<script src="../assets/js/site.js?v=795d2777" defer></script>
 
-<!-- Flodesk. The universal snippet from `The Letters Page/FlodeskPopup (1).tsx`,
-     translated out of React because this site has no React in it. Same
-     script, same form id, same guard against loading it twice.
+<!-- Flodesk, form 6a8f553c9f30a024ac4f2a82. This is Cydnie's own embed
+     snippet from the dashboard, unchanged apart from a guard against loading
+     their script twice: same arguments, same order, same `?v=` cache key.
 
-     Form 6a8f553c9f30a024ac4f2a82 is a POPUP form. Verified live on
-     26 August 2026: it fires on its own configured trigger and its own copy
-     reads "One letter a week", which is what settled the weekly question.
+     TWO WAYS IN, AND THAT IS DELIBERATE. The signup buttons on this page go
+     to HoneyBook. This popup fires on Flodesk's own trigger and collects into
+     Flodesk. Cydnie decided on 26 August 2026 to keep both: the popup is the
+     one she expects to convert, and the button is there for the reader who
+     dismissed it or arrived with it already capped.
 
-     This is Flodesk's own embed snippet, unchanged: same arguments, same
-     order, same `?v=` cache key. The only thing added is the guard against
-     loading their script twice.
+     THE COST, WRITTEN DOWN SO NOBODY DISCOVERS IT LATER: addresses land in
+     two systems and neither knows about the other. Nothing on this page
+     reconciles them and nothing can. Before any letter goes out, export both
+     and merge, and expect duplicates from anyone who did both.
 
-     What is NOT possible from here: reopening it after a reader closes it.
-     Four things were tried and all four failed, on a modal confirmed hidden:
+     It is scoped to this page and only this page. Flodesk is on no other
+     page on the site, which is what keeps this to one product rather than a
+     popup following people around.
 
-       1. `fd('open', {formId})`          not a command their dispatcher answers
-       2. re-calling `fd('form', {formId})`  no effect; the trigger is
-                                          evaluated once, at init
-       3. toggling classes on their markup   open and closed are byte for byte
-                                          identical in class list and in every
-                                          attribute; they swap an injected
-                                          stylesheet instead
-       4. clearing their dismissal storage, then 1 and 2 again   still nothing
+     Flodesk caps its own frequency and will look broken while you test it.
+     A dismissal is recorded in three places and then it declines to show:
 
-     Only a full page load re-evaluates the trigger.
+       sessionStorage   fd-form-<id>-dismissed         this browsing session
+       localStorage     fd-form-<id>-dismissed-count   across sessions
+       cookie           fd-form-<id>-dismissed-count   same value
 
-     FLODESK'S OWN FREQUENCY CAP, worth knowing before testing. It records a
-     dismissal in three places and then declines to show the popup again:
-
-       sessionStorage  fd-form-<id>-dismissed         this browsing session
-       localStorage    fd-form-<id>-dismissed-count   across sessions
-       cookie          fd-form-<id>-dismissed-count   same value
-
-     So the popup does not nag, and if it "stops working" while you are
-     testing, that is the cap and not a bug. Clear those three and reload.
-
-     TO WIRE THE BUTTON PROPERLY: in Flodesk, set this form's display trigger
-     to "on click" and point it at the selector #letters-open, which is the
-     button below. Nothing here needs to change when you do; the button
-     starts working and the fallback below stops appearing.
-
-     Until then the button tries anyway, checks 600ms later whether the modal
-     actually became visible, and if it did not, puts the email address on
-     screen instead. A reader is never left holding a button that does
-     nothing. -->
+     Clear those three and reload. Nothing in the page can reopen it: the
+     trigger is evaluated once, at init, and `fd('open')` is not a command
+     their dispatcher answers. -->
 <script>
 (function (w, d) {
-  var FORM = '6a8f553c9f30a024ac4f2a82';
-
   if (!d.querySelector('script[src*="flodesk"]')) {
     (function (w, d, t, h, s, n) {
       w.FlodeskObject = n;
@@ -368,43 +347,7 @@
       f.parentNode.insertBefore(sn, f);
     })(w, d, 'script', 'https://assets.flodesk.com', '/universal', 'fd');
   }
-
-  if (w.fd) { w.fd('form', { formId: FORM }); }
-
-  var btn  = d.getElementById('letters-open');
-  var fall = d.getElementById('letters-fallback');
-  if (!btn) return;
-
-  /* Flodesk's own markup, which is the only thing that can answer whether
-     the modal is on screen. Absent until their script has built it. */
-  function modalVisible() {
-    var m = d.querySelector('.ff-' + FORM + '__modal');
-    return !!m && getComputedStyle(m).visibility !== 'hidden';
-  }
-  function showFallback() {
-    if (fall) fall.hidden = false;
-  }
-
-  btn.addEventListener('click', function () {
-    try { w.fd('open', { formId: FORM }); } catch (e) {}
-    w.setTimeout(function () { if (!modalVisible()) showFallback(); }, 600);
-  });
-
-  /* The button ships hidden and is revealed only once Flodesk has really
-     answered. `window.fd` exists immediately as a queue stub, so the stub
-     alone proves nothing: the queue draining is what proves the library
-     loaded. Ten seconds, then give up and leave the email address standing. */
-  var waited = 0;
-  var poll = w.setInterval(function () {
-    waited += 250;
-    if (w.fd && w.fd.q === undefined) {
-      btn.hidden = false;
-      if (fall) fall.hidden = true;
-      w.clearInterval(poll);
-    } else if (waited >= 10000) {
-      w.clearInterval(poll);
-    }
-  }, 250);
+  w.fd('form', { formId: '6a8f553c9f30a024ac4f2a82' });
 })(window, document);
 </script>
 

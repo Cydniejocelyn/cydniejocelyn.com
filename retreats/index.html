@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css?v=77e82fa4">
+<link rel="stylesheet" href="../assets/css/site.css?v=795d2777">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- The Greece Event itself lives on /retreats/greece/, which is its
@@ -82,11 +82,12 @@
       "@id": "https://cydniejocelyn.com/retreats/#faq",
       "mainEntity": [
         { "@type": "Question", "name": "Do I have to come with someone?", "acceptedAnswer": { "@type": "Answer", "text": "Most women come alone. That is the normal way to do this, not the brave version of it. Fifteen is small enough that by the second day you are not on the edge of anything." } },
-        { "@type": "Question", "name": "Is a retreat a work thing or a rest thing?", "acceptedAnswer": { "@type": "Answer", "text": "Rest. There is no curriculum, no deliverable, and nothing to report back on. Diagnostic work is A Sounding, and that is a separate thing you can book any time." } },
-        { "@type": "Question", "name": "What does a retreat cost and how do I hold a seat?", "acceptedAnswer": { "@type": "Answer", "text": "Greece is $3,265 at the early rate through 6 September 2026 and $3,450 after that, with a $500 non-refundable deposit. April 2027 is not priced yet. Every figure is published on the retreat's own page rather than sent after a call." } },
-        { "@type": "Question", "name": "What fitness level does a retreat require?", "acceptedAnswer": { "@type": "Answer", "text": "None in particular. Movement is led by Kris Krause and designed around who is in the room. Where the walking is on uneven ground it is said so on that retreat's page." } },
-        { "@type": "Question", "name": "Can I book a private retreat for my own group?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Small groups, teams, and communities. Pricing depends on where and how long, so it starts with a conversation rather than a number." } },
-        { "@type": "Question", "name": "Do I need travel insurance?", "acceptedAnswer": { "@type": "Answer", "text": "It is not required and I would buy it anyway, on the day you book. The deposit is non-refundable and your flight is booked months out. Insurance is the only thing covering either of those." } }
+        { "@type": "Question", "name": "Is this a work thing or a rest thing?", "acceptedAnswer": { "@type": "Answer", "text": "Rest. There is no curriculum, no deliverable, and nothing you have to report back on. I am a consultant and I do run diagnostic work, but that is A Sounding and it is a separate thing you can book any time." } },
+        { "@type": "Question", "name": "What fitness level does this require?", "acceptedAnswer": { "@type": "Answer", "text": "None in particular. Movement is led by Kris Krause and designed around who is in the room, not around who is fittest. Where the walking is on uneven ground it says so on that retreat’s page, and if stairs and trails are a real concern, tell me before you book and I will be straight with you." } },
+        { "@type": "Question", "name": "Can you accommodate how I eat?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. List anything when you book and it reaches the kitchen well before you land." } },
+        { "@type": "Question", "name": "What does it cost and how do I hold a seat?", "acceptedAnswer": { "@type": "Answer", "text": "Greece is $3,265 at the early rate through 6 September 2026 and $3,450 after that, with a $500 non-refundable deposit. April 2027 is not priced yet; when it is, the letters hear first. Every figure is published on the retreat’s own page." } },
+        { "@type": "Question", "name": "Do I need travel insurance?", "acceptedAnswer": { "@type": "Answer", "text": "It is not required and I would buy it anyway, on the day you book. The deposit is non-refundable and your flight will be booked months out. Insurance is the only thing covering either of those." } },
+        { "@type": "Question", "name": "Can I book a private retreat for my own group?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Small groups, teams and communities. Send an inquiry and we will start with what you are actually trying to give them." } }
       ]
     }
   ]
@@ -201,6 +202,36 @@
         <p class="eyebrow r-fade">The format</p>
         <h2 class="head h-2 split" id="fmt-h">Fifteen.</h2>
         <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
+        <!-- The ring. Same mark and same movement as the home page, and the
+             geometry is copied from it rather than re-derived, so the two cannot
+             drift apart. Fourteen fill as she scrolls past and the fifteenth
+             stays open, which is the seat being described three inches to the
+             left. site.js finds it by class and needs no change.
+
+             It sits under the heading rather than beside it because this section
+             already runs a two column grid, and a third column would turn a
+             statement into a dashboard. -->
+        <figure class="fifteen-fig rt-ring r-img">
+            <svg viewBox="0 0 160 160" role="img" aria-labelledby="rt-fif-t">
+            <title id="rt-fif-t">Fifteen circles in a ring. Fourteen are filled; one, at the top, is an open outline.</title>
+            <circle class="dot is-her" cx="79.25" cy="24.70" r="7.90"></circle>
+            <circle class="dot" cx="103.59" cy="29.53" r="7.58"></circle>
+            <circle class="dot" cx="122.80" cy="44.39" r="7.58"></circle>
+            <circle class="dot" cx="133.75" cy="65.33" r="7.58"></circle>
+            <circle class="dot" cx="135.33" cy="86.32" r="7.58"></circle>
+            <circle class="dot" cx="128.33" cy="107.54" r="7.58"></circle>
+            <circle class="dot" cx="113.17" cy="124.18" r="7.58"></circle>
+            <circle class="dot" cx="90.33"  cy="134.74" r="7.58"></circle>
+            <circle class="dot" cx="66.22"  cy="133.99" r="7.58"></circle>
+            <circle class="dot" cx="46.03"  cy="124.18" r="7.58"></circle>
+            <circle class="dot" cx="31.66"  cy="107.77" r="7.58"></circle>
+            <circle class="dot" cx="24.65"  cy="86.35"  r="7.58"></circle>
+            <circle class="dot" cx="26.73"  cy="64.13"  r="7.58"></circle>
+            <circle class="dot" cx="36.90"  cy="44.81"  r="7.58"></circle>
+            <circle class="dot" cx="54.21"  cy="30.61"  r="7.58"></circle>
+            </svg>
+          <figcaption class="fig-cap">Alone in a group of fifteen</figcaption>
+        </figure>
       </div>
       <div class="col-e">
         <div class="body stack r-up" style="--d:60ms">
@@ -408,8 +439,18 @@
 
          The first pass here was three pool candids. They are true and they
          all said the same thing. These three say three different things, and
-         two of them have nobody's face in them, which is the board's own
-         direction: photograph from behind, above, or in fragment. -->
+         two of them have nobody's face turned to camera, which is the board's
+         own direction: photograph from behind, above, or in fragment.
+
+         SECOND PASS, 26 August 2026. Two of the three were replaced on
+         Cydnie's note that they clashed with the site, and in both cases the
+         clash was the subject rather than the grade. The floor frame was
+         amber boards under a spread of rainbow cards, two saturated colour
+         families the palette does not contain. The water frame was a guest
+         facing camera holding a coconut, the one picture on the page that
+         read as stock, and its alt text described a different photograph
+         entirely. Both replacements are shot from behind. See
+         tools/retreat_images.py. -->
     <figure class="layer-band layer-band--tall layer-band--par r-img" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
       <img class="par" data-speed="0.06"
            src="../assets/img/retreats/cr-room-1200.webp"
@@ -422,19 +463,19 @@
 
     <div class="pair" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
       <figure class="layer-fig r-img">
-        <img src="../assets/img/retreats/cr-cards-600.webp"
-             srcset="../assets/img/retreats/cr-cards-600.webp 600w, ../assets/img/retreats/cr-cards-1000.webp 1000w"
-             sizes="(min-width: 42rem) 44vw, 100vw" width="1000" height="1500"
+        <img src="../assets/img/retreats/cr-floor-600.webp"
+             srcset="../assets/img/retreats/cr-floor-600.webp 600w, ../assets/img/retreats/cr-floor-1000.webp 1000w"
+             sizes="(min-width: 42rem) 44vw, 100vw" width="1000" height="1613"
              loading="lazy" decoding="async"
-             alt="Hands laying cards out on a wooden floor in low afternoon light, one bare foot at the edge of the frame.">
+             alt="Eight women sitting on mats on an open pavilion floor, most of them seen from behind, writing in notebooks with palms and ginger flowers behind them.">
         <figcaption>The middle of the week, on the floor</figcaption>
       </figure>
       <figure class="layer-fig r-img">
-        <img src="../assets/img/retreats/cr-water-600.webp"
-             srcset="../assets/img/retreats/cr-water-600.webp 600w, ../assets/img/retreats/cr-water-1000.webp 1000w"
+        <img src="../assets/img/retreats/cr-surf-600.webp"
+             srcset="../assets/img/retreats/cr-surf-600.webp 600w, ../assets/img/retreats/cr-surf-1000.webp 1000w"
              sizes="(min-width: 42rem) 44vw, 100vw" width="1000" height="1778"
              loading="lazy" decoding="async"
-             alt="A woman walking alone out of the surf onto the wet sand, the sea behind her.">
+             alt="Two women standing together in the shallows with their backs to the camera, looking out at the breaking surf.">
         <figcaption>Everyone does this at some point</figcaption>
       </figure>
     </div>
@@ -575,45 +616,69 @@
   </div>
 </section>
 
-<!-- 09 / QUESTIONS. -->
+<!-- 09 / QUESTIONS.
+     Seven accordions in one stack read as a form to be worked through, which
+     is the opposite of what this page is arguing. They are in two movements
+     now, in the order the worry actually arrives: first whether the week is
+     for her at all, then, only once that is settled, what it costs and what
+     has to be arranged. Each movement opens with one line of prose, so the
+     reader is travelling rather than scanning a list.
+
+     The questions themselves are unchanged and still exclusive-open, so the
+     behaviour and the FAQPage schema are untouched by the regrouping. The
+     schema in the head is generated from this markup; if you edit a question
+     here, regenerate rather than hand-editing both. -->
 <section class="section z-silt" data-zone style="--from:var(--surface)" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
     <div class="grid-12">
       <div class="col-d">
         <p class="eyebrow r-fade">Before you ask</p>
         <h2 class="head h-2 split" id="faq-h">Questions.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
+        <p class="small muted r-up" style="--d:60ms; margin-top:var(--s-5); max-width:24rem">These are the ones that arrive first, and they arrive in this order. Almost nobody asks the second half until the first half is settled.</p>
       </div>
       <div class="col-e">
-        <div class="faq r-up" style="--d:60ms">
-          <details>
-            <summary>Do I have to come with someone? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Most women come alone. That is the normal way to do this, not the brave version of it. Fifteen is small enough that by the second day you are not on the edge of anything.</p></div>
-          </details>
-          <details>
-            <summary>Is this a work thing or a rest thing? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Rest. There is no curriculum, no deliverable, and nothing you have to report back on. I am a consultant and I do run diagnostic work, but that is <a class="link" href="/the-build/">A Sounding</a> and it is a separate thing you can book any time.</p></div>
-          </details>
-          <details>
-            <summary>What does it cost and how do I hold a seat? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Greece is $3,265 at the early rate through 6 September 2026 and $3,450 after that, with a $500 non-refundable deposit. April 2027 is not priced yet; when it is, the list hears first. Every figure is published on the retreat&rsquo;s own page rather than sent after a call.</p></div>
-          </details>
-          <details>
-            <summary>What fitness level does this require? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>None in particular. Movement is led by Kris Krause and designed around who is in the room, not around who is fittest. Where the walking is on uneven ground it says so on that retreat&rsquo;s page, and if stairs and trails are a real concern, tell me before you book and I will be straight with you.</p></div>
-          </details>
-          <details>
-            <summary>Can you accommodate how I eat? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Yes. List anything when you book and it reaches the kitchen well before you land.</p></div>
-          </details>
-          <details>
-            <summary>Can I book a private retreat for my own group? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Yes. Small groups, teams and communities. <a class="link" href="#private">Send an inquiry</a> and we will start with what you are actually trying to give them.</p></div>
-          </details>
-          <details>
-            <summary>Do I need travel insurance? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>It is not required and I would buy it anyway, on the day you book. The deposit is non-refundable and your flight will be booked months out. Insurance is the only thing covering either of those.</p></div>
-          </details>
+
+        <div class="rt-qs r-up" style="--d:60ms">
+          <p class="rt-qs-lead">Most of it comes down to one worry, which is whether you would be the wrong person in the room.</p>
+          <div class="faq">
+            <details>
+              <summary>Do I have to come with someone? <span class="sign" aria-hidden="true"></span></summary>
+              <div class="answer"><p>Most women come alone. That is the normal way to do this, not the brave version of it. Fifteen is small enough that by the second day you are not on the edge of anything.</p></div>
+            </details>
+            <details>
+              <summary>Is this a work thing or a rest thing? <span class="sign" aria-hidden="true"></span></summary>
+              <div class="answer"><p>Rest. There is no curriculum, no deliverable, and nothing you have to report back on. I am a consultant and I do run diagnostic work, but that is <a class="link" href="/a-sounding/">A Sounding</a> and it is a separate thing you can book any time.</p></div>
+            </details>
+            <details>
+              <summary>What fitness level does this require? <span class="sign" aria-hidden="true"></span></summary>
+              <div class="answer"><p>None in particular. Movement is led by Kris Krause and designed around who is in the room, not around who is fittest. Where the walking is on uneven ground it says so on that retreat&rsquo;s page, and if stairs and trails are a real concern, tell me before you book and I will be straight with you.</p></div>
+            </details>
+            <details>
+              <summary>Can you accommodate how I eat? <span class="sign" aria-hidden="true"></span></summary>
+              <div class="answer"><p>Yes. List anything when you book and it reaches the kitchen well before you land.</p></div>
+            </details>
+          </div>
         </div>
+
+        <div class="rt-qs r-up" style="--d:120ms">
+          <p class="rt-qs-lead">The rest is arithmetic and dates, and all of it is published rather than sent after a call.</p>
+          <div class="faq">
+            <details>
+              <summary>What does it cost and how do I hold a seat? <span class="sign" aria-hidden="true"></span></summary>
+              <div class="answer"><p>Greece is $3,265 at the early rate through 6 September 2026 and $3,450 after that, with a $500 non-refundable deposit. April 2027 is not priced yet; when it is, <a class="link" href="/the-letters/">the letters</a> hear first. Every figure is published on the retreat&rsquo;s own page.</p></div>
+            </details>
+            <details>
+              <summary>Do I need travel insurance? <span class="sign" aria-hidden="true"></span></summary>
+              <div class="answer"><p>It is not required and I would buy it anyway, on the day you book. The deposit is non-refundable and your flight will be booked months out. Insurance is the only thing covering either of those.</p></div>
+            </details>
+            <details>
+              <summary>Can I book a private retreat for my own group? <span class="sign" aria-hidden="true"></span></summary>
+              <div class="answer"><p>Yes. Small groups, teams and communities. <a class="link" href="#private">Send an inquiry</a> and we will start with what you are actually trying to give them.</p></div>
+            </details>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -667,6 +732,7 @@
             <li><a href="/about/">About Cydnie</a></li>
             <li><a href="/retreats/greece/">Greece 2027</a></li>
             <li><a href="/the-letters/">The Letters</a></li>
+            <li><a href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa372ccd31fefc073c5d28" rel="noopener">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -678,7 +744,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=77e82fa4" defer></script>
+<script src="../assets/js/site.js?v=795d2777" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

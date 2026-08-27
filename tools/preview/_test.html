@@ -226,14 +226,49 @@ f.addEventListener('load', function(){
         !!sp && w.getComputedStyle(sp).backgroundColor!==w.getComputedStyle(sp.closest('section')).backgroundColor);
      ok('letters: two items in the pair, deliberately not three',
         d.querySelectorAll('.lt-pair > div').length===2);
-     var lb=d.getElementById('letters-open'), lfb=d.getElementById('letters-fallback');
-     ok('letters: exactly one of the signup button and the email fallback is showing',
-        !!lb && !!lfb && (lb.hidden !== lfb.hidden));
+     var LETTERS='cf_id/6a19d46a5cb4c5d7f86446a9';
+     var ctas=[].slice.call(d.querySelectorAll('.lt-head .btn, #signup .btn'));
+     ok('letters: both Get the letters CTAs are links to the real form ('+ctas.length+')',
+        ctas.length===2 && ctas.every(function(a){
+          return a.tagName==='A' && (a.getAttribute('href')||'').indexOf(LETTERS)>-1; }));
+     ok('letters: no dead control left where the Flodesk button was',
+        !d.getElementById('letters-open') && !d.getElementById('letters-fallback'));
      ok('letters: the A Sounding popup IS on this page',
         !!d.querySelector('script[src*="sounding-popup"]'));
      ok('letters: nav marks this page current',
         !!d.querySelector('.nav-links a[href="/the-letters/"][aria-current="page"]'));
    }
+   // ---- the second picture pass and the ring, on /retreats/ ----
+   if(d.querySelector('#format')){
+     var ring=d.querySelector('.rt-ring');
+     ok('retreats: the fifteen ring is on the format section', !!ring);
+     ok('retreats: fifteen circles, one of them the open seat',
+        !!ring && ring.querySelectorAll('circle').length===15 &&
+        ring.querySelectorAll('circle.is-her').length===1);
+     ok('retreats: the ring dots are not painted Breath on a light ground',
+        !ring || w.getComputedStyle(ring.querySelector('.dot')).fill !== 'rgb(159, 204, 198)');
+     var srcs=[].slice.call(d.images).map(function(i){return i.getAttribute('src')||'';}).join(' ');
+     ok('retreats: the two clashing frames are gone',
+        srcs.indexOf('cr-cards')===-1 && srcs.indexOf('cr-water')===-1);
+     ok('retreats: their replacements are in place',
+        srcs.indexOf('cr-floor')>-1 && srcs.indexOf('cr-surf')>-1);
+     ok('retreats: the questions are in two movements, not one stack',
+        d.querySelectorAll('.rt-qs').length===2 &&
+        d.querySelectorAll('.rt-qs-lead').length===2 &&
+        d.querySelectorAll('.faq details').length===7);
+   }
+   // ---- the ask block on /retreats/greece/ ----
+   if(d.querySelector('#booking')){
+     var ask=d.querySelector('#ask');
+     ok('greece: the ask block is on the page', !!ask);
+     ok('greece: it points at the contact form',
+        !!ask && !!ask.querySelector('a[href*="cf_id/69fa372ccd31fefc073c5d28"]'));
+     ok('greece: it does not open a second door to the retreat',
+        !!ask && ask.querySelectorAll('.btn').length===1);
+   }
+   // ---- footer contact, every page ----
+   ok('footer: Contact reaches the contact form',
+      !!d.querySelector('.ftr a[href*="cf_id/69fa372ccd31fefc073c5d28"]'));
      // ---- no horizontal overflow ----
      ok('layout: no horizontal overflow', d.documentElement.scrollWidth<=d.documentElement.clientWidth+1);
      var shown=[].filter.call(d.images,function(i){

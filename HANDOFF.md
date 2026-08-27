@@ -48,9 +48,9 @@ stale.
 | # | Waiting on Cydnie | Where |
 |---|---|---|
 | 1 | **Deployment Protection is ON.** One dashboard toggle. Nothing else blocks launch. | §1 |
-| 2 | **The Flodesk popup cannot be reopened from the page.** The form is live and correct on `/the-letters/`, but its "Get the letters" button only works once Flodesk's own trigger is set to "on click" on `#letters-open`. **One dashboard setting.** Until then the button falls back to the email address. | §11 |
-| 3 | **The home page's `#questions` form is now redundant** and still `action="#"`. `/the-letters/` does the same job with a working list behind it. Left alone in session four because the instruction was not to touch shipped pages. | §11 |
-| 4 | **"Choose your path"** is the same HoneyBook URL as the branding page's "Lets talk", so which product it belongs to is unresolvable from the link list. Unwired. | §10 |
+| 2 | **The Letters collects into two systems and nothing reconciles them.** Every button goes to HoneyBook `6a19d46a`; the Flodesk popup on `/the-letters/` still fires and still collects. Cydnie chose to keep both on 26 August. **Export both and merge before any letter goes out**, and expect duplicates. | §11, §12 |
+| 3 | **The specimen letter on `/the-letters/` was never sent.** It is the wireframe's placeholder, in her voice. A specimen that was never mailed is a claim about the product rather than evidence of it. Swap in a real one. | §11 |
+| 4 | ~~"Choose your path" is unresolvable.~~ **CLOSED 26 August.** `69fa372c` is the **contact form**. It is the footer Contact on all seven pages and the ask block on Greece. | §12 |
 | 5 | **The sticky bar.** Brief says keep, `site.css` says the guide forbids. Currently OFF. | §7c |
 | 6 | **Mane Alchemist's mark is repainted** in its Foundation ink. A client's artwork, altered. | §6 |
 | 7 | **Written permission** from Mane Alchemist, SRS Performance and SolyRey before launch. | §7.8 |
@@ -1423,3 +1423,130 @@ asked for and it carries three open decisions of its own: which of three copy va
 zone 6, whether the eyebrow swaps per event, and confirmation of the twelve questions as listed.
 It also records three fixes needed on the **old** live page at `cydniejocelyn.com/thequestions`:
 a typo in question 11, inconsistent casing, and the order running backwards.
+
+---
+
+## 12. Session five: the retreat pages, and where the forms go
+
+### The links, and the two ids that were finally resolved
+
+Cydnie supplied both on 26 August 2026, and the second closes an open item
+that had been unresolvable from the link list alone.
+
+| Form | Where it goes |
+|---|---|
+| `cf_id/6a19d46a5cb4c5d7f86446a9` | **The Letters.** Every "Get the letters" on the site: the hero and the signup block on `/the-letters/`, and the home page block. |
+| `cf_id/69fa372ccd31fefc073c5d28` | **Contact.** The footer of all seven pages, and the ask block on `/retreats/greece/`. |
+
+`69fa372c` was filed on the link list as "Choose your path" against the same
+URL as the branding page's "Lets talk", which is why §10 recorded that it was
+not resolvable from the list and left it unwired. It is the contact form.
+**Item 4 in §0 is closed.**
+
+Both were checked and both return 200.
+
+**The home page's dead form is gone.** It posted to `action="#"`, which
+reloaded the page and lost the address, and it collected a first name and an
+email with nowhere to send either. It is a link to the real form now. Two
+fields fewer here is not a loss: the form on the other end asks for them, and
+a signup that completes somewhere beats one that looks complete and is not.
+
+**There is now no `action="#"` anywhere on the site.**
+
+### Two lists, on purpose, and the bill comes later
+
+The Letters collects in two places and this was decided rather than
+overlooked. Every button goes to HoneyBook. The Flodesk popup on
+`/the-letters/` still fires on its own trigger and still collects into
+Flodesk. Cydnie expects the popup to convert better than the button and wants
+both; the button also catches the reader who dismissed the popup, or whose
+browser is already past Flodesk's dismissal cap.
+
+**Nothing reconciles them and nothing on the page can.** Export both and
+merge before any letter goes out, and expect duplicates from anyone who did
+both. Item 2 in §0.
+
+Flodesk is on `/the-letters/` and no other page. Checked, and worth keeping
+that way: one popup on the page about the thing it sells is a signup, and the
+same popup site wide is the pattern the guide forbids.
+
+### The second picture pass on `/retreats/`
+
+Cydnie's note was that two frames clashed with the site and one was too
+vibrant. In both of the first two cases **the clash was the subject, not the
+grade**, so they were replaced rather than reprocessed:
+
+| Was | Why it went | Now |
+|---|---|---|
+| `cr-cards`, DSC09127 | Amber floorboards under low sun with a spread of rainbow oracle cards on them. Two saturated colour families the palette does not contain, in one frame. | `cr-floor`, DSC09043. The whole group on the pavilion floor among palms, most of them from behind. Green is the dominant mass, which sits beside Breath and Meniscus. |
+| `cr-water`, IMG_4900 | A guest facing camera, posed, holding a coconut. The one frame on the page that read as stock. | `cr-surf`, IMG_4894. Two women from behind in the shallows. The coolest frame in the library. |
+
+**The old `cr-water` alt text described a different photograph entirely** --
+"walking alone out of the surf" against a picture of someone standing still
+facing the lens. That is the same class of bug as the captions in the drafts
+(§10), and it survived because the slug still said what the first pick meant.
+**Slugs were renamed with the pictures** for exactly that reason.
+
+**The sunset stays and is graded.** Cydnie likes the photograph and it is the
+one unguarded thing on the page, so it was not replaced. It had been through
+heavy HDR before it arrived and rendered as neon teal against neon orange.
+`tools/retreat_images.py` now takes an optional grade, and `cr-dusk` is at
+0.60 saturation with a 0.94 contrast pull. 0.75 was still hot; 0.50 went flat
+and lost the light on the water. `cr-floor` takes a lighter 0.85, enough to
+settle the floorboards and one coral vest without bleaching the palms.
+
+The tool also grew a **crop**, because `.pair .layer-fig img` is
+`aspect-ratio: 0.62/1` with `object-fit: cover` and DSC09043 is a 3:2 frame.
+Dropped in raw, the viewport chose the crop and cut two women in half. The
+framing is a decision in a file now.
+
+### The ring, on the Retreats page
+
+The same mark and the same movement as the home page, and **the geometry is
+copied from `index.html` rather than re-derived**, so the two cannot drift.
+`initFifteen()` finds it by class and needed no change at all.
+
+It sits inside the left column, under "Fifteen." and its rule, because that
+column was otherwise empty for the height of the copy beside it and the ring
+is the picture of the word above it. Two things it needs that the home page
+does not: **Meniscus rather than Breath**, since Breath on Silt is nearly
+invisible, and a **15rem cap**, since unconstrained it runs to 22rem in the
+middle of a wide page and starts reading as a logo.
+
+### The questions stopped being a list
+
+Seven accordions in one stack read as a form to be worked through, which is
+the opposite of what that page argues. They are in **two movements** now, in
+the order the worry actually arrives: whether the week is for her at all,
+and then, only once that is settled, what it costs and what has to be
+arranged. Each movement opens with **one line of prose**, not a second and
+third eyebrow, which would have turned the grouping back into a list.
+
+The questions themselves are unchanged, still exclusive-open, and **the
+FAQPage schema is generated from the markup** as on A Sounding. It had already
+drifted: six entries in the schema against seven on the page, with different
+wording. Edit a question, regenerate; do not hand-edit both.
+
+One answer linked "A Sounding" to `/the-build/`, from before that page
+existed. Fixed.
+
+### The ask block on Greece
+
+Directly after the questions, because that is where the one she still has
+actually surfaces: a page of answers is also a list of things that did not
+answer her. **It is not a second door to the retreat** -- the waitlist is the
+action and it is stated three times already -- so it is one button to the
+contact form and one quiet link back to the waitlist.
+
+It says who replies and roughly when, because "get in touch" that says
+neither is the thing this brand refuses everywhere else.
+
+Silt, so it separates from the light FAQ above without going to depth. The
+section under it is a full-bleed photograph and still declares no `--from`,
+which is correct: a photograph edge to edge is its own transition.
+
+### The suite is 109 now
+
+43 Greece plus 4, 20 Retreats plus 7, 17 A Sounding plus 1, 15 The Letters
+plus 2. Run it headless (`tools/preview/runsuite.sh`); the pane returns wrong
+answers before it returns errors. See §11.

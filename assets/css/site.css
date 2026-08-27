@@ -3055,6 +3055,50 @@ main > * { position: relative; z-index: 1; }
   letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
 }
 
+/* The questions, in movements. Seven accordions in one stack read as a form
+   to be worked through; two groups of four and three, each opening with a
+   line of prose, read as a conversation that is going somewhere.
+
+   The lead is not an eyebrow. An eyebrow labels a section and there is
+   already one at the top of this one; a second and a third would turn the
+   grouping back into the list it is trying not to be. It is a sentence, set
+   quiet, in the body face. */
+.rt-qs + .rt-qs { margin-top: clamp(var(--s-6), 6vw, var(--s-7)); }
+.rt-qs-lead {
+  max-width: 34rem; color: var(--muted);
+  font-size: 1rem; line-height: 1.62;
+  margin-bottom: var(--s-4);
+}
+/* The first row of a group already has the lead above it, so its own top
+   hairline is a second line saying the same thing. */
+.rt-qs .faq { border-top: 0; }
+
+/* The ring on the Retreats page. Two things it needs that the home page
+   does not.
+
+   Colour: .fifteen-fig paints its dots in Breath, which is right on Fathom,
+   where the home page spends it, and nearly invisible on Silt. On a light
+   zone the dots and their counting outline take Meniscus, which is the role
+   hairlines already play there, and the open fifteenth takes the ink.
+
+   Size and place: it sits inside the left column, under the heading and its
+   rule. That column was otherwise empty for the height of the copy beside
+   it, and the ring is the picture of the word above it. Capped at 15rem and
+   set left so it aligns with the type rather than floating in the measure. */
+.rt-ring { margin: clamp(var(--s-5), 5vw, var(--s-6)) 0 0; }
+.rt-ring svg { max-width: 15rem; margin-inline: 0; }
+.rt-ring .fig-cap { text-align: left; margin-top: var(--s-4); max-width: 15rem; }
+.z-light .fifteen-fig .dot,
+.z-silt  .fifteen-fig .dot { fill: var(--meniscus); }
+.z-light .fifteen-fig.is-counting .dot,
+.z-silt  .fifteen-fig.is-counting .dot { fill: none; stroke: var(--meniscus); }
+.z-light .fifteen-fig.is-counting .dot.is-filled,
+.z-silt  .fifteen-fig.is-counting .dot.is-filled { fill: var(--meniscus); }
+.z-light .fifteen-fig .is-her,
+.z-silt  .fifteen-fig .is-her { stroke: var(--fathom); }
+
+
+
 /* ---------- 26. A SOUNDING ----------------------------------
    The single-offer page. It exists because the site sold a $300
    conversation from four different blocks on four different pages and had
@@ -3198,11 +3242,10 @@ main > * { position: relative; z-index: 1; }
 .lt-pair p { max-width: 26rem; }
 @media (min-width: 48rem) { .lt-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-/* Signup. The button ships hidden and JS reveals it once Flodesk has
-   really loaded, so `hidden` has to survive `.btn { display: inline-flex }`.
-   Without this the button is visible before the script that drives it. */
-.btn[hidden], #letters-fallback[hidden] { display: none; }
-#letters-fallback { color: var(--muted); max-width: 30rem; }
+/* `hidden` has to survive `.btn { display: inline-flex }`, which it does not
+   on its own. Nothing on the site hides a button today; the rule stays
+   because the next one to try it will otherwise lose an hour to it. */
+.btn[hidden] { display: none; }
 
 
 /* ---------- 23. PRINT --------------------------------------- */
