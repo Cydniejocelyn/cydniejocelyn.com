@@ -259,6 +259,13 @@ f.addEventListener('load', function(){
         d.querySelectorAll('.faq details').length===7);
      ok('retreats: terms are no longer a section of their own',
         !d.querySelector('#terms-h'));
+     /* The heading holds while the movements scroll past it, the way the
+        three long About sections do. Only above 56rem; below that the
+        columns are stacked and there is nothing to hold against. */
+     var holdCol = d.querySelector('#faq .grid-12--hold > .col-d');
+     ok('retreats: the before-you-book heading is held, not scrolled away',
+        !!holdCol && (w.innerWidth < 896 ||
+                      w.getComputedStyle(holdCol).position === 'sticky'));
      ok('retreats: the private block uses a different frame from its neighbours',
         !!d.querySelector('#private .rt-aside') &&
         !d.querySelector('#private .grid-12'));
@@ -268,6 +275,24 @@ f.addEventListener('load', function(){
           var cap=r.querySelector('.fig-cap').getBoundingClientRect();
           return w.innerWidth<672 || cap.left > svg.right - 2;})());
    }
+   /* ---- the seam under the ask block ----
+      It was Silt meeting Surface with the photograph's own top padding in
+      between, so a strip of a second near-white sat above the picture and
+      read as a white line across the page. A full bleed photograph is only
+      its own transition when it starts at the section's edge. */
+   var askSec = d.querySelector('#ask');
+   if (askSec) {
+     var grounds = askSec.nextElementSibling;
+     while (grounds && grounds.nodeName !== 'SECTION') grounds = grounds.nextElementSibling;
+     ok('greece: no colour change between the ask block and the photograph',
+        !!grounds &&
+        w.getComputedStyle(askSec).backgroundColor === w.getComputedStyle(grounds).backgroundColor);
+     var closeSec = grounds && grounds.nextElementSibling;
+     while (closeSec && closeSec.nodeName !== 'SECTION') closeSec = closeSec.nextElementSibling;
+     ok('greece: and the close seams from the ground actually above it',
+        !!closeSec && (closeSec.getAttribute('style') || '').indexOf('#DCE4E1') > -1);
+   }
+
    // ---- the ask block on /retreats/greece/ ----
    if(d.querySelector('#booking')){
      var ask=d.querySelector('#ask');

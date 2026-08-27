@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css?v=6a1bcf3f">
+<link rel="stylesheet" href="../assets/css/site.css?v=33b9e7a7">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- The Greece Event itself lives on /retreats/greece/, which is its
@@ -626,7 +626,12 @@
      and regenerate rather than hand-editing both. -->
 <section class="section z-silt" data-zone style="--from:var(--surface)" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
-    <div class="grid-12">
+    <!-- `grid-12--hold` holds the heading column while the movements scroll
+         past it, the same way the About page carries its longest sections.
+         This is the longest column on the page by some distance: three terms
+         and seven questions. Scrolling it against a fixed heading is what
+         stops it reading as a list you have to get to the end of. -->
+    <div class="grid-12 grid-12--hold">
       <div class="col-d">
         <p class="eyebrow r-fade">Before you book</p>
         <h2 class="head h-2 split" id="faq-h">What you are agreeing to, and what people ask.</h2>
@@ -790,7 +795,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=6a1bcf3f" defer></script>
+<script src="../assets/js/site.js?v=33b9e7a7" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

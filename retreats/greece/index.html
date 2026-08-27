@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="../../assets/css/site.css?v=6a1bcf3f">
+<link rel="stylesheet" href="../../assets/css/site.css?v=33b9e7a7">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- Every figure below is also in the visible page and in HoneyBook. If one
@@ -942,7 +942,19 @@
      The last picture before the close, and it is the property in the
      middle of the day rather than a coastline. This page never once shows
      a sea it does not have a photograph of. -->
-<section class="section--tight z-light" aria-label="The grounds at Armonia">
+<!-- SILT, not Surface, and that is the whole fix. The ask block above is
+     Silt #DCE4E1; this was Surface #E7ECE8 with its own top padding, so
+     between the two there was a hard edge and then a strip of a second,
+     lighter near-white before the photograph started. That strip is what
+     read as a white line.
+
+     The earlier note here said a full bleed photograph is its own transition
+     and needs no seam. That is true only when the photograph starts at the
+     section's edge. With padding above it, the padding is the transition,
+     and a padding strip in a colour that appears nowhere else is a seam
+     drawn badly. Same ground as the block above it now: nothing changes
+     colour until the photograph does. -->
+<section class="section--tight z-silt" aria-label="The grounds at Armonia">
   <figure class="layer-band layer-band--wide" style="margin-bottom:0">
     <img src="../../assets/img/greece/pool-view-1200.webp"
          srcset="../../assets/img/greece/pool-view-600.webp 600w, ../../assets/img/greece/pool-view-1200.webp 1200w, ../../assets/img/greece/pool-view-1800.webp 1800w"
@@ -953,8 +965,8 @@
   <div class="wrap"><p class="rt-band-cap">14 &nbsp; The deck, late afternoon</p></div>
 </section>
 
-<!-- 14 / CLOSE. -->
-<section class="section z-deep" data-zone style="--from:var(--surface)" aria-label="Close">
+<!-- 14 / CLOSE. `--from` follows the ground above it, which is Silt now. -->
+<section class="section z-deep" data-zone style="--from:#DCE4E1" aria-label="Close">
   <div class="wrap">
     <p class="eyebrow r-fade">13 to 20 August 2027</p>
     <h2 class="head h-2 split">Fifteen seats in Crete.</h2>
@@ -1045,6 +1057,6 @@
   </div>
 </footer>
 
-<script src="../../assets/js/site.js?v=6a1bcf3f" defer></script>
+<script src="../../assets/js/site.js?v=33b9e7a7" defer></script>
 </body>
 </html>

@@ -1960,7 +1960,12 @@ main > * { position: relative; z-index: 1; }
 /* A heading beside a long column of prose used to scroll away and leave
    half the screen empty for the rest of the section. It holds instead, so
    there is always something on both sides of the page. Only where the
-   column is genuinely long, and only where there is height to do it. */
+   column is genuinely long, and only where there is height to do it.
+
+   Used on the three long About sections and on the Retreats "Before you
+   book" block, which is three terms and seven questions and was the longest
+   column on that page. A held heading is most of why it stops reading as a
+   list you have to get to the end of. */
 @media (min-width: 56rem) {
   .grid-12--hold > .col-d {
     position: sticky; top: clamp(7rem, 16vh, 9rem);

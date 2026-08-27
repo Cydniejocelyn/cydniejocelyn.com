@@ -26,7 +26,7 @@ four: The Letters was an anchor to a form on the home page and A Sounding was a 
 | Production | the newest **Ready** row in `vercel ls --prod` |
 | `main` vs production | **Session four's two pages are NOT deployed.** Everything before them is. Check with `git log --oneline` — a commit that touches `HANDOFF.md`, `README.md` or `tools/` changes nothing a visitor sees. |
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
-| Interaction suite | **121 assertions, all passing** (51 Greece, 33 Retreats, 19 A Sounding, 18 The Letters) |
+| Interaction suite | **140 assertions, all passing** (57 Greece, 38 Retreats, 23 A Sounding, 22 The Letters) |
 | Responsive audit | **7 pages clean at 320, 375, 430 and 768.** `tools/preview/_audit.html` |
 | Mobile menu | **112 contrast measurements, 0 failing.** `tools/preview/_menu.html` |
 | Touch carousel | **19 assertions on Retreats, 21 on Home, 0 failing.** `tools/preview/runcarousel.sh` |
@@ -1850,3 +1850,49 @@ mark back into line with the type above it.
 On a phone the socials span both columns rather than sitting alone in a
 half-width cell with the icons wrapping two and two, and the footer's top
 padding drops from 6rem to 3rem, which was a screen and a half of nothing.
+
+---
+
+## 17. Session nine: a held heading, and a white line
+
+### The questions hold their heading now
+
+Grouping the questions into movements in session five helped and did not
+finish the job: it was still a long right hand column with a heading that
+scrolled away at the top of it, so from the second question onward you were
+reading an unlabelled list.
+
+`grid-12--hold` was already in the stylesheet, holding the heading column on
+the three longest About sections. **Before you book** is the longest column on
+the Retreats page, three terms and seven questions, and it uses the same
+class now. One class, no new CSS, and the heading stays on the left while the
+movements travel past it.
+
+Measured: the heading holds at 144px from the top of the viewport for the
+first ~1100px of the section and releases as the section ends, which is what
+`position: sticky` inside a container does and what the About sections do.
+**Above 56rem only.** Below that the columns are stacked and there is nothing
+to hold against.
+
+### The white line under the Greece ask block
+
+The ask block is Silt `#DCE4E1`. The photograph section under it was Surface
+`#E7ECE8` **with its own top padding**, so between the two there was a hard
+edge and then a strip of a second, lighter near-white before the picture
+started. That strip was the white line.
+
+The note previously sitting on that section said a full bleed photograph is
+its own transition and needs no `--from` seam. **That is true only when the
+photograph starts at the section's edge.** With padding above it, the padding
+is the transition, and a padding strip in a colour that appears nowhere else
+on the page is a seam drawn badly.
+
+The photograph section is Silt now, the same ground as the block above it, so
+nothing changes colour until the picture does. The close below it seams
+`--from:#DCE4E1` rather than `var(--surface)`, because that is the ground
+actually above it now.
+
+**The general rule, since this is the second time it has bitten:** a section
+whose first painted thing is a full bleed image can skip the seam. A section
+with padding before the image cannot, and must either carry the ground above
+it or declare a `--from` that matches it.
