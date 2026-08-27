@@ -312,12 +312,33 @@
      26 August 2026: it fires on its own configured trigger and its own copy
      reads "One letter a week", which is what settled the weekly question.
 
+     This is Flodesk's own embed snippet, unchanged: same arguments, same
+     order, same `?v=` cache key. The only thing added is the guard against
+     loading their script twice.
+
      What is NOT possible from here: reopening it after a reader closes it.
-     Flodesk shows and hides that modal by rewriting an injected stylesheet,
-     not by changing the DOM. Open and closed are byte for byte identical in
-     class list and attributes, so there is no hook to drive and no amount of
-     class toggling will do it. `fd('open', ...)` is not a command their
-     dispatcher answers.
+     Four things were tried and all four failed, on a modal confirmed hidden:
+
+       1. `fd('open', {formId})`          not a command their dispatcher answers
+       2. re-calling `fd('form', {formId})`  no effect; the trigger is
+                                          evaluated once, at init
+       3. toggling classes on their markup   open and closed are byte for byte
+                                          identical in class list and in every
+                                          attribute; they swap an injected
+                                          stylesheet instead
+       4. clearing their dismissal storage, then 1 and 2 again   still nothing
+
+     Only a full page load re-evaluates the trigger.
+
+     FLODESK'S OWN FREQUENCY CAP, worth knowing before testing. It records a
+     dismissal in three places and then declines to show the popup again:
+
+       sessionStorage  fd-form-<id>-dismissed         this browsing session
+       localStorage    fd-form-<id>-dismissed-count   across sessions
+       cookie          fd-form-<id>-dismissed-count   same value
+
+     So the popup does not nag, and if it "stops working" while you are
+     testing, that is the cap and not a bug. Clear those three and reload.
 
      TO WIRE THE BUTTON PROPERLY: in Flodesk, set this form's display trigger
      to "on click" and point it at the selector #letters-open, which is the

@@ -1282,10 +1282,31 @@ The form is a **popup**, confirmed live: it fires on its own configured trigger 
 reads "One letter a week." The React component in `The Letters Page/` was translated into plain
 JS because this site has no React in it. Same script, same form id, same double-load guard.
 
-**Reopening it after a reader closes it is not possible from this repo.** Flodesk shows and
-hides that modal by rewriting an injected stylesheet, not by touching the DOM: open and closed
-are byte for byte identical in class list and in every attribute. There is no hook to drive, and
-`fd('open', ...)` is not a command their dispatcher answers. This was measured, not assumed.
+**Reopening it after a reader closes it is not possible from this repo.** Cydnie supplied
+Flodesk's own embed snippet on 26 August and it is exactly what ships: same arguments, same
+order, same `?v=` cache key, plus a guard against double loading. It also confirms the API
+surface is one command, `fd('form', {formId})`. Four approaches were tried against a modal
+confirmed hidden, and all four failed:
+
+| Tried | Result |
+|---|---|
+| `fd('open', {formId})` | Not a command their dispatcher answers |
+| Re-calling `fd('form', {formId})` | No effect. The trigger is evaluated once, at init. |
+| Toggling classes on their markup | Open and closed are byte for byte identical in class list and every attribute; they swap an injected stylesheet instead |
+| Clearing their dismissal storage, then retrying both | Still nothing |
+
+**Only a full page load re-evaluates the trigger.** Measured, not assumed.
+
+**Flodesk caps its own frequency, and it will look like a bug while you test.** It records a
+dismissal in three places and then declines to show the popup at all:
+
+    sessionStorage   fd-form-<id>-dismissed          this browsing session
+    localStorage     fd-form-<id>-dismissed-count    across sessions
+    cookie           fd-form-<id>-dismissed-count    same value
+
+The good news is that the popup does not nag. The trap is that after a few test dismissals it
+goes quiet and looks broken. Clear those three and reload. This is separate from, and stacks
+with, the A Sounding popup's own `sd_pop_dismissed` key.
 
 **The fix is one dashboard setting.** In Flodesk, set the form's display trigger to "on click"
 and point it at `#letters-open`. Nothing in the repo changes when you do. Until then the button
