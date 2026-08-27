@@ -98,6 +98,37 @@ Four false positives it now knows about, so it does not cry wolf:
 4. **Buttons side by side at natural widths.** That reads as a pair and is
    fine. Only *stacked* buttons of different widths are the defect.
 
+## `_menu.html` — can you read the mobile menu
+
+    /_menu.html
+
+Opens the mobile menu on all seven pages at **two scroll positions each** and
+measures every item in it against the panel behind it: the four nav links,
+the A Sounding button, the close toggle and the wordmark. 112 measurements.
+
+**Both scroll positions matter, and the first one is the one that hides
+things.** At the top of a page that opens light (The Build, The Letters) the
+header is already `is-surfaced` but not yet `is-stuck`, so `.hdr::before`,
+which is the bar's own background, is still `opacity: 0`. The wordmark and
+the toggle have inverted to ink for a light ground that is not painted.
+Scroll down the same page and `is-stuck` paints the bar light, everything
+looks right, and the bug is gone. That is why it read as page-specific.
+
+Two separate failures it caught, both the same shape:
+
+1. **Three of the four nav links at contrast 1.00.**
+   `.hdr.is-surfaced .nav-links a { color: var(--fathom) }` is (0,3,1) and
+   `.has-menu .nav-links a` is (0,2,1), so Fathom text landed on the Fathom
+   panel. Only the current page survived, by accident: its `[aria-current]`
+   rule also computes (0,3,1), ties, and comes later in the file. The reader
+   saw one legible item, the page she was already on.
+2. **The wordmark and the close button, invisible in the same state.** A dark
+   rectangle with no mark and no visible way out of it.
+
+The button had been patched for this once already, years of sessions ago; the
+links and the bar chrome never were. If you add anything to that panel,
+add it here.
+
 ## `_probe.html` — measuring one thing
 
 Edit it. It is a scratch file for answering "what is this element actually

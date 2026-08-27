@@ -510,7 +510,46 @@ button { font: inherit; color: inherit; }
     justify-content: center; padding: 1rem;
     font-size: .75rem; letter-spacing: .1em;
   }
-  /* the panel is its own dark ground, so it does not invert with the bar */
+  /* THE PANEL IS ITS OWN DARK GROUND AND DOES NOT INVERT WITH THE BAR.
+     That was true of the button and was never true of the links beside it.
+
+     `.hdr.is-surfaced .nav-links a { color: var(--fathom) }` exists so the
+     links read against the light bar once the reader has surfaced. Its
+     specificity is (0,3,1); `.has-menu .nav-links a` is (0,2,1), so it lost,
+     and the open menu drew Fathom text on a Fathom panel. Contrast 1.00.
+     Not dim: gone.
+
+     Only the current page survived, and by accident: its
+     `[aria-current="page"]` rule also computes (0,3,1), ties, and comes
+     later in the file. So the reader saw one legible item, the page she was
+     already on, and three invisible ones. It was never page-specific either,
+     which is why it looked intermittent: it depends on whether the header
+     happens to be over a light section when the menu is opened, so on any
+     page, scrolled far enough, three of the four items disappear.
+
+     These two are (0,4,1) and win outright. Measured at 9.62 and 10.14
+     against the panel. */
+  /* AND THE BAR ITSELF, once the panel is open behind it.
+
+     `.hdr::before` is the bar's own background and it is `opacity: 0` until
+     `.is-stuck`. So at the TOP of a page that opens light -- The Build, The
+     Letters -- the header is already `is-surfaced` but not yet stuck: the
+     light background is not painted, and the wordmark and the toggle have
+     both inverted to ink for a light ground that is not there. Open the menu
+     and they are ink on the Fathom panel. The reader gets a dark rectangle
+     with no wordmark and no way out of it that she can see.
+
+     While the panel is open the panel IS the ground, whatever the bar thinks
+     it is sitting on, so the mark and the toggle take their dark-ground
+     treatment back. Scrolled far enough down the same page this never
+     appeared, because `is-stuck` had painted the bar light by then, which is
+     why it looked like it depended on the page. */
+  .menu-open .hdr.is-surfaced .brand-mark--light { display: block; }
+  .menu-open .hdr.is-surfaced .brand-mark--dark  { display: none; }
+  .menu-open .hdr.is-surfaced .nav-toggle { color: var(--ink); }
+
+  .hdr.is-surfaced .nav-menu .nav-links a { color: var(--muted); }
+  .hdr.is-surfaced .nav-menu .nav-links a[aria-current="page"] { color: var(--breath); }
   .hdr.is-surfaced .nav-menu .btn { color: var(--ink); border-color: var(--accent); }
   .hdr.is-surfaced .nav-menu .btn::before { background: var(--accent); }
 }

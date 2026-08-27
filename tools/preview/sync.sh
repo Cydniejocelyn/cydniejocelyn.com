@@ -18,3 +18,5 @@ rsync -a --delete \
 cp "$SRC/tools/preview/_shot.html"  "$SP/preview/_shot.html"
 cp "$SRC/tools/preview/_test.html"  "$SP/preview/_test.html"
 cp "$SRC/tools/preview/_probe.html" "$SP/preview/_probe.html"
+cp "$SRC/tools/preview/_audit.html" "$SP/preview/_audit.html"
+cp "$SRC/tools/preview/_menu.html"  "$SP/preview/_menu.html"

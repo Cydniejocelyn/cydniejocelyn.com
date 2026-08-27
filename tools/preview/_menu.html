@@ -1,0 +1,104 @@
+<!doctype html><meta charset="utf-8">
+<title>mobile menu contrast</title>
+<style>
+ html,body{margin:0;background:#fff;font:12.5px/1.5 ui-monospace,Menlo,monospace;color:#111;padding:10px;white-space:pre-wrap}
+ .bad{color:#b00020;font-weight:700}.ok{color:#0a7a3d}
+ iframe{position:fixed;left:-9999px;top:0;width:375px;height:812px;border:0}
+</style>
+<div id="log">measuring…</div>
+<script>
+/* Every item in the open mobile menu, measured against the panel it sits on.
+   Written in session seven, after three of the four nav links turned out to
+   be drawing Fathom on Fathom whenever the header was over a light section:
+   contrast 1.00, invisible, and only on some pages, because it depends on
+   where the reader had scrolled to when she opened the menu.
+
+   It walks each page down to a light section first, on purpose. Opening the
+   menu at the top of a dark page cannot reproduce it. */
+var PAGES = ['/','/about/','/the-build/','/retreats/','/retreats/greece/','/a-sounding/','/the-letters/'];
+/* Two scroll positions per page, and the first one matters most. At the TOP
+   of a page that opens light the header is `is-surfaced` but not yet
+   `is-stuck`, so the bar's own background is still `opacity: 0`: the
+   wordmark and the toggle have inverted to ink for a light ground that is
+   not painted. That is the state the reported bug lived in, and scrolling
+   first would have hidden it. */
+var STOPS = [0, 2600];
+var jobs = []; PAGES.forEach(function (p) { STOPS.forEach(function (y) { jobs.push([p, y]); }); });
+var L = [], pi = 0, fails = 0;
+function say(cls, s) { L.push('<span class="' + cls + '">' + s + '</span>'); document.getElementById('log').innerHTML = L.join('\n'); }
+function lum(c) {
+  var m = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(c); if (!m) return null;
+  var a = [m[1], m[2], m[3]].map(function (v) { v = v / 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); });
+  return .2126 * a[0] + .7152 * a[1] + .0722 * a[2];
+}
+function ratio(f, b) {
+  var A = lum(f), B = lum(b); if (A == null || B == null) return null;
+  var hi = Math.max(A, B), lo = Math.min(A, B); return (hi + .05) / (lo + .05);
+}
+function next() {
+  if (pi >= jobs.length) {
+    say(fails ? 'bad' : 'ok', '\n' + fails + ' failing of ' + L.length + ' measured');
+    L.push('DONE'); document.getElementById('log').innerHTML = L.join('\n');
+    return;
+  }
+  var page = jobs[pi][0], stop = jobs[pi][1];
+  var f = document.createElement('iframe'); f.src = page; document.body.appendChild(f);
+  f.addEventListener('load', function () {
+    var w = f.contentWindow, d = f.contentDocument;
+    setTimeout(function () {
+      if (stop === 0) { w.scrollTo(0, 0); w.dispatchEvent(new w.Event('scroll')); setTimeout(open, 400); }
+      else {
+        var y = 0, iv = setInterval(function () {
+          y += 500; w.scrollTo(0, y); w.dispatchEvent(new w.Event('scroll'));
+          if (y > stop) { clearInterval(iv); open(); }
+        }, 20);
+      }
+      function open() {
+        setTimeout(function () {
+          var hdr = d.querySelector('.hdr');
+          var surfaced = hdr && hdr.classList.contains('is-surfaced');
+          var tog = d.querySelector('.nav-toggle'); if (tog) tog.click();
+          setTimeout(function () {
+            var panel = d.querySelector('.nav-menu');
+            var bg = w.getComputedStyle(panel).backgroundColor;
+            var stuck = hdr && hdr.classList.contains('is-stuck');
+            say('', '\n' + page + '  at y=' + stop + '   surfaced:' + surfaced + '  stuck:' + stuck);
+            var items = [].slice.call(d.querySelectorAll('.nav-links a, .nav-menu .btn'));
+            items.forEach(function (el) {
+              var r = ratio(w.getComputedStyle(el).color, bg);
+              var bad = r && r < 4.5; if (bad) fails++;
+              say(bad ? 'bad' : 'ok',
+                '   ' + (el.textContent.trim() + '              ').slice(0, 14) +
+                w.getComputedStyle(el).color + '   ' + (r ? r.toFixed(2) : '?') + ':1' +
+                (bad ? '   FAILS 4.5:1' : ''));
+            });
+
+            /* The bar chrome. The ground behind it while the panel is open is
+               the panel, unless the bar has painted its own background, which
+               it only does once stuck. */
+            var barBefore = w.getComputedStyle(hdr, '::before');
+            var barPainted = parseFloat(barBefore.opacity) > .5;
+            var ground = barPainted ? barBefore.backgroundColor : bg;
+            var tog = d.querySelector('.nav-toggle');
+            var tr = ratio(w.getComputedStyle(tog.querySelector('.nav-toggle-bars span')).backgroundColor, ground);
+            var tbad = tr && tr < 3; if (tbad) fails++;
+            say(tbad ? 'bad' : 'ok', '   close toggle  ' + (tr ? tr.toFixed(2) : '?') + ':1 on ' + ground +
+              (tbad ? '   FAILS 3:1' : ''));
+
+            var lightOn = w.getComputedStyle(d.querySelector('.brand-mark--light')).display !== 'none';
+            /* The light wordmark belongs on a dark ground and the ink one on a
+               light ground. Anything else is a mark nobody can see. */
+            var groundIsDark = lum(ground) < .3;
+            var mbad = lightOn !== groundIsDark; if (mbad) fails++;
+            say(mbad ? 'bad' : 'ok', '   wordmark      ' + (lightOn ? 'light' : 'ink') +
+              ' on ' + (groundIsDark ? 'dark' : 'light') + ' ground' +
+              (mbad ? '   FAILS, invisible' : ''));
+            f.remove(); pi++; next();
+          }, 500);
+        }, 400);
+      }
+    }, 1200);
+  });
+}
+next();
+</script>

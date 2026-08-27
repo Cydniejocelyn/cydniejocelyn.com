@@ -28,6 +28,7 @@ four: The Letters was an anchor to a form on the home page and A Sounding was a 
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
 | Interaction suite | **121 assertions, all passing** (51 Greece, 33 Retreats, 19 A Sounding, 18 The Letters) |
 | Responsive audit | **7 pages clean at 320, 375, 430 and 768.** `tools/preview/_audit.html` |
+| Mobile menu | **112 contrast measurements, 0 failing.** `tools/preview/_menu.html` |
 
 Do **not** write a deploy URL into this table. Session three did, and the next commit -- which
 was this file -- immediately made it wrong. `vercel ls --prod` is the answer and it cannot go
@@ -1687,3 +1688,59 @@ the "paying in full" button are the same form id, so a reader who takes the
 plain link is on the pay-in-full record without being asked. Cydnie may want
 those labels revisited. The suite asserts three plain links, both plan forms,
 and that no control saying "waitlist" is left as a scroll anchor.
+
+---
+
+## 14. Session seven: three quarters of the mobile menu was invisible
+
+Cydnie reported that some menu items were not readable "depending on what
+page we're on". They were not readable depending on **where she had scrolled
+to when she opened it**, which is why it looked page-specific.
+
+### One cause, two failures
+
+`.hdr::before` is the bar's own background and it is `opacity: 0` until the
+header is `.is-stuck`. At the **top** of a page that opens light, The Build
+and The Letters, the header is already `.is-surfaced` and not yet stuck. So
+every rule that inverts the chrome for a light bar has fired, and the light
+bar it inverted for has not been painted. Open the menu and the dark panel is
+the only thing behind any of it.
+
+1. **Three of the four nav links, contrast 1.00.**
+   `.hdr.is-surfaced .nav-links a { color: var(--fathom) }` computes (0,3,1);
+   `.has-menu .nav-links a { color: var(--muted) }` computes (0,2,1). The
+   first wins on specificity wherever it sits in the file, so the panel drew
+   Fathom on Fathom. Not dim. Gone.
+
+   **The current page survived by accident.** Its
+   `[aria-current="page"]` rule also computes (0,3,1), ties, and comes later
+   in the file. So the reader saw exactly one legible item: the page she was
+   already on.
+
+2. **The wordmark and the close toggle, invisible in the same state.** A dark
+   rectangle with no mark and no visible way out.
+
+The A Sounding button was already patched for exactly this, with the comment
+"the panel is its own dark ground, so it does not invert with the bar". That
+comment was right and was only ever applied to the button.
+
+### The fix
+
+Four rules, all inside the mobile media query, all at (0,4,x) or better so
+they win outright:
+
+    .hdr.is-surfaced .nav-menu .nav-links a                     --muted
+    .hdr.is-surfaced .nav-menu .nav-links a[aria-current]       --breath
+    .menu-open .hdr.is-surfaced .brand-mark--light              display:block
+    .menu-open .hdr.is-surfaced .nav-toggle                     --ink
+
+**Nothing on a desktop changes**; the whole block is `max-width: 55.99rem`.
+
+### `_menu.html`
+
+Seven pages at two scroll stops, measuring every item in the open panel
+against the panel behind it. **112 measurements, 0 failing**, minimum
+9.62:1. Testing only one scroll position would have missed the wordmark
+entirely, which is the trap worth remembering: on this site the header has
+four states, and `surfaced` without `stuck` is the one nobody thinks to
+check.
