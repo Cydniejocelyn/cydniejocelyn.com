@@ -26,7 +26,7 @@ four: The Letters was an anchor to a form on the home page and A Sounding was a 
 | Production | the newest **Ready** row in `vercel ls --prod` |
 | `main` vs production | **Session four's two pages are NOT deployed.** Everything before them is. Check with `git log --oneline` — a commit that touches `HANDOFF.md`, `README.md` or `tools/` changes nothing a visitor sees. |
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
-| Interaction suite | **112 assertions, all passing** (47 Greece, 30 Retreats, 18 A Sounding, 17 The Letters) |
+| Interaction suite | **120 assertions, all passing** (50 Greece, 33 Retreats, 19 A Sounding, 18 The Letters) |
 | Responsive audit | **7 pages clean at 320, 375, 430 and 768.** `tools/preview/_audit.html` |
 
 Do **not** write a deploy URL into this table. Session three did, and the next commit -- which
@@ -1650,3 +1650,31 @@ others. The FAQPage schema is regenerated from the markup, as on A Sounding.
 The five steps in the Greece journey list were `h4` under an `h2`, skipping a
 level, which a screen reader reads as a missing section. They are `h3` now
 and the selector followed the markup.
+
+### The six form ids, and the one that got swapped
+
+Six HoneyBook forms are in play and several differ only in their first few
+characters. **Rewriting the private block on 26 August swapped `69fa33ac` for
+`69fa372c`,** which pointed a private retreat inquiry at the general contact
+mailbox and demoted its button to a link. Nothing caught it: the link still
+worked, still returned 200, and still looked right on the page. Restored the
+same day, and the suite pins every id now.
+
+| id | What it is | Where |
+|---|---|---|
+| `69fa33ac59c6a6842e88b725` | Private retreat inquiry | `/retreats/#private` |
+| `69fa372ccd31fefc073c5d28` | Contact | Footer of all seven, and the Greece ask block |
+| `69fa3c69e63a7a4c9bb354f1` | April 2027 pre-registration | `/retreats/`, twice |
+| `6a19d46a5cb4c5d7f86446a9` | The Letters | Every "Get the letters" |
+| `6a21d07b6dcfbe3d85c663b6` | Greece waitlist, paying in full | Home, `/retreats/`, Greece |
+| `6a21d63a1b6caddcac951777` | Greece waitlist, six month plan | Greece booking band |
+
+**Change a destination on purpose, change it in `_test.html` in the same
+commit.** An unknown id now fails the suite, which is how the sixth one above
+was found: it was on the page and in nobody's list.
+
+**Nothing was removed from the Greece page.** It carries five waitlist
+controls: "Join the waitlist" in the hero, the two payment plans in the
+booking band, "Or join the waitlist" in the ask block, and "Join the
+waitlist" in the close. Three of those are `#booking` anchors and the suite
+asserts all three.

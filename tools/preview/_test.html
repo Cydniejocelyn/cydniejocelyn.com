@@ -277,6 +277,44 @@ f.addEventListener('load', function(){
      ok('greece: it does not open a second door to the retreat',
         !!ask && ask.querySelectorAll('.btn').length===1);
    }
+   /* ---- the form ids, pinned ----
+      Six HoneyBook ids are in play across this site and several differ only
+      in the first few characters. Rewriting the private block on 26 August
+      swapped 69fa33ac for 69fa372c, which pointed a private retreat inquiry
+      at the general contact mailbox, and nothing caught it: the link still
+      worked, still returned 200, and still looked right. These assertions
+      are the thing that catches it next time. Change a destination on
+      purpose, change it here in the same commit. */
+   var FORMS = {
+     '69fa33ac59c6a6842e88b725': 'private retreat inquiry',
+     '69fa372ccd31fefc073c5d28': 'contact',
+     '6a19d46a5cb4c5d7f86446a9': 'The Letters',
+     '6a21d07b6dcfbe3d85c663b6': 'Greece waitlist, paying in full',
+     '6a21d63a1b6caddcac951777': 'Greece waitlist, six month plan',
+     '69fa3c69e63a7a4c9bb354f1': 'April 2027 pre-registration'
+   };
+   if (d.querySelector('#private')) {
+     var pv = d.querySelector('#private a[href*="honeybook"]');
+     ok('retreats: the private block points at the private inquiry, not contact',
+        !!pv && pv.getAttribute('href').indexOf('69fa33ac59c6a6842e88b725') > -1);
+     ok('retreats: and it is a button, the way it was',
+        !!pv && pv.classList.contains('btn'));
+   }
+   if (d.querySelector('#booking')) {
+     var wl = [].slice.call(d.querySelectorAll('a[href*="clients.cydniejocelyn.com/public"]'));
+     ok('greece: both waitlist plans are wired to their own forms',
+        wl.length === 2 &&
+        wl.some(function (a) { return a.href.indexOf('6a21d07b6dcfbe3d85c663b6') > -1; }) &&
+        wl.some(function (a) { return a.href.indexOf('6a21d63a1b6caddcac951777') > -1; }));
+     ok('greece: three ways to reach the waitlist, hero, ask and close',
+        d.querySelectorAll('a[href="#booking"]').length === 3);
+   }
+   var unknown = [].slice.call(d.querySelectorAll('a[href*="honeybook.com/widget"]'))
+     .map(function (a) { var m = /cf_id\/([a-f0-9]+)/.exec(a.getAttribute('href')); return m && m[1]; })
+     .filter(function (id) { return id && !FORMS[id]; });
+   ok('forms: every HoneyBook id on this page is one of the known five',
+      unknown.length === 0);
+
    // ---- footer contact, every page ----
    ok('footer: Contact reaches the contact form',
       !!d.querySelector('.ftr a[href*="cf_id/69fa372ccd31fefc073c5d28"]'));
