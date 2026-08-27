@@ -30,6 +30,7 @@ four: The Letters was an anchor to a form on the home page and A Sounding was a 
 | Responsive audit | **7 pages clean at 320, 375, 430 and 768.** `tools/preview/_audit.html` |
 | Mobile menu | **112 contrast measurements, 0 failing.** `tools/preview/_menu.html` |
 | Touch carousel | **19 assertions on Retreats, 21 on Home, 0 failing.** `tools/preview/runcarousel.sh` |
+| Footer | **One footer, byte for byte on all seven pages.** Asserted in the suite. |
 
 Do **not** write a deploy URL into this table. Session three did, and the next commit -- which
 was this file -- immediately made it wrong. `vercel ls --prod` is the answer and it cannot go
@@ -65,7 +66,7 @@ stale.
 | 13 | **Never verified:** a full keyboard pass and a real screen-reader pass. | §7.5 |
 | 14 | **`figure` default margin is unreset on `.quote`**, so the home page's quote carousel is indented 40px each side. Fixed on `.sd-quote` only; the shared fix moves a shipped page. | §11 |
 | 15 | **Angela's quote is excerpted on `/a-sounding/`.** Her full review opens "From our very first coaching call", and that page argues it is not coaching. Confirm she is comfortable appearing there. | §11 |
-| 16 | **The podcast.** The footer links it; whether it is shelved is in no file. | §7.6 |
+| 16 | ~~The podcast.~~ **CLOSED 27 August.** Cydnie had all three references removed: the named link and the Spotify and Apple Podcasts icons, which both went to the same show. **It is still in `sameAs` on the home page and in `llms.txt`,** which is identity data rather than a link and was left deliberately. If the podcast is actually retired, those go too. | §16 |
 | 17 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
 
 ### Decisions she made in session three. These are load bearing.
@@ -1797,3 +1798,55 @@ Worth reading, because two of them would have shipped looking fine.
 `tools/preview/runcarousel.sh`. **It must run with a coarse pointer or it
 tests the desktop path and passes.** See `tools/preview/README.md` for the
 flags and for the two things an offscreen frame will not do.
+
+---
+
+## 16. Session eight: one footer instead of seven
+
+The footer was different on every page, and not subtly:
+
+| | |
+|---|---|
+| "Questions" | Five different targets. `#faq` on home, `/#faq` on About (which is the home page's FAQ, from a page that has none), `/the-build/#faq`, `/a-sounding/#faq` on two pages. |
+| "Client work" | A same-page anchor on home, a cross-page one everywhere else. |
+| Third slot, second column | Questions, or Greece 2027, or Costa Rica 2026, depending where you stood. |
+| Socials | The home page only. Six other pages had none. |
+| The Letters | In the footer of six pages and **missing from the home page**, which had the podcast in its place. |
+
+There is one footer now, byte for byte identical on all seven apart from the
+asset prefix, and **the suite asserts the whole link list in order** on every
+page. Move it in one place and the other six fail.
+
+**"Questions" is gone rather than pinned to one target.** Every page that has
+questions answers them in its own body, and a footer link that lands
+somewhere different depending on the page you left is worse than no footer
+link at all.
+
+**The podcast is gone, all three of it.** The named link and the Spotify and
+Apple Podcasts icons, which both pointed at the same show. Cydnie's call on
+27 August, and it closes item 16 in §0. It is **still in `sameAs` on the home
+page and in `llms.txt`**: that is identity data rather than a link, and
+"remove it from the footer" is not the same claim as "this podcast does not
+exist". If it is actually retired, those two go too.
+
+### The social marks came out of their boxes
+
+They were 44px circles with a hairline each. On a phone that is four more
+rectangles in a footer that already has plenty, and the borders were
+separating things that space had already separated. They read as buttons in a
+block where nothing else is a button.
+
+The mark is the mark now. The tap target is still 44px, made of space rather
+than drawn, and hover moves the icon to full ink instead of lighting a box.
+
+**No horizontal gap between them, and that is deliberate.** The Elsewhere
+column is about 192px at 1280 and four 44px targets are 176px of it, so any
+gap at all wrapped them three-and-one, which looks like a bug in a block
+whose whole job is to look settled. The separation is inside the targets: a
+21px mark centred in 44px leaves 23px between marks, more air than the 2rem
+gap around the old circles ever gave them. A negative margin pulls the first
+mark back into line with the type above it.
+
+On a phone the socials span both columns rather than sitting alone in a
+half-width cell with the icons wrapping two and two, and the footer's top
+padding drops from 6rem to 3rem, which was a screen and a half of nothing.

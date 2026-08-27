@@ -327,9 +327,39 @@ f.addEventListener('load', function(){
    ok('forms: every HoneyBook id on this page is one of the known five',
       unknown.length === 0);
 
-   // ---- footer contact, every page ----
-   ok('footer: Contact reaches the contact form',
-      !!d.querySelector('.ftr a[href*="cf_id/69fa372ccd31fefc073c5d28"]'));
+   /* ---- the footer, which must be the same on every page ----
+      It used to differ on all seven: five different targets behind a link
+      called "Questions", "Client work" pointing at a same-page anchor on the
+      home page and a cross-page one everywhere else, a third slot that was
+      Questions or Greece 2027 or Costa Rica 2026 depending where you stood,
+      and the socials on the home page only. This is the list, in order. Move
+      it here and on all seven pages in the same commit or this fails. */
+   var FOOTER = [
+     '/a-sounding/', '/retreats/', '/the-build/', '/the-build/#work',
+     '/about/', '/the-letters/',
+     'https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa372ccd31fefc073c5d28',
+     'https://www.instagram.com/cydniejocelyn/',
+     'https://www.facebook.com/profile.php?id=61575458834389',
+     'https://www.pinterest.com/Cydniejocelyn/',
+     'https://www.youtube.com/@Cydniejocelyn'
+   ];
+   var got = [].slice.call(d.querySelectorAll('.ftr .ftr-nav a')).map(function (a) {
+     return a.getAttribute('href');
+   });
+   ok('footer: the same eleven links, in the same order, as every other page',
+      got.length === FOOTER.length && got.every(function (h, i) { return h === FOOTER[i]; }));
+   ok('footer: the three column headings are the same',
+      [].slice.call(d.querySelectorAll('.ftr-nav h3')).map(function (h) {
+        return h.textContent.trim();
+      }).join('|') === 'The work|More|Elsewhere');
+   ok('footer: nothing links the podcast',
+      !d.querySelector('.ftr a[href*="she-rises-through-it"], .ftr a[href*="open.spotify.com"]'));
+   var soc = d.querySelector('.social a');
+   ok('footer: the social marks are not in boxes',
+      !!soc && w.getComputedStyle(soc).borderTopWidth === '0px' &&
+      w.getComputedStyle(soc).backgroundColor === 'rgba(0, 0, 0, 0)');
+   ok('footer: and they are still a 44px tap target',
+      !!soc && soc.getBoundingClientRect().height >= 44 && soc.getBoundingClientRect().width >= 44);
      // ---- no horizontal overflow ----
      ok('layout: no horizontal overflow', d.documentElement.scrollWidth<=d.documentElement.clientWidth+1);
      var shown=[].filter.call(d.images,function(i){

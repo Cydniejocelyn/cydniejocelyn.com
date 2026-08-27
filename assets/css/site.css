@@ -1570,24 +1570,58 @@ button.door-note {
   .ftr-brand { grid-column: 1 / 5; }
   .ftr-nav { grid-column: 6 / 13; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-5); }
 }
-@media (max-width: 55.99rem) { .ftr-nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-5); } }
+@media (max-width: 55.99rem) {
+  .ftr-nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-6) var(--s-5); }
+  /* Three columns into two leaves the socials alone in a half-width cell
+     with the icons wrapping two and two. They get the full width and read as
+     one row under the links, which is what they are. */
+  .ftr-social { grid-column: 1 / -1; }
+}
+@media (max-width: 33.99rem) {
+  /* 6rem of air above a footer is right at the end of a long desktop page
+     and is a screen and a half of nothing on a phone. */
+  .ftr { padding-block: var(--s-6) var(--s-5); }
+  .ftr-top { gap: var(--s-5); padding-bottom: var(--s-6); }
+  .ftr-mark { width: 11rem; margin-bottom: var(--s-3); }
+}
 .ftr-mark { width: clamp(10rem, 18vw, 15rem); height: auto; margin-bottom: var(--s-4); }
 .ftr-nav h3 { font-size: .75rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--s-3); }
 .ftr-nav li + li { margin-top: .15rem; }
 .ftr-nav a { font-size: 1rem; display: inline-flex; align-items: center; min-height: 44px; }
 
 /* Platform marks rather than platform names: the labels carried no
-   information the icon does not, and five words made the column shout. */
-.social { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+   information the icon does not, and five words made the column shout.
+
+   NO BOXES. They were 44px circles with a hairline each, and on a phone a
+   row of bordered circles is four more rectangles in a footer that already
+   has plenty: the borders were doing the work of separating things that were
+   already separated by space, and they read as buttons in a block where
+   nothing else is a button. The mark is the mark. The tap target is still
+   44px, it is just made of space rather than drawn.
+
+   Hover moves the icon to full ink instead of lighting a box. */
+/* No horizontal gap, and that is not a mistake. The "Elsewhere" column is a
+   third of the footer's right hand side, about 192px at 1280. Four 44px tap
+   targets are 176px of that on their own, so any gap at all wrapped them
+   three-and-one, which looks like a bug in a block whose whole job is to
+   look settled.
+
+   The separation is inside the targets instead: a 21px mark centred in 44px
+   leaves 23px between two marks, which is more air than a 2rem gap around
+   the old bordered circles ever gave them. The negative margin pulls the
+   first mark back into line with the type above it, because the target's own
+   padding would otherwise indent the row by eleven pixels. */
+.social { display: flex; flex-wrap: wrap; gap: var(--s-2) 0; margin: calc(var(--s-2) * -1) 0 0 -11px; }
 .social li + li { margin-top: 0; }
 .social a {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border-radius: 50%;
-  border: 1px solid var(--rule);
-  transition: border-color var(--t-mid) var(--ease-out), background var(--t-mid) var(--ease-out);
+  min-width: 44px; min-height: 44px;
+  border: 0; border-radius: 0; background: none;
+  color: var(--muted);
+  transition: color var(--t-mid) var(--ease-out);
 }
-.social a:hover, .social a:focus-visible { border-color: var(--accent); background: rgba(159,204,198,.1); }
-.social svg { width: 19px; height: 19px; }
+.social a:hover, .social a:focus-visible { color: var(--ink); background: none; border: 0; }
+.social svg { width: 21px; height: 21px; }
 .social svg [fill], .social svg { fill: none; }
 .social svg path, .social svg rect, .social svg circle {
   stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; fill: none;
