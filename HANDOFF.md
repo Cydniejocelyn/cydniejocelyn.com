@@ -26,7 +26,8 @@ four: The Letters was an anchor to a form on the home page and A Sounding was a 
 | Production | the newest **Ready** row in `vercel ls --prod` |
 | `main` vs production | **Session four's two pages are NOT deployed.** Everything before them is. Check with `git log --oneline` — a commit that touches `HANDOFF.md`, `README.md` or `tools/` changes nothing a visitor sees. |
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
-| Interaction suite | **95 assertions, all passing** (43 Greece, 20 Retreats, 17 A Sounding, 15 The Letters) |
+| Interaction suite | **112 assertions, all passing** (47 Greece, 30 Retreats, 18 A Sounding, 17 The Letters) |
+| Responsive audit | **7 pages clean at 320, 375, 430 and 768.** `tools/preview/_audit.html` |
 
 Do **not** write a deploy URL into this table. Session three did, and the next commit -- which
 was this file -- immediately made it wrong. `vercel ls --prod` is the answer and it cannot go
@@ -1550,3 +1551,102 @@ which is correct: a photograph edge to edge is its own transition.
 43 Greece plus 4, 20 Retreats plus 7, 17 A Sounding plus 1, 15 The Letters
 plus 2. Run it headless (`tools/preview/runsuite.sh`); the pane returns wrong
 answers before it returns errors. See §11.
+
+---
+
+## 13. Session six: the phone pass, and the bug that was hiding behind it
+
+### The grid blowout, which is the important one
+
+`.rt-video` was a bare `display: grid` below 48rem. **A grid with no
+`grid-template-columns` gets one implicit column, and an implicit column is
+sized `auto`, which resolves to max-content.** A max-content track does not
+shrink to its container; it grows to whatever the widest thing inside it
+wants to be and takes the whole subtree with it.
+
+The quote carousel lives inside that grid. Its track is five 300px slides and
+four 32px gaps, so its max-content is **2028px**. On a 375px phone the entire
+Costa Rica block was laid out 2028px wide. Two of the five reviews sat off
+the side of the screen where no swipe could reach them, and the section
+rendered as most of a screen of empty dark. That is both of the things
+Cydnie reported: "the reviews are blank for two swipes" and the dead space in
+her screenshot. One cause.
+
+**`body { overflow-x: hidden }` is why it survived three sessions.** It clips
+the evidence, so every check for horizontal scrolling came back clean while
+the layout underneath was five times too wide.
+
+The fix is `grid-template-columns: minmax(0, 1fr)` on every single-column
+grid: the same one column, allowed to be smaller than its contents. The list
+is in **section 5** of `site.css` with the reasoning above it. **If you add a
+grid that holds a carousel, a rail, a long unbroken string or a wide table,
+put it in that list.** The audit checks for it.
+
+### Section 28 of `site.css` is the phone pass, and it is at the foot on purpose
+
+These are overrides, and an override that loses to source order is not an
+override. The first draft of that block was written up beside the layout
+rules and **silently lost three of its five fixes.** It has two breakpoints
+and they mean different things: `47.99rem` is anything a thumb drives,
+`33.99rem` is a phone specifically. Tap targets run wider still, to
+`63.99rem`, because a tablet at 1024 is also a thumb.
+
+What it fixes:
+
+- **Stacked buttons of different widths.** The Greece booking pair came out
+  295px and 309px, one above the other. In a group they are now the width of
+  the column, capped at 26rem so a stacked button at 767px does not run the
+  full 690px and stop being a button.
+- **The carousel bar ran 21px off the screen.** Two 44px arrows, one 24px dot
+  per quote and the gaps came to more than the 335px of column there is at
+  375. That was the entire horizontal scroll the home page had. The dots take
+  the slack and wrap; the arrows stay at the ends.
+- **Free-standing links shorter than a fingertip.** Links inside `.actions`
+  and the three practice areas are controls and get 44px. **Inline links in
+  prose are deliberately untouched.**
+- **10px micro labels**, raised to 11px on phones only.
+
+### `_audit.html`, and why it earns its place
+
+Seven pages at four widths, checking eight things. It found all of the above
+and it is the reason "the entire site needs to be mobile ready" is a
+checkable claim rather than an opinion. See `tools/preview/README.md` for the
+four false positives it knows about, each of which would otherwise report a
+deliberate decision as a bug.
+
+**Current state: 7 of 7 pages clean at 320, 375, 430 and 768.** At 1024 it
+still reports inline links under 44px, which is correct and not a defect:
+that is a desktop with a mouse.
+
+### The Retreats page, on Cydnie's three notes
+
+**The ring was stacked and the section was lopsided.** At 15rem under the
+heading it ran the left column 460px tall against 320px of copy on the right,
+which left a hole in the middle of the section and put the paragraph visibly
+above the mark it belongs to. It is on its side now at 8.5rem with the
+caption beside it, and the two columns land within a line of each other.
+
+**The bottom half was five consecutive sections on one frame:** small label,
+large heading, rule, body in the right hand column. On a phone, where the
+columns collapse, five of those in sequence is a list rather than a page.
+Three changes:
+
+1. **Terms folded into the questions**, which is now one section in three
+   movements: what you are agreeing to, then whether the week is for you,
+   then what it costs. Terms lead, because a non-refundable deposit that
+   surfaces after the decision reads as a trap however plainly it is written.
+   Inside a movement they are stacked rows rather than three columns; at
+   130px per track the copy broke to seven short lines.
+2. **The private block dropped the section frame** for a compact aside. The
+   change of frame is what makes it a beat instead of another entry.
+3. **Connective leads** on the refusals and the holds blocks, so the argument
+   travels rather than restarting.
+
+Five headed sections became four, one of which no longer looks like the
+others. The FAQPage schema is regenerated from the markup, as on A Sounding.
+
+### One accessibility fix found by the sweep
+
+The five steps in the Greece journey list were `h4` under an `h2`, skipping a
+level, which a screen reader reads as a missing section. They are `h3` now
+and the selector followed the markup.

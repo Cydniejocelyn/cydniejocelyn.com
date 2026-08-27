@@ -1,0 +1,222 @@
+<!doctype html><meta charset="utf-8">
+<title>responsive audit</title>
+<style>
+ html,body{margin:0;background:#fff;font:13px/1.45 ui-monospace,Menlo,monospace;color:#111}
+ #log{padding:12px;white-space:pre-wrap}
+ .bad{color:#b00020;font-weight:700}.ok{color:#0a7a3d}.warn{color:#8a6d00}
+ iframe{position:fixed;left:-9999px;top:0;border:0}
+</style>
+<div id="log">auditing…</div>
+<iframe id="f"></iframe>
+<script>
+/* Loads one page at one width and reports everything that would bite on a
+   phone. Written in session six, when "the entire site needs to be mobile
+   ready" needed a way to be checked rather than eyeballed page by page.
+
+     /_audit.html?p=/retreats/&w=375
+
+   The iframe is the whole trick: `100vh` and `100svh` resolve against it, so
+   a hero measures what it would measure on the device instead of against a
+   tall capture window. Same reason _shot.html uses one. */
+var P = new URLSearchParams(location.search);
+var PATH = P.get('p') || '/';
+var W = parseInt(P.get('w') || '375', 10);
+var H = parseInt(P.get('h') || '812', 10);
+var f = document.getElementById('f');
+f.style.width = W + 'px'; f.style.height = H + 'px';
+f.src = PATH;
+
+var out = [];
+function line(cls, s) { out.push('<span class="' + cls + '">' + s + '</span>'); }
+function flush() { document.getElementById('log').innerHTML = out.join('\n') + '\nDONE'; }
+function name(el) {
+  var c = el.className && el.className.baseVal === undefined ? String(el.className) : '';
+  return el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (c ? '.' + c.trim().split(/\s+/).slice(0,2).join('.') : '');
+}
+
+f.addEventListener('load', function () {
+  var w = f.contentWindow, d = f.contentDocument;
+  /* walk the page so lazy images load and every scroll-driven thing runs */
+  var y = 0;
+  var iv = setInterval(function () {
+    y += 400; w.scrollTo(0, y); w.dispatchEvent(new w.Event('scroll'));
+    if (y > d.body.scrollHeight + 1200) { clearInterval(iv); setTimeout(report, 1400); }
+  }, 24);
+
+  function report() {
+   try {
+    line('', '=== ' + PATH + ' at ' + W + 'x' + H + ' ===');
+
+    /* 1. horizontal overflow, and what is causing it */
+    var docW = d.documentElement.scrollWidth, cliW = d.documentElement.clientWidth;
+    if (docW > cliW + 1) line('bad', 'OVERFLOW  page scrolls ' + (docW - cliW) + 'px horizontally');
+    else line('ok', 'ok  no horizontal overflow (' + cliW + 'px)');
+
+    /* WIDER THAN THE VIEWPORT is the check that matters, not "does the page
+       scroll sideways". `body { overflow-x: hidden }` clips a blowout and
+       reports a clean page while the layout underneath is 2000px wide and
+       most of it unreachable. That is exactly how the Retreats carousel hid
+       for two sessions. Found in session six.
+
+       Elements inside something that scrolls on purpose are skipped: a rail
+       and a lightbox are meant to be wider than the frame. So are parallax
+       images, which are oversized so they have somewhere to travel. */
+    function inScroller(el) {
+      for (var p = el.parentElement; p && p !== d.body; p = p.parentElement) {
+        var o = w.getComputedStyle(p).overflowX;
+        if (o === 'auto' || o === 'scroll') return true;
+        /* .ab-head clips a rule that bleeds -2vw each side on purpose */
+        if (o === 'hidden' && p !== d.body) return true;
+        if (p.hasAttribute('data-rail') || p.classList.contains('lbx')) return true;
+      }
+      return false;
+    }
+    var wide = [];
+    Array.prototype.forEach.call(d.querySelectorAll('body *'), function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1) return;
+      var cs = w.getComputedStyle(el);
+      if (cs.position === 'fixed') return;
+      if (el.classList.contains('par')) return;
+      if (inScroller(el)) return;
+      if (r.width > cliW + 2) wide.push([Math.round(r.width), name(el)]);
+    });
+    wide.sort(function (a, b) { return b[0] - a[0]; });
+    if (wide.length) line('bad', 'WIDER THAN THE VIEWPORT  ' + wide.length + ': ' +
+      wide.slice(0, 8).map(function (x) { return x[0] + 'px ' + x[1]; }).join(' | '));
+    else line('ok', 'ok  nothing is wider than the viewport');
+
+    /* 2. tap targets. 44px is the figure the rest of this stylesheet uses. */
+    var small = [];
+    Array.prototype.forEach.call(d.querySelectorAll('a[href], button:not([disabled]), summary, input, select'), function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1) return;
+      var cs2 = w.getComputedStyle(el);
+      if (cs2.visibility === 'hidden' || cs2.pointerEvents === 'none') return;
+      /* Third-party markup we do not control: the Flodesk popup builds its
+         own form inside the page. */
+      if (/^(fd-|ff-)/.test(el.className || '')) return;
+      if (el.closest('[class*="ff-"], [class*="fd-form"]')) return;
+      /* A hit area grown with a pseudo-element measures small on the box and
+         correct under a thumb. .door-note--link does exactly this, on
+         purpose, because a min-height there pushed one note out of line with
+         its siblings. Measure the pseudo, not the box. */
+      var af = w.getComputedStyle(el, '::after');
+      if (af && af.content && af.content !== 'none') {
+        var t = parseFloat(af.top), b = parseFloat(af.bottom);
+        if (t < 0 && b < 0 && (r.height - t - b) >= 40) return;
+      }
+      /* An inline link inside a sentence is part of the sentence; sizing it
+         to 44px would break the line it sits in. Only free-standing controls
+         are held to the tap target. */
+      var par = el.parentElement;
+      var inline = el.tagName === 'A' && par &&
+        /^(P|LI|DD|BLOCKQUOTE|SPAN|H1|H2|H3|H4)$/.test(par.tagName) &&
+        par.textContent.trim().length > el.textContent.trim().length + 4;
+      if (inline) return;
+      if (r.height < 40 || r.width < 24) small.push(name(el) + ' ' + Math.round(r.width) + 'x' + Math.round(r.height));
+    });
+    if (small.length) line('warn', 'SMALL TAPS  ' + small.length + ': ' + small.slice(0, 8).join(' | '));
+    else line('ok', 'ok  every control is at least 40px tall');
+
+    /* 3. buttons sitting together that are not the same size. This is the
+          Greece booking pair: two calls to action, one visibly bigger. */
+    var groups = d.querySelectorAll('.actions, .rt-rate dd, .section-cta, .hero-acts');
+    var mismatch = [];
+    Array.prototype.forEach.call(groups, function (g) {
+      var bs = Array.prototype.slice.call(g.querySelectorAll('.btn'));
+      if (bs.length < 2) return;
+      var rs = bs.map(function (b) { return b.getBoundingClientRect(); });
+      /* Two buttons side by side at their natural widths read as a pair and
+         are fine. The defect is two STACKED buttons of different widths,
+         which reads as a mistake because it is one. So only compare buttons
+         that share a column. */
+      var stacked = rs.some(function (r, i) {
+        return i > 0 && Math.abs(r.top - rs[i - 1].top) > 4;
+      });
+      if (!stacked) return;
+      var hs = rs.map(function (r) { return Math.round(r.height); });
+      var ws = rs.map(function (r) { return Math.round(r.width); });
+      if (Math.max.apply(null, hs) - Math.min.apply(null, hs) > 2 ||
+          Math.max.apply(null, ws) - Math.min.apply(null, ws) > 2)
+        mismatch.push(name(g) + ' stacked, w[' + ws.join(',') + '] h[' + hs.join(',') + ']');
+    });
+    if (mismatch.length) line('bad', 'BUTTONS DIFFER  ' + mismatch.join(' | '));
+    else line('ok', 'ok  buttons that sit together match');
+
+    /* 4. images that never decoded */
+    var broken = Array.prototype.filter.call(d.images, function (i) {
+      var r = i.getBoundingClientRect();
+      return r.width > 0 && (!i.complete || i.naturalWidth === 0);
+    });
+    if (broken.length) line('bad', 'BROKEN IMAGES  ' + broken.length + ': ' +
+      broken.slice(0,4).map(function(i){return (i.getAttribute('src')||'').split('/').pop();}).join(' | '));
+    else line('ok', 'ok  every image in reach decoded');
+
+    /* 5. the quote carousel. Checked last and asynchronously, because the
+          track transition is 620ms and measuring the instant after a click
+          reports every slide as empty. That false positive cost a pass. */
+
+    /* 6. text too small to read on a phone */
+    var tiny = [];
+    Array.prototype.forEach.call(d.querySelectorAll('p, li, dd, dt, span, a, summary'), function (el) {
+      if (!el.textContent.trim()) return;
+      if (el.children.length) return;
+      if (el.closest('[aria-hidden="true"], .gauge, .vh')) return;
+      var fs = parseFloat(w.getComputedStyle(el).fontSize);
+      if (fs && fs < 11) tiny.push(name(el) + ' ' + fs.toFixed(1) + 'px');
+    });
+    if (tiny.length) line('warn', 'TINY TEXT  ' + tiny.length + ': ' + tiny.slice(0,6).join(' | '));
+    else line('ok', 'ok  no text under 11px');
+
+    /* 7. very tall empty runs, which is what a broken layout looks like
+          before it looks like anything else */
+    var gaps = [];
+    Array.prototype.forEach.call(d.querySelectorAll('main section'), function (s) {
+      var r = s.getBoundingClientRect();
+      if (r.height < 200) return;
+      if (s.classList.contains('cond') || s.querySelector('.cond-track')) return;
+      var kids = Array.prototype.slice.call(s.querySelectorAll('*')).filter(function (el) {
+        var rr = el.getBoundingClientRect();
+        return rr.height > 0 && rr.width > 0 && el.children.length === 0;
+      });
+      if (!kids.length) return;
+      var top = Math.min.apply(null, kids.map(function (k) { return k.getBoundingClientRect().top; }));
+      var bot = Math.max.apply(null, kids.map(function (k) { return k.getBoundingClientRect().bottom; }));
+      var slack = r.height - (bot - top);
+      if (slack > 420) gaps.push(name(s) + ' ' + Math.round(slack) + 'px of slack in ' + Math.round(r.height));
+    });
+    if (gaps.length) line('warn', 'BIG EMPTY RUNS  ' + gaps.join(' | '));
+    else line('ok', 'ok  no oversized empty runs');
+
+    carousel();
+   } catch (e) { line('bad', 'THREW ' + e.message); flush(); }
+  }
+
+  function carousel() {
+    var w = f.contentWindow, d = f.contentDocument;
+    var host = d.querySelector('[data-quotes].is-live');
+    if (!host) { flush(); return; }
+    var view = host.querySelector('.q-view');
+    var slides = Array.prototype.slice.call(host.querySelectorAll('.q-slide'));
+    var dots = Array.prototype.slice.call(d.querySelectorAll('.q-dot'));
+    var blanks = [], i = 0;
+    (function step() {
+      if (i >= dots.length) {
+        if (blanks.length) line('bad', 'CAROUSEL  slide(s) ' + blanks.join(',') + ' of ' +
+          slides.length + ' leave the view more than half empty');
+        else line('ok', 'ok  all ' + slides.length + ' quote slides fill the view');
+        flush();
+        return;
+      }
+      dots[i].click();
+      setTimeout(function () {
+        var vr = view.getBoundingClientRect(), s = slides[i].getBoundingClientRect();
+        var covered = Math.max(0, Math.min(s.right, vr.right) - Math.max(s.left, vr.left));
+        if (covered < Math.min(vr.width, s.width) * 0.9) blanks.push(i + 1);
+        i++; step();
+      }, 900);
+    })();
+  }
+});
+</script>

@@ -66,6 +66,38 @@ If the suite fails on a page you did not touch, run it headless before you
 believe it. Coverage is 95 assertions: 43 Greece, 20 Retreats, 17 A Sounding,
 15 The Letters.
 
+## `_audit.html` — is it actually usable on a phone
+
+    /_audit.html?p=/retreats/&w=375
+
+Loads one page at one width in a fixed iframe and reports the things that
+bite on a phone: horizontal blowout, elements wider than the viewport, tap
+targets under 44px, stacked buttons of different sizes, undecoded images,
+carousel slides that leave the view empty, text under 11px, and oversized
+empty runs. Run it with the same headless pattern as the suite.
+
+**The check that matters is "wider than the viewport", not "does the page
+scroll sideways".** `body { overflow-x: hidden }` clips a blowout and reports
+a clean page while the layout underneath is five times too wide. That is how
+the Retreats carousel hid for three sessions: `.rt-video` was a bare
+`display: grid`, its implicit column sized to max-content, and the quote
+track's max-content is 2028px. On a 375px phone the whole Costa Rica block
+laid out 2028px wide, two of the five reviews could not be reached at all,
+and the section rendered as most of a screen of empty dark.
+
+Four false positives it now knows about, so it does not cry wolf:
+
+1. Elements inside something that scrolls or clips **on purpose** -- a rail,
+   the lightbox, `.ab-head`'s bleeding rule, a parallax image.
+2. **Inline links inside prose.** "Read the letters" in the middle of a 270
+   character answer is part of that line; padding it to 44px breaks the
+   paragraph. Only free-standing controls are held to the tap target.
+3. **Hit areas grown with a pseudo-element.** `.door-note--link` measures
+   18px on the box and 44px under a thumb, deliberately. The audit measures
+   the `::after`.
+4. **Buttons side by side at natural widths.** That reads as a pair and is
+   fine. Only *stacked* buttons of different widths are the defect.
+
 ## `_probe.html` — measuring one thing
 
 Edit it. It is a scratch file for answering "what is this element actually

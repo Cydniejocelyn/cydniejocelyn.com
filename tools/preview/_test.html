@@ -252,10 +252,21 @@ f.addEventListener('load', function(){
         srcs.indexOf('cr-cards')===-1 && srcs.indexOf('cr-water')===-1);
      ok('retreats: their replacements are in place',
         srcs.indexOf('cr-floor')>-1 && srcs.indexOf('cr-surf')>-1);
-     ok('retreats: the questions are in two movements, not one stack',
-        d.querySelectorAll('.rt-qs').length===2 &&
-        d.querySelectorAll('.rt-qs-lead').length===2 &&
+     ok('retreats: before-you-book runs in three movements, terms first',
+        d.querySelectorAll('#faq .rt-qs').length===3 &&
+        d.querySelectorAll('#faq .rt-qs-lead').length===3 &&
+        !!d.querySelector('#faq .rt-qs:first-child .rt-terms') &&
         d.querySelectorAll('.faq details').length===7);
+     ok('retreats: terms are no longer a section of their own',
+        !d.querySelector('#terms-h'));
+     ok('retreats: the private block uses a different frame from its neighbours',
+        !!d.querySelector('#private .rt-aside') &&
+        !d.querySelector('#private .grid-12'));
+     ok('retreats: the ring and its caption sit on one line',
+        (function(){var r=d.querySelector('.rt-ring');if(!r)return false;
+          var svg=r.querySelector('svg').getBoundingClientRect();
+          var cap=r.querySelector('.fig-cap').getBoundingClientRect();
+          return w.innerWidth<672 || cap.left > svg.right - 2;})());
    }
    // ---- the ask block on /retreats/greece/ ----
    if(d.querySelector('#booking')){

@@ -199,6 +199,42 @@ button { font: inherit; color: inherit; }
    waterline at a second height, which is the one thing that must not ship. */
 
 /* ---------- 5. LAYOUT --------------------------------------- */
+
+/* THE SINGLE COLUMN GUARD. Read this before adding a grid.
+   ------------------------------------------------------------
+   A `display: grid` with no `grid-template-columns` gets one implicit
+   column, and an implicit column is sized `auto`, which resolves to
+   MAX-CONTENT. A grid track sized to max-content does not shrink to its
+   container: it grows to whatever the widest thing inside it wants to be,
+   and takes the whole subtree with it.
+
+   That is not theoretical. `.rt-video` is a plain `display: grid` below
+   48rem, and the quote carousel lives inside it. The carousel's track is
+   five 300px slides and four 32px gaps, so its max-content is 2028px. On a
+   375px phone the whole Costa Rica block was laid out 2028px wide: the
+   reviews sat off the side of the screen where nothing could reach them,
+   two of the five could not be swiped to at all, and the section rendered
+   as most of a screen of empty dark. `body { overflow-x: hidden }` clipped
+   the evidence, so the page reported no horizontal scroll while being five
+   times too wide underneath. It shipped like that for three sessions.
+
+   `minmax(0, 1fr)` is the fix: the same one column, allowed to be smaller
+   than its contents. Every grid below is single column at its narrowest and
+   picks up real tracks in a media query further down the file, where the
+   later rule wins.
+
+   If you add a grid that holds anything with a large intrinsic width -- a
+   carousel, a rail, a long unbroken string, a wide table, a preformatted
+   block -- put it in this list. `tools/preview/_audit.html` checks for it
+   on every page and will fail if you do not. */
+.grid-12, .hero-in, .cond-in, .turn-split, .fifteen, .quotes, .cards,
+.story, .retreat-grid, .reversal, .close-grid, .ftr-top, .triptych, .pair,
+.ab-split, .ways, .cases, .stats, .crow, .rt-facts, .rt-count, .rt-date,
+.trip, .rt-gal, .rt-video, .rt-person, .rt-rates, .rt-terms, .lt-pair,
+.shapes, .rt-rows > div, .refuse > div, .offer {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: clamp(var(--s-6), 7vw, var(--s-9)); position: relative; }
 .section--tight { padding-block: clamp(var(--s-5), 5vw, var(--s-7)); }
@@ -2671,8 +2707,11 @@ main > * { position: relative; z-index: 1; }
   transition: transform var(--t-mid) var(--ease-out);
 }
 .drop details[open] summary::after { transform: rotate(90deg); background-size: 100% 1px, 0 100%; }
+/* .625rem is 10px, which is below anything else on this site and below the
+   size at which a small caps label stops being readable on a phone and
+   starts being texture. Every other utility label here is .6875rem. */
 .drop .k {
-  font-family: var(--utility); font-size: .625rem;
+  font-family: var(--utility); font-size: .6875rem;
   letter-spacing: .24em; text-transform: uppercase; color: var(--label);
 }
 /* on a phone the label is its own line above, always */
@@ -2719,7 +2758,10 @@ main > * { position: relative; z-index: 1; }
   display: block; font-family: var(--utility); font-size: .625rem;
   letter-spacing: .28em; text-transform: uppercase; color: var(--label);
 }
-.trip h4 {
+/* h3, not h4. These sit under the section's h2 and an h4 there skips a
+   level, which a screen reader reads as a missing section. Changed in
+   session six; the selector follows the markup. */
+.trip h3 {
   margin-top: var(--s-2); font-weight: 400;
   font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.3; color: var(--ink);
 }
@@ -3055,6 +3097,38 @@ main > * { position: relative; z-index: 1; }
   letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
 }
 
+/* The aside. One block on this page deliberately does not use the section
+   frame its neighbours use: no eyebrow rule, no display heading, no two
+   column split. Four of those in sequence was the thing that made the
+   bottom of this page read as a list, and on a phone, where the columns
+   collapse, it was four identical stacks in a row. A change of frame is
+   what makes this one a beat instead of another entry. */
+.rt-aside {
+  max-width: 40rem;
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--rule);
+}
+.rt-aside .eyebrow { margin-bottom: var(--s-3); }
+
+/* Terms, now the first movement of the questions rather than a section of
+   their own.
+
+   They were three columns across the full page width, which is right for a
+   full width section and wrong here: inside the right hand column of a
+   grid-12 the three tracks came out about 130px each, the copy broke to
+   seven short lines, and the rows sat at three different heights because
+   only the first one had its rule suppressed. Stacked, they match the
+   question rows directly underneath them, which is the point of putting
+   them in the same section. */
+.rt-qs .rt-terms {
+  margin-top: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+.rt-qs .rt-terms > div { padding-block: var(--s-4); border-top: 1px solid var(--rule); }
+.rt-qs .rt-terms > div:first-child { border-top: 0; padding-top: 0; }
+.rt-qs .rt-terms dd { max-width: 42rem; }
+
 /* The questions, in movements. Seven accordions in one stack read as a form
    to be worked through; two groups of four and three, each opening with a
    line of prose, read as a conversation that is going somewhere.
@@ -3081,13 +3155,20 @@ main > * { position: relative; z-index: 1; }
    zone the dots and their counting outline take Meniscus, which is the role
    hairlines already play there, and the open fifteenth takes the ink.
 
-   Size and place: it sits inside the left column, under the heading and its
-   rule. That column was otherwise empty for the height of the copy beside
-   it, and the ring is the picture of the word above it. Capped at 15rem and
-   set left so it aligns with the type rather than floating in the measure. */
-.rt-ring { margin: clamp(var(--s-5), 5vw, var(--s-6)) 0 0; }
-.rt-ring svg { max-width: 15rem; margin-inline: 0; }
-.rt-ring .fig-cap { text-align: left; margin-top: var(--s-4); max-width: 15rem; }
+   Size and place: inside the left column, under the heading and its rule,
+   with the caption beside it rather than beneath. Stacked and set at 15rem
+   the ring ran the left column 460px tall against 320px of copy on the
+   right, which left a void in the middle of the section and put the
+   paragraph visibly above the mark it belongs to. Laid on its side at
+   8.5rem the two columns land within a line of each other and the caption
+   stops wrapping mid-phrase. */
+.rt-ring { margin: var(--s-5) 0 0; display: flex; align-items: center; gap: var(--s-5); }
+.rt-ring svg { width: 8.5rem; flex: none; margin-inline: 0; }
+.rt-ring .fig-cap { text-align: left; margin-top: 0; max-width: 11rem; }
+@media (max-width: 41.99rem) {
+  .rt-ring { gap: var(--s-4); }
+  .rt-ring svg { width: 7rem; }
+}
 .z-light .fifteen-fig .dot,
 .z-silt  .fifteen-fig .dot { fill: var(--meniscus); }
 .z-light .fifteen-fig.is-counting .dot,
@@ -3247,6 +3328,89 @@ main > * { position: relative; z-index: 1; }
    because the next one to try it will otherwise lose an hour to it. */
 .btn[hidden] { display: none; }
 
+
+/* ---------- 28. THE PHONE PASS ------------------------------
+   Everything in this section is a touch and small-screen correction, and
+   nothing in it changes a desktop. It sits at the foot of the file on
+   purpose: these are overrides, and an override that loses to source order
+   is not an override. The first draft of this block was written up beside
+   the layout rules and silently lost three of its five fixes.
+
+   Two breakpoints, and they mean different things.
+     47.99rem  anything a thumb drives: phones and small tablets. Tap
+               targets and paired buttons.
+     33.99rem  a phone specifically, where the column is genuinely narrow.
+               Type sizes and the carousel bar.
+
+   Session six, from a full pass with `tools/preview/_audit.html`, which
+   checks every page at 320, 375, 430 and 768 and is the thing to run before
+   believing any of this still holds.
+   ------------------------------------------------------------ */
+
+@media (max-width: 47.99rem) {
+  /* Buttons that sit together, sit together at the same size. On a wide
+     screen two calls to action take their natural widths and read as a
+     pair. The moment they stack, those same two widths read as a mistake:
+     the Greece booking pair came out 295px and 309px, one above the other,
+     and the 14px looked like a bug because it is one.
+
+     The cap matters. Without it a stacked button at 767px runs the full
+     690px of the column, which is not a button any more. 26rem is about as
+     wide as one should get. */
+  .actions { gap: var(--s-3); }
+  .actions .btn, .section-cta .btn {
+    width: 100%; max-width: 26rem; justify-content: center; text-align: center;
+  }
+
+  /* A link standing in a row of actions is a control, not a phrase in a
+     sentence, and it gets the tap target the buttons beside it have. The
+     three practice areas are navigation for the same reason.
+
+     Inline links inside prose are deliberately untouched. "Read the
+     letters" sitting in the middle of a 270 character answer is part of
+     that line, and padding it to 44px would break the paragraph it lives
+     in. The audit knows the difference and only reports the standalone
+     ones. */
+}
+
+/* Tap targets run wider than the layout breakpoint, because a tablet at
+   1024 is still a thumb. Nothing here changes how anything looks on a
+   desktop; it only stops a control being shorter than a fingertip. */
+@media (max-width: 63.99rem) {
+  .actions .link, .actions .more,
+  .bd-cross a, .bd-cross span {
+    min-height: 44px; display: inline-flex; align-items: center;
+  }
+}
+
+@media (max-width: 33.99rem) {
+  /* The carousel bar ran off the side. Two 44px arrows, one 24px dot per
+     quote, and the gaps: with seven quotes on the home page that came to
+     more than the 335px of column there is at 375, and the forward arrow
+     sat 21px off the screen, which was the entire horizontal scroll that
+     page had. The dots take the slack and wrap; the arrows stay at the
+     ends, where a thumb expects them. */
+  .q-bar { gap: var(--s-2); }
+  .q-dots { flex: 1 1 0; min-width: 0; flex-wrap: wrap; justify-content: center; }
+
+  /* Micro labels. .625rem is 10px, which is under the size at which small
+     caps with .28em tracking stops being readable and starts being
+     texture. Raised on phones only; the desktop sizes are deliberate. The
+     gauge and the pointer companion keep theirs, being decorative and
+     aria-hidden. */
+  .stats span, .trip .n, .rt-count span { font-size: .6875rem; }
+}
+
+@media (max-width: 47.99rem) {
+  .stats span, .trip .n, .rt-count span { font-size: .6875rem; }
+}
+
+/* Free-standing links that were shorter than a fingertip at any width.
+   `.booking` sets `display: inline-block` further up the file, which is
+   exactly why this has to come after it rather than before. */
+.booking, .ftr-brand .link {
+  min-height: 44px; display: inline-flex; align-items: center;
+}
 
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {
