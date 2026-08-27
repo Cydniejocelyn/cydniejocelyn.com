@@ -301,13 +301,25 @@ f.addEventListener('load', function(){
         !!pv && pv.classList.contains('btn'));
    }
    if (d.querySelector('#booking')) {
-     var wl = [].slice.call(d.querySelectorAll('a[href*="clients.cydniejocelyn.com/public"]'));
-     ok('greece: both waitlist plans are wired to their own forms',
-        wl.length === 2 &&
-        wl.some(function (a) { return a.href.indexOf('6a21d07b6dcfbe3d85c663b6') > -1; }) &&
-        wl.some(function (a) { return a.href.indexOf('6a21d63a1b6caddcac951777') > -1; }));
-     ok('greece: three ways to reach the waitlist, hero, ask and close',
-        d.querySelectorAll('a[href="#booking"]').length === 3);
+     /* The plan buttons are the ones that carry the step suffix. The plain
+        waitlist links point at the bare form and are counted separately. */
+     var plans = [].slice.call(d.querySelectorAll('a[href*="/1-Contact_Information"]'));
+     ok('greece: both payment plans are wired to their own forms',
+        plans.length === 2 &&
+        plans.some(function (a) { return a.href.indexOf('6a21d07b6dcfbe3d85c663b6') > -1; }) &&
+        plans.some(function (a) { return a.href.indexOf('6a21d63a1b6caddcac951777') > -1; }));
+     /* They were three #booking anchors and none of them reached the form.
+        Cydnie supplied the URL on 26 August; they are links out now, the
+        same destination the home page and /retreats/ have always used for a
+        plain "Join the waitlist". The booking band keeps both payment plans
+        for the reader who wants to choose one. */
+     var plain = [].slice.call(d.querySelectorAll('a[href$="6a21d07b6dcfbe3d85c663b6"]'));
+     ok('greece: three plain waitlist links, hero, ask and close, all reaching the form',
+        plain.length === 3);
+     ok('greece: no waitlist control is a dead scroll anchor',
+        [].slice.call(d.querySelectorAll('a')).filter(function (a) {
+          return /waitlist/i.test(a.textContent) && a.getAttribute('href') === '#booking';
+        }).length === 0);
    }
    var unknown = [].slice.call(d.querySelectorAll('a[href*="honeybook.com/widget"]'))
      .map(function (a) { var m = /cf_id\/([a-f0-9]+)/.exec(a.getAttribute('href')); return m && m[1]; })

@@ -26,7 +26,7 @@ four: The Letters was an anchor to a form on the home page and A Sounding was a 
 | Production | the newest **Ready** row in `vercel ls --prod` |
 | `main` vs production | **Session four's two pages are NOT deployed.** Everything before them is. Check with `git log --oneline` — a commit that touches `HANDOFF.md`, `README.md` or `tools/` changes nothing a visitor sees. |
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
-| Interaction suite | **120 assertions, all passing** (50 Greece, 33 Retreats, 19 A Sounding, 18 The Letters) |
+| Interaction suite | **121 assertions, all passing** (51 Greece, 33 Retreats, 19 A Sounding, 18 The Letters) |
 | Responsive audit | **7 pages clean at 320, 375, 430 and 768.** `tools/preview/_audit.html` |
 
 Do **not** write a deploy URL into this table. Session three did, and the next commit -- which
@@ -1673,8 +1673,17 @@ same day, and the suite pins every id now.
 commit.** An unknown id now fails the suite, which is how the sixth one above
 was found: it was on the page and in nobody's list.
 
-**Nothing was removed from the Greece page.** It carries five waitlist
-controls: "Join the waitlist" in the hero, the two payment plans in the
-booking band, "Or join the waitlist" in the ask block, and "Join the
-waitlist" in the close. Three of those are `#booking` anchors and the suite
-asserts all three.
+**Nothing was removed from the Greece page, but three of its waitlist
+controls did not reach the waitlist.** The hero, the ask block and the close
+all said "Join the waitlist" and all three were `#booking` anchors: they
+scrolled to the payment plans and stopped. The home page and `/retreats/` had
+been linking straight out to `public/6a21d07b6dcfbe3d85c663b6` all along;
+Greece was the only page where that plain link did not exist. Cydnie supplied
+the URL on 26 August and all three are links out now.
+
+The booking band keeps both payment plans, because choosing one is a real
+choice and the bare form does not ask. **Open question:** the bare link and
+the "paying in full" button are the same form id, so a reader who takes the
+plain link is on the pay-in-full record without being asked. Cydnie may want
+those labels revisited. The suite asserts three plain links, both plan forms,
+and that no control saying "waitlist" is left as a scroll anchor.
