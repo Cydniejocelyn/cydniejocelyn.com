@@ -2928,3 +2928,86 @@ everything around it had been softened.
 The verification harness still reports it under the exclusion list, now as
 `!! MASKED`, which is correct and intended: **the anchor is unmasked, the
 image inside it is masked.** Every other exclusion is still clean.
+
+
+---
+
+## 27. Session nineteen: the images were already WebP
+
+Cydnie asked for all photos to be optimised as WebP. **They already were**,
+and measuring that first is what stopped this becoming a session of
+generation loss for nothing.
+
+    referenced images:  101 webp,  3 png
+    the three png:      favicon-32, apple-touch-icon, og/home
+
+**Those three must stay PNG and converting them would break things.** iOS
+does not accept a WebP `apple-touch-icon`, and Facebook, LinkedIn and X do
+not reliably render a WebP Open Graph image, so `og/home.png` would silently
+stop producing link previews. Not an oversight. A requirement.
+
+### Re-encoding buys 0.4%, and costs a generation
+
+`tools/retreat_images.py` already writes a deliberate quality ladder,
+q82 at 700px and under, q76 to 1200, q70 above, with a comment recording
+that q82 on the wide variants ran over 4MB. Re-encoding an already-lossy
+WebP is a second generation, and swept across all 95 files:
+
+| | |
+|---|---|
+| files with >15% headroom at SSIM >= 0.99 | **4** |
+| what they are worth | **33KB, 0.4%** of the image payload |
+
+Several files get BIGGER when re-encoded: `greece/olive-1200` goes 341KB to
+374KB at q82, because the artifacts of the first encode cost bits to
+reproduce. **If a future session is asked to "optimise the images", measure
+before converting.** The answer here was almost entirely no.
+
+### What was actually wrong: missing candidates, not encoding
+
+`sizes` was accurate everywhere. The waste was that `srcset` had no small
+enough file to offer.
+
+`/the-build/` declares `20vw` for `.case-screen`, which is 71 CSS px on a
+390 phone. **The smallest candidate was 500w.** So a phone downloaded a
+500px image to draw 71px, six times over:
+
+    work block on a phone   390,864 bytes
+
+300w screens and 400w marks were generated FROM THE 800w AND 900w
+VARIANTS rather than re-encoded at the same size, because downscaling
+averages the first generation's artifacts away instead of compounding them.
+
+    work block on a phone   173,942 bytes   -55%
+
+### A measurement trap worth recording
+
+SSIM on the marks first read **0.58 to 0.77**, which looked like serious
+damage. It was not. They are RGBA logos, and grayscale SSIM was comparing
+the undefined RGB inside fully transparent pixels, which is noise.
+
+**Flatten an alpha image over the ground it actually sits on before
+measuring it.** Composited over Silt, the same files measure **0.9988 to
+0.9998**, with the alpha channel itself at exactly 1.0000.
+
+### The four re-encodes, and why banding was checked separately
+
+SSIM is weak at detecting posterisation in smooth gradients, and two of the
+four are the home hero, which is mostly a smooth water gradient. Distinct
+luminance levels per row in the calmest fifth of each image, before and
+after: 25.8 to 25.2, 25.4 to 25.2, 79.4 to 78.2, 24.1 to 25.0. **No
+posterisation introduced**, so they were applied.
+
+`hero-line` has a source at the same 1717x916 in `Website Images/`, but it
+measures SSIM 0.32 against the shipped file: **the shipped one is graded**,
+and the grade is not in any tool. Regenerating from that source would have
+thrown the grade away. Same-size re-encode was the only safe route.
+
+### Net
+
+    /the-build/ on a phone   -216,922 bytes  (-55%)
+    hero, veil, srs re-encode  -33,176 bytes
+    on disk                    +140,766 bytes, six new smaller variants
+
+Disk goes up because candidates were added. What a browser downloads goes
+down, which is the number that matters.
