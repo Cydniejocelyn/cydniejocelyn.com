@@ -2690,3 +2690,88 @@ Three widths ship, 600/900/1200 at q82: 23KB, 44KB, 65KB. A 390px phone at
 
 `#turn` loses 87px on a phone, because a square plate at 350px wide is
 350px tall where the 4:5 was 437px.
+
+---
+
+## 23. Session fifteen: the home page arc
+
+Cydnie: the home page is too dark, and the colour should feel like coming
+up from being under something. Measured before changing anything, by
+sampling the ground luminance every 4% down the page.
+
+### What was actually wrong: the palette on this page was binary
+
+    FLOOR (Fathom)      8157px   46.5%
+    MID                    0px    0.0%
+    LIGHT (Silt/Surface) 9401px   53.5%
+
+**Zero pixels of intermediate ground.** Every section was either 0.088 or
+0.887+. The Foundation's arc is "submerged, underwater, resurface, breath,
+flight", five stages, and the page had two: black and white. So the rise
+was not a rise, it was a light switch, thrown four times.
+
+Worse, Fathom, the absolute floor, kept coming back AFTER the rise band.
+Two full-dark sections immediately after the surfacing, and three more
+screens of it at 60%.
+
+### The rule that fixed it
+
+**Fathom is the bottom, so it only belongs where the reader is at the
+bottom.** After the rise band nothing returns below Deepwater. Depth still
+returns, twice, deliberately: it just stops going all the way down.
+
+Nothing was invented for this. `.z-deepwater` already existed as a full
+ground class with every token override, used on The Letters and Greece,
+and had simply never been used on the home page.
+
+| section | was | now | |
+|---|---|---|---|
+| hero, condition | Fathom | Fathom | the floor, where she starts |
+| **turn** | Fathom | **Deepwater** | the re-diagnosis IS the first lift. It was the same black as the hero |
+| method | Surface | Surface | surfaced |
+| **band** | Fathom | **Deepwater** | "Sometimes the answer is that you don't need me" looks back down; it does not fall to the floor |
+| **before you book** | Fathom | **Silt** | reassurance was the darkest thing on the page |
+| **story** | Fathom | **Deepwater** | still the deliberate return to depth the stylesheet has always described, one step off the floor |
+| footer | Fathom | Fathom | |
+
+    FLOOR    4477px   25.5%   (was 46.5%)
+    MID      3061px   17.4%   (was 0%)
+    LIGHT   10020px   57.1%
+
+**Every seam was re-pointed in the same commit.** `--from` names the ground
+ABOVE a section, so five of them moved: `#turn` gained one, `before you
+book` and `#fifteen` gained one each, `#retreat` changed from `var(--fathom)`
+to `var(--deepwater)`, and the rise band's `--band-from` went to Deepwater
+because what is above it is no longer Fathom. A seam naming the wrong
+ground is a visible edge; see §21.
+
+### Two contrast bugs fell out of it, same root cause
+
+Running a per-section contrast sweep afterwards turned up two failures, and
+both were the same mistake: **`--accent` used as a text colour.** On a dark
+ground `--accent` is Meniscus, which the palette's own comment reserves for
+"hairline rules and small caps labels only".
+
+| | was | now |
+|---|---|---|
+| `.cond-ticks button[aria-current="true"]` | `--accent`, **2.34:1** | `--label`, **9.62:1** |
+| `.story-lede` | `--accent`, 2.34:1 on Fathom and 2.02:1 once the section moved | `--muted`, **8.31:1** |
+
+The tick one was the more interesting failure: **the LIT tick was the least
+readable of the five**, because the four unlit ones sit on `--muted` at
+9.62:1. The indicator was backwards.
+
+`--label` is Breath on a dark ground and Deepwater on a light one, and on a
+light ground `--accent` and `--label` both already resolve to Deepwater, so
+that change is **byte-identical on Greece**, where `.cond` sits on Surface.
+Only the home page moves.
+
+**Nine sections, zero contrast failures** after. Before: two.
+
+### One thing worth noticing
+
+The re-diagnosis photograph, which is a hand under water, now sits on
+Deepwater rather than Fathom. The ground is much closer to the tone of the
+photograph's own edges, so the plate integrates instead of being a
+rectangle cut out of black. That was not the reason for the change but it
+is the clearest single improvement on the page.

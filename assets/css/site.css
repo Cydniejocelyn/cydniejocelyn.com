@@ -1058,7 +1058,15 @@ button { font: inherit; color: inherit; }
   transition: color var(--t-mid) var(--ease-out);
 }
 .cond-ticks button:hover { color: var(--ink); }
-.cond-ticks button[aria-current="true"] { color: var(--accent); }
+/* `--accent` on a dark ground is Meniscus, which the palette reserves for
+   "hairline rules and small caps labels only". As text it measured
+   2.34:1 on Fathom, so the LIT tick was the least readable of the five
+   while the four unlit ones sat at 9.62:1 on `--muted`. The indicator was
+   backwards. `--label` is Breath on a dark ground and Deepwater on a light
+   one, so this reads as lit on the home page and is byte-identical to what
+   it was on Greece, where `.cond` sits on Surface and --accent and --label
+   both already resolve to Deepwater. */
+.cond-ticks button[aria-current="true"] { color: var(--label); }
 
 .cond-slots { display: grid; gap: var(--s-5); border-top: 1px solid var(--rule); }
 .cond-item {
@@ -1547,7 +1555,12 @@ button.door-note {
   margin-top: var(--s-4);
   font-family: var(--carved); font-style: italic;
   font-size: clamp(1.4rem, 1.7vw, 1.5rem);
-  letter-spacing: .03em; color: var(--accent);
+  /* Was `--accent`, which is Meniscus on a dark ground: a rules colour used
+     as 22px body text, measuring 2.34:1 on Fathom and 2.02:1 once this
+     section moved to Deepwater. `--muted` is the quiet-text token and
+     measures 8.31:1, which is what a soft lede under a heading should be
+     rather than one that is merely hard to read. */
+  letter-spacing: .03em; color: var(--muted);
 }
 
 /* The timeline. A rule down the left with a stop on each beat, the same
