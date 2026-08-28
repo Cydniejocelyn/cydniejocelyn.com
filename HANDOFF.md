@@ -218,6 +218,7 @@ that far.
 | 19 | **The security headers do not exist until cutover.** The apex still answers from Showit. Verified live 28 August. | §31 |
 | 21 | ~~Nine measured UX frictions.~~ **CLOSED 28 August. All nine fixed**, suite 356 → 385. Two halves deliberately left as Cydnie's call: the visible booking hand-off line, and redrawing the gauge. | §34 |
 | 23 | ~~The hero headings are taller.~~ **CLOSED 28 August. Reverted.** The kit was the Adobe licence, not a restyle. `--carved` is Instrument Serif again and the hero is two lines. | §35 |
+| 26 | **The home hero is 982px in an 812px viewport at 375**, because `.hero-path` stacks under the copy and adds 238px. Not a type problem and not fixed: laying it out horizontally, dropping it on mobile, or accepting it are all composition calls. | §36 |
 | 24 | **The kit is linked on nine pages and the site uses none of its faces.** No font file is fetched from Adobe, but the kit stylesheet is render blocking and imports a second one. Keep it for the licence, or drop the link: Cydnie's call. | §35 |
 | 25 | **The kit has `ivypresto-text`, not IvyPresto _Display_.** The brand board names Display, which is the cut drawn for headline sizes. Only matters if the licensed face is ever put on the site. | §35 |
 | 22 | **site.js gets the bubble phase before analytics.js, always.** Anything reading state site.js is about to change must listen on capture. Cost three silently-wrong events in one session. | §33 |
@@ -3812,3 +3813,83 @@ entire codebase named, and it wired it in anyway on the reasoning that
 `--carved` was the only serif slot. The right move on a mismatch that size is
 to make the licence work and leave the appearance alone until somebody says
 otherwise.
+
+
+---
+
+## 36. Session twenty-three, part four: the display scale came down
+
+Reported as "in the heroes they are massive and on mobile especially the home
+page, it doesn't flow well". Both halves are true and the second one has an
+arithmetic explanation that is worth keeping.
+
+### Why mobile was the worse half
+
+Every size in the display scale is a `clamp(min, vw, max)`. **At 375 the vw
+term is below the minimum in all 26 of them**, so every heading on the site
+renders at its floor. The scale did not scale down on a phone; it collapsed
+into a narrow band of large sizes with almost no hierarchy left:
+
+    at 375, before        .ab-head h1 44.0   .rt-count b 41.6
+                          .h-1 30.4   .hero-line 29.6   .c-1 27.2
+                          .c-2 25.6   .h-2 24.0   .c-3 22.4   .h-3 18.4
+
+Fourteen of those sit within 8px of each other. **The About hero was 44px on
+a 375px screen**, which is the single largest thing on the site at the width
+where there is least room for it.
+
+### One factor set, applied to all 26 at once
+
+    min x 0.82      vw x 0.93      max x 0.90
+
+Doing it uniformly is the point. **Every relationship in the scale is
+preserved by construction** rather than by twenty-six separate judgements,
+including the one the file already documented: `.c-1` is deliberately larger
+than `.h-2` because the carved face has the smaller x-height and needs the
+extra size to read optically level. That ratio is identical after.
+
+The minimum took the largest cut because the minimum is what mobile actually
+uses. The maximum came down 10% because "in the heroes they are massive"
+is a desktop observation as well.
+
+    at 375, after         .ab-head h1 36.0   .rt-count b 34.1
+                          .h-1 24.9   .hero-line 24.3   .c-1 22.3
+                          .c-2 21.0   .h-2 19.7   .c-3 18.4   .h-3 17.3
+
+    home hero at 1440     69.6 -> 62.6, still two lines
+    About hero at 1440    80.0 -> 72.0
+
+### Three minimums were floored back up
+
+`.h-3`, `.lt-sig` and the questions list came out at **15.1px, below the 18px
+body copy they sit among**. A heading smaller than its own paragraph inverts
+the hierarchy rather than tightening it, so those three are floored at
+1.08rem. **1.08rem is the floor for anything in this scale.**
+
+### Verified
+
+45 checks, nine pages at 320, 375, 390, 768 and 1440: **no horizontal
+overflow anywhere, and no heading spilling its container**. Suites unchanged
+at 383 and 141, both green.
+
+The About head rule clearance — the measurement §29 was written about and
+which once rendered at **-13px** — is **55px at 375, up from 46**. Smaller
+headings mean a shorter copy block, and the clearance is whatever is left
+after the copy takes its height, so it moved the right way.
+
+Three unclassed `<h3>` elements measure 12px and were deliberately left
+alone: they are the footer column labels, small caps by design, and never
+part of this scale.
+
+### What this did NOT fix, and it is the actual "flow" complaint
+
+**The home hero is still 982px tall in an 812px viewport at 375.** The type
+reduction took 17px off it. The other 170 is structural: `.hero-copy` is
+518px and `.hero-path` — the Resurface / Reclaim / Build list that sits to
+the right on a desktop — **stacks underneath it on a phone and adds 238px**.
+So the fold lands inside that list and a reader sees it truncated.
+
+No type change closes a 170px gap. The options are to lay the path out
+horizontally under the copy, to drop it from the hero on mobile (it is
+repeated further down the page), or to let the hero be taller than a screen
+on purpose. **All three are composition decisions, so none was taken.**
