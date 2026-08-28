@@ -3893,3 +3893,73 @@ No type change closes a 170px gap. The options are to lay the path out
 horizontally under the copy, to drop it from the hero on mobile (it is
 repeated further down the page), or to let the hero be taller than a screen
 on purpose. **All three are composition decisions, so none was taken.**
+
+
+---
+
+## 37. Session twenty-three, part five: four corrections, one of them mine
+
+Reported together: the mobile hero is now too small, all headers are too
+small, there is a massive dark gap between the hero and the next section, and
+"everyone who needed you" blends into the page.
+
+### The scale was over-cut, and that was an overcorrection
+
+§36 took the minimums down by 0.82. That was too far — it read as "massive"
+before and "too small" after, so the honest answer is that the type was never
+the main problem and the cut absorbed blame that belonged to the gap below.
+
+Rebalanced **from the original values, not from the over-cut ones**, so two
+rounds of rounding do not compound:
+
+    min x 0.95      vw x 0.98      max x 0.93
+
+    at 375   hero-line 29.6 -> 24.3 -> 28.1     .c-1 27.2 -> 22.3 -> 25.8
+             ab-head h1 44.0 -> 36.0 -> 41.8    .h-2 24.0 -> 19.7 -> 22.8
+
+The maximum keeps the larger cut, because "in the heroes they are massive"
+was a desktop observation and remains true there: the About hero is 74.4px at
+1440 rather than 80.
+
+### The dark gap was never the type
+
+Measured at 375: the last hero content ended at **918**, the hero at 982, and
+**the first text of the next section did not appear until 1238**. A 320px run
+of empty dark ground, which is most of half a screen.
+
+Three things stacked into it. The `.cond` stage is `100svh` with
+`align-items: center`, so on a phone about 320px of content was centred in
+650px of remaining stage and pushed a further 165px down. The hero carried a
+desktop-sized 64px floor under its last line. And the header clearance
+padding sat on top of both.
+
+On a phone the stage is `align-items: flex-start` now with tighter padding,
+and the hero's bottom padding drops to `--s-5`. **320px -> 153px.**
+
+**`--cond-run` was NOT touched.** The note above it says not below about
+30svh, because a step shorter than one thumb flick can be skipped unread and
+the five recognitions ARE the argument of that section. That reasoning still
+holds. This shortened the approach, not the steps, and the section is still
+2330px because that length is deliberate.
+
+### --accent failed as text on a dark ground for the third time
+
+`.head em, .carved em` used `var(--accent)`. On Fathom and Deepwater that
+resolves to **Meniscus #2F5A61, which is a rules colour**, and "everyone who
+needed you." in the home turn heading measured **2.02:1** against its ground.
+Reported as "it blends in with the page overall", which is exactly what
+2.02:1 looks like to a reader.
+
+It is `var(--label)` now — the ground-aware token that already existed for
+this: Breath on the dark grounds, Deepwater on the light ones. **2.02 -> 8.76
+across all five instances at all five widths.** The italic was never the
+problem and is untouched.
+
+This is the third instance of the same mistake, and §0 already lists the
+pattern. **The suite now asserts the measured contrast of every `em` inside a
+heading rather than asserting the token name**, because naming the right
+token is not the same as the result being readable.
+
+    behaviour  384 pass / 0 fail across nine pages
+    analytics  141 pass / 0 fail across nine pages
+    45 layout checks at 320, 375, 390, 768, 1440: no overflow, no spill

@@ -454,6 +454,33 @@ f.addEventListener('load', function(){
       w.getComputedStyle(soc).backgroundColor === 'rgba(0, 0, 0, 0)');
    ok('footer: and they are still a 44px tap target',
       !!soc && soc.getBoundingClientRect().height >= 44 && soc.getBoundingClientRect().width >= 44);
+   /* ---- emphasis inside a heading must be legible ----
+      THIS IS THE THIRD TIME --accent HAS FAILED AS TEXT ON A DARK GROUND.
+      It resolves to Meniscus #2F5A61 on Fathom and Deepwater, and Meniscus
+      is a rules colour. `.carved em` used it, and "everyone who needed you."
+      in the home page turn heading measured 2.02:1 -- reported by Cydnie as
+      "it blends in with the page overall", which is what 2.02:1 looks like
+      to a person. It is --label now, which is ground aware: Breath on the
+      dark grounds, Deepwater on the light ones.
+
+      The assertion is the contrast, not the token, because naming the right
+      token is not the same as the result being readable. */
+   (function () {
+     var ems = [].slice.call(d.querySelectorAll('.head em, .carved em'));
+     if (!ems.length) return;
+     function rgb(v){var m=v.match(/\d+(\.\d+)?/g); return m?m.slice(0,3).map(Number):null;}
+     function lum(c){var a=c.map(function(v){v/=255; return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});
+       return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];}
+     function ratio(x,y){var l1=lum(x),l2=lum(y); return (Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05);}
+     function bgOf(el){var e=el; while(e){var b=w.getComputedStyle(e).backgroundColor;
+       if(b && !/rgba\(0, 0, 0, 0\)|transparent/.test(b)) return rgb(b); e=e.parentElement;} return [255,255,255];}
+     var worst = Math.min.apply(null, ems.map(function (e) {
+       return ratio(rgb(w.getComputedStyle(e).color), bgOf(e));
+     }));
+     ok('type: emphasis in a heading is legible on its ground (' +
+        ems.length + ' of them, worst ' + worst.toFixed(2) + ':1)', worst >= 4.5);
+   })();
+
    /* ---- the nine frictions, session twenty-three ----
       Each of these was measured before it was changed, and each would go
       back to being wrong silently: a focus ring nobody sees, a link nobody
