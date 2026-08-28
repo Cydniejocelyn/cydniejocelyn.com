@@ -424,8 +424,26 @@
     sec.style.setProperty("--cond-steps", N);
     sec.style.setProperty("--cond-tail", TAIL);
 
-    /* a pin needs a screen tall enough to be worth pinning */
-    function roomy() { return !reduce.matches && window.innerHeight >= 520; }
+    /* A PIN NEEDS A SCREEN WITH ROOM FOR ONE, AND A PHONE DOES NOT HAVE IT.
+       Height was the only test here, and height was never the binding
+       constraint: a 375x812 phone passes `innerHeight >= 520` comfortably
+       and then pins a 355px block in an 812px viewport, leaving about 330px
+       of empty ground on screen for the whole of the section. It also
+       stretched the section to 2330px, 2.9 screens, to deliver five short
+       lines. Both were reported, twice, as a massive dark gap.
+
+       Below 768 the five render as the plain stacked list this component was
+       always built to fall back to -- the note at the top of this function
+       has said so from the beginning. The section drops to about a third of
+       its pinned height, the recognitions read as a list, and the spacing
+       before and after it is ordinary section spacing with no void at
+       either end.
+
+       The stepped reading is intact from 768 up, where the stage is wide
+       enough that the pinned block is a composition rather than an island. */
+    function roomy() {
+      return !reduce.matches && window.innerHeight >= 520 && window.innerWidth >= 768;
+    }
 
     /* the five are stacked on one another, so nothing gives the stack its
        height any more. Measure the tallest and hold that. */
