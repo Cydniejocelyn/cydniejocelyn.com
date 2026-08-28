@@ -437,34 +437,41 @@ footer{border-top:1px solid var(--rule);padding-top:1.2rem;font-family:var(--uti
   </section>
 
   <section>
-    <h2>And the hero headings did get bigger</h2>
-    <p>Asked during this work: <em>did something change?</em> Yes, and it is measurable. The
-      <code>font-size</code> was not touched — it is the same <code>69.6px</code> at 1440 that it
-      has always been, with the same line height. <strong>The typeface changed.</strong>
-      IvyJournal replaced Instrument Serif as the carved face when the Adobe kit went in, and at
-      an identical size IvyJournal is simply a larger letter:</p>
+    <h2>The hero headings got bigger, and are back</h2>
+    <p class="status">Reverted</p>
+    <p>Asked during this work: <em>did something change?</em> Yes, and it was measurable. The
+      <code>font-size</code> was never touched — the same <code>69.6px</code> at 1440 throughout,
+      same line height. <strong>The typeface changed.</strong> The Adobe kit was supplied as the
+      licence key, and it was wrongly read as an instruction to put the licensed face on the
+      site, so IvyJournal went to the front of the carved stack and every heading on nine pages
+      changed with it. That is reverted: the carved face is Instrument Serif again, which is what
+      had drawn every headline since the first build. The numbers are kept here because they are
+      what the decision rests on if the licensed face is ever genuinely wanted:</p>
     <div class="scroller">
       <table>
-        <thead><tr><th>At 100px, both faces</th><th>Instrument Serif</th><th>IvyJournal</th><th>Difference</th></tr></thead>
+        <thead><tr><th>At 100px</th><th>Instrument Serif</th><th>IvyJournal</th><th>IvyPresto Text</th></tr></thead>
         <tbody>
-          <tr><td>Cap height — governs all-caps lines like the hero</td><td class="m">66.2</td><td class="m">72.8</td><td class="m">+10.0%</td></tr>
-          <tr><td>x-height — governs how large mixed-case type <em>reads</em></td><td class="m">44.9</td><td class="m">53.1</td><td class="m">+18.3%</td></tr>
-          <tr><td>Width of “YOU’RE NOT BROKEN.”</td><td class="m">1067.6</td><td class="m">1130.0</td><td class="m">+5.8%</td></tr>
+          <tr><td>Cap height — governs all-caps lines like the hero</td><td class="m">66.2</td><td class="m">72.8 <span class="sev med">+10.0%</span></td><td class="m">72.8 <span class="sev med">+10.0%</span></td></tr>
+          <tr><td>x-height — governs how large mixed-case type <em>reads</em></td><td class="m">44.9</td><td class="m">53.1 <span class="sev high">+18.3%</span></td><td class="m">52.4 <span class="sev high">+16.7%</span></td></tr>
+          <tr><td>Width of “YOU’RE NOT BROKEN.”</td><td class="m">1069.4</td><td class="m">1130.0 <span class="sev med">+5.8%</span></td><td class="m">1038.6 <span class="sev low">−2.9%</span></td></tr>
         </tbody>
       </table>
     </div>
     <p>The x-height number is the one that explains the feeling. x-height, not point size, is what
       the eye reads as “how big is this type”, and an 18% jump at the same nominal size is very
-      visible. Compounded with the 5.8% extra width, the home hero went from
-      <strong>two lines to four</strong> at 1440.</p>
-    <p class="fix"><strong>If you want it back to where it was</strong>Nothing is broken, so this
-      is a taste decision rather than a fix, and it is one number. Multiplying the carved type
-      scale by <strong>0.91</strong> matches the old cap height, which is the right target for
-      the all-caps hero. Matching x-height instead would want <strong>0.85</strong>, which is
-      right for mixed-case headings like “I’m Cydnie.” but would leave the hero looking smaller
-      than it used to. If one figure has to serve both, <strong>0.91</strong> is the one to try
-      first, and the hero should come back to two lines at 1440. Say the word and I will apply it
-      and re-measure every heading at 375, 390, 768 and 1440.</p>
+      visible. Compounded with the extra width, the home hero went from <strong>two lines to
+      four</strong> at 1440. It is two lines again, and the About head rule clearance — the
+      measurement that failed at −13px once before — is back to 46px.</p>
+    <p class="fix"><strong>If the licensed face is ever genuinely wanted</strong>Two things have
+      to happen together, and the second is the one that gets forgotten. Add the family’s slug to
+      the front of <code>--carved</code> — the kit is already linked in every page head — and
+      retune the carved scale by about <strong>0.91</strong> in the same commit, which matches
+      the old cap height and is the right target for an all-caps hero. Without the second half,
+      every heading arrives 10% taller than the scale was drawn for.
+      <br><br>Worth knowing before that day: the kit carries <code>ivypresto-text</code>, not
+      IvyPresto <em>Display</em>. Text is the cut drawn for paragraphs — sturdier hairlines,
+      looser spacing — and Display is the one the brand board names and the one that suits a 70px
+      headline. At hero sizes that distinction shows more than the name matching does.</p>
   </section>
 
   <section>
