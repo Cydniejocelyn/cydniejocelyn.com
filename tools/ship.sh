@@ -50,6 +50,17 @@ if [ "$SUITE" = "1" ] && [ -n "$SP" ]; then
   echo "    (read that. Do not ship a red suite.)"
 fi
 
+# iCloud Drive syncs this Desktop and writes "about 2" style conflict copies
+# into dist/ whenever build.py wipes and recreates it. build.py sweeps them,
+# and this sweeps again here because iCloud can write a fresh one in the
+# seconds between the build finishing and the upload starting. One of them
+# vanishing mid-scan is what took a production deploy down on 28 August:
+#   ENOENT: no such file or directory, scandir '.../dist/privacy-policy 2'
+echo "==> sweeping iCloud conflict copies out of dist/"
+find dist -depth -name "* [0-9]" -o -depth -name "* [0-9].*" | while read -r d; do
+  echo "    removing $d"; rm -rf "$d"
+done
+
 echo "==> deploying dist/"
 # CD INTO dist, DO NOT USE --cwd. This is not a style preference.
 #
