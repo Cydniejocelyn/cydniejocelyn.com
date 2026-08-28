@@ -1,7 +1,7 @@
 # Handoff — Cydnie Jocelyn, the resurfacing business
 
 **Rewritten at the end of session one, extended at the end of sessions two, three and four,
-26 August 2026.**
+26 August 2026. Section 0 re-measured at the end of session twenty-three, 28 August 2026.**
 Everything before the rewrite was appended in layers and several of those layers contradicted
 each other, because decisions were reversed along the way. Where an old commit message and this
 file disagree, **this file is right.** Where two parts of this file disagree, that is a bug:
@@ -10,6 +10,43 @@ fix it rather than working around it.
 ---
 
 ## 0. State as of 28 August 2026
+
+### Picking this up cold
+
+Everything is committed, pushed and deployed. Verified at the end of session
+twenty-three, not assumed:
+
+    git status --short          empty
+    main vs origin/main         0 behind, 0 ahead   (1abe9ad)
+    a fresh build changes       nothing
+    local stamp vs live alias   b8862031 == b8862031
+    interaction suite           439 pass / 0 fail
+    analytics suite             141 pass / 0 fail
+
+**There is no work in flight.** Nothing is half-done and nothing is waiting on
+a decision from me. The four things still open are all Cydnie's, and she has
+said she is handling the first two herself:
+
+1. **Launch day and the DNS move.** Hers. When it happens, Deployment
+   Protection comes off and the privacy policy's "Last updated" date changes
+   in the same commit. §0 item 8.
+2. **HSTS without `includeSubDomains` or `preload`.** Left conservative on
+   purpose: it binds `clients.cydniejocelyn.com`, which HoneyBook operates,
+   and it cannot be withdrawn quickly. §31.
+3. **A dead `tools/sync.sh`** with a hardcoded path to a directory that no
+   longer exists. Flagged rather than deleted. See the warning in the start
+   sequence below.
+4. **A dead `.hero { padding-bottom: var(--s-5); }`** at `site.css:4522` that
+   has never applied — a later rule sets `padding-block` and wins. Its comment
+   describes an effect it does not have. Deleting it is a one-line cleanup
+   that was deliberately not bundled into an unrelated change.
+
+The two reference documents for this build are `tools/analytics-reference.html`
+(every GA4 event, where it fires, what it carries) and `tools/ux-review.html`
+(nine measured interface frictions, all fixed). Both are excluded from the
+deploy and both are also published as Artifacts.
+
+
 
 **Everything below §1 is reference. This section is where a new session starts.
 If this section and anything below it disagree, this section is right.**
@@ -33,6 +70,22 @@ six mobile corrections (§21), a new photograph (§22), the home page colour arc
 (§23), soft edges on every photograph (§24 to §26), an image audit (§27), SEO
 and fifteen service locations (§28), and one overlap on About (§29).
 
+**Sessions twenty-two and twenty-three, also 28 August, were wiring and
+correction rather than pages.** In order: the Adobe font licence and GA4
+(§30), a security pass that added the whole header set (§31), a deploy that
+read the wrong `vercel.json` (§32), twelve GA4 events and a nine-point UX
+review (§33), all nine of those fixed (§34), the font kit read as a restyle
+and reverted (§35), the display scale cut too far (§36), rebalanced (§37),
+iCloud corrupting a deploy (§38), four passes at one component's spacing
+(§39 to §42), and finally the kit pulled, the Greece images halved on phones,
+and real cookie consent (§43).
+
+**If you read only one of those, read §41.** A scripted CSS edit computed a
+splice bound with an unanchored `str.index` and silently duplicated 2,300
+lines of `site.css`; it shipped twice, because duplicate CSS is legal and the
+stale copies simply won. **Check the line count after any scripted edit to
+that file.**
+
 **Every nav target has a page behind it and every form goes somewhere real.**
 Neither was true two days ago: The Letters was an anchor to a dead form on the home page,
 A Sounding was a block on it, and the home page carried a `<form action="#">` that reloaded
@@ -44,7 +97,11 @@ anywhere on the site now.
 | Production | the newest **Ready** row in `vercel ls --prod` |
 | `main` vs production | **In sync.** Verify rather than assume: `git status --short` should be empty and `git rev-parse --short HEAD origin/main` should print the same hash twice. To prove production matches the tree, hash a page both ways: `shasum index.html` against `vercel curl <prod>/ -s \| shasum`. |
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
-| Interaction suite | **200 assertions, all passing** (62 Greece, 43 Retreats, 28 A Sounding, 27 The Letters, 19 Privacy, 21 The Questions). Run it against `dist/`, not the source: see §2 |
+| Interaction suite | **439 assertions, all passing** (82 Greece, 61 Retreats, 50 Home, 45 A Sounding, 45 The Letters, 41 Privacy, 39 About, 38 The Build, 38 The Questions). Six pages run by default; Home, About and The Build must be asked for by path. Run it against `dist/`, not the source: see §2 |
+| Analytics suite | **141 assertions, all passing** across nine pages. `sh tools/preview/runga.sh "$SP" 8817`. Separate from the interaction suite because analytics is a sequence of events, not a state. |
+| Analytics | **GA4 `G-KDB3GWPNHC`, twelve events, and it does not load until a reader accepts cookies.** `assets/js/consent.js` injects the tag; before consent there is no `gtag`, no `dataLayer` and no request to any Google domain. See §43 and `tools/analytics-reference.html`. |
+| Speed | **TTFB 64ms, FCP 148ms, 11 requests, CLS 0** on the home page, measured on production. Greece on a phone is 1,479KB of images after §43, down from 1,947. |
+| Third parties | **None on the critical path.** The Adobe kit was the only one and was removed in §43. Flodesk loads on `/the-letters/` only; YouTube is click-to-load on `/retreats/`. |
 | Responsive audit | **9 pages clean at 320, 375, 430 and 768** |
 | Mobile scroll | **Measured at 375x812, 390x844 and 360x800.** Home 20.9 screens, Greece 26.1. See §20 |
 | Local SEO | **A LocalBusiness node with the same fifteen cities in `areaServed` on all eight indexable pages**, and one sentence in the footer. Asserted in the suite. See §28 |
@@ -57,8 +114,22 @@ Do **not** write a deploy URL into this table. An earlier session did, and the v
 commit -- which was this file -- immediately made it wrong. `vercel ls --prod` is the answer
 and it cannot go stale.
 
-**Deployment Protection is still ON,** so nobody outside the team can see any of it. It is one
-dashboard toggle and it is the only thing between this build and launch. See §1.
+**Deployment Protection is ON for per-deploy URLs, and the stable alias is
+NOT covered by it.** This was checked, not assumed:
+
+    https://cydniejocelyn-v2.vercel.app          200, public, no login
+    https://cydniejocelyn-v2-<hash>-...app       302 to vercel.com/login
+
+So the alias is the link to send anybody, and it is also **already reachable
+by the public and by crawlers.** `robots.txt` allows indexing; the canonical
+on every page points at `cydniejocelyn.com`, so there is no duplicate-content
+risk, but analytics on the alias counts as real traffic. Treat the alias as
+live, because it is.
+
+**The apex is still the old Showit site.** Verified live on 28 August:
+`cydniejocelyn.com` answers from Showit behind Cloudflare. None of the
+security headers, and none of this build, exist there until the DNS moves.
+Cydnie is handling launch day and the DNS move herself. See §1.
 
 ### Start here, in this order
 
@@ -74,6 +145,13 @@ dashboard toggle and it is the only thing between this build and launch. See §1
    200. `lsof -nP -iTCP:8814 -sTCP:LISTEN` before you debug a single route. **Nothing is held
    at the end of session twenty-one.** Every port used across sessions eleven to
    twenty-one (8814, 8817, 8820 to 8831) was released deliberately. Do the same.
+
+   **THERE ARE TWO FILES NAMED `sync.sh` AND ONE OF THEM IS DEAD.**
+   `tools/preview/sync.sh` is the live one and derives its source from its own
+   location. `tools/sync.sh` still has a hardcoded
+   `/Users/cydniebrown/Desktop/Claude Code/cydniejocelyn-v2/` in it, a
+   directory that no longer exists, and nothing references it. Running the
+   wrong one rsyncs from nowhere and leaves you debugging an empty preview.
 
    **Re-run `sync.sh` after every edit.** Nothing you change is visible until you do, and it
    re-lays the six committed harnesses, which `rsync --delete` wipes.
@@ -92,6 +170,7 @@ dashboard toggle and it is the only thing between this build and launch. See §1
    | `_menu.html` | The open mobile menu, measured against its panel, at two scroll positions per page. |
    | `runcarousel.sh` | The reviews on a touch screen. **Must run with the coarse-pointer flags or it tests the desktop path and passes.** |
    | `_shot.html` | Screenshots at a real viewport. A tall window does not work here; `100vh` needs an iframe. |
+   | `runga.sh` + `_ga.html` | The **141-assertion** analytics suite. Drives every tracked interaction on a page and asserts what came out. **It builds an opaque, on-screen iframe on purpose:** in an `opacity:.001` one, headless Chrome runs neither `scroll` nor `requestAnimationFrame`, and it dispatches its own scroll events because the preview pane fires none at all. §33. |
    | `_probe.html` | Scratch file for measuring one thing. |
 
 4. **Run the suite headless, and believe it over the preview pane.** The pane returns *wrong
@@ -101,13 +180,53 @@ dashboard toggle and it is the only thing between this build and launch. See §1
    you did not touch, run it headless before you believe it.
 
 5. Ship with §2. **The deploy comes out of `dist/`,** not the working directory, and
-   `tools/ship.sh` is the whole sequence in one command.
+   `tools/ship.sh` is the whole sequence in one command. Two things about it,
+   both of which took a production deploy down on 28 August:
+
+   **Never put `--cwd dist` back on the deploy.** `vercel deploy --cwd dist`
+   uploads `dist/` and then reads `vercel.json` from the SHELL's directory,
+   which is the repo root. Those two files differ: `build.py` seals the CSP
+   script hashes into the dist copy. That shipped a production CSP containing
+   the literal string `__INLINE_SCRIPT_HASHES__`, which blocked every inline
+   script on the site while the HTML, the CSS and the suite were all correct.
+   `ship.sh` cds into `dist/` now and curls the deployed headers afterwards.
+   §32.
+
+   **This project is on the Desktop and the Desktop is synced to iCloud.**
+   `build.py` wipes and recreates `dist/`, iCloud reads that as a conflict and
+   writes `about 2`, `assets 3`, `sounding-popup 2.js` beside the real files.
+   One of them vanished mid-scan and killed a deploy with a bare `ENOENT`.
+   Both `build.py` and `ship.sh` sweep them, deliberately in two places,
+   because iCloud can write a fresh one in the seconds between. §38.
 
 ### If you are measuring anything
 
 Most of what these sessions got right came from measuring first, and most of what nearly went
 wrong came from reasoning about CSS instead. Four things specific to this site:
 
+- **On a phone, check the `clamp()` minimum before anything else.** Three
+  separate components were reported as wrong on mobile in one session and all
+  three had the same cause: the `vw` term sits below the minimum at 375, so
+  every value on the phone is its floor and the scale collapses. The display
+  type, the section rhythm and the story scroll each looked like a design
+  problem and each was this. §36, §39.
+- **`site.js` gets the bubble phase before anything loaded after it.** Any
+  listener that needs to read state `site.js` is about to change has to be on
+  capture. This cost three silently-wrong analytics events -- an inverted
+  menu state, a `video_start` that never fired, and every desktop header
+  click reported as a mobile menu. §33.
+- **`--accent` is a RULES colour and fails as text on a dark ground.** It
+  resolves to Meniscus on Fathom and Deepwater: measured 2.02:1 in the last
+  instance. `--label` is the ground-aware token for emphasis. This has now
+  happened three times; the suite asserts the measured contrast of every
+  `em` inside a heading rather than the token name. §37.
+- **Never compute a splice bound from an unanchored `str.index` in
+  `site.css`.** Selectors in that file differ only by which media block they
+  sit in and `index` cannot tell them apart. One bound landed before its own
+  start and duplicated 2,300 lines, which shipped twice because duplicate CSS
+  is legal and the later copy wins. Slice the media block first, or match a
+  string unique in the whole file, and **check the line count afterwards.**
+  §41.
 - **Force reveals before measuring geometry.** `.r-up` uses `translateY`, which MOVES
   `getBoundingClientRect`. Add `no-tween` to the root and `is-in` to every
   `.r-up, .r-fade, .r-img, .split` first, or you are measuring an animation frame.
