@@ -2493,3 +2493,104 @@ The micro labels are raised to 11px by `@media (max-width: 47.99rem)`, and
 767.84px is where that stops, so 768px gets the base 10px. That is the
 deliberate desktop size from session six. A tablet is not a phone and it was
 out of scope here.
+
+---
+
+## 21. Session thirteen: six mobile corrections
+
+All six are Cydnie's own notes from reading the site on a phone. Every one
+is scoped to a phone and **nothing in section 28c may change a desktop**,
+which was verified by measuring the same page at 1440x900 afterwards: the
+gauge still `flex`, the seam still the original two stop gradient, the hero
+padding still 144/126, the rise band still 552px.
+
+### 1. The surfacing gauge is off below 56rem
+
+It reads how far up the reader has come, and on a wide page it is a quiet
+instrument at the edge. On a phone it is a line and a travelling dot about
+12px from the text column, moving continuously for twenty screens in the
+reader's peripheral vision. Cydnie's words: too much movement.
+
+56rem because that is this site's own line between mobile and desktop, the
+width where the nav collapses and the twelve column grid arrives.
+
+### 2. The line between two sections, and what it actually was
+
+**This is the one worth reading.** Two boundaries were reported as having a
+drawn line across them: the light method block into the dark
+"Sometimes the answer is that you don't need me", and the Silt proof block
+into the dark section that opens with the photograph of Cydnie.
+
+There is no border anywhere near either. Sampling a text free column down
+the boundary, pixel by pixel, showed what it really was:
+
+    y=178   (231,236,232)   flat Surface
+    y=180   (227,232,229)   ramp begins
+    ...     twenty units of luminance every two pixels, dead even
+    y=212   (7,26,31)       flat Fathom
+
+**A linear ramp between two flat fields is the textbook recipe for a Mach
+band.** The eye exaggerates a discontinuity in the GRADIENT, not in the
+colour, so both ends of an even ramp read as drawn lines. The top one is
+the line that was reported.
+
+The seam is eased now, approximating smoothstep over the same 32px, so it
+leaves and arrives at zero slope. Measured after: the first and last steps
+are 3 units per row instead of 20, with the steepness moved to the middle
+where no edge is created. **It costs nothing.** Same height, same colours,
+same scroll; it just stops announcing where it starts.
+
+`color-mix()` builds the alpha steps, because `--from` is a different colour
+on every section and CSS cannot otherwise take an arbitrary custom property
+to a partial alpha. **The fallback is clean:** a browser without
+`color-mix` discards the declaration at parse time and the base rule's
+original gradient still applies.
+
+If a seam ever looks like a line again, sample it before changing a height.
+The instinct is to make the ramp longer. The ramp was never too short.
+
+### 3. The dark air under the hero
+
+Measured 204px of empty Fathom between the last thing in the hero and the
+first thing in the condition. The hero's own bottom padding was 118px of
+it, on a block that is already `min-height: 100svh` and vertically centred.
+It is 4rem on a phone now.
+
+**What is left is not spacing and cannot be fixed by changing padding.**
+The condition's stage is a pinned panel, `height: 100svh` with
+`align-items: center`, holding about 358px of content. The rest is the
+panel centring its content in the screen, which is what it is supposed to
+do while pinned. Padding changes there just redistribute: reduce the top
+padding and the centring hands the space straight back. Moving it to
+`flex-start` would put the content at the top of the screen with 370px of
+dark under it for 2.87 screens, which is worse. Left alone deliberately.
+
+After the change, **no empty dark run anywhere on the home page is over
+120px** apart from the pinned track itself.
+
+### 4. The hand fits its frame now
+
+The source is 632x1018, a portrait photograph of a hand reaching down a
+wall. The mobile rule cropped it to **4:3 landscape**, which cut the
+fingertips off at the bottom edge: the one thing the picture is of.
+
+It is 4:5 on a phone now, the same plate the desktop uses. The reason
+desktop caps it at 4:5 rather than the source's 0.62 is written in the CSS,
+"so it does not out-tower the copy beside it". On a phone there is no copy
+beside it, it is stacked underneath, so there is nothing to out-tower and
+no reason to crop harder than the desktop does.
+
+### 5. The rise band is larger
+
+`aspect-ratio: 1800/690` on a 390px screen is 149px, so the band sat on its
+`min-height` floor at 208px: the surface, the three bubbles and the words
+all inside a fifth of the screen. This is the moment the whole site is
+named after. 17rem on a phone, so 272px.
+
+### What this cost, and why that is the right trade
+
+Home went from 20.69 screens to **20.91**. The hand gained 175px and the
+band gained 64px; the hero gave back 54px. **Two of the six corrections
+were requests to make things bigger,** so the page getting slightly longer
+is the ask being met, not a regression. Session twelve's reductions all
+still hold.

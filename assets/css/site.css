@@ -3983,6 +3983,97 @@ main > * { position: relative; z-index: 1; }
       phone is half a desktop's; the guideline is written for the desktop.
       Nothing here should be tightened to chase it. */
 
+/* ---------- 28c. THE MOBILE PASS, SESSION THIRTEEN -----------
+   Six corrections, every one of them scoped to a phone. Nothing in this
+   block may change a desktop, which is why every rule is inside a media
+   query and none of them touch a shared token.
+   ------------------------------------------------------------ */
+
+/* 1. THE SURFACING GAUGE IS OFF ON A PHONE.
+   It reads how far up the reader has come, and on a desktop it is a quiet
+   instrument at the edge of a wide page. On a phone it is a line and a
+   travelling dot roughly 12px from the text column, moving continuously
+   for the entire length of a twenty screen page, in the reader's
+   peripheral vision the whole way. That is too much movement for a
+   surface this narrow.
+
+   56rem, because that is this site's own line between mobile and desktop:
+   it is where the nav collapses and where the twelve column grid arrives.
+   `.gauge { display: flex }` sets it, so this has to come later in the
+   file to win, which it does. */
+@media (max-width: 55.99rem) {
+  .gauge { display: none; }
+}
+
+@media (max-width: 47.99rem) {
+
+  /* 2. THE SEAM, EASED. This is the "line" between two sections.
+     ------------------------------------------------------------
+     The seam was a DEAD STRAIGHT ramp from one ground to the next.
+     Sampled down the boundary between the light method section and the
+     dark band beneath it: flat Surface to y=180, then twenty units of
+     luminance every two pixels in a perfectly even run to y=212, then
+     flat Fathom. A linear ramp between two flat fields is the textbook
+     recipe for a Mach band: the eye exaggerates the break in the
+     GRADIENT, not the colour, so both ends of the ramp read as drawn
+     lines. The top one is the line you can see.
+
+     Easing the ramp so it leaves and arrives at zero slope removes both.
+     The transition is the same 32px and costs not one pixel of scroll;
+     it just stops announcing where it starts.
+
+     `color-mix` is how the alpha steps are built, because `--from` is a
+     different colour on every section and CSS cannot otherwise take an
+     arbitrary custom property to a partial alpha. A section that declares
+     no `--from` still resolves to transparent at every stop and still
+     paints nothing, exactly as before.
+
+     The stops approximate smoothstep. Deliberately not a plain
+     `ease-in-out` on two stops, which browsers still interpolate
+     linearly in the gradient itself. */
+  [data-zone]::before {
+    background: linear-gradient(180deg,
+      color-mix(in srgb, var(--from, transparent) 100%, transparent) 0%,
+      color-mix(in srgb, var(--from, transparent)  94%, transparent) 15%,
+      color-mix(in srgb, var(--from, transparent)  78%, transparent) 30%,
+      color-mix(in srgb, var(--from, transparent)  58%, transparent) 45%,
+      color-mix(in srgb, var(--from, transparent)  42%, transparent) 55%,
+      color-mix(in srgb, var(--from, transparent)  22%, transparent) 70%,
+      color-mix(in srgb, var(--from, transparent)   6%, transparent) 85%,
+      transparent 100%);
+  }
+
+  /* 3. THE DARK AIR UNDER THE HERO.
+     Measured 204px of empty Fathom between the last thing in the hero and
+     the first thing in the condition below it. The hero's own bottom
+     padding is 118px of that, and it is bottom padding on a block that is
+     already `min-height: 100svh` and vertically centred, so it is doing
+     very little that the centring is not already doing. 4rem leaves the
+     hero breathing without the page appearing to have ended.
+
+     The top value is untouched: it clears the fixed header. */
+  .hero { padding-block: clamp(7rem, 16vh, 11rem) 4rem; }
+
+  /* 4. THE HAND FITS ITS FRAME NOW.
+     The source is 632x1018, a portrait photograph of a hand reaching down
+     a wall. The mobile rule cropped it to 4:3 LANDSCAPE, which cut the
+     fingertips off at the bottom edge: the one thing the picture is of.
+
+     The 4:5 plate is the desktop shape, and the reason desktop keeps it
+     at 4:5 rather than the source's 0.62 is so it "does not out-tower the
+     copy beside it". On a phone there is no copy beside it, it is stacked
+     underneath, so there is nothing to out-tower and no reason to crop
+     harder than the desktop does. */
+  #depth { aspect-ratio: 4 / 5; }
+
+  /* 5. THE RISE BAND, LARGER.
+     `aspect-ratio: 1800/690` on a 390px screen is 149px, so the band was
+     sitting on its 13rem floor at 208px: the surface, the three bubbles
+     and the words all inside a fifth of the screen. This is the moment
+     the whole page is named after. 17rem gives it a quarter. */
+  .rise-band { min-height: 17rem; }
+}
+
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {
   .hdr, .gauge, main { background: #fff; }
