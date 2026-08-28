@@ -62,8 +62,9 @@ dashboard toggle and it is the only thing between this build and launch. See §1
 
    **Check the port first.** A `serve.py` from an earlier session can still be holding one and
    answering from a scratchpad that no longer exists, so new pages 404 while old ones return
-   200. `lsof -nP -iTCP:8814 -sTCP:LISTEN` before you debug a single route. Port 8791 was
-   still held at the end of this session.
+   200. `lsof -nP -iTCP:8814 -sTCP:LISTEN` before you debug a single route. **Nothing is held
+   at the end of session ten:** 8814 and 8791 were both released deliberately, which is the
+   thing the session that left 8791 running should have done.
 
    **Re-run `sync.sh` after every edit.** Nothing you change is visible until you do, and it
    re-lays the harnesses, which `rsync --delete` wipes.
