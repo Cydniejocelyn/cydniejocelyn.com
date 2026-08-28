@@ -51,7 +51,47 @@ if [ "$SUITE" = "1" ] && [ -n "$SP" ]; then
 fi
 
 echo "==> deploying dist/"
-vercel deploy --prod --yes --cwd dist
+# CD INTO dist, DO NOT USE --cwd. This is not a style preference.
+#
+# `vercel deploy --cwd dist` uploads dist/ and then reads vercel.json from the
+# SHELL's working directory, which is the repo root. Those two files are not
+# the same: build.py seals the CSP script hashes into dist/vercel.json and
+# leaves the root copy holding `__INLINE_SCRIPT_HASHES__`.
+#
+# On 28 August 2026 that shipped a production CSP whose script-src contained
+# the literal placeholder. A browser drops an unrecognised source expression
+# and enforces the rest, so every inline script on the site was blocked:
+# analytics, the js-motion flip, and the Flodesk signup on /the-letters/.
+# The HTML and the CSS were correct. Only the header was wrong, and nothing
+# in the build or the suite could see it, because neither one deploys.
+#
+# Two deploys with --cwd both reproduced it. Deploying from inside dist/ with
+# the identical file fixed it. The check below is what catches it next time.
+( cd dist && vercel deploy --prod --yes )
+
+echo "==> verifying the headers PRODUCTION actually sends"
+# The suite runs against a preview server that sends no headers at all, so
+# this is the only place the deployed CSP is ever looked at. Plain curl is
+# useless while Deployment Protection is on: it returns 200 and a login page
+# for every path, including ones that do not exist.
+URL=$( cd dist && vercel ls --prod 2>/dev/null \
+       | grep -oE "https://[a-z0-9-]+\.vercel\.app" | head -1 )
+if [ -z "$URL" ]; then
+  echo "    could not resolve the deployment URL. Check the headers by hand."
+else
+  HDRS=$( cd dist && vercel curl -I "$URL/" 2>/dev/null )
+  echo "$HDRS" | grep -iE "^(content-security-policy|strict-transport-security|x-frame-options|permissions-policy|cross-origin-opener-policy|referrer-policy|x-content-type-options):" \
+    | cut -c1-100
+  FAIL=0
+  echo "$HDRS" | grep -qi "__INLINE_SCRIPT_HASHES__" && {
+    echo "    FAIL: the CSP placeholder reached production. Every inline"
+    echo "          script on the site is blocked. See the note above."; FAIL=1; }
+  for H in content-security-policy strict-transport-security x-frame-options \
+           permissions-policy cross-origin-opener-policy x-content-type-options; do
+    echo "$HDRS" | grep -qi "^$H:" || { echo "    FAIL: $H is not being sent."; FAIL=1; }
+  done
+  [ "$FAIL" = "0" ] && echo "    headers OK" || echo "    HEADERS ARE WRONG. Fix before telling anyone it is live."
+fi
 echo
 echo "Now verify with vercel curl. Deployment Protection makes plain curl useless:"
 echo "  it returns 200 with a login page for every path, including ones that do not exist."

@@ -267,9 +267,9 @@ def check_headers():
             print("HEADERS: script-src has been widened with %s." % bad)
             print("   %s" % script[0].strip())
             sys.exit(1)
-    if "__INLINE_SCRIPT_HASHES__" not in script[0]:
-        print("HEADERS: script-src lost its hash placeholder, so seal_csp()")
-        print("   will not fill anything in and inline scripts will be blocked.")
+    if "__INLINE_SCRIPT_HASHES__" not in script[0] and "'sha256-" not in script[0]:
+        print("HEADERS: script-src carries neither the hash placeholder nor any")
+        print("   sha256, so every inline script on the site would be blocked.")
         sys.exit(1)
     for d in ("frame-ancestors 'none'", "object-src 'none'", "base-uri 'none'"):
         if d not in csp:
@@ -278,46 +278,20 @@ def check_headers():
 
 # ---------- the CSP script hashes ----------------------------------------
 
-def seal_csp():
-    """Fill in `__INLINE_SCRIPT_HASHES__` in dist/vercel.json.
+def csp_hashes():
+    """sha256 of every inline executable script in the BUILT pages.
 
-    WHY THIS IS GENERATED AND NOT WRITTEN BY HAND
-    ---------------------------------------------
-    `script-src` in vercel.json is strict: 'self', two named third parties,
-    and a sha256 for every inline script. No 'unsafe-inline'. That is worth
-    having -- there are no inline event handlers anywhere on this site and no
-    page reads a URL parameter, so the strict policy costs nothing and closes
-    the whole reflected-XSS class -- but a hand-maintained hash list is a trap.
-    Edit one character of the gtag snippet, forget to recompute, and every
-    page ships with analytics silently blocked and no error anywhere but the
-    reader's console.
+    Computed from dist/ and not from the source, because the comment
+    strippers change the bytes inside an inline script and comments are 16%
+    of the HTML. A hash taken from the source would be wrong for the thing
+    that ships. Same reason stamp.py runs before the build.
 
-    So the hashes are computed HERE, from the built files, after the comment
-    strippers have run. The comments are 16% of the HTML and stripping them
-    changes the bytes inside the inline scripts, so a hash taken from the
-    source would be wrong for the thing that actually ships. This is the same
-    reason stamp.py runs before the build and not after.
-
-    `type="application/ld+json"` blocks are skipped on purpose: they are data,
-    not script, and CSP does not check them. Hashing them would work and would
-    also mean nine more hashes that have to change every time a meta
-    description does.
-
-    THE TRADE, STATED PLAINLY. Because this hashes whatever it finds, a new
-    inline script added to a page is automatically permitted. It protects
-    against injected script, not against something a person deliberately
-    pastes into the head. That is the normal shape of a hash-based policy and
-    it is worth knowing rather than assuming otherwise.
+    `type="application/ld+json"` is skipped on purpose: it is data, not
+    script, CSP does not check it, and hashing it would mean nine more hashes
+    that change every time a meta description does.
     """
-    vj = os.path.join(DIST, "vercel.json")
-    if not os.path.isfile(vj):
-        return
-    conf = io.open(vj, encoding="utf-8").read()
-    if "__INLINE_SCRIPT_HASHES__" not in conf:
-        return
-
-    hashes = set()
-    for dirpath, dirnames, filenames in os.walk(DIST):
+    out = set()
+    for dirpath, _dirnames, filenames in os.walk(DIST):
         for f in filenames:
             if not f.endswith(".html"):
                 continue
@@ -326,14 +300,67 @@ def seal_csp():
                 if "ld+json" in m.group(1):
                     continue
                 digest = hashlib.sha256(m.group(2).encode("utf-8")).digest()
-                hashes.add("'sha256-" + base64.b64encode(digest).decode() + "'")
+                out.add("'sha256-" + base64.b64encode(digest).decode() + "'")
+    return out
 
+
+def _apply_hashes(conf, hashes):
+    """Rewrite script-src so it carries exactly `hashes` and nothing stale."""
+    def fix(directive):
+        toks = directive.split()
+        kept = [t for t in toks
+                if not t.startswith("'sha256-") and t != "__INLINE_SCRIPT_HASHES__"]
+        # 'self' stays first, the hashes go next, named origins after
+        head = kept[:2]                      # ["script-src", "'self'"]
+        return " ".join(head + sorted(hashes) + kept[2:])
+    parts = conf.split("script-src ", 1)
+    if len(parts) != 2:
+        return conf
+    rest, tail = parts[1].split(";", 1)
+    return parts[0] + fix("script-src " + rest) + ";" + tail
+
+
+def seal_csp():
+    """Put the hashes into BOTH vercel.json copies, dist and root.
+
+    WHY BOTH, WHICH LOOKS REDUNDANT AND IS NOT
+    ------------------------------------------
+    `vercel deploy --cwd dist` uploads dist/ and then reads vercel.json from
+    the SHELL's working directory, not from --cwd. On 28 August 2026 that put
+    a production CSP live whose script-src held the literal string
+    `__INLINE_SCRIPT_HASHES__`. Browsers drop an unrecognised source
+    expression and enforce the rest, so every inline script on the site was
+    blocked: analytics, the js-motion flip, and the Flodesk signup. The HTML
+    and CSS were correct. Only the header was wrong.
+
+    ship.sh now cds into dist/ so the right file is read. Sealing the root
+    copy as well is the second lock: whatever anyone runs, from wherever,
+    there is no longer a deployable vercel.json in this repo that carries an
+    unsubstituted placeholder.
+
+    THE TRADE, STATED PLAINLY. Because this hashes whatever it finds, a new
+    inline script added to a page is automatically permitted. It protects
+    against injected script, not against something a person deliberately
+    pastes into the head. That is the normal shape of a hash-based policy.
+    """
+    hashes = csp_hashes()
     if not hashes:
         print("CSP: no inline scripts found, which is suspicious. Not sealing.")
         sys.exit(1)
-    conf = conf.replace("__INLINE_SCRIPT_HASHES__", " ".join(sorted(hashes)))
-    io.open(vj, "w", encoding="utf-8").write(conf)
-    print("   CSP sealed with %d inline script hash(es)" % len(hashes))
+
+    for path, label in ((os.path.join(DIST, "vercel.json"), "dist"),
+                        (os.path.join(ROOT, "vercel.json"), "root")):
+        if not os.path.isfile(path):
+            continue
+        conf = io.open(path, encoding="utf-8").read()
+        sealed = _apply_hashes(conf, hashes)
+        if sealed != conf:
+            io.open(path, "w", encoding="utf-8").write(sealed)
+        if "__INLINE_SCRIPT_HASHES__" in sealed:
+            print("CSP: failed to seal the %s vercel.json." % label)
+            sys.exit(1)
+
+    print("   CSP sealed with %d inline script hash(es), dist and root" % len(hashes))
 
 
 # ---------- build ---------------------------------------------------------

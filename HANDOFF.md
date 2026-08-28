@@ -216,6 +216,7 @@ that far.
 | 13 | **Never verified:** a full keyboard pass and a real screen-reader pass. | §7.5 |
 | 18 | **HSTS ships without `includeSubDomains` or `preload`, and there is no consent banner.** Both deliberate, both Cydnie's call, neither one a bug. | §31 |
 | 19 | **The security headers do not exist until cutover.** The apex still answers from Showit. Verified live 28 August. | §31 |
+| 20 | **`vercel deploy --cwd dist` reads vercel.json from the SHELL's directory, not from `--cwd`.** It shipped a broken CSP to production once. `ship.sh` cds into dist now and verifies the deployed headers. Never reintroduce `--cwd` on a deploy. | §32 |
 | 14 | **`figure` default margin is unreset on `.quote`**, so the home page's quote carousel is indented 40px each side. **Verified still true on 28 August.** Fixed on `.sd-quote` only; the shared fix is one declaration but widens 14 slides across two live pages and touches the touch-carousel geometry, so it wants doing deliberately rather than in passing. | §11 |
 | 15 | **Angela's quote is excerpted on `/a-sounding/`.** Her full review opens "From our very first coaching call", and that page argues it is not coaching. Confirm she is comfortable appearing there. | §11 |
 | 16 | ~~The podcast.~~ **CLOSED 27 August.** Cydnie had all three references removed: the named link and the Spotify and Apple Podcasts icons, which both went to the same show. **It is still in `sameAs` on the home page and in `llms.txt`,** which is identity data rather than a link and was left deliberately. If the podcast is actually retired, those go too. | §16 |
@@ -3443,3 +3444,62 @@ on all nine.
    of these headers exist until cutover, and Deployment Protection has to
    come off in the same move (see §0 item 8, which also carries the
    last-updated date on the policy).
+
+
+---
+
+## 32. The deploy read a different file than the one it uploaded
+
+Everything in §30 and §31 was verified before shipping and the site still
+went out broken, in the one place nothing in this repo can see.
+
+### What happened
+
+`ship.sh` ended in `vercel deploy --prod --yes --cwd dist`. That uploads
+`dist/`, and then **reads `vercel.json` from the shell's working directory**,
+which `ship.sh` had already set to the repo root. Those two files are
+deliberately not the same: `build.py` seals the CSP script hashes into
+`dist/vercel.json` and the root copy was left holding the placeholder.
+
+So production received a `script-src` containing the literal string
+`__INLINE_SCRIPT_HASHES__`. A browser drops a source expression it does not
+recognise and **enforces the rest of the directive**, so the effective policy
+was `script-src 'self' <two origins>` with no hashes at all, and every inline
+script on the site was blocked: the analytics config, the `js-motion` flip,
+and the Flodesk signup on `/the-letters/`.
+
+**The HTML was right. The CSS was right. The build was right. Only the header
+was wrong**, and the header is the one artefact that no part of this project
+had ever looked at, because the preview server sends none and the suite runs
+against the preview server.
+
+### How it was found, which is the part worth keeping
+
+By curling the deployment after shipping instead of trusting the build log.
+The build had printed `CSP sealed with 3 inline script hash(es)` and it was
+telling the truth about the file it sealed.
+
+Two deploys with `--cwd` reproduced it. The same `dist/` deployed from inside
+`dist/` came out correct, which is what confirmed the cause rather than
+guessing at it.
+
+### The three locks, because one was not enough
+
+1. **`ship.sh` cds into `dist/`** rather than passing `--cwd`. Never put it
+   back.
+2. **`seal_csp()` now seals both copies**, dist and root. There is no longer
+   a deployable `vercel.json` anywhere in this repo carrying an
+   unsubstituted placeholder, so a stray `vercel deploy` from any directory
+   cannot reproduce this.
+3. **`ship.sh` curls the deployment afterwards** and fails loudly if the
+   placeholder appears or any required header is missing. Plain `curl` is
+   useless while Deployment Protection is on, so it goes through
+   `vercel curl`.
+
+### The general lesson for this codebase
+
+The suite is thorough about markup, geometry, fonts and behaviour, and it is
+structurally blind to response headers, because it tests a static server that
+sends none. **Anything configured in `vercel.json` is unverified until
+something asks production for it.** That is now the last step of `ship.sh`
+rather than a thing to remember.
