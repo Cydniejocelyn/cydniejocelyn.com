@@ -25,3 +25,6 @@ tools/cydnie-jocelyn-letters.html
 # Local tooling. launch.json points at a session scratchpad path that is
 # different every session, so it is not shareable.
 .claude/
+
+# Build output. `tools/build.py` regenerates it; never edit or commit it.
+dist/

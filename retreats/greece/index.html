@@ -26,10 +26,21 @@
 <link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="../../assets/css/site.css?v=64d0efed">
+<!-- THE FONTS ARE SELF HOSTED. There used to be two preconnects and a
+     render blocking <link> to fonts.googleapis.com here, which meant the
+     page could not finish styling until it had done DNS and TLS to a third
+     party, fetched a stylesheet, and then done it again for
+     fonts.gstatic.com. The @font-face rules live in site.css now, which is
+     already blocking, so it costs no extra request at all.
+
+     These two are preloaded because they carry the first screen: the sans
+     is the lede and the serif is the headline. The mono is small caps
+     labels and is left to be discovered from the stylesheet. Both are
+     `crossorigin` because font fetches are CORS even same origin, and
+     without it the preload is thrown away and fetched a second time. -->
+<link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/site.css?v=fec9f7b2">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- Every figure below is also in the visible page and in HoneyBook. If one
@@ -123,10 +134,6 @@
            srcset="../../assets/img/mark-horiz-light-500.webp 500w, ../../assets/img/mark-horiz-light-800.webp 800w, ../../assets/img/mark-horiz-light-1200.webp 1200w"
            sizes="(min-width: 56rem) 240px, 180px" width="2198" height="410" decoding="async"
            alt="Cydnie Jocelyn, the resurfacing business">
-      <img class="brand-mark brand-mark--dark" src="../../assets/img/mark-horiz-ink-800.webp"
-           srcset="../../assets/img/mark-horiz-ink-500.webp 500w, ../../assets/img/mark-horiz-ink-800.webp 800w, ../../assets/img/mark-horiz-ink-1200.webp 1200w"
-           sizes="(min-width: 56rem) 240px, 180px" width="1200" height="224" decoding="async"
-           alt="" aria-hidden="true">
     </a>
     <nav class="nav" aria-label="Primary">
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
@@ -1057,6 +1064,6 @@
   </div>
 </footer>
 
-<script src="../../assets/js/site.js?v=64d0efed" defer></script>
+<script src="../../assets/js/site.js?v=fec9f7b2" defer></script>
 </body>
 </html>

@@ -90,7 +90,20 @@ function next() {
             say(tbad ? 'bad' : 'ok', '   close toggle  ' + (tr ? tr.toFixed(2) : '?') + ':1 on ' + ground +
               (tbad ? '   FAILS 3:1' : ''));
 
-            var lightOn = w.getComputedStyle(d.querySelector('.brand-mark--light')).display !== 'none';
+            /* The ink mark stopped being a second <img> and became a
+               background on `.brand`, so that an always-hidden image is not
+               downloaded on every page. This used to read `display !== none`
+               on the light <img>, which is now ALWAYS block: only its
+               opacity changes. Read what is actually painted instead, or
+               this check passes on a header with no visible wordmark at
+               all, which is the exact bug it was written to catch. */
+            var lightImg = d.querySelector('.brand-mark--light');
+            var brandBg  = w.getComputedStyle(d.querySelector('.brand')).backgroundImage;
+            var lightOn  = parseFloat(w.getComputedStyle(lightImg).opacity) > .5 &&
+                           w.getComputedStyle(lightImg).display !== 'none';
+            var inkOn    = brandBg && brandBg !== 'none';
+            if (lightOn === inkOn) { fails++;
+              say('bad', '   wordmark      BOTH or NEITHER painted   FAILS'); }
             /* The light wordmark belongs on a dark ground and the ink one on a
                light ground. Anything else is a mark nobody can see. */
             var groundIsDark = lum(ground) < .3;

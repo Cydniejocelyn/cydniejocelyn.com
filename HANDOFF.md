@@ -283,21 +283,48 @@ auth and returns the real response.
 
 ## 2. Shipping anything: the exact sequence
 
+**THE DEPLOY COMES OUT OF `dist/` NOW, NOT THE WORKING DIRECTORY.** That changed on
+28 August. `tools/build.py` writes a comment-free copy of the site to `dist/` and the
+source stays exactly as commented as it has always been. The comments are 45% of
+`site.css`, and `site.css` is render blocking, so shipping them made every first-time
+reader wait for 25KB of notes-to-ourselves before the page painted. See §19.
+
 ```
 export PATH="$HOME/.local/bin:$PATH"
 cd ~/Desktop/cydniejocelyn-v2
 
-python3 tools/stamp.py                  # ALWAYS, after editing site.css or site.js
-                                        # it stamps all SEVEN pages; add any new one to it
-sh tools/preview/runsuite.sh "$SP" 8814 # 140 assertions. Do not ship a red suite.
+sh tools/ship.sh "$SP"                  # stamp, build dist/, run the suite AGAINST
+                                        # dist/, then deploy dist/. One command.
 git add -A && git commit -F <file>      # -F a file, NOT -m: see below
 git push origin main
-vercel deploy --prod --yes
 ```
 
-`tools/build_artifact.py` takes seven page names now -- `home about build retreats greece
+`ship.sh` is the whole sequence and nothing in it is optional. By hand it is:
+
+```
+python3 tools/stamp.py                  # ALWAYS, after editing site.css or site.js
+                                        # it stamps all NINE pages; add any new one to it
+python3 tools/build.py                  # writes dist/. REFUSES to run on a stale stamp
+sh tools/preview/runsuite.sh "$SP" 8817 # 182 assertions, run against dist/, not the source
+vercel deploy --prod --yes --cwd dist
+```
+
+**Run the suite against `dist/`, not against the working tree.** `dist/` is what
+readers get, and it has been through a transformation the working tree has not.
+`ship.sh` serves `dist/` on 8817 and points the suite at it for exactly this reason.
+
+**`build.py` will refuse to build on a stale stamp, and that refusal is load bearing.**
+`/assets/css/` and `/assets/js/` are `immutable` for a year in `vercel.json` now. That
+is only safe because `stamp.py` puts a content hash in the URL, so a changed file is a
+changed URL. A stale stamp plus `immutable` pins a returning reader to an old
+stylesheet **and she never even revalidates it.** That is the exact failure the header
+was reverted for once before; the difference now is that the stamp exists and the build
+enforces it.
+
+`tools/build_artifact.py` takes seven page names -- `home about build retreats greece
 sounding letters` -- and is only needed when republishing an artifact, which nothing has done
-since session one. It is not part of shipping the site.
+since session one. It is not part of shipping the site, and it has not been extended to the
+two pages built in session ten.
 
 **Then verify, because "Ready" only means the build finished.** Deployment Protection makes
 plain `curl` useless here: it returns 200 with a login page for every path including ones that
@@ -2183,3 +2210,156 @@ be discovered.
 | `sitemap.xml` | `/privacy-policy/` added. `/thequestions/` deliberately absent, with a comment saying why. |
 | `llms.txt` | The published retreat terms, a **Legal** section, and the contact URL, which named a `/contact/` page that has never existed on this site. |
 | `.vercelignore` | Both wireframe folders stay excluded and the comments say what became of them. |
+
+---
+
+## 19. Session eleven: the page load audit
+
+Measured first, then changed. The measurements are below because the next
+person to touch any of this needs to know what was true, not what was hoped.
+
+### What the audit found, including what it cleared
+
+Two of the four things worth suspecting turned out to be innocent, and
+saying so is as useful as the fixes:
+
+| Suspected | Measured | Verdict |
+|---|---|---|
+| Unused CSS | 818 selectors across nine pages, **69 unmatched, about 5.7KB of 69KB** | **Not the problem.** And most of the 69 are false positives: `.rt-shot`, `.rt-gal` and the `.q-native` variants are built by `site.js` at runtime, so a static match cannot see them. There is no dead-CSS problem here to fix. |
+| Redundant JS imports | There are no imports. `site.js` is one IIFE, `sounding-popup.js` is standalone by design | **Nothing to remove.** |
+| Uncompressed assets | Vercel already serves `content-encoding: br` on HTML, CSS and JS | **Already compressed.** The waste was elsewhere. |
+| Synchronous loading | `site.js` and `sounding-popup.js` both carry `defer`; the Flodesk snippet injects async | **One real case:** the third-party font stylesheet. Fixed below. |
+
+The actual weight was in four places nobody had looked: comments on the wire,
+a cache header that had been made deliberately weak, an image that was
+downloaded and then hidden, and a render-blocking hop to Google.
+
+### The five changes, and what each bought
+
+Measured on a phone-width load of the home page, brotli, which is what
+Vercel actually sends.
+
+| | before | after | saved | |
+|---|---|---|---|---|
+| `index.html` | 13,059 | 10,907 | 2,152 | blocking |
+| `site.css` | 39,870 | 15,180 | **24,690** | **render blocking** |
+| `site.js` | 14,452 | 7,839 | 6,613 | deferred |
+| `sounding-popup.js` | 2,826 | 1,883 | 943 | deferred |
+| `fonts.googleapis.com` css | 676 | 0 | 676 | **render blocking, third party** |
+| `mark-horiz-ink-500` | 18,412 | 0 | **18,412** | eager image, never visible |
+| `icon-512.png` | 18,253 | 0 | 18,253 | fetched to draw a 32px tab |
+| **total** | **107,548** | **35,809** | **71,739** | |
+
+Plus two DNS and TLS handshakes that no longer happen, and repeat views that
+revalidate neither the stylesheet nor the script.
+
+**1. The comments stopped shipping, and the source kept them.**
+45% of `site.css`, 36% of `site.js`, 16% of the HTML. That is not a
+criticism of the comments: they are the only place the institutional memory
+of this project lives and they should never leave the source. They should
+also never be sent to a reader. `tools/build.py` writes a comment-free copy
+to `dist/` and the deploy comes out of there. It is **not a minifier**: it
+removes comments and the blank lines they leave, and touches nothing else,
+because that is where nearly all the win is and it is the only
+transformation that cannot change behaviour.
+
+The strippers fail closed. The block-comment one walks the file rather than
+running a regex, so an opener inside a string is skipped. The HTML one
+splits on `<script>` and `<style>` first, because a `<!--` inside a script
+is JavaScript and a stripper that does not know that will cut to the next
+`-->` anywhere in the file. JS line comments are **deliberately not
+touched**: `//` is in every URL in this codebase, and both JS files were
+checked and contain zero `//` comments, so there was nothing to win and a
+site to lose.
+
+**2. The hashed assets are `immutable` now, and the build enforces the
+precondition.**
+`vercel.json` said `max-age=0, must-revalidate` on `/assets/css/` and
+`/assets/js/`, which cost two revalidation round trips on every repeat view
+of every page. That header was correct **when it was written**: `immutable`
+had once pinned readers to a stale stylesheet because the filename never
+changed. `stamp.py` fixed the cause by putting a content hash in the URL,
+but the header was never revisited.
+
+It is `immutable` again, and `build.py` **refuses to build on a stale
+stamp**. Not warns. Refuses. That is what makes the header safe rather than
+a bet on somebody remembering.
+
+**3. The wordmark was downloaded twice on every page and one copy was always
+invisible.**
+The header carried two `<img>` elements, light and ink, and
+`.brand-mark--dark { display: none }` hid whichever was wrong for the ground.
+A `display: none` image is still in the DOM, so the browser fetches it: 18.4KB
+on every page for a picture that renders only if the reader scrolls onto a
+light section. **On six of the nine pages that was the entire eager image
+payload apart from the mark you can actually see.**
+
+The ink mark is a `background-image` on `.brand` now, in an `image-set()`,
+so it is fetched only when a rule that uses it applies to a rendered
+element. The second `<img>` declared itself decorative (`alt=""`,
+`aria-hidden="true"`), which is exactly what belongs in CSS.
+
+**The menu contrast harness caught a regression inside this fix and it is
+worth knowing why.** Bringing the light mark back over an open menu panel
+used to be `display: block`, which is not transitionable and therefore
+switched on the frame the panel opened. Opacity **is** transitionable and
+`.brand-mark` carries a 380ms opacity transition, so the first version of
+this faded the wordmark in over the panel: a third of a second of the dark
+rectangle with no mark in it that session seven existed to fix. The rule
+carries `transition: none` for that reason.
+
+`_menu.html` was reading `display !== 'none'` on the light mark to decide
+which was showing. That is now always `block` and only opacity changes, so
+the check would have passed on a header with no visible wordmark at all,
+which is the exact bug it was written to catch. It reads what is actually
+painted now, and reports BOTH or NEITHER as a failure.
+
+**4. The fonts are self hosted, and the render-blocking third party is gone.**
+Every page had two `preconnect`s and a blocking `<link>` to
+`fonts.googleapis.com`. The preconnects were softening a hop that did not
+need to exist: DNS and TLS to googleapis.com, a stylesheet, then DNS and TLS
+to gstatic.com for the files. The `@font-face` rules live in `site.css` now,
+which is already blocking, so it costs **no extra request at all**, and the
+files sit under `/assets/fonts/` where the immutable header already applies.
+
+Google was serving **thirteen** `@font-face` blocks for this stack,
+including cyrillic, cyrillic-ext and vietnamese, parsed on every page load
+by a site that has never needed them. Eight are kept, latin and latin-ext,
+with Google's own `unicode-range` preserved exactly so latin-ext still
+downloads only when a page contains a character in it. All three families
+are OFL. **IvyPresto is still not self-hosted and still not in this
+workspace**; `--carved` still falls through to Instrument Serif.
+
+**5. A megabyte that nothing referenced.**
+20 files in `assets/img/`, 1,006,314 bytes, referenced by no page,
+stylesheet or script: superseded lockups, JPEG originals of files that ship
+as WebP, hero crops replaced during the picture passes. They cost no page
+load, because nothing asked for them, and they were uploaded on every
+deploy.
+
+They are **moved to `assets/_unused/`, not deleted and not
+`.vercelignore`d**, and the distinction matters. An ignore rule leaves a
+file working in preview and 404ing only in production, which is the worst
+available failure mode and one this project has hit twice. Moved, a stale
+reference breaks in front of you the moment you look at the page. That
+folder's README says what each file was. `build.py` prints a warning if
+`assets/img/` grows another one, so the pile cannot rebuild itself quietly.
+
+`icon-512.png` is in there because the `<link rel="icon" sizes="512x512">`
+that named it was removed: a browser picking it to draw a 32px tab fetches
+18KB to do it, and there is no web app manifest here that wants a 512.
+
+### What was looked at and deliberately not changed
+
+- **The wordmark rasters.** Re-encoding at q80 saves about 25% and it is
+  brand artwork; the honest fix is an SVG, and the SVG is not in this
+  workspace. Worth asking Cydnie for it: a wordmark as line art would be
+  2-5KB instead of 21.7KB, resolution independent, and recolourable in CSS,
+  which would delete the two-file problem in change 3 rather than deferring
+  half of it.
+- **The 9.1MB under `assets/img/greece`, `/retreats` and `/work`.** All of
+  it is referenced and all of it is lazy gallery tiles, so none of it is on
+  any initial load.
+- **`sounding-popup.js` as a separate request.** It could fold into
+  `site.js`. It is standalone deliberately and 1.9KB brotli is not worth
+  the coupling.

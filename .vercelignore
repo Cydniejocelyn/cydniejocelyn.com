@@ -54,3 +54,9 @@ the questions/
 # and a document that argues with itself in the margins is not the document
 # people should be reading when they look up what they signed.
 Privacy terms page/
+
+# Referenced by nothing. Moved here out of assets/img/ on 28 August rather
+# than deleted, because most of them are alternates of files that are still
+# in use. See assets/_unused/README.md. `tools/build.py` warns if assets/img/
+# grows another one.
+assets/_unused/

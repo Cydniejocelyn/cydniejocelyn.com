@@ -9,6 +9,124 @@
    most of the page is still dark water.
    ============================================================ */
 
+/* ---------- 0. THE FONTS, SELF HOSTED ------------------------
+   These used to come from `fonts.googleapis.com`, which put a
+   RENDER BLOCKING request to a third party origin on the critical path of
+   every page: the browser could not finish styling anything until it had
+   resolved DNS for googleapis.com, completed a TLS handshake, fetched a
+   stylesheet, and then done all three again for fonts.gstatic.com to get
+   the files themselves. Two `preconnect` links were softening that. They
+   were softening a hop that did not need to exist.
+
+   The faces are OFL licensed, so hosting them here is allowed, and it buys
+   four things at once:
+
+     - one blocking stylesheet instead of two, and no third party origin
+     - the files are same origin, so they inherit the immutable cache
+       header in vercel.json rather than Google's one year with a
+       revalidation
+     - no request to Google on behalf of a reader who never asked for one
+     - the family list stops drifting. Google served THIRTEEN @font-face
+       blocks for this stack, including cyrillic, cyrillic-ext and
+       vietnamese, none of which this site has ever needed and all of which
+       were parsed on every page load.
+
+   `unicode-range` is preserved exactly as Google wrote it, so latin-ext
+   still downloads only when a page actually contains a character in it.
+   `swap` is preserved too: text paints in the fallback immediately and
+   reflows when the face arrives, which is the right trade for a site whose
+   first screen is one sentence.
+
+   IvyPresto Display is NOT here and never was. It is licensed, not on
+   Google Fonts, and the files are not in this workspace. `--carved` names
+   it first and falls through to Instrument Serif, which is what actually
+   renders. See item 12 in HANDOFF section 0.
+
+   TO REGENERATE: the files came from the css2 URL that used to be in every
+   page head, fetched with a modern desktop user agent so Google serves
+   woff2. Keep the subsets and the ranges together; splitting them is how a
+   page ends up downloading a cyrillic face to render an apostrophe. */
+
+/* Instrument Sans normal 400 700, latin */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/instrument-sans-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Instrument Sans normal 400 700, latin-ext */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(../fonts/instrument-sans-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Instrument Serif normal 400, latin */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/instrument-serif-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Instrument Serif normal 400, latin-ext */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/instrument-serif-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Instrument Serif italic 400, latin */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/instrument-serif-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Instrument Serif italic 400, latin-ext */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/instrument-serif-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* IBM Plex Mono normal 400, latin */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/ibm-plex-mono-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* IBM Plex Mono normal 400, latin-ext */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/ibm-plex-mono-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* ---------- 1 + 2. TYPE AND PALETTE ---------------------------
    Fonts come from Google, except IvyPresto, which is licensed and
    self-hosted and so stays first in the carved stack.
@@ -430,9 +548,38 @@ button { font: inherit; color: inherit; }
 .hdr-in { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
 .brand { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; line-height: 0; }
 .brand-mark { width: clamp(9.5rem, 16vw, 15rem); height: auto; transition: opacity var(--t-mid) var(--ease-soft); }
-.brand-mark--dark { display: none; }
-.hdr.is-surfaced .brand-mark--light { display: none; }
-.hdr.is-surfaced .brand-mark--dark { display: block; }
+
+/* THE INK MARK IS PAINTED, NOT FETCHED.
+   ------------------------------------------------------------
+   There used to be TWO <img> elements in this header, the light wordmark
+   and the ink one, and `.brand-mark--dark { display: none }` hid whichever
+   was wrong for the ground underneath. A `display: none` <img> is still in
+   the DOM, so the browser downloads it anyway: 18.4KB at 500w, on every
+   page, for a picture that renders only if the reader scrolls onto a light
+   section. On six of the nine pages that was the ENTIRE eager image
+   payload apart from the mark you can actually see.
+
+   A background-image is only fetched when a rule that uses it applies to a
+   rendered element, so the ink art now arrives when the header actually
+   surfaces and not before. The second <img> carried `alt=""` and
+   `aria-hidden="true"`: it was decorative by its own declaration, which is
+   exactly what belongs in CSS. The remaining <img> keeps the real alt text.
+
+   `background-size: contain` on `.brand` fits the art to the box the <img>
+   is already establishing, and both files are 5.36:1, so it lands exactly
+   on top. The light mark fades rather than switching, which is the
+   transition that was already on `.brand-mark`.
+
+   Three declarations, deliberately. A browser with no `image-set()` keeps
+   the first and gets the 500w file, which is correct at 1x and soft at 2x;
+   everything current takes the last one and picks by density. */
+.brand { background-repeat: no-repeat; background-position: left center; background-size: contain; }
+.hdr.is-surfaced .brand {
+  background-image: url(../img/mark-horiz-ink-500.webp);
+  background-image: -webkit-image-set(url(../img/mark-horiz-ink-500.webp) 1x, url(../img/mark-horiz-ink-800.webp) 2x);
+  background-image: image-set(url(../img/mark-horiz-ink-500.webp) 1x, url(../img/mark-horiz-ink-800.webp) 2x);
+}
+.hdr.is-surfaced .brand-mark--light { opacity: 0; }
 
 .nav { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2rem); }
 .nav-links { display: flex; align-items: center; gap: clamp(1rem, 2.2vw, 2rem); }
@@ -544,8 +691,21 @@ button { font: inherit; color: inherit; }
      treatment back. Scrolled far enough down the same page this never
      appeared, because `is-stuck` had painted the bar light by then, which is
      why it looked like it depended on the page. */
-  .menu-open .hdr.is-surfaced .brand-mark--light { display: block; }
-  .menu-open .hdr.is-surfaced .brand-mark--dark  { display: none; }
+  /* The ink mark is a background on `.brand` now rather than a second
+     <img>, so bringing the light one back means turning that background
+     off as well as making the <img> visible again. Both of these tie at
+     (0,3,0) with the rules they override and win on source order, which is
+     why they have to stay BELOW section 8. */
+  /* `transition: none` is load bearing, not tidiness. The light mark used
+     to be brought back with `display: block`, which is not a transitionable
+     property and therefore switched on the frame the panel opened. Opacity
+     IS transitionable, and `.brand-mark` carries a 380ms opacity
+     transition, so without this the wordmark FADES IN over the panel: for
+     a third of a second the reader gets the dark rectangle with no mark in
+     it that session seven existed to fix. The panel opens instantly, so the
+     mark has to be right instantly. */
+  .menu-open .hdr.is-surfaced .brand-mark--light { opacity: 1; transition: none; }
+  .menu-open .hdr.is-surfaced .brand { background-image: none; }
   .menu-open .hdr.is-surfaced .nav-toggle { color: var(--ink); }
 
   .hdr.is-surfaced .nav-menu .nav-links a { color: var(--muted); }
