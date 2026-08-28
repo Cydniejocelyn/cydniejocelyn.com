@@ -391,6 +391,40 @@ f.addEventListener('load', function(){
    ok('footer: nothing carries the absolute privacy URL that 404s at cutover',
       !d.querySelector('.ftr a[href^="https://cydniejocelyn.com/privacy-policy"]'));
 
+   /* THE SERVICE AREA, human half and machine half, and they must agree.
+      The line in the footer is one sentence on nine pages; the precise list
+      is `areaServed` on the LocalBusiness node. If somebody edits one and
+      not the other the site starts making two different claims about where
+      Cydnie works. Fifteen cities, checked in both places. */
+   var area = d.querySelector('.ftr-area');
+   ok('footer: the service area line is present', !!area);
+   var CITIES = ['Forest Lake','Blaine','Anoka','Ramsey','East Bethel','Lino Lakes',
+                 'Hugo','Shoreview','White Bear Lake','Cambridge','Isanti',
+                 'North Branch','Crosslake','Minneapolis'];
+   ok('footer: every city in the service area line',
+      !!area && CITIES.every(function (c) { return area.textContent.indexOf(c) > -1; }));
+   var org = null;
+   [].forEach.call(d.querySelectorAll('script[type="application/ld+json"]'), function (sc) {
+     try {
+       var g = JSON.parse(sc.textContent)['@graph'] || [];
+       g.forEach(function (n) { if (String(n['@id']||'').indexOf('#organization') > -1) org = n; });
+     } catch (e) {}
+   });
+   /* Only on a page that can rank. `/thequestions/` is `noindex` because its
+      URL is event scoped, so it carries no organisation node ON PURPOSE and
+      asserting one there reports a deliberate decision as a bug. */
+   var rob = d.querySelector('meta[name="robots"]');
+   var indexable = !rob || rob.content.indexOf('noindex') === -1;
+   if (indexable) {
+     ok('schema: a LocalBusiness node with the same fifteen cities in areaServed',
+        !!org && (org['@type']||[]).indexOf('LocalBusiness') > -1 &&
+        CITIES.concat(['Saint Paul']).every(function (c) {
+          return (org.areaServed||[]).some(function (a) { return a.name === c; });
+        }));
+   } else {
+     ok('schema: correctly NO organisation node, this page is noindex', !org);
+   }
+
    /* The bare header, /thequestions/ only. The A Sounding label rendered
       Fathom on a Deepwater fill the first time it was built, because
       `.hdr.is-surfaced .btn` is (0,3,0) and `.btn--ink` is (0,1,0). Same

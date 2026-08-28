@@ -3011,3 +3011,66 @@ thrown the grade away. Same-size re-encode was the only safe route.
 
 Disk goes up because candidates were added. What a browser downloads goes
 down, which is the number that matters.
+
+
+---
+
+## 28. Session twenty: SEO, and fifteen places
+
+Cydnie named fifteen locations to highlight. The audit came first, and most
+of it came back clean.
+
+### What was already right, and is worth not breaking
+
+Every page: exactly **one H1**, a canonical, Open Graph, Twitter card, valid
+JSON-LD, **zero images missing alt text**, and **no heading-level skips** on
+any of the nine. That is a better baseline than most sites ever reach.
+
+### What was actually wrong
+
+| | |
+|---|---|
+| six meta descriptions | 164 to 178 characters, so Google truncated them mid-sentence. All now 120 to 159 |
+| two titles | Retreats 67 and About 63 characters, both truncated. Now 59 and 45 |
+| **five pages had no LocalBusiness node at all** | About, Retreats, Greece had no organisation node; The Letters and Privacy had one with no `areaServed`. **Retreats and Greece are the pages most likely to rank for a Minnesota retreat search** and they were the ones carrying no local signal |
+| `index.html` | its org node was typed `Organization`, not `LocalBusiness`. A bare Organization does not carry local ranking signal. Widened |
+| sitemap `lastmod` | stale on five pages |
+
+### The fifteen, and where they live
+
+**The precise list is `areaServed` on the LocalBusiness node in the head of
+all eight indexable pages.** That is the machine-readable half and it is
+where a search engine actually reads a service area from. Fifteen cities,
+plus Anoka, Isanti, Washington and Chisago counties, plus the Twin Cities
+metro, Minnesota and the United States.
+
+`/thequestions/` has no organisation node and should not: it is `noindex`
+because its URL is event scoped. The suite asserts that absence rather than
+asserting a node, so the deliberate decision cannot be reported as a bug.
+
+**The human-readable half is ONE SENTENCE in the footer**, `.ftr-area`, on
+all nine pages. That was a deliberate limit. A block of fifteen city names
+repeated across nine pages is 135 city mentions sitewide, which is what a
+keyword pile looks like to a reader and to Google, and the structured data
+already carries the precision. One sentence gives the local signal without
+the site starting to read like a directory listing.
+
+Also updated: `llms.txt`, which now names the same fifteen and points at
+`areaServed` so an answer engine can find the canonical form.
+
+### Three assertions, because there are now two copies of one fact
+
+The footer sentence and the `areaServed` array are the same claim written
+twice. Edit one and not the other and the site makes two different claims
+about where Cydnie works. The suite checks the line exists, that all fifteen
+cities appear in it, and that the same fifteen appear in `areaServed` on
+every indexable page. **182 assertions became 200.**
+
+### Not done, and why
+
+**No city landing pages.** The obvious next SEO move is a page per town, and
+it is the wrong move here: fifteen near-identical pages differing only by a
+place name is the textbook doorway-page pattern Google penalises, and it
+would wreck a site whose whole argument is that it does not run templates.
+If local pages are ever wanted they need to be genuinely different pages,
+with real local content, and there are only a few towns where that is true.

@@ -27,9 +27,12 @@ someone who listens first.
 
 - Legal entity: Cydnie Jocelyn LLC (Minnesota). The only operating entity.
 - Location: Forest Lake, Minnesota 55025, roughly thirty minutes north of Saint Paul.
-- Areas served in person: Forest Lake, Minneapolis, Saint Paul, Stillwater, Woodbury,
-  White Bear Lake, Blaine, Maple Grove, Wyoming, Hugo, and the wider Twin Cities metro.
-  Remote clients anywhere; retreats run in the United States and internationally.
+- Areas served in person: Forest Lake, Blaine, Anoka, Ramsey, East Bethel, Lino Lakes,
+  Hugo, Shoreview, White Bear Lake, Cambridge, Isanti, North Branch, Crosslake,
+  Minneapolis, Saint Paul, and the wider Twin Cities metro. Anoka, Isanti, Washington and
+  Chisago counties. Remote clients anywhere; retreats run in the United States and
+  internationally. The same list is machine readable as `areaServed` on the LocalBusiness
+  node in the head of every page.
 - Travel arm: Jocelyn & Co. Travel, a DBA under Cydnie Jocelyn LLC, Independent Travel Agent
   with Atlas Coast Travel Group. Agency coverage does not extend to retreats.
 
