@@ -15,7 +15,12 @@
 
    It walks each page down to a light section first, on purpose. Opening the
    menu at the top of a dark page cannot reproduce it. */
-var PAGES = ['/','/about/','/the-build/','/retreats/','/retreats/greece/','/a-sounding/','/the-letters/'];
+/* /privacy-policy/ is here and /thequestions/ is not, because
+   /thequestions/ has no mobile menu: its header is `.hdr--bare`, the
+   wordmark and one button at every width, with no .nav-toggle to open.
+   /privacy-policy/ opens on `.z-silt`, which is a light ground at scroll
+   zero, so it exercises exactly the state the reported bug lived in. */
+var PAGES = ['/','/about/','/the-build/','/retreats/','/retreats/greece/','/a-sounding/','/the-letters/','/privacy-policy/'];
 /* Two scroll positions per page, and the first one matters most. At the TOP
    of a page that opens light the header is `is-surfaced` but not yet
    `is-stuck`, so the bar's own background is still `opacity: 0`: the

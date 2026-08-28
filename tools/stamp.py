@@ -19,13 +19,15 @@ def h(rel):
 V = hashlib.sha1((h("assets/css/site.css") + h("assets/js/site.js")).encode()).hexdigest()[:8]
 
 PAGES = (
-    ("index.html",                 "assets/"),
-    ("about/index.html",           "../assets/"),
-    ("the-build/index.html",       "../assets/"),
-    ("retreats/index.html",        "../assets/"),
-    ("retreats/greece/index.html", "../../assets/"),   # two levels down
-    ("a-sounding/index.html",      "../assets/"),
-    ("the-letters/index.html",     "../assets/"),
+    ("index.html",                  "assets/"),
+    ("about/index.html",            "../assets/"),
+    ("the-build/index.html",        "../assets/"),
+    ("retreats/index.html",         "../assets/"),
+    ("retreats/greece/index.html",  "../../assets/"),   # two levels down
+    ("a-sounding/index.html",       "../assets/"),
+    ("the-letters/index.html",      "../assets/"),
+    ("privacy-policy/index.html",   "../assets/"),
+    ("thequestions/index.html",     "../assets/"),
 )
 
 for page, pre in PAGES:

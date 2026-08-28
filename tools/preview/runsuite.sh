@@ -2,7 +2,7 @@
 # Run _test.html in headless Chrome and print the PASS/FAIL tally.
 #
 #   sh tools/preview/runsuite.sh "$SP" 8814 /a-sounding/
-#   sh tools/preview/runsuite.sh "$SP" 8814          # all four covered pages
+#   sh tools/preview/runsuite.sh "$SP" 8814          # all six covered pages
 #
 # WHY THIS EXISTS. The Claude preview pane degraded again in session four, the
 # same way it did in session three: `javascript_tool` started returning "the
@@ -56,4 +56,9 @@ else
   one retreats /retreats/
   one sounding /a-sounding/
   one letters  /the-letters/
+  # Built 28 August. Static pages, but they carry two assertions each that
+  # run nowhere else: the relative privacy and terms links in the footer,
+  # and, on /thequestions/ only, the bare header and its button's contrast.
+  one privacy  /privacy-policy/
+  one questions /thequestions/
 fi

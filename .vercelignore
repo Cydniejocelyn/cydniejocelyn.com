@@ -40,12 +40,17 @@ Retreat drafts/
 # deploy with it. Keep it that way when renaming either.
 A Sounding/
 The Letters Page/
-# Arrived 26 August 2026, 19:07, mid-session. Excluded before anything else
-# was done with it, per the rule above: an unexcluded folder in this root is
-# served, and the build brief was once live at a guessable path.
+# Arrived 26 August 2026, 19:07. Built on 28 August into /thequestions/.
+# The wireframe stays excluded: it carries an annotation layer and three
+# copy variants that are not the ones that shipped.
+#
+# Checked against the case-insensitive-filesystem trap above: lowercased,
+# `the questions` is not `thequestions`, so the draft cannot take the route
+# directory out of the deploy with it. Keep it that way when renaming.
 the questions/
-# Arrived 26 August 2026, later the same evening. Excluded on sight, same
-# rule. It looks like the answer to the privacy/terms cutover trap in
-# HANDOFF section 7.3, but it is a working document until something is
-# built from it, and a working document in this root is a served document.
+# Arrived 26 August 2026, later the same evening. Built on 28 August into
+# /privacy-policy/, which closes the cutover trap in HANDOFF section 7.3.
+# The deck stays excluded: it carries four FLAG lines addressed to Cydnie,
+# and a document that argues with itself in the margins is not the document
+# people should be reading when they look up what they signed.
 Privacy terms page/

@@ -92,6 +92,14 @@ All dates are listed at https://cydniejocelyn.com/retreats/
 - Private retreats are available by inquiry for an existing group, a team or a community. The
   price is a function of location and length, so it is the one thing on this site that is not
   published in advance.
+- Retreat terms, published in full at https://cydniejocelyn.com/privacy-policy/#terms : every
+  retreat is capped at fifteen guests and requires a minimum of eight confirmed guests to run.
+  A $500 non-refundable deposit reserves a space, and a space is reserved only when the deposit
+  is received and a booking confirmation is issued; an inquiry form does not hold one. All
+  retreat payments are non-refundable, including the deposit, for any reason. If Cydnie Jocelyn
+  LLC cancels a retreat, guests receive retreat credit equal to everything paid, valid two
+  years, not redeemable for cash. Travel insurance is strongly recommended and every guest
+  completes a form either confirming coverage or declining it in writing.
 - Rise & Reground: The Costa Rica Experience ran in April 2026 and is complete. Guest feedback
   is published on the retreats page as quotations, attributed. One guest, Melissa, recorded a
   video review, which is there too. No average score is published and none should be quoted:
@@ -122,6 +130,18 @@ rather than the aesthetic.
 She Rises Through It. Season 2 theme: What Comes After the Breakthrough.
 Apple Podcasts and Spotify.
 
+## Legal
+
+Privacy policy and terms of use are one document at
+https://cydniejocelyn.com/privacy-policy/ , the terms half at #terms. Cydnie Jocelyn LLC is a
+Minnesota limited liability company; these terms are governed by Minnesota law and disputes go
+to binding arbitration in Minnesota. Payments run through HoneyBook and email through Flodesk;
+card details are never stored by Cydnie Jocelyn LLC. Nothing offered on the site is licensed
+mental health care, medical, legal, tax or financial advice. Everything offered is for adults
+eighteen and over.
+
 ## Contact
 
-https://cydniejocelyn.com/contact/, hello@cydniejocelyn.com
+hello@cydniejocelyn.com. The contact form is
+https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa372ccd31fefc073c5d28
+There is no /contact/ page on this site; an earlier version of this file named one.

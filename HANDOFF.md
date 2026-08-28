@@ -9,15 +9,23 @@ fix it rather than working around it.
 
 ---
 
-## 0. State as of 27 August 2026
+## 0. State as of 28 August 2026
 
 **Everything below §1 is reference. This section is where a new session starts.
 If this section and anything below it disagree, this section is right.**
 
-**All seven pages are built, shipped and live.** Home, About,
+**All nine pages are built, shipped and live.** Home, About,
 **The Build** (`/the-build/`), **Retreats** (`/retreats/`), **Greece**
-(`/retreats/greece/`), **A Sounding** (`/a-sounding/`) and **The Letters**
-(`/the-letters/`). Every one returns 200 in production.
+(`/retreats/greece/`), **A Sounding** (`/a-sounding/`), **The Letters**
+(`/the-letters/`), **Privacy and terms** (`/privacy-policy/`) and
+**The Questions** (`/thequestions/`). Every one returns 200 in production.
+
+The last two were built on 28 August. `/privacy-policy/` closes the domain
+cutover trap: the footer link was absolute, pointed at the OLD site, and would
+have 404'd from every page the moment the domain moved. It is relative now on
+all nine pages and the suite asserts it. `/thequestions/` is a QR destination
+for the GATHER tables and is **noindex and deliberately out of `sitemap.xml`**:
+the URL is event scoped and the page names the event. See §18.
 
 **Every nav target has a page behind it and every form goes somewhere real.**
 Neither was true two days ago: The Letters was an anchor to a dead form on the home page,
@@ -30,11 +38,11 @@ anywhere on the site now.
 | Production | the newest **Ready** row in `vercel ls --prod` |
 | `main` vs production | **In sync.** Verify rather than assume: `git status --short` should be empty and `git rev-parse --short HEAD origin/main` should print the same hash twice. To prove production matches the tree, hash a page both ways: `shasum index.html` against `vercel curl <prod>/ -s \| shasum`. |
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
-| Interaction suite | **140 assertions, all passing** (57 Greece, 38 Retreats, 23 A Sounding, 22 The Letters) |
-| Responsive audit | **7 pages clean at 320, 375, 430 and 768** |
-| Mobile menu | **112 contrast measurements, 0 failing** |
+| Interaction suite | **182 assertions, all passing** (59 Greece, 40 Retreats, 25 A Sounding, 24 The Letters, 16 Privacy, 18 The Questions) |
+| Responsive audit | **9 pages clean at 320, 375, 430 and 768** |
+| Mobile menu | **128 contrast measurements, 0 failing** |
 | Touch carousel | **19 on Retreats, 21 on Home, 0 failing** |
-| Footer | **One footer, byte for byte on all seven pages.** Asserted in the suite. |
+| Footer | **One footer, byte for byte on all nine pages.** Asserted in the suite. |
 
 Do **not** write a deploy URL into this table. An earlier session did, and the very next
 commit -- which was this file -- immediately made it wrong. `vercel ls --prod` is the answer
@@ -101,6 +109,8 @@ labels as work phases in order, not as calendar sessions. Everything in them is 
 | **The reviews carousel: two implementations, and three bugs inside the fix** | §15 |
 | The one canonical footer, and the unboxed social marks | §16 |
 | The held heading, and the seam rule for full-bleed photographs | §17 |
+| **Privacy and terms, and the two things still open inside them** | §18 |
+| The questions page, and what is event scoped on it | §18 |
 
 **The four that will bite hardest if you do not read them** are marked in bold: they are the
 ones where the correct-looking thing is wrong.
@@ -116,10 +126,10 @@ ones where the correct-looking thing is wrong.
 | 5 | **The sticky bar.** Brief says keep, `site.css` says the guide forbids. Currently OFF. | §7c |
 | 6 | **Mane Alchemist's mark is repainted** in its Foundation ink. A client's artwork, altered. | §6 |
 | 7 | **Written permission** from Mane Alchemist, SRS Performance and SolyRey before launch. | §7.8 |
-| 8 | **Privacy 404s at domain cutover, and the copy for the fix has now arrived.** `Privacy terms page/privacy-terms-copy-v1.md`, 19:19 on 26 August: privacy and terms in one document, both parts written. Excluded from the deploy, **not built**. It carries its own FLAG lines, including the last-updated date. | §7.3, §11 |
+| 8 | ~~Privacy 404s at domain cutover.~~ **CLOSED 28 August.** Built at `/privacy-policy/`, one document, both parts, and the footer link is relative on all nine pages. **One thing is still open inside it: the last-updated date reads August 2026 and has to change on launch day, in the same commit that turns Deployment Protection off.** It is the one line on that page people check. | §18 |
 | 9 | **Two client sites render broken on mobile.** Not ours, but she should know. | §7b2 |
 | 10 | **The Sauk Centre retreat, 8 October 2026,** has four live checkout links and is on no page. She said leave it off. | §10 |
-| 11 | **`/thequestions` is unbuilt.** A fourth wireframe arrived at 19:07 on 26 August: a QR landing page for the GATHER event tables. Excluded from the deploy, not built, and it carries three open copy decisions of its own. | §11 |
+| 11 | ~~`/thequestions` is unbuilt.~~ **CLOSED 28 August.** Built, noindex, out of the sitemap. **The eyebrow, the `<title>` and the meta description are event scoped and have to be swapped per event**; they currently read GATHER / The Journey / Minneapolis. Nothing else on the page moves. | §18 |
 | 12 | **`IvyPresto Display` is not self-hosted.** Instrument Serif is what actually renders. | §7.4 |
 | 13 | **Never verified:** a full keyboard pass and a real screen-reader pass. | §7.5 |
 | 14 | **`figure` default margin is unreset on `.quote`**, so the home page's quote carousel is indented 40px each side. Fixed on `.sd-quote` only; the shared fix moves a shipped page. | §11 |
@@ -681,15 +691,16 @@ load, all revealed once scrolled past, and **with JS off every paragraph is visi
    It was left alone rather than wired to a guess, because a signup landing on the wrong list
    is worse to unpick than a signup that never fired. **Ask Cydnie which one it is.** Keep the
    hidden `tag` field either way.
-3. **Privacy is linked. Terms still does not exist, and privacy has a cutover trap.**
-   `https://cydniejocelyn.com/privacy-policy` is on the client's link list, returns 200 today,
-   and is in the footer of all seven pages. It is **absolute on purpose**: it resolves now
-   on the Vercel URL, and it resolves to the same place after the domain cuts over.
+3. **Privacy and terms. CLOSED 28 August, and the cutover trap with it.** Both are one
+   document at `/privacy-policy/`, terms at `#terms`, built from
+   `Privacy terms page/privacy-terms-copy-v1.md`.
 
-   **The trap:** that page lives on the OLD site. The moment `cydniejocelyn.com` points at this
-   build, the path 404s unless `/privacy-policy/index.html` exists here. Either port the copy
-   into this repo before cutover or add a redirect. Terms was never written and stays out of
-   the markup; the line to restore is commented at the footer of `index.html`.
+   The link **was** absolute, `https://cydniejocelyn.com/privacy-policy`, and the note here
+   used to say that was on purpose because it resolved both before and after cutover. That was
+   half right and the dangerous half. It resolved to the **old site**, and the moment
+   `cydniejocelyn.com` pointed at this build every one of those links would have 404'd. It is
+   `/privacy-policy/` on all nine pages now, and two assertions in the suite fail if anyone
+   makes it absolute again. See §18.
 4. **`IvyPresto Display` is not self-hosted.** It is licensed, not on Google Fonts, and the
    files are **not in this workspace**. The stack names it first and falls back to Instrument
    Serif, which is what is actually rendering. Ask her for the Adobe license files.
@@ -1988,3 +1999,186 @@ actually above it now.
 whose first painted thing is a full bleed image can skip the seam. A section
 with padding before the image cannot, and must either carry the ground above
 it or declare a `--from` that matches it.
+
+---
+
+## 18. Session ten: the two pages that were sitting in folders
+
+Both wireframes had been in the root for two days, both excluded from the
+deploy on sight, and neither built. They are built now, and the site is nine
+pages.
+
+### `/privacy-policy/`, and the trap it closes
+
+Every page's footer linked **`https://cydniejocelyn.com/privacy-policy`**,
+absolute. The note in §7.3 defended that: it resolves today and it resolves
+after the domain cuts over. The first half was true. The second was exactly
+backwards.
+
+That absolute URL resolves to the **old site**, which is what is answering
+`cydniejocelyn.com` right now. The instant the domain points at this build,
+that path 404s unless the page exists here, and it did not. So the footer
+link on all seven pages was a live 404 scheduled for cutover day, sitting
+behind a note explaining why it was safe.
+
+The fix is both halves: the page exists, and the link is **relative**,
+`/privacy-policy/`, on all nine pages. Two assertions in the suite fail if
+anyone makes it absolute again.
+
+**Terms is the same page, at `#terms`.** The copy deck wrote privacy and
+terms as one document and that is how it shipped. Two files would drift
+apart the first time one of them changed. The footer carries both links and
+they both land on this page.
+
+### What is still open on it, and it is one line
+
+**The date reads "Last updated: August 2026" and it has to change on launch
+day, not before.** That is FLAG one of four in the copy deck and it is the
+only one still open. It is the one line on that page anybody checks. Change
+it in the same commit that turns Deployment Protection off.
+
+The other three FLAGs are resolved:
+
+| FLAG | Resolution |
+|---|---|
+| Retreat minimum, "eight to ten" | **Eight.** Cydnie's call, 28 August. A published minimum has to be one number she can hold herself to, and eight is the one where a retreat at eight or nine runs rather than being cancelled into credits. |
+| Affiliate section, MakeWellness only | Shipped as written. There is no favourites page yet. If one is built the section expands; if the partnership ends it comes down the same day. |
+| Travel insurance questionnaire | Shipped as written. Recommended coverage plus a signed acknowledgment, which is a better position than a requirement nobody could verify. |
+
+**Eight is now a published number and it lives in exactly two places**: this
+page and `llms.txt`. Fifteen, the cap, lives in six. If either moves, it
+moves in all of them in one commit.
+
+### It runs light from top to bottom, and that is the argument
+
+Every other page uses the depth arc to make a case. This one is a reference
+document somebody opens because they are looking for a single sentence, and
+a ground that changes under them while they scan for it is the arc
+performing on a page with nothing to perform. Silt for the title block,
+Surface for the document, and the header inverts on its own because
+`initHeader()` watches for `.z-light` and `.z-silt`.
+
+Body copy is **1rem, not the site's 1.125rem**, and the measure is 40rem
+rather than the 34rem `--measure`. Four thousand words of terms at the
+reading size the rest of the site uses is a wall, and a 34rem measure breaks
+the numbered obligations every six words.
+
+**The contents is eight entries, not twenty eight.** A list of every heading
+is not an index, it is the document again in smaller type. Above 56rem it is
+a sticky sidebar. Below it, it goes to **two columns**: ten links at the
+44px tap target the audit enforces is 450px of index before the first
+sentence, on a page opened to find one sentence. Two columns makes that five
+rows.
+
+### `/thequestions/`, the QR destination
+
+Someone at a GATHER table picked a numbered card, scanned the code, and is
+standing there holding a phone. One screen, one thread, one action. Built
+from `the questions/thequestions-wireframe-v2 (1).html`.
+
+**Three things about it depart from the rest of the site and each is on
+purpose.**
+
+**1. It is `noindex` and it is deliberately not in `sitemap.xml`.** The URL
+is event scoped rather than permanent and the page names the event, so it
+should not be what someone finds when they search her. `follow` stays: the
+links out are to real pages and there is no reason to strand them.
+
+**2. The header is bare.** `.hdr--bare` is the wordmark and the one button,
+at every width, with no `.nav-toggle`. The shared header collapses under
+56rem by putting the A Sounding button **inside** the panel behind the two
+bar mark, which is right on a page someone is reading and wrong on a page
+whose only job is one tap. `initNav()` returns early without a toggle, so
+nothing had to be told about this. The five item nav lives in the footer, so
+there is a single forward path and still no dead end.
+
+**3. It is light from top to bottom,** same reasoning as the privacy page: a
+reader with thirty seconds in a lit room does not earn a rise by scrolling.
+Sections are told apart by a hairline, not by alternating grounds.
+
+### Three fixes carried in from the old live page
+
+These are why the list of twelve is worth reading twice before editing it.
+
+| | |
+|---|---|
+| Question 11 | Read "what would you say **yest** to". A typo, live. |
+| Casing | Inconsistent on the live page: wHERE, wHO, wHAT. Sentence case throughout now. |
+| Order | Ran 05 down to 01 and then 12 down to 06. **It runs 01 to 12 now, and that is functional rather than tidy:** the cards on the table are numbered and someone holding card 07 has to be able to find 07. |
+
+The old page's two competing calls, "Let's Build What's Next" and "Let's
+Talk", pointed at two different scheduling links. Both are replaced by A
+Sounding, on the same HoneyBook session record `6a185c26693e14802690e9f6`
+that `/a-sounding/` and the site-wide popup use. **$300 has to match that
+record and The Build page.**
+
+### What is event scoped on it
+
+Four things, and nothing else on the page moves when they change:
+
+    the eyebrow in the hero      GATHER  /  The Journey  /  Minneapolis
+    <title>                      The Questions | Cydnie Jocelyn
+    meta description             names GATHER
+    the OG image                 now /assets/og/home.png
+
+The OG image was a wedding photographer's file from a previous library on
+the old page. It is the site's own card now.
+
+### The second door is variant D, and it is a fourth option
+
+The wireframe offered three lines for the closing link to The Letters and
+recommended the flattest, B: "I also write letters. They're here." All three
+were written before the cadence was settled, and the wireframe said so:
+"I don't know the cadence or subject of The Letters well enough to describe
+them."
+
+We do now. It ships as **"I also write letters. One a week, free. They're
+here."** Cydnie's choice, 28 August: B's flatness, but it answers the
+question B leaves open. **A text link, never a button.** That is the whole
+difference between a second door and a second ask, which is why that block
+has no `.actions` row.
+
+### The popup is off on both, and both are in SKIP_PATHS
+
+`sounding-popup.js` now skips five paths rather than three.
+
+| | |
+|---|---|
+| `/privacy-policy` | She is looking up what happens to her data or what she signed. Interrupting that with a $300 offer is the one place on this site where the popup reads as exactly what the brand guide bans. |
+| `/thequestions` | That page already **is** this push. A modal selling what the page is selling is the page arguing with itself. |
+
+Neither page carries the script tag either. The `SKIP_PATHS` entry is the
+belt: it survives someone pasting the tag on later.
+
+### The specificity trap bit again, in a new place
+
+`.btn--ink` is Deepwater fill and a Surface label, per the wireframe's token
+note. It rendered **Fathom on Deepwater** the first time it was built:
+invisible, and invisible from the first frame, because the whole page is
+light so the header is `is-surfaced` at scroll zero.
+
+`.hdr.is-surfaced .btn { color: var(--fathom) }` is `(0,3,0)`. Plain
+`.btn--ink` is `(0,1,0)`. It lost. **This is the third time this exact trap
+has cost something on this project** -- see the note under
+`.has-menu .nav-links a` for the session seven version, which took out three
+of the four mobile nav links. The fix is matched at `(0,3,0)` and placed
+later so it wins in both directions, and there is now an assertion that
+fails if a bare header's button label ever equals its own fill.
+
+### What was touched outside the two new pages
+
+Each of these moves the whole site, so they are listed rather than left to
+be discovered.
+
+| | |
+|---|---|
+| **The footer on all seven shipped pages** | The privacy link went relative and a Terms link was added beside it. `.ftr-legal` is the two-link row. |
+| `assets/css/site.css` | New sections **29** and **30**, plus `.ftr-legal` in section 20 and the `.hdr.is-surfaced .btn--ink` fix. |
+| `tools/stamp.py` | Seven pages to **nine**. Add any new page here or it ships with a stale `?v=`. |
+| `tools/preview/runsuite.sh` | Four pages to **six** in the default run. |
+| `tools/preview/_test.html` | Four new assertions: the two footer legal links, and two for the bare header. |
+| `tools/preview/_menu.html` | `/privacy-policy/` added, 112 measurements to **128**. `/thequestions/` is **not** there and cannot be: it has no mobile menu to open. |
+| `tools/preview/sync.sh` | Excludes the two working-document folders, which it never did. |
+| `sitemap.xml` | `/privacy-policy/` added. `/thequestions/` deliberately absent, with a comment saying why. |
+| `llms.txt` | The published retreat terms, a **Legal** section, and the contact URL, which named a `/contact/` page that has never existed on this site. |
+| `.vercelignore` | Both wireframe folders stay excluded and the comments say what became of them. |

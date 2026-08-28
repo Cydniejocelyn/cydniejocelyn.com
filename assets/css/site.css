@@ -1631,6 +1631,11 @@ button.door-note {
   display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); justify-content: space-between;
   font-size: .875rem; color: var(--muted); }
 .ftr-btm a { color: var(--muted); display: inline-flex; align-items: center; min-height: 44px; }
+/* Privacy and terms are one document at /privacy-policy/, the second
+   reached at #terms. Two links in one paragraph, spaced rather than
+   separated by a punctuation mark: a middot between two 44px tap targets
+   is a third thing to aim at that does nothing. */
+.ftr-legal { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
 
 /* ---------- 20b. IMAGE LAYERS -------------------------------
    Every image slot on the page. Each carries a fixed aspect so nothing
@@ -3437,6 +3442,209 @@ main > * { position: relative; z-index: 1; }
    because the next one to try it will otherwise lose an hour to it. */
 .btn[hidden] { display: none; }
 
+
+/* ---------- 29. PRIVACY AND TERMS ---------------------------
+   One document at /privacy-policy/, covering both parts, because that is
+   how the copy arrived and because two files would drift apart the first
+   time one of them changed. The footer's Terms link is the same page at
+   #terms.
+
+   IT RUNS LIGHT FROM TOP TO BOTTOM, and that is the argument rather than
+   an oversight. Every other page on this site uses the depth arc to make
+   a case; this one is a reference document somebody opens because they
+   are looking for a single sentence. A ground that changes under them
+   while they scan for it is the arc performing on a page that has nothing
+   to perform. The header inverts on its own: initHeader() watches for
+   .z-light and .z-silt, so nothing here has to tell it.
+
+   Body copy is 1rem, not the site's 1.125rem. Four thousand words of
+   terms at the reading size the rest of the site uses is a wall, and the
+   measure is capped at 40rem rather than the 34rem --measure so the
+   numbered obligations do not break every six words.
+   ------------------------------------------------------------ */
+
+.pv-head { padding-block: clamp(8rem, 18vh, 11rem) clamp(2.5rem, 6vw, 4rem); }
+.pv-head .wl-rule { margin-top: clamp(var(--s-4), 4vh, var(--s-5)); }
+
+/* The date is the one line on this page people check, so it is set as a
+   fact rather than a footnote: utility face, full ink, on its own line. */
+.pv-stamp {
+  margin-top: var(--s-5);
+  font-family: var(--utility);
+  font-size: .8125rem; letter-spacing: .12em;
+  color: var(--muted);
+}
+.pv-stamp b { font-weight: 400; color: var(--ink); }
+
+/* Contents beside the document, held while it scrolls past. Twenty eight
+   headings is too many to list, so this is the eight groups a person
+   actually arrives looking for, in two parts.
+
+   `.grid-12--hold` holds `.col-d` only, and col-d is 1/7 at 56rem, which
+   is half the page: too wide for an index and it leaves the document a
+   narrow column beside it. This is the same sticky behaviour on a
+   narrower track. */
+.pv-doc { display: grid; gap: var(--s-7); }
+@media (min-width: 56rem) {
+  .pv-doc { grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); column-gap: var(--s-8); align-items: start; }
+  .pv-toc { position: sticky; top: clamp(7rem, 16vh, 9rem); }
+}
+.pv-toc h2 {
+  font-family: var(--utility);
+  font-size: .6875rem; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: var(--s-3);
+}
+.pv-toc ol { display: grid; }
+.pv-toc li + li { margin-top: 1px; }
+.pv-toc a {
+  display: block; padding: .45rem 0;
+  font-size: .9375rem; line-height: 1.4;
+  color: var(--muted); text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: color var(--t-fast) var(--ease-out);
+}
+.pv-toc a:hover, .pv-toc a:focus-visible { color: var(--ink); }
+.pv-toc ol + h2 { margin-top: var(--s-6); }
+
+/* Below the sidebar breakpoint the contents sits above the document, and
+   ten links at a 44px tap target is 450px of index before the first
+   sentence, on a page someone opened to find one sentence. Two columns
+   makes it five rows instead of ten and keeps every target a fingertip
+   high, which is what the audit checks and what the rest of the site
+   holds to. */
+@media (max-width: 55.99rem) {
+  .pv-toc ol { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-5); }
+  .pv-toc li + li { margin-top: 0; }
+  .pv-toc a { padding: .7rem 0; min-height: 44px; display: flex; align-items: center; }
+}
+
+/* The document itself. */
+.pv-body { max-width: 40rem; font-size: 1rem; line-height: 1.66; }
+.pv-body > * + * { margin-top: var(--s-4); }
+
+/* A part heading is a divider, not a section label: it gets a full rule
+   above it and real air, so the eye can tell "Part two" from any of the
+   twenty six headings inside part one. */
+.pv-part {
+  border-top: 1px solid var(--ink);
+  padding-top: var(--s-5);
+  margin-top: var(--s-8) !important;
+}
+.pv-body > h2 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
+.pv-body > h3 {
+  margin-top: var(--s-6) !important;
+  font-size: 1.125rem; font-weight: 500; letter-spacing: -.01em;
+}
+/* Bolded run-in labels inside the retreat terms. They are the structure of
+   that section, so they read as headings without taking a heading level
+   the outline does not need. */
+.pv-body b { font-weight: 500; color: var(--ink); }
+.pv-body ul { display: grid; gap: var(--s-2); }
+.pv-body li { padding-left: var(--s-4); position: relative; }
+.pv-body li::before {
+  content: ""; position: absolute; left: 0; top: .72em;
+  width: .5rem; height: 1px; background: var(--rule);
+}
+.pv-body .lead-in { color: var(--muted); }
+.pv-body hr { margin-block: var(--s-6); }
+
+/* ---------- 30. THE QUESTIONS -------------------------------
+   /thequestions/ is a QR destination, not a page in the site's argument.
+   Someone at a GATHER table picked a numbered card, scanned the code, and
+   is standing there holding a phone. One screen, one thread, one action.
+
+   THREE THINGS DEPART FROM THE REST OF THE SITE AND EACH IS ON PURPOSE.
+
+   1. It is light from top to bottom. The depth arc is a rise the reader
+      earns by scrolling, and this reader has thirty seconds in a lit room.
+      Same reasoning as section 29.
+
+   2. The header is bare: the wordmark and the one button, no links and no
+      hamburger. This is the whole reason for `.hdr--bare`. The shared
+      header collapses under 56rem by putting the A Sounding button INSIDE
+      the panel behind the two-bar mark, which is correct on a page someone
+      is reading and wrong on a page whose only job is one tap. Here the
+      button is in the bar at every width, and there is nothing to open.
+      initNav() returns early when there is no .nav-toggle, so nothing has
+      to be told about this.
+
+   3. It is `noindex`. The URL is event scoped rather than permanent and
+      the eyebrow names the event. It is deliberately not in sitemap.xml.
+
+   The twelve are a flat list with hairline rules. No cards, no columns, no
+   reveal on scroll. Twelve rows is a long scroll on a phone and the scroll
+   is the experience. The numerals are functional, not decorative: the
+   cards on the table are numbered and the numeral is how someone finds
+   the one in their hand, so they run 01 to 12 in that order.
+   ------------------------------------------------------------ */
+
+.hdr--bare .nav { gap: 0; }
+
+/* All one ground, so a hairline is what tells one block from the next.
+   The wireframe drew it and it is the right call here: on a page of six
+   short blocks read in one scroll, alternating grounds would make six
+   bands out of thirty seconds of reading. */
+.tq-page .section + .section { border-top: 1px solid var(--rule); }
+
+/* Deepwater fill, Surface label, per the wireframe's token note. `.btn`
+   on a light ground is an outline that fills on hover, which is right in
+   a page of prose and too quiet for the single tap this page exists for.
+   `.btn--solid` is the other direction: Breath fill, which is the accent
+   and is reserved for small elements. */
+.btn--ink {
+  background: var(--deepwater); color: var(--surface); border-color: var(--deepwater);
+}
+.btn--ink::before { background: var(--fathom); }
+.btn--ink:hover, .btn--ink:focus-visible { color: var(--surface); }
+/* The header inverts its own button over a light ground:
+   `.hdr.is-surfaced .btn { color: var(--fathom) }` is (0,3,0) and plain
+   `.btn--ink` is (0,1,0), so it lost, and the label rendered Fathom on a
+   Deepwater fill. Invisible, and on this page the header is surfaced at
+   scroll zero because the whole page is light, so it was invisible from
+   the first frame. This is the same specificity trap that took out three
+   of the four mobile nav links in session seven; see the note under
+   `.has-menu .nav-links a`. Matched at (0,3,0) and placed later, so it
+   wins both directions. */
+.hdr.is-surfaced .btn--ink { color: var(--surface); border-color: var(--deepwater); }
+.hdr.is-surfaced .btn--ink::before { background: var(--fathom); }
+
+.tq-head { padding-block: clamp(7rem, 15vh, 9.5rem) clamp(2rem, 5vw, 3rem); }
+.tq-head h1 { max-width: 20ch; }
+.tq-head .lead { margin-top: var(--s-5); }
+
+/* One instance, and the only waterline reference on the page. */
+.tq-head .wl-rule { margin-top: clamp(var(--s-5), 6vh, var(--s-7)); }
+
+.tq-list { border-top: 1px solid var(--rule); margin-top: var(--s-6); }
+.tq-list li {
+  display: flex; gap: var(--s-4); align-items: baseline;
+  padding-block: var(--s-3);
+  border-bottom: 1px solid var(--rule);
+}
+.tq-list .n {
+  flex: none; width: 2rem;
+  font-family: var(--utility); font-size: .75rem; letter-spacing: .16em;
+  color: var(--muted);
+}
+.tq-list .q {
+  font-family: var(--carved);
+  font-size: clamp(1.15rem, 3.4vw, 1.4rem);
+  line-height: 1.32; letter-spacing: .03em;
+  color: var(--ink);
+}
+
+/* The price sits under the two paragraphs and above the button, where the
+   wireframe put it. It has to match the HoneyBook service record and The
+   Build page: see item 9 in HANDOFF section 7. */
+.tq-price {
+  margin-top: var(--s-5);
+  font-family: var(--utility);
+  font-size: 1.125rem; letter-spacing: .08em; color: var(--ink);
+}
+
+/* The quiet second door. A sentence with a link in it, never a button:
+   that is the whole difference between a second door and a second ask. */
+.tq-door { max-width: 34rem; }
 
 /* ---------- 28. THE PHONE PASS ------------------------------
    Everything in this section is a touch and small-screen correction, and

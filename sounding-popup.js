@@ -15,6 +15,10 @@
                       child's diagnosis and a husband's stroke. Nothing
                       interrupts that to sell a $300 call.
      /retreats/greece a sold-out waitlist funnel with its own action
+     /privacy-policy  she is looking up what happens to her data or what
+                      she signed. Nothing interrupts that to sell.
+     /thequestions    that page already is this push. A modal selling what
+                      the page is selling is the page arguing with itself.
 
    Everything below is self-contained. Edit only the CONFIG block.
    ============================================================ */
@@ -23,7 +27,7 @@
   /* ---------------- CONFIG ---------------- */
   var LINK          = 'https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6';
   var DELAY_MS      = 45000;   /* how long before it fires */
-  var SKIP_PATHS    = ['/a-sounding', '/about', '/retreats/greece'];
+  var SKIP_PATHS    = ['/a-sounding', '/about', '/retreats/greece', '/privacy-policy', '/thequestions'];
   var REMEMBER_DAYS = 30;      /* how long a dismissal is honoured */
   var MEMORY_KEY    = 'sd_pop_dismissed';
 

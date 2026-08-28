@@ -379,6 +379,30 @@ f.addEventListener('load', function(){
       }).join('|') === 'The work|More|Elsewhere');
    ok('footer: nothing links the podcast',
       !d.querySelector('.ftr a[href*="she-rises-through-it"], .ftr a[href*="open.spotify.com"]'));
+
+   /* Privacy and terms are one document at /privacy-policy/, built on 28
+      August. The link used to be the ABSOLUTE https://cydniejocelyn.com/
+      privacy-policy, which resolved to the OLD site and would have 404'd
+      the moment the domain cut over to this build. It is relative now and
+      it must stay relative on all nine pages. See HANDOFF section 7.3. */
+   ok('footer: privacy and terms both point at the built page, relatively',
+      !!d.querySelector('.ftr-btm a[href="/privacy-policy/"]') &&
+      !!d.querySelector('.ftr-btm a[href="/privacy-policy/#terms"]'));
+   ok('footer: nothing carries the absolute privacy URL that 404s at cutover',
+      !d.querySelector('.ftr a[href^="https://cydniejocelyn.com/privacy-policy"]'));
+
+   /* The bare header, /thequestions/ only. The A Sounding label rendered
+      Fathom on a Deepwater fill the first time it was built, because
+      `.hdr.is-surfaced .btn` is (0,3,0) and `.btn--ink` is (0,1,0). Same
+      specificity trap as the mobile nav links in session seven. */
+   var bare = d.querySelector('.hdr--bare');
+   if (bare) {
+     ok('bare header: no toggle, so the one button is in the bar at every width',
+        !bare.querySelector('.nav-toggle') && !d.documentElement.classList.contains('has-menu'));
+     var ink = bare.querySelector('.btn--ink');
+     ok('bare header: the button label is not the colour of its own fill',
+        !!ink && w.getComputedStyle(ink).color !== w.getComputedStyle(ink).backgroundColor);
+   }
    var soc = d.querySelector('.social a');
    ok('footer: the social marks are not in boxes',
       !!soc && w.getComputedStyle(soc).borderTopWidth === '0px' &&
