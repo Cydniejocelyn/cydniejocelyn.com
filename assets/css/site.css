@@ -4610,7 +4610,22 @@ main > * { position: relative; z-index: 1; }
      hero breathing without the page appearing to have ended.
 
      The top value is untouched: it clears the fixed header. */
-  .hero { padding-block: clamp(7rem, 16vh, 11rem) 4rem; }
+  /* The bottom value came down from 4rem to 2.5rem on 28 August 2026, to
+     slightly close the run between the hero's last line and the condition
+     section below it. That run is 316px at 375 and this is the only part of
+     it that can be trimmed on its own:
+
+         hero padding-bottom   64  <- this
+         stage padding-top     89     clears the fixed header
+         centring offset      163     half the leftover viewport
+
+     The other two are shared with the far side. Reducing the stage's top
+     padding by X moves X/2 off the approach and puts X/2 back on the exit,
+     so it cannot shorten one end without lengthening the other. The hero's
+     own floor is the only lever that touches the approach and nothing else.
+
+     The top value is untouched: it clears the fixed header. */
+  .hero { padding-block: clamp(7rem, 16vh, 11rem) 2.5rem; }
 
   /* 4. THE HAND FITS ITS FRAME NOW.
      The source is 632x1018, a portrait photograph of a hand reaching down
