@@ -232,7 +232,15 @@ button { font: inherit; color: inherit; }
 [data-zone] { position: relative; }
 [data-zone]::before {
   content: ""; position: absolute; left: 0; right: 0; top: 0;
-  height: clamp(2.5rem, 6vw, 5.5rem);
+  /* Lowered with the section padding floor above, and it has to be. The
+     seam is painted from the TOP of the section, so if it is ever taller
+     than the padding it renders behind the first line of text: that line
+     sits on a tint of the ground the page just left, which is section 17's
+     "a seam drawn badly" in its other form. At 390px this is now 32px
+     against 40px of padding, the same 8px of headroom the pair had before
+     either of them moved. Above 533px the vw term wins and nothing here
+     applies. */
+  height: clamp(2rem, 6vw, 5.5rem);
   background: linear-gradient(180deg, var(--from, transparent), transparent);
   pointer-events: none; z-index: 0;
 }
@@ -354,7 +362,16 @@ button { font: inherit; color: inherit; }
 }
 
 .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
-.section { padding-block: clamp(var(--s-6), 7vw, var(--s-9)); position: relative; }
+/* THE FLOOR, NOT THE CURVE. `7vw` only wins above about 686px, so every
+   phone sits exactly on the minimum and the minimum was 3rem: 48px bottom
+   plus 48px top, 96px at every boundary, measured as 1,501px on the home
+   page and the same again on Greece. 2.5rem takes 16px out of each boundary
+   and changes nothing at 768px or above, where the vw term is already
+   larger than either floor.
+
+   IT IS COUPLED TO THE SEAM ABOVE IT and cannot be lowered alone. See the
+   note on `[data-zone]::before`. */
+.section { padding-block: clamp(2.5rem, 7vw, var(--s-9)); position: relative; }
 .section--tight { padding-block: clamp(var(--s-5), 5vw, var(--s-7)); }
 
 .grid-12 { display: grid; gap: var(--s-6); }
@@ -3888,6 +3905,83 @@ main > * { position: relative; z-index: 1; }
 .booking, .ftr-brand .link {
   min-height: 44px; display: inline-flex; align-items: center;
 }
+
+/* ---------- 28b. THE VERTICAL PACING PASS --------------------
+   Session twelve, from a full measurement of all nine pages at 375x812,
+   390x844 and 360x800. Everything here is a MOBILE ONLY reduction of
+   vertical space and none of it changes a desktop.
+
+   Two things measured in that pass were deliberately NOT changed, and the
+   reasons are at the foot of this block, because both look like obvious
+   fixes and both make the phone worse.
+   ------------------------------------------------------------ */
+
+/* A ROW GAP IS NOT A COLUMN GAP.
+   ------------------------------------------------------------
+   `gap` on a two column grid is horizontal space. The moment the columns
+   stack it becomes vertical space that never existed on the desktop the
+   value was chosen for, and every one of these was left at its desktop
+   size: 48px on `.grid-12` and `.cond-in`, 64px on the rest. Measured, that
+   is 544px on the home page, 384px on Greece, 304px on The Build.
+
+   THE BREAKPOINT IS 41.99rem AND THAT IS THE WHOLE SAFETY ARGUMENT. Each of
+   these picks up real columns at a different width: `.grid-12`, `.fifteen`
+   and `.close-grid` at 42rem, `.ab-split`, `.shapes`, `.pv-doc` and
+   `.cond-in` at 56rem, `.hero-in` at 62rem, `.turn-split` at 900px. Below
+   42rem every one of them is stacked, so `row-gap` here can only ever
+   shrink a gap that is already vertical. It cannot touch a column gap,
+   because at this width there are no columns. */
+@media (max-width: 41.99rem) {
+  .grid-12, .hero-in, .turn-split, .fifteen, .close-grid,
+  .ab-split, .shapes, .pv-doc, .cond-in {
+    row-gap: var(--s-5);
+  }
+}
+
+/* THE STEPPED CONDITION, ON A PHONE.
+   ------------------------------------------------------------
+   `--cond-run` is how much scroll one recognition is worth, and the note
+   where it is declared calls it the only dial worth turning. On a desktop
+   46vh is right. On a 844px phone it means 5.5 x 388px = 2,134px of scroll
+   on top of the pinned screen, so the block costs 3.53 screens to deliver
+   five sentences, on the home page AND on Greece, which are already the two
+   longest pages on the site at 21.8 and 27.1 screens.
+
+   34svh is 287px per recognition. That is still most of a thumb flick, so
+   nothing flicks past unread, and it takes 0.65 screens off both pages.
+
+   NOT LOWER. Below about 30svh a step is shorter than one flick and the
+   reader can skip a recognition without ever seeing it, which is the one
+   failure this component cannot have: the five ARE the argument.
+
+   Both custom properties are set because the declaration they override is
+   itself a vh/svh fallback pair. Setting only the svh one would leave a
+   browser without svh support reading 46vh. */
+@media (max-width: 47.99rem) {
+  .cond.is-stepped .cond-track {
+    --cond-run: 34vh;
+    --cond-run: 34svh;
+  }
+}
+
+/* MEASURED AND DELIBERATELY LEFT ALONE.
+   ------------------------------------------------------------
+   1. `.q-dot` is 24px wide against a 44px guideline, and widening it makes
+      the phone worse, not better. There are seven dots on the home page.
+      Seven 44px targets is 308px before gaps, and the column at 375px is
+      335px with two 44px arrows already in it. They would wrap to two rows,
+      which costs vertical space on the page this pass exists to shorten,
+      to fix a control that is the third way to reach the same slide: the
+      arrows are 44px and the rail is swipeable. The dots are 44px TALL, so
+      the thumb has a full height target on the axis it approaches from.
+
+   2. Line length is 38 characters at 390px against a 45 to 75 guideline, on
+      every page. That is arithmetic, not a defect: 390px less two 20px
+      gutters is 350px, and 350px at the 18px body size IS 38 characters.
+      The only lever is font-size, and the size that reaches 45 characters
+      is about 15px, which is under the 16px floor. Reading distance on a
+      phone is half a desktop's; the guideline is written for the desktop.
+      Nothing here should be tightened to chase it. */
 
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {

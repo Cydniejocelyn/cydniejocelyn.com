@@ -40,6 +40,7 @@ anywhere on the site now.
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
 | Interaction suite | **182 assertions, all passing** (59 Greece, 40 Retreats, 25 A Sounding, 24 The Letters, 16 Privacy, 18 The Questions) |
 | Responsive audit | **9 pages clean at 320, 375, 430 and 768** |
+| Mobile scroll | **Measured at 375x812, 390x844 and 360x800.** Home 20.69 screens, Greece 26.11, the site 120.8. See §20 |
 | Mobile menu | **128 contrast measurements, 0 failing** |
 | Touch carousel | **19 on Retreats, 21 on Home, 0 failing** |
 | Footer | **One footer, byte for byte on all nine pages.** Asserted in the suite. |
@@ -112,6 +113,8 @@ labels as work phases in order, not as calendar sessions. Everything in them is 
 | The held heading, and the seam rule for full-bleed photographs | §17 |
 | **Privacy and terms, and the two things still open inside them** | §18 |
 | The questions page, and what is event scoped on it | §18 |
+| The page load audit, and the two suspicions it cleared | §19 |
+| **Mobile vertical pacing, and the two fixes that would have hurt** | §20 |
 
 **The four that will bite hardest if you do not read them** are marked in bold: they are the
 ones where the correct-looking thing is wrong.
@@ -2363,3 +2366,130 @@ that named it was removed: a browser picking it to draw a 32px tab fetches
 - **`sounding-popup.js` as a separate request.** It could fold into
   `site.js`. It is standalone deliberately and 1.9KB brotli is not worth
   the coupling.
+
+---
+
+## 20. Session twelve: mobile vertical pacing
+
+Measured before anything moved: nine pages at 375x812, 390x844 and 360x800,
+driven through so lazy images load and scroll handlers fire, with every
+reveal forced to its resting state first. **`.r-up` uses `translateY`, which
+moves `getBoundingClientRect`,** so measuring mid-reveal measures a lie. The
+three viewports differ by under 8% on every metric; 360x800 is always the
+longest.
+
+### Four things that looked like findings and were not
+
+Worth recording, because each cost a measurement to disprove and the next
+person will suspect all four again.
+
+| Looked like | Actually |
+|---|---|
+| `.door-note` links are 126x18, far under 44px | Their hit area is **146x44** via `::after { inset: -13px -10px }`. Already correct. |
+| `.crs` is fixed chrome eating 5% of the viewport | Gated on `(hover: hover) and (pointer: fine)`. **Not built** under coarse pointer. Confirmed with the runcarousel flags. |
+| Greece's first CTA is 20.6 screens down | The selector had missed `.hero-go`. It is at **0.52 screens.** |
+| Home and Greece have 2,266px of dead space | That is `.cond-track`, a sticky pinned sequence. Content is there the whole way. A density metric cannot see sticky. |
+
+**Run the touch measurements with the runcarousel flags** or the answers are
+about a desktop:
+
+    --blink-settings=primaryPointerType=2,availablePointerTypes=2,primaryHoverType=1,availableHoverTypes=1
+
+### What changed
+
+Three things, all mobile only, none touching a desktop.
+
+**1. The section padding FLOOR, not the curve.** `.section` is
+`clamp(var(--s-6), 7vw, var(--s-9))` and `7vw` only wins above about 686px,
+so every phone sat exactly on the 48px minimum: 96px at every boundary,
+1,501px on the home page and the same again on Greece. The floor is
+**2.5rem** now. Nothing at 768px or above moves, because the vw term is
+already larger than either floor.
+
+**2. The seam floor, which had to move with it.** `[data-zone]::before` was
+`clamp(2.5rem, 6vw, 5.5rem)`, so 40px on a phone against 48px of padding.
+The seam paints from the TOP of the section, so a seam taller than the
+padding renders behind the first line of text and that line sits on a tint
+of the ground the page just left. It is `clamp(2rem, ...)` now: **32px
+against 40px, the same 8px of headroom the pair had before either moved.**
+Verified on every boundary of both seam-heavy pages, not argued from the CSS.
+
+**3. A row gap is not a column gap.** `gap` on a two column grid is
+horizontal space; the moment the columns stack it becomes vertical space
+that never existed on the desktop the value was chosen for. Nine containers
+were still at their desktop size, 48px or 64px. Measured: 544px on home,
+384px on Greece, 304px on The Build.
+
+**The override is at 41.99rem and that is the entire safety argument.** Each
+of those grids picks up real columns at a different width: `.grid-12`,
+`.fifteen` and `.close-grid` at 42rem, `.ab-split`, `.shapes`, `.pv-doc` and
+`.cond-in` at 56rem, `.hero-in` at 62rem, `.turn-split` at 900px. Below 42rem
+every one is stacked, so `row-gap` there **cannot** touch a column gap,
+because at that width there are no columns.
+
+**4. `--cond-run` on phones only.** 46vh per recognition is right on a
+desktop. On an 844px phone it made the block 3.53 screens to deliver five
+sentences, on the two longest pages on the site. It is 34svh under 47.99rem,
+which is 287px per step: still most of a thumb flick, so nothing goes past
+unread. **Not lower.** Below about 30svh a step is shorter than one flick and
+a reader can skip a recognition without seeing it, and the five ARE the
+argument.
+
+### Result
+
+| | before | after | |
+|---|---|---|---|
+| home | 21.80 | **20.69** | -1.11 screens |
+| greece | 27.11 | **26.11** | -1.00 |
+| the `.cond` block | 3.53 | **2.87** | on both pages |
+| build | 14.40 | 14.07 | -0.33 |
+| retreats | 16.48 | 16.24 | -0.24 |
+| about | 11.35 | 11.16 | -0.19 |
+| sounding | 8.77 | 8.58 | -0.19 |
+| questions / letters / privacy | | | -0.08 each |
+| **the site** | **124.08** | **120.80** | **-3.28 screens** |
+
+Slices under 50% filled: home 4 to 3, Greece 4 to 3, sounding 2 to 1.
+
+### Two measured problems deliberately NOT fixed, because both make it worse
+
+**`.q-dot` is 24px wide against a 44px guideline. Widening it is the wrong
+move.** There are seven dots on the home page. Seven 44px targets is 308px
+before gaps and the column at 375px is 335px with two 44px arrows already in
+it, so they wrap to two rows: vertical space added, on the page this pass
+exists to shorten, to fix a control that is the third way to reach the same
+slide. The arrows are 44px and the rail is swipeable. The dots are already
+44px TALL, so the thumb has a full-height target on the axis it approaches
+from. The comment at `.q-dots` in section 28 records that these already
+overflowed once.
+
+**Line length is 38 characters at 390px against a 45 to 75 guideline, on
+every page, and it cannot be fixed.** 390px less two 20px gutters is 350px,
+and 350px at the 18px body size IS 38 characters. The only lever is
+font-size and the size that reaches 45 characters is about 15px, under the
+16px floor. The guideline is written for a desktop reading distance. Nothing
+should be tightened to chase it.
+
+### Still open, and it is a copy decision rather than a CSS one
+
+**The Build is 5.84 screens to its first CTA**, the deepest on the site.
+Every other page has an action inside the first screen. `/thequestions/` is
+3.12 screens but carries a persistent A Sounding button in its bare header;
+The Build does not, because under 56rem its header CTA is inside the
+hamburger like every other page.
+
+This was left alone. Fixing it means either new copy in the hero, which is
+under the freeze in §5, or exposing the header CTA site wide, which is a
+design change nobody asked for. **Ask Cydnie.** The page's own argument is
+"every price is published, you will not need a call", so a hero CTA may be
+against its intent, and a quiet anchor to the prices may be the right answer
+rather than a booking link.
+
+### One pre-existing thing the audit flags at 768px
+
+`/retreats/greece/` reports thirteen 10px spans at exactly 768px. **This is
+not from this pass** and was confirmed identical with the change stashed.
+The micro labels are raised to 11px by `@media (max-width: 47.99rem)`, and
+767.84px is where that stops, so 768px gets the base 10px. That is the
+deliberate desktop size from session six. A tablet is not a phone and it was
+out of scope here.
