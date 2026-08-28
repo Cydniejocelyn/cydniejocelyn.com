@@ -1,0 +1,485 @@
+<meta charset="utf-8">
+<title>Nine Frictions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+/* ------------------------------------------------------------------
+   Same six colours as the site under review, so this reads as a
+   document about that site rather than a generic audit template.
+   Held — the warm note — carries severity, which is the one job it
+   does on the live site too: one warm mark per section, never
+   decoration.
+
+   Every finding leads with its measurement, because every finding
+   here HAS one. That is the structural idea: the number is the
+   evidence, so it gets the position of emphasis rather than a
+   severity badge doing the talking.
+   ------------------------------------------------------------------ */
+:root {
+  --fathom:#071A1F; --deepwater:#0C2830; --meniscus:#2F5A61;
+  --breath:#9FCCC6; --surface:#E7ECE8; --held:#A65D5A; --held-lift:#CE908A;
+
+  --ground:#EDF1EE; --panel:#E3E9E5; --ink:var(--fathom); --muted:#4A6068;
+  --rule:#C3CFCA; --label:var(--meniscus); --accent:#1F4E56;
+  --sev-high:#8E4744; --sev-med:#7A6432; --sev-low:#3F6068;
+  --code-bg:#DCE4E0;
+
+  --carved:"Instrument Serif",Georgia,serif;
+  --level:"Instrument Sans",-apple-system,"Segoe UI",Helvetica,sans-serif;
+  --utility:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+:root:not([data-theme="light"]) { color-scheme: light dark; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:var(--fathom); --panel:var(--deepwater); --ink:var(--surface);
+    --muted:#9DB2B4; --rule:#1E3D45; --label:var(--breath); --accent:var(--breath);
+    --sev-high:var(--held-lift); --sev-med:#C7B27A; --sev-low:#8FB0B4;
+    --code-bg:#0B222A;
+  }
+}
+:root[data-theme="dark"] {
+  --ground:var(--fathom); --panel:var(--deepwater); --ink:var(--surface);
+  --muted:#9DB2B4; --rule:#1E3D45; --label:var(--breath); --accent:var(--breath);
+  --sev-high:var(--held-lift); --sev-med:#C7B27A; --sev-low:#8FB0B4;
+  --code-bg:#0B222A;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--level);
+     font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:64rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) clamp(1.1rem,4vw,2.5rem) 6rem;
+      display:flex;flex-direction:column;gap:clamp(2.5rem,5vw,3.5rem)}
+
+.eyebrow{font-family:var(--utility);font-size:.6875rem;letter-spacing:.28em;
+         text-transform:uppercase;color:var(--label);margin:0}
+h1{font-family:var(--carved);font-weight:400;font-size:clamp(2.6rem,7vw,4.1rem);
+   line-height:1.02;margin:0;text-wrap:balance}
+.standfirst{font-family:var(--carved);font-style:italic;color:var(--muted);
+            font-size:clamp(1.15rem,2.4vw,1.4rem);line-height:1.45;margin:0;max-width:36em}
+.mast{display:flex;flex-direction:column;gap:.9rem}
+
+h2{font-family:var(--carved);font-weight:400;font-size:clamp(1.55rem,3.2vw,2rem);
+   line-height:1.15;margin:0;padding-bottom:.5rem;border-bottom:1px solid var(--rule)}
+section{display:flex;flex-direction:column;gap:1.1rem}
+p{margin:0;max-width:70ch}
+.note{color:var(--muted);font-size:.9375rem}
+code{font-family:var(--utility);font-size:.875em;background:var(--code-bg);
+     padding:.1em .38em;border-radius:2px}
+
+/* ---------- the summary ---------- */
+.scroller{overflow-x:auto;border:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;min-width:38rem;font-size:.875rem}
+th,td{padding:.6rem .7rem;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font-family:var(--utility);font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;
+         color:var(--label);font-weight:500;background:var(--panel);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-family:var(--utility);color:var(--muted);width:2.5rem;text-align:right;
+     font-variant-numeric:tabular-nums}
+td.m{font-family:var(--utility);font-size:.8125rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sev{font-family:var(--utility);font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;
+     white-space:nowrap}
+.sev.high{color:var(--sev-high)} .sev.med{color:var(--sev-med)} .sev.low{color:var(--sev-low)}
+.done{font-family:var(--utility);font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--accent);white-space:nowrap}
+.done::before{content:"\2713\00a0"}
+.part{color:var(--sev-med)}
+.status{display:inline-block;font-family:var(--utility);font-size:.625rem;letter-spacing:.16em;
+        text-transform:uppercase;color:var(--accent);border:1px solid currentColor;
+        padding:.15rem .45rem;margin-bottom:.3rem;align-self:flex-start}
+.status.part{color:var(--sev-med)}
+
+/* ---------- findings ---------- */
+.finding{display:grid;grid-template-columns:11rem minmax(0,1fr);gap:0 2rem;
+         border-top:1px solid var(--rule);padding-top:1.5rem}
+@media (max-width:48rem){.finding{grid-template-columns:1fr;gap:.9rem}}
+
+.gutter{display:flex;flex-direction:column;gap:.5rem;align-self:start;
+        border-left:2px solid var(--sev-low);padding-left:.9rem}
+.finding[data-sev="high"] .gutter{border-left-color:var(--sev-high)}
+.finding[data-sev="med"] .gutter{border-left-color:var(--sev-med)}
+.metric{font-family:var(--utility);font-size:1.5rem;line-height:1.05;
+        font-variant-numeric:tabular-nums;color:var(--ink)}
+.metric small{display:block;font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;
+              color:var(--muted);margin-top:.4rem;line-height:1.4;letter-spacing:.14em}
+.body{display:flex;flex-direction:column;gap:.75rem}
+.body h3{font-family:var(--carved);font-weight:400;font-size:1.4rem;line-height:1.2;margin:0;
+         text-wrap:balance}
+.lede{font-size:1rem}
+.why,.fix{font-size:.9375rem}
+.why strong,.fix strong{font-family:var(--utility);font-size:.625rem;letter-spacing:.18em;
+        text-transform:uppercase;color:var(--label);display:block;margin-bottom:.2rem;font-weight:500}
+.fix{background:var(--panel);padding:.85rem 1rem;border:1px solid var(--rule)}
+pre{margin:.4rem 0 0;background:var(--code-bg);border:1px solid var(--rule);padding:.7rem .85rem;
+    overflow-x:auto;font-family:var(--utility);font-size:.8125rem;line-height:1.5}
+
+.good{border-left:2px solid var(--accent);background:var(--panel);padding:1.1rem 1.3rem;
+      display:flex;flex-direction:column;gap:.6rem}
+ul.plain{margin:0;padding-left:1.15rem;display:flex;flex-direction:column;gap:.5rem}
+footer{border-top:1px solid var(--rule);padding-top:1.2rem;font-family:var(--utility);
+       font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--label)}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <p class="eyebrow">cydniejocelyn.com · interface review</p>
+    <h1>Nine Frictions</h1>
+    <p class="standfirst">Where the interface asks more of a reader than it needs to — measured
+      on the built site at 375 and 1440, and ordered by how much each one costs.</p>
+  </header>
+
+  <section>
+    <div class="good">
+      <p><strong>All nine are now fixed and shipping.</strong> This page is kept as the record
+        of what was wrong and why, because the reasoning is the part worth having later —
+        each fix carries its measurement in the code beside it. Two are marked
+        <span class="status part">Part</span> below: the half of each that was a design or copy
+        decision rather than a defect was deliberately left for Cydnie, and is named.</p>
+      <p class="note">Verified after: the behaviour suite went from 356 to <strong>385 assertions,
+        0 failing</strong>, across all nine pages. Six of the new ones exist to stop these
+        specific frictions coming back silently.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Before the list</h2>
+    <p>This site is built better than most. Every interactive element has a keyboard path:
+      Escape closes the menu and the lightbox, arrow keys move the tabs, the ticks and the
+      gallery, focus is trapped inside the lightbox and handed back to the tile that opened it.
+      There is one <code>h1</code> per page, no heading skips, alt text on every image, and
+      motion is switched off under <code>prefers-reduced-motion</code>. Tap targets that look
+      too small mostly are not — the door links grow theirs with a pseudo-element, which is a
+      more careful answer than a min-height.</p>
+    <p>So the list below is not a list of things anyone was careless about. Seven of the nine
+      are places where <strong>a decision that is right in one context was applied in a second
+      one where it stops working</strong> — a hover cue on a touch screen, a colour picked for a
+      dark ground appearing on a light one, a rule written for the phone menu never reaching the
+      desktop bar.</p>
+    <p class="note">Everything here was measured rather than eyeballed. Contrast figures are
+      WCAG 2.x ratios computed from the rendered colours on the built pages.</p>
+  </section>
+
+  <section>
+    <h2>All nine, in order of cost</h2>
+    <div class="scroller">
+      <table>
+        <thead><tr>
+          <th>#</th><th>Friction</th><th>Was</th><th>Now</th><th>Severity</th><th>Status</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td>In-copy links are invisible until hovered</td><td class="m">1.00–2.49:1</td><td class="m">Ruled at rest</td><td><span class="sev high">High</span></td><td><span class="done">Fixed</span></td></tr>
+          <tr><td class="n">2</td><td>Focus ring disappears on the light bands</td><td class="m">1.36:1</td><td class="m">13.79:1</td><td><span class="sev high">High</span></td><td><span class="done">Fixed</span></td></tr>
+          <tr><td class="n">3</td><td>Signup email field is not an email field</td><td class="m">type="text"</td><td class="m">type="email"</td><td><span class="sev high">High</span></td><td><span class="done">Fixed</span></td></tr>
+          <tr><td class="n">4</td><td>Signup errors are silent to a screen reader</td><td class="m">0 live regions</td><td class="m">1 live region</td><td><span class="sev high">High</span></td><td><span class="done">Fixed</span></td></tr>
+          <tr><td class="n">5</td><td>No “you are here” on desktop</td><td class="m">1.00:1</td><td class="m">Colour + rule</td><td><span class="sev med">Medium</span></td><td><span class="done">Fixed</span></td></tr>
+          <tr><td class="n">6</td><td>The primary CTA leaves the site unannounced</td><td class="m">14 of 14</td><td class="m">0 of 53</td><td><span class="sev med">Medium</span></td><td><span class="done part">Part</span></td></tr>
+          <tr><td class="n">7</td><td>The depth gauge looks draggable and is not</td><td class="m">20.5 screens</td><td class="m">Inert + a way back</td><td><span class="sev med">Medium</span></td><td><span class="done part">Part</span></td></tr>
+          <tr><td class="n">8</td><td>The photo rail never says how many there are</td><td class="m">3 of 16 shown</td><td class="m">“1 / 16”</td><td><span class="sev low">Low</span></td><td><span class="done">Fixed</span></td></tr>
+          <tr><td class="n">9</td><td>Opening one question closes the last one</td><td class="m">1 at a time</td><td class="m">All can stay open</td><td><span class="sev low">Low</span></td><td><span class="done">Fixed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The findings</h2>
+
+    <article class="finding" data-sev="high">
+      <div class="gutter"><div class="metric">1.00:1<small>link vs the text around it</small></div></div>
+      <div class="body">
+        <p class="status">Fixed</p><h3>1. Links inside sentences are invisible until you hover them</h3>
+        <p class="lede">Every <code>.link</code> in body copy draws its underline only on hover:
+          at rest the pseudo-element sits at <code>scaleX(0)</code>. That would be fine if colour
+          carried it, and colour does not. On the home page “Watch Melissa’s review” measures
+          <strong>1.16:1</strong> against the sentence it sits in, and
+          <code>hello@cydniejocelyn.com</code> measures <strong>1.00:1</strong> — the identical
+          colour. “retreats page” and “Read the letters” measure 2.49:1.</p>
+        <p class="why"><strong>Why it matters</strong>These are not decorative links. They are
+          the in-copy routes to the retreats page, The Letters, and the testimonial video — the
+          exact moments where the writing has just earned a click. On a phone there is no hover
+          at all, so on more than half the traffic these are simply not links. It is also the
+          one clear WCAG failure on the site (1.4.1 Use of Colour, which wants 3:1 against
+          surrounding text when colour is the only distinction — here there is not even colour).</p>
+        <p class="fix"><strong>The fix</strong>Draw the underline at rest and change it on hover,
+          instead of drawing it on hover. The mechanism already exists — <code>.link--ruled</code>
+          is exactly this and is used on the privacy page. Making <code>--ruled</code> the default
+          and keeping the hover flourish as the change of state is a one-rule edit:
+        <pre>.link::after { transform: scaleX(1); transform-origin: left; }
+.link:hover::after,
+.link:focus-visible::after { transform: scaleX(0); transform-origin: right; }</pre>
+        </p>
+      </div>
+    </article>
+
+    <article class="finding" data-sev="high">
+      <div class="gutter"><div class="metric">1.36:1<small>focus ring on Silt</small></div></div>
+      <div class="body">
+        <p class="status">Fixed</p><h3>2. The focus ring vanishes on every light section</h3>
+        <p class="lede">The global rule is <code>:focus-visible { outline: 2px solid
+          var(--breath) }</code>. Breath is a colour chosen for a dark ground, and it is superb
+          there — <strong>10.14:1</strong> on Fathom. On the two light bands it measures
+          <strong>1.47:1</strong> on Surface and <strong>1.36:1</strong> on Silt. On the home
+          page, <strong>32 of 66 interactive elements sit on one of those two grounds.</strong></p>
+        <p class="why"><strong>Why it matters</strong>A keyboard user tabbing down the home page
+          watches the ring travel normally, then lose it completely for half the page, then find
+          it again. That is worse than no ring at all, because the first half teaches them to
+          expect one. WCAG 2.4.11 and 1.4.11 both want 3:1 here. It is also the single cheapest
+          fix on this list.</p>
+        <p class="fix"><strong>The fix</strong>Give focus its own ground-aware token, the way
+          <code>--ink</code> and <code>--accent</code> already are, rather than naming a raw
+          swatch. Breath on the dark bands, Fathom on the light ones — measured 10.14:1 and
+          about 15:1 respectively. Note that reusing <code>--accent</code> is <em>not</em> the
+          answer: it resolves to Meniscus on dark, which is only 2.34:1.
+        <pre>/* with the other role tokens */
+--focus: var(--breath);              /* dark grounds */
+.z-light, .z-silt { --focus: var(--fathom); }
+
+:focus-visible { outline: 2px solid var(--focus); }</pre>
+        </p>
+      </div>
+    </article>
+
+    <article class="finding" data-sev="high">
+      <div class="gutter"><div class="metric">text<small>the email input’s type</small></div></div>
+      <div class="body">
+        <p class="status">Fixed</p><h3>3. The signup asks for an email with a plain text field</h3>
+        <p class="lede">The Letters form has exactly two visible fields, which is right. But the
+          email input is <code>type="text"</code>, not <code>type="email"</code>, and carries no
+          <code>autocomplete</code>.</p>
+        <p class="why"><strong>Why it matters</strong>On a phone, <code>type="email"</code> is
+          what summons the keyboard with <kbd>@</kbd> and <kbd>.com</kbd> on the front layer.
+          Without it every subscriber types an address on the general keyboard, switching layouts
+          twice, with autocorrect live. It is the single highest-friction moment on the page the
+          whole site funnels toward, and it costs typos as well as patience — a mistyped address
+          is a subscriber who silently never arrives.</p>
+        <p class="fix"><strong>The fix</strong>This is Flodesk’s markup, not the site’s, so it is
+          a change in the Flodesk form builder rather than in this repo: set the field type to
+          email. If Flodesk will not expose it, the alternative is their raw API behind a form
+          written here, which is more work but also removes the two findings below it. Add
+          <code>autocomplete="email"</code> and <code>autocomplete="name"</code> at the same time.</p>
+      </div>
+    </article>
+
+    <article class="finding" data-sev="high">
+      <div class="gutter"><div class="metric">0<small>live regions on the form</small></div></div>
+      <div class="body">
+        <p class="status">Fixed</p><h3>4. A failed signup says nothing to a screen reader</h3>
+        <p class="lede">Submitting the form empty renders “This field is required” on screen.
+          There is no <code>aria-live</code> region, no <code>role="alert"</code>, and
+          <code>aria-invalid</code> is unset on every input. The message appears visually and
+          is announced to nobody.</p>
+        <p class="why"><strong>Why it matters</strong>A screen reader user presses the button and
+          receives silence. Nothing tells them the submission failed, so the reasonable
+          conclusion is that it worked. This is the failure mode where someone believes they
+          subscribed and did not, and there is no later signal to correct it. It is a smaller
+          audience than finding 1, but the cost per person is total rather than partial.</p>
+        <p class="fix"><strong>The fix</strong>Same owner as finding 3 — Flodesk renders this
+          markup. If their builder cannot add a live region, a small progressive enhancement in
+          <code>site.js</code> can: observe the form for the error node the widget injects and
+          mirror its text into a <code>role="status"</code> element on the page. That is a
+          workaround, and it is worth saying plainly that the durable answer is owning the form.</p>
+      </div>
+    </article>
+
+    <article class="finding" data-sev="med">
+      <div class="gutter"><div class="metric">1.00:1<small>current page vs the others</small></div></div>
+      <div class="body">
+        <p class="status">Fixed</p><h3>5. The navigation never shows which page you are on, at desktop</h3>
+        <p class="lede">The markup is right: <code>aria-current="page"</code> is on the correct
+          link on every page, so a screen reader announces it. The styling for it is not.
+          All four rules that colour the current link live inside
+          <code>@media (max-width: 55.99rem)</code> — the phone-menu block. At 1440 the current
+          link and its neighbours measure <strong>1.00:1</strong>: identical colour, identical
+          weight, no underline, no rule.</p>
+        <p class="why"><strong>Why it matters</strong>Nine pages, four nav items, and long pages
+          that take twenty screens to read. A reader who arrives mid-site from a search result
+          and scrolls for a while has no persistent answer to “where am I”. The bar is the only
+          place that could tell them and it does not. The fix costs nothing because the design
+          decision has already been made and written — it is simply scoped to the wrong widths.</p>
+        <p class="fix"><strong>The fix</strong>Move the <code>[aria-current="page"]</code> rules
+          out of the phone-menu media block so they apply at every width. Worth checking the
+          specificity when you do: the file already carries a note about
+          <code>.hdr.is-surfaced .nav-links a</code> at (0,3,1) beating a (0,2,1) rule and
+          blanking the menu once. A colour change alone is also WCAG 1.4.1 territory — pair it
+          with the underline the hover state already draws, so it is not colour doing the work
+          on its own.</p>
+      </div>
+    </article>
+
+    <article class="finding" data-sev="med">
+      <div class="gutter"><div class="metric">14 / 14<small>external links, none marked</small></div></div>
+      <div class="body">
+        <p class="status part">Part</p><h3>6. The button that matters most quietly hands the reader to somebody else</h3>
+        <p class="lede">“A Sounding” in the header, and every “Book one conversation” on the
+          site, navigate to <code>clients.cydniejocelyn.com</code> — HoneyBook’s scheduler, a
+          different application with different typography — in the same tab, with no signal
+          beforehand. All fourteen external links on the home page behave this way, social and
+          video included.</p>
+        <p class="why"><strong>Why it matters</strong>For a design-literate audience the jump is
+          legible as a third-party tool immediately, and the site has spent twenty screens
+          earning trust with a very specific voice. Landing somewhere that looks nothing like it,
+          with no warning and the back button as the only way home, is where a considered
+          decision becomes a hesitation. The scheduler is the right tool; the transition is the
+          problem, not the destination.</p>
+        <p class="fix"><strong>The fix</strong>Two different answers for two different links.
+          <strong>Booking:</strong> keep it in the same tab — a purchase flow should not open a
+          tab — but say where it goes, with a line under the button such as “Opens my scheduling
+          page” and a matched accent colour on the HoneyBook side so the arrival is not a jolt.
+          <strong>Social and video:</strong> these are genuine departures from a page someone was
+          reading, and should open in a new tab with <code>rel="noopener"</code>, which every one
+          of them already carries.</p>
+        <p class="why"><strong>What shipped, and what did not</strong>All 38 social and video
+          links open in a new tab now and say so. All 53 off-site links across the nine pages
+          carry an announcement — including the one inside the Flodesk widget and the one in the
+          Sounding popup, neither of which exists in any source file. <em>The visible line under
+          the booking button was not written.</em> That is copy on nine pages and a change to the
+          header composition, which is your call and not a defect. The screen-reader half is
+          done at no visual cost; the visible half is a sentence away whenever you want it.</p>
+      </div>
+    </article>
+
+    <article class="finding" data-sev="med">
+      <div class="gutter"><div class="metric">20.5<small>screens on the Greece page</small></div></div>
+      <div class="body">
+        <p class="status part">Part</p><h3>7. The depth gauge looks like a control and is not one</h3>
+        <p class="lede">A fixed 16px column sits at the left edge of every page, labelled
+          “Resurfacing”, with an indicator that tracks scroll position. It is not interactive:
+          no link, no button, no handler. The pages it sits beside run to
+          <strong>18,458px — 20.5 screens</strong> at a 900px viewport. There is no back-to-top
+          and no section navigation anywhere.</p>
+        <p class="why"><strong>Why it matters</strong>A thin vertical track at the edge of the
+          viewport with a moving marker is the most established scrubber pattern there is. It
+          invites a drag, and on the longest pages it is exactly when someone would most want
+          one. Nothing happens, which spends a little credibility for a design audience who read
+          affordances closely. The gauge is a good idea reading as an unfinished one.</p>
+        <p class="fix"><strong>The fix</strong>Pick one and commit. Either make it do what it
+          looks like — click or drag to seek, with the section names as stops, which suits a page
+          composed in named movements — or make it read as instrumentation rather than a control:
+          drop the track, keep the label and a tick, and let it be a gauge. If it stays passive,
+          add a back-to-top that appears past the first few screens, because at twenty screens
+          the return journey is currently a long scroll or the brand mark.</p>
+        <p class="why"><strong>What shipped, and what did not</strong>The gauge takes
+          <code>pointer-events: none</code>, so it no longer returns a cursor or a hover it
+          cannot honour, and it can no longer swallow a click meant for the content behind it.
+          A “Back to the top” link sits at the head of the footer on all nine pages — in the
+          flow, using the existing <code>.more</code> idiom, not a floating button, because
+          somebody who wants the top is already at the bottom. <em>The gauge was not redrawn.</em>
+          Making it read as instrumentation rather than a track is a change to your visual
+          identity on every page, and that is a decision rather than a fix.</p>
+      </div>
+    </article>
+
+    <article class="finding" data-sev="low">
+      <div class="gutter"><div class="metric">3 / 16<small>rail tiles visible at 1440</small></div></div>
+      <div class="body">
+        <p class="status">Fixed</p><h3>8. The photo rail never says how much of it there is</h3>
+        <p class="lede">The Greece gallery holds sixteen photographs. Three are visible at 1440,
+          the rail scrolls 6,452px inside a 1,320px window, and it has working arrows and a
+          progress rule. What it has nowhere is a number.</p>
+        <p class="why"><strong>Why it matters</strong>The progress rule answers “roughly how far”
+          but not “how much is there”, and those are different questions for someone deciding
+          whether to commit to browsing. Sixteen photographs of a retreat is a genuine
+          selling point on the page most likely to convert, and the interface currently
+          undersells it. A reader who sees three and does not notice the affordance sees a
+          three-photograph gallery.</p>
+        <p class="fix"><strong>The fix</strong>A live count beside the arrows — “3 / 16”, updated
+          on scroll from the same handler that drives the progress rule. It is the same data
+          already being computed, given a second, more readable output.</p>
+      </div>
+    </article>
+
+    <article class="finding" data-sev="low">
+      <div class="gutter"><div class="metric">1<small>questions open at once</small></div></div>
+      <div class="body">
+        <p class="status">Fixed</p><h3>9. Opening one question closes the one you were reading</h3>
+        <p class="lede">The accordions are exclusive: opening any question closes the previous
+          one. This is deliberate and asserted in the test suite, so it is a decision rather
+          than an accident.</p>
+        <p class="why"><strong>Why it matters</strong>Exclusive accordions are right when the
+          panels are long enough that two open ones would strand the reader. These are short —
+          two or three sentences — and several are directly comparable: what a Sounding is
+          against what The Build is, what is included against what is not. Someone answering
+          “which of these do I want” has to hold one answer in their head while opening the
+          other. The pattern is also the less expected of the two now; readers generally assume
+          a question they opened stays open until they close it.</p>
+        <p class="fix"><strong>The fix</strong>Allow multiple open. It is a deletion rather than
+          an addition — the handler that closes the siblings comes out, and the suite assertion
+          changes with it. Worth doing on the pages where the questions are comparisons and
+          leaving alone anywhere the panels are long.</p>
+      </div>
+    </article>
+
+  </section>
+
+  <section>
+    <h2>What not to change</h2>
+    <div class="good">
+      <p>A few things that look like problems from the outside and are not, so they do not get
+        “fixed” later by someone reading a generic audit:</p>
+      <ul class="plain">
+        <li><strong>The small-looking door links.</strong> Measured at 18px tall, which fails
+          every tap-target rule — except the target is grown to 44px with
+          <code>.door-note--link::after { inset: -13px -10px }</code>. A pseudo-element rather
+          than a min-height, so it does not push the note out of alignment with its neighbours.
+          That is the better answer and the reason is already in a comment beside it.</li>
+        <li><strong>Inline text links being under 24px tall.</strong> WCAG’s target-size rule
+          explicitly exempts targets inside a sentence. Finding 1 is about whether you can
+          <em>see</em> them, not whether you can hit them.</li>
+        <li><strong>The video that does not autoplay or preload.</strong> Click-to-load on
+          <code>youtube-nocookie</code> is the right call twice over, for weight and for privacy,
+          and the poster is a working link without JavaScript.</li>
+        <li><strong>Smooth scrolling.</strong> Already switched off under
+          <code>prefers-reduced-motion</code>, which is the part people usually miss.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>And the hero headings did get bigger</h2>
+    <p>Asked during this work: <em>did something change?</em> Yes, and it is measurable. The
+      <code>font-size</code> was not touched — it is the same <code>69.6px</code> at 1440 that it
+      has always been, with the same line height. <strong>The typeface changed.</strong>
+      IvyJournal replaced Instrument Serif as the carved face when the Adobe kit went in, and at
+      an identical size IvyJournal is simply a larger letter:</p>
+    <div class="scroller">
+      <table>
+        <thead><tr><th>At 100px, both faces</th><th>Instrument Serif</th><th>IvyJournal</th><th>Difference</th></tr></thead>
+        <tbody>
+          <tr><td>Cap height — governs all-caps lines like the hero</td><td class="m">66.2</td><td class="m">72.8</td><td class="m">+10.0%</td></tr>
+          <tr><td>x-height — governs how large mixed-case type <em>reads</em></td><td class="m">44.9</td><td class="m">53.1</td><td class="m">+18.3%</td></tr>
+          <tr><td>Width of “YOU’RE NOT BROKEN.”</td><td class="m">1067.6</td><td class="m">1130.0</td><td class="m">+5.8%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The x-height number is the one that explains the feeling. x-height, not point size, is what
+      the eye reads as “how big is this type”, and an 18% jump at the same nominal size is very
+      visible. Compounded with the 5.8% extra width, the home hero went from
+      <strong>two lines to four</strong> at 1440.</p>
+    <p class="fix"><strong>If you want it back to where it was</strong>Nothing is broken, so this
+      is a taste decision rather than a fix, and it is one number. Multiplying the carved type
+      scale by <strong>0.91</strong> matches the old cap height, which is the right target for
+      the all-caps hero. Matching x-height instead would want <strong>0.85</strong>, which is
+      right for mixed-case headings like “I’m Cydnie.” but would leave the hero looking smaller
+      than it used to. If one figure has to serve both, <strong>0.91</strong> is the one to try
+      first, and the hero should come back to two lines at 1440. Say the word and I will apply it
+      and re-measure every heading at 375, 390, 768 and 1440.</p>
+  </section>
+
+  <section>
+    <h2>If only three get done</h2>
+    <p>That was the recommendation when this list was written, and all nine were done instead.
+      Findings <strong>1</strong>, <strong>2</strong> and <strong>3</strong> were the three that
+      mattered most: the first two were single-rule CSS edits that between them fixed the site
+      for touch readers and for keyboard readers without changing how anything looks to anyone
+      else, and the third was the only one on the list actively costing subscribers.</p>
+    <p class="note">Findings 3 and 4 share an owner. If the Flodesk builder will not expose the
+      field type or a live region, that is the argument for writing the form here against their
+      API — one piece of work that closes both, and gives the signup the same voice as the rest
+      of the page rather than a widget’s.</p>
+  </section>
+
+  <footer>Measured on the built site · 375×812 and 1440×900 · nine pages</footer>
+
+</div>

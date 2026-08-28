@@ -1,0 +1,321 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>GA4 event harness</title>
+<!--
+  Drives the analytics events on one page and reports what fired.
+
+      sh tools/preview/runga.sh "$SP" 8817          # all nine
+      sh tools/preview/runga.sh "$SP" 8817 /about/  # one
+
+  WHY THIS EXISTS RATHER THAN A CHECK INSIDE _test.html
+  -----------------------------------------------------
+  _test.html asserts the state of a page after it has settled. Analytics is
+  not state, it is a sequence of things that happened, so the only way to
+  test it is to perform the interactions and watch what comes out.
+
+  WHY IT IS NOT DONE IN THE PREVIEW PANE
+  --------------------------------------
+  Because it cannot be. Setting scrollTop in the Claude preview pane moves
+  the page and fires NO scroll event at all -- verified 28 August 2026 with a
+  plain `window.addEventListener('scroll')` that counted zero while
+  pageYOffset went from 0 to 4000. Every scroll_depth event read as missing
+  and the code was fine. Same family as the IntersectionObserver failure in
+  session four that is written up at the top of runsuite.sh: if an event that
+  depends on the compositor reads as dead, run it here before believing it.
+
+  HOW IT CAPTURES
+  ---------------
+  gtag is stubbed INSIDE the iframe before analytics.js can bind to it, by
+  writing the stub in as soon as the document exists. analytics.js reads
+  `w.gtag` at call time, not at load time, so a stub installed any time
+  before the first interaction is seen. Nothing is monkey-patched in the
+  page's own code.
+
+  Clicks are dispatched with a capture-phase preventDefault in place so a
+  navigation cannot take the harness with it. The tracker listens on the
+  bubble phase, so it still sees every one.
+-->
+<style>
+  body { font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 16px; }
+  /* NOT opacity:.001, which is what _test.html uses. In headless Chrome a
+     near-transparent iframe is not composited, and in one that is not
+     composited neither requestAnimationFrame NOR scroll events run at all:
+     measured raf=0 rawScroll=0 while scrollTop moved perfectly well. Every
+     scroll_depth assertion failed against code that was correct. The frame
+     is opaque and on screen here, and there is nobody to look at it. */
+  iframe { position: fixed; right: 0; bottom: 0; width: 1280px; height: 900px;
+           border: 1px solid #ccc; pointer-events: none; }
+  .PASS { color: #0a0; } .FAIL { color: #c00; font-weight: 700; }
+</style>
+<div id="log">running…</div>
+<iframe id="f"></iframe>
+<script>
+(function () {
+  var lines = [];
+  function ok(name, cond) { lines.push((cond ? "PASS  " : "FAIL  ") + name); }
+  function done() {
+    document.getElementById("log").innerHTML =
+      lines.map(function (l) {
+        return '<div class="' + l.slice(0, 4) + '">' + l.replace(/</g, "&lt;") + "</div>";
+      }).join("") +
+      '<div>' + lines.filter(function (l) { return l.indexOf("FAIL") === 0; }).length +
+      " failing of " + lines.length + "</div>";
+  }
+
+  var page = new URLSearchParams(location.search).get("p") || "/";
+  var f = document.getElementById("f");
+  var seen = [];
+
+  function names() { return seen.map(function (e) { return e[0]; }); }
+  function withName(n) { return seen.filter(function (e) { return e[0] === n; }); }
+  function paramsOf(n) { var m = withName(n); return m.length ? m[0][1] : null; }
+
+  f.src = page;
+  f.onload = function () {
+    var w = f.contentWindow, d = f.contentDocument;
+
+    /* Stub before any interaction. analytics.js resolves w.gtag per call. */
+    w.gtag = function () {
+      if (arguments[0] === "event") seen.push([arguments[1], arguments[2]]);
+    };
+    /* Nothing must navigate the harness away. */
+    d.addEventListener("click", function (e) { e.preventDefault(); }, true);
+    /* scroll-behavior: smooth turns every scrollTop assignment into an
+       animation that the next assignment cancels, so a stepped scroll never
+       arrives anywhere. Off for the duration. */
+    d.documentElement.style.scrollBehavior = "auto";
+
+    setTimeout(function () { run(w, d); }, 1200);
+  };
+
+  function click(d, sel) {
+    var el = d.querySelector(sel);
+    if (!el) return false;
+    el.dispatchEvent(new f.contentWindow.MouseEvent("click",
+      { bubbles: true, cancelable: true }));
+    return true;
+  }
+
+  function run(w, d) {
+    try {
+      ok("analytics.js is loaded on this page", typeof w.__analytics === "object");
+      ok("it names the right measurement id",
+         w.__analytics && w.__analytics.id === "G-KDB3GWPNHC");
+
+      /* ---- navigation ---- */
+      /* .nav-links, not .hdr: the brand lockup is also an `.hdr a[href^='/']`
+         and it is first in document order, so the looser selector tested the
+         brand link and then asserted it should have reported as the nav. */
+      var navSel = ".nav-links a[href^='/']";
+      if (d.querySelector(navSel)) {
+        click(d, navSel);
+        var nav = paramsOf("navigation_click");
+        ok("navigation_click fires from the header", !!nav);
+        ok("…and carries text, url and location",
+           !!nav && !!nav.link_text && !!nav.link_url && !!nav.nav_location);
+        /* The iframe is 1280 wide, so the menu is a bar and not a panel. A
+           header link reporting mobile_menu here is the bug from the first
+           implementation, where one selector matched both modes. */
+        ok("…and calls a 1280px header a header, not a mobile menu",
+           !!nav && nav.nav_location === "site_header");
+      }
+
+      if (d.querySelector(".ftr a[href^='/']")) {
+        click(d, ".ftr a[href^='/']");
+        /* The footer locations are site_footer, footer_legal and
+           footer_social. Matching on a leading "footer" missed the first of
+           those, which is the common one. */
+        var f2 = withName("navigation_click").filter(function (e) {
+          return /footer/.test(String(e[1].nav_location));
+        });
+        ok("navigation_click distinguishes the footer from the header", f2.length > 0);
+      }
+
+      /* ---- the CTA and the outbound, which are the same click ---- */
+      if (d.querySelector("a.btn[href*='clients.cydniejocelyn.com']")) {
+        click(d, "a.btn[href*='clients.cydniejocelyn.com']");
+        var cta = paramsOf("cta_click");
+        ok("cta_click fires on a booking button", !!cta);
+        ok("…and types the destination as booking, not external",
+           !!cta && cta.destination_type === "booking");
+        ok("outbound_click fires for the same click, in addition",
+           withName("outbound_click").length > 0);
+      }
+
+      /* ---- the menu toggle, which was reported inverted first time ---- */
+      var tgl = d.querySelector(".nav-toggle");
+      if (tgl) {
+        var before = tgl.getAttribute("aria-expanded");
+        click(d, ".nav-toggle");
+        var mt = paramsOf("menu_toggle");
+        ok("menu_toggle fires", !!mt);
+        ok("…and reports the state being moved INTO, not the one left",
+           !!mt && mt.menu_state === (before === "true" ? "close" : "open"));
+      }
+
+      /* ---- the questions ---- */
+      var det = d.querySelector("details");
+      if (det) {
+        det.open = true;
+        setTimeout(function () { rest(w, d); }, 200);
+        return;
+      }
+      rest(w, d);
+    } catch (e) {
+      lines.push("FAIL  threw in run(): " + e.message);
+      done();
+    }
+  }
+
+  function rest(w, d) {
+    try {
+      if (d.querySelector("details")) {
+        var faq = paramsOf("faq_open");
+        ok("faq_open fires when a question opens", !!faq);
+        ok("…and carries the question text", !!faq && !!faq.question_text);
+        var closed = d.querySelector("details");
+        closed.open = false;
+        ok("…and closing one is not counted as opening it",
+           withName("faq_open").length === 1);
+      }
+
+      /* ---- the objection picker, the only real filter on the site ---- */
+      if (d.querySelector(".rev-picks [role=tab]")) {
+        var tabs = d.querySelectorAll(".rev-picks [role=tab]");
+        tabs[2].dispatchEvent(new w.MouseEvent("click", { bubbles: true, cancelable: true }));
+        var fs = paramsOf("filter_select");
+        ok("filter_select fires on the objection picker", !!fs);
+        ok("…and carries group, value and position",
+           !!fs && fs.filter_group === "objections" && !!fs.filter_value &&
+           fs.filter_position === 3);
+      }
+
+      /* ---- the gallery ---- */
+      if (d.querySelector(".gal-item button, .rt-shot button")) {
+        click(d, ".gal-item button, .rt-shot button");
+        var iv = paramsOf("image_view");
+        ok("image_view fires when a gallery tile opens", !!iv);
+        ok("…and carries a caption and a position",
+           !!iv && !!iv.image_caption && iv.image_position > 0);
+      }
+
+      /* ---- the video ---- */
+      if (d.querySelector("[data-video]")) {
+        click(d, "[data-video]");
+        var vs = paramsOf("video_start");
+        ok("video_start fires, using GA4's recommended event name", !!vs);
+        ok("…and names the provider and a youtube-nocookie url",
+           !!vs && vs.video_provider === "youtube" &&
+           /youtube-nocookie/.test(vs.video_url || ""));
+      }
+
+      /* ---- the signup ----
+         The Flodesk widget is injected after load and submits over fetch, so
+         waiting for a real submission is not possible here and posting a real
+         one would put a test address on Cydnie's list. Dispatching the event
+         tests the half that is ours: a capture-phase listener at document
+         level that sees a submit the widget cancels, and fires once. */
+      var form = d.querySelector("form");
+      if (form) {
+        form.dispatchEvent(new w.Event("submit", { bubbles: true, cancelable: true }));
+        form.dispatchEvent(new w.Event("submit", { bubbles: true, cancelable: true }));
+        var su = paramsOf("sign_up");
+        ok("sign_up fires on the newsletter form, GA4's recommended name", !!su);
+        ok("…and names Flodesk as the method",
+           !!su && su.method === "flodesk");
+        ok("…and a double submit is only counted once",
+           withName("sign_up").length === 1);
+      }
+
+      scrollTest(w, d);
+    } catch (e) {
+      lines.push("FAIL  threw in rest(): " + e.message);
+      done();
+    }
+  }
+
+  /* ---- scroll depth ----
+     Stepped past each threshold, then back to the top and down again, which
+     is the case that matters: a reader who scrolls up and back down must not
+     be counted twice. */
+  function scrollTest(w, d) {
+    var max = d.documentElement.scrollHeight - w.innerHeight;
+    var vh = w.innerHeight;
+    var isLong = max > vh * 1.5;
+    var steps = [0.28, 0.53, 0.78, 1.0];
+    var i = 0;
+
+    /* HEADLESS CHROME EMITS NEITHER scroll NOR requestAnimationFrame IN THIS
+       FRAME. Measured: rawScroll=0, raf=0, while scrollTop moved from 0 to
+       14216 exactly as asked. Opaque frame, on screen, made no difference.
+
+       So the harness moves the page AND dispatches the scroll event itself.
+       That is not cheating around the test: a browser firing `scroll` when a
+       document scrolls is platform behaviour and is not this project's code.
+       What IS this project's code is everything downstream -- the arming
+       gate, the threshold arithmetic, and firing each threshold exactly once
+       across a scroll that goes down, up and down again -- and dispatching
+       the event is what lets all of that actually be exercised.
+
+       The probe stays because it is the thing that says WHY, the next time
+       these three assertions go red on a machine where they used to pass. */
+    var probe = { scrolls: 0, raf: 0 };
+    w.addEventListener("scroll", function () { probe.scrolls++; }, { passive: true });
+    w.requestAnimationFrame(function () { probe.raf++; });
+
+    function scrollTo(px) {
+      d.documentElement.scrollTop = px;
+      w.dispatchEvent(new w.Event("scroll"));
+    }
+
+    /* 320ms a step, because the tracker's own rAF-or-timeout fallback caps
+       at 200ms and the measurement has to have happened before the next
+       step moves the page again. */
+    function next() {
+      if (i < steps.length) {
+        scrollTo(Math.round(max * steps[i]));
+        i++;
+        return setTimeout(next, 320);
+      }
+      scrollTo(0);
+      setTimeout(function () {
+        scrollTo(max);
+        setTimeout(finish, 380);
+      }, 320);
+    }
+
+    function finish() {
+      lines.push("----  captured: " + (names().join(", ") || "nothing"));
+      lines.push("----  probe: rawScroll=" + probe.scrolls + " raf=" + probe.raf +
+                 " maxOffset=" + max + " vh=" + vh + " long=" + isLong);
+      var nv = paramsOf("navigation_click");
+      lines.push("----  first navigation_click location: " +
+                 (nv ? nv.nav_location : "none") + ", iframe width " + w.innerWidth +
+                 ", wide=" + w.matchMedia("(min-width: 56rem)").matches);
+      var hits = withName("scroll_depth").map(function (e) { return e[1].percent_scrolled; });
+      if (!isLong) {
+        /* /thequestions/ is one screen. Four events that always fire together
+           say nothing, so the tracker is meant to stay silent here. */
+        ok("scroll_depth: correctly SILENT on a short page (" +
+           Math.round(max / vh * 10) / 10 + " viewports)", hits.length === 0);
+        return done();
+      }
+      ok("scroll_depth: all four thresholds fired [" + hits.join(", ") + "]",
+         [25, 50, 75, 100].every(function (t) { return hits.indexOf(t) > -1; }));
+      ok("scroll_depth: each fired exactly once, after scrolling up and back",
+         hits.length === 4);
+      var sd = paramsOf("scroll_depth");
+      ok("scroll_depth: uses GA4's own percent_scrolled parameter name",
+         !!sd && typeof sd.percent_scrolled === "number");
+      done();
+    }
+
+    if (!isLong) return finish();
+    next();
+  }
+
+  setTimeout(function () {
+    if (lines.length === 0) { lines.push("FAIL  harness timed out"); done(); }
+  }, 25000);
+})();
+</script>

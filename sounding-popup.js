@@ -69,10 +69,13 @@
     '.sd-card{position:relative;background:var(--surface,#E7ECE8);border:1px solid var(--meniscus,#2F5A61);border-radius:0;max-width:430px;width:100%;max-height:calc(100dvh - 40px);overflow-y:auto;padding:44px 38px 34px;color:var(--fathom,#071A1F)}',
     '.sd-x{position:absolute;top:6px;right:8px;background:none;border:0;cursor:pointer;font-size:22px;line-height:1;color:#5B6B6E;width:44px;height:44px;display:flex;align-items:center;justify-content:center}',
     '.sd-eyebrow{font-family:var(--utility,"IBM Plex Mono",ui-monospace,monospace);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#5B6B6E;margin:0 0 16px}',
-    '.sd-title{font-family:var(--carved,"IvyPresto Display","Instrument Serif",Georgia,serif);font-weight:400;font-size:38px;line-height:1.05;letter-spacing:.03em;margin:0 0 14px}',
+    '.sd-title{font-family:var(--carved,"ivyjournal","Instrument Serif",Georgia,serif);font-weight:400;font-size:38px;line-height:1.05;letter-spacing:.03em;margin:0 0 14px}',
     '.sd-body{font-family:var(--level,"Instrument Sans",-apple-system,Helvetica,sans-serif);font-size:16px;line-height:1.55;color:#123240;margin:0 0 26px}',
     '.sd-btn{display:inline-flex;align-items:center;min-height:44px;font-family:var(--level,"Instrument Sans",-apple-system,Helvetica,sans-serif);font-size:12px;letter-spacing:.11em;text-transform:uppercase;padding:14px 26px;background:var(--fathom,#071A1F);color:var(--surface,#E7ECE8);text-decoration:none;border:1px solid var(--fathom,#071A1F)}',
     '.sd-btn:hover{background:var(--deepwater,#0C2830);border-color:var(--deepwater,#0C2830)}',
+    /* its own visually-hidden rule rather than site.css's .vh, because this
+       whole file is written to still work if the stylesheet never arrives */
+    '.sd-vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}',
     '.sd-dismiss{display:inline-flex;align-items:center;min-height:44px;margin-top:12px;background:none;border:0;padding:0;cursor:pointer;font-family:var(--utility,"IBM Plex Mono",ui-monospace,monospace);font-size:12px;color:#5B6B6E;text-decoration:underline;text-underline-offset:4px}',
     '.sd-btn:focus-visible,.sd-x:focus-visible,.sd-dismiss:focus-visible{outline:2px solid var(--meniscus,#2F5A61);outline-offset:3px}',
     /* 480px was too late. At 375px the 38px title and 38px of side padding
@@ -97,7 +100,14 @@
         '<p class="sd-eyebrow">' + EYEBROW + '</p>' +
         '<h2 class="sd-title" id="sdTitle">' + TITLE + '</h2>' +
         '<p class="sd-body" id="sdBody">' + BODY + '</p>' +
-        '<div><a class="sd-btn" href="' + LINK + '">' + CTA + '</a></div>' +
+        /* The same announcement every booking link on the site carries. This
+           one is injected rather than served, so the pass that annotated the
+           nine pages could not see it and the suite caught it: "Book a
+           Sounding" was the one off-site link on four pages with nothing
+           saying where it goes. A screen reader user in a modal has even
+           less context than one on a page. */
+        '<div><a class="sd-btn" href="' + LINK + '">' + CTA +
+          '<span class="sd-vh"> (opens my scheduling page)</span></a></div>' +
         '<button class="sd-dismiss" type="button" data-sd-close>' + DISMISS + '</button>' +
       '</div>';
     document.body.appendChild(pop);

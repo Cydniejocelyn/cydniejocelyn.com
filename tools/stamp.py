@@ -16,7 +16,23 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def h(rel):
     return hashlib.sha1(io.open(os.path.join(ROOT, rel), "rb").read()).hexdigest()[:8]
 
-V = hashlib.sha1((h("assets/css/site.css") + h("assets/js/site.js")).encode()).hexdigest()[:8]
+# Every file under /assets/css/ or /assets/js/, which vercel.json marks
+# immutable for a year. Adding a file there and forgetting to add it here is
+# how a reader gets pinned to a stale copy forever.
+STAMPED = ("assets/css/site.css", "assets/js/site.js", "assets/js/analytics.js")
+
+def version():
+    """The single definition of the ?v= hash.
+
+    build.py imports this rather than recomputing it. It used to have its own
+    copy of the arithmetic, and on 28 August 2026 adding analytics.js to this
+    tuple made the two disagree: stamp.py wrote 38bd24d7 into all nine pages
+    and build.py refused the build because it still expected 3a9791d6. The
+    guard was right and the duplication was the bug.
+    """
+    return hashlib.sha1("".join(h(f) for f in STAMPED).encode()).hexdigest()[:8]
+
+V = version()
 
 PAGES = (
     ("index.html",                  "assets/"),
@@ -37,5 +53,7 @@ for page, pre in PAGES:
                'href="' + pre + 'css/site.css?v=' + V + '"', s)
     s = re.sub(r'src="' + re.escape(pre) + r'js/site\.js(\?v=[0-9a-f]+)?"',
                'src="' + pre + 'js/site.js?v=' + V + '"', s)
+    s = re.sub(r'src="' + re.escape(pre) + r'js/analytics\.js(\?v=[0-9a-f]+)?"',
+               'src="' + pre + 'js/analytics.js?v=' + V + '"', s)
     io.open(p, "w", encoding="utf-8").write(s)
 print("stamped", V)

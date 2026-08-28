@@ -984,15 +984,156 @@
     })();
   }
 
-  /* ---------- 13. FAQ, one at a time ------------------------ */
+  /* ---------- 13. FAQ -----------------------------------------
+     THESE USED TO CLOSE EACH OTHER. Opening one shut whichever one you had
+     open, and that is right when the panels are long enough that two open
+     ones would strand a reader. These are two or three sentences, and
+     several of them are directly comparable: what A Sounding is against what
+     The Build is, what is included against what is not. Somebody answering
+     "which of these do I want" had to hold one answer in their head while
+     opening the other, and then could not get the first one back without
+     losing the second.
+
+     So the handler that closed the siblings is gone rather than replaced.
+     `<details>` on its own does everything wanted here, and a question a
+     reader opened now stays open until that reader closes it, which is also
+     what the pattern has come to mean. initFaq is kept as a no-op seam
+     rather than deleted, because the call site and the section numbering
+     both refer to it and a silent gap in the sequence is worse than a
+     function that says why it does nothing. */
   function initFaq() {
-    var all = Array.prototype.slice.call(document.querySelectorAll(".faq details"));
-    all.forEach(function (d) {
-      d.addEventListener("toggle", function () {
-        if (!d.open) return;
-        all.forEach(function (o) { if (o !== d) o.open = false; });
+    /* deliberately empty: see above */
+  }
+
+
+  /* ---------- 13b. The signup, repaired from outside ----------
+     THE LETTERS FORM IS FLODESK'S MARKUP, NOT OURS. It is injected after
+     load by their universal.js, and two things about it cost real
+     subscribers:
+
+     1. The email field is `type="text"`. On a phone that is the general
+        keyboard, with no `@` and no `.com` on the front layer, autocorrect
+        live, and two layout switches to type one address. It is the highest
+        friction moment on the page the whole site funnels toward, and a
+        mistyped address is a subscriber who silently never arrives.
+     2. Validation errors render on screen and are announced to nobody. No
+        `aria-live`, no `role="alert"`, no `aria-invalid`. A screen reader
+        user presses the button, hears silence, and reasonably concludes it
+        worked. That is the failure mode with no later signal to correct it.
+
+     THE DURABLE FIX IS TO OWN THE FORM -- Flodesk's API behind markup
+     written here, which would also give the signup the same voice as the
+     rest of the page. This is the interim, and it is honest about being
+     one: it reaches into somebody else's DOM and could stop matching the
+     day they reskin it. It is written to fail silently and change nothing
+     when that happens, never to throw into their code.
+
+     WHAT IT KEYS ON, AND WHY THAT AND NOT THE OBVIOUS THING. Field `name`
+     and `placeholder` are randomised per render as an anti-bot measure --
+     the email input was `mLYUaHN` on one load and `T1U9Mlg` on the next --
+     so neither can be matched on. The visible `<label>` text is Cydnie's own
+     copy from the Flodesk builder and is stable. If those labels are ever
+     renamed, this stops finding the field and does nothing, which is the
+     right way for it to fail. */
+  function initSignup() {
+    var host = document.querySelector('form[action*="flodesk"]');
+    if (!host) {
+      /* the widget arrives after load, so wait for it -- but not forever */
+      var seen = 0;
+      var poll = window.setInterval(function () {
+        if (++seen > 40) return window.clearInterval(poll);   /* ~10s */
+        var f = document.querySelector('form[action*="flodesk"]');
+        if (!f) return;
+        window.clearInterval(poll);
+        wire(f);
+      }, 250);
+      return;
+    }
+    wire(host);
+  }
+
+  function wire(form) {
+    try {
+      /* THE LABEL TEXT HAS DECOYS IN IT. Flodesk splits every label across
+         several spans and hides one of them, as another anti-bot measure:
+         "Your email" is really <span>Your</span><span style="display:none">I
+         </span><span> email</span>, so `textContent` reads "YourI email" and
+         `innerText` reads "Your email". The announcement said "YourI email:
+         This field is required" out loud before this existed. innerText
+         costs a layout read and is only called when the errors change. */
+      function labelOf(el) {
+        var l = el && el.querySelector("label");
+        if (!l) return "";
+        return ((l.innerText != null ? l.innerText : l.textContent) || "").trim();
+      }
+
+      /* ---- 1. the field types ---- */
+      var groups = Array.prototype.slice.call(form.querySelectorAll(".fd-form-group"));
+      groups.forEach(function (g) {
+        var input = g.querySelector('input[type="text"]');
+        var name = labelOf(g).toLowerCase();
+        if (!input || !name) return;
+
+        if (name.indexOf("mail") > -1) {
+          /* only while it is empty: changing `type` can drop a value */
+          if (!input.value) input.type = "email";
+          input.setAttribute("inputmode", "email");
+          input.setAttribute("autocomplete", "email");
+          input.setAttribute("autocapitalize", "none");
+          input.setAttribute("spellcheck", "false");
+        } else if (name.indexOf("name") > -1) {
+          input.setAttribute("autocomplete", "name");
+        }
       });
-    });
+
+      /* ---- 1b. the widget's own outbound link ----
+         Flodesk renders a "Privacy policy" link to their own subdomain
+         inside the consent row. It is a genuine departure from a page
+         somebody is in the middle of filling in, and it is the one off-site
+         link on this site that no source pass could reach, because it does
+         not exist until their script runs. Same treatment as the other
+         thirty-eight: new tab, and said out loud. */
+      Array.prototype.slice.call(form.querySelectorAll('a[href^="http"]')).forEach(function (a) {
+        if (a.hostname === window.location.hostname) return;
+        if (/new tab/.test(a.getAttribute("aria-label") || "")) return;
+        a.target = "_blank";
+        a.setAttribute("rel", "noopener");
+        a.setAttribute("aria-label", (a.textContent || "Link").trim() + ", opens in a new tab");
+      });
+
+      /* ---- 2. somewhere for the errors to be heard ----
+         role="status" rather than role="alert": alert interrupts whatever
+         the reader is in the middle of, and a validation message is not an
+         interruption, it is the answer to the button they just pressed. */
+      var say = document.createElement("p");
+      say.className = "vh";
+      say.setAttribute("role", "status");
+      say.setAttribute("aria-live", "polite");
+      form.appendChild(say);
+
+      var last = "";
+      function report() {
+        var msgs = [], bad = 0;
+        Array.prototype.slice.call(form.querySelectorAll(".fd-form-group")).forEach(function (g) {
+          var input = g.querySelector("input");
+          var err = g.querySelector(".fd-form-feedback");
+          var broken = g.classList.contains("fd-has-error") && err;
+          if (input) input.setAttribute("aria-invalid", broken ? "true" : "false");
+          if (!broken) return;
+          bad++;
+          msgs.push((labelOf(g) || "A field") + ": " + (err.textContent || "").trim());
+        });
+        var text = bad ? "Sign up not sent. " + msgs.join(". ") : "";
+        /* only speak on a change, or every keystroke re-announces the same
+           sentence and the form becomes unusable with a screen reader on */
+        if (text !== last) { last = text; say.textContent = text; }
+      }
+
+      new MutationObserver(report).observe(form, {
+        subtree: true, childList: true,
+        attributes: true, attributeFilter: ["class"]
+      });
+    } catch (e) { /* somebody else's DOM; never throw into it */ }
   }
 
   /* ---------- 14. The waterline rules -----------------------
@@ -1030,6 +1171,21 @@
   function initVideo() {
     Array.prototype.slice.call(document.querySelectorAll("[data-video]"))
       .forEach(function (a) {
+        /* THE HREF IS A FALLBACK, NOT A DESTINATION. Without JS this anchor
+           is a working link to YouTube and carries `target="_blank"` and a
+           hidden "opens in a new tab", which is true and useful there. With
+           JS it never navigates at all -- the click is intercepted and the
+           player is built in place -- so both of those become lies the
+           moment this function runs. They are removed here rather than left
+           in the markup, because the markup has to serve the no-JS case.
+
+           The label is set here too, for a second reason: the click handler
+           below does `a.innerHTML = ""` to make room for the iframe, which
+           destroys any hidden span inside it. An attribute survives that. */
+        a.removeAttribute("target");
+        a.setAttribute("aria-label",
+          "Play the video" + (a.dataset.title ? ": " + a.dataset.title : ""));
+
         a.addEventListener("click", function (e) {
           if (a.classList.contains("is-playing")) return;
           e.preventDefault();
@@ -1216,6 +1372,18 @@
     foot.className = "gal-foot";
     foot.innerHTML =
       '<div class="gal-bar" aria-hidden="true"><i></i></div>' +
+      /* The count. The progress rule answers "roughly how far" and never
+         answered "how much is there", and those are different questions for
+         somebody deciding whether to commit to browsing. Sixteen
+         photographs of a retreat is a selling point on the page most likely
+         to convert, and a reader who did not notice the rail scrolls saw a
+         three photograph gallery.
+
+         aria-live is off on purpose. This updates on every scroll frame and
+         a screen reader announcing "4 of 16, 5 of 16" through a swipe is
+         worse than silence; the tiles themselves are already reachable and
+         individually labelled. */
+      '<p class="gal-count" aria-hidden="true"><span></span> / ' + items.length + '</p>' +
       '<div class="gal-nav">' +
         '<button type="button" data-go="-1" aria-label="Scroll the gallery back">' +
           '<svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M5 1L1 5l4 4M1 5h13" stroke="currentColor" stroke-width="1.2"/></svg></button>' +
@@ -1225,6 +1393,7 @@
     gal.appendChild(foot);
 
     var fill = foot.querySelector(".gal-bar i");
+    var count = foot.querySelector(".gal-count span");
     var prev = foot.querySelector('[data-go="-1"]');
     var next = foot.querySelector('[data-go="1"]');
 
@@ -1239,6 +1408,18 @@
         ((1 - frac) / (frac || 1)).toFixed(4) + ")");
       prev.disabled = rail.scrollLeft <= 1;
       next.disabled = rail.scrollLeft >= max - 1;
+
+      /* The index of the LAST tile whose left edge has passed the rail's
+         left edge, which is the one a reader reads as "where I am". Clamped
+         at both ends so the first frame is 1 and the last is items.length
+         even when a sub-pixel width leaves a pixel of scroll unreachable. */
+      if (count) {
+        var w = step();
+        var i = Math.round(rail.scrollLeft / w) + 1;
+        var visible = Math.max(1, Math.round(rail.clientWidth / w));
+        if (rail.scrollLeft >= max - 1) i = items.length - visible + 1;
+        count.textContent = Math.min(items.length, Math.max(1, i));
+      }
     }
 
     /* one tile plus its gap, measured rather than assumed, so the arrows
@@ -1374,6 +1555,7 @@
     initReversal();
     initQuotes();
     initFaq();
+    initSignup();
     initRules();
     initVideo();
     initGallery();

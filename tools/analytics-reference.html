@@ -1,0 +1,547 @@
+<meta charset="utf-8">
+<title>Twelve Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+/* ------------------------------------------------------------------
+   The site's own palette and its own type stack, because this document
+   is about that site and there is no reason for it to look like
+   somebody else's. Fathom, Deepwater, Meniscus, Breath, Surface and
+   Held are the six colours in BRIEF.md and nothing else is used.
+
+   The carved face on the live site is IvyJournal, licensed through
+   Adobe. Adobe's CDN is not reachable from a published artifact, so
+   this page sets the same fallback the site itself falls back to,
+   Instrument Serif, rather than substituting something unrelated.
+   ------------------------------------------------------------------ */
+:root {
+  --fathom:    #071A1F;
+  --deepwater: #0C2830;
+  --meniscus:  #2F5A61;
+  --breath:    #9FCCC6;
+  --surface:   #E7ECE8;
+  --held:      #A65D5A;
+  --held-lift: #CE908A;
+
+  /* light is the default here: a reference gets read at a desk */
+  --ground:  #EDF1EE;
+  --panel:   #E2E8E4;
+  --ink:     var(--fathom);
+  --muted:   #4A6068;
+  --rule:    #C3CFCA;
+  --label:   var(--meniscus);
+  --accent:  #1F4E56;
+  --warm:    #8E4744;
+  --code-bg: #DCE4E0;
+
+  --carved:  "Instrument Serif", Georgia, serif;
+  --level:   "Instrument Sans", -apple-system, "Segoe UI", Helvetica, sans-serif;
+  --utility: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+:root:not([data-theme="light"]) {
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:  var(--fathom);
+    --panel:   var(--deepwater);
+    --ink:     var(--surface);
+    --muted:   #9DB2B4;
+    --rule:    #1E3D45;
+    --label:   var(--breath);
+    --accent:  var(--breath);
+    --warm:    var(--held-lift);
+    --code-bg: #0B222A;
+  }
+}
+:root[data-theme="dark"] {
+  --ground:  var(--fathom);
+  --panel:   var(--deepwater);
+  --ink:     var(--surface);
+  --muted:   #9DB2B4;
+  --rule:    #1E3D45;
+  --label:   var(--breath);
+  --accent:  var(--breath);
+  --warm:    var(--held-lift);
+  --code-bg: #0B222A;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--level);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 4.5rem) clamp(1.1rem, 4vw, 2.5rem) 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+/* ---------- masthead ---------- */
+.mast { display: flex; flex-direction: column; gap: .9rem; }
+.eyebrow {
+  font-family: var(--utility);
+  font-size: .6875rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--label);
+  margin: 0;
+}
+h1 {
+  font-family: var(--carved);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7vw, 4.1rem);
+  line-height: 1.02;
+  letter-spacing: .01em;
+  margin: 0;
+  text-wrap: balance;
+}
+.standfirst {
+  font-family: var(--carved);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  line-height: 1.45;
+  color: var(--muted);
+  margin: 0;
+  max-width: 34em;
+}
+
+/* the identity strip: the four facts you need before reading anything */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-top: .6rem;
+}
+.facts > div { background: var(--ground); padding: .85rem 1rem; }
+.facts dt {
+  font-family: var(--utility);
+  font-size: .625rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--label);
+  margin: 0 0 .3rem;
+}
+.facts dd {
+  margin: 0;
+  font-family: var(--utility);
+  font-size: .8125rem;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+/* ---------- sections ---------- */
+section { display: flex; flex-direction: column; gap: 1.1rem; }
+h2 {
+  font-family: var(--carved);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3.4vw, 2.1rem);
+  line-height: 1.15;
+  margin: 0;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--rule);
+  text-wrap: balance;
+}
+h3 {
+  font-family: var(--utility);
+  font-size: .6875rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--label);
+  margin: .5rem 0 0;
+  font-weight: 500;
+}
+p { margin: 0; max-width: 68ch; }
+.note { color: var(--muted); font-size: .9375rem; }
+
+code, .mono {
+  font-family: var(--utility);
+  font-size: .875em;
+  background: var(--code-bg);
+  padding: .1em .38em;
+  border-radius: 2px;
+}
+
+/* ---------- the event catalogue ---------- */
+.events { display: flex; flex-direction: column; gap: 1px; background: var(--rule);
+          border: 1px solid var(--rule); }
+.ev { background: var(--ground); padding: 1.15rem 1.2rem; display: grid;
+      grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: .35rem 1.75rem; }
+@media (max-width: 44rem) { .ev { grid-template-columns: 1fr; gap: .55rem; } }
+
+.ev-name {
+  font-family: var(--utility);
+  font-size: .9375rem;
+  font-weight: 500;
+  color: var(--accent);
+  word-break: break-word;
+}
+.ev-name .rec {
+  display: block;
+  font-size: .5625rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-top: .35rem;
+  font-weight: 400;
+}
+.ev-what { margin: 0; font-size: .9375rem; }
+.ev-where {
+  grid-column: 2;
+  font-size: .8125rem;
+  color: var(--muted);
+  margin: 0;
+}
+@media (max-width: 44rem) { .ev-where { grid-column: 1; } }
+.params {
+  grid-column: 2;
+  display: flex; flex-wrap: wrap; gap: .3rem;
+  margin: .35rem 0 0; padding: 0; list-style: none;
+}
+@media (max-width: 44rem) { .params { grid-column: 1; } }
+.params li {
+  font-family: var(--utility);
+  font-size: .6875rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  padding: .12rem .45rem;
+  border-radius: 2px;
+}
+
+/* ---------- coverage matrix ---------- */
+.scroller { overflow-x: auto; border: 1px solid var(--rule); }
+table { border-collapse: collapse; width: 100%; min-width: 46rem; font-size: .8125rem; }
+th, td { padding: .55rem .6rem; text-align: left; border-bottom: 1px solid var(--rule); }
+thead th {
+  font-family: var(--utility);
+  font-size: .625rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--label);
+  font-weight: 500;
+  white-space: nowrap;
+  vertical-align: bottom;
+  background: var(--panel);
+}
+tbody th {
+  font-family: var(--utility);
+  font-weight: 400;
+  color: var(--ink);
+  white-space: nowrap;
+}
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+td { text-align: center; font-family: var(--utility); color: var(--muted); }
+td.on { color: var(--accent); font-weight: 500; }
+
+/* ---------- the honest gap ---------- */
+.gap {
+  border-left: 2px solid var(--warm);
+  background: var(--panel);
+  padding: 1.15rem 1.35rem;
+  display: flex; flex-direction: column; gap: .8rem;
+}
+.gap h3 { margin-top: 0; color: var(--warm); }
+
+/* ---------- steps ---------- */
+ol.steps { margin: 0; padding-left: 1.4rem; display: flex; flex-direction: column; gap: .7rem; }
+ol.steps li { padding-left: .35rem; }
+pre {
+  margin: 0;
+  background: var(--code-bg);
+  border: 1px solid var(--rule);
+  padding: .85rem 1rem;
+  overflow-x: auto;
+  font-family: var(--utility);
+  font-size: .8125rem;
+  line-height: 1.55;
+}
+ul.plain { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: .55rem; }
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.2rem;
+  font-family: var(--utility);
+  font-size: .6875rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--label);
+}
+</style>
+
+<div class="wrap">
+
+  <header class="mast">
+    <p class="eyebrow">cydniejocelyn.com · measurement plan</p>
+    <h1>Twelve Events</h1>
+    <p class="standfirst">Everything the site reports to Google Analytics, where each one
+      fires, and what it carries with it.</p>
+
+    <dl class="facts">
+      <div><dt>Measurement ID</dt><dd>G-KDB3GWPNHC</dd></div>
+      <div><dt>Implemented in</dt><dd>assets/js/analytics.js</dd></div>
+      <div><dt>Tested by</dt><dd>tools/preview/runga.sh</dd></div>
+      <div><dt>Events</dt><dd>12 across 9 pages</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2>How to read this</h2>
+    <p>Event names are <code>snake_case</code> and under forty characters, which is what GA4
+      requires. Four of the twelve use names Google itself defines — those are marked
+      <span style="color:var(--warm);font-family:var(--utility);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase">GA4 recommended</span>
+      — and that matters more than it sounds: a recommended event populates the built-in
+      reports in the Google interface, where a custom name only ever appears in an
+      exploration you build yourself.</p>
+    <p class="note">Every event also carries <code>page_path</code>. Parameter values are
+      collapsed to single spaces and truncated at 100 characters, which is GA4's own limit;
+      a truncated value ends in an ellipsis so it is obvious in a report that there was more.</p>
+  </section>
+
+  <section>
+    <h2>Navigation and intent</h2>
+    <div class="events">
+
+      <article class="ev">
+        <div class="ev-name">navigation_click</div>
+        <p class="ev-what">A link in the header, the mobile menu, the footer, the legal row,
+          the social row, the brand lockup or the skip link.</p>
+        <p class="ev-where">Fires on every page. <code>nav_location</code> is the useful half:
+          “Retreats” clicked in the header is a person navigating, and the same word clicked in
+          the footer is usually a person who read to the bottom. The header and the phone panel
+          are the same markup, so they are told apart by the 56rem media query — the same one
+          site.js uses, so the two can never disagree.</p>
+        <ul class="params"><li>link_text</li><li>link_url</li><li>nav_location</li></ul>
+      </article>
+
+      <article class="ev">
+        <div class="ev-name">cta_click</div>
+        <p class="ev-what">A <code>.btn</code>, or any link to the booking system, wherever it sits.</p>
+        <p class="ev-where">Fires on every page. Held apart from <code>navigation_click</code>
+          on purpose: a button is a considered decision and a nav link is a glance, and putting
+          them in one number dilutes the funnel with chrome. <code>cta_location</code> is the
+          nav region for chrome buttons and the enclosing section id for in-page ones.</p>
+        <ul class="params"><li>cta_text</li><li>cta_location</li><li>link_url</li><li>destination_type</li></ul>
+      </article>
+
+      <article class="ev">
+        <div class="ev-name">outbound_click</div>
+        <p class="ev-what">Any click that leaves the site.</p>
+        <p class="ev-where">Fires <em>in addition to</em> the event above, never instead of it.
+          A booking link is both a call to action and an exit, and collapsing the two would mean
+          choosing now which question you are allowed to ask later.
+          <code>destination_type</code> separates <code>booking</code> from
+          <code>external</code>, so the client portal does not sit in the same bucket as a link
+          to Instagram.</p>
+        <ul class="params"><li>link_url</li><li>link_domain</li><li>link_text</li><li>nav_location</li></ul>
+      </article>
+
+      <article class="ev">
+        <div class="ev-name">menu_toggle</div>
+        <p class="ev-what">The two-bar menu control opening or closing.</p>
+        <p class="ev-where">Fires on eight pages; <code>/thequestions/</code> has a bare header
+          with no toggle. Read on the capture phase so it reports the state being moved
+          <em>into</em>. On the bubble phase site.js has already flipped
+          <code>aria-expanded</code>, and every open reads as a close.</p>
+        <ul class="params"><li>menu_state</li><li>viewport</li></ul>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Content interaction</h2>
+    <div class="events">
+
+      <article class="ev">
+        <div class="ev-name">filter_select</div>
+        <p class="ev-what">One of the four tabs in the objection picker.</p>
+        <p class="ev-where">Home and Greece. This is the site's only filter: four tabs, one
+          panel shown at a time. <code>filter_position</code> tells you whether people work
+          through them in order or go straight to the one that is their own objection, which is
+          the more useful question.</p>
+        <ul class="params"><li>filter_group</li><li>filter_value</li><li>filter_position</li><li>filter_count</li></ul>
+      </article>
+
+      <article class="ev">
+        <div class="ev-name">image_view</div>
+        <p class="ev-what">A gallery tile opened into the lightbox.</p>
+        <p class="ev-where">Greece only. Carries the caption rather than the filename, so a
+          report reads as “Your room” instead of a hash.</p>
+        <ul class="params"><li>image_caption</li><li>gallery_name</li><li>image_position</li></ul>
+      </article>
+
+      <article class="ev">
+        <div class="ev-name">gallery_navigate</div>
+        <p class="ev-what">The forward and back arrows on the photograph rail.</p>
+        <p class="ev-where">Greece only. Separate from <code>image_view</code> because browsing
+          the rail and stopping to look at one photograph are different degrees of interest.</p>
+        <ul class="params"><li>direction</li><li>gallery_name</li></ul>
+      </article>
+
+      <article class="ev">
+        <div class="ev-name">content_step</div>
+        <p class="ev-what">A tick on the five-moment story scroll.</p>
+        <p class="ev-where">Home and Greece. Only counts a deliberate press, not the scroll
+          position moving the story on by itself.</p>
+        <ul class="params"><li>step_index</li><li>step_count</li><li>step_label</li></ul>
+      </article>
+
+      <article class="ev">
+        <div class="ev-name">faq_open</div>
+        <p class="ev-what">A question opening.</p>
+        <p class="ev-where">Home, The Build, Retreats, Greece and A Sounding. Closing one is not
+          counted — a close is not a signal about anything. The question text comes through
+          verbatim, which turns this into a standing list of what people actually needed to ask.</p>
+        <ul class="params"><li>question_text</li><li>question_position</li><li>question_count</li></ul>
+      </article>
+
+      <article class="ev">
+        <div class="ev-name">video_start<span class="rec">GA4 recommended</span></div>
+        <p class="ev-what">The testimonial video being pressed.</p>
+        <p class="ev-where">Retreats only. The poster is an anchor with a real YouTube href so
+          it works without JavaScript, but with JavaScript it never navigates — so it is
+          deliberately <em>not</em> counted as an outbound click. Read on the capture phase, for
+          the same reason as the menu toggle.</p>
+        <ul class="params"><li>video_title</li><li>video_provider</li><li>video_url</li><li>video_current_time</li></ul>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>Reading depth and conversion</h2>
+    <div class="events">
+
+      <article class="ev">
+        <div class="ev-name">scroll_depth</div>
+        <p class="ev-what">25%, 50%, 75% and 100% of the page, once each per page load.</p>
+        <p class="ev-where">Fires on the eight long pages and is deliberately silent on
+          <code>/thequestions/</code>, which is a single screen scanned at a table. On a page
+          barely taller than the window, 100% is reached by existing, and four events that
+          always fire together say nothing. The gate is one and a half viewports of scrollable
+          content. Scrolling back up and down again does not fire anything a second time.</p>
+        <ul class="params"><li>percent_scrolled</li><li>page_length_px</li><li>viewports</li></ul>
+      </article>
+
+      <article class="ev">
+        <div class="ev-name">sign_up<span class="rec">GA4 recommended</span></div>
+        <p class="ev-what">The Letters signup being submitted.</p>
+        <p class="ev-where">The Letters only. The Flodesk widget cancels the native submit and
+          posts over fetch, so this listens on the capture phase at document level — a
+          bubble-phase listener on a form that never natively submits can be skipped entirely.
+          Fires at most once per page load.</p>
+        <ul class="params"><li>method</li><li>form_destination</li><li>form_location</li></ul>
+      </article>
+
+    </div>
+    <p class="note"><strong>One caveat worth stating plainly:</strong> <code>sign_up</code>
+      records the <em>attempt</em>, not the confirmed subscription. Flodesk owns everything after
+      the submit, and it does not tell the page whether the address was accepted. Treat this
+      number as the top of that step and Flodesk's own list count as the bottom of it.</p>
+  </section>
+
+  <section>
+    <h2>Which events exist on which page</h2>
+    <p class="note">Read from the built pages rather than assumed. A dash is not a gap to be
+      filled — it means the page has no such element.</p>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Page</th>
+            <th scope="col">nav</th><th scope="col">cta</th><th scope="col">outbound</th>
+            <th scope="col">menu</th><th scope="col">filter</th><th scope="col">image</th>
+            <th scope="col">step</th><th scope="col">video</th><th scope="col">faq</th>
+            <th scope="col">sign&nbsp;up</th><th scope="col">scroll</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">/</th><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td>–</td><td class="on">•</td><td>–</td><td class="on">•</td><td>–</td><td class="on">•</td></tr>
+          <tr><th scope="row">/about/</th><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="on">•</td></tr>
+          <tr><th scope="row">/the-build/</th><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="on">•</td><td>–</td><td class="on">•</td></tr>
+          <tr><th scope="row">/retreats/</th><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td>–</td><td>–</td><td>–</td><td class="on">•</td><td class="on">•</td><td>–</td><td class="on">•</td></tr>
+          <tr><th scope="row">/retreats/greece/</th><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td>–</td><td class="on">•</td><td>–</td><td class="on">•</td></tr>
+          <tr><th scope="row">/a-sounding/</th><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="on">•</td><td>–</td><td class="on">•</td></tr>
+          <tr><th scope="row">/the-letters/</th><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="on">•</td><td class="on">•</td></tr>
+          <tr><th scope="row">/privacy-policy/</th><td class="on">•</td><td class="on">•</td><td class="on">•</td><td class="on">•</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td class="on">•</td></tr>
+          <tr><th scope="row">/thequestions/</th><td>–</td><td class="on">•</td><td class="on">•</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Two things that were asked for and are not here</h2>
+    <div class="gap">
+      <h3>Copy-to-clipboard on code samples</h3>
+      <p>There is no code on this site. Not one <code>&lt;pre&gt;</code>, one
+        <code>&lt;code&gt;</code>, or one clipboard call across the nine pages — it is a
+        consulting practice, not a documentation site. Nothing was invented to fill the gap,
+        because a tracker firing on an element that does not exist is a number nobody can act on.</p>
+      <h3>Filter and search on component listings</h3>
+      <p>There are no component listings and no search input either. The nearest real
+        equivalent is the four-tab objection picker, and it is genuinely a filter — one of four
+        choices decides which panel shows — so it is tracked as <code>filter_select</code> with
+        the parameter names a filter would have. The gallery rail and the lightbox are tracked
+        as themselves rather than being dressed up as a listing.</p>
+      <p class="note">If a component library, a resource index or a search ever gets built,
+        both patterns drop straight into <code>analytics.js</code>: the click tracking is
+        delegated off <code>document</code>, so new markup is picked up with no rewiring.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Checking it yourself</h2>
+    <ol class="steps">
+      <li>Open any page, then in the browser console set
+        <code>__analyticsDebug = true</code>. Every event prints as it fires, with its
+        parameters, before it is sent.</li>
+      <li>In Google Analytics, use <strong>Admin → DebugView</strong>. It shows events within
+        seconds; the standard reports take up to 24 hours and have made more than one person
+        think tracking was broken when it was only slow.</li>
+      <li>Run the automated pass, which drives every interaction on every page and asserts what
+        came out:</li>
+    </ol>
+    <pre>sh tools/preview/runga.sh "$SP" 8817</pre>
+    <p class="note">That harness runs in headless Chrome and not in a preview pane, for a
+      specific reason: a preview pane moves the page when you set <code>scrollTop</code> and
+      fires no scroll event at all, so every depth assertion fails against code that is
+      perfectly correct. The harness prints a diagnostic line saying so, rather than leaving
+      the next person to rediscover it.</p>
+  </section>
+
+  <section>
+    <h2>What is deliberately not collected</h2>
+    <ul class="plain">
+      <li><strong>Nothing anyone types.</strong> No field values, no email addresses, no search
+        terms. <code>sign_up</code> records that a form was submitted and nothing that was in it.</li>
+      <li><strong>No individual identity.</strong> No user ID, no cross-device stitching, no
+        advertising features. The two cookies are <code>_ga</code> and
+        <code>_ga_KDB3GWPNHC</code>, and both are named in the privacy policy.</li>
+      <li><strong>No scroll heatmap or session recording.</strong> Four depth thresholds is a
+        measure of whether a page holds attention; a recording is a different thing to consent to.</li>
+    </ul>
+    <p class="note">Readers running an ad blocker send nothing, which is normal and is not an
+      error state — expect the totals here to under-count a design-literate audience by a
+      noticeable margin. And the site currently takes the implied-consent posture: analytics
+      loads before anyone agrees to it. That is standard for a US business and it is not GDPR
+      consent, which is worth a decision of its own if the Greece retreat draws European traffic.</p>
+  </section>
+
+  <footer>Reference for assets/js/analytics.js · keep the two in step</footer>
+
+</div>

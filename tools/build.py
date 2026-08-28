@@ -147,9 +147,11 @@ def check_stamps():
     So the rule is: the deploy cannot happen with a stale stamp. Not 'should
     not'. Cannot.
     """
-    def h(rel):
-        return hashlib.sha1(io.open(os.path.join(ROOT, rel), "rb").read()).hexdigest()[:8]
-    want = hashlib.sha1((h("assets/css/site.css") + h("assets/js/site.js")).encode()).hexdigest()[:8]
+    # Imported, not recomputed. See stamp.py's version() docstring for what
+    # having two copies of this arithmetic cost.
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import stamp
+    want = stamp.version()
     bad = []
     for dirpath, dirnames, filenames in os.walk(ROOT):
         dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS]
@@ -158,7 +160,7 @@ def check_stamps():
                 continue
             p = os.path.join(dirpath, f)
             s = io.open(p, encoding="utf-8").read()
-            for got in re.findall(r'site\.(?:css|js)\?v=([0-9a-f]+)', s):
+            for got in re.findall(r'(?:site\.css|site\.js|analytics\.js)\?v=([0-9a-f]+)', s):
                 if got != want:
                     bad.append((os.path.relpath(p, ROOT), got))
     if bad:

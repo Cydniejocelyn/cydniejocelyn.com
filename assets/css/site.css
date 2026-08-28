@@ -167,6 +167,20 @@
   --s-5: 2rem;   --s-6: 3rem;   --s-7: 4rem;  --s-8: 6rem;
   --s-9: 8rem;   --s-10: 11rem; --s-11: 15rem;
 
+  /* FOCUS HAS ITS OWN TOKEN, and it is not --accent.
+     `:focus-visible` used to name --breath directly. Breath is chosen for a
+     dark ground and is superb there, 10.14:1 on Fathom. On the light bands
+     it measures 1.47:1 on Surface and 1.36:1 on Silt, and 32 of the 66
+     interactive elements on the home page sit on one of those two. A
+     keyboard reader watched the ring travel normally, lose it completely for
+     half the page, then find it again, which is worse than never having one.
+
+     --accent is NOT the fix and was checked before this was written: it
+     resolves to Meniscus on dark, 2.34:1. Focus needs the opposite end of
+     the palette from the ground, which is a different job from accent, so it
+     gets a token of its own. Measured after: 10.14:1 dark, ~15:1 light. */
+  --focus: var(--breath);
+
   --hl: rgba(159, 204, 198, .16);   /* hover wash, redefined per ground */
   --measure: 34rem;
   --gutter: clamp(1.25rem, 5vw, 5rem);
@@ -206,7 +220,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
 
-:focus-visible { outline: 2px solid var(--breath); outline-offset: 2px; border-radius: 2px; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
 ::selection { background: var(--meniscus); color: var(--breath); }
 
 .skip {
@@ -266,6 +280,7 @@ button { font: inherit; color: inherit; }
 .z-deep   { background: var(--fathom); }
 
 .z-light, .z-silt {
+  --focus: var(--fathom);
   --hl: rgba(47, 90, 97, .10);
   --ink: var(--fathom); --muted: #48666A; --faint: #456063;
   --accent: var(--deepwater); --warm: #8F4A47;
@@ -468,18 +483,32 @@ button { font: inherit; color: inherit; }
   background: currentColor; transform: scaleX(0); transform-origin: right;
   transition: transform var(--t-mid) var(--ease-out);
 }
-.link:hover::after, .link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
-/* A .link is drawn only on hover, and it leans on --label to be legible at
-   rest. On a dark ground --label is Breath, which reads as a link. On a light
-   ground it is Deepwater #0C2830 against ink #071A1F, which is not a visible
-   difference, so an inline link there is indistinguishable from the sentence
-   around it until a pointer touches it, and on a touch screen never.
+/* THE RULE IS DRAWN AT REST NOW, AND RETRACTS ON HOVER. It used to be the
+   other way round, and the note that used to sit here said the shared .link
+   was being left alone because changing it moves five shipped pages. It was
+   measured in session twenty-three and the reason to change it won:
 
-   This modifier draws the rule at rest and retracts it on hover, so the link
-   is always a link and the hover still has somewhere to go. It is used on the
-   light-ground body links added in session four. The shared `.link` is left
-   alone because changing it moves five shipped pages; see item 14 in §0 of
-   HANDOFF.md. */
+       "Watch Melissa's review"   1.16:1 against the sentence around it
+       "retreats page"            2.49:1
+       hello@cydniejocelyn.com    1.00:1  -- the IDENTICAL colour
+
+   With no rule at rest and no colour difference either, an inline link was
+   not dim, it was not there. A pointer found it; a thumb never could, and
+   more than half of this site's readers have a thumb. These are not
+   decorative links, they are the in-copy routes to the retreats page, The
+   Letters and the testimonial, placed exactly where the writing has just
+   earned a click.
+
+   The hover still has somewhere to go: it retracts, which is the same
+   gesture in reverse. Nothing moves when this paints, because the rule is an
+   absolutely positioned pseudo element, so the five pages change in colour
+   and not in layout.
+
+   `.link--ruled` now does what `.link` does. It is kept rather than removed
+   because it is in the markup on the privacy page and in three drafts, and a
+   class that silently stops existing is a worse trade than a redundant one. */
+.link::after { transform: scaleX(1); transform-origin: left; }
+.link:hover::after, .link:focus-visible::after { transform: scaleX(0); transform-origin: right; }
 .link--ruled::after { transform: scaleX(1); transform-origin: left; }
 .link--ruled:hover::after, .link--ruled:focus-visible::after { transform: scaleX(0); transform-origin: right; }
 
@@ -748,6 +777,35 @@ button { font: inherit; color: inherit; }
   transition: color var(--t-mid) var(--ease-out);
 }
 .nav-links a:hover { color: var(--ink); }
+
+/* ---- YOU ARE HERE, AT EVERY WIDTH ----
+   `aria-current="page"` has always been on the right link, so a screen
+   reader has always announced it. Every rule that COLOURED it lived inside
+   `@media (max-width: 55.99rem)` -- the phone menu block -- so at 1440 the
+   current link and its neighbours measured 1.00:1. Identical colour,
+   identical weight, no rule. Nine pages, four nav items, and pages that run
+   twenty screens: the bar was the only thing that could answer "where am I"
+   and it did not.
+
+   TWO THINGS THIS RULE HAS TO GET RIGHT.
+
+   It is not colour alone. WCAG 1.4.1 wants a second channel, and a site
+   whose whole visual language is hairlines should use a hairline. The rule
+   under the current item is that second channel, and it is drawn with a
+   pseudo element so nothing shifts when it paints.
+
+   And the specificity has to clear `.hdr.is-surfaced .nav-links a`, which is
+   (0,3,1) and exists so the links read against the light bar once the reader
+   has surfaced. A plain `.nav-links a[aria-current]` is (0,2,1) and loses to
+   it the moment the header crosses a light section -- which is the same trap
+   written up above, where three of four menu items went invisible. So the
+   surfaced state is stated explicitly rather than left to chance. */
+.nav-links a[aria-current="page"] { color: var(--ink); }
+.hdr.is-surfaced .nav-links a[aria-current="page"] { color: var(--fathom); }
+.nav-links a[aria-current="page"]::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: .55rem;
+  height: 1px; background: currentColor; opacity: .55;
+}
 .hdr .btn { padding: .7rem 1.25rem; font-size: .75rem; min-height: 44px; white-space: nowrap; }
 @media (max-width: 30rem) {
   .hdr .btn { padding: .6rem .95rem; font-size: .75rem; letter-spacing: .04em; gap: .5rem; }
@@ -3013,6 +3071,35 @@ main > * { position: relative; z-index: 1; }
   background: var(--accent);
   width: var(--gal-w, 25%); transform: translateX(var(--gal-x, 0));
 }
+/* The gauge takes no pointer events. It is a depth readout, `aria-hidden`
+   already because it is instrumentation, and it sits fixed at the left edge
+   where a thin vertical track with a moving marker reads as the most
+   established scrubber pattern there is. It invites a drag and cannot honour
+   one. Refusing the pointer entirely means it never returns a hover or a
+   text cursor it has nothing to do with, and it can no longer swallow a
+   click meant for the content behind it. The actual way back is the return
+   link in the footer, added at the same time. */
+.gauge { pointer-events: none; }
+
+/* The return link. `.more` is the existing idiom for a quiet inline action,
+   so this borrows it rather than introducing a new one, and the arrow is the
+   same glyph rotated. It is a normal element in the flow, not a floating
+   button: somebody who wants the top is at the bottom, and a control that
+   hovers over the page the whole way down is furniture the rest of this site
+   has carefully avoided. */
+.ftr-top-link { margin: 0 0 var(--s-5); }
+.arw--up { transform: rotate(-90deg); }
+
+/* The count sits between the rule and the arrows, in the utility face at
+   the same size as every other small caps label on the site, so it reads as
+   instrumentation rather than as copy. `tabular-nums` because the number
+   changes on every scroll frame and proportional digits make it twitch. */
+.gal-count {
+  margin: 0; font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .18em; color: var(--label);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
 .gal-nav { display: flex; gap: var(--s-2); }
 .gal-nav button {
   width: 44px; height: 44px; display: grid; place-items: center;

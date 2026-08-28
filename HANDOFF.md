@@ -216,6 +216,9 @@ that far.
 | 13 | **Never verified:** a full keyboard pass and a real screen-reader pass. | §7.5 |
 | 18 | **HSTS ships without `includeSubDomains` or `preload`, and there is no consent banner.** Both deliberate, both Cydnie's call, neither one a bug. | §31 |
 | 19 | **The security headers do not exist until cutover.** The apex still answers from Showit. Verified live 28 August. | §31 |
+| 21 | ~~Nine measured UX frictions.~~ **CLOSED 28 August. All nine fixed**, suite 356 → 385. Two halves deliberately left as Cydnie's call: the visible booking hand-off line, and redrawing the gauge. | §34 |
+| 23 | **The hero headings are ~10% taller and ~6% wider than they were**, because IvyJournal replaced Instrument Serif, not because any size changed. Factor 0.91 pulls them back if wanted. Not applied. | §34 |
+| 22 | **site.js gets the bubble phase before analytics.js, always.** Anything reading state site.js is about to change must listen on capture. Cost three silently-wrong events in one session. | §33 |
 | 20 | **`vercel deploy --cwd dist` reads vercel.json from the SHELL's directory, not from `--cwd`.** It shipped a broken CSP to production once. `ship.sh` cds into dist now and verifies the deployed headers. Never reintroduce `--cwd` on a deploy. | §32 |
 | 14 | **`figure` default margin is unreset on `.quote`**, so the home page's quote carousel is indented 40px each side. **Verified still true on 28 August.** Fixed on `.sd-quote` only; the shared fix is one declaration but widens 14 slides across two live pages and touches the touch-carousel geometry, so it wants doing deliberately rather than in passing. | §11 |
 | 15 | **Angela's quote is excerpted on `/a-sounding/`.** Her full review opens "From our very first coaching call", and that page argues it is not coaching. Confirm she is comfortable appearing there. | §11 |
@@ -3503,3 +3506,224 @@ structurally blind to response headers, because it tests a static server that
 sends none. **Anything configured in `vercel.json` is unverified until
 something asks production for it.** That is now the last step of `ship.sh`
 rather than a thing to remember.
+
+
+---
+
+## 33. Session twenty-three: twelve events, and nine frictions
+
+### The measurement plan
+
+`assets/js/analytics.js`, twelve events, documented in
+`tools/analytics-reference.html` and tested by `tools/preview/runga.sh`.
+
+**It is a separate file from site.js on purpose.** site.js is the site
+working; this is the site being watched. Keeping them apart means a
+measurement change can never be the reason a carousel stopped moving, and the
+whole thing can be removed in one line. Every listener is delegated off
+`document`, nothing calls `preventDefault`, nothing writes to the DOM. The
+behaviour suite was **356 pass / 0 fail before and after**, which is the
+evidence that "without modifying existing functionality" actually held.
+
+### Two of the four things asked for do not exist on this site
+
+Copy-to-clipboard on code samples, and filter/search on component listings.
+There is not one `<pre>`, `<code>`, clipboard call or search input anywhere in
+the nine pages — it is a consulting practice, not a documentation site.
+**Nothing was invented to fill the gap**, because a tracker firing on an
+element that does not exist produces a number nobody can act on. The nearest
+real equivalent, the four-tab objection picker, is tracked as `filter_select`
+because it genuinely is one. This is written up on the reference page rather
+than buried here, since the reference page is the thing anyone will read.
+
+### Three bugs the harness caught that review would not have
+
+Every one of these produced plausible, wrong data rather than an error.
+
+1. **Every desktop header click reported as `mobile_menu`.** `.nav-menu` is
+   one element serving both the bar and the phone panel, and `has-menu` is on
+   the root at every width, so neither the markup nor that class can tell them
+   apart. Only the width can. Reads as a site whose visitors are almost
+   entirely on phones, using a menu most of them never open.
+2. **`menu_toggle` was exactly inverted.** site.js registered its click
+   handler first and flips `aria-expanded` inside it, so a bubble-phase reader
+   always saw the state already changed. Every open reported as a close. Now
+   on capture.
+3. **`video_start` never fired at all**, for the same reason: site.js adds
+   `is-playing` before a bubble-phase listener can check for it. Also on
+   capture now. The same click was additionally being counted as an
+   `outbound_click` it never makes — the poster carries a real YouTube href as
+   a no-JS fallback, and with JS it never navigates.
+
+**The pattern in all three: site.js is the earlier `<script>`, so it always
+gets the bubble phase first.** Anything in analytics.js that needs to read
+state site.js is about to change has to be on capture.
+
+### `tools/preview/runga.sh`, and why the pane cannot test this
+
+Analytics is not state, it is a sequence of things that happened, so it can
+only be tested by performing the interactions and watching what comes out.
+
+**Setting `scrollTop` in the Claude preview pane moves the page and fires no
+scroll event at all.** Measured: a plain `window.addEventListener('scroll')`
+counted zero while `pageYOffset` went 0 → 4000. Every `scroll_depth`
+assertion read as a failure against code that was correct. Same family as the
+IntersectionObserver failure in session four.
+
+Headless Chrome was not the whole answer either: in an `opacity: .001` iframe,
+the kind `_test.html` uses, **neither `scroll` nor `requestAnimationFrame`
+runs** — measured `raf=0`, `rawScroll=0`. The frame is opaque in `_ga.html`,
+and the harness dispatches the scroll event itself. That is not testing around
+the problem: a browser firing `scroll` when a document scrolls is platform
+behaviour, and everything downstream of it — the arming gate, the threshold
+arithmetic, firing once each across down-up-down — is ours and is exercised.
+
+`analytics.js` also no longer depends on rAF actually running: the scroll
+measurement is `requestAnimationFrame` **or** a 200ms timeout, whichever wins.
+
+### One thing that bit twice in one session
+
+`stamp.py` and `build.py` each had their own copy of the `?v=` arithmetic.
+Adding `analytics.js` to the stamped set made them disagree and the build
+refused to run. **The guard was right and the duplication was the bug**;
+`build.py` imports `stamp.version()` now, and the stale-stamp scan looks at
+`analytics.js` too, or a stale stamp on the new file would be invisible to the
+guard that exists to catch it.
+
+    suites now:   behaviour  356 pass / 0 fail across nine pages
+                  analytics  141 pass / 0 fail across nine pages
+
+### The interface review
+
+`tools/ux-review.html`. Nine findings, every one measured on the built site at
+375 and 1440 rather than eyeballed, ordered by cost rather than by effort.
+
+**The headline is that seven of the nine are the same shape:** a decision that
+is correct in one context, applied in a second one where it stops working.
+
+| | | |
+|---|---|---|
+| 1 | In-copy links draw their underline only on hover, and measure **1.00 to 2.49:1** against the text around them. `hello@cydniejocelyn.com` is the *identical* colour. No hover on a phone, so on touch they are not links at all. | High |
+| 2 | `:focus-visible` is `--breath` at every ground. **10.14:1** on Fathom, **1.36:1** on Silt — and **32 of 66 interactive elements on the home page sit on a light band.** Reusing `--accent` is not the fix; it is 2.34:1 on dark. Wants its own ground-aware token. | High |
+| 3 | The Letters email field is `type="text"`. No email keyboard on a phone, for the conversion the site funnels toward. Flodesk's markup, so it is a setting rather than a commit. | High |
+| 4 | That form has **zero live regions** and no `aria-invalid`. A failed signup is announced to nobody, so the reasonable conclusion is that it worked. | High |
+| 5 | **Every `[aria-current="page"]` rule lives inside `@media (max-width: 55.99rem)`.** At 1440 the current nav link measures **1.00:1** against its neighbours. The markup is right and a screen reader announces it; sighted desktop readers get nothing. | Medium |
+| 6 | All **14** external links open in the same tab unmarked, including the booking button that hands the reader to HoneyBook's differently-branded scheduler after twenty screens of a very specific voice. | Medium |
+| 7 | `.gauge` is a fixed vertical track with a moving indicator and **no handler**. On pages of **20.5 screens** it reads as a scrubber, invites a drag, and does nothing. No back-to-top anywhere. | Medium |
+| 8 | The Greece rail holds **16 photographs, 3 visible**, with a progress rule but no count. A reader who misses the affordance sees a three-photograph gallery. | Low |
+| 9 | The questions are exclusive accordions, so opening one closes the answer you were comparing it against. Deliberate, and asserted in the suite. | Low |
+
+**Findings 1, 2 and 3 are the three to do.** The first two are single-rule CSS
+edits that between them fix the site for touch readers and keyboard readers
+and change nothing for anyone else. The third is the only one costing
+subscribers today.
+
+### What the review says NOT to change
+
+Written down because a generic audit would flag all of these and be wrong.
+The 18px door links are grown to 44px by `.door-note--link::after { inset:
+-13px -10px }`, which is a better answer than a min-height and has its reason
+in a comment already. Inline text links under 24px are explicitly exempt from
+the target-size rule. Click-to-load `youtube-nocookie` is right twice over.
+Smooth scrolling is already off under `prefers-reduced-motion`.
+
+
+---
+
+## 34. Session twenty-three, part two: the nine fixed, and the hero measured
+
+All nine frictions from §33 were fixed. The suite went **356 → 385
+assertions, 0 failing**, and six of the new ones exist to stop these specific
+things coming back silently.
+
+### The ones that were one rule each
+
+**Inline links draw at rest.** `.link::after` was `scaleX(0)` until hover and
+now retracts on hover instead. The note that used to sit above it said the
+shared `.link` was being left alone because changing it moves five shipped
+pages — the measurement is what overruled that: 1.16:1 for "Watch Melissa's
+review", **1.00:1** for the email address, against the text around them. Not
+dim, not there. The rule is an absolutely positioned pseudo element, so those
+five pages changed in colour and not in layout.
+
+**Focus got its own ground-aware token, `--focus`.** `--breath` was named
+directly, which is 10.14:1 on Fathom and **1.36:1 on Silt**, with 32 of the
+66 interactive elements on the home page sitting on a light band. Now 13.79
+and 14.93 there. **`--accent` was checked first and is not the answer**: it
+resolves to Meniscus on dark, 2.34:1. Focus needs the opposite end of the
+palette from its ground, which is a different job from accent.
+
+**`[aria-current="page"]` applies at every width.** Every rule that coloured
+it lived inside `@media (max-width: 55.99rem)`. It is paired with a hairline
+rather than shipped as colour alone, and the surfaced state is stated
+explicitly at (0,4,1) because `.hdr.is-surfaced .nav-links a` is (0,3,1) and
+is the same specificity trap that blanked the menu in session seven.
+
+### The Flodesk form, repaired from outside
+
+`initSignup()` upgrades the email field to `type="email"` with `inputmode`
+and `autocomplete`, and mirrors the widget's error text into a
+`role="status"` region with `aria-invalid` on the fields. Before this a
+screen reader user pressed the button and heard nothing.
+
+**It keys on the visible label text, and that took two goes.** Field `name`
+and `placeholder` are randomised per render as an anti-bot measure — the
+email input was `mLYUaHN` on one load and `T1U9Mlg` on the next. So is the
+label, in a subtler way: Flodesk splits it into decoy spans and hides one, so
+`textContent` reads **"YourI email"** and only `innerText` reads "Your
+email". The live region announced the decoy out loud before that was found.
+
+This reaches into somebody else's DOM and is written to fail silently rather
+than throw. **The durable answer is owning the form.**
+
+### Off-site links, and the two that no source pass could see
+
+53 off-site links now carry an announcement. 38 social and video links open
+in a new tab; booking stays in the tab, because a purchase flow should not
+open one, and carries a hidden "opens my scheduling page".
+
+**Two were invisible to a search of the nine pages and the suite caught
+both.** "Book a Sounding" is injected by `sounding-popup.js`, and Flodesk's
+own "Privacy policy" link does not exist until their script runs.
+
+**And one was a lie in the other direction.** The video poster is an
+`<a href="youtube.com/...">` so it works without JS; with JS it never
+navigates. It had been given `target="_blank"` and an announcement, both
+false the moment `initVideo` runs, so `initVideo` now strips them and sets an
+accurate label instead. The label is set as an *attribute* because the click
+handler does `a.innerHTML = ""` to make room for the iframe, which destroys
+any hidden span inside it — which is exactly how the assertion caught it.
+
+### The other three
+
+The rail says **"1 / 16"**. The questions no longer close each other, and the
+suite assertion that encoded the old behaviour was inverted with the reason
+written beside it. The gauge takes `pointer-events: none` and a "Back to the
+top" link sits at the head of every footer, in the flow rather than floating.
+
+**Two things were deliberately NOT done, and both are Cydnie's call, not
+defects.** The visible line under the booking button is copy on nine pages
+and a change to the header composition. And the gauge was not redrawn:
+making it read as instrumentation rather than as a track is a change to the
+visual identity on every page.
+
+### The hero headings did get bigger, and here is by how much
+
+Reported as a feeling, and it is correct. **`font-size` never changed** — the
+same 69.6px at 1440, same line height. The typeface changed in §30.
+
+    at an identical 100px      Instrument Serif   IvyJournal   change
+    cap height                       66.2            72.8      +10.0%
+    x-height                         44.9            53.1      +18.3%
+    width of "YOU'RE NOT BROKEN."   1067.6          1130.0      +5.8%
+
+**The x-height number is the one that explains the feeling.** x-height, not
+point size, is what the eye reads as "how big is this type". Compounded with
+the extra width, the home hero went from two lines to four at 1440.
+
+**If it is ever pulled back, the factor is 0.91**, which matches the old cap
+height and is the right target for an all-caps hero. Matching x-height
+instead wants 0.85, which suits mixed-case headings like "I'm Cydnie." and
+would leave the hero smaller than it used to be. One number cannot serve both
+perfectly; 0.91 is the one to try first. **Not applied** — nothing is broken
+and it is a taste decision.

@@ -106,7 +106,18 @@ f.addEventListener('load', function(){
      setTimeout(function(){
        det[1].open=true;
        setTimeout(function(){
-         ok('faq: opening one closes the other', !det[0].open && det[1].open);
+         /* THIS ASSERTION USED TO BE THE OPPOSITE. The questions closed each
+            other, and that is right when the panels are long enough that two
+            open ones would strand a reader. These are two or three sentences
+            and several are direct comparisons -- A Sounding against The
+            Build, what is included against what is not -- so a reader
+            answering "which of these do I want" had to hold one answer in
+            their head while opening the other. Changed in session
+            twenty-three, finding 9. If this goes red, check whether somebody
+            put the sibling-closing handler back in initFaq. */
+         ok('faq: opening one leaves the other open, so two can be compared',
+            det[0].open && det[1].open);
+         det[0].open=false; det[1].open=false;
          rest();
        },80);
      },80);
@@ -443,6 +454,53 @@ f.addEventListener('load', function(){
       w.getComputedStyle(soc).backgroundColor === 'rgba(0, 0, 0, 0)');
    ok('footer: and they are still a 44px tap target',
       !!soc && soc.getBoundingClientRect().height >= 44 && soc.getBoundingClientRect().width >= 44);
+   /* ---- the nine frictions, session twenty-three ----
+      Each of these was measured before it was changed, and each would go
+      back to being wrong silently: a focus ring nobody sees, a link nobody
+      can tell is a link, a nav that never says where you are. */
+   var lnk = d.querySelector('a.link');
+   if (lnk) {
+     ok('links: an inline link draws its rule at REST, not only on hover',
+        w.getComputedStyle(lnk, '::after').transform.indexOf('matrix(1,') === 0);
+   }
+   var lightBand = d.querySelector('.z-light, .z-silt');
+   if (lightBand) {
+     /* --focus must not be the same value on both grounds, which is the whole
+        point of it existing rather than reusing --breath or --accent. */
+     ok('focus: the ring has a ground-aware token, different on light',
+        w.getComputedStyle(d.documentElement).getPropertyValue('--focus').trim() !==
+        w.getComputedStyle(lightBand).getPropertyValue('--focus').trim());
+   }
+   var curNav = d.querySelector('.nav-links a[aria-current="page"]');
+   if (curNav) {
+     var otherNav = [].filter.call(d.querySelectorAll('.nav-links a'),
+                                   function (a) { return a !== curNav; })[0];
+     ok('nav: the current page looks different from the others at this width',
+        !!otherNav && (w.getComputedStyle(curNav).color !== w.getComputedStyle(otherNav).color ||
+                       w.getComputedStyle(curNav, '::after').content !== 'none'));
+   }
+   ok('footer: there is a way back to the top',
+      !!d.querySelector('.ftr-top-link a[href="#top"]') && !!d.querySelector('#top'));
+   ok('gauge: takes no pointer events, so it cannot pretend to be a control',
+      !d.querySelector('.gauge') ||
+      w.getComputedStyle(d.querySelector('.gauge')).pointerEvents === 'none');
+   /* `[data-video]` is excluded, and that is not the test being softened to
+      fit the code. Its href is a no-JS fallback: with JS the click is
+      intercepted and the player is built in place, so the reader never goes
+      anywhere and initVideo strips the target and the announcement for
+      exactly that reason. It is also the one anchor whose innerHTML gets
+      wiped to make room for the iframe, which is how this assertion caught
+      it in the first place. */
+   var offsite = [].filter.call(d.querySelectorAll('a[href^="http"]'), function (a) {
+     return a.hostname && a.hostname !== w.location.hostname &&
+            !a.hasAttribute('data-video');
+   });
+   ok('links: every off-site link says so (' + offsite.length + ' of them)',
+      offsite.every(function (a) {
+        return /new tab/.test(a.getAttribute('aria-label') || '') ||
+               /new tab|scheduling page/.test(a.textContent || '');
+      }));
+
    /* ---- the licensed face, and the tag ----
       Both landed 28 August 2026 and both are the kind of thing that goes
       quiet rather than loud when it breaks. `--carved` named a family that
