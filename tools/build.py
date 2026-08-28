@@ -160,7 +160,7 @@ def check_stamps():
                 continue
             p = os.path.join(dirpath, f)
             s = io.open(p, encoding="utf-8").read()
-            for got in re.findall(r'(?:site\.css|site\.js|analytics\.js)\?v=([0-9a-f]+)', s):
+            for got in re.findall(r'(?:site\.css|site\.js|analytics\.js|consent\.js)\?v=([0-9a-f]+)', s):
                 if got != want:
                     bad.append((os.path.relpath(p, ROOT), got))
     if bad:

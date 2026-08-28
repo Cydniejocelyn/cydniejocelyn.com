@@ -26,28 +26,23 @@
 <link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
 
-<!-- ============================================================
-     THE DISPLAY FACE, LICENSED AND NOW ACTUALLY SERVED
-     `--carved` in site.css has named "IvyPresto Display" first since the
-     first build and nothing has ever served it, so every headline on this
-     site has been rendering in Instrument Serif, the fallback. Cydnie's
-     Adobe Fonts Web Project, kit jmh2wyp, carries IVYJOURNAL rather than
-     IvyPresto: four faces, roman and bold, each with an italic. `--carved`
-     names `ivyjournal` first now, lowercase and hyphen free, because that
-     is the family name Adobe's kit actually defines and "IvyJournal" with
-     a capital and a space matches nothing.
+<!-- THE ADOBE KIT IS GONE, AND THE LICENCE IS NOT AFFECTED.
+     It was linked here so the licensed face would be embedded, and for a
+     few hours it was the face the site used. It is not any more: `--carved`
+     is Instrument Serif, self hosted below, and nothing on any page asks
+     for `ivyjournal` or `ivypresto-text`.
 
-     Adobe's licence requires the font be served from their CDN. It cannot
-     be self hosted the way the OFL faces in /assets/fonts/ are, so this is
-     the one render blocking third party stylesheet on the site and there
-     is no arrangement of it that is not. The preconnects are what make it
-     cheap: use.typekit.net serves the woff2, and the kit `@import`s a
-     second stylesheet from p.typekit.net, so without these the browser
-     does DNS and TLS twice, one after the other, before a headline paints.
-     ============================================================ -->
-<link rel="preconnect" href="https://use.typekit.net" crossorigin>
-<link rel="preconnect" href="https://p.typekit.net" crossorigin>
-<link rel="stylesheet" href="https://use.typekit.net/jmh2wyp.css">
+     Measured on production before removal: the kit stylesheet was RENDER
+     BLOCKING, it pulled a second blocking stylesheet from p.typekit.net,
+     and a first-time visitor paid 243 to 323ms of DNS, TLS and transfer
+     for 6.2KB that drew nothing. It was the only third party on the
+     critical path of a site that self hosts its type precisely to avoid
+     one. An Adobe Fonts licence is not conditional on the kit being
+     linked from a page that does not use it.
+
+     If a kit face is ever wanted, put the link and its two preconnects
+     back and add the slug to the front of `--carved` in the same commit.
+     See HANDOFF section 35 for what that costs in scale. -->
 
 <!-- THE FONTS ARE SELF HOSTED. There used to be two preconnects and a
      render blocking <link> to fonts.googleapis.com here, which meant the
@@ -72,30 +67,16 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/site.css?v=b3d1b090">
+<link rel="stylesheet" href="../../assets/css/site.css?v=b8862031">
 <script>document.documentElement.className += " js-motion";</script>
 
-<!-- ============================================================
-     GOOGLE ANALYTICS 4, G-KDB3GWPNHC
-     The privacy policy has promised this since it was built: it names
-     Google Analytics under "Information collected automatically" and again
-     under "Third party tools", and the cookie paragraph says the site runs
-     analytics. Until now it did not. This closes that gap rather than
-     opening a new one, which is the reverse of the usual order.
-
-     Last in the head, not first, on purpose. `gtag.js` is `async`, so it
-     never blocks the parser wherever it sits, but a script tag high in the
-     head still enters the fetch queue ahead of the stylesheet and the two
-     preloaded faces, and those three are what the first paint waits on.
-     Analytics measures the paint. It should not be queued in front of it.
-     ============================================================ -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KDB3GWPNHC"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-KDB3GWPNHC');
-</script>
+<!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
+     `gtag.js` used to sit in this head and run on every page load. It is
+     injected by assets/js/consent.js now, and only after a reader accepts.
+     Before that there is no gtag, no dataLayer, and no request to any
+     Google domain at all -- not a cookieless ping either, which is what
+     Consent Mode on its own would still send. See the note at the top of
+     consent.js for why the strict version was chosen. -->
 
 
 <!-- Every figure below is also in the visible page and in HoneyBook. If one
@@ -480,7 +461,7 @@ gtag('config', 'G-KDB3GWPNHC');
 
   <div class="hero-water" aria-hidden="true">
     <img src="../../assets/img/greece/house-1200.webp"
-         srcset="../../assets/img/greece/house-600.webp 600w, ../../assets/img/greece/house-1200.webp 1200w"
+         srcset="../../assets/img/greece/house-600.webp 600w, ../../assets/img/greece/house-900.webp 900w, ../../assets/img/greece/house-1200.webp 1200w"
          sizes="100vw" width="1200" height="1200"
          style="object-position: 50% 62%"
          fetchpriority="high" decoding="async"
@@ -550,7 +531,7 @@ gtag('config', 'G-KDB3GWPNHC');
 <section class="section--tight z-silt" aria-label="Douliana">
   <figure class="layer-band layer-band--wide" style="margin-bottom:0">
     <img src="../../assets/img/greece/drive-1200.webp"
-         srcset="../../assets/img/greece/drive-600.webp 600w, ../../assets/img/greece/drive-1200.webp 1200w, ../../assets/img/greece/drive-1800.webp 1800w"
+         srcset="../../assets/img/greece/drive-600.webp 600w, ../../assets/img/greece/drive-900.webp 900w, ../../assets/img/greece/drive-1200.webp 1200w, ../../assets/img/greece/drive-1800.webp 1800w"
          sizes="100vw" width="1800" height="1200"
          loading="lazy" decoding="async"
          alt="A stone-paved lane through olive trees leading to the houses of Douliana under a clear sky.">
@@ -621,7 +602,7 @@ gtag('config', 'G-KDB3GWPNHC');
     <div class="pair pair--calm">
       <figure class="layer-fig r-img">
         <img src="../../assets/img/greece/deck-600.webp"
-             srcset="../../assets/img/greece/deck-600.webp 600w, ../../assets/img/greece/deck-1200.webp 1200w"
+             srcset="../../assets/img/greece/deck-600.webp 600w, ../../assets/img/greece/deck-900.webp 900w, ../../assets/img/greece/deck-1200.webp 1200w"
              sizes="(min-width: 42rem) 28rem, 100vw" width="1200" height="752"
              loading="lazy" decoding="async"
              alt="A circular wooden deck in the grounds at Armonia seen from above, mats laid out across it.">
@@ -629,7 +610,7 @@ gtag('config', 'G-KDB3GWPNHC');
       </figure>
       <figure class="layer-fig r-img">
         <img src="../../assets/img/greece/studio-600.webp"
-             srcset="../../assets/img/greece/studio-600.webp 600w, ../../assets/img/greece/studio-1200.webp 1200w"
+             srcset="../../assets/img/greece/studio-600.webp 600w, ../../assets/img/greece/studio-900.webp 900w, ../../assets/img/greece/studio-1200.webp 1200w"
              sizes="(min-width: 42rem) 28rem, 100vw" width="1200" height="800"
              loading="lazy" decoding="async"
              alt="The indoor studio at Armonia: a bare wooden floor, white walls and a beamed ceiling.">
@@ -714,7 +695,7 @@ gtag('config', 'G-KDB3GWPNHC');
     <div class="pair pair--calm" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
       <figure class="layer-fig r-img">
         <img src="../../assets/img/greece/olive-600.webp"
-             srcset="../../assets/img/greece/olive-600.webp 600w, ../../assets/img/greece/olive-1200.webp 1200w"
+             srcset="../../assets/img/greece/olive-600.webp 600w, ../../assets/img/greece/olive-900.webp 900w, ../../assets/img/greece/olive-1200.webp 1200w"
              sizes="(min-width: 42rem) 28rem, 100vw" width="1200" height="800"
              loading="lazy" decoding="async"
              alt="An old olive tree with a split trunk in the grounds at Armonia, the house beyond it.">
@@ -722,7 +703,7 @@ gtag('config', 'G-KDB3GWPNHC');
       </figure>
       <figure class="layer-fig r-img">
         <img src="../../assets/img/greece/path-600.webp"
-             srcset="../../assets/img/greece/path-600.webp 600w, ../../assets/img/greece/path-1200.webp 1200w"
+             srcset="../../assets/img/greece/path-600.webp 600w, ../../assets/img/greece/path-900.webp 900w, ../../assets/img/greece/path-1200.webp 1200w"
              sizes="(min-width: 42rem) 28rem, 100vw" width="1200" height="1200"
              loading="lazy" decoding="async"
              alt="A crazy-paved stone path running between palms and olive trees on the property.">
@@ -803,21 +784,21 @@ gtag('config', 'G-KDB3GWPNHC');
       </figure>
       <figure class="gal-item" data-full="../../assets/img/greece/studio-1200.webp">
         <img src="../../assets/img/greece/studio-600.webp"
-             srcset="../../assets/img/greece/studio-600.webp 600w, ../../assets/img/greece/studio-1200.webp 1200w"
+             srcset="../../assets/img/greece/studio-600.webp 600w, ../../assets/img/greece/studio-900.webp 900w, ../../assets/img/greece/studio-1200.webp 1200w"
              sizes="(min-width: 40rem) 24rem, 70vw" width="1200" height="800"
              loading="lazy" decoding="async" alt="The indoor studio at Armonia: a bare wooden floor, white walls and a beamed ceiling.">
         <figcaption>The studio</figcaption>
       </figure>
       <figure class="gal-item" data-full="../../assets/img/greece/pool-1200.webp">
         <img src="../../assets/img/greece/pool-600.webp"
-             srcset="../../assets/img/greece/pool-600.webp 600w, ../../assets/img/greece/pool-1200.webp 1200w"
+             srcset="../../assets/img/greece/pool-600.webp 600w, ../../assets/img/greece/pool-900.webp 900w, ../../assets/img/greece/pool-1200.webp 1200w"
              sizes="(min-width: 40rem) 24rem, 70vw" width="1200" height="798"
              loading="lazy" decoding="async" alt="The pool at Armonia, set into a timber deck with loungers around it and olive trees behind.">
         <figcaption>The pool</figcaption>
       </figure>
       <figure class="gal-item" data-full="../../assets/img/greece/pool-view-1200.webp">
         <img src="../../assets/img/greece/pool-view-600.webp"
-             srcset="../../assets/img/greece/pool-view-600.webp 600w, ../../assets/img/greece/pool-view-1200.webp 1200w"
+             srcset="../../assets/img/greece/pool-view-600.webp 600w, ../../assets/img/greece/pool-view-900.webp 900w, ../../assets/img/greece/pool-view-1200.webp 1200w"
              sizes="(min-width: 40rem) 24rem, 70vw" width="1200" height="798"
              loading="lazy" decoding="async" alt="The pool deck at Armonia in the late afternoon, the valley and the hills beyond the fence.">
         <figcaption>And what it looks out on</figcaption>
@@ -838,14 +819,14 @@ gtag('config', 'G-KDB3GWPNHC');
       </figure>
       <figure class="gal-item" data-full="../../assets/img/greece/deck-1200.webp">
         <img src="../../assets/img/greece/deck-600.webp"
-             srcset="../../assets/img/greece/deck-600.webp 600w, ../../assets/img/greece/deck-1200.webp 1200w"
+             srcset="../../assets/img/greece/deck-600.webp 600w, ../../assets/img/greece/deck-900.webp 900w, ../../assets/img/greece/deck-1200.webp 1200w"
              sizes="(min-width: 40rem) 24rem, 70vw" width="1200" height="752"
              loading="lazy" decoding="async" alt="A circular wooden deck in the grounds at Armonia seen from above.">
         <figcaption>The deck, from above</figcaption>
       </figure>
       <figure class="gal-item" data-full="../../assets/img/greece/dinner-1200.webp">
         <img src="../../assets/img/greece/dinner-600.webp"
-             srcset="../../assets/img/greece/dinner-600.webp 600w, ../../assets/img/greece/dinner-1200.webp 1200w"
+             srcset="../../assets/img/greece/dinner-600.webp 600w, ../../assets/img/greece/dinner-900.webp 900w, ../../assets/img/greece/dinner-1200.webp 1200w"
              sizes="(min-width: 40rem) 24rem, 70vw" width="1200" height="1200"
              loading="lazy" decoding="async" alt="The long table at Armonia laid for dinner at dusk, lanterns hung from the vine pergola above it.">
         <figcaption>Dinner, most nights</figcaption>
@@ -873,7 +854,7 @@ gtag('config', 'G-KDB3GWPNHC');
       </figure>
       <figure class="gal-item" data-full="../../assets/img/greece/house-1200.webp">
         <img src="../../assets/img/greece/house-600.webp"
-             srcset="../../assets/img/greece/house-600.webp 600w, ../../assets/img/greece/house-1200.webp 1200w"
+             srcset="../../assets/img/greece/house-600.webp 600w, ../../assets/img/greece/house-900.webp 900w, ../../assets/img/greece/house-1200.webp 1200w"
              sizes="(min-width: 40rem) 24rem, 70vw" width="1200" height="1200"
              loading="lazy" decoding="async" alt="The stone house at Armonia at dusk, a vine pergola across its front.">
         <figcaption>And the house, at the end of the day</figcaption>
@@ -1271,7 +1252,7 @@ gtag('config', 'G-KDB3GWPNHC');
 <section class="section--tight z-silt" aria-label="The grounds at Armonia">
   <figure class="layer-band layer-band--wide" style="margin-bottom:0">
     <img src="../../assets/img/greece/pool-view-1200.webp"
-         srcset="../../assets/img/greece/pool-view-600.webp 600w, ../../assets/img/greece/pool-view-1200.webp 1200w, ../../assets/img/greece/pool-view-1800.webp 1800w"
+         srcset="../../assets/img/greece/pool-view-600.webp 600w, ../../assets/img/greece/pool-view-900.webp 900w, ../../assets/img/greece/pool-view-1200.webp 1200w, ../../assets/img/greece/pool-view-1800.webp 1800w"
          sizes="100vw" width="1800" height="1197"
          loading="lazy" decoding="async"
          alt="The pool deck at Armonia in the late afternoon, the valley and the hills beyond the fence.">
@@ -1387,11 +1368,12 @@ gtag('config', 'G-KDB3GWPNHC');
   </div>
 </footer>
 
-<script src="../../assets/js/site.js?v=b3d1b090" defer></script>
+<script src="../../assets/js/site.js?v=b8862031" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../../assets/js/analytics.js?v=b3d1b090" defer></script>
+<script src="../../assets/js/analytics.js?v=b8862031" defer></script>
+<script src="../../assets/js/consent.js?v=b8862031" defer></script>
 </body>
 </html>

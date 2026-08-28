@@ -22,28 +22,23 @@
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 
-<!-- ============================================================
-     THE DISPLAY FACE, LICENSED AND NOW ACTUALLY SERVED
-     `--carved` in site.css has named "IvyPresto Display" first since the
-     first build and nothing has ever served it, so every headline on this
-     site has been rendering in Instrument Serif, the fallback. Cydnie's
-     Adobe Fonts Web Project, kit jmh2wyp, carries IVYJOURNAL rather than
-     IvyPresto: four faces, roman and bold, each with an italic. `--carved`
-     names `ivyjournal` first now, lowercase and hyphen free, because that
-     is the family name Adobe's kit actually defines and "IvyJournal" with
-     a capital and a space matches nothing.
+<!-- THE ADOBE KIT IS GONE, AND THE LICENCE IS NOT AFFECTED.
+     It was linked here so the licensed face would be embedded, and for a
+     few hours it was the face the site used. It is not any more: `--carved`
+     is Instrument Serif, self hosted below, and nothing on any page asks
+     for `ivyjournal` or `ivypresto-text`.
 
-     Adobe's licence requires the font be served from their CDN. It cannot
-     be self hosted the way the OFL faces in /assets/fonts/ are, so this is
-     the one render blocking third party stylesheet on the site and there
-     is no arrangement of it that is not. The preconnects are what make it
-     cheap: use.typekit.net serves the woff2, and the kit `@import`s a
-     second stylesheet from p.typekit.net, so without these the browser
-     does DNS and TLS twice, one after the other, before a headline paints.
-     ============================================================ -->
-<link rel="preconnect" href="https://use.typekit.net" crossorigin>
-<link rel="preconnect" href="https://p.typekit.net" crossorigin>
-<link rel="stylesheet" href="https://use.typekit.net/jmh2wyp.css">
+     Measured on production before removal: the kit stylesheet was RENDER
+     BLOCKING, it pulled a second blocking stylesheet from p.typekit.net,
+     and a first-time visitor paid 243 to 323ms of DNS, TLS and transfer
+     for 6.2KB that drew nothing. It was the only third party on the
+     critical path of a site that self hosts its type precisely to avoid
+     one. An Adobe Fonts licence is not conditional on the kit being
+     linked from a page that does not use it.
+
+     If a kit face is ever wanted, put the link and its two preconnects
+     back and add the slug to the front of `--carved` in the same commit.
+     See HANDOFF section 35 for what that costs in scale. -->
 
 <!-- THE FONTS ARE SELF HOSTED. There used to be two preconnects and a
      render blocking <link> to fonts.googleapis.com here, which meant the
@@ -68,30 +63,16 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=b3d1b090">
+<link rel="stylesheet" href="../assets/css/site.css?v=b8862031">
 <script>document.documentElement.className += " js-motion";</script>
 
-<!-- ============================================================
-     GOOGLE ANALYTICS 4, G-KDB3GWPNHC
-     The privacy policy has promised this since it was built: it names
-     Google Analytics under "Information collected automatically" and again
-     under "Third party tools", and the cookie paragraph says the site runs
-     analytics. Until now it did not. This closes that gap rather than
-     opening a new one, which is the reverse of the usual order.
-
-     Last in the head, not first, on purpose. `gtag.js` is `async`, so it
-     never blocks the parser wherever it sits, but a script tag high in the
-     head still enters the fetch queue ahead of the stylesheet and the two
-     preloaded faces, and those three are what the first paint waits on.
-     Analytics measures the paint. It should not be queued in front of it.
-     ============================================================ -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KDB3GWPNHC"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-KDB3GWPNHC');
-</script>
+<!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
+     `gtag.js` used to sit in this head and run on every page load. It is
+     injected by assets/js/consent.js now, and only after a reader accepts.
+     Before that there is no gtag, no dataLayer, and no request to any
+     Google domain at all -- not a cookieless ping either, which is what
+     Consent Mode on its own would still send. See the note at the top of
+     consent.js for why the strict version was chosen. -->
 
 
 <script type="application/ld+json">
@@ -675,11 +656,12 @@ gtag('config', 'G-KDB3GWPNHC');
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=b3d1b090" defer></script>
+<script src="../assets/js/site.js?v=b8862031" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=b3d1b090" defer></script>
+<script src="../assets/js/analytics.js?v=b8862031" defer></script>
+<script src="../assets/js/consent.js?v=b8862031" defer></script>
 </body>
 </html>

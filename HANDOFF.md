@@ -220,7 +220,9 @@ that far.
 | 23 | ~~The hero headings are taller.~~ **CLOSED 28 August. Reverted.** The kit was the Adobe licence, not a restyle. `--carved` is Instrument Serif again and the hero is two lines. | §35 |
 | 27 | ~~The story scroll does not pin below 768.~~ **REVERTED, and it should never have been done.** The pin is back at every width; the gap was closed by sizing the stage to its content instead. Two suite assertions now check the phone case. | §40 |
 | 26 | **The home hero is 982px in an 812px viewport at 375**, because `.hero-path` stacks under the copy and adds 238px. Not a type problem and not fixed: laying it out horizontally, dropping it on mobile, or accepting it are all composition calls. | §36 |
-| 24 | **The kit is linked on nine pages and the site uses none of its faces.** No font file is fetched from Adobe, but the kit stylesheet is render blocking and imports a second one. Keep it for the licence, or drop the link: Cydnie's call. | §35 |
+| 24 | ~~The kit is linked on nine pages and the site uses none of its faces.~~ **CLOSED 28 August. Removed.** 243-323ms of render-blocking time for a font nothing used. | §43 |
+| 24b | ~~No consent banner.~~ **CLOSED 28 August.** Nothing reaches Google before a reader accepts. | §43 |
+| 24c | ~~The kit is linked on nine pages and the site uses none of its faces.~~ No font file is fetched from Adobe, but the kit stylesheet is render blocking and imports a second one. Keep it for the licence, or drop the link: Cydnie's call. | §35 |
 | 25 | **The kit has `ivypresto-text`, not IvyPresto _Display_.** The brand board names Display, which is the cut drawn for headline sizes. Only matters if the licensed face is ever put on the site. | §35 |
 | 22 | **site.js gets the bubble phase before analytics.js, always.** Anything reading state site.js is about to change must listen on capture. Cost three silently-wrong events in one session. | §33 |
 | 20 | **`vercel deploy --cwd dist` reads vercel.json from the SHELL's directory, not from `--cwd`.** It shipped a broken CSP to production once. `ship.sh` cds into dist now and verifies the deployed headers. Never reintroduce `--cwd` on a deploy. | §32 |
@@ -4230,4 +4232,95 @@ desktop-sized floor under its last line. **68px off the approach with nothing
 moved and nothing stretched.**
 
     behaviour  388 pass / 0 fail
+    analytics  141 pass / 0 fail
+
+
+---
+
+## 43. Three asks: the kit out, the Greece images down, and real consent
+
+### The Adobe kit is gone
+
+Measured on production before removal: **render blocking, pulling a second
+blocking stylesheet from `p.typekit.net`, and 243 to 323ms of DNS, TLS and
+transfer for 6.2KB that drew nothing.** It was the only third party on the
+critical path of a site that self hosts its type precisely to avoid one.
+
+Nothing on any page asked for `ivyjournal` or `ivypresto-text` — that was
+verified live before it came out. **An Adobe Fonts licence is not conditional
+on the kit being linked from a page that does not use it.** The two
+preconnects went with it, and the typekit origins came out of `style-src` and
+`font-src`. The suite now asserts the ABSENCE of any typekit link or face,
+because a link added back "for the licence" would be invisible in every other
+check.
+
+### The Greece images were a page problem, not one image
+
+The flagged 213KB photograph turned out to be one of nine. **Every candidate
+set on that page jumped 600w to 1200w, and a 375px screen at 2x needs 750** —
+so a phone took the 1200 every time. A full scroll-through downloaded
+**1,947KB**.
+
+900w is already the convention on that page: eight images had one. The nine
+that did not now do. Each was encoded to match **its own 1200w file's bytes
+per pixel** rather than one blanket quality, by binary searching the WebP
+quality per image, and checked with SSIM against a LANCZOS reference:
+
+    the nine files       2008KB -> 1141KB   (-43%)
+    SSIM                 0.9601 to 0.9826   (0.95 is the floor this repo uses)
+    the page on a phone  1947KB -> 1479KB
+
+### Consent, done the strict way
+
+`gtag.js` is no longer in any page head. `assets/js/consent.js` injects it,
+and **only after a reader accepts**.
+
+**The choice that matters is which of the two implementations this is.** The
+common one is Google's Consent Mode alone: load the tag immediately, declare
+`analytics_storage: denied`, send cookieless pings until the reader agrees.
+No cookie is set, which satisfies most cookie rules — but the reader's IP and
+the page they are on still reach Google before they agreed to anything. This
+site does the other thing: **before consent there is no `gtag`, no
+`dataLayer`, and no request to any Google domain at all.** Consent Mode
+defaults are set as well, as a second lock for any future change that loads
+the tag earlier.
+
+`analytics.js` needed no special case. It already guarded every send with
+`typeof gtag !== "function"` and returned silently — written for ad blockers,
+exactly the right shape for this. **That is also why `gtag` is deliberately
+not defined as a `dataLayer` stub before consent:** a stub would let events
+pile up and be flushed the moment the tag loaded.
+
+Two things the first version got wrong, both found by testing rather than
+review:
+
+1. **Declining did not remove what was already there.** Analytics ran
+   unconditionally on this site for days, so a returning reader arrives
+   already carrying `_ga` and `_ga_KDB3GWPNHC`. A decline that stores "no"
+   and leaves those in place changes nothing. Decline now clears them, across
+   the bare host, the dot-prefixed domain and the registrable parent, because
+   a delete only lands when domain and path match what set it.
+2. **Escape dismissed the banner from anywhere on the page.** The Greece
+   lightbox closes on Escape, so shutting a photograph silently answered a
+   consent prompt two components away. Escape now only reaches the banner
+   when focus is inside it.
+
+The policy copy changed with it: implied consent ("continuing to use the site
+means you accept them") is gone, replaced with what actually happens, plus a
+**Change your cookie choice** control that any `[data-cookie-settings]`
+element on the site gets wired to.
+
+### The suite
+
+The old assertions checked `gtag.js` was in the head, which is now exactly
+the wrong thing. They assert the negative instead — banner shown, no gtag, no
+`dataLayer`, no googletagmanager script — and then, **last**, that accepting
+injects the tag. Order matters: run the accept first and every "nothing
+before consent" assertion passes for the wrong reason. That happened once.
+
+`runsuite.sh` reuses `--user-data-dir` between runs, so one early run that
+clicked Accept left the choice stored and the banner never appeared again.
+The harness clears the key before loading the page under test.
+
+    behaviour  439 pass / 0 fail across nine pages
     analytics  141 pass / 0 fail

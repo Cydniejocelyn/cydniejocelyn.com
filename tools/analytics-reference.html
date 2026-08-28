@@ -11,10 +11,10 @@
    somebody else's. Fathom, Deepwater, Meniscus, Breath, Surface and
    Held are the six colours in BRIEF.md and nothing else is used.
 
-   The carved face on the live site is IvyJournal, licensed through
-   Adobe. Adobe's CDN is not reachable from a published artifact, so
-   this page sets the same fallback the site itself falls back to,
-   Instrument Serif, rather than substituting something unrelated.
+   The carved face on the live site is Instrument Serif, self hosted.
+   The Adobe kit was linked for a few hours in August and is gone: it
+   was render blocking and nothing used it. This page sets the same
+   face the site does.
    ------------------------------------------------------------------ */
 :root {
   --fathom:    #071A1F;
@@ -537,9 +537,20 @@ footer {
     </ul>
     <p class="note">Readers running an ad blocker send nothing, which is normal and is not an
       error state — expect the totals here to under-count a design-literate audience by a
-      noticeable margin. And the site currently takes the implied-consent posture: analytics
-      loads before anyone agrees to it. That is standard for a US business and it is not GDPR
-      consent, which is worth a decision of its own if the Greece retreat draws European traffic.</p>
+      noticeable margin.</p>
+    <div class="gap" style="border-left-color:var(--accent)">
+      <h3 style="color:var(--accent)">Nothing fires until a reader says yes</h3>
+      <p>As of 28 August the tag is <strong>not in the page head</strong>. It is injected by
+        <code>assets/js/consent.js</code>, and only after the cookie banner is accepted. Before
+        that there is no <code>gtag</code>, no <code>dataLayer</code>, and no request to any
+        Google domain at all — not even the cookieless ping that Consent Mode alone would still
+        send.</p>
+      <p>Every event on this page therefore describes what is collected <em>from readers who
+        opted in</em>. Declining is remembered for a year and clears the two GA cookies if the
+        reader already had them. <code>analytics.js</code> needs no special case for any of
+        this: it already returned silently whenever <code>gtag</code> was missing, which was
+        written for ad blockers and turned out to be exactly the right shape.</p>
+    </div>
   </section>
 
   <footer>Reference for assets/js/analytics.js · keep the two in step</footer>

@@ -13,6 +13,13 @@ function ok(n,c){lines.push((c?'PASS  ':'FAIL  ')+n);}
 function done(){document.getElementById('log').innerHTML =
   lines.map(function(l){return '<span class="'+(l[0]=='P'?'p':'f')+'">'+l+'</span>';}).join('\n')
   + '\n\n' + lines.filter(function(l){return l[0]=='F'}).length + ' failing of ' + lines.length;}
+/* Clear any remembered cookie choice BEFORE the page under test loads.
+   runsuite.sh reuses `--user-data-dir` between runs, so localStorage
+   survives, and one earlier run that clicked Accept left the choice stored
+   for every run after it: the banner never appeared again and two
+   assertions failed against code that was correct. The harness and the
+   iframe are the same origin, so clearing it here clears it there. */
+try { localStorage.removeItem('cj-cookie-choice'); } catch (e) {}
 f.src = new URLSearchParams(location.search).get('p') || '/retreats/greece/';
 /* A SECOND FRAME AT 375, created here rather than later on purpose.
    The suite waits six seconds for the page under test to settle; this gets
@@ -605,11 +612,16 @@ f.addEventListener('load', function(){
       it" is. Adobe's kit is a third party stylesheet: a lapsed Creative
       Cloud seat or a deleted Web Project takes it out with no error on
       this end, and the site quietly reverts to Instrument Serif. */
-   ok('type: the kit stylesheet is in the head, exactly once',
-      d.querySelectorAll('link[href="https://use.typekit.net/jmh2wyp.css"]').length===1);
-   ok('type: and it is preconnected, both hosts',
-      !!d.querySelector('link[rel=preconnect][href="https://use.typekit.net"]') &&
-      !!d.querySelector('link[rel=preconnect][href="https://p.typekit.net"]'));
+   /* THE ADOBE KIT IS GONE AND MUST STAY GONE while nothing uses it. It was
+      render blocking, it pulled a second blocking stylesheet from
+      p.typekit.net, and it cost a first-time visitor 243-323ms to deliver a
+      font no rule on the site asks for. Asserting its absence is the only
+      way that stays true: a link added back "for the licence" would be
+      invisible in every other check here. */
+   ok('type: no third-party font stylesheet on the critical path',
+      d.querySelectorAll('link[href*="typekit"], link[rel=preconnect][href*="typekit"]').length===0);
+   ok('type: and no kit face is loaded',
+      ![].some.call(d.fonts || [], function (f) { return /ivyjournal|ivypresto/i.test(f.family); }));
    /* THE SITE DOES NOT USE THE KIT, AND THAT IS THE ASSERTION.
       The kit is linked for the Adobe licence. Pointing `--carved` at it
       changed the look of every heading on the site -- ivyjournal is +10%
@@ -632,12 +644,46 @@ f.addEventListener('load', function(){
    /* It draws the first screen again, so it is preloaded again. */
    ok('type: Instrument Serif is preloaded, because it draws the headline',
       d.querySelectorAll('link[rel=preload][href*="instrument-serif"]').length===1);
-   ok('analytics: gtag.js for G-KDB3GWPNHC is in the head',
-      d.querySelectorAll('script[src*="googletagmanager.com/gtag/js?id=G-KDB3GWPNHC"]').length===1);
-   ok('analytics: and it is async, so it is never in front of the paint',
-      !!d.querySelector('script[src*="googletagmanager.com/gtag/js"]').async);
-   ok('analytics: gtag is defined and dataLayer has the config in it',
-      typeof w.gtag === 'function' && (w.dataLayer||[]).length >= 3);
+   /* ---- consent, and the order it has to happen in ----
+      `gtag.js` used to sit in every head and run on load. It does not now:
+      consent.js injects it, and only after a reader accepts. These assertions
+      run BEFORE the accept test further down, deliberately, because the
+      valuable claim is the negative one -- that a reader who has not answered
+      has sent nothing to Google. Each page gets its own Chrome profile in
+      runsuite.sh, so localStorage is empty and the banner is always shown. */
+   ok('consent: consent.js is on the page', !!d.querySelector('script[src*="js/consent.js"]'));
+   ok('consent: the banner is shown when no choice has been made',
+      !!d.querySelector('.cc [data-cc="yes"]') && !!d.querySelector('.cc [data-cc="no"]'));
+   ok('consent: nothing has been loaded from Google before a choice',
+      d.querySelectorAll('script[src*="googletagmanager"]').length===0 &&
+      typeof w.gtag === 'undefined' && typeof w.dataLayer === 'undefined');
+   /* Decline has to be as easy to reach and as legible as accept. A decline
+      hidden in a link or greyed to a whisper is not consent. */
+   (function () {
+      var yes = d.querySelector('.cc [data-cc="yes"]'), no = d.querySelector('.cc [data-cc="no"]');
+      if (!yes || !no) return;
+      var ry = yes.getBoundingClientRect(), rn = no.getBoundingClientRect();
+      ok('consent: decline is a real button, same size class as accept',
+         rn.height >= 44 && ry.height >= 44 && Math.abs(ry.height - rn.height) < 4 &&
+         rn.width > ry.width * 0.6);
+      ok('consent: the banner does not push the page around (fixed, CLS safe)',
+         w.getComputedStyle(d.querySelector('.cc')).position === 'fixed');
+   })();
+
+   /* ---- and accepting actually turns it on ----
+      Last, because it injects a real script tag and defines gtag, which
+      would make every "nothing before consent" assertion above pass for the
+      wrong reason if it ran first. */
+   (function () {
+      var yes = d.querySelector('.cc [data-cc="yes"]');
+      if (!yes) return;
+      yes.click();
+      ok('consent: accepting injects the tag and defines gtag',
+         typeof w.gtag === 'function' &&
+         d.querySelectorAll('script[src*="googletagmanager.com/gtag/js"]').length===1);
+      ok('consent: and the banner is dismissed once answered', !d.querySelector('.cc'));
+   })();
+
 
    /* ---- the policy has to describe the site it is on ----
       This page is the only one that makes claims about the other eight, and
@@ -657,9 +703,12 @@ f.addEventListener('load', function(){
    var policyBody = d.querySelector('.pv-body');
    if (policyBody) {
      var txt = policyBody.textContent;
-     var src = (d.querySelector('script[src*="googletagmanager.com/gtag/js"]')||{}).src || '';
-     var mid = (src.match(/[?&]id=(G-[A-Z0-9]+)/) || [])[1] || '';
-     ok('policy: names the measurement id the site actually loads ('+mid+')',
+     /* The id is read from analytics.js's own export rather than from a
+        script tag, because there is no gtag tag in the head any more -- it
+        is injected on accept. The cross-check is the same one either way:
+        the policy and the code must name the same property. */
+     var mid = (w.__analytics && w.__analytics.id) || '';
+     ok('policy: names the measurement id the site actually uses ('+mid+')',
         !!mid && txt.indexOf('_ga_' + mid.replace('G-','')) > -1);
      ok('policy: and names the plain _ga cookie beside it',
         /\b_ga\b/.test(txt));
