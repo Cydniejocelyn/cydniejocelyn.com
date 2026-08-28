@@ -64,23 +64,23 @@
      fonts.gstatic.com. The @font-face rules live in site.css now, which is
      already blocking, so it costs no extra request at all.
 
-     The sans is preloaded because it carries the first screen: it is the
-     lede, and it is still what `--level` resolves to. It is `crossorigin`
-     because font fetches are CORS even same origin, and without it the
-     preload is thrown away and fetched a second time.
+     These two are preloaded because they carry the first screen: the sans
+     is the lede and the serif is the headline. The mono is small caps
+     labels and is left to be discovered from the stylesheet. Both are
+     `crossorigin` because font fetches are CORS even same origin, and
+     without it the preload is thrown away and fetched a second time.
 
-     INSTRUMENT SERIF IS NO LONGER PRELOADED. It was, while it was the face
-     that actually drew every headline. Now that the carved stack resolves
-     to IvyJournal from the Adobe kit above, Instrument Serif is a fallback
-     and nothing more: measured on 28 August 2026 it still downloaded all
-     15,340 bytes on the critical path and then rendered not one character,
-     because `document.fonts` had ivyjournal and never asked for it. A
-     preload is a promise that a file is needed immediately. This one had
-     stopped being true the moment the kit went in. It is still in the
-     stack in site.css, and if the kit ever fails it is still what renders,
-     discovered from the stylesheet the way the mono always has been. -->
+     The serif preload was removed on 28 August, when `--carved` briefly
+     resolved to IvyJournal from the Adobe kit and Instrument Serif stopped
+     drawing anything. That change is reverted -- the kit is linked for the
+     licence and the site does not use it -- so Instrument Serif is once
+     again the face that draws every headline, and it is once again
+     preloaded. If the carved stack is ever pointed at the kit for real,
+     this line comes out in the same commit, or it is 15,340 bytes fetched
+     on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=7e9c3374">
+<link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css?v=08be3e66">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ============================================================
@@ -1292,12 +1292,12 @@ gtag('config', 'G-KDB3GWPNHC');
   </div>
 </footer>
 
-<script src="assets/js/site.js?v=7e9c3374" defer></script>
+<script src="assets/js/site.js?v=08be3e66" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="assets/js/analytics.js?v=7e9c3374" defer></script>
+<script src="assets/js/analytics.js?v=08be3e66" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

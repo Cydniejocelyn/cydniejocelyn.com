@@ -217,7 +217,9 @@ that far.
 | 18 | **HSTS ships without `includeSubDomains` or `preload`, and there is no consent banner.** Both deliberate, both Cydnie's call, neither one a bug. | §31 |
 | 19 | **The security headers do not exist until cutover.** The apex still answers from Showit. Verified live 28 August. | §31 |
 | 21 | ~~Nine measured UX frictions.~~ **CLOSED 28 August. All nine fixed**, suite 356 → 385. Two halves deliberately left as Cydnie's call: the visible booking hand-off line, and redrawing the gauge. | §34 |
-| 23 | **The hero headings are ~10% taller and ~6% wider than they were**, because IvyJournal replaced Instrument Serif, not because any size changed. Factor 0.91 pulls them back if wanted. Not applied. | §34 |
+| 23 | ~~The hero headings are taller.~~ **CLOSED 28 August. Reverted.** The kit was the Adobe licence, not a restyle. `--carved` is Instrument Serif again and the hero is two lines. | §35 |
+| 24 | **The kit is linked on nine pages and the site uses none of its faces.** No font file is fetched from Adobe, but the kit stylesheet is render blocking and imports a second one. Keep it for the licence, or drop the link: Cydnie's call. | §35 |
+| 25 | **The kit has `ivypresto-text`, not IvyPresto _Display_.** The brand board names Display, which is the cut drawn for headline sizes. Only matters if the licensed face is ever put on the site. | §35 |
 | 22 | **site.js gets the bubble phase before analytics.js, always.** Anything reading state site.js is about to change must listen on capture. Cost three silently-wrong events in one session. | §33 |
 | 20 | **`vercel deploy --cwd dist` reads vercel.json from the SHELL's directory, not from `--cwd`.** It shipped a broken CSP to production once. `ship.sh` cds into dist now and verifies the deployed headers. Never reintroduce `--cwd` on a deploy. | §32 |
 | 14 | **`figure` default margin is unreset on `.quote`**, so the home page's quote carousel is indented 40px each side. **Verified still true on 28 August.** Fixed on `.sd-quote` only; the shared fix is one declaration but widens 14 slides across two live pages and touches the touch-carousel geometry, so it wants doing deliberately rather than in passing. | §11 |
@@ -3727,3 +3729,86 @@ instead wants 0.85, which suits mixed-case headings like "I'm Cydnie." and
 would leave the hero smaller than it used to be. One number cannot serve both
 perfectly; 0.91 is the one to try first. **Not applied** — nothing is broken
 and it is a taste decision.
+
+
+---
+
+## 35. Session twenty-three, part three: the kit was the licence, not a restyle
+
+Reported as "my hero headers got bigger... too big now and potentially wrong
+font", and then, decisively: **"Fonts were just the key for Adobe, not to
+change the site."**
+
+That is the whole thing. The Adobe kit was supplied so the licence would be
+in place. §30 read it as an instruction to put the licensed face on the site,
+put `ivyjournal` at the front of `--carved`, and changed the appearance of
+every heading on all nine pages as a side effect. **Reverted.**
+
+### What the change actually did, measured
+
+`font-size` was never touched. The typeface was, and these two faces are
+simply bigger letters at the same nominal size. At an identical 100px,
+against Instrument Serif:
+
+    ivyjournal       cap +10.0%   x-height +18.3%   caps width +5.8%
+    ivypresto-text   cap +10.0%   x-height +16.7%   caps width -2.9%
+
+**x-height is the number that explains the complaint.** x-height, not point
+size, is what the eye reads as "how big is this type", so an 18% increase at
+an unchanged `font-size` is very visible. The home hero went from **two lines
+to four** at 1440. It is two lines again.
+
+### The kit had changed under us, which is worth knowing
+
+The first fetch, 18:41 UTC, returned one family: `ivyjournal`. The kit was
+republished at **20:12 UTC the same day** and returned two: `ivyjournal` and
+`ivypresto-text`. That is how "potentially wrong font" was diagnosed rather
+than guessed — the browser reported eight `@font-face` rules where the
+morning's kit had four.
+
+**Neither of them is IvyPresto _Display_**, which is the family the brand
+board names and the one the codebase spent eight sessions waiting for.
+`ivypresto-text` is the text cut: sturdier hairlines, looser spacing, drawn
+for paragraphs rather than for a 70px headline. If the licensed face is ever
+wanted on the site, that distinction matters more than the name matching.
+
+### What the site does now
+
+`--carved` is `"Instrument Serif", Georgia, serif` and **Instrument Serif is
+named first because it is the only thing that renders.** That rule is now
+stated in the stylesheet, because naming a family nothing serves is exactly
+what let `"IvyPresto Display"` sit at the front of this token for eight
+sessions while looking correct.
+
+The kit `<link>` and its two preconnects stay in all nine heads. **The site
+asks for none of the kit's faces, so no font file is fetched from Adobe** —
+the cost is the kit stylesheet itself, which is render blocking, plus the
+`p.typekit.net` stylesheet it imports. That is the price of having the
+licence embedded, and it is worth a decision rather than a default. It is
+listed as an open item.
+
+The Instrument Serif preload is back on all nine pages, because it draws the
+first screen again.
+
+### The two assertions that were asserting the wrong thing
+
+The suite briefly checked that `ivyjournal` was loaded and that Instrument
+Serif was *not* preloaded. Both now check the reverse, with the reason
+written beside them, and one new one checks that **no kit family appears in
+`--carved` at all**. A test that encodes a decision has to be turned around
+when the decision is, which is cheaper than discovering later that the suite
+was defending the wrong behaviour.
+
+    behaviour  383 pass / 0 fail across nine pages
+    analytics  141 pass / 0 fail across nine pages
+
+### The general lesson, and it is not a small one
+
+**Being handed a credential is not being handed a design instruction.** The
+kit link arrived in a message about legality, and it was read as a brief. The
+tell was available and was written down at the time and then not weighted:
+§30 records that the kit contained IvyJournal rather than the IvyPresto the
+entire codebase named, and it wired it in anyway on the reasoning that
+`--carved` was the only serif slot. The right move on a mismatch that size is
+to make the licence work and leave the appearance alone until somebody says
+otherwise.

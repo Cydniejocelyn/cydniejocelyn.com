@@ -77,10 +77,13 @@ what produces "RESurFAce" on the board. It carries the short, certain lines only
 Foundation's "short when certain" register. Body is DM Sans, at the specified 60 to 66
 characters per line.
 
-The carved set is now **IvyJournal**, served from Cydnie's Adobe Fonts Web Project, kit
-`jmh2wyp`, and `--carved` in `site.css` names `ivyjournal` first. Adobe's licence requires it be
-served from their CDN, so unlike the other four families it is not in `assets/fonts/`. Swapping
-it is still one line, plus the kit `<link>` in all nine page heads.
+The carved set is **Instrument Serif**, self hosted like the rest, and `--carved` in `site.css`
+names it first. The Adobe kit `jmh2wyp` is linked in all nine page heads for the licence and
+carries `ivyjournal` and `ivypresto-text`; **the site deliberately uses neither.** Pointing
+`--carved` at a kit family briefly on 28 August changed the look of every heading — those faces
+are +10% cap height and up to +18% x-height against Instrument Serif at the same nominal size,
+and the home hero went from two lines to four. If a kit face is ever genuinely wanted, add its
+slug to the front of `--carved` and retune the carved scale by about 0.91 in the same commit.
 
 ## The mark
 
@@ -143,12 +146,11 @@ cannot be verified is the kind of claim that gets rich results suppressed.
 
 ## Before launch: required wiring
 
-1. ~~**IvyPresto Display.**~~ **Done 28 August.** The Web Project exists and its `<link>` is in
-   all nine heads. It contains **IvyJournal**, not IvyPresto Display; if that was not the
-   intention, add the right family to the kit at fonts.adobe.com and change `--carved`.
-   Two things this now depends on that it did not before: the Creative Cloud seat staying
-   active, and the Web Project staying published. Either one lapsing drops every headline
-   silently back to Instrument Serif, with no error anywhere.
+1. ~~**IvyPresto Display.**~~ **Done 28 August, and then deliberately not used.** The Web
+   Project exists and its `<link>` is in all nine heads, which is what the licence needed. It
+   carries `ivyjournal` and `ivypresto-text` — not IvyPresto *Display*, which is the display cut
+   the brand board names and the one that would suit a 70px hero. Nothing on the site asks for
+   any of them, so a lapsed seat or an unpublished project changes nothing visible.
 2. **The email form.** `action="#"` on the twelve-questions form is a placeholder. Point it at
    the Flodesk endpoint and keep the hidden `tag` field. **If it becomes a real cross-origin
    POST, add its host to `form-action` in the CSP** or the submission is blocked; the live

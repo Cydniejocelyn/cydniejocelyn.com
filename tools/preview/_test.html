@@ -515,19 +515,28 @@ f.addEventListener('load', function(){
    ok('type: and it is preconnected, both hosts',
       !!d.querySelector('link[rel=preconnect][href="https://use.typekit.net"]') &&
       !!d.querySelector('link[rel=preconnect][href="https://p.typekit.net"]'));
-   ok('type: --carved names ivyjournal first',
-      /^\s*"?ivyjournal"?\s*,/.test(w.getComputedStyle(d.documentElement).getPropertyValue('--carved')));
-   ok('type: ivyjournal is actually LOADED, not just named',
-      !!d.fonts && d.fonts.check('400 40px ivyjournal'));
+   /* THE SITE DOES NOT USE THE KIT, AND THAT IS THE ASSERTION.
+      The kit is linked for the Adobe licence. Pointing `--carved` at it
+      changed the look of every heading on the site -- ivyjournal is +10%
+      cap height and +18.3% x-height against Instrument Serif at the same
+      nominal size, and the home hero went from two lines to four -- which
+      was never what supplying the licence key was asking for.
+
+      So this asserts the reverse of what it briefly asserted: the carved
+      face is Instrument Serif, it is named FIRST because nothing should sit
+      in that list that is not served, and no Typekit family is in front of
+      it. If the licensed face is ever genuinely wanted, these three change
+      together with the carved scale, deliberately, in one commit. */
+   var carvedStack = w.getComputedStyle(d.documentElement).getPropertyValue('--carved');
+   ok('type: --carved names Instrument Serif first, and no kit family',
+      /^\s*"?Instrument Serif"?\s*,/.test(carvedStack) &&
+      !/ivyjournal|ivypresto/i.test(carvedStack));
    var carvedH1 = d.querySelector('h1');
-   ok('type: and the h1 resolves to it, so headlines are the licensed face',
-      !!carvedH1 && /^ivyjournal/.test(w.getComputedStyle(carvedH1).fontFamily));
-   /* Instrument Serif stays in the stack as the fallback and stays OUT of
-      the preloads. It downloaded 15,340 bytes on the critical path and
-      rendered nothing for as long as both were true at once. */
-   ok('type: Instrument Serif is a fallback, not a preload',
-      d.querySelectorAll('link[rel=preload][href*="instrument-serif"]').length===0 &&
-      /Instrument Serif/.test(w.getComputedStyle(d.documentElement).getPropertyValue('--carved')));
+   ok('type: the h1 actually resolves to Instrument Serif',
+      !!carvedH1 && /Instrument Serif/.test(w.getComputedStyle(carvedH1).fontFamily.split(',')[0]));
+   /* It draws the first screen again, so it is preloaded again. */
+   ok('type: Instrument Serif is preloaded, because it draws the headline',
+      d.querySelectorAll('link[rel=preload][href*="instrument-serif"]').length===1);
    ok('analytics: gtag.js for G-KDB3GWPNHC is in the head',
       d.querySelectorAll('script[src*="googletagmanager.com/gtag/js?id=G-KDB3GWPNHC"]').length===1);
    ok('analytics: and it is async, so it is never in front of the paint',

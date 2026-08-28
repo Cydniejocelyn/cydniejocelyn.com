@@ -56,10 +56,11 @@ Roughly 70/30 dark to light across the page.
 ```
 
 IvyPresto is licensed and self-hosted, so it stays first and Instrument Serif carries it.
-**Amended 28 August 2026, and this paragraph is now wrong in both halves.** The carved
-face shipped is IvyJournal, from Adobe Fonts kit `jmh2wyp`, and it is served from Adobe's
-CDN because their licence forbids self-hosting. `--carved` names `ivyjournal` first.
-Instrument Serif still carries it, but only as a fallback. See HANDOFF §30.
+**Amended 28 August 2026, and this paragraph is wrong in both halves.** IvyPresto is not
+self-hosted and cannot be: it is an Adobe Fonts licence, and their terms require serving from
+Adobe's CDN. The kit `jmh2wyp` is linked in every page head for that licence and carries
+`ivyjournal` and `ivypresto-text`. **The carved face on the site is Instrument Serif**, which
+is what has rendered every headline since the first build. See HANDOFF §35.
 Display type is regular weight only, never bold, never below 17px. Body is Instrument Sans at
 1.6 line height. IBM Plex Mono is labels and eyebrows only: uppercase, 0.28em letterspacing.
 

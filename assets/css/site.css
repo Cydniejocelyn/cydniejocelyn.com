@@ -37,12 +37,11 @@
    reflows when the face arrives, which is the right trade for a site whose
    first screen is one sentence.
 
-   The carved face is NOT here either, and cannot be. It is IvyJournal,
-   licensed through Adobe Fonts, and Adobe's terms require it be served
-   from their CDN rather than self hosted like these five. It arrives from
-   the kit stylesheet in every page head. Instrument Serif stays in the
-   stack behind it as the fallback, which is what rendered every headline
-   on this site up to 28 August 2026.
+   Instrument Serif IS the carved face and is right here, self hosted with
+   the rest. The Adobe kit in every page head carries `ivyjournal` and
+   `ivypresto-text`, and the site deliberately uses neither: the kit is
+   linked for the licence. See the note on `--carved` below for how to
+   switch one of them on, and what it costs in scale if you do.
 
    TO REGENERATE: the files came from the css2 URL that used to be in every
    page head, fetched with a modern desktop user agent so Google serves
@@ -130,8 +129,8 @@
 }
 
 /* ---------- 1 + 2. TYPE AND PALETTE ---------------------------
-   Fonts come from Google and are self hosted above, except the carved
-   face, which is licensed and comes from Adobe's CDN.
+   All three faces come from Google and are self hosted above. The Adobe
+   kit is linked for the licence and nothing on the site asks for it.
    Every hex below is from the brief and nothing else is used. */
 :root {
   /* palette */
@@ -144,12 +143,36 @@
   --held-lift: #CE908A;   /* hover for Held only */
 
   /* type */
-  /* `ivyjournal` is lowercase and unspaced because that is the family name
-     Adobe's kit defines. "IvyJournal" matches nothing and falls straight
-     through, which is exactly how "IvyPresto Display" sat here for eight
-     sessions looking wired while Instrument Serif did all the work. If the
-     headlines ever go plain again, check the kit before you check this. */
-  --carved:  "ivyjournal", "Instrument Serif", Georgia, serif;
+  /* THE CARVED FACE IS INSTRUMENT SERIF, AND IT IS NAMED FIRST ON PURPOSE.
+     It is also the only thing here that renders, which is the point.
+
+     For eight sessions this token read `"IvyPresto Display", "Instrument
+     Serif", ...` and IvyPresto was never served, so every headline on the
+     site was Instrument Serif while the stack looked wired. On 28 August an
+     Adobe kit arrived and `ivyjournal` went in front, which finally made the
+     first name in the list the one that rendered -- and changed the look of
+     every heading on the site as a side effect. The kit was supplied as the
+     Adobe licence, not as an instruction to restyle, so that is reverted.
+
+     Measured, which is why the change was visible rather than subtle. At an
+     identical 100px, against Instrument Serif:
+
+         ivyjournal       cap +10.0%   x-height +18.3%   caps width +5.8%
+         ivypresto-text   cap +10.0%   x-height +16.7%   caps width -2.9%
+
+     x-height is what the eye reads as "how big is this type", so an 18%
+     increase at the same nominal size is very visible. The home hero went
+     from two lines to four at 1440.
+
+     NOTHING IS NAMED HERE THAT IS NOT SERVED. That rule is the whole lesson
+     of the eight sessions above: a family in this list that no stylesheet
+     provides is invisible, silent, and looks correct. To put the licensed
+     face on the site, add its slug to the FRONT of this line and nowhere
+     else -- the kit is already linked in every page head, and it carries
+     `ivyjournal` and `ivypresto-text` today. Expect to retune the carved
+     scale by roughly 0.91 in the same commit, or the headings arrive 10%
+     taller than the scale was designed for. */
+  --carved:  "Instrument Serif", Georgia, serif;
   --level:   "Instrument Sans", -apple-system, "Segoe UI", Helvetica, sans-serif;
   --utility: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
