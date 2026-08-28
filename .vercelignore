@@ -9,6 +9,13 @@ cydniejocelyn/
 
 .git/
 .DS_Store
+# Local Claude tooling. `launch.json` holds absolute paths to a preview
+# server on this machine, and until 28 August 2026 build.py walked into this
+# folder and copied it into dist/, so it was uploaded on every deploy and
+# served at /.claude/launch.json. Excluded here AND in build.py's
+# EXCLUDE_DIRS; the drift check at the bottom of build.py keeps the two lists
+# honest with each other.
+.claude/
 
 # build output and local tooling, not part of the deployed site
 tools/

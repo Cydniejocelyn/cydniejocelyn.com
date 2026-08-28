@@ -1038,7 +1038,21 @@
                   "?autoplay=1&start=" + (a.dataset.start || "0") +
                   "&rel=0&modestbranding=1&playsinline=1";
           f.title = a.dataset.title || "Video";
-          f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+          /* `allow` is a delegation of this page's permissions to a frame on
+             a domain we do not control, so it lists what a video needs and
+             nothing else. Dropped from the snippet YouTube hands out:
+             `clipboard-write`, which lets the frame write to the reader's
+             clipboard and has nothing to do with playing a video, and
+             `accelerometer` and `gyroscope`, which are motion sensors that
+             only matter for 360-degree footage. None of the embeds here are
+             360. `encrypted-media` stays because DRM playback needs it and
+             `picture-in-picture` stays because readers use it.
+
+             `referrerpolicy` stops the full URL of the page going to Google
+             with the embed request; they get the origin, which is all the
+             embed needs to work. */
+          f.allow = "autoplay; encrypted-media; picture-in-picture";
+          f.referrerPolicy = "strict-origin-when-cross-origin";
           f.setAttribute("allowfullscreen", "");
           a.classList.add("is-playing");
           a.innerHTML = "";
@@ -1077,8 +1091,19 @@
         });
         var b = document.createElement("button");
         b.type = "button";
-        b.innerHTML = '<span class="vh">Open: ' +
-          (cap ? cap.textContent.trim() : "photograph") + '</span>';
+        /* This label used to be built with innerHTML and a `+`. The caption
+           it interpolates arrives as `figcaption.textContent`, which is
+           already decoded, so writing it back as HTML re-parses it: a
+           caption containing an ampersand or an angle bracket would come out
+           wrong, and a caption is exactly the kind of copy that eventually
+           contains "R&D" or a measurement in inches. Nothing on this site is
+           reader-supplied, so this was never an injection -- it is a decode
+           round trip, and building the node instead of the string removes
+           the whole question rather than escaping it. */
+        var vh = document.createElement("span");
+        vh.className = "vh";
+        vh.textContent = "Open: " + (cap ? cap.textContent.trim() : "photograph");
+        b.appendChild(vh);
         /* the control is passed in rather than read off document.activeElement:
            a click does not always leave focus on what was clicked, and closing
            to a focus ring on <body> puts the reader back at the top of the

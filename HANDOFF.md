@@ -212,8 +212,10 @@ that far.
 | 9 | **Two client sites render broken on mobile.** Not ours, but she should know. | §7b2 |
 | 10 | **The Sauk Centre retreat, 8 October 2026,** has four live checkout links and is on no page. She said leave it off. | §10 |
 | 11 | ~~`/thequestions` is unbuilt.~~ **CLOSED 28 August.** Built, noindex, out of the sitemap. **The eyebrow, the `<title>` and the meta description are event scoped and have to be swapped per event**; they currently read GATHER / The Journey / Minneapolis. Nothing else on the page moves. | §18 |
-| 12 | **`IvyPresto Display` is not self-hosted.** Instrument Serif is what actually renders. | §7.4 |
+| 12 | ~~`IvyPresto Display` is not self-hosted.~~ **CLOSED 28 August.** Cydnie supplied an Adobe Fonts kit, `jmh2wyp`. It carries **IvyJournal, not IvyPresto Display** — four faces, roman and bold, each with an italic. `--carved` names `ivyjournal` first now and the headlines are the licensed face on all nine pages. **If IvyPresto was what she meant, the fix is her Web Project, not this repo:** add the family there and change one token. | §30 |
 | 13 | **Never verified:** a full keyboard pass and a real screen-reader pass. | §7.5 |
+| 18 | **HSTS ships without `includeSubDomains` or `preload`, and there is no consent banner.** Both deliberate, both Cydnie's call, neither one a bug. | §31 |
+| 19 | **The security headers do not exist until cutover.** The apex still answers from Showit. Verified live 28 August. | §31 |
 | 14 | **`figure` default margin is unreset on `.quote`**, so the home page's quote carousel is indented 40px each side. **Verified still true on 28 August.** Fixed on `.sd-quote` only; the shared fix is one declaration but widens 14 slides across two live pages and touches the touch-carousel geometry, so it wants doing deliberately rather than in passing. | §11 |
 | 15 | **Angela's quote is excerpted on `/a-sounding/`.** Her full review opens "From our very first coaching call", and that page argues it is not coaching. Confirm she is comfortable appearing there. | §11 |
 | 16 | ~~The podcast.~~ **CLOSED 27 August.** Cydnie had all three references removed: the named link and the Spotify and Apple Podcasts icons, which both went to the same show. **It is still in `sameAs` on the home page and in `llms.txt`,** which is identity data rather than a link and was left deliberately. If the podcast is actually retired, those go too. | §16 |
@@ -814,9 +816,10 @@ load, all revealed once scrolled past, and **with JS off every paragraph is visi
    `cydniejocelyn.com` pointed at this build every one of those links would have 404'd. It is
    `/privacy-policy/` on all nine pages now, and two assertions in the suite fail if anyone
    makes it absolute again. See §18.
-4. **`IvyPresto Display` is not self-hosted.** It is licensed, not on Google Fonts, and the
-   files are **not in this workspace**. The stack names it first and falls back to Instrument
-   Serif, which is what is actually rendering. Ask her for the Adobe license files.
+4. ~~**`IvyPresto Display` is not self-hosted.**~~ **CLOSED 28 August.** The kit arrived and it
+   is **IvyJournal**. See §30. Nothing is self-hosted about it and nothing can be: Adobe's
+   terms require serving from their CDN, so the carved face is the one third-party dependency
+   on this site's first paint. Instrument Serif stays in the stack behind it.
 5. **Never verified since the rebuilds:** a full keyboard pass, and a real screen-reader pass.
    Contrast has been checked in places, not swept.
 6. **The podcast.** The home footer still links "She Rises Through It". The old wireframe said
@@ -3198,3 +3201,245 @@ section is `min-height: 80svh` now, so 38% has enough page to be 38% of.
 page grows about 108px on a desktop, roughly a tenth of a screen on an
 eleven screen page, which is the cost of the heading not having a line
 through it.
+
+
+---
+
+## 30. Session twenty-two: the licensed face, and the tag that was already promised
+
+Two wirings, both of which had been sitting open, and one of them had been
+open in a way that made the site say something untrue.
+
+### The font is IvyJournal, not IvyPresto Display
+
+`--carved` has named `"IvyPresto Display"` since the first build and nothing
+has ever served it. Every headline on this site, for twenty-one sessions,
+has rendered in **Instrument Serif**, the fallback. The stack looked wired.
+That is the whole failure mode: a font stack cannot tell you the difference
+between "loaded and rendering" and "named and skipped".
+
+Cydnie's Adobe Fonts Web Project, kit `jmh2wyp`, was fetched and read before
+anything was changed. It contains **ivyjournal** in four faces — roman and
+bold, each with an italic — and no IvyPresto at all.
+
+**This may be exactly what she wants and it may be the wrong family in the
+kit.** It was wired as-is, because IvyJournal is a serif and `--carved` is
+the only serif slot on the site, so there is nowhere else it could go. If
+IvyPresto was meant, the fix is in her Web Project and then one token here.
+
+    --carved: "ivyjournal", "Instrument Serif", Georgia, serif;
+
+**Lowercase and unspaced.** Adobe's kit defines the family as `ivyjournal`.
+`"IvyJournal"` with a capital and a space matches nothing and falls straight
+through to the fallback, which is precisely how `"IvyPresto Display"` sat in
+this file for eight sessions looking correct.
+
+### What it costs, measured
+
+IvyJournal sets wider than Instrument Serif. On the home hero at 1440 the
+headline goes from **two lines to four**. Checked at 375x812, the width this
+codebase already knows is the tightest (§29): no horizontal overflow on any
+of the nine pages, nothing spills its container, and the About page's
+`.ab-head-rule` clearance — the bug §29 was written about — measured
+**47px before, 46px after**. The lede under it is `--level`, so the wrap
+that drives that arithmetic never changed.
+
+### The preload that became dead weight the moment this landed
+
+`instrument-serif-latin.woff2` was preloaded on all nine pages because it
+drew the first screen. Once ivyjournal took the carved stack it stopped
+drawing anything, and the preload kept going: **15,340 bytes fetched on the
+critical path, zero characters rendered**, confirmed against `document.fonts`
+which had ivyjournal loaded and had never asked for Instrument Serif. The
+preload is removed. The face is still in the stack, still what renders if
+the kit fails, and is now discovered from the stylesheet the way the mono
+always has been.
+
+**The one thing this trades away.** The site had no third-party dependency
+on its first paint — session one deliberately pulled the Google Fonts links
+out for exactly that reason. It has one now and it cannot not have one:
+Adobe's licence requires serving from their CDN. Both hosts are
+preconnected, because the kit `@import`s a second stylesheet from
+`p.typekit.net` and without the hint the browser does DNS and TLS twice in
+series before a headline can paint.
+
+**A lapsed Creative Cloud seat or an unpublished Web Project takes the
+headlines out silently, with no error on this end.** That is a new way for
+this site to break and it is worth knowing about on a renewal date.
+
+### Google Analytics 4, `G-KDB3GWPNHC`
+
+The interesting part is that **the privacy policy has been promising this
+since it was built on 28 August**. It names Google Analytics twice, once
+under "Information collected automatically" with a specific list of what it
+collects, and again under "Third party tools". The cookie paragraph says the
+site runs analytics and asks the reader to accept them.
+
+None of that was true. The site set no analytics cookie and collected
+nothing. **This change makes the policy accurate rather than making the
+policy need changing**, which is the reverse of the usual order and is the
+reason it went in without a copy edit.
+
+`gtag.js` sits **last in the head, not first**. It is `async` and never
+blocks the parser wherever it goes, but a script tag high in the head still
+enters the fetch queue ahead of the stylesheet and the preloaded sans, and
+those are what the first paint waits on. Verified firing: a real
+`/g/collect` hit to `tid=G-KDB3GWPNHC`.
+
+### Still open, and both are Cydnie's calls, not code
+
+1. **Adobe Fonts is not in the policy's "Third party tools" list.** Vercel,
+   HoneyBook, Flodesk, Google Analytics and Google Workspace are. Serving
+   the kit sends every visitor's IP to Adobe, which is the same kind of fact
+   as the other five. One line, in legal copy, so it was not written unasked.
+2. **Consent is implied, not collected.** "Continuing to use the site means
+   you accept them" is the standard US posture and is fine for a Minnesota
+   business. It is not GDPR consent, and GA4 fires before any reader has
+   agreed to anything. If the Greece retreat is expected to draw EU traffic
+   this is worth a real decision rather than a default.
+
+### The suite
+
+**Eight assertions added, and they assert the loaded face, not the token.**
+"`--carved` names it" is what was true for twenty-one sessions while the
+headlines were wrong, so the checks are `document.fonts.check` and the
+computed `font-family` on the `h1`. Plus: the kit link exists exactly once,
+both preconnects are present, Instrument Serif is in the stack and *not* in
+the preloads, `gtag.js` is present and `async`, and `gtag` is a live
+function with a populated `dataLayer`.
+
+    the six pages runsuite.sh runs by default    254 pass / 0 fail
+    home, About and the-build, run singly          97 pass / 0 fail
+    all nine                                      351 pass / 0 fail
+
+**Read that as nine pages, not as a delta against the 200 in §28.** That
+number was the six-page default run at the time it was written and later
+sessions added to the suite without updating it, so the two are not the same
+measurement and subtracting them would invent a figure.
+
+
+---
+
+## 31. Session twenty-two, part two: the legal copy, and a security pass
+
+### The policy now describes the site it is on
+
+Two claims on `/privacy-policy/` were false the day it was written and one of
+them became true earlier in this session. Both are true now.
+
+| | |
+|---|---|
+| **Google Analytics** | Named twice in the policy, running nowhere. Closed by wiring GA4 in §30. |
+| **Third party tools** | Listed five platforms. The type had just started coming from a sixth. **Adobe Fonts** added. |
+| **Cookies** | Said "cookies, to run analytics" and named none. Now names `_ga` and `_ga_KDB3GWPNHC`, read off the running site rather than copied from a template, with the two year expiry and an explicit statement that there are no advertising cookies. |
+| **A new paragraph, "Fonts"** | Serving type from Adobe's CDN sends the reader's IP address and the page they are on to a company they have never heard of. That is the same class of fact as the analytics paragraph above it and it now sits next to it. |
+
+**The sharp assertion is the cookie name.** `_ga_KDB3GWPNHC` carries the
+measurement id, so the policy and the page head are two copies of one string.
+Repoint GA at a different property and the policy names a cookie that does
+not exist, which is worse than naming none: it is a specific, checkable,
+wrong claim in a legal document. The suite reads the id out of the `gtag`
+src and looks for it in the prose, so it cannot be hardcoded wrong twice.
+
+### The security pass
+
+Audited: every external origin the shipped pages reach, XSS sinks in both
+scripts, secrets, what the deploy actually uploads, and the response headers.
+
+**Clean already, and worth not breaking.** No inline event handlers anywhere.
+No `javascript:` URLs. No page reads a URL parameter, a hash or
+`document.referrer`, so there is no reflected-XSS surface at all. No secrets
+in the tree. Every `target="_blank"` already carries `rel="noopener"`. The
+video embed was already `youtube-nocookie` and already click-to-load.
+
+#### What was actually wrong
+
+**1. `.claude/launch.json` was being deployed.** `EXCLUDE_DIRS` in build.py
+listed `.git` and `.vercel` and not `.claude`, and `.vercelignore` did not
+have it either, so `os.walk` descended into it and copied a local tooling
+config — absolute paths to a preview server on Cydnie's machine — into
+`dist/`, where it was uploaded on every deploy and served at
+`/.claude/launch.json`. Excluded in both files now. The drift check at the
+bottom of build.py keeps the two lists honest with each other.
+
+**2. Six response headers were missing.** `vercel.json` sent `nosniff` and a
+`Referrer-Policy` and nothing else: no CSP, no HSTS, nothing against
+clickjacking. All added, and **all verified against a server sending the real
+headers rather than a `<meta>` tag** — `frame-ancestors` and
+`upgrade-insecure-requests` are ignored in meta, so a meta test cannot see
+them at all. Framing the site from itself now returns no document.
+
+**3. A `textContent` -> `innerHTML` round trip** on the lightbox button label
+in `site.js`. Never an injection — nothing on this site is reader-supplied —
+but a caption containing an ampersand or an angle bracket would have come out
+wrong, and a photograph caption is exactly the copy that eventually contains
+"R&D" or a measurement in inches. Builds the node now.
+
+**4. The YouTube frame delegated more than a video needs.** `allow` carried
+`clipboard-write`, which lets a frame on a domain we do not control write to
+the reader's clipboard and has nothing to do with playback, plus
+`accelerometer` and `gyroscope`, which only matter for 360-degree footage and
+none of these embeds are. Now `autoplay; encrypted-media; picture-in-picture`
+and a `referrerpolicy` so Google gets the origin rather than the full URL.
+
+#### The CSP, and why it is generated
+
+`script-src` is strict: `'self'`, two named third parties, and a sha256 for
+each of the three inline scripts. **No `'unsafe-inline'`.** That is only
+affordable because of the "clean already" list above, and it closes the
+reflected-XSS class outright.
+
+The hashes are computed by `seal_csp()` in build.py **from the built files,
+after the comment strippers have run**, because comments are 16% of the HTML
+and stripping them changes the bytes inside an inline script. A hash taken
+from the source would be wrong for the thing that ships. Same reason
+`stamp.py` runs before the build.
+
+    script-src   'self' + 3 sha256 + googletagmanager + assets.flodesk
+    style-src    'self' 'unsafe-inline' + typekit + flodesk
+    connect-src  'self' + google-analytics + googletagmanager + flodesk
+    frame-src    youtube-nocookie only
+    form-action  'self' + form.flodesk.com
+    frame-ancestors / base-uri / object-src   'none'
+
+**`'unsafe-inline'` is kept in `style-src` and cannot be removed.** There are
+hundreds of `style="--d:120ms"` attributes carrying per-element custom
+properties, and `sounding-popup.js` injects a `<style>` block. Hashing does
+not apply to style attributes. This is the ordinary trade and it is a far
+smaller exposure than the script equivalent.
+
+**`check_headers()` fails the build** if any required header disappears, if
+`script-src` gains `'unsafe-inline'`, `'unsafe-eval'`, `'strict-dynamic'`,
+`http:` or `*`, or if the hash placeholder is removed. A CSP is the easiest
+header in the world to "fix" by pasting a wildcard into it when something
+breaks, which leaves a policy that closes nothing while still showing up in
+every header dump.
+
+#### What was tested, on every page
+
+Nine pages under the real headers: zero violations. The Flodesk signup on
+`/the-letters/` renders all ten inputs and keeps its POST target. The
+YouTube embed plays. The Greece lightbox opens. IvyJournal loads and GA fires
+on all nine.
+
+    suite   356 pass / 0 fail across the nine
+
+#### Left open, because they are Cydnie's calls and not code
+
+1. **HSTS is `max-age=31536000` with no `includeSubDomains` and no
+   `preload`.** Deliberately conservative. `clients.cydniejocelyn.com` is
+   HoneyBook's and answers on HTTPS today, so `includeSubDomains` would very
+   likely be fine — but it is a commitment that cannot be withdrawn quickly,
+   it binds a subdomain someone else operates, and `preload` is harder still
+   to reverse. Escalate on purpose, after cutover, not as a side effect.
+2. **There is no consent banner.** GA4 sets its cookies before any reader
+   agrees to anything, and the policy takes the implied-consent posture
+   ("continuing to use the site means you accept them"). Standard for a US
+   business and fine for Minnesota. It is not GDPR consent. If Greece is
+   expected to draw EU traffic, that is a real decision, and it is a build —
+   a banner plus holding GA until consent — not a copy edit.
+3. **The apex is still the old Showit site.** Checked live during this
+   session: `cydniejocelyn.com` answers from Showit behind Cloudflare. None
+   of these headers exist until cutover, and Deployment Protection has to
+   come off in the same move (see §0 item 8, which also carries the
+   last-updated date on the policy).

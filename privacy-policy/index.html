@@ -22,6 +22,29 @@
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 
+<!-- ============================================================
+     THE DISPLAY FACE, LICENSED AND NOW ACTUALLY SERVED
+     `--carved` in site.css has named "IvyPresto Display" first since the
+     first build and nothing has ever served it, so every headline on this
+     site has been rendering in Instrument Serif, the fallback. Cydnie's
+     Adobe Fonts Web Project, kit jmh2wyp, carries IVYJOURNAL rather than
+     IvyPresto: four faces, roman and bold, each with an italic. `--carved`
+     names `ivyjournal` first now, lowercase and hyphen free, because that
+     is the family name Adobe's kit actually defines and "IvyJournal" with
+     a capital and a space matches nothing.
+
+     Adobe's licence requires the font be served from their CDN. It cannot
+     be self hosted the way the OFL faces in /assets/fonts/ are, so this is
+     the one render blocking third party stylesheet on the site and there
+     is no arrangement of it that is not. The preconnects are what make it
+     cheap: use.typekit.net serves the woff2, and the kit `@import`s a
+     second stylesheet from p.typekit.net, so without these the browser
+     does DNS and TLS twice, one after the other, before a headline paints.
+     ============================================================ -->
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="preconnect" href="https://p.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/jmh2wyp.css">
+
 <!-- THE FONTS ARE SELF HOSTED. There used to be two preconnects and a
      render blocking <link> to fonts.googleapis.com here, which meant the
      page could not finish styling until it had done DNS and TLS to a third
@@ -29,15 +52,47 @@
      fonts.gstatic.com. The @font-face rules live in site.css now, which is
      already blocking, so it costs no extra request at all.
 
-     These two are preloaded because they carry the first screen: the sans
-     is the lede and the serif is the headline. The mono is small caps
-     labels and is left to be discovered from the stylesheet. Both are
-     `crossorigin` because font fetches are CORS even same origin, and
-     without it the preload is thrown away and fetched a second time. -->
+     The sans is preloaded because it carries the first screen: it is the
+     lede, and it is still what `--level` resolves to. It is `crossorigin`
+     because font fetches are CORS even same origin, and without it the
+     preload is thrown away and fetched a second time.
+
+     INSTRUMENT SERIF IS NO LONGER PRELOADED. It was, while it was the face
+     that actually drew every headline. Now that the carved stack resolves
+     to IvyJournal from the Adobe kit above, Instrument Serif is a fallback
+     and nothing more: measured on 28 August 2026 it still downloaded all
+     15,340 bytes on the critical path and then rendered not one character,
+     because `document.fonts` had ivyjournal and never asked for it. A
+     preload is a promise that a file is needed immediately. This one had
+     stopped being true the moment the kit went in. It is still in the
+     stack in site.css, and if the kit ever fails it is still what renders,
+     discovered from the stylesheet the way the mono always has been. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=ffd7cf36">
+<link rel="stylesheet" href="../assets/css/site.css?v=3a9791d6">
 <script>document.documentElement.className += " js-motion";</script>
+
+<!-- ============================================================
+     GOOGLE ANALYTICS 4, G-KDB3GWPNHC
+     The privacy policy has promised this since it was built: it names
+     Google Analytics under "Information collected automatically" and again
+     under "Third party tools", and the cookie paragraph says the site runs
+     analytics. Until now it did not. This closes that gap rather than
+     opening a new one, which is the reverse of the usual order.
+
+     Last in the head, not first, on purpose. `gtag.js` is `async`, so it
+     never blocks the parser wherever it sits, but a script tag high in the
+     head still enters the fetch queue ahead of the stylesheet and the two
+     preloaded faces, and those three are what the first paint waits on.
+     Analytics measures the paint. It should not be queued in front of it.
+     ============================================================ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KDB3GWPNHC"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-KDB3GWPNHC');
+</script>
+
 
 <script type="application/ld+json">
 {
@@ -305,11 +360,28 @@
         <p><b>Information you provide.</b> You give me information when you book A Sounding, inquire about The Build, express interest in a retreat, or subscribe to The Letters. That typically includes your name, email address, phone number, and details about your business or your reason for reaching out. I use it to respond to you and to deliver what you asked for. Nothing else.</p>
         <p><b>Payment information.</b> Payments are processed through HoneyBook. I do not store your card details. HoneyBook handles that data under its own privacy practices, which you can review at honeybook.com/privacy.</p>
         <p><b>Information collected automatically.</b> When you visit this site, Google Analytics collects general location, device type, browser, pages visited, and time on page. This data is aggregated and does not identify you personally. I use it to understand what is working on the site.</p>
+        <!-- Added 28 August 2026, the same day the Adobe kit went into the
+             nine page heads. The fonts used to be self hosted, so until that
+             day this disclosure would have been false. It is here because
+             serving type from Adobe's CDN is a transfer of the reader's IP
+             address to a company the reader has never heard of, and that is
+             the same class of fact as the Google Analytics paragraph above
+             it. If the type is ever brought back in house, this paragraph
+             comes out on the same day. -->
+        <p><b>Fonts.</b> The typefaces on this site are licensed through Adobe Fonts and are delivered by Adobe rather than by this website. Your browser requests them from Adobe directly, which means Adobe receives your IP address and the address of the page you are reading. Adobe uses this to count usage for font licensing. No cookie is set for this and none of it comes back to me.</p>
         <p><b>Health information, retreats only.</b> If you register for a retreat, you may be asked to disclose health conditions, dietary restrictions, physical limitations, or other information relevant to your safety and comfort. This is voluntary. It is held in confidence, shared only with facilitators or vendors directly involved in your care during that retreat, and used for no other purpose.</p>
         <p>No health information is collected for A Sounding or for a Build engagement.</p>
 
         <h3 class="head" id="cookies">Cookies</h3>
         <p>This site uses cookies, which are small text files stored by your browser, to support site functionality and to run analytics. Continuing to use the site means you accept them. You can disable cookies in your browser settings at any time. Some parts of the site may not work as intended if you do.</p>
+        <!-- The named cookies are the two Google Analytics actually set,
+             read off the site on 28 August 2026 rather than copied from a
+             template: `_ga` and `_ga_KDB3GWPNHC`, the second of which
+             carries the measurement id. If the GA property is ever changed
+             the id in that name changes with it, and this line has to change
+             in the same commit or the policy names a cookie that does not
+             exist. There is one assertion in the suite for exactly that. -->
+        <p>The only cookies this site sets are Google Analytics: <b>_ga</b> and <b>_ga_KDB3GWPNHC</b>. They tell one visit apart from another and expire two years after your last one. There are no advertising cookies here, nothing is shared with an ad network, and nothing on this site follows you onto another one.</p>
 
         <h3 class="head">Email</h3>
         <p>If you subscribe to The Letters, your name and email address are stored and managed in Flodesk. I use them to send what you signed up for. You can unsubscribe using the link at the bottom of any email. Your information is never sold, rented, or shared with third parties for their marketing.</p>
@@ -326,6 +398,7 @@
         <p class="lead-in">This site and my business run on the following platforms, each governed by its own privacy practices:</p>
         <ul role="list">
           <li><b>Vercel</b>, website hosting</li>
+          <li><b>Adobe Fonts</b>, website typography</li>
           <li><b>HoneyBook</b>, booking, contracts, and invoicing</li>
           <li><b>Flodesk</b>, email</li>
           <li><b>Google Analytics</b>, site analytics</li>
@@ -519,7 +592,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=ffd7cf36" defer></script>
+<script src="../assets/js/site.js?v=3a9791d6" defer></script>
 
 <!-- No A Sounding popup here, and it is also in SKIP_PATHS in
      sounding-popup.js so the exclusion survives someone pasting the tag on

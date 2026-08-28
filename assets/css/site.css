@@ -37,10 +37,12 @@
    reflows when the face arrives, which is the right trade for a site whose
    first screen is one sentence.
 
-   IvyPresto Display is NOT here and never was. It is licensed, not on
-   Google Fonts, and the files are not in this workspace. `--carved` names
-   it first and falls through to Instrument Serif, which is what actually
-   renders. See item 12 in HANDOFF section 0.
+   The carved face is NOT here either, and cannot be. It is IvyJournal,
+   licensed through Adobe Fonts, and Adobe's terms require it be served
+   from their CDN rather than self hosted like these five. It arrives from
+   the kit stylesheet in every page head. Instrument Serif stays in the
+   stack behind it as the fallback, which is what rendered every headline
+   on this site up to 28 August 2026.
 
    TO REGENERATE: the files came from the css2 URL that used to be in every
    page head, fetched with a modern desktop user agent so Google serves
@@ -128,8 +130,8 @@
 }
 
 /* ---------- 1 + 2. TYPE AND PALETTE ---------------------------
-   Fonts come from Google, except IvyPresto, which is licensed and
-   self-hosted and so stays first in the carved stack.
+   Fonts come from Google and are self hosted above, except the carved
+   face, which is licensed and comes from Adobe's CDN.
    Every hex below is from the brief and nothing else is used. */
 :root {
   /* palette */
@@ -142,7 +144,12 @@
   --held-lift: #CE908A;   /* hover for Held only */
 
   /* type */
-  --carved:  "IvyPresto Display", "Instrument Serif", Georgia, serif;
+  /* `ivyjournal` is lowercase and unspaced because that is the family name
+     Adobe's kit defines. "IvyJournal" matches nothing and falls straight
+     through, which is exactly how "IvyPresto Display" sat here for eight
+     sessions looking wired while Instrument Serif did all the work. If the
+     headlines ever go plain again, check the kit before you check this. */
+  --carved:  "ivyjournal", "Instrument Serif", Georgia, serif;
   --level:   "Instrument Sans", -apple-system, "Segoe UI", Helvetica, sans-serif;
   --utility: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 

@@ -443,6 +443,73 @@ f.addEventListener('load', function(){
       w.getComputedStyle(soc).backgroundColor === 'rgba(0, 0, 0, 0)');
    ok('footer: and they are still a 44px tap target',
       !!soc && soc.getBoundingClientRect().height >= 44 && soc.getBoundingClientRect().width >= 44);
+   /* ---- the licensed face, and the tag ----
+      Both landed 28 August 2026 and both are the kind of thing that goes
+      quiet rather than loud when it breaks. `--carved` named a family that
+      nothing served for eight sessions and every headline rendered in the
+      fallback while the stack looked correctly wired, so "the token names
+      it" is not the assertion. "The face is loaded and the h1 resolves to
+      it" is. Adobe's kit is a third party stylesheet: a lapsed Creative
+      Cloud seat or a deleted Web Project takes it out with no error on
+      this end, and the site quietly reverts to Instrument Serif. */
+   ok('type: the kit stylesheet is in the head, exactly once',
+      d.querySelectorAll('link[href="https://use.typekit.net/jmh2wyp.css"]').length===1);
+   ok('type: and it is preconnected, both hosts',
+      !!d.querySelector('link[rel=preconnect][href="https://use.typekit.net"]') &&
+      !!d.querySelector('link[rel=preconnect][href="https://p.typekit.net"]'));
+   ok('type: --carved names ivyjournal first',
+      /^\s*"?ivyjournal"?\s*,/.test(w.getComputedStyle(d.documentElement).getPropertyValue('--carved')));
+   ok('type: ivyjournal is actually LOADED, not just named',
+      !!d.fonts && d.fonts.check('400 40px ivyjournal'));
+   var carvedH1 = d.querySelector('h1');
+   ok('type: and the h1 resolves to it, so headlines are the licensed face',
+      !!carvedH1 && /^ivyjournal/.test(w.getComputedStyle(carvedH1).fontFamily));
+   /* Instrument Serif stays in the stack as the fallback and stays OUT of
+      the preloads. It downloaded 15,340 bytes on the critical path and
+      rendered nothing for as long as both were true at once. */
+   ok('type: Instrument Serif is a fallback, not a preload',
+      d.querySelectorAll('link[rel=preload][href*="instrument-serif"]').length===0 &&
+      /Instrument Serif/.test(w.getComputedStyle(d.documentElement).getPropertyValue('--carved')));
+   ok('analytics: gtag.js for G-KDB3GWPNHC is in the head',
+      d.querySelectorAll('script[src*="googletagmanager.com/gtag/js?id=G-KDB3GWPNHC"]').length===1);
+   ok('analytics: and it is async, so it is never in front of the paint',
+      !!d.querySelector('script[src*="googletagmanager.com/gtag/js"]').async);
+   ok('analytics: gtag is defined and dataLayer has the config in it',
+      typeof w.gtag === 'function' && (w.dataLayer||[]).length >= 3);
+
+   /* ---- the policy has to describe the site it is on ----
+      This page is the only one that makes claims about the other eight, and
+      on 28 August it was making two that were false: it named Google
+      Analytics twice while no analytics ran, and it listed five third party
+      tools while the type came from a sixth. Both are true now, and both are
+      the kind of thing that goes false again quietly -- by removing a tag,
+      or by bringing the fonts back in house, and forgetting the paragraph.
+
+      The cookie assertion is the sharp one. `_ga_KDB3GWPNHC` carries the
+      measurement id, so the policy and the page head are two copies of one
+      string. Repoint GA at a different property and the policy names a
+      cookie that does not exist on the site, which is a worse failure than
+      naming none: it is a specific, checkable, wrong claim in a legal
+      document. This reads the id out of the gtag src and looks for it in
+      the prose rather than hardcoding it twice more. */
+   var policyBody = d.querySelector('.pv-body');
+   if (policyBody) {
+     var txt = policyBody.textContent;
+     var src = (d.querySelector('script[src*="googletagmanager.com/gtag/js"]')||{}).src || '';
+     var mid = (src.match(/[?&]id=(G-[A-Z0-9]+)/) || [])[1] || '';
+     ok('policy: names the measurement id the site actually loads ('+mid+')',
+        !!mid && txt.indexOf('_ga_' + mid.replace('G-','')) > -1);
+     ok('policy: and names the plain _ga cookie beside it',
+        /\b_ga\b/.test(txt));
+     ok('policy: lists Adobe Fonts, which serves the carved face',
+        txt.indexOf('Adobe Fonts') > -1);
+     ok('policy: and says what Adobe receives, not just that it exists',
+        /IP address/i.test(txt));
+     ok('policy: still lists the other five tools',
+        ['Vercel','HoneyBook','Flodesk','Google Analytics','Google Workspace']
+          .every(function (t) { return txt.indexOf(t) > -1; }));
+   }
+
      // ---- no horizontal overflow ----
      ok('layout: no horizontal overflow', d.documentElement.scrollWidth<=d.documentElement.clientWidth+1);
      var shown=[].filter.call(d.images,function(i){
