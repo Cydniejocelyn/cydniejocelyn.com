@@ -27,6 +27,12 @@ all nine pages and the suite asserts it. `/thequestions/` is a QR destination
 for the GATHER tables and is **noindex and deliberately out of `sitemap.xml`**:
 the URL is event scoped and the page names the event. See §18.
 
+**Sessions eleven through twenty-one were all on 28 August too**, and they were
+polish rather than construction: a page-load audit (§19), mobile pacing (§20),
+six mobile corrections (§21), a new photograph (§22), the home page colour arc
+(§23), soft edges on every photograph (§24 to §26), an image audit (§27), SEO
+and fifteen service locations (§28), and one overlap on About (§29).
+
 **Every nav target has a page behind it and every form goes somewhere real.**
 Neither was true two days ago: The Letters was an anchor to a dead form on the home page,
 A Sounding was a block on it, and the home page carried a `<form action="#">` that reloaded
@@ -38,9 +44,11 @@ anywhere on the site now.
 | Production | the newest **Ready** row in `vercel ls --prod` |
 | `main` vs production | **In sync.** Verify rather than assume: `git status --short` should be empty and `git rev-parse --short HEAD origin/main` should print the same hash twice. To prove production matches the tree, hash a page both ways: `shasum index.html` against `vercel curl <prod>/ -s \| shasum`. |
 | If in doubt | Run §2. Deploying twice costs nothing; shipping stale markup costs a session. |
-| Interaction suite | **182 assertions, all passing** (59 Greece, 40 Retreats, 25 A Sounding, 24 The Letters, 16 Privacy, 18 The Questions) |
+| Interaction suite | **200 assertions, all passing** (62 Greece, 43 Retreats, 28 A Sounding, 27 The Letters, 19 Privacy, 21 The Questions). Run it against `dist/`, not the source: see §2 |
 | Responsive audit | **9 pages clean at 320, 375, 430 and 768** |
-| Mobile scroll | **Measured at 375x812, 390x844 and 360x800.** Home 20.69 screens, Greece 26.11, the site 120.8. See §20 |
+| Mobile scroll | **Measured at 375x812, 390x844 and 360x800.** Home 20.9 screens, Greece 26.1. See §20 |
+| Local SEO | **A LocalBusiness node with the same fifteen cities in `areaServed` on all eight indexable pages**, and one sentence in the footer. Asserted in the suite. See §28 |
+| Photographs | **Every photographic plate has soft edges.** Seven things deliberately do not: see the table in §25 |
 | Mobile menu | **128 contrast measurements, 0 failing** |
 | Touch carousel | **19 on Retreats, 21 on Home, 0 failing** |
 | Footer | **One footer, byte for byte on all nine pages.** Asserted in the suite. |
@@ -64,19 +72,23 @@ dashboard toggle and it is the only thing between this build and launch. See §1
    **Check the port first.** A `serve.py` from an earlier session can still be holding one and
    answering from a scratchpad that no longer exists, so new pages 404 while old ones return
    200. `lsof -nP -iTCP:8814 -sTCP:LISTEN` before you debug a single route. **Nothing is held
-   at the end of session ten:** 8814 and 8791 were both released deliberately, which is the
-   thing the session that left 8791 running should have done.
+   at the end of session twenty-one.** Every port used across sessions eleven to
+   twenty-one (8814, 8817, 8820 to 8831) was released deliberately. Do the same.
 
    **Re-run `sync.sh` after every edit.** Nothing you change is visible until you do, and it
-   re-lays the harnesses, which `rsync --delete` wipes.
+   re-lays the six committed harnesses, which `rsync --delete` wipes.
+
+   **IT ALSO WIPES ANY HARNESS YOU WRITE YOURSELF.** Measuring anything on this site means
+   writing a throwaway probe into `$SP/preview/`, and the next `sync.sh` deletes it. Keep them
+   in `$SP/harness/` and `cp` them back after every sync. This cost real time twice.
 
 3. **Read `tools/preview/README.md` before debugging anything visual.** Six harnesses live in
    `tools/preview/` and each exists because something expensive happened once:
 
    | | |
    |---|---|
-   | `runsuite.sh` | The 140-assertion interaction suite, headless. Run after touching `site.js` or `site.css`. |
-   | `_audit.html` | Seven pages at four widths: overflow, tap targets, stacked buttons, carousel, tiny text. |
+   | `runsuite.sh` | The **200-assertion** interaction suite, headless, six pages by default. Run after touching `site.js`, `site.css` or any footer. **Point it at `dist/`, not the source:** §2. |
+   | `_audit.html` | Nine pages at four widths: overflow, tap targets, stacked buttons, carousel, tiny text. |
    | `_menu.html` | The open mobile menu, measured against its panel, at two scroll positions per page. |
    | `runcarousel.sh` | The reviews on a touch screen. **Must run with the coarse-pointer flags or it tests the desktop path and passes.** |
    | `_shot.html` | Screenshots at a real viewport. A tall window does not work here; `100vh` needs an iframe. |
@@ -88,7 +100,42 @@ dashboard toggle and it is the only thing between this build and launch. See §1
    It also suppresses `scroll` events on sub-scrollers entirely. If something fails on a page
    you did not touch, run it headless before you believe it.
 
-5. Ship with §2.
+5. Ship with §2. **The deploy comes out of `dist/`,** not the working directory, and
+   `tools/ship.sh` is the whole sequence in one command.
+
+### If you are measuring anything
+
+Most of what these sessions got right came from measuring first, and most of what nearly went
+wrong came from reasoning about CSS instead. Four things specific to this site:
+
+- **Force reveals before measuring geometry.** `.r-up` uses `translateY`, which MOVES
+  `getBoundingClientRect`. Add `no-tween` to the root and `is-in` to every
+  `.r-up, .r-fade, .r-img, .split` first, or you are measuring an animation frame.
+- **Use the coarse-pointer flags for anything touch.** They are in
+  `tools/preview/runcarousel.sh:13`. Without them `matchMedia('(pointer: coarse)')` is false,
+  the cursor companion builds and hover states apply: all three wrong for a phone.
+- **Get element bounds from the DOM before sampling pixels near the top of the viewport.**
+  The header is fixed and 68 to 92px tall, and it will silently be the thing you measure. §24.
+- **Composite an alpha image over its real ground before computing SSIM.** Grayscale SSIM on
+  an RGBA logo compares undefined RGB inside transparent pixels and returns 0.58 for a file
+  that is actually 0.9998. §27.
+
+### What changed in sessions eleven to twenty-one, in one table
+
+Nothing in this stretch built a page. It was all correction, and every entry
+is a thing that was measured wrong or looked right and was not.
+
+| | |
+|---|---|
+| §19 | Comments stopped shipping (45% of the CSS), `immutable` caching, the duplicate wordmark, self-hosted fonts, 1MB of unreferenced assets. **The deploy moved to `dist/`.** |
+| §20 | Mobile pacing: 3.28 screens of scroll removed sitewide. Two "fixes" refused because they make the phone worse. |
+| §21 | The gauge off below 56rem, the seams eased, the hero's dark air, the hand's crop, the rise band larger. |
+| §22 | A new re-diagnosis photograph, square, from two that arrived that morning. |
+| §23 | The home page colour arc: it had **no middle**, Fathom or Surface and nothing between. Two contrast failures fell out of it. |
+| §24 to §26 | Soft edges on every photographic plate, and the seven things excluded on purpose. |
+| §27 | The images were already WebP. Re-encoding was worth 0.4%; the real win was missing `srcset` candidates, 55% off The Build on a phone. |
+| §28 | SEO audit and fifteen service locations. Five pages had no LocalBusiness node. |
+| §29 | The About rule was running through "I'm Cydnie." at 375x812. |
 
 ### A note on the section numbering below
 
@@ -115,9 +162,40 @@ labels as work phases in order, not as calendar sessions. Everything in them is 
 | The questions page, and what is event scoped on it | §18 |
 | The page load audit, and the two suspicions it cleared | §19 |
 | **Mobile vertical pacing, and the two fixes that would have hurt** | §20 |
+| **The build step, why the deploy comes out of `dist/`, and the `immutable` guard** | §19, §2 |
+| Six mobile corrections, and the gauge being off below 56rem | §21 |
+| The hand photograph, and why the plate is square | §22 |
+| **The home page colour arc, and `--accent` misused as a text colour** | §23 |
+| **Mach bands: why a seam or an edge reads as a drawn line** | §21, §24 |
+| Soft edges on photographs, and the seven things excluded from it | §25, §26 |
+| **Images: why re-encoding was the wrong answer and candidates were the right one** | §27 |
+| SEO, the fifteen locations, and why there are no city landing pages | §28 |
+| The About head overlap, and why 375x812 is the width that fails | §29 |
 
-**The four that will bite hardest if you do not read them** are marked in bold: they are the
-ones where the correct-looking thing is wrong.
+**The bold rows will bite hardest if you do not read them:** they are the ones
+where the correct-looking thing is wrong.
+
+### Four traps this project keeps re-learning
+
+Every one of these has cost a session at least once. They are in the section
+notes too, collected here because a new session will hit them before it reads
+that far.
+
+1. **A linear gradient between two flat fields reads as a drawn line.** It is a
+   Mach band: the eye exaggerates the break in the GRADIENT, not the colour.
+   It has been reported twice as "there is a line here" and both times there
+   was no border within a hundred pixels. Ease the ramp; do not lengthen it.
+   §21, §24.
+2. **`--accent` is Meniscus on a dark ground, and Meniscus is a rules colour.**
+   Used as text it measures 2.0 to 2.3:1. Two live contrast failures came from
+   this. `--label` or `--muted` are the text tokens. §23.
+3. **Specificity: `.hdr.is-surfaced .btn` is (0,3,0).** Any single-class
+   modifier on a header control loses to it silently and renders ink on ink.
+   Three separate bugs. §18, and the note under `.has-menu .nav-links a`.
+4. **`rsync --delete` in `tools/preview/sync.sh` wipes any harness you wrote
+   into the scratchpad preview.** It re-lays the six committed ones and
+   nothing else. Keep scratch harnesses somewhere else and copy them in after
+   every sync.
 
 ### What is left, and every one of them is Cydnie's decision
 
@@ -136,10 +214,14 @@ ones where the correct-looking thing is wrong.
 | 11 | ~~`/thequestions` is unbuilt.~~ **CLOSED 28 August.** Built, noindex, out of the sitemap. **The eyebrow, the `<title>` and the meta description are event scoped and have to be swapped per event**; they currently read GATHER / The Journey / Minneapolis. Nothing else on the page moves. | §18 |
 | 12 | **`IvyPresto Display` is not self-hosted.** Instrument Serif is what actually renders. | §7.4 |
 | 13 | **Never verified:** a full keyboard pass and a real screen-reader pass. | §7.5 |
-| 14 | **`figure` default margin is unreset on `.quote`**, so the home page's quote carousel is indented 40px each side. Fixed on `.sd-quote` only; the shared fix moves a shipped page. | §11 |
+| 14 | **`figure` default margin is unreset on `.quote`**, so the home page's quote carousel is indented 40px each side. **Verified still true on 28 August.** Fixed on `.sd-quote` only; the shared fix is one declaration but widens 14 slides across two live pages and touches the touch-carousel geometry, so it wants doing deliberately rather than in passing. | §11 |
 | 15 | **Angela's quote is excerpted on `/a-sounding/`.** Her full review opens "From our very first coaching call", and that page argues it is not coaching. Confirm she is comfortable appearing there. | §11 |
 | 16 | ~~The podcast.~~ **CLOSED 27 August.** Cydnie had all three references removed: the named link and the Spotify and Apple Podcasts icons, which both went to the same show. **It is still in `sameAs` on the home page and in `llms.txt`,** which is identity data rather than a link and was left deliberately. If the podcast is actually retired, those go too. | §16 |
 | 17 | **The brief's scope lock** was overridden on her instruction, repeatedly. | §7c |
+| 18 | **The Build is 5.84 screens to its first CTA**, the deepest on the site; every other page has one inside the first screen. Under 56rem its header CTA is inside the hamburger. Fixing it needs either new hero copy, which is under the freeze, or exposing the header CTA site wide, which is a design change. **Her call, not a bug.** | §20 |
+| 19 | **The second hand photograph was not used.** `underwater hand.png` is still in `CydnieJocelyn-Site/Website Images/`. It is the brighter, more saturated of the two, measured at 0.44 against 0.12; the palette argued hard for the one that shipped. **If she prefers it, it is a two line swap.** | §22 |
+| 20 | **`og/home.png` is a 91.6KB PNG.** A JPEG would be roughly half that with identical platform support. Never on a page's critical path, only fetched by crawlers, so it was left alone rather than risk social previews. | §27 |
+| 21 | **Greece reports thirteen 10px spans at exactly 768px.** Verified pre-existing, not from any recent pass: the phone pass raises micro labels to 11px below 767.84px, so 768 gets the deliberate desktop size. A tablet is not a phone, so it was out of scope. **Worth a decision at some point.** | §20 |
 
 ### Decisions she made in session three. These are load bearing.
 
