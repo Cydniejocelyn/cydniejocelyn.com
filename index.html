@@ -58,7 +58,7 @@
      without it the preload is thrown away and fetched a second time. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=1614a5e2">
+<link rel="stylesheet" href="assets/css/site.css?v=9543d581">
 <script>document.documentElement.className += " js-motion";</script>
 
 <script type="application/ld+json">
@@ -363,15 +363,26 @@
         </div>
       </div>
 
-      <!-- A hand reaching, and its shadow. The photograph is the sentence in
-           the copy beside it, so it carries no caption of its own. -->
+      <!-- A hand reaching up toward the surface from under it. The
+           photograph is the sentence in the copy beside it, literally
+           -- "you are UNDER something" -- so it carries no caption.
+
+           Replaced the sunlit wall on 28 August. That one was a hand and
+           a shadow on dry land, which illustrated reaching but not water,
+           and water is the whole argument of this section.
+
+           The source is SQUARE, 1254x1254, and the frame is square to
+           match, so nothing is cropped to fit an aspect it was not shot
+           for. `sizes` describes the real box rather than the viewport:
+           on a phone the figure is the wrap width, not 100vw, and asking
+           for 100vw made every phone fetch a candidate a size too large. -->
       <figure id="depth">
         <img class="par" data-speed="0.22"
-             src="assets/img/reaching-shadow-632.webp"
-             srcset="assets/img/reaching-shadow-316.webp 316w, assets/img/reaching-shadow-632.webp 632w"
-             sizes="(min-width: 900px) 40vw, 100vw"
-             width="632" height="1018" loading="lazy" decoding="async"
-             alt="A hand reaching out along a sunlit wall, its shadow falling beside it.">
+             src="assets/img/reaching-water-900.webp"
+             srcset="assets/img/reaching-water-600.webp 600w, assets/img/reaching-water-900.webp 900w, assets/img/reaching-water-1200.webp 1200w"
+             sizes="(min-width: 900px) 40vw, calc(100vw - 2.5rem)"
+             width="1254" height="1254" loading="lazy" decoding="async"
+             alt="A hand reaching up through dark water toward the light breaking on the surface above it.">
       </figure>
       </div>
     </div>
@@ -897,7 +908,7 @@
   </div>
 </footer>
 
-<script src="assets/js/site.js?v=1614a5e2" defer></script>
+<script src="assets/js/site.js?v=9543d581" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

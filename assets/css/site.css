@@ -1168,14 +1168,31 @@ button { font: inherit; color: inherit; }
 /* The picture is portrait, so the plate is, at 4:5 rather than the source's
    0.62 so it does not out-tower the copy beside it. Capped in height for the
    same reason: past that the section becomes a picture with a caption. */
+/* The photograph is SQUARE, 1254x1254, and so is the plate. It used to be
+   4:5 with a 4:3 mobile variant, both of them cropping a portrait
+   photograph of a hand on a wall. The picture is a hand reaching up
+   through water now and it is square as shot, so the frame matches it and
+   `object-fit` has no aspect mismatch left to resolve: nothing is cut off
+   to make it fit a shape it was not taken in.
+
+   Square is also SHORTER than the 4:5 it replaces, which is what the old
+   note here was worried about -- "so it does not out-tower the copy beside
+   it" -- so that concern is answered by the source itself now. */
 #depth {
   margin: 0; width: 100%;
-  aspect-ratio: 4 / 5; max-height: 30rem;
+  aspect-ratio: 1 / 1;
+  /* 30rem was the cap when the plate was 4:5 and it clamped the square one
+     to 500x480 at 1440, so `aspect-ratio: 1/1` was being quietly overruled
+     at exactly the width most people read this on. 34rem clears every
+     normal desktop column, so the plate is genuinely square there, and the
+     cap still does its job on an ultra wide screen where 40vw is 900px and
+     a square really would become a picture with a caption. */
+  max-height: 34rem;
   overflow: hidden;
   justify-self: end;
 }
 @media (max-width: 899.98px) {
-  #depth { aspect-ratio: 4 / 3; max-height: none; justify-self: stretch; }
+  #depth { max-height: none; justify-self: stretch; }
 }
 /* Oversized inside its frame so the drift has somewhere to go: the light on
    the wall moves as the reader moves past it, and no edge is ever exposed.
@@ -4064,7 +4081,8 @@ main > * { position: relative; z-index: 1; }
      copy beside it". On a phone there is no copy beside it, it is stacked
      underneath, so there is nothing to out-tower and no reason to crop
      harder than the desktop does. */
-  #depth { aspect-ratio: 4 / 5; }
+  /* The plate is square at every width now, matching the source. Nothing
+     to override here any more; see the note on `#depth` in section 11b. */
 
   /* 5. THE RISE BAND, LARGER.
      `aspect-ratio: 1800/690` on a 390px screen is 149px, so the band was

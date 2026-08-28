@@ -17,6 +17,7 @@ rather than have to reconstruct it:
 | `cydnie-hero-*`, `hero-underwater-*`, `retreat-steps-1200` | from earlier passes, replaced during the picture passes in sessions three and five |
 | `icon-512.png` | was declared `<link rel="icon" sizes="512x512">`. A browser picking it to draw a 32px tab icon fetches 18KB to do it, and there is no web app manifest here that wants a 512. `favicon-32` and `apple-touch-icon` cover every consumer the site actually has |
 | `us-outline.svg` | output of `tools/us_map.py`. The map that ships on the retreats page is inline SVG |
+| `reaching-shadow-*` | the home page's re-diagnosis photograph until 28 August. A hand and its shadow on a sunlit wall: it illustrated reaching but not water, and water is the whole argument of that section. Replaced by `reaching-water-*`, shot under the surface |
 
 **Moved, not `.vercelignore`d, and that is the point.** An ignore rule keeps a
 file working in preview and 404ing only in production, which is the worst

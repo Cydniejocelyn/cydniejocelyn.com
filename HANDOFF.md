@@ -2620,3 +2620,73 @@ band gained 64px; the hero gave back 54px. **Two of the six corrections
 were requests to make things bigger,** so the page getting slightly longer
 is the ask being met, not a regression. Session twelve's reductions all
 still hold.
+
+---
+
+## 22. Session fourteen: the re-diagnosis photograph
+
+`#turn` on the home page, the section that says **"Nothing is wrong with
+you. Something is on top of you."**
+
+### Which of the two, and why
+
+Two hand photographs arrived in `CydnieJocelyn-Site/Website Images/` on
+28 August, both 1254x1254:
+
+| | measured | |
+|---|---|---|
+| **`Reaching through water.png`** | saturation **0.12**, value 0.34, nearest palette token Meniscus at distance 31 | **shipped** |
+| `underwater hand.png` | saturation **0.44**, value 0.50, distance 47 | not used, still in the folder |
+
+They are the same gesture in different water. The second is a vivid cyan
+and would have been the brightest, most saturated thing on a site whose
+whole palette is desaturated deep teal: on a Fathom ground it reads as a
+swimming pool. The first is three and a half times less saturated and
+lands almost exactly on Meniscus, which is the token the section is built
+from. **If Cydnie prefers the brighter one it is a two line swap**, the
+file is still there, but the palette argues hard for the one that shipped.
+
+### What it replaced, and why that mattered
+
+`reaching-shadow-*` was a hand and its shadow on a **sunlit wall**. It
+illustrated reaching but not water, and water is the entire argument of
+that section: "You are not lacking anything. You are UNDER something."
+The new picture is that sentence rather than a metaphor for it.
+
+It also fixes a second thing for free. The old photograph was a bright
+warm wall sitting as a hard rectangle on a near black ground. The new one
+is dark water at its edges, so the plate's lower and side edges melt into
+Fathom instead of being cut out of it.
+
+### The plate is square now, at every width
+
+The source is square. The frame used to be **4:5 on desktop with a 4:3
+mobile variant**, both of them cropping a portrait photograph, and the 4:3
+was what cut the fingertips off in session thirteen.
+
+`aspect-ratio: 1 / 1` at every width now, so `object-fit` has no aspect
+mismatch left to resolve and nothing is cut off to make the picture fit a
+shape it was not taken in.
+
+**`max-height` had to move with it and this is the part that is easy to
+miss.** The cap was 30rem, chosen when the plate was 4:5. A square plate
+at 1440 wants 500x500 and the cap clamped it to **500x480**, so
+`aspect-ratio: 1/1` was being quietly overruled at exactly the width most
+people read the site on. Measured, not assumed. It is 34rem now, which
+clears every normal desktop column and still caps an ultra wide screen
+where 40vw is 900px and a square really would become a picture with a
+caption. Verified square at 390, 430, 1440 and 1920.
+
+### `sizes` was lying and now is not
+
+It said `100vw` on mobile. The figure is inside `.wrap`, so it is the wrap
+width, not the viewport, and every phone was fetching a candidate one size
+too large. It is `calc(100vw - 2.5rem)` now.
+
+Three widths ship, 600/900/1200 at q82: 23KB, 44KB, 65KB. A 390px phone at
+2x now takes the 900, and a 1440 desktop at 1x takes the 600.
+
+### The square is shorter than what it replaced
+
+`#turn` loses 87px on a phone, because a square plate at 350px wide is
+350px tall where the 4:5 was 437px.
