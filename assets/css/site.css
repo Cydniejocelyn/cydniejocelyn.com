@@ -4504,25 +4504,51 @@ main > * { position: relative; z-index: 1; }
      `--cond-run` is NOT touched. The note above says not below about 30svh
      because a step shorter than one flick can be skipped unread, and that
      reasoning still holds; this shortens the APPROACH, not the steps. */
-  /* NOTHING HERE TUNES THE PINNED STAGE ANY MORE, because on a phone there
-     is no pinned stage. See initCondition in site.js: the pin is gated to
-     768px and up now, and below that the five recognitions render as the
-     plain stacked list the component was always able to fall back to.
+  /* THE STAGE IS THE HEIGHT OF ITS CONTENT ON A PHONE, NOT THE SCREEN.
+     This is what closes the gap after the section without touching the
+     interaction, and it took three wrong turns to find.
 
-     Two passes were spent trying to place the leftover viewport instead.
-     The pinned block is about 355px on an 812px screen, so roughly 330px is
-     unused whatever happens, and every arrangement just moved the void:
+     `.cond-stage` is `100svh` so the pinned block sits in the middle of a
+     desktop screen. On a phone the block is about 355px in an 812px
+     viewport, so roughly 330px is unused, and every attempt to place that
+     leftover space only moved it:
 
-         centred                leading 320   trailing 327
-         top aligned            leading 153   trailing 327
-         centred, gap 18vh      leading 259   trailing 147
-         centred, gap 26vh      leading 228   trailing 116, and a 208px
-                                hole in the MIDDLE, between the ticks and
-                                the recognition, which read worse than
-                                either end had
+         centred, as built        leading 320   trailing 327
+         align-items: flex-start  leading 153   trailing 327
+         centred, inner gap 18vh  leading 259   trailing 147
+         centred, inner gap 26vh  leading 228   trailing 116, and a 208px
+                                  hole in the MIDDLE of the composition
 
-     The void was never placeable. It was the pin on a screen with no room
-     for one. */
+     THE REASON IT WOULD NOT CLOSE. A sticky element releases when its own
+     bottom reaches its container's bottom. With the stage exactly one
+     viewport tall it releases at the same instant the next section enters
+     the screen, so the two then scroll together with the whole unused 330px
+     locked between them, permanently.
+
+     Make the stage its own content's height and that stops being true. It
+     stays stuck for another (viewport - stage) of scroll, so the next
+     section rises to MEET the pinned block instead of travelling beside it,
+     and the gap closes on its own as you scroll.
+
+     Step pacing is unaffected: `progress()` in site.js already divides by
+     `stage.offsetHeight`, and the track's base term is changed to match, so
+     `run` comes out identical and each recognition is worth the same scroll
+     it always was.
+
+         at 375   leading 150   trailing closes to about 100 at the handoff
+
+     32rem rather than `auto` alone so the base term in the track below has a
+     number to agree with; the stage still grows past it if the copy wraps
+     further at 320, and `progress()` absorbs that. */
+  .cond.is-stepped .cond-stage {
+    height: auto;
+    min-height: 32rem;
+    align-items: center;
+  }
+  .cond.is-stepped .cond-track {
+    height: calc(32rem + var(--cond-span) * var(--cond-run, 34vh));
+    height: calc(32rem + var(--cond-span) * var(--cond-run, 34svh));
+  }
   .par { transform: none !important; }
     .hero-media img { transform: none !important; }
   .btn::before, .link::after { transition: none; }

@@ -218,7 +218,7 @@ that far.
 | 19 | **The security headers do not exist until cutover.** The apex still answers from Showit. Verified live 28 August. | §31 |
 | 21 | ~~Nine measured UX frictions.~~ **CLOSED 28 August. All nine fixed**, suite 356 → 385. Two halves deliberately left as Cydnie's call: the visible booking hand-off line, and redrawing the gauge. | §34 |
 | 23 | ~~The hero headings are taller.~~ **CLOSED 28 August. Reverted.** The kit was the Adobe licence, not a restyle. `--carved` is Instrument Serif again and the hero is two lines. | §35 |
-| 27 | **The story scroll does not pin below 768.** Deliberate: a 355px block pinned in an 812px viewport leaves ~330px of void wherever it is placed. Stepped reading intact from 768 up. | §39 |
+| 27 | ~~The story scroll does not pin below 768.~~ **REVERTED, and it should never have been done.** The pin is back at every width; the gap was closed by sizing the stage to its content instead. Two suite assertions now check the phone case. | §40 |
 | 26 | **The home hero is 982px in an 812px viewport at 375**, because `.hero-path` stacks under the copy and adds 238px. Not a type problem and not fixed: laying it out horizontally, dropping it on mobile, or accepting it are all composition calls. | §36 |
 | 24 | **The kit is linked on nine pages and the site uses none of its faces.** No font file is fetched from Adobe, but the kit stylesheet is render blocking and imports a second one. Keep it for the licence, or drop the link: Cydnie's call. | §35 |
 | 25 | **The kit has `ivypresto-text`, not IvyPresto _Display_.** The brand board names Display, which is the cut drawn for headline sizes. Only matters if the licensed face is ever put on the site. | §35 |
@@ -4079,4 +4079,66 @@ of clearance before the first line and now has 24px. Checked across all 75
 zoned sections: **no seam is taller than its section's padding.**
 
     behaviour  384 pass / 0 fail
+    analytics  141 pass / 0 fail
+
+
+---
+
+## 40. Session twenty-three, part seven: I removed an interaction nobody asked me to
+
+§39 closed the spacing around the story scroll by gating the pin to 768 and
+up, which turned the whole component into a static list on every phone.
+**That was not asked for and it was the wrong trade.** The instruction was
+about spacing. The interaction is the component.
+
+Reverted. `roomy()` is back to `!reduce.matches && innerHeight >= 520`, and
+the pin runs at every width again.
+
+### What actually closes the gap, and why the earlier reasoning missed it
+
+**A sticky element releases when its own bottom reaches its container's
+bottom.** With `.cond-stage` at exactly `100svh` it releases at the same
+instant the next section enters the screen, so the two then scroll together
+with the whole unused ~330px locked between them, permanently. That is why
+every attempt to *place* the leftover space failed: the space was not
+misplaced, it was pinned in.
+
+Make the stage its own content's height and it stays stuck for another
+`viewport - stage` of scroll, so **the next section rises to meet the pinned
+block instead of travelling beside it**, and the gap closes as you scroll.
+
+    .cond.is-stepped .cond-stage  { height: auto; min-height: 32rem; }
+    .cond.is-stepped .cond-track  { height: calc(32rem + span * run); }
+
+Step pacing is untouched: `progress()` already divides by
+`stage.offsetHeight`, and the track's base term moves with it, so `run` comes
+out identical and each recognition is worth the same scroll it always was.
+
+    at 375   leading gap 153            (was 320 as built)
+             trailing 188 -> closes to 41 as the next section rises
+             section 2330 -> 2030,      2.87 screens -> 2.50
+             all five recognitions light, in order, at 320, 375 and 390
+             desktop stage still exactly one viewport at 768 and 1440
+
+### Two assertions, and a lesson about where they run
+
+The suite only ever ran at 1280, so **deleting a mobile interaction was
+invisible to it**. It now builds a second 375x812 frame and asserts the
+component still steps there, and that the stage is content sized.
+
+The first version of that guard did not count. It created the frame at
+assertion time and read it on a 1400ms timeout, which fired after `done()`
+had rendered the log — two assertions that always passed because they never
+ran. The frame is created on load now, gets the same six seconds as the main
+one, and is read synchronously. **If a guard is not in the tally it is not a
+guard.**
+
+The second version was also wrong, in a more ordinary way: it asserted the
+stage was well under the viewport, which is true on the home page and false
+on Greece, whose recognitions are longer copy and whose stage is legitimately
+787 of an 812 screen. The property that matters is not that the stage is
+short, it is that it has **zero slack** — the height IS the content plus the
+padding. That holds on both.
+
+    behaviour  386 pass / 0 fail
     analytics  141 pass / 0 fail

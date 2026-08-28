@@ -14,8 +14,20 @@ function done(){document.getElementById('log').innerHTML =
   lines.map(function(l){return '<span class="'+(l[0]=='P'?'p':'f')+'">'+l+'</span>';}).join('\n')
   + '\n\n' + lines.filter(function(l){return l[0]=='F'}).length + ' failing of ' + lines.length;}
 f.src = new URLSearchParams(location.search).get('p') || '/retreats/greece/';
+/* A SECOND FRAME AT 375, created here rather than later on purpose.
+   The suite waits six seconds for the page under test to settle; this gets
+   the same six seconds. Built inside `load` and READ synchronously in the
+   assertions below -- an earlier version created it at assertion time and
+   checked it on a timeout, which fired after done() had already rendered the
+   log, so its two assertions silently never counted. If a guard is not in
+   the tally it is not a guard. */
+var probe375 = null;
 f.addEventListener('load', function(){
  var w=f.contentWindow, d=f.contentDocument;
+ probe375 = document.createElement('iframe');
+ probe375.style.cssText = 'position:fixed;left:-9999px;top:0;width:375px;height:812px;border:0';
+ probe375.src = f.src;
+ document.body.appendChild(probe375);
  // let boot() run and the scroll watcher settle
  var y=0, everPy=null;
  var iv=setInterval(function(){
@@ -181,6 +193,38 @@ f.addEventListener('load', function(){
    if(cond){
      ok('story: five moments in the markup', d.querySelectorAll('.cond-item').length===5);
      ok('story: stepped where there is room', cond.classList.contains('is-stepped') || reduced);
+     /* AND IT MUST STILL STEP ON A PHONE. This exists because the pin was
+        once removed below 768 to close a spacing gap, which turned the whole
+        component into a static list on every phone: a signature interaction
+        deleted as a side effect of a spacing fix, and completely invisible
+        to a suite that only ever runs at 1280. The gap was closed properly
+        afterwards by sizing the stage to its content -- see the note beside
+        `.cond.is-stepped .cond-stage` in the mobile block of site.css.
+
+        Read from the 375 frame created at the top of this file. */
+     try {
+       var pd = probe375 && probe375.contentDocument;
+       var pc = pd && pd.querySelector('.cond');
+       ok('story: still steps at 375, not flattened to a list',
+          !!pc && pc.classList.contains('is-stepped'));
+       /* The property that matters is that the stage is CONTENT sized, not
+          that it is short. Greece's recognitions are longer copy, so its
+          stage is 787 of an 812 screen and a "must be well under the
+          viewport" test failed there while being perfectly correct. What
+          both pages share is zero slack: stage height IS its content plus
+          its padding, which is exactly what stops the sticky release
+          coinciding with the next section arriving. */
+       var pStage = pc && pc.querySelector('.cond-stage');
+       var pIn = pc && pc.querySelector('.cond-in');
+       var pcs = pStage && probe375.contentWindow.getComputedStyle(pStage);
+       var slack = pStage ? Math.round(pStage.offsetHeight
+                   - pIn.getBoundingClientRect().height
+                   - parseFloat(pcs.paddingTop) - parseFloat(pcs.paddingBottom)) : -1;
+       ok('story: and at 375 the stage is sized to its content, slack ' + slack + 'px',
+          slack >= 0 && slack <= 2);
+     } catch (e) {
+       ok('story: the 375 probe threw: ' + e.message, false);
+     }
      ok('story: exactly one is lit', d.querySelectorAll('.cond-item.is-on').length<=1);
      ok('story: the ticks are real controls', d.querySelectorAll('.cond-ticks button').length===5);
    }
