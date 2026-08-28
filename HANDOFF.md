@@ -2587,6 +2587,32 @@ no reason to crop harder than the desktop does.
 all inside a fifth of the screen. This is the moment the whole site is
 named after. 17rem on a phone, so 272px.
 
+### 6. The third line under the retreat heroes
+
+`.rt-facts` carries a `border-top`, and above 30rem that is right: the three
+facts are a row there and the border is the divider above it.
+
+Below 30rem the row becomes a stacked list and the border stops dividing
+anything. The two `.hero-go` links above it each draw their own
+`border-bottom`, so the hero ended with **three stacked rules**: two short
+ones under the links, then a full width one under those, belonging to
+nothing above it. Being the only one of the three that spans the column is
+what made it read as a stray mark rather than part of the pattern.
+
+**Scoped to 29.99rem rather than to a general phone breakpoint on purpose.**
+30rem is exactly where `.rt-facts` picks up its three columns, so the border
+is off in precisely the case where it has nothing to divide and on
+everywhere it works. Verified across ten widths: no line at 360 to 479,
+line at 480 through 1440.
+
+The padding goes with it, because it existed to hold the rule off the text
+and with no rule it is a 24px hole. `margin-top: var(--s-6)` already
+separates the block.
+
+It is a shared class, so **both retreat heroes are corrected.** Only
+`/retreats/` was reported, but `/retreats/greece/` has the identical
+construction and had the identical stray line.
+
 ### What this cost, and why that is the right trade
 
 Home went from 20.69 screens to **20.91**. The hand gained 175px and the

@@ -4074,6 +4074,35 @@ main > * { position: relative; z-index: 1; }
   .rise-band { min-height: 17rem; }
 }
 
+/* 6. THE THIRD LINE UNDER THE RETREAT HEROES.
+   ------------------------------------------------------------
+   `.rt-facts` carries `border-top`, and above 30rem that is right: the
+   three facts are a row there and the border is the divider above it.
+
+   Below 30rem the row becomes a stacked list, and the border stops being a
+   divider and becomes a THIRD horizontal line. The two `.hero-go` links
+   above it each draw their own `border-bottom`, so the hero ends with
+   three stacked rules: two short ones under the links, then a full width
+   one under those, belonging to nothing above it. It is the only one of
+   the three that spans the column, which is what makes it read as a stray
+   mark rather than part of the pattern.
+
+   Scoped to 29.99rem rather than to a general phone breakpoint ON PURPOSE:
+   30rem is exactly where `.rt-facts` picks up its three columns, so this
+   turns the border off in precisely the case where it has nothing to
+   divide and leaves it everywhere it works, tablets and desktop included.
+
+   The padding goes with it. It existed to hold the rule off the text, and
+   with no rule it is a 24px hole. `margin-top: var(--s-6)` already
+   separates the block from the links above.
+
+   Shared class, so both retreat heroes are corrected: /retreats/ and
+   /retreats/greece/ have the same construction and had the same stray
+   line. */
+@media (max-width: 29.99rem) {
+  .rt-facts { border-top: 0; padding-top: 0; }
+}
+
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {
   .hdr, .gauge, main { background: #fff; }
