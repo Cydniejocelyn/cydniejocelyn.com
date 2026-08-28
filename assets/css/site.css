@@ -1221,90 +1221,6 @@ button { font: inherit; color: inherit; }
      for older Safari; both are declared and the unprefixed pair is last so
      it wins where it is understood. A browser that supports neither keeps
      the plain rectangle, which is exactly what shipped before this. */
-  /* EASED, not linear. A straight alpha ramp has a hard onset: measured
-     on the first attempt, the top edge went 52 luminance units in three
-     pixels, because the top of this photograph is the lit surface and the
-     ground behind it is Deepwater. The eye reads the break in the gradient
-     as a line, which is the same Mach band that made the section seams
-     look drawn; see section 21. These stops approximate smoothstep, so the
-     fade leaves and arrives at zero slope and there is no onset to see.
-
-     The top ramp is the shortest of the four. It is fading the subject, so
-     it only has to stop the light ending on a ruled edge, not erase it.
-     The bottom is dark water into a dark ground and can travel much
-     further, because there is almost nothing there to lose. */
-  -webkit-mask-image:
-    linear-gradient(180deg,
-      rgb(0 0 0 / 0.00) 0.0%,
-      rgb(0 0 0 / 0.06) 2.1%,
-      rgb(0 0 0 / 0.22) 4.2%,
-      rgb(0 0 0 / 0.42) 6.3%,
-      rgb(0 0 0 / 0.58) 7.7%,
-      rgb(0 0 0 / 0.78) 9.8%,
-      rgb(0 0 0 / 0.94) 11.9%,
-      rgb(0 0 0 / 1.00) 14.0%,
-      rgb(0 0 0 / 1.00) 74.0%,
-      rgb(0 0 0 / 0.94) 77.9%,
-      rgb(0 0 0 / 0.78) 81.8%,
-      rgb(0 0 0 / 0.58) 85.7%,
-      rgb(0 0 0 / 0.42) 88.3%,
-      rgb(0 0 0 / 0.22) 92.2%,
-      rgb(0 0 0 / 0.06) 96.1%,
-      rgb(0 0 0 / 0.00) 100.0%),
-    linear-gradient(90deg,
-      rgb(0 0 0 / 0.00) 0.0%,
-      rgb(0 0 0 / 0.06) 1.6%,
-      rgb(0 0 0 / 0.22) 3.3%,
-      rgb(0 0 0 / 0.42) 5.0%,
-      rgb(0 0 0 / 0.58) 6.1%,
-      rgb(0 0 0 / 0.78) 7.7%,
-      rgb(0 0 0 / 0.94) 9.3%,
-      rgb(0 0 0 / 1.00) 11.0%,
-      rgb(0 0 0 / 1.00) 89.0%,
-      rgb(0 0 0 / 0.94) 90.7%,
-      rgb(0 0 0 / 0.78) 92.3%,
-      rgb(0 0 0 / 0.58) 94.0%,
-      rgb(0 0 0 / 0.42) 95.0%,
-      rgb(0 0 0 / 0.22) 96.7%,
-      rgb(0 0 0 / 0.06) 98.3%,
-      rgb(0 0 0 / 0.00) 100.0%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(180deg,
-      rgb(0 0 0 / 0.00) 0.0%,
-      rgb(0 0 0 / 0.06) 2.1%,
-      rgb(0 0 0 / 0.22) 4.2%,
-      rgb(0 0 0 / 0.42) 6.3%,
-      rgb(0 0 0 / 0.58) 7.7%,
-      rgb(0 0 0 / 0.78) 9.8%,
-      rgb(0 0 0 / 0.94) 11.9%,
-      rgb(0 0 0 / 1.00) 14.0%,
-      rgb(0 0 0 / 1.00) 74.0%,
-      rgb(0 0 0 / 0.94) 77.9%,
-      rgb(0 0 0 / 0.78) 81.8%,
-      rgb(0 0 0 / 0.58) 85.7%,
-      rgb(0 0 0 / 0.42) 88.3%,
-      rgb(0 0 0 / 0.22) 92.2%,
-      rgb(0 0 0 / 0.06) 96.1%,
-      rgb(0 0 0 / 0.00) 100.0%),
-    linear-gradient(90deg,
-      rgb(0 0 0 / 0.00) 0.0%,
-      rgb(0 0 0 / 0.06) 1.6%,
-      rgb(0 0 0 / 0.22) 3.3%,
-      rgb(0 0 0 / 0.42) 5.0%,
-      rgb(0 0 0 / 0.58) 6.1%,
-      rgb(0 0 0 / 0.78) 7.7%,
-      rgb(0 0 0 / 0.94) 9.3%,
-      rgb(0 0 0 / 1.00) 11.0%,
-      rgb(0 0 0 / 1.00) 89.0%,
-      rgb(0 0 0 / 0.94) 90.7%,
-      rgb(0 0 0 / 0.78) 92.3%,
-      rgb(0 0 0 / 0.58) 94.0%,
-      rgb(0 0 0 / 0.42) 95.0%,
-      rgb(0 0 0 / 0.22) 96.7%,
-      rgb(0 0 0 / 0.06) 98.3%,
-      rgb(0 0 0 / 0.00) 100.0%);
-  mask-composite: intersect;
 }
 @media (max-width: 899.98px) {
   #depth { max-height: none; justify-self: stretch; }
@@ -3861,6 +3777,184 @@ main > * { position: relative; z-index: 1; }
 }
 .pv-body .lead-in { color: var(--muted); }
 .pv-body hr { margin-block: var(--s-6); }
+
+/* ---------- 29b. SOFT EDGES ON PHOTOGRAPHS -------------------
+   Every photographic plate on the site dissolves into the ground it sits
+   on rather than ending on a cut. Written for `#depth` and generalised
+   here on Cydnie's instruction.
+
+   A MASK, NOT A MATCHING-COLOUR VIGNETTE. An inset shadow has to know the
+   ground; a mask fades to transparent and works on any of them, which is
+   what lets one rule serve Fathom, Deepwater, Silt and Surface at once.
+   The home page's grounds moved one session ago and a colour-matched
+   vignette would have gone stale that day.
+
+   EASED, NOT LINEAR. A straight alpha ramp has a hard onset and the eye
+   reads the break in the gradient as a line, which is the same Mach band
+   that made the section seams look drawn. Measured on the first attempt, a
+   linear ramp still stepped 52 luminance units in three pixels at the top
+   of the hand plate. These stops approximate smoothstep, so the fade
+   leaves and arrives at zero slope: under 3 units per pixel on all four
+   edges after.
+
+   FOUR CUSTOM PROPERTIES so a slot can tune without a new mask. --e-t is
+   where the top ramp finishes, --e-b where the bottom ramp starts, --e-x
+   and --e-xr the same pair on the horizontal.
+
+   WHERE IT IS NOT APPLIED, AND WHY. It is for PHOTOGRAPHS presented as
+   plates. Not:
+
+     the wordmark        it is the logo
+     .case-mark          a client's logo. Not ours to dissolve
+     .case-screen        a UI screenshot. Soft edges there read as broken
+                         rendering rather than as a treatment
+     .rt-play            an interactive target. A control needs an edge you
+                         can see the end of
+     .gal-item           grid tiles. Fading tile edges destroys the grid
+                         rhythm, which is the whole point of a grid
+     .lbx-stage          the lightbox, which is a viewer and not a plate
+     .rt-date-fig--map   a drawn map, not a photograph
+     .hero-water, .rise-band
+                         already carry their own scrims. A second fade over
+                         the first is not twice as soft, it is muddy
+
+   ON A LIGHT GROUND the fade goes to Silt or Surface rather than into
+   water, which is a different effect: a soft edged print rather than
+   something dissolving. Same rule, and it reads correctly on both, but
+   that is why the horizontal fades are shorter than the vertical ones.
+   ------------------------------------------------------------ */
+
+/* THE PLATES.
+   Split by where the mask has to sit. `#depth`, `.ab-portrait` and
+   `.rt-date-fig` each clip an OVERSIZED image inside `overflow: hidden`
+   for the parallax drift, so the mask goes on the CONTAINER: masking the
+   image would fade it outside the visible box and leave the real edges
+   hard.
+
+   The rest are plain figures whose image IS the visible box, and every one
+   of those carries a figcaption. The mask goes on the IMAGE there, never
+   on the figure, or it fades the caption text along with the picture. */
+#depth, .ab-portrait, .rt-date-fig:not(.rt-date-fig--map),
+.story-fig img, .retreat-fig img, .layer-fig img, .rt-person figure img {
+  --e-t: 7%; --e-b: 88%; --e-x: 8%; --e-xr: 92%;
+  -webkit-mask-image: linear-gradient(180deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-t) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-t) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-t) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-t) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-t) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-t) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-t),
+      rgb(0 0 0 / 1.00) var(--e-b),
+      rgb(0 0 0 / 0.94) calc(var(--e-b) + (100% - var(--e-b)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-b) + (100% - var(--e-b)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-b) + (100% - var(--e-b)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-b) + (100% - var(--e-b)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-b) + (100% - var(--e-b)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-b) + (100% - var(--e-b)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%), linear-gradient(90deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-x) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-x) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-x) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-x) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-x) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-x) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-x),
+      rgb(0 0 0 / 1.00) var(--e-xr),
+      rgb(0 0 0 / 0.94) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(180deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-t) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-t) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-t) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-t) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-t) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-t) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-t),
+      rgb(0 0 0 / 1.00) var(--e-b),
+      rgb(0 0 0 / 0.94) calc(var(--e-b) + (100% - var(--e-b)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-b) + (100% - var(--e-b)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-b) + (100% - var(--e-b)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-b) + (100% - var(--e-b)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-b) + (100% - var(--e-b)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-b) + (100% - var(--e-b)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%), linear-gradient(90deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-x) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-x) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-x) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-x) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-x) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-x) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-x),
+      rgb(0 0 0 / 1.00) var(--e-xr),
+      rgb(0 0 0 / 0.94) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%);
+  mask-composite: intersect;
+}
+
+/* A band that runs edge to edge: the left and right edges are the screen,
+   so there is nothing there to soften. Vertical only, one mask layer, no
+   compositing involved. */
+.layer-band {
+  --e-t: 9%; --e-b: 88%;
+  -webkit-mask-image: linear-gradient(180deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-t) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-t) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-t) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-t) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-t) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-t) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-t),
+      rgb(0 0 0 / 1.00) var(--e-b),
+      rgb(0 0 0 / 0.94) calc(var(--e-b) + (100% - var(--e-b)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-b) + (100% - var(--e-b)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-b) + (100% - var(--e-b)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-b) + (100% - var(--e-b)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-b) + (100% - var(--e-b)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-b) + (100% - var(--e-b)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%);
+  mask-image: linear-gradient(180deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-t) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-t) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-t) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-t) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-t) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-t) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-t),
+      rgb(0 0 0 / 1.00) var(--e-b),
+      rgb(0 0 0 / 0.94) calc(var(--e-b) + (100% - var(--e-b)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-b) + (100% - var(--e-b)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-b) + (100% - var(--e-b)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-b) + (100% - var(--e-b)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-b) + (100% - var(--e-b)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-b) + (100% - var(--e-b)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%);
+}
+
+/* ...except the one inside the rise band, which already fades into both
+   grounds through `.rise-band::before` and `::after`. Two fades stacked
+   are not softer, they are washed out. */
+.rise-band .layer-band {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
 
 /* ---------- 30. THE QUESTIONS -------------------------------
    /thequestions/ is a QR destination, not a page in the site's argument.

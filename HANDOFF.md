@@ -2827,3 +2827,59 @@ sampling pixels near the top of the viewport.
 A browser that supports neither `mask-composite: intersect` nor
 `-webkit-mask-composite: source-in` keeps the plain rectangle, which is
 exactly what shipped before. `#depth` exists only on the home page.
+
+
+---
+
+## 25. Session seventeen: soft edges on every photograph
+
+The `#depth` treatment from §24, generalised across the site on Cydnie's
+instruction: "all images vs. having them be just boxy images."
+
+**It is applied to photographs presented as plates, and deliberately not to
+seven other things.** The inventory that decided it is below, because "all
+images" and "all photographs" are not the same list and the difference is
+what keeps this from looking broken.
+
+### One rule, `site.css` section 29b
+
+Same construction as §24: an eased, smoothstep-approximating mask on four
+edges, driven by `--e-t`, `--e-b`, `--e-x`, `--e-xr` so any slot can tune
+without a new mask. **A mask and not a matching-colour vignette**, because
+an inset shadow has to know the ground, and one rule here serves Fathom,
+Deepwater, Silt and Surface at once. The home page's grounds moved one
+session ago; a colour-matched vignette would have gone stale that day.
+
+### Where the mask sits, and why it is split in two
+
+| | |
+|---|---|
+| **on the container** | `#depth`, `.ab-portrait`, `.rt-date-fig`. Each clips an OVERSIZED image inside `overflow: hidden` for the parallax drift, so masking the image would fade it outside the visible box and leave the real edges hard |
+| **on the image** | `.story-fig`, `.retreat-fig`, `.layer-fig`, `.rt-person figure`. Every one of these carries a figcaption, and a mask on the figure fades the caption text along with the picture |
+| **vertical only** | `.layer-band` runs edge to edge, so its left and right edges are the screen and there is nothing there to soften |
+
+### What is deliberately NOT masked, and why
+
+Verified afterwards by querying computed `mask-image` on each, on every
+page it appears: all seventeen clean.
+
+| | |
+|---|---|
+| the wordmark, header and footer | it is the logo |
+| `.case-mark` | a client's logo. Not ours to dissolve |
+| `.case-screen` | a UI screenshot. Soft edges there read as broken rendering rather than as a treatment |
+| `.rt-play` | an interactive target. A control needs an edge you can see the end of |
+| `.gal-item` | grid tiles. Fading tile edges destroys the grid rhythm, which is the entire point of a grid |
+| `.lbx-stage` | the lightbox. A viewer, not a plate |
+| `.rt-date-fig--map` | a drawn map, not a photograph |
+| `.hero-water`, `.rise-band .layer-band` | already carry their own scrims. **Two fades stacked are not softer, they are muddy** |
+
+### The light-ground question, which was the real risk
+
+On Fathom or Deepwater the fade goes into water and the picture dissolves.
+**On Silt or Surface the same mask fades to near-white**, which could have
+read as a bleached print rather than a treatment. It does not: it reads as
+a soft edged print, and the captions stay crisp because on every
+light-ground slot the mask is on the image rather than the figure. Checked
+on `/`, `/retreats/` and `/retreats/greece/` before shipping rather than
+reasoned about.
