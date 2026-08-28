@@ -2775,3 +2775,55 @@ Deepwater rather than Fathom. The ground is much closer to the tone of the
 photograph's own edges, so the plate integrates instead of being a
 rectangle cut out of black. That was not the reason for the change but it
 is the clearest single improvement on the page.
+
+
+---
+
+## 24. Session sixteen: the plate stops being a rectangle
+
+Cydnie: the hand picture looks blocky. It did. It was a hard rectangle on a
+near black ground, which is the one place a photograph of water should not
+have a straight edge.
+
+### A mask, not a matching-colour vignette
+
+An inset shadow in Deepwater would have looked identical today and broken
+the moment that section's ground moved, which it did one session ago. A
+mask fades the picture to **transparent**, so it dissolves into whatever is
+behind it and cannot go stale.
+
+### The first attempt was not enough, and measuring said why
+
+A plain linear alpha ramp fixed three edges and left the fourth. Measured
+down the middle of the plate, the top edge still went **52 luminance units
+in three pixels**, because the top of this photograph is the lit surface
+and the ground behind it is Deepwater.
+
+**Same fault as the section seams in §21.** A straight ramp has a hard
+onset, and the eye reads the break in the gradient as a line. The stops
+approximate smoothstep now, so the fade leaves and arrives at zero slope.
+
+    boundary   max step per pixel
+    top          2.9   (was 52 over three pixels)
+    bottom       0.9
+    left         1.7
+    right        0.8
+
+The four edges are deliberately unequal. The bottom is dark water meeting a
+dark ground, so it travels furthest and disappears entirely. **The top gets
+the shortest fade of the four**, because it is fading the subject: it only
+has to stop the light ending on a ruled edge, not erase it.
+
+### A trap worth writing down
+
+The first measurement was taken at a scroll position where **the fixed
+header covered the plate's top 8 pixels**, so the 27-unit step being
+measured was the header's own bottom edge and it was identical before and
+after the change. Get the plate's real bounds out of the DOM before
+sampling pixels near the top of the viewport.
+
+### Fallback
+
+A browser that supports neither `mask-composite: intersect` nor
+`-webkit-mask-composite: source-in` keeps the plain rectangle, which is
+exactly what shipped before. `#depth` exists only on the home page.
