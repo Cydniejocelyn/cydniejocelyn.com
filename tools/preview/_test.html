@@ -207,21 +207,45 @@ f.addEventListener('load', function(){
        var pc = pd && pd.querySelector('.cond');
        ok('story: still steps at 375, not flattened to a list',
           !!pc && pc.classList.contains('is-stepped'));
-       /* The property that matters is that the stage is CONTENT sized, not
-          that it is short. Greece's recognitions are longer copy, so its
-          stage is 787 of an 812 screen and a "must be well under the
-          viewport" test failed there while being perfectly correct. What
-          both pages share is zero slack: stage height IS its content plus
-          its padding, which is exactly what stops the sticky release
-          coinciding with the next section arriving. */
+       /* Two things, and they are the two that were actually reported.
+
+          CENTRED. The pinned block is one short statement on a dark field
+          and belongs in the optical middle of the screen. Four passes moved
+          it around trying to reclaim the leftover viewport and every one was
+          worse; "it needs to be centered" was the correction. The tolerance
+          is generous on the top side on purpose: the fixed header owns the
+          first ~90px, so the block sitting a little below true centre is
+          right, and only a real imbalance should fail.
+
+          AND THE NUMBERS STAY NEXT TO THE RECOGNITION. The gap between
+          `.cond-head` and `.cond-slots` is the component's own --s-6. It was
+          once opened to 26vh as a way of absorbing section spacing, which
+          put a 208px hole through the middle of the composition. Nothing
+          should ever use it as that dial again. */
        var pStage = pc && pc.querySelector('.cond-stage');
        var pIn = pc && pc.querySelector('.cond-in');
-       var pcs = pStage && probe375.contentWindow.getComputedStyle(pStage);
-       var slack = pStage ? Math.round(pStage.offsetHeight
-                   - pIn.getBoundingClientRect().height
-                   - parseFloat(pcs.paddingTop) - parseFloat(pcs.paddingBottom)) : -1;
-       ok('story: and at 375 the stage is sized to its content, slack ' + slack + 'px',
-          slack >= 0 && slack <= 2);
+       var pw = probe375.contentWindow;
+       /* The block is only pinned once the reader is inside the track, and
+          the probe frame is sitting at scroll 0. Measuring there reported
+          the block 2491px below the fold and "not centred", which was true
+          and meaningless. Scroll into the track first. `scroll-behavior` is
+          smooth on this site, so it is forced off in the probe or the
+          assignment animates and the measurement reads a position the page
+          is still travelling through. */
+       pw.document.documentElement.style.scrollBehavior = 'auto';
+       pw.document.documentElement.scrollTop =
+         pc.getBoundingClientRect().top + pw.scrollY + 500;
+       var ir = pIn ? pIn.getBoundingClientRect() : null;
+       var above = ir ? Math.round(ir.top) : -1;
+       var below = ir ? Math.round(pw.innerHeight - ir.bottom) : -1;
+       ok('story: at 375 the pinned block is centred (' + above + ' above, ' + below + ' below)',
+          above > 0 && below > 0 && Math.abs(above - below) < 120);
+       var pHead = pc && pc.querySelector('.cond-head');
+       var pSlots = pc && pc.querySelector('.cond-slots');
+       var inner = (pHead && pSlots)
+         ? Math.round(pSlots.getBoundingClientRect().top - pHead.getBoundingClientRect().bottom) : -1;
+       ok('story: and the numbers sit next to the recognition, not a screen away (' + inner + 'px)',
+          inner >= 0 && inner <= 72);
      } catch (e) {
        ok('story: the 375 probe threw: ' + e.message, false);
      }

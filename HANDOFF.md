@@ -4142,3 +4142,92 @@ padding. That holds on both.
 
     behaviour  386 pass / 0 fail
     analytics  141 pass / 0 fail
+
+
+---
+
+## 41. The stylesheet was duplicated for two commits, and nobody could see it
+
+`site.css` went from **4641 lines to 6976** in §39 and stayed there through
+§40. About 2,300 lines were duplicated, and both commits shipped that way.
+
+### How
+
+A scripted edit computed its own splice bounds:
+
+    start = s.index("  /* SECOND PASS.")
+    end   = s.index("  }\n", s.index(".cond.is-stepped .cond-in {"))
+
+`s.index(".cond.is-stepped .cond-in {")` matched the **first** occurrence in
+the file — `.cond.is-stepped .cond-in { width: 100%; }` at line 1266, which
+is thousands of lines ABOVE the block being edited. So `end` came out smaller
+than `start`, and `s[:start] + new + s[end:]` did not cut anything out. It
+**re-inserted everything between the two points.**
+
+### Why nothing caught it
+
+CSS is forgiving: duplicate rules are legal and the later copy wins. So the
+build passed, the suite passed 384/0, the deploy succeeded, and the site
+rendered — **using the stale copies**, because they came last in the file.
+That is why the story scroll kept showing the 26vh inner gap and the
+`align-items` value from an experiment that had supposedly been removed two
+commits earlier. The rules had been removed. Their duplicates had not.
+
+**The tell was visible and was misread.** §39 recorded `cond-stage-rules=3`
+in a grep before committing. Three rules for a component with two is the
+whole story, and it went past as noise.
+
+### The rule that comes out of it
+
+**Never compute a splice bound from an unanchored `str.index` in a 4,000 line
+stylesheet.** Two selectors in this file differ only by which media block
+they sit in, and `index` cannot tell them apart. Either match a string that
+is unique in the whole file, or slice the media block first and edit inside
+it.
+
+**And check the line count after any scripted CSS edit.** A 50% jump is not
+subtle once anyone looks; nothing in the build, the suite or the deploy looks.
+
+### The repair
+
+Restored from `26ea8cb`, the last clean version, and re-applied the two
+intended changes by hand: the section padding floor and the stage padding
+trim. Verified afterwards that every rule from the intervening work is
+present exactly once — the carved token, the rebalanced type scale, the
+`--label` emphasis fix, `--focus`, the ruled inline links, the inert gauge,
+the section floor — and that four structural sentinels each appear once.
+
+    4641 clean  ->  6976 corrupt  ->  4669 repaired
+
+---
+
+## 42. And the condition block is centred, which is where it started
+
+Four passes were spent trying to place the leftover viewport around the
+pinned block, and every one was worse than leaving it alone:
+
+    centred, as built        leading 320   trailing 327
+    align-items: flex-start  leading 153   trailing 327
+    inner gap 18vh           leading 259   trailing 147
+    inner gap 26vh           leading 228   trailing 116, and a 208px hole
+                             between the numbers and the recognition
+    content sized stage      block at 103 above / 354 below, top heavy
+
+The block is one short statement on a dark field and it belongs in the
+optical middle of the screen. It is `align-items: center` again, at 253
+above and 204 below — the extra on top is the fixed header's own space, so
+that reads as centred rather than measuring as it.
+
+**`.cond-in` is not a dial for section spacing.** The gap between the numbers
+and the recognition is the component's own `--s-6`, 32px, and using it to
+absorb section rhythm is what put a hole through the middle of the
+composition. Two assertions now hold both facts: the block is centred at 375,
+and that inner gap is under 72px.
+
+What survives from the four passes is the part that cost nothing: the stage's
+padding came down from 105/57 to 89/41 and the hero stopped holding a
+desktop-sized floor under its last line. **68px off the approach with nothing
+moved and nothing stretched.**
+
+    behaviour  388 pass / 0 fail
+    analytics  141 pass / 0 fail
