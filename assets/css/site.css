@@ -3808,8 +3808,16 @@ main > * { position: relative; z-index: 1; }
      .case-mark          a client's logo. Not ours to dissolve
      .case-screen        a UI screenshot. Soft edges there read as broken
                          rendering rather than as a treatment
-     .rt-play            an interactive target. A control needs an edge you
-                         can see the end of
+     .rt-play            the ANCHOR is not masked, but `.rt-play img` is.
+                         The play button is a sibling `span.rt-play-btn`
+                         and the scrim is `.rt-play::after`, so fading the
+                         photograph leaves the control completely crisp.
+                         This was excluded at first on the reasoning that a
+                         control needs an edge you can see the end of. True
+                         of the control. Not true of the picture behind it,
+                         and the poster is the largest photograph on that
+                         page, so leaving it square made it the only boxy
+                         thing left
      .gal-item           grid tiles. Fading tile edges destroys the grid
                          rhythm, which is the whole point of a grid
      .lbx-stage          the lightbox, which is a viewer and not a plate
@@ -3835,7 +3843,8 @@ main > * { position: relative; z-index: 1; }
    of those carries a figcaption. The mask goes on the IMAGE there, never
    on the figure, or it fades the caption text along with the picture. */
 #depth, .ab-portrait, .rt-date-fig:not(.rt-date-fig--map),
-.story-fig img, .retreat-fig img, .layer-fig img, .rt-person figure img {
+.story-fig img, .retreat-fig img, .layer-fig img, .rt-person figure img,
+.rt-play img {
   --e-t: 7%; --e-b: 88%; --e-x: 8%; --e-xr: 92%;
   -webkit-mask-image: linear-gradient(180deg,
       rgb(0 0 0 / 0.00) 0%,
@@ -3946,6 +3955,95 @@ main > * { position: relative; z-index: 1; }
       rgb(0 0 0 / 0.22) calc(var(--e-b) + (100% - var(--e-b)) * 0.70),
       rgb(0 0 0 / 0.06) calc(var(--e-b) + (100% - var(--e-b)) * 0.85),
       rgb(0 0 0 / 0.00) 100%);
+}
+
+/* A BAND IS NOT ALWAYS FULL BLEED, WHICH IS WHERE THE RULE ABOVE WAS
+   WRONG. `.layer-band` was given the vertical pair only on the assumption
+   that a band always runs edge to edge and its left and right edges are
+   therefore the screen. Measured, that is true of three of the four:
+   `--wide` is 1440 of 1440 on Retreats and both of Greece's. But
+   `.layer-band--tall` on Retreats, the pavilion at nine in the morning,
+   sits INSIDE `.wrap` at 76vw, so it had two hard vertical edges the rest
+   of the site no longer has.
+
+   The test is structural rather than a variant name: **if it is inside a
+   `.wrap` it is inset, and inset means it has real side edges.** A
+   `--wide` dropped inside a wrap later picks this up on its own, and a
+   `--tall` pulled out to full bleed drops it, without anybody having to
+   remember this note.
+
+   Higher specificity than the `.layer-band` rule above, so order does not
+   matter here. */
+.wrap .layer-band {
+  --e-t: 9%; --e-b: 88%; --e-x: 8%; --e-xr: 92%;
+  -webkit-mask-image: linear-gradient(180deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-t) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-t) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-t) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-t) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-t) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-t) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-t),
+      rgb(0 0 0 / 1.00) var(--e-b),
+      rgb(0 0 0 / 0.94) calc(var(--e-b) + (100% - var(--e-b)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-b) + (100% - var(--e-b)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-b) + (100% - var(--e-b)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-b) + (100% - var(--e-b)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-b) + (100% - var(--e-b)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-b) + (100% - var(--e-b)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%), linear-gradient(90deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-x) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-x) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-x) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-x) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-x) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-x) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-x),
+      rgb(0 0 0 / 1.00) var(--e-xr),
+      rgb(0 0 0 / 0.94) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(180deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-t) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-t) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-t) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-t) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-t) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-t) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-t),
+      rgb(0 0 0 / 1.00) var(--e-b),
+      rgb(0 0 0 / 0.94) calc(var(--e-b) + (100% - var(--e-b)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-b) + (100% - var(--e-b)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-b) + (100% - var(--e-b)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-b) + (100% - var(--e-b)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-b) + (100% - var(--e-b)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-b) + (100% - var(--e-b)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%), linear-gradient(90deg,
+      rgb(0 0 0 / 0.00) 0%,
+      rgb(0 0 0 / 0.06) calc(var(--e-x) * 0.15),
+      rgb(0 0 0 / 0.22) calc(var(--e-x) * 0.30),
+      rgb(0 0 0 / 0.42) calc(var(--e-x) * 0.45),
+      rgb(0 0 0 / 0.58) calc(var(--e-x) * 0.55),
+      rgb(0 0 0 / 0.78) calc(var(--e-x) * 0.70),
+      rgb(0 0 0 / 0.94) calc(var(--e-x) * 0.85),
+      rgb(0 0 0 / 1.00) var(--e-x),
+      rgb(0 0 0 / 1.00) var(--e-xr),
+      rgb(0 0 0 / 0.94) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.15),
+      rgb(0 0 0 / 0.78) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.30),
+      rgb(0 0 0 / 0.58) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.45),
+      rgb(0 0 0 / 0.42) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.55),
+      rgb(0 0 0 / 0.22) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.70),
+      rgb(0 0 0 / 0.06) calc(var(--e-xr) + (100% - var(--e-xr)) * 0.85),
+      rgb(0 0 0 / 0.00) 100%);
+  mask-composite: intersect;
 }
 
 /* ...except the one inside the rise band, which already fades into both

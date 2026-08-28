@@ -2883,3 +2883,48 @@ a soft edged print, and the captions stay crisp because on every
 light-ground slot the mask is on the image rather than the figure. Checked
 on `/`, `/retreats/` and `/retreats/greece/` before shipping rather than
 reasoned about.
+
+
+---
+
+## 26. Session eighteen: two the soft-edge sweep missed
+
+Both reported by Cydnie against the Retreats page, and both were wrong
+assumptions in §25 rather than bugs in the mask itself.
+
+### 1. A band is not always full bleed
+
+`.layer-band` was given the vertical pair only, on the reasoning that a
+band runs edge to edge so its left and right edges are the screen. Measured
+at 1440 and at 390, that is true of three of the four:
+
+    /retreats/         --tall   1176 of 1440   INSET, inside .wrap
+    /retreats/         --wide   1440 of 1440   full bleed
+    /retreats/greece/  --wide   1440 of 1440   full bleed  (x2)
+
+`.layer-band--tall` is the pavilion at nine in the morning. It sits inside
+`.wrap` at 76vw and had two hard vertical edges the rest of the site no
+longer has.
+
+**The test is structural, not a variant name.** `.wrap .layer-band` gets
+the four-edge mask: if it is inside a wrap it is inset, and inset means it
+has real side edges. A `--wide` dropped into a wrap later picks this up on
+its own and a `--tall` pulled out to full bleed drops it, without anyone
+having to remember this note.
+
+### 2. The control needs an edge. The picture behind it does not
+
+`.rt-play` was excluded as an interactive target, on the reasoning that a
+control needs an edge you can see the end of. **That is true of the
+control and not of the photograph**, and the two are separate elements:
+the play button is `span.rt-play-btn` and the scrim is `.rt-play::after`,
+both siblings of the image.
+
+So `.rt-play img` is masked and the anchor is not. The photograph dissolves
+and the button stays completely crisp. It is the largest photograph on that
+page, so leaving it square had made it the only boxy thing left once
+everything around it had been softened.
+
+The verification harness still reports it under the exclusion list, now as
+`!! MASKED`, which is correct and intended: **the anchor is unmasked, the
+image inside it is masked.** Every other exclusion is still clean.
