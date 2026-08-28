@@ -2216,7 +2216,32 @@ main > * { position: relative; z-index: 1; }
 .ab-head--type {
   position: relative; isolation: isolate; overflow: hidden;
   background: var(--fathom);
-  min-height: 68vh; min-height: 68svh;
+
+  /* 68svh was not enough height for the composition it is holding, and the
+     failure was not "tight", it was an overlap.
+
+     The rule is absolutely positioned at 38% of this section. The copy is
+     bottom aligned. So the clearance between them is whatever is left over
+     after the copy has taken what it needs, and at 375x812, where the lede
+     wraps to four lines and the copy block is 291px tall, there was nothing
+     left: measured, the heading started 13px ABOVE the rule and the line
+     ran straight through "I'm Cydnie."
+
+     The refinement command asks for a rule at 38% with NOTHING ABOVE IT.
+     That was being violated at the most common phone width on the site.
+
+     80svh is the height at which 38% clears the tallest the copy block
+     gets, with room to spare at the width where it was worst. Measured
+     after, rule to heading: 47px at 375x812, 86px at 390x844, 85px at
+     1440x900, 174px at 768. The rule stays at 38%, which is the part of the
+     composition the refinement command actually specified; only the room it
+     has to be 38% OF has changed.
+
+     THE TIGHTEST CASE IS 375x812, NOT THE SMALLEST SCREEN. The lede wraps
+     to four lines there rather than three, so the copy block is 291px
+     against 265px at 390. If this is ever retuned, measure 375 first: it is
+     the one that fails. */
+  min-height: 80vh; min-height: 80svh;
   display: flex; align-items: flex-end;
   padding-block: clamp(7rem, 16vh, 10rem) clamp(3.5rem, 8vh, 5rem);
 }

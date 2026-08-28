@@ -3074,3 +3074,45 @@ place name is the textbook doorway-page pattern Google penalises, and it
 would wreck a site whose whole argument is that it does not run templates.
 If local pages are ever wanted they need to be genuinely different pages,
 with real local content, and there are only a few towns where that is true.
+
+
+---
+
+## 29. Session twenty-one: the rule was running through her name
+
+Reported as "I'm Cydnie is extremely close to the top line". Measured, it
+was not close. **At 375x812 the heading sat 13px ABOVE the rule and the
+line ran straight through the words.**
+
+### Why it only failed at one width
+
+`.ab-head-rule` is absolutely positioned at **38% of the section**. The copy
+is **bottom aligned**. So the clearance between them is not set anywhere: it
+is whatever is left after the copy has taken the height it needs.
+
+    gap = 0.62 x sectionHeight - paddingBottom - copyHeight
+
+At 375x812 the lede wraps to **four** lines rather than three, so the copy
+block is 291px against 265px at 390. The section was `min-height: 68svh`,
+552px at that viewport, and the arithmetic came out negative.
+
+**The tightest case is 375x812, not the narrowest screen.** 320 is fine and
+390 was only 23px. If this is ever retuned, measure 375 first: it is the one
+that fails, and testing 320 and 390 would have passed it.
+
+### The fix keeps the composition and changes the room
+
+The refinement command specifies a rule at 38% with **nothing above it**.
+That is what was being violated, so 38% was not the thing to change. The
+section is `min-height: 80svh` now, so 38% has enough page to be 38% of.
+
+    rule to heading, measured after
+    375x812     -13px  ->   47px
+    390x844      23px  ->   86px
+    1440x900     18px  ->   85px
+    768x1024     97px  ->  173px
+
+`.ab-head--type` exists only on the About page, so nothing else moves. The
+page grows about 108px on a desktop, roughly a tenth of a screen on an
+eleven screen page, which is the cost of the heading not having a line
+through it.
