@@ -2444,9 +2444,13 @@ main > * { position: relative; z-index: 1; }
    from the top running past both edges, nothing above it, and the name
    and lede below. The construction is its own fallback: there is nothing
    to load, so there is nothing to fail. */
+/* LIGHT, on Cydnie's instruction of 29 August 2026: "This page shouldn't be
+   dark either. It needs to be light and inspiring." The construction is
+   unchanged and the ground is not: the rule is still Meniscus at 38% and the
+   page's one Held tick still crosses it. Both read on Surface. */
 .ab-head--type {
   position: relative; isolation: isolate; overflow: hidden;
-  background: var(--fathom);
+  background: var(--surface);
 
   /* 68svh was not enough height for the composition it is holding, and the
      failure was not "tight", it was an overlap.
@@ -2527,14 +2531,14 @@ main > * { position: relative; z-index: 1; }
   border-bottom: 1px solid var(--meniscus);
   transition: border-color 150ms var(--ease-out), color 150ms var(--ease-out);
 }
-.creed-line label:hover { color: var(--breath); border-bottom-color: var(--breath); }
+.creed-line label:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .creed-line sup {
   font-family: var(--utility); font-size: .5em;
   letter-spacing: .1em; vertical-align: super; margin-left: .15em;
   color: var(--breath);
 }
 .vtoggle:focus-visible + .creed-line label,
-.creed-line label:focus-within { outline: 2px solid var(--breath); outline-offset: 3px; }
+.creed-line label:focus-within { outline: 2px solid var(--focus); outline-offset: 3px; }
 
 /* Closed by default and opened by its own checkbox. No height animation:
    a transition that never advances would leave it shut forever. */
@@ -2660,13 +2664,22 @@ main > * { position: relative; z-index: 1; }
   /* auto rows for the copy and a last row that takes the slack, so the three
      buttons sit on one line whatever length the card's text runs to */
   display: grid; grid-template-rows: auto auto 1fr auto; gap: var(--s-3);
-  background: var(--deepwater);
-  border: 1px solid var(--meniscus);
+  /* NO PANEL GROUND. This was `background: var(--deepwater)`, which was
+     invisible while the whole page was Fathom and became a bug the moment
+     the page went light: the card stayed dark, the type tokens resolved
+     against the light section around it, and all eleven strings inside
+     these three cards rendered dark on dark. Measured at 1.00:1 on the
+     stage labels, which is the same colour twice.
+
+     The hairline does the work now, the way `.door` does it on the home
+     page, and the type takes its colour from whatever ground the section
+     is on. */
+  border: 1px solid var(--rule);
   border-radius: 2px;
   padding: var(--s-5);
   transition: border-color 150ms var(--ease-out);
 }
-.way:hover, .way:focus-within { border-color: var(--breath); }
+.way:hover, .way:focus-within { border-color: var(--accent); }
 
 /* The risk reversal, on its own line at reading size, next to the doors.
    It is a sentence, not a badge and not a guarantee seal. */
@@ -2676,9 +2689,9 @@ main > * { position: relative; z-index: 1; }
   font-size: clamp(1.05rem, 1.4vw, 1.175rem);
   line-height: 1.6; color: var(--ink);
 }
-.way-word { font-family: var(--utility); font-size: .6875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--breath); }
+.way-word { font-family: var(--utility); font-size: .6875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--label); }
 .way h3 { margin: 0; }
-.way-meta { color: #A8C4C0; font-size: .9375rem; line-height: 1.6; }
+.way-meta { color: var(--muted); font-size: .9375rem; line-height: 1.6; }
 /* one size for all three: the wrap in "Book one conversation" made that
    button two lines tall while the others stayed at one */
 .way .btn {

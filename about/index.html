@@ -63,7 +63,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=a58cd2b2">
+<link rel="stylesheet" href="../assets/css/site.css?v=255b3686">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -356,7 +356,14 @@
      construction is its own fallback: nothing can fail to load, so
      nothing can break. This tick is also the page's one Held element,
      so there is no Held anywhere else on the page. -->
-<section class="section ab-head ab-head--type z-deep" data-zone aria-labelledby="ab-h">
+<!-- LIGHT, 29 August 2026. "This page shouldn't be dark either. It needs to
+     be light and inspiring." Six of the eight sections were Fathom, so the
+     page a reader met was near black from the name at the top to the offers
+     at the foot, and the only relief was one light section three quarters of
+     the way down. It runs Surface and Silt now, alternating, with the single
+     Deepwater band kept where the rule puts it: on the close, which is the
+     one thing this page asks for. -->
+<section class="section ab-head ab-head--type z-light" data-zone aria-labelledby="ab-h">
   <span class="ab-head-rule" aria-hidden="true"></span>
   <span class="ab-head-tick" aria-hidden="true"></span>
   <div class="wrap">
@@ -375,7 +382,7 @@
 
 <!-- 02 / THE READER, BEFORE ME. She reads about me only after I have
      proved I can see her. -->
-<section class="section z-deep" data-zone aria-labelledby="ab-you">
+<section class="section z-silt" data-zone style="--from:var(--surface)" aria-labelledby="ab-you">
   <div class="wrap">
     <div class="grid-12 grid-12--hold">
       <div class="col-d">
@@ -412,7 +419,7 @@
 
      The refinement command forbade motion in this section. Cydnie has
      overruled that. -->
-<section class="section z-deep" data-zone aria-labelledby="ab-acct">
+<section class="section z-light" data-zone style="--from:#DCE4E1" aria-labelledby="ab-acct">
   <div class="wrap">
     <div class="ab-split">
       <div class="ab-acct">
@@ -446,7 +453,7 @@
      after the account, on the same dark ground, where it lands as a breath
      between the hardest section on the page and the faith that held it.
      "It has not all been the hard parts" only does its work here. -->
-<section class="section section--tight z-deep" data-zone aria-labelledby="ab-true">
+<section class="section section--tight z-silt" data-zone style="--from:var(--surface)" aria-labelledby="ab-true">
   <div class="wrap">
     <!-- These were one run on sentence at the bottom of the account, and
          they closed with "It has not all been the hard parts", which is the
@@ -457,16 +464,18 @@
     <p class="eyebrow r-fade">Also true</p>
     <h2 class="head h-2 split" id="ab-true">The rest of me.</h2>
     <ul class="ab-true" role="list" data-stagger="90">
+      <li class="r-up">My spirit animal is somewhere between a cheetah and a turtle.</li>
       <li class="r-up">There is a craft room in my house that I use more than I let on.</li>
       <li class="r-up">I drink a truly unreasonable amount of water and I am unbothered about it.</li>
       <li class="r-up">I sing. Not in front of people.</li>
+      <li class="r-up">Currently reading ACOTAR and a Proverb a day.</li>
     </ul>
   </div>
 </section>
 
 <!-- The rise. The one place on this page where the copy has actually come
      up, and the transition from the account into what held it up. -->
-<div class="rise-band" id="rise" style="--band-into:var(--deepwater)">
+<div class="rise-band" id="rise" style="--band-from:var(--surface); --band-into:var(--surface)">
   <figure class="layer-band" aria-hidden="true">
     <img src="../assets/img/layer-surface-1800.webp"
          srcset="../assets/img/layer-surface-700.webp 700w, ../assets/img/layer-surface-1200.webp 1200w, ../assets/img/layer-surface-1800.webp 1800w"
@@ -485,7 +494,7 @@
 <!-- 04 / WHAT HELD. COPY FREEZE applies here too: do not lengthen
      "Days before, I almost backed out." It is the only short sentence in
      the section and it is where the reader stops. -->
-<section class="section z-deep" data-zone aria-labelledby="ab-god">
+<section class="section z-light" data-zone style="--from:#DCE4E1" aria-labelledby="ab-god">
   <div class="wrap">
     <div class="grid-12 grid-12--hold">
       <div class="col-d">
@@ -530,7 +539,7 @@
 
 <!-- 05 / WHAT I DO NOW. The triad, defined, and named at the end so the
      words arrive after the thing they describe. -->
-<section class="section z-light" data-zone style="--from:var(--fathom)" id="triad" aria-labelledby="ab-triad">
+<section class="section z-silt" data-zone style="--from:var(--surface)" id="triad" aria-labelledby="ab-triad">
   <div class="wrap">
     <div class="grid-12 grid-12--hold">
       <div class="col-d">
@@ -551,7 +560,7 @@
 
 <!-- 07 / WHERE TO START. Three doors mapped to the three words. The
      Letters sit underneath, attached and quieter: not a fourth door. -->
-<section class="section z-deep" data-zone style="--from:var(--surface)" id="ways" aria-labelledby="ab-ways">
+<section class="section z-light" data-zone style="--from:#DCE4E1" id="ways" aria-labelledby="ab-ways">
   <div class="wrap">
     <div class="grid-12" style="margin-bottom:var(--s-7)">
       <div class="col-d">
@@ -709,12 +718,12 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=a58cd2b2" defer></script>
+<script src="../assets/js/site.js?v=255b3686" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=a58cd2b2" defer></script>
-<script src="../assets/js/consent.js?v=a58cd2b2" defer></script>
+<script src="../assets/js/analytics.js?v=255b3686" defer></script>
+<script src="../assets/js/consent.js?v=255b3686" defer></script>
 </body>
 </html>
