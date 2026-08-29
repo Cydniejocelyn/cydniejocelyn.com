@@ -56,6 +56,15 @@ else
   one retreats /retreats/
   one sounding /a-sounding/
   one letters  /the-letters/
+  # Added 28 August 2026, after The Build page's ten questions became the
+  # objection picker and the suite that went green on the deploy had never
+  # once loaded the page that changed. Six of nine pages was not a suite,
+  # it was the six that happened to get written first. All three of these
+  # were green the first time they were run, so this costs nothing and the
+  # picker assertions now cover all three pages that carry one.
+  one home     /
+  one build    /the-build/
+  one about    /about/
   # Built 28 August. Static pages, but they carry two assertions each that
   # run nowhere else: the relative privacy and terms links in the footer,
   # and, on /thequestions/ only, the bare header and its button's contrast.

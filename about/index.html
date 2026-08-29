@@ -63,7 +63,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=b8862031">
+<link rel="stylesheet" href="../assets/css/site.css?v=29854965">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -286,7 +286,20 @@
   <span class="gauge-read">40m</span>
 </div>
 
-<header id="top" class="hdr">
+<!-- THE RETURN. This header used to carry the id the footer's "Back to the
+     top" pointed at, and that is exactly what broke it: the header is
+     `position: fixed`, so scrolling it into view is already satisfied and
+     the page does not move. Measured 28 August 2026 at the foot of The
+     Build page: click at 9,564px, still at 9,564px. It had never worked.
+
+     Two things fix it, and both are here. The footer link now names #main,
+     which is the first element actually in the flow and measured to land
+     at 0. And with nothing claiming the id any more, a bare #top falls
+     through to the fragment HTML defines for precisely this case, the top
+     of the document, so every bookmarked /#top is repaired too.
+
+     Do not put an id back on this element. -->
+<header class="hdr">
   <div class="wrap hdr-in">
     <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
       <img class="brand-mark brand-mark--light" src="../assets/img/mark-horiz-light-800.webp"
@@ -597,7 +610,7 @@
      is `aria-hidden` because it is instrumentation; this is the actual
      affordance, placed where somebody who has reached the end is rather
      than floating over the page they are still reading. -->
-<p class="ftr-top-link"><a class="more" href="#top"><span>Back to the top</span>
+<p class="ftr-top-link"><a class="more" href="#main"><span>Back to the top</span>
 <svg class="arw arw--up" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a></p>
     <div class="ftr-top">
       <div class="ftr-brand">
@@ -656,12 +669,12 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=b8862031" defer></script>
+<script src="../assets/js/site.js?v=29854965" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=b8862031" defer></script>
-<script src="../assets/js/consent.js?v=b8862031" defer></script>
+<script src="../assets/js/analytics.js?v=29854965" defer></script>
+<script src="../assets/js/consent.js?v=29854965" defer></script>
 </body>
 </html>

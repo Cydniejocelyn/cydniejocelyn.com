@@ -263,10 +263,22 @@ f.addEventListener('load', function(){
    var rev = d.querySelector('[data-reversal]');
    if(rev){
      ok('objections: built into a tablist', !!d.querySelector('.rev-picks[role=tablist]'));
-     ok('objections: four tabs, one panel shown', d.querySelectorAll('.rev-picks [role=tab]').length===4);
-     var t2 = d.querySelectorAll('.rev-picks [role=tab]')[2];
+     /* This used to assert four, because until The Build page's questions
+        became a picker on 28 August 2026 the only two on the site carried
+        four each. Four is not the rule; one tab per pair is, and the page
+        with ten was the one that proved the difference. It also never
+        checked the "one panel shown" half of its own name. */
+     var rtabs = d.querySelectorAll('.rev-picks [role=tab]');
+     var rpans = rev.querySelectorAll('.rev-panels [role=tabpanel]');
+     ok('objections: one tab per answer ('+rtabs.length+')',
+        rtabs.length >= 2 && rtabs.length === rpans.length);
+     ok('objections: exactly one panel shown',
+        Array.prototype.filter.call(rpans, function(x){ return !x.hidden; }).length === 1);
+     var t2 = rtabs[2];
      t2.click();
      ok('objections: picking one selects it', t2.getAttribute('aria-selected')==='true');
+     ok('objections: picking one leaves one panel shown',
+        Array.prototype.filter.call(rpans, function(x){ return !x.hidden; }).length === 1);
    }
    // ---- the two portraits ----
    var ppl = d.querySelectorAll('.rt-person img');
@@ -581,8 +593,22 @@ f.addEventListener('load', function(){
         !!otherNav && (w.getComputedStyle(curNav).color !== w.getComputedStyle(otherNav).color ||
                        w.getComputedStyle(curNav, '::after').content !== 'none'));
    }
-   ok('footer: there is a way back to the top',
-      !!d.querySelector('.ftr-top-link a[href="#top"]') && !!d.querySelector('#top'));
+   /* THIS ASSERTION USED TO REQUIRE href="#top" AND an element carrying
+      id="top", which is the precise configuration that did not work. The id
+      was on the header, the header is position:fixed, and scrolling a fixed
+      element into view is already satisfied, so the link never moved the
+      page. Both halves were present and green the whole time.
+      A link and a target are not the point. Landing at the top is. */
+   var back = d.querySelector('.ftr-top-link a');
+   var backHref = (back && back.getAttribute('href')) || '';
+   var backTarget = (backHref.charAt(0) === '#' && backHref.length > 1)
+     ? d.getElementById(backHref.slice(1)) : null;
+   var backOffset = backTarget
+     ? Math.round(backTarget.getBoundingClientRect().top + w.scrollY) : -1;
+   ok('footer: the way back points at something',  !!back && !!backTarget);
+   ok('footer: and that something can actually be scrolled to',
+      !!backTarget && w.getComputedStyle(backTarget).position !== 'fixed'
+      && backOffset >= 0 && backOffset < 8);
    ok('gauge: takes no pointer events, so it cannot pretend to be a control',
       !d.querySelector('.gauge') ||
       w.getComputedStyle(d.querySelector('.gauge')).pointerEvents === 'none');

@@ -631,9 +631,39 @@
       if (h) panels.style.setProperty("--rev-h", Math.ceil(h + chrome) + "px");
     }
 
+    /* THE ANSWER HAS TO BE ON SCREEN, AND WITH TEN OF THESE IT IS NOT.
+       The panel sits under the whole list of questions, which was fine
+       while the only two pickers on the site carried four each: on a 390
+       phone Greece puts its panel at y=516 in a 701px viewport and every
+       one of its four answers is fully visible. The Build page's questions
+       are ten, the list is 755px on that phone, and the panel lands at
+       y=882. Measured 28 August 2026: the answer was off screen for all
+       ten tabs. You tapped a question and nothing you could see changed.
+
+       So a selection that a reader made brings its answer into view. Two
+       things keep this from becoming a page that yanks itself about:
+
+         - It only runs when the panel is not already fully readable, so it
+           never fires on the home page or Greece at any normal size, and
+           it does not fire on a desktop here either.
+         - `block: "nearest"` is the smallest scroll that does the job, so
+           the questions above stay on screen rather than being thrown off
+           the top.
+
+       It is deliberately not called for the opening select(0). A page that
+       scrolls itself on load is a bug, not a feature. Smoothness is the
+       stylesheet's business: `html` is `scroll-behavior: smooth` and drops
+       to `auto` under prefers-reduced-motion, so this inherits both. */
+    function keepAnswerInView() {
+      if (!panels.getBoundingClientRect || !window.innerHeight) return;
+      var r = panels.getBoundingClientRect();
+      if (r.top >= 0 && r.bottom <= window.innerHeight) return;
+      if (panels.scrollIntoView) panels.scrollIntoView({ block: "nearest" });
+    }
+
     var cur = -1;
-    function select(i, moveFocus) {
-      if (i === cur) { if (moveFocus) tabs[i].focus(); return; }
+    function select(i, moveFocus, reveal) {
+      if (i === cur) { if (moveFocus) tabs[i].focus(); if (reveal) keepAnswerInView(); return; }
       cur = i;
       tabs.forEach(function (t, n) {
         var on = n === i;
@@ -646,10 +676,11 @@
         p.setAttribute("aria-hidden", on ? "false" : "true");
       });
       if (moveFocus) tabs[i].focus();
+      if (reveal) keepAnswerInView();
     }
 
     tabs.forEach(function (b, i) {
-      b.addEventListener("click", function () { select(i); });
+      b.addEventListener("click", function () { select(i, false, true); });
       b.addEventListener("keydown", function (e) {
         var last = tabs.length - 1, n = null;
         if (e.key === "ArrowDown" || e.key === "ArrowRight") n = i === last ? 0 : i + 1;
@@ -658,7 +689,7 @@
         else if (e.key === "End") n = last;
         if (n === null) return;
         e.preventDefault();
-        select(n, true);
+        select(n, true, true);
       });
     });
 
