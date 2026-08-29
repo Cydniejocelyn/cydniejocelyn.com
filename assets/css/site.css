@@ -2611,12 +2611,24 @@ main > * { position: relative; z-index: 1; }
 /* 06. The personal bit. A paragraph, not a list: a list of personal facts
    is the fun facts format however it is styled. Set at reading size, not
    shrunk into a caption, and given the width of a single held breath. */
-.ab-personal {
-  max-width: 46rem;
-  /* it sits on the dark ground now, directly after the account */
-  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
-  line-height: 1.62;
+/* ALSO TRUE. Three facts that are the only light thing on this page, and
+   they used to be one run on sentence in body type at the foot of the
+   account. They are set in the display face now, one to a line, with room
+   between them, because the pause between them is where the joke is. Each
+   arrives on its own as she reads down, which is the same stagger the
+   offers use. No rules, no bullets, no numerals: they are not a sequence
+   and nothing about them is being argued. */
+.ab-true {
+  list-style: none; margin: clamp(var(--s-6), 6vw, var(--s-7)) 0 0; padding: 0;
+  display: grid; gap: clamp(var(--s-5), 4vw, var(--s-6));
+  max-width: 40rem;
+}
+.ab-true li {
+  font-family: var(--carved);
+  font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+  line-height: 1.28; letter-spacing: .01em;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 /* The triad rows answer the pointer the way the doors on the home page do:
