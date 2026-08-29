@@ -898,56 +898,91 @@
      Written as the literal sentences people type into a search field or an
      assistant, and each answer is self contained so it can be quoted
      without the page around it. The FAQPage schema at the top of this file
-     carries the same eight. If a figure changes here, it changes there. -->
+     carries the same ten. If a figure changes here, it changes there.
+
+     IT USED TO BE TEN CLOSED ACCORDIONS: 752px of shut summaries at 1440,
+     ten identical 75px rows, and not one answer showing until the reader
+     did the work of opening one. Opening all ten ran the block to 1,907px.
+     It read as a list to get through at the bottom of a page that had
+     already asked for a lot of scrolling, and nobody opens ten.
+
+     So it is the same picker the home page and the Greece page use for
+     "before you book": `initReversal` turns these pairs into a tablist and
+     one panel, and the reader answers the question she actually walked in
+     with rather than reading past nine she does not have. One answer is
+     always up, in carved type, which is the difference between a section
+     that moves and a section that is read.
+
+     MEASURED 28 August 2026. At 1440 the picker is 592px, the panel is
+     held at 159px, the longest answer, so choosing never jolts the page:
+     985px against the accordion's 954px. At 390 it is 1,307px against
+     1,120px, the extra being the answer that is now always open, and every
+     row clears 44px. It buys movement for 31px on a desktop and 187px on a
+     phone, and it is the only place on this page where the reader picks.
+
+     The markup is still the plain pairs. With no JS, under a failed script,
+     or to a crawler reading the source, every question and every answer is
+     on the page in order, which is what keeps the schema honest and is the
+     only reason the picker is allowed to exist. `.rev-a` is moved, not
+     duplicated, so there is one copy of each answer either way.
+
+     Ten rows is more than the four the other two pickers carry, and the
+     order matters more here because of it: cost first, then the two that
+     decide whether to book at all, then the ones that only matter after
+     yes. -->
 <section class="section z-silt" data-zone style="--from:var(--surface)" id="faq" aria-labelledby="bd-faq">
   <div class="wrap">
     <div class="grid-12">
       <div class="col-a">
         <p class="eyebrow r-fade">Questions people ask</p>
         <h2 class="head h-2 split" id="bd-faq">Brand consulting pricing, answered</h2>
+        <!-- Without JS there is nothing to pick, so this line does not tell
+             anyone to pick. `buildReversal` swaps in data-lede once there is. -->
+        <p class="ready-lede r-up" style="--d:120ms">Ten questions, answered on the page rather than on a call.</p>
       </div>
       <div class="col-b">
-        <div class="faq r-up" style="--d:60ms">
-          <details>
-            <summary>What does a brand and business development engagement cost? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>A Sounding is $300. The Build is $1,500 for a single day and starts at $6,000 for a season. A website starts at $4,000, content is $3,600 per quarter, and a full engagement covering all of it starts at $15,000. Every figure is published on this page.</p></div>
-          </details>
-          <details>
-            <summary>Do I have to book a call before I can see pricing? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>No. Every number is on this page. The conversation is for deciding what you actually need, not for finding out what it costs.</p></div>
-          </details>
-          <details>
-            <summary>Do I need to prepare anything for a Sounding? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>No. You do not need documents, a deck, or a list of questions. Come as you are and talk. Structuring it is my job.</p></div>
-          </details>
-          <details>
-            <summary>Can I hire you to design just a logo? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>No. Identity is only available inside the full engagement, because a logo made before the positioning is settled has to be remade after.</p></div>
-          </details>
-          <details>
-            <summary>Is there a monthly fee after the website is built? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Yes. Essential care is $95 per month and covers hosting, security, backups, and regular health checks. Complete is $200 per month and adds up to an hour of content updates. Design work beyond that is $100 per hour. Every site I build is on one of the two.</p></div>
-          </details>
-          <details>
-            <summary>Can I edit the website myself? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>No, and that is deliberate. The site is written in code rather than assembled from a template, so it is not limited by what a theme allows and it does not break when a plugin updates. Content changes come through me, which is what the Complete tier covers.</p></div>
-          </details>
-          <details>
-            <summary>How long does a season engagement take? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>A season, scoped in a written proposal before either of us commits. The exact length depends on how much of the operations work is in play.</p></div>
-          </details>
-          <details>
-            <summary>Do you work with clients outside Minnesota? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Yes. I am based in Forest Lake, Minnesota and work in person around the Twin Cities and Minneapolis. Everything on this page also runs remotely, and most engagements do.</p></div>
-          </details>
-          <details>
-            <summary>What is your background? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Fourteen years in corporate marketing before this practice. That is where the diagnostic comes from: I have seen the inside of enough businesses to recognise the pattern quickly.</p></div>
-          </details>
-          <details>
-            <summary>Is this coaching? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>No. This is brand and business development consulting, drawn from fourteen years in corporate marketing. You get a diagnosis and a plan, not a series of open-ended questions.</p></div>
-          </details>
+        <div class="reversal r-up" data-reversal data-label="Questions people ask"
+             data-lede="Pick the one you came here with. The other nine are not your question." style="--d:60ms">
+          <div class="rev">
+            <p class="rev-q">What does a brand and business development engagement cost?</p>
+            <p class="rev-a">A Sounding is $300. The Build is $1,500 for a single day and starts at $6,000 for a season. A website starts at $4,000, content is $3,600 per quarter, and a full engagement covering all of it starts at $15,000. Every figure is published on this page.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">Do I have to book a call before I can see pricing?</p>
+            <p class="rev-a">No. Every number is on this page. The conversation is for deciding what you actually need, not for finding out what it costs.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">Do I need to prepare anything for a Sounding?</p>
+            <p class="rev-a">No. You do not need documents, a deck, or a list of questions. Come as you are and talk. Structuring it is my job.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">Can I hire you to design just a logo?</p>
+            <p class="rev-a">No. Identity is only available inside the full engagement, because a logo made before the positioning is settled has to be remade after.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">Is there a monthly fee after the website is built?</p>
+            <p class="rev-a">Yes. Essential care is $95 per month and covers hosting, security, backups, and regular health checks. Complete is $200 per month and adds up to an hour of content updates. Design work beyond that is $100 per hour. Every site I build is on one of the two.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">Can I edit the website myself?</p>
+            <p class="rev-a">No, and that is deliberate. The site is written in code rather than assembled from a template, so it is not limited by what a theme allows and it does not break when a plugin updates. Content changes come through me, which is what the Complete tier covers.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">How long does a season engagement take?</p>
+            <p class="rev-a">A season, scoped in a written proposal before either of us commits. The exact length depends on how much of the operations work is in play.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">Do you work with clients outside Minnesota?</p>
+            <p class="rev-a">Yes. I am based in Forest Lake, Minnesota and work in person around the Twin Cities and Minneapolis. Everything on this page also runs remotely, and most engagements do.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">What is your background?</p>
+            <p class="rev-a">Fourteen years in corporate marketing before this practice. That is where the diagnostic comes from: I have seen the inside of enough businesses to recognise the pattern quickly.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">Is this coaching?</p>
+            <p class="rev-a">No. This is brand and business development consulting, drawn from fourteen years in corporate marketing. You get a diagnosis and a plan, not a series of open-ended questions.</p>
+          </div>
         </div>
       </div>
     </div>
