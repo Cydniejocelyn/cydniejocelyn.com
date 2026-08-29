@@ -67,7 +67,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=4e6005b3">
+<link rel="stylesheet" href="../assets/css/site.css?v=76b74aaf">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -397,10 +397,21 @@
         <li><a href="/the-letters/">The Letters</a></li>
         <li><a href="/about/">About</a></li>
       </ul>
-      <a class="btn" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
-        <span>A Sounding</span>
+      <!-- THE NAV TEACHES BEFORE IT CHARGES. This went straight to the
+           scheduler, so the one nav item that sounds like an offer took a
+           first-time reader to a payment page for a product named with a
+           word she had not been taught yet. Meanwhile /a-sounding/, the page
+           that explains it, was reachable from the home page exactly once,
+           as an unstyled prose link near the foot of 1,974 words.
+
+           Sixteen links on this site went to the scheduler and thirteen to
+           the explanation, twelve of those thirteen as plain prose. The
+           booking button still exists, three times, on the page that makes
+           the case. The nav's job is the case. -->
+      <a class="btn" href="/a-sounding/">
+        <span>A Sounding, $300</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
-      <span class="vh"> (opens my scheduling page)</span></a>
+      </a>
       </div>
     </nav>
   </div>
@@ -778,7 +789,7 @@
 <!-- 05 / WHO THIS IS NOT FOR.
      Before the price, not after it. The refusals on the home page are the
      same move and they are the most quoted thing on the site. -->
-<section class="section z-deepwater" data-zone style="--from:var(--fathom)" aria-labelledby="not-h">
+<section class="section z-deep" data-zone style="--from:var(--fathom)" aria-labelledby="not-h">
   <div class="wrap">
     <div class="grid-12">
       <div class="col-d">
@@ -797,6 +808,10 @@
                companies. Enough women asked that it is now answered here and
                again in the questions below. The qualifier is the depending. -->
           <p>What is left is a woman who is tired of being the one everybody depends on and wants a stretch of days where that is not the arrangement. She might run a company. She might run a household, or a department, or a family through a hard year. The qualifier is the depending, not the job title.</p>
+          <!-- This sentence was answer two in the accordion, 1,436 words in.
+               A reader arriving here from an ad or a friend had no idea a
+               consultancy was attached until she opened it. -->
+          <p>I do brand and business development consulting as well, and it is a separate thing you can book any time. It is <a class="link" href="/a-sounding/">A Sounding</a> and <a class="link" href="/the-build/">The Build</a>. Nothing about a retreat runs through it.</p>
         </div>
       </div>
     </div>
@@ -978,19 +993,25 @@
 </section>
 
 <!-- 10 / CLOSE. -->
-<section class="section z-deep" data-zone style="--from:#DCE4E1" aria-label="Close">
+<!-- THE BAND MARKS THE ACTION, and this page had no action to mark. It
+     offered six exits and closed on a button to Greece, which is full, with
+     the only thing a reader can actually do reduced to a text link beside
+     it. The waitlist is the action now and it is the button. Greece keeps
+     its place as a signpost, in body text, which is the rule the rest of
+     the site already follows for a second door. -->
+<section class="section z-deepwater" data-zone style="--from:#DCE4E1" aria-label="Close">
   <div class="wrap">
     <p class="eyebrow r-fade">Twice a year</p>
     <h2 class="head h-2 split">Fifteen seats, and when they go the date closes.</h2>
     <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-    <p class="lead r-up" style="--d:60ms; margin-top:var(--s-5)">That is not a tactic. It is the number. Greece is full and the list is how a seat gets filled when one opens. April goes to the list before it goes anywhere else.</p>
+    <p class="lead r-up" style="--d:60ms; margin-top:var(--s-5)">That is the number, not a tactic. April goes to the list before it goes anywhere else.</p>
     <div class="actions r-up" style="--d:120ms; margin-top:var(--s-5)">
-      <a class="btn" href="/retreats/greece/">
-        <span>Everything about Greece</span>
+      <a class="btn btn--solid" href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa3c69e63a7a4c9bb354f1" rel="noopener">
+        <span>Join the list for April</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
-      </a>
-      <a class="link" href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa3c69e63a7a4c9bb354f1" rel="noopener">Hear about April first<span class="vh"> (opens my scheduling page)</span></a>
+      <span class="vh"> (opens my scheduling page)</span></a>
     </div>
+    <p class="small r-up" style="--d:180ms; margin-top:var(--s-5)">Greece is full and the list is how a seat gets filled when one opens. <a class="link" href="/retreats/greece/">Everything about Greece</a> is on its own page.</p>
     <p class="small r-up" style="--d:180ms; margin-top:var(--s-6); padding-top:var(--s-4); border-top:1px solid var(--rule); max-width:40rem">Looking for the consulting instead? <a class="link" href="/the-build/">The Build</a> is brand, operations and business development, with every price published.</p>
   </div>
 </section>
@@ -1085,13 +1106,13 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=4e6005b3" defer></script>
+<script src="../assets/js/site.js?v=76b74aaf" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=4e6005b3" defer></script>
-<script src="../assets/js/consent.js?v=4e6005b3" defer></script>
+<script src="../assets/js/analytics.js?v=76b74aaf" defer></script>
+<script src="../assets/js/consent.js?v=76b74aaf" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

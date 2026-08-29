@@ -63,7 +63,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=4e6005b3">
+<link rel="stylesheet" href="../assets/css/site.css?v=76b74aaf">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -325,10 +325,21 @@
         <li><a href="/the-letters/">The Letters</a></li>
         <li><a href="/about/" aria-current="page">About</a></li>
       </ul>
-      <a class="btn" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
-        <span>A Sounding</span>
+      <!-- THE NAV TEACHES BEFORE IT CHARGES. This went straight to the
+           scheduler, so the one nav item that sounds like an offer took a
+           first-time reader to a payment page for a product named with a
+           word she had not been taught yet. Meanwhile /a-sounding/, the page
+           that explains it, was reachable from the home page exactly once,
+           as an unstyled prose link near the foot of 1,974 words.
+
+           Sixteen links on this site went to the scheduler and thirteen to
+           the explanation, twelve of those thirteen as plain prose. The
+           booking button still exists, three times, on the page that makes
+           the case. The nav's job is the case. -->
+      <a class="btn" href="/a-sounding/">
+        <span>A Sounding, $300</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
-      <span class="vh"> (opens my scheduling page)</span></a>
+      </a>
       </div>
     </nav>
   </div>
@@ -352,6 +363,11 @@
     <div class="ab-head-copy">
       <h1 class="carved c-1 split" id="ab-h">I&rsquo;m Cydnie.</h1>
       <p class="lead r-up" style="--d:60ms">I work with women who are the only reason their business runs, and who have been the only reason for a long time.</p>
+      <!-- THE JOB TITLE. This page reached word 1,152 of 1,381 before it
+           said what the work is, which is 83% of the way down. The sentence
+           is not new: it is the one already on /thequestions/, moved to the
+           page people actually read to find out who she is. -->
+      <p class="r-up" style="--d:90ms">I do brand and business development consulting, in Forest Lake, Minnesota.</p>
       <p class="r-up ab-head-book" style="--d:120ms"><a class="booking" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">Book one conversation<span class="vh"> (opens my scheduling page)</span></a></p>
     </div>
   </div>
@@ -451,7 +467,7 @@
 <!-- 04 / WHAT HELD. COPY FREEZE applies here too: do not lengthen
      "Days before, I almost backed out." It is the only short sentence in
      the section and it is where the reader stops. -->
-<section class="section z-deepwater" data-zone aria-labelledby="ab-god">
+<section class="section z-deep" data-zone aria-labelledby="ab-god">
   <div class="wrap">
     <div class="grid-12 grid-12--hold">
       <div class="col-d">
@@ -575,7 +591,9 @@
 
 <!-- 08 / CLOSE. The booking link for the third and last time in the page,
      worded identically to the hero and the offers. -->
-<section class="section ab-close z-deep" data-zone aria-label="Close">
+<!-- THE BAND MARKS THE ACTION. One Deepwater band per page, on the
+     thing the page is asking for, rather than alternating as decoration. -->
+<section class="section ab-close z-deepwater" data-zone aria-label="Close">
   <div class="wrap">
     <p class="ab-close-line split">Come up. There&rsquo;s no wrong way to do it.</p>
     <p class="r-up ab-close-book" style="--d:120ms"><a class="booking" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">Book one conversation<span class="vh"> (opens my scheduling page)</span></a></p>
@@ -673,12 +691,12 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=4e6005b3" defer></script>
+<script src="../assets/js/site.js?v=76b74aaf" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=4e6005b3" defer></script>
-<script src="../assets/js/consent.js?v=4e6005b3" defer></script>
+<script src="../assets/js/analytics.js?v=76b74aaf" defer></script>
+<script src="../assets/js/consent.js?v=76b74aaf" defer></script>
 </body>
 </html>

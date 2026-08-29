@@ -2968,6 +2968,22 @@ main > * { position: relative; z-index: 1; }
 .case-where { font-size: .875rem; color: var(--muted); margin: 0 0 var(--s-4); }
 .case-call { margin: 0 0 var(--s-3); }
 .case-body { color: var(--muted); max-width: 34rem; }
+/* THE CLIENT'S OWN WORDS, on the work they are attached to. This page
+   refuses a testimonial section on purpose, and that refusal stands: three
+   cards describing Cydnie's own decisions in Cydnie's own voice was the
+   whole of the evidence, which is a portfolio rather than proof. One line
+   from the client, under the work itself, is not a testimonial slot. It is
+   an attribution on something already shown. */
+.case-said {
+  margin-top: var(--s-4); padding-top: var(--s-4);
+  border-top: 1px solid var(--rule);
+  max-width: 34rem; color: var(--ink);
+  font-family: var(--carved); font-size: 1.125rem; line-height: 1.5;
+}
+.case-said cite { display: block; margin-top: var(--s-2);
+  font-family: var(--utility); font-style: normal;
+  font-size: .6875rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); }
 
 /* Circles, with air. The client boards draw their palettes this way and a
    flush bar of colour was the blockiest thing in the section. */

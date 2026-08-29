@@ -74,7 +74,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=4e6005b3">
+<link rel="stylesheet" href="../assets/css/site.css?v=76b74aaf">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -216,7 +216,10 @@
      The link is the HoneyBook session record for A Sounding, the same one
      /a-sounding/ and the site-wide popup both use. The price has to match
      that record and The Build page: see item 9 in HANDOFF section 7. -->
-<section class="section z-light" id="sounding" aria-labelledby="tq-sd">
+<!-- THE BAND MARKS THE ACTION. This page ran entirely on light grounds
+     and was the only one on the site with a real action and no Deepwater
+     band at all, so nothing on it said which part was the ask. -->
+<section class="section z-deepwater" data-zone style="--from:var(--surface)" id="sounding" aria-labelledby="tq-sd">
   <div class="wrap">
     <h2 class="head h-2 split" id="tq-sd">A Sounding</h2>
     <div class="body stack r-up" style="--d:60ms; margin-top:var(--s-5)">
@@ -339,13 +342,13 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=4e6005b3" defer></script>
+<script src="../assets/js/site.js?v=76b74aaf" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=4e6005b3" defer></script>
-<script src="../assets/js/consent.js?v=4e6005b3" defer></script>
+<script src="../assets/js/analytics.js?v=76b74aaf" defer></script>
+<script src="../assets/js/consent.js?v=76b74aaf" defer></script>
 
 <!-- No A Sounding popup here, and /thequestions is also in SKIP_PATHS in
      sounding-popup.js so the exclusion survives someone pasting the tag on
