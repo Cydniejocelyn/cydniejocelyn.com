@@ -1134,17 +1134,37 @@ button { font: inherit; color: inherit; }
   content: ""; position: absolute; left: 3px; top: .55em; bottom: .55em;
   width: 1px; background: var(--rule);
 }
+/* THE PATH NAMES WHAT EACH STAGE BUYS. It used to be three uppercase words,
+   Resurface / Reclaim / Build, in the first screen of the site, carrying no
+   meaning at all to a reader who had not already read the rest of it. They
+   are the structure of the practice and they stay; the offer and the figure
+   sit under each one now, so the first screen answers what you can buy and
+   what it costs without scrolling to the doors seven hundred words down.
+   The stage keeps the mono caps. The gloss is body type, because it is a
+   sentence fragment and not a label. */
 .hero-path a {
-  position: relative; display: flex; align-items: center; gap: var(--s-4);
+  position: relative; display: grid;
+  grid-template-columns: 7px minmax(0, 1fr);
+  align-items: baseline; gap: .2rem var(--s-4);
   min-height: 44px;
-  font-family: var(--utility); font-size: .75rem;
-  letter-spacing: .28em; text-transform: uppercase;
-  /* Surface, not muted: this sits over the brightest part of the plate. */
   text-decoration: none; color: var(--ink);
   transition: color var(--t-mid) var(--ease-out);
 }
+.hero-path .path-stage {
+  grid-column: 2;
+  font-family: var(--utility); font-size: .75rem;
+  letter-spacing: .28em; text-transform: uppercase;
+}
+.hero-path .path-what {
+  grid-column: 2;
+  font-family: var(--level); font-size: .8125rem;
+  letter-spacing: .01em; text-transform: none;
+  line-height: 1.4; color: var(--muted);
+}
+.hero-path a:hover .path-what, .hero-path a:focus-visible .path-what { color: var(--ink); }
 .hero-path .pip {
-  flex: none; width: 7px; height: 7px; border-radius: 50%;
+  grid-column: 1; grid-row: 1; align-self: center;
+  width: 7px; height: 7px; border-radius: 50%;
   background: var(--breath); opacity: .55;
   transition: opacity var(--t-mid) var(--ease-out), transform var(--t-mid) var(--ease-out);
 }
@@ -2757,7 +2777,18 @@ main > * { position: relative; z-index: 1; }
   min-height: 32px; display: inline-flex; align-items: center;
   transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
 }
+/* The stage word is the wayfinding; the offer beside it is what the stage
+   actually is. Both pages put this nav above the h1, so it is the first
+   thing a cold arrival reads, and three uppercase abstractions were not
+   telling her anything. */
+.bd-cross b {
+  font-family: var(--level); font-weight: 500; font-size: .8125rem;
+  letter-spacing: .01em; text-transform: none;
+  color: var(--ink); margin-left: .5rem;
+}
+.bd-cross a b { color: var(--muted); }
 .bd-cross a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+.bd-cross a:hover b { color: var(--ink); }
 .bd-cross .here { color: var(--ink); border-bottom-color: var(--ink); }
 
 /* The three areas run on .triad, which numbers its rows. Here they must not
