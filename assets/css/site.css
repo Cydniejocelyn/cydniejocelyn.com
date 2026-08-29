@@ -356,12 +356,17 @@ button { font: inherit; color: inherit; }
   content: ""; position: absolute; left: 0; right: 0;
   z-index: 1; pointer-events: none;
 }
+/* The fade depths are settable, because how far the photograph has to
+   dissolve depends on what it dissolves into. On Fathom the picture and the
+   ground are the same darkness and 38% is plenty. On the About page, which
+   runs light, that same 38% left a dark stripe with two hard shoulders
+   across the middle of a pale page. */
 .rise-band::before {
-  top: 0; height: 38%;
+  top: 0; height: var(--band-fade-top, 38%);
   background: linear-gradient(180deg, var(--band-from) 0%, transparent 100%);
 }
 .rise-band::after {
-  bottom: 0; height: 34%;
+  bottom: 0; height: var(--band-fade-bot, 34%);
   background: linear-gradient(0deg, var(--band-into) 0%, transparent 100%);
 }
 .rise-band .wrap { z-index: 2; }
@@ -2170,12 +2175,18 @@ button.door-note {
 .surfacing .b1 { --o: .55; }
 .surfacing .b2 { --o: .72; }
 .surfacing .b3 { --o: .9; }
+/* "Come up" sits just under the waterline, and how light the water is there
+   depends on where the band sits. On the home page it runs between dark
+   sections and Surface ink reads. On About it runs between two pale ones,
+   the photograph is bright at that point, and near white on near white is
+   the invisible label this became. Both the ink and its halo are settable
+   so each page can put the label on the right side of its own photograph. */
 .surfacing p {
-  text-shadow: 0 1px 14px rgba(7, 26, 31, .55);
+  text-shadow: 0 1px 14px var(--surfacing-halo, rgba(7, 26, 31, .55));
   margin-top: var(--s-4);
   font-family: var(--utility);
   font-size: .75rem; letter-spacing: .28em; text-transform: uppercase;
-  color: var(--surface);
+  color: var(--surfacing-ink, var(--surface));
 }
 
 /* THE BREATH -------------------------------------------------
@@ -2622,17 +2633,65 @@ main > * { position: relative; z-index: 1; }
    arrives on its own as she reads down, which is the same stagger the
    offers use. No rules, no bullets, no numerals: they are not a sequence
    and nothing about them is being argued. */
+/* FIVE CARDS, AND FIVE IS AN AWKWARD NUMBER. auto-fit gave four across and
+   one stranded underneath. Three then two, both rows full width, on a six
+   column track: the top three take two columns each and the bottom two take
+   three each. Two across on a tablet with the fifth spanning both, one
+   across on a phone.
+
+   This arrangement counts. If a sixth fact is ever added, drop the spans
+   and let it run three and three. */
 .ab-true {
   list-style: none; margin: clamp(var(--s-6), 6vw, var(--s-7)) 0 0; padding: 0;
-  display: grid; gap: clamp(var(--s-5), 4vw, var(--s-6));
-  max-width: 40rem;
+  display: grid; gap: var(--s-4);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 42rem) and (max-width: 61.99rem) {
+  .ab-true { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ab-true li:nth-child(5) { grid-column: span 2; }
+}
+@media (min-width: 62rem) {
+  .ab-true { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .ab-true li { grid-column: span 2; }
+  /* The bottom two are centred under the top three at the same width, not
+     stretched to half the row each. Two cards carrying one short sentence
+     across 576px read as boxes waiting for content; the same sentence in a
+     376px card reads as a card. */
+  .ab-true li:nth-child(4) { grid-column: 2 / span 2; }
+  .ab-true li:nth-child(5) { grid-column: 4 / span 2; }
 }
 .ab-true li {
+  display: flex; align-items: center;
+  min-height: 10.5rem;
+  padding: clamp(var(--s-4), 3vw, var(--s-5));
+  border: 1px solid var(--rule);
   font-family: var(--carved);
-  font-size: clamp(1.35rem, 2.6vw, 1.75rem);
-  line-height: 1.28; letter-spacing: .01em;
+  font-size: clamp(1.15rem, 1.9vw, 1.4rem);
+  line-height: 1.3; letter-spacing: .01em;
   color: var(--ink);
   text-wrap: balance;
+}
+/* IT LIGHTS UP TO BREATH. The card fills rather than tints, because a 16%
+   wash on a pale ground is not an event and she asked for one. The ink goes
+   to Fathom so the fill stays legible rather than merely pretty.
+
+   Colour only. That is the rule the doors on the home page state in as many
+   words: no lift, no shadow, no scale. The luxury is that five cards sit
+   still and one of them changes. */
+@media (hover: hover) {
+  .ab-true li {
+    transition: background-color 260ms var(--ease-out),
+                color 260ms var(--ease-out),
+                border-color 260ms var(--ease-out);
+  }
+  .ab-true li:hover {
+    background: var(--breath);
+    border-color: var(--breath);
+    color: var(--fathom);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ab-true li { transition: none; }
 }
 
 /* The triad rows answer the pointer the way the doors on the home page do:

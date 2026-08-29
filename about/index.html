@@ -63,7 +63,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=255b3686">
+<link rel="stylesheet" href="../assets/css/site.css?v=ef3c3b6b">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -475,7 +475,12 @@
 
 <!-- The rise. The one place on this page where the copy has actually come
      up, and the transition from the account into what held it up. -->
-<div class="rise-band" id="rise" style="--band-from:var(--surface); --band-into:var(--surface)">
+<!-- The section above is Silt and the one below is Surface, so the band
+     fades out of one and into the other rather than out of and into the
+     same colour, which is what left an edge at the top. The fades are
+     deeper here than the default: this photograph is dark and the page
+     around it is not, so it needs longer to arrive and longer to go. -->
+  <div class="rise-band" id="rise" style="--band-from:#DCE4E1; --band-into:var(--surface); --band-fade-top:56%; --band-fade-bot:50%; --surfacing-ink:var(--fathom); --surfacing-halo:rgba(231,236,232,.85)">
   <figure class="layer-band" aria-hidden="true">
     <img src="../assets/img/layer-surface-1800.webp"
          srcset="../assets/img/layer-surface-700.webp 700w, ../assets/img/layer-surface-1200.webp 1200w, ../assets/img/layer-surface-1800.webp 1800w"
@@ -718,12 +723,12 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=255b3686" defer></script>
+<script src="../assets/js/site.js?v=ef3c3b6b" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=255b3686" defer></script>
-<script src="../assets/js/consent.js?v=255b3686" defer></script>
+<script src="../assets/js/analytics.js?v=ef3c3b6b" defer></script>
+<script src="../assets/js/consent.js?v=ef3c3b6b" defer></script>
 </body>
 </html>
