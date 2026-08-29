@@ -67,7 +67,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=29854965">
+<link rel="stylesheet" href="../assets/css/site.css?v=4e6005b3">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -283,6 +283,14 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "Do I have to own a business to come?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The retreats are not a business product and there is nothing to bring. Some women who come run companies, some do not, and it has never once mattered in the room. The consulting is separate and it is A Sounding and The Build."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Do I have to come with someone?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -426,7 +434,7 @@
     <div class="hero-copy">
       <p class="eyebrow r-fade">Retreats</p>
       <h1 class="hero-line split" id="rt-h">A week where you are not <em>the one holding it together.</em></h1>
-      <p class="hero-sub r-up" style="--d:120ms">Small group retreats for women who are the reason everything works. Capped at fifteen, because past fifteen a room stops being a group and becomes an audience, and you go home having met nobody.</p>
+      <p class="hero-sub r-up" style="--d:120ms">Small group retreats for women who are the reason everything works. You do not need to own a business to come. Capped at fifteen, because past fifteen a room stops being a group and becomes an audience, and you go home having met nobody.</p>
 
       <div class="hero-acts r-up" style="--d:180ms">
         <a class="hero-go" href="#dates">
@@ -784,7 +792,11 @@
           <p>If you want a mastermind, this is the wrong week. Nobody is going to pitch, and there is no room set aside for it.</p>
           <p>If you want a curriculum and a binder to take home, I do not make those. The value here is not portable in that form.</p>
           <p>If you need the week to produce a measurable outcome before you can justify the cost, do not book it. You will spend the whole of it auditing the experience instead of having it, and that is a bad use of your money.</p>
-          <p>What is left is a woman who is tired of being the one everybody depends on and wants a stretch of days where that is not the arrangement.</p>
+          <!-- The last line used to stop at "the arrangement", which left the
+               reader to guess whether the week was for people who run
+               companies. Enough women asked that it is now answered here and
+               again in the questions below. The qualifier is the depending. -->
+          <p>What is left is a woman who is tired of being the one everybody depends on and wants a stretch of days where that is not the arrangement. She might run a company. She might run a household, or a department, or a family through a hard year. The qualifier is the depending, not the job title.</p>
         </div>
       </div>
     </div>
@@ -919,6 +931,10 @@
         <div class="rt-qs r-up" style="--d:60ms">
           <p class="rt-qs-lead">Most of the rest comes down to one worry, which is whether you would be the wrong person in the room.</p>
           <div class="faq">
+            <details>
+              <summary>Do I have to own a business to come? <span class="sign" aria-hidden="true"></span></summary>
+              <div class="answer"><p>No. The retreats are not a business product and there is nothing to bring. Some women who come run companies, some do not, and it has never once mattered in the room. The consulting is separate and it is <a class="link" href="/a-sounding/">A Sounding</a> and <a class="link" href="/the-build/">The Build</a>.</p></div>
+            </details>
             <details>
               <summary>Do I have to come with someone? <span class="sign" aria-hidden="true"></span></summary>
               <div class="answer"><p>Most women come alone. That is the normal way to do this, not the brave version of it. Fifteen is small enough that by the second day you are not on the edge of anything.</p></div>
@@ -1069,13 +1085,13 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=29854965" defer></script>
+<script src="../assets/js/site.js?v=4e6005b3" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=29854965" defer></script>
-<script src="../assets/js/consent.js?v=29854965" defer></script>
+<script src="../assets/js/analytics.js?v=4e6005b3" defer></script>
+<script src="../assets/js/consent.js?v=4e6005b3" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

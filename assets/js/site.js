@@ -631,21 +631,25 @@
       if (h) panels.style.setProperty("--rev-h", Math.ceil(h + chrome) + "px");
     }
 
-    /* THE ANSWER HAS TO BE ON SCREEN, AND WITH TEN OF THESE IT IS NOT.
-       The panel sits under the whole list of questions, which was fine
-       while the only two pickers on the site carried four each: on a 390
-       phone Greece puts its panel at y=516 in a 701px viewport and every
-       one of its four answers is fully visible. The Build page's questions
-       are ten, the list is 755px on that phone, and the panel lands at
-       y=882. Measured 28 August 2026: the answer was off screen for all
-       ten tabs. You tapped a question and nothing you could see changed.
+    /* THE ANSWER HAS TO BE ON SCREEN, AND THE PICKER CANNOT PROMISE THAT.
+       One panel under the whole list is fine at four and stops being fine
+       as the list grows: on a 390 phone Greece puts its panel at y=516 in a
+       701px viewport and all four answers are fully visible, but The Build
+       page's ten pushed the panel to y=882 and every answer was off screen.
+       You tapped a question and nothing you could see changed.
 
-       So a selection that a reader made brings its answer into view. Two
-       things keep this from becoming a page that yanks itself about:
+       The Build page is not a picker any more. Ten questions belong next to
+       their answers, so it uses the Retreats page's held heading and plain
+       accordions instead, and this guard no longer fires anywhere on the
+       site: both remaining pickers carry four and are measured at 0/4.
+
+       It stays because the failure was silent. A fifth worry added to
+       Greece on a short phone puts the answer back under the fold with
+       nothing to say so. Two things keep it from becoming a page that
+       yanks itself about:
 
          - It only runs when the panel is not already fully readable, so it
-           never fires on the home page or Greece at any normal size, and
-           it does not fire on a desktop here either.
+           never fires on the home page or Greece at any normal size.
          - `block: "nearest"` is the smallest scroll that does the job, so
            the questions above stay on screen rather than being thrown off
            the top.

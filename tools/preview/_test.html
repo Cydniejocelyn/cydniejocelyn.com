@@ -353,8 +353,22 @@ f.addEventListener('load', function(){
      ok('retreats: before-you-book runs in three movements, terms first',
         d.querySelectorAll('#faq .rt-qs').length===3 &&
         d.querySelectorAll('#faq .rt-qs-lead').length===3 &&
-        !!d.querySelector('#faq .rt-qs:first-child .rt-terms') &&
-        d.querySelectorAll('.faq details').length===7);
+        !!d.querySelector('#faq .rt-qs:first-child .rt-terms'));
+     /* This used to assert seven accordions, a number that only meant
+        "however many there were the day it was written", and adding an
+        eighth question turned it red for no reason. The page's own comment
+        says the FAQPage schema is generated from this markup, so that is
+        the thing worth asserting: add a question and forget the schema and
+        this goes red, which is the mistake that actually costs something. */
+     var faqLd = null;
+     [].slice.call(d.querySelectorAll('script[type="application/ld+json"]')).forEach(function (t) {
+       var j; try { j = JSON.parse(t.textContent); } catch (e) { return; }
+       ((j['@graph']) || [j]).forEach(function (n) {
+         if (n && n['@type'] === 'FAQPage') faqLd = n.mainEntity || [];
+       });
+     });
+     ok('retreats: every question on the page is in the FAQPage schema',
+        !!faqLd && faqLd.length === d.querySelectorAll('.faq details').length);
      ok('retreats: terms are no longer a section of their own',
         !d.querySelector('#terms-h'));
      /* The heading holds while the movements scroll past it, the way the

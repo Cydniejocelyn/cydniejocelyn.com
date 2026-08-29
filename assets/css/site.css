@@ -3746,15 +3746,19 @@ main > * { position: relative; z-index: 1; }
    already one at the top of this one; a second and a third would turn the
    grouping back into the list it is trying not to be. It is a sentence, set
    quiet, in the body face. */
-.rt-qs + .rt-qs { margin-top: clamp(var(--s-6), 6vw, var(--s-7)); }
-.rt-qs-lead {
+/* THE MOVEMENTS ARE NOT A RETREATS IDEA, they are a long-question-list
+   idea, and The Build page's ten needed them too. `.qs` is the shared name.
+   `.rt-qs` keeps its own prefix because the four rules above it are the
+   deposit/balance/insurance terms, which are retreats and nothing else. */
+.rt-qs + .rt-qs, .qs + .qs { margin-top: clamp(var(--s-6), 6vw, var(--s-7)); }
+.rt-qs-lead, .qs-lead {
   max-width: 34rem; color: var(--muted);
   font-size: 1rem; line-height: 1.62;
   margin-bottom: var(--s-4);
 }
 /* The first row of a group already has the lead above it, so its own top
    hairline is a second line saying the same thing. */
-.rt-qs .faq { border-top: 0; }
+.rt-qs .faq, .qs .faq { border-top: 0; }
 
 /* The ring on the Retreats page. Two things it needs that the home page
    does not.
