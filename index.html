@@ -75,7 +75,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=bfb92fef">
+<link rel="stylesheet" href="assets/css/site.css?v=56839250">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -663,7 +663,71 @@
     <span class="hero-drop" aria-hidden="true"></span>
   </a>
 </section>
+<!-- ===================== THE RE-DIAGNOSIS ===================== -->
+<section class="section z-deep" data-zone style="--from:var(--fathom)" id="turn" aria-labelledby="turn-h">
+  <div class="wrap">
+    <div class="turn-split">
+      <div class="col-c">
+        <p class="eyebrow r-fade">The difference</p>
+          <h2 class="carved c-1 split" id="turn-h">You didn't lose yourself.<br>You got buried under<br><em>everyone who needed you.</em></h2>
+        <div class="body stack r-up" style="--d:120ms; margin-top:var(--s-7)">
+          <p>Everything else in this category tells you that you have potential. You have a résumé full of evidence that you are capable, so flattery bounces off. What nothing has explained is why <em>capable</em> feels like this.</p>
+          <p>You are not lacking anything and you are not behind. You are <em>carrying</em> something, and pressure is not a character flaw.</p>
+          <p><strong>Nothing is wrong with you. Something is on top of you.</strong> Those are completely different problems, and only one of them is yours to fix.</p>
+        </div>
+      </div>
 
+      <!-- A hand reaching up toward the surface from under it. The
+           photograph is the sentence in the copy beside it, literally
+           -- "you are UNDER something" -- so it carries no caption.
+
+           Replaced the sunlit wall on 28 August. That one was a hand and
+           a shadow on dry land, which illustrated reaching but not water,
+           and water is the whole argument of this section.
+
+           The source is SQUARE, 1254x1254, and the frame is square to
+           match, so nothing is cropped to fit an aspect it was not shot
+           for. `sizes` describes the real box rather than the viewport:
+           on a phone the figure is the wrap width, not 100vw, and asking
+           for 100vw made every phone fetch a candidate a size too large. -->
+      <figure id="depth">
+        <img class="par" data-speed="0.22"
+             src="assets/img/layer-surface-1800.webp"
+             srcset="assets/img/layer-surface-700.webp 700w, assets/img/layer-surface-1200.webp 1200w, assets/img/layer-surface-1800.webp 1800w"
+             sizes="(min-width: 900px) 40vw, calc(100vw - 2.5rem)"
+             width="1254" height="1254" loading="lazy" decoding="async"
+             alt="A hand reaching up through dark water toward the light breaking on the surface above it.">
+      </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE ONE ACTION, and the one Deepwater band on the page. Task 13. It
+     comes straight after the thesis, so the page names the problem and then
+     names the thing that addresses it, before the recognition list rather
+     than after it. The price sits under the sentence that says what the
+     ninety minutes are, never above it. -->
+<section class="section z-deepwater" data-zone style="--from:var(--fathom)" id="band" aria-labelledby="band-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">Start here</p>
+        <h2 class="carved c-2 split" id="band-h">One conversation. Nothing signed.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
+      </div>
+      <div class="col-e">
+        <p class="lead r-up" style="--d:60ms">Ninety minutes on the business, and I ask a lot of questions. Two days later you get it in writing: where the brand actually is, what is holding it there, and where it can go. Plus the first move, named.</p>
+        <p class="lead r-up" style="--d:120ms; margin-top:var(--s-4)"><b>$300</b>, and it comes off The Build if you go on to one.</p>
+        <div class="actions r-up" style="--d:180ms; margin-top:var(--s-6)">
+          <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6"><span>Book one conversation</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg><span class="vh"> (opens my scheduling page)</span></a>
+        </div>
+        <p class="small r-up" style="--d:240ms; margin-top:var(--s-5)">Or <a class="link" href="/contact/">ask me a question first</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- ===================== THE CONDITION ===================== -->
 <!-- Five recognitions, one at a time. The track is five screens tall and the
      stage inside it is pinned, so each screen of scroll brings the next
@@ -708,47 +772,6 @@
    </div>
   </div>
 </section>
-
-<!-- ===================== THE RE-DIAGNOSIS ===================== -->
-<section class="section z-deep" data-zone style="--from:var(--fathom)" id="turn" aria-labelledby="turn-h">
-  <div class="wrap">
-    <div class="turn-split">
-      <div class="col-c">
-        <p class="eyebrow r-fade">The difference</p>
-          <h2 class="carved c-1 split" id="turn-h">You didn't lose yourself.<br>You got buried under<br><em>everyone who needed you.</em></h2>
-        <div class="body stack r-up" style="--d:120ms; margin-top:var(--s-7)">
-          <p>Everything else in this category tells you that you have potential. You have a résumé full of evidence that you are capable, so flattery bounces off. What nothing has explained is why <em>capable</em> feels like this.</p>
-          <p>You are not lacking anything and you are not behind. You are <em>carrying</em> something, and pressure is not a character flaw.</p>
-          <p><strong>Nothing is wrong with you. Something is on top of you.</strong> Those are completely different problems, and only one of them is yours to fix.</p>
-        </div>
-      </div>
-
-      <!-- A hand reaching up toward the surface from under it. The
-           photograph is the sentence in the copy beside it, literally
-           -- "you are UNDER something" -- so it carries no caption.
-
-           Replaced the sunlit wall on 28 August. That one was a hand and
-           a shadow on dry land, which illustrated reaching but not water,
-           and water is the whole argument of this section.
-
-           The source is SQUARE, 1254x1254, and the frame is square to
-           match, so nothing is cropped to fit an aspect it was not shot
-           for. `sizes` describes the real box rather than the viewport:
-           on a phone the figure is the wrap width, not 100vw, and asking
-           for 100vw made every phone fetch a candidate a size too large. -->
-      <figure id="depth">
-        <img class="par" data-speed="0.22"
-             src="assets/img/reaching-water-900.webp"
-             srcset="assets/img/reaching-water-600.webp 600w, assets/img/reaching-water-900.webp 900w, assets/img/reaching-water-1200.webp 1200w"
-             sizes="(min-width: 900px) 40vw, calc(100vw - 2.5rem)"
-             width="1254" height="1254" loading="lazy" decoding="async"
-             alt="A hand reaching up through dark water toward the light breaking on the surface above it.">
-      </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- The rise. Where she comes up. -->
 <div class="rise-band" id="rise" style="--band-from:var(--deepwater)">
   <figure class="layer-band" aria-hidden="true">
@@ -770,7 +793,6 @@
     <p>Come up</p>
   </div>
 </div>
-
 <!-- ===================== THE WORK ===================== -->
 <section class="section z-light" data-zone id="method" aria-labelledby="method-h">
   <div class="wrap">
@@ -785,15 +807,6 @@
     </div>
 
     <div class="doors" data-stagger="60">
-      <div class="door r-up" id="letter">
-        <span class="door-stage">Free &middot; The entry point</span>
-        <div>
-          <h3 class="carved c-3">The Letters</h3>
-          <p>A letter on Sunday nights. There are no offers in them, ever. That is the whole arrangement.</p>
-        </div>
-        <a class="door-note door-note--link" href="/the-letters/"><span>Send it to me</span></a>
-      </div>
-
       <div class="door door--lead r-up" id="sounding">
         <span class="door-stage">$300 &middot; The paid entry point</span>
         <div>
@@ -823,6 +836,15 @@
         </div>
         <a class="door-note door-note--link" href="/the-build/"><span>See The Build</span></a>
       </div>
+
+      <div class="door r-up" id="letter">
+        <span class="door-stage">Free &middot; The entry point</span>
+        <div>
+          <h3 class="carved c-3">The Letters</h3>
+          <p>A letter on Sunday nights. There are no offers in them, ever. That is the whole arrangement.</p>
+        </div>
+        <a class="door-note door-note--link" href="/the-letters/"><span>Send it to me</span></a>
+      </div>
     </div>
 
     <div class="section-cta r-up">
@@ -833,8 +855,66 @@
     </div>
   </div>
 </section>
+<!-- Everything that stops her booking, removed one at a time, by her.
+     The reader picks the thing that is actually in the way and gets the
+     answer to that one. The markup below is the plain pairs: without JS
+     every worry and every answer is on the page, which is the whole
+     section either way. JS turns the pairs into a picker and a panel. -->
+<section class="section z-silt" data-zone style="--from:var(--surface)" aria-labelledby="ready-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-a">
+        <p class="eyebrow r-fade">Before you book</p>
+        <h2 class="head h-2 split" id="ready-h">You do not have to arrive ready.</h2>
+        <p class="ready-lede r-up" style="--d:120ms">Whichever one is actually stopping you, it is already answered.</p>
+      </div>
+      <div class="col-b">
+        <div class="reversal r-up" data-reversal data-label="What is stopping you"
+             data-lede="Pick the one that is actually stopping you." style="--d:60ms">
+          <div class="rev">
+            <p class="rev-q">I do not know what it is yet.</p>
+            <p class="rev-a">Nothing to prepare. You do not have to know what it is yet.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">It is all in my head and none of it is organised.</p>
+            <p class="rev-a">Bring it in the state it is in. Sorting it is the work.</p>
+          </div>
+          <div class="rev">
+            <p class="rev-q">I do not know what I would walk away with.</p>
+            <p class="rev-a">A written analysis of where the brand can go, and the first move to make.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-
+<!-- BEFORE ANY OF IT. Task 15, placed before proof: the reader meets the
+     free way to reach her before she is asked to believe anybody else.
+     The waterline here is Held, and it is the only Held element on this
+     page. If a second one ever appears, one of them is wrong. -->
+<section class="section z-light" data-zone style="--from:#DCE4E1" id="reach" aria-labelledby="reach-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">Before any of it</p>
+        <h2 class="carved c-2 split" id="reach-h">You can just ask me something.</h2>
+        <span class="wl-rule wl-rule--held" aria-hidden="true" style="max-width:11rem"></span>
+      </div>
+      <div class="col-e">
+        <div class="body stack r-up" style="--d:60ms">
+          <p>You do not have to book anything to talk to me. Write to me and I will answer it myself.</p>
+          <p>I sit with people for a long time before I put a price in front of them. Ask now rather than paying to find out.</p>
+        </div>
+        <div class="actions r-up" style="--d:120ms; margin-top:var(--s-6)">
+          <a class="btn" href="/contact/"><span>Ask me a question</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a>
+        </div>
+        <p class="tiny r-up" style="--d:180ms; margin-top:var(--s-4)">hello@cydniejocelyn.com</p>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- MOVED UP. Proof used to sit three sections below the prices, after
      the objection picker and the fifteen ring had already come and gone, so
      the reader met every doubt-handling block on the page before she met
@@ -941,43 +1021,42 @@
     </ul>
   </div>
 </section>
-
-<!-- Everything that stops her booking, removed one at a time, by her.
-     The reader picks the thing that is actually in the way and gets the
-     answer to that one. The markup below is the plain pairs: without JS
-     every worry and every answer is on the page, which is the whole
-     section either way. JS turns the pairs into a picker and a panel. -->
-<section class="section z-silt" data-zone style="--from:var(--surface)" aria-labelledby="ready-h">
+<!-- ===================== THE STORY ===================== -->
+<section class="section z-deep" data-zone style="--from:var(--surface)" id="story" aria-labelledby="story-h">
   <div class="wrap">
-    <div class="grid-12">
-      <div class="col-a">
-        <p class="eyebrow r-fade">Before you book</p>
-        <h2 class="head h-2 split" id="ready-h">You do not have to arrive ready.</h2>
-        <p class="ready-lede r-up" style="--d:120ms">Whichever one is actually stopping you, it is already answered.</p>
+    <div class="story">
+      <div class="story-fig r-img">
+        <figure class="par" data-speed="0.07">
+          <img src="assets/img/cydnie-reading-1000.webp"
+               srcset="assets/img/cydnie-reading-600.webp 600w, assets/img/cydnie-reading-1000.webp 1000w"
+               sizes="(min-width: 56rem) 38vw, 100vw" width="1000" height="1500"
+               loading="lazy" decoding="async"
+               alt="Cydnie Jocelyn seated in low light, reading a sheet of paper, face turned away from the camera.">
+          <figcaption>Forest Lake, Minnesota</figcaption>
+        </figure>
       </div>
-      <div class="col-b">
-        <div class="reversal r-up" data-reversal data-label="What is stopping you"
-             data-lede="Pick the one that is actually stopping you." style="--d:60ms">
-          <div class="rev">
-            <p class="rev-q">I do not know what it is yet.</p>
-            <p class="rev-a">Nothing to prepare. You do not have to know what it is yet.</p>
-          </div>
-          <div class="rev">
-            <p class="rev-q">It is all in my head and none of it is organised.</p>
-            <p class="rev-a">Bring it in the state it is in. Sorting it is the work.</p>
-          </div>
-          <div class="rev">
-            <p class="rev-q">I do not know what I would walk away with.</p>
-            <p class="rev-a">A written analysis of where the brand can go, and the first move to make.</p>
-          </div>
+      <div class="story-copy">
+        <p class="eyebrow r-fade">Why me</p>
+        <h2 class="head h-2 split" id="story-h">I was the client.</h2>
+        <div class="body stack r-up" style="--d:120ms">
+          <p>There were three years I describe properly on the about page, alongside postpartum, motherhood, and hospitals, because my children have a rare genetic mutation and we have not stopped going since.</p>
+          <p>Then an invitation came and I said yes in three days, with no plan, after two and a half years of not moving. I was alone in a group of fifteen and I heard myself for the first time in years. I came back and told that company I had a choice after all.</p>
+        </div>
+        <div class="stack r-up" style="--d:180ms; margin-top:var(--s-6)">
+          <p>I am not describing a woman I once coached. <strong>I lead with heart and close with operations.</strong> Heart alone is a nice conversation. Operations alone is why you are tired.</p>
+          <p style="margin-top:var(--s-5)">
+            <a class="more" href="/about/">
+              <span>About Cydnie</span>
+              <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+            </a>
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- ===================== FIFTEEN ===================== -->
-<section class="section z-light" data-zone style="--from:#DCE4E1" id="fifteen" aria-labelledby="fifteen-h">
+<section class="section z-light" data-zone style="--from:var(--fathom)" id="fifteen" aria-labelledby="fifteen-h">
   <div class="wrap">
     <div class="fifteen">
       <div class="fifteen-fig r-img">
@@ -1013,47 +1092,8 @@
     </div>
   </div>
 </section>
-
-<!-- ===================== THE STORY ===================== -->
-<section class="section z-deep" data-zone style="--from:var(--surface)" id="story" aria-labelledby="story-h">
-  <div class="wrap">
-    <div class="story">
-      <div class="story-fig r-img">
-        <figure class="par" data-speed="0.07">
-          <img src="assets/img/cydnie-reading-1000.webp"
-               srcset="assets/img/cydnie-reading-600.webp 600w, assets/img/cydnie-reading-1000.webp 1000w"
-               sizes="(min-width: 56rem) 38vw, 100vw" width="1000" height="1500"
-               loading="lazy" decoding="async"
-               alt="Cydnie Jocelyn seated in low light, reading a sheet of paper, face turned away from the camera.">
-          <figcaption>Forest Lake, Minnesota</figcaption>
-        </figure>
-      </div>
-      <div class="story-copy">
-        <p class="eyebrow r-fade">Why me</p>
-        <h2 class="head h-2 split" id="story-h">I was the client.</h2>
-        <p class="story-lede r-up" style="--d:120ms">Not as a story. As a timeline.</p>
-        <ol class="tline r-up" style="--d:120ms" role="list">
-          <li>Three years of being bullied and targeted at a company where that was not unusual for women. Postpartum. Motherhood. And hospitals, because my children have a rare genetic mutation and we have not stopped going since.</li>
-          <li>I had never taken a last-minute trip in my life. The invitation came and I said yes in three days, with no plan, after two and a half years of not moving.</li>
-          <li>I was alone in a group of fifteen, and I heard myself for the first time in years.</li>
-          <li>That is the week I resurfaced. I came back and told that company I had a choice after all.</li>
-        </ol>
-        <div class="stack r-up" style="--d:180ms; margin-top:var(--s-6)">
-          <p>I am not describing a woman I once coached. <strong>I lead with heart and close with operations.</strong> Heart alone is a nice conversation. Operations alone is why you are tired.</p>
-          <p style="margin-top:var(--s-5)">
-            <a class="more" href="/about/">
-              <span>Read the whole of it</span>
-              <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== THE RETREAT ===================== -->
-<section class="section z-light" data-zone style="--from:var(--fathom)" id="retreat" aria-labelledby="retreat-h">
+<section class="section z-light" data-zone style="--from:var(--surface)" id="retreat" aria-labelledby="retreat-h">
   <div class="wrap">
     <div class="retreat-grid">
       <div class="retreat-copy">
@@ -1089,7 +1129,6 @@
     </div>
   </div>
 </section>
-
 <!-- ===================== THE REFUSALS ===================== -->
 <section class="section z-silt" data-zone style="--from:var(--surface)" id="refusals" aria-labelledby="ref-h">
   <div class="wrap">
@@ -1110,7 +1149,6 @@
     </dl>
   </div>
 </section>
-
 <!-- The line the whole practice turns on. -->
 <section class="statement z-silt" data-zone aria-label="If I don't fit into a box, you shouldn't either">
   <div class="wrap">
@@ -1119,7 +1157,6 @@
     <svg class="statement-rule" viewBox="0 0 1200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M0 10 L1200 10"></path></svg>
   </div>
 </section>
-
 <!-- ===================== QUESTIONS ===================== -->
 <section class="section z-light" data-zone style="--from:#DCE4E1" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
@@ -1151,14 +1188,13 @@
     </div>
   </div>
 </section>
-
 <!-- ===================== THE SURFACE ===================== -->
 <!-- THE BAND MARKS THE ACTION. One Deepwater band per page, on the
      thing the page is asking for. It used to alternate as decoration: across
      the eight content pages the band landed on a thesis, a testimonial, a
      pricing tier or a "who this is not for", and on no page at all did it
      sit on the booking. Three pages carried two or three of them. -->
-<section class="section z-deepwater" data-zone style="--from:var(--surface)" id="start" aria-labelledby="start-h">
+<section class="section z-light" data-zone style="--from:var(--surface)" id="start" aria-labelledby="start-h">
   <div class="wrap">
     <div class="close-grid">
       <div class="close-copy">
@@ -1184,9 +1220,7 @@
       <p class="small muted r-up" style="max-width:48rem">In person across the Twin Cities metro, including Forest Lake, Stillwater, Woodbury and Maple Grove. Remote anywhere.</p>
     </div>
   </div>
-</section>
-
-</main>
+</section></main>
 
 <!-- THE FOOTER. One footer, byte for byte the same on all seven pages
      apart from the asset prefix. It used to differ on every one of them:
@@ -1275,13 +1309,13 @@
   </div>
 </footer>
 
-<script src="assets/js/site.js?v=bfb92fef" defer></script>
+<script src="assets/js/site.js?v=56839250" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="assets/js/analytics.js?v=bfb92fef" defer></script>
-<script src="assets/js/consent.js?v=bfb92fef" defer></script>
+<script src="assets/js/analytics.js?v=56839250" defer></script>
+<script src="assets/js/consent.js?v=56839250" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

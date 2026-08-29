@@ -1489,10 +1489,13 @@ button.door-note {
 /* The lead offer is marked in the gutter, not indented out of the column.
    A left border on the row itself moved its label, heading, copy and note
    33px right of the other three and narrowed its measure by the same. */
+/* 3px and the page's ink, per the brief of 29 August 2026, now that this
+   marks A Sounding at the head of the ladder rather than in the middle of
+   it. Deliberately not Held: Held is the contact block's, once per page. */
 .door--lead::before {
   content: ""; position: absolute;
   left: calc(var(--s-4) * -1); top: var(--s-4); bottom: var(--s-4);
-  width: 1px; background: var(--meniscus);
+  width: 3px; background: var(--ink);
 }
 @media (max-width: 41.99rem) { .door--lead::before { display: none; } }
 @media (prefers-reduced-motion: no-preference) {
@@ -2429,6 +2432,12 @@ main > * { position: relative; z-index: 1; }
   background: var(--meniscus);
   transform-origin: left;
 }
+
+/* The one Held waterline. It has to sit after `.wl-rule`, which is defined
+   just above and would otherwise win on source order at equal specificity.
+   Held appears once per page and the contact block is the home page's
+   instance. A second one anywhere on that page means one of them is wrong. */
+.wl-rule--held { background: var(--warm); }
 @keyframes wl-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @media (prefers-reduced-motion: no-preference) {
   .js-motion .wl-rule.is-drawing { animation: wl-draw 900ms var(--ease-out); }
