@@ -61,6 +61,22 @@ find dist -depth -name "* [0-9]" -o -depth -name "* [0-9].*" | while read -r d; 
   echo "    removing $d"; rm -rf "$d"
 done
 
+# THE SWEEP ABOVE IS NOT ENOUGH ON ITS OWN. iCloud can write a conflict copy
+# into dist/ in the seconds between the sweep and the upload, and on 29 August
+# a stray "assets 3" was sitting in dist/ when this ran. The deployment that
+# came back carried the SOURCE, comments and all: 38,362 bytes per page
+# against 26,731 built, 43% more on the wire, and every note-to-ourselves
+# shipped to readers. Sweeping again and refusing to deploy a dist/ that still
+# has one is cheaper than finding out from the live site.
+echo "==> refusing to deploy if a conflict copy is still in dist/"
+STRAY=$( find dist -depth -name "* [0-9]" -o -depth -name "* [0-9].*" | head -5 )
+if [ -n "$STRAY" ]; then
+  echo "    FAIL: iCloud conflict copies are still in dist/:"
+  echo "$STRAY" | sed 's/^/      /'
+  echo "    Remove them and run this again. Deploying now can upload the source."
+  exit 1
+fi
+
 echo "==> deploying dist/"
 # CD INTO dist, DO NOT USE --cwd. This is not a style preference.
 #
@@ -79,6 +95,19 @@ echo "==> deploying dist/"
 # Two deploys with --cwd both reproduced it. Deploying from inside dist/ with
 # the identical file fixed it. The check below is what catches it next time.
 ( cd dist && vercel deploy --prod --yes )
+
+echo "==> verifying the deployment carries dist/ and not the source"
+# One page is enough: if the upload took the wrong directory, every page is
+# wrong the same way. Comments are the tell, because build.py removes all of
+# them and the source has twenty five on this page alone.
+LIVEC=$( curl -s "https://www.cydniejocelyn.com/about/?shipcheck=$$" 2>/dev/null | grep -c '<!--' )
+DISTC=$( grep -c '<!--' dist/about/index.html )
+if [ "$LIVEC" = "$DISTC" ]; then
+  echo "    what shipped matches what was built ($LIVEC comments)"
+else
+  echo "    FAIL: production has $LIVEC HTML comments, dist/ has $DISTC."
+  echo "          The upload took the wrong directory. Do not call this shipped."
+fi
 
 echo "==> verifying the headers PRODUCTION actually sends"
 # The suite runs against a preview server that sends no headers at all, so
