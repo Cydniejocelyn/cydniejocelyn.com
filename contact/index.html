@@ -4,31 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-<title>The Questions | Cydnie Jocelyn</title>
-<!-- THE EYEBROW, THE DESCRIPTION AND THE TITLE ARE EVENT SCOPED.
-     Change these three things per event and nothing else on the page
-     moves. The eyebrow in the hero is the visible half of the same swap. -->
-<meta name="description" content="The twelve questions from the GATHER table, and the eleven you did not pick. Cydnie Jocelyn, brand strategist, Forest Lake, Minnesota.">
-
-<!-- NOINDEX, DELIBERATELY. The URL is event scoped rather than permanent
-     and the page names the event, so it should not be the thing someone
-     finds when they search her. It is also kept out of sitemap.xml for the
-     same reason. `follow` stays: the links out of here are to real pages
-     and there is no reason to strand them. -->
-<meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://cydniejocelyn.com/thequestions/">
+<title>Contact | Ask Cydnie Jocelyn a Question | Forest Lake, Minnesota</title>
+<meta name="description" content="Ask a question before you book anything. Brand, operations and business development. Forest Lake, Minnesota.">
+<link rel="canonical" href="https://cydniejocelyn.com/contact/">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="author" content="Cydnie Jocelyn Brown">
 <meta name="theme-color" content="#071A1F">
+<meta name="geo.region" content="US-MN">
+<meta name="geo.placename" content="Forest Lake, Minnesota">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cydnie Jocelyn">
-<meta property="og:url" content="https://cydniejocelyn.com/thequestions/">
-<meta property="og:title" content="The Questions | Cydnie Jocelyn">
-<meta property="og:description" content="There were twelve on the table. Here are the other eleven.">
-<!-- The site's own card. The old page carried a wedding photographer's
-     file from a previous library, which is what this replaces. -->
+<meta property="og:url" content="https://cydniejocelyn.com/contact/">
+<meta property="og:title" content="Contact | Ask Cydnie Jocelyn a Question">
+<meta property="og:description" content="Ask a question before you book anything. I answer them myself.">
 <meta property="og:image" content="https://cydniejocelyn.com/assets/og/home.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact | Ask Cydnie Jocelyn a Question">
+<meta name="twitter:description" content="Ask a question before you book anything. I answer them myself.">
 
 <link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
@@ -85,20 +78,21 @@
      Consent Mode on its own would still send. See the note at the top of
      consent.js for why the strict version was chosen. -->
 
+
 </head>
 <body>
 
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- THE BARE HEADER. The wordmark and the one button, at every width.
-     See section 30 of site.css: the shared header puts the A Sounding
-     button inside the panel behind the two-bar mark under 56rem, which is
-     right on a page someone is reading and wrong on a page whose only job
-     is one tap. There is no .nav-toggle here, and initNav() returns early
-     without one, so no JS knows or needs to.
+<div class="gauge" aria-hidden="true">
+  <span class="gauge-label">Resurfacing</span>
+  <div class="gauge-track">
+    <div class="gauge-fill"></div>
+    <div class="gauge-dot"></div>
+  </div>
+  <span class="gauge-read">5m</span>
+</div>
 
-     The five item nav lives in the footer, so the page has a single
-     forward path and still is not a dead end. -->
 <!-- THE RETURN. This header used to carry the id the footer's "Back to the
      top" pointed at, and that is exactly what broke it: the header is
      `position: fixed`, so scrolling it into view is already satisfied and
@@ -112,7 +106,7 @@
      of the document, so every bookmarked /#top is repaired too.
 
      Do not put an id back on this element. -->
-<header class="hdr hdr--bare">
+<header class="hdr">
   <div class="wrap hdr-in">
     <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
       <img class="brand-mark brand-mark--light" src="../assets/img/mark-horiz-light-800.webp"
@@ -121,135 +115,82 @@
            alt="Cydnie Jocelyn, the resurfacing business">
     </a>
     <nav class="nav" aria-label="Primary">
-      <a class="btn btn--ink" href="#sounding">
-        <span>A Sounding</span>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        <span class="vh">Menu</span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+      <ul class="nav-links" role="list">
+        <li><a href="/the-build/">The Build</a></li>
+        <li><a href="/retreats/">Retreats</a></li>
+        <li><a href="/the-letters/">The Letters</a></li>
+        <li><a href="/about/">About</a></li>
+      </ul>
+      
+      <!-- THE NAV BUTTON IS CONTACT, on Cydnie's instruction of 29 August
+           2026: "They can book a Sounding in multiple locations throughout
+           the entire site. There needs to be a direct area they can contact
+           me." A Sounding is reachable from the hero, the work ladder, the
+           close and the footer of nearly every page. Being able to ask a
+           question without paying was reachable from nowhere. -->
+      <a class="btn" href="/contact/">
+        <span>Contact</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
+      </div>
     </nav>
   </div>
 </header>
 
-<main id="main" class="tq-page">
+<main id="main">
 
-<!-- 01 / HERO.
-     The headline assumes the room, which is the only thing a QR
-     destination can safely assume: she is standing at the table with a
-     card in her hand. -->
-<section class="section tq-head z-light" data-zone aria-labelledby="tq-h">
+<!-- CONTACT. The page that says you do not have to pay to talk to her.
+     Deliberately plain: an eyebrow, a name for what to do, the waterline,
+     one sentence, and the form. No offer stack, no second ask, and no
+     sticky booking bar. A booking bar pinned to the bottom of this page
+     would undo the only thing it is here to say. -->
+<section class="section z-light" data-zone aria-labelledby="ct-h">
   <div class="wrap">
-    <p class="eyebrow r-fade">GATHER &nbsp;/&nbsp; The Journey &nbsp;/&nbsp; Minneapolis</p>
-    <h1 class="carved c-1 split" id="tq-h">You picked one.</h1>
-    <p class="lead r-up" style="--d:60ms">There were twelve on the table. Here are the other eleven. Take them with you and use them on someone this week.</p>
-    <!-- The only waterline on the page. Level, static, one instance. -->
+    <p class="eyebrow r-fade">Contact</p>
+    <h1 class="carved c-1 split" id="ct-h">Ask me something.</h1>
     <span class="wl-rule" aria-hidden="true"></span>
-  </div>
-</section>
+    <p class="lead r-up" style="--d:60ms; margin-top:var(--s-5)">You do not have to book anything to talk to me. Send this and I will answer it myself.</p>
 
-<!-- 02 / WHY THE QUESTIONS EXIST.
-     Both lines are Cydnie's own, lifted from the old page and kept
-     intact. -->
-<section class="section z-light" aria-labelledby="tq-why">
-  <div class="wrap">
-    <h2 class="head h-2 split" id="tq-why">I ask questions like these because most rooms don&rsquo;t.</h2>
-    <div class="body r-up" style="--d:60ms; margin-top:var(--s-5)">
-      <p>We get asked what we do and where we work and how the kids are, and we answer all of it without ever saying anything true.</p>
+    <div class="grid-12" style="margin-top:clamp(var(--s-6), 6vw, var(--s-7))">
+      <div class="col-d">
+        <!-- HONEYBOOK, placement 69f9f2a0db6ae2c455d04434. The div, the pixel
+             and the script stay in one block: the controller looks for the
+             div as it runs, and separating them stops the form appearing.
+
+             min-height holds the space so the page does not jump when the
+             script lands. The noscript is a real fallback, not a courtesy:
+             with JS off this is the only way to reach her from this page. -->
+        <div class="ct-embed">
+          <div class="hb-p-69f9f2a0db6ae2c455d04434-2"></div>
+          <img height="1" width="1" style="display:none" src="https://www.honeybook.com/p.png?pid=69f9f2a0db6ae2c455d04434" alt="">
+          <noscript>
+            <p class="small">The form needs JavaScript. Write to <a class="link" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a> instead and it reaches the same inbox.</p>
+          </noscript>
+        </div>
+      </div>
+
+      <!-- The rail. Held is the warm note and it appears once on this page,
+           here, on the border. Angela's words moved off the home page, where
+           they sat seventh in a stack of six retreat guests, to the one page
+           whose subject is being answered by a person. -->
+      <aside class="col-e ct-rail r-up" style="--d:120ms" aria-label="What to expect">
+        <blockquote class="ct-quote">She&rsquo;s truly a breath of fresh air.
+          <cite>Angela &middot; Alchemy with A</cite></blockquote>
+        <span class="ct-hair" aria-hidden="true"></span>
+        <p class="small muted">I answer these myself, usually within a day. No sequence, no list, no follow up you did not ask for.</p>
+        <p class="small" style="margin-top:var(--s-4)">Or write directly:<br><a class="link" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a></p>
+      </aside>
     </div>
-  </div>
-</section>
 
-<!-- 03 / THE TWELVE.
-     THREE FIXES CARRIED IN FROM THE OLD PAGE, and each of them is why
-     this list is worth reading twice before editing it:
-
-       - Question 11 read "what would you say yest to". A typo.
-       - Casing was inconsistent: wHERE, wHO, wHAT. Sentence case here.
-       - The order ran 05 down to 01 and then 12 down to 06. It runs 01 to
-         12 here, because the cards on the table are numbered and someone
-         holding card 07 has to be able to find 07.
-
-     The numerals are functional, not decorative. Keep them.
-
-     One flat list, hairline rules, no cards, no columns and no reveal on
-     scroll. Twelve rows is a long scroll on a phone and that is fine: the
-     scroll is the experience. -->
-<section class="section z-light" aria-labelledby="tq-twelve">
-  <div class="wrap">
-    <h2 class="head h-2 split" id="tq-twelve">The questions</h2>
-    <ol class="tq-list" role="list">
-      <li><span class="n">01</span><span class="q">What made you laugh this week?</span></li>
-      <li><span class="n">02</span><span class="q">What&rsquo;s a compliment you&rsquo;ve never forgotten?</span></li>
-      <li><span class="n">03</span><span class="q">Where were you the last time you felt completely at ease?</span></li>
-      <li><span class="n">04</span><span class="q">What&rsquo;s one small thing that made this week better?</span></li>
-      <li><span class="n">05</span><span class="q">What do people come to you for?</span></li>
-      <li><span class="n">06</span><span class="q">What are you better at now than you were a year ago?</span></li>
-      <li><span class="n">07</span><span class="q">What did you love doing when you were ten?</span></li>
-      <li><span class="n">08</span><span class="q">Who would be proud of where you are right now?</span></li>
-      <li><span class="n">09</span><span class="q">What are you building that no one has seen yet?</span></li>
-      <li><span class="n">10</span><span class="q">What would you do this year if it didn&rsquo;t have to be impressive?</span></li>
-      <li><span class="n">11</span><span class="q">What would you say yes to if you knew it would work?</span></li>
-      <li><span class="n">12</span><span class="q">Where do you want to go that you haven&rsquo;t been?</span></li>
-    </ol>
-  </div>
-</section>
-
-<!-- 04 / WHO IS ASKING.
-     Second paragraph is the wireframe's variant A, locked.
-
-     "Sometimes the answer is that you don't need me" belongs on The Build
-     page and not here. This reader just met her and has not been sold
-     anything yet, so the differentiator has nothing to reverse. -->
-<section class="section z-light" aria-labelledby="tq-who">
-  <div class="wrap">
-    <h2 class="head h-2 split" id="tq-who">Who&rsquo;s asking</h2>
-    <div class="body stack r-up" style="--d:60ms; margin-top:var(--s-5)">
-      <p>I&rsquo;m Cydnie. I&rsquo;m a brand strategist and consultant in Forest Lake, Minnesota. I work with women who are running something real and carrying most of it by themselves.</p>
-      <p>By the time someone gets to me, the business usually works. What&rsquo;s stopped working is her ability to see it clearly from underneath everything sitting on top of it.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 05 / THE ONE ACTION.
-     The old page had two competing calls, "Let's Build What's Next" and
-     "Let's Talk", pointing at two different scheduling links. Both are
-     replaced by this.
-
-     The link is the HoneyBook session record for A Sounding, the same one
-     /a-sounding/ and the site-wide popup both use. The price has to match
-     that record and The Build page: see item 9 in HANDOFF section 7. -->
-<!-- THE BAND MARKS THE ACTION. This page ran entirely on light grounds
-     and was the only one on the site with a real action and no Deepwater
-     band at all, so nothing on it said which part was the ask. -->
-<section class="section z-deepwater" data-zone style="--from:var(--surface)" id="sounding" aria-labelledby="tq-sd">
-  <div class="wrap">
-    <h2 class="head h-2 split" id="tq-sd">A Sounding</h2>
-    <div class="body stack r-up" style="--d:60ms; margin-top:var(--s-5)">
-      <p>Ninety minutes on a call. Two days later you get a written page: what I heard, what I think is actually going on, and what I&rsquo;d do about it.</p>
-      <p>Nothing to prepare. Bring the thing you keep circling.</p>
-    </div>
-    <p class="tq-price r-up" style="--d:120ms">$300</p>
-    <div class="actions r-up" style="--d:180ms; margin-top:var(--s-5)">
-      <a class="btn btn--ink" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
-        <span>Book a Sounding, $300</span>
-        <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
-      <span class="vh"> (opens my scheduling page)</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- 06 / THE QUIET SECOND DOOR.
-     A text link, never a button. That is the whole difference between a
-     second door and a second ask, and it is why this block has no
-     .actions row.
-
-     It points at /the-letters/ on the main site, so there is no Flodesk
-     embed here and no second form to maintain. The line is variant D,
-     Cydnie's choice on 28 August 2026: the wireframe offered three, all
-     written before the cadence was settled, and none of them could say
-     what the letters are. Weekly and free is the answer to the question
-     the flattest of the three left open. -->
-<section class="section section--tight z-light" aria-label="The Letters">
-  <div class="wrap">
-    <p class="lead tq-door r-up">I also write letters. One a week, free. <a class="link link--ruled" href="/the-letters/">They&rsquo;re here.</a></p>
+    <!-- The one signpost out, in body text rather than a button, which is the
+         rule the rest of the site follows for a second door. -->
+    <p class="small r-up" style="--d:180ms; margin-top:clamp(var(--s-7), 7vw, var(--s-8)); padding-top:var(--s-4); border-top:1px solid var(--rule); max-width:44rem">Already decided? <a class="link" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">Book a Sounding</a>, $300, and it comes off The Build.<span class="vh"> (opens my scheduling page)</span></p>
+    <p class="tiny r-up" style="--d:180ms; margin-top:var(--s-3)">Forest Lake, Minnesota. In person across the Twin Cities, remote anywhere.</p>
   </div>
 </section>
 
@@ -350,10 +291,29 @@
 <script src="../assets/js/analytics.js?v=6bb4f819" defer></script>
 <script src="../assets/js/consent.js?v=6bb4f819" defer></script>
 
-<!-- No A Sounding popup here, and /thequestions is also in SKIP_PATHS in
-     sounding-popup.js so the exclusion survives someone pasting the tag on
-     later. The popup exists to push a reader toward A Sounding, and this
-     page already is that push: a modal selling the thing the page is
-     selling is the page arguing with itself. -->
+<!-- NO FLODESK POPUP HERE. This page was templated from /the-letters/,
+     which carries Cydnie's Letters popup, and its own comment there says it
+     is scoped to that page and nowhere else. It came across with the
+     template and fired an overlay across this form, which is the site
+     asking for an email address at the exact moment she is trying to give
+     one. Removed, along with the Letters signup popup, for the same reason
+     there is no sticky booking bar on this page. -->
+
+<!-- NO POPUP HERE, deliberately, the same reason there is no sticky
+     booking bar. This page exists to say you do not have to sign up or pay
+     to talk to her. A Letters overlay across the form would be the site
+     asking for an address at the exact moment she is trying to give one.
+     /about/, /a-sounding/ and /retreats/greece/ leave it off too. -->
+
+<!-- The HoneyBook controller. It is here rather than in the block above
+     because the markup it looks for is already in the document by this
+     point, and build.py hashes this for the CSP automatically. -->
+<script>
+  (function(h,b,s,n,i,p,e,t) {
+    h._HB_ = h._HB_ || {};h._HB_.pid = i;;;;
+    t=b.createElement(s);t.type="text/javascript";t.async=!0;t.src=n;
+    e=b.getElementsByTagName(s)[0];e.parentNode.insertBefore(t,e);
+})(window,document,"script","https://widget.honeybook.com/assets_users_production/websiteplacements/placement-controller.min.js","69f9f2a0db6ae2c455d04434");
+</script>
 </body>
 </html>

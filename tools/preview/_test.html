@@ -198,7 +198,13 @@ f.addEventListener('load', function(){
    // ---- the story scroll ----
    var cond = d.querySelector('.cond');
    if(cond){
-     ok('story: five moments in the markup', d.querySelectorAll('.cond-item').length===5);
+     /* Was hardcoded to five. Cydnie's brief of 29 August 2026 cut the
+        "sold vibes" recognition, which now lives once, in the refusals. The
+        count that matters is that every item has a tick to drive it: a
+        stepper with more buttons than moments strands the last one. */
+     ok('story: every moment has a tick',
+        d.querySelectorAll('.cond-item').length >= 3 &&
+        d.querySelectorAll('.cond-item').length === d.querySelectorAll('.cond-ticks button').length);
      ok('story: stepped where there is room', cond.classList.contains('is-stepped') || reduced);
      /* AND IT MUST STILL STEP ON A PHONE. This exists because the pin was
         once removed below 768 to close a spacing gap, which turned the whole
@@ -257,7 +263,10 @@ f.addEventListener('load', function(){
        ok('story: the 375 probe threw: ' + e.message, false);
      }
      ok('story: exactly one is lit', d.querySelectorAll('.cond-item.is-on').length<=1);
-     ok('story: the ticks are real controls', d.querySelectorAll('.cond-ticks button').length===5);
+     /* Also hardcoded to five, for the same reason and with the same fix.
+        What matters is that each tick is a real button, not how many. */
+     ok('story: the ticks are real controls',
+        d.querySelectorAll('.cond-ticks button').length >= 3);
    }
    // ---- the objection picker ----
    var rev = d.querySelector('[data-reversal]');
@@ -297,8 +306,14 @@ f.addEventListener('load', function(){
      var cross = d.querySelectorAll('.bd-cross a, .bd-cross span');
      ok('sounding: triad is three, Resurface current and not a link',
         cross.length===3 && cross[0].tagName==='SPAN' && cross[0].getAttribute('aria-current')==='page');
-     ok('sounding: the nav button scrolls rather than leaving the site',
-        (d.querySelector('.hdr .btn')||{getAttribute:function(){return '';}}).getAttribute('href')==='#book');
+     /* Was: this page's nav button must scroll to #book rather than leave
+        the site, which was right while the button sold A Sounding. On
+        29 August 2026 the nav button became Contact on every page, because
+        booking is reachable from four places on this page already and
+        asking a question without paying was reachable from none. */
+     ok('sounding: the nav button is Contact, like every other page',
+        (function(){ var b=d.querySelector('.hdr .btn');
+          return !!b && b.getAttribute('href')==='/contact/'; })());
      ok('sounding: six questions, mirrored in the FAQPage schema',
         d.querySelectorAll('.faq details').length===6 &&
         (d.querySelector('script[type="application/ld+json"]').textContent.match(/"@type": "Question"/g)||[]).length===6);
@@ -474,7 +489,7 @@ f.addEventListener('load', function(){
    var FOOTER = [
      '/a-sounding/', '/retreats/', '/the-build/', '/the-build/#work',
      '/about/', '/the-letters/',
-     'https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa372ccd31fefc073c5d28',
+     '/contact/',
      'https://www.instagram.com/cydniejocelyn/',
      'https://www.facebook.com/profile.php?id=61575458834389',
      'https://www.pinterest.com/Cydniejocelyn/',

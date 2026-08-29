@@ -45,6 +45,7 @@ PAGES = (
     ("the-letters/index.html",      "../assets/"),
     ("privacy-policy/index.html",   "../assets/"),
     ("thequestions/index.html",     "../assets/"),
+    ("contact/index.html",          "../assets/"),
 )
 
 for page, pre in PAGES:

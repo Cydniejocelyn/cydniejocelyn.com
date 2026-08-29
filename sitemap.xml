@@ -50,4 +50,9 @@
   </url>
   <!-- /thequestions/ is deliberately absent. It is noindex: the URL is
        event scoped rather than permanent and the page names the event. -->
+  <url>
+    <loc>https://cydniejocelyn.com/contact/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
