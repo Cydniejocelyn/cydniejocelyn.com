@@ -1070,13 +1070,18 @@ button { font: inherit; color: inherit; }
   margin: 0;
   font-family: var(--carved);
   font-weight: 400;
-  /* Down about 9%, on Cydnie's note of 29 August 2026 that the hero
-     header was too big. The new headline is two sentences rather than
-     one, so it runs to four lines where the old one ran to two, and at
-     the old size that filled the screen. Small step: 4.05rem to 3.7rem
-     at the top, 5.29vw to 4.85vw in the middle, floor left alone so a
-     narrow phone does not lose any more. */
-  font-size: clamp(1.72rem, 4.85vw, 3.7rem);
+  /* TWO LINES, ONE PER SENTENCE, and the numbers come from measuring
+     rather than taste. The copy column is a fixed 672px from 1280 up and
+     600px at 1024, and the headline is two sentences with `em` breaking
+     between them, so "two lines" means each sentence fitting its own.
+
+     Measured 29 August 2026, at 1440 and 1280: 3.7rem wraps to four,
+     3.4rem is two. At 1024, where the column drops to 600px, 3.4rem is
+     still four and 3.0rem is two. So the cap is 3.4rem for the wide case
+     and the middle term is 4.6vw, which lands at 2.94rem by 1024 and
+     keeps it to two the whole way down. The floor is untouched: a phone
+     was already two lines. */
+  font-size: clamp(1.72rem, 4.6vw, 3.4rem);
   line-height: 1.12;
   letter-spacing: .045em;
   text-transform: uppercase;
@@ -1132,6 +1137,18 @@ button { font: inherit; color: inherit; }
 
 /* The path. A rule with four stops on it, each one a real door further
    down the page. */
+/* The quiet second option under the paid one. Smaller than body, and set
+   well clear of the button: at body size and a default gap it read as a
+   caption belonging to the button rather than as its own offer, and on a
+   phone the two ran together. */
+.hero-ask {
+  margin-top: clamp(var(--s-4), 3.5vw, var(--s-5));
+  font-size: .875rem;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 34rem;
+}
+
 .hero-path { position: relative; }
 @media (min-width: 62rem) { .hero-path { padding-left: var(--s-6); } }
 .hero-path-label {
@@ -1911,6 +1928,12 @@ button.door-note {
    three times instead: the nav, the hero, and once at the close. */
 
 
+
+/* Every other page gives its first section a head class with enough top
+   padding to clear the fixed header. This one used a plain `.section`,
+   whose 3.5rem floor is shorter than the header on a phone, so the eyebrow
+   rendered underneath the logo. Same construction as .lt-head. */
+.ct-head { padding-block: clamp(6rem, 14vh, 9rem) clamp(3rem, 7vw, 5rem); }
 
 /* ---------- THE CONTACT PAGE --------------------------------
    Nothing here is new vocabulary. The embed reserves its own height so the
