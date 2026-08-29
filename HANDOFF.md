@@ -4443,3 +4443,182 @@ The harness clears the key before loading the page under test.
 
     behaviour  439 pass / 0 fail across nine pages
     analytics  141 pass / 0 fail
+
+---
+
+## 44. Session twenty-four: the brief, the contact page, and a deploy that had been lying
+
+**Written at the end of session twenty-four, 29 August 2026, to hand over cleanly.**
+Everything below is committed, pushed and deployed. Verified, not assumed:
+
+    git status --short          empty
+    main vs origin/main         0 ahead, 0 behind
+    all ten pages               byte identical to dist/, over plain curl
+    suite                       456 pass / 0 fail, nine pages
+    tools/seams.py              0 mismatches
+
+### Read this first: production was serving the source, not the build
+
+For an unknown number of deploys, `vercel deploy` from inside `dist/` uploaded
+the **repository root**. Every page went out as its source: 38,362 bytes
+against 26,731 built on /about/, 43% more on the wire, with all 25 HTML
+comments per page shipped to readers. `tools/build.py` was being defeated at
+the last step and nothing said so.
+
+The cause is the race section 38 already describes. iCloud writes conflict
+copies into `dist/` after `build.py` recreates it, and a stray `assets 3` was
+sitting there when the upload ran. The existing sweep runs **before** the
+upload; iCloud wrote after it.
+
+`ship.sh` now has two guards and both are load bearing:
+
+  * before deploying, it **refuses outright** if a conflict copy is still in
+    `dist/`, and prints which one. An aborted ship is cheap.
+  * after deploying, it counts HTML comments on the live /about/ and compares
+    against `dist/`. `build.py` removes every comment, so any comment on
+    production means the wrong directory went up. It says so and does not
+    call it shipped.
+
+**How this went unnoticed for so long:** every verification used
+`vercel curl`, which routes through Vercel's own network, and compared
+*markers* rather than whole files. Source and build carry the same words, so
+every marker matched. Use plain `curl` and compare a checksum against `dist/`.
+Nothing else is proof.
+
+### What shipped, against Cydnie's brief
+
+The brief arrived as `claude-code-brief.md` with two reference files. Phases 1
+through 4 are done and live. **Phase 5 is not started.**
+
+  * **Phase 1**, all eleven text tasks on the home page. Headline is now
+    "Nothing is wrong with you. Something is on top of you." No price in the
+    hero: all three buttons read "Book one conversation", on Cydnie's call.
+  * **Phase 2**, the restructure. New section order, the one Deepwater band,
+    the contact block, the ladder reversed so A Sounding leads, the thesis
+    image swapped, Why me cut to two paragraphs.
+  * **Phase 3**, `/contact/`, new. Built from this site's own header, footer,
+    stylesheet and type, not forked from the reference file.
+  * **Phase 4**, the nav button is **Contact** on all ten pages, and the
+    footer Contact points at `/contact/`.
+  * Plus, after the brief: the proof carousel reordered to lead with a
+    consulting voice and alternate the two businesses, with SRS and Angela
+    added.
+
+### The brief was written against an older site
+
+Six of Phase 1's sixteen find-and-replace targets no longer existed. Three
+were already done; three had been changed to something different. **Check
+before running any remaining instruction from that file.** Two more:
+
+  * It names a **Client work** section at position ten of the new order. This
+    home page does not have one. Nothing filled that slot.
+  * It omits two sections that do exist, the Fifteen ring and the "If I don't
+    fit into a box" statement. Both kept.
+
+### Task 13 is half done, deliberately
+
+The band is the only Deepwater section, verified. The other half asks that
+nothing sit on **Fathom** either, and four sections still do: the hero, the
+thesis, the condition and Why me. The reference file only makes that work
+because Phase 5 rebuilds the hero as two columns with the image in a frame.
+Flipping it before that breaks a full bleed photograph for no gain. **It goes
+with Phase 5.**
+
+### HoneyBook, and the CSP
+
+The form was blocked outright: the CSP allowed scripts from this domain, Tag
+Manager and Flodesk only. Four directives are widened, **on Cydnie's explicit
+approval**, because it lets a third party run code on this site:
+`script-src`, `img-src`, `connect-src`, `frame-src`.
+
+**Task 23 is answered.** HoneyBook **injects into the document**, no iframe,
+observed during testing. So the token styling in the brief is possible. It is
+**not applied**: the form arrives in HoneyBook's own typeface and their own
+copy, "Your Next Chapter Starts Here". How much to override is Cydnie's call.
+
+### Two template inheritance bugs, both caught before deploy
+
+The contact page was built from `/the-letters/` so it would inherit the real
+header and footer. It also inherited:
+
+  * **that page's Flodesk popup**, which fired an overlay asking for an email
+    address on the one page whose whole argument is that you do not have to
+    sign up or pay to reach her. The Letters page's own comment says the popup
+    is scoped to it and nowhere else.
+  * **`aria-current="page"` on The Letters**, so the contact page underlined
+    the wrong nav item and told a screen reader the wrong location.
+
+If any page is ever templated from another again, check for both.
+
+### I deleted the condition stepper's controls, and the suite caught it
+
+The Why me rewrite used line numbers from a read taken **before** other edits
+shifted them. It wrote two paragraphs into the middle of the condition section
+and removed all five tick buttons.
+
+`_test.html` caught it on the assertion generalised earlier the same session
+to tie item count to tick count. The file was reverted to the last good commit
+and the phase redone with **string matching, never line indices**, plus a
+guard that refuses to reorder if any content would fall between the blocks.
+
+**Never edit this codebase by line number.** Match on the string.
+
+### Two new tools, both written because the same thing went wrong twice
+
+  * **`tools/seams.py`.** Every section names the ground of the section above
+    it by hand in `--from`. Change a zone, reorder, or delete a section and the
+    one below it fades from a colour that is no longer there. Ten seams broke
+    this way in one change, and four more in another. Run it after any zone or
+    order change. Zero is the only acceptable number.
+  * **`tools/shot.sh`.** Screenshots that actually show the page. Three things
+    break a naive capture and all three are documented in the file: the reveals
+    never fire, the home page's relative asset paths 404 from any subdirectory,
+    and Chrome does not exit. It drives `tools/preview/_shot.html`, which
+    already solved the first.
+
+### Assertions changed this session, and why each one was wrong
+
+Five failed correctly, because they asserted behaviour the brief changes. Each
+was updated to the **new rule**, not loosened:
+
+  * two hardcoded "five recognitions"; they now tie the count to the number of
+    ticks, so a stepper with more buttons than moments fails
+  * the footer's pinned eleven-link list, for the Contact target
+  * A Sounding's nav button, which asserted it scrolls rather than leaves
+  * the retreats FAQ count, hardcoded at seven; it now asserts the page and its
+    FAQPage schema carry the same number
+  * back-to-top, which asked only whether a link and a target existed. Both did.
+    It now asserts the target **can be scrolled to**, and is verified red
+    against the old markup.
+
+### Open, and waiting on Cydnie
+
+1. **Phase 5.** Two column hero, booking card over the image, sticky bar,
+   scroll progress, hover lifts. The Fathom sections flip in the same pass.
+2. **Angela appears twice**, in the home proof and as the only quote on the
+   contact page rail, where she is doing specific work. Keep both, drop one,
+   or find a different quote for the rail.
+3. **Angela's source line** reads "Client, Alchemy with A" while Tamara's and
+   Spencer's name the engagement. Her quote mentions a first coaching call,
+   which matches nothing currently sold, so it claims nothing. Needs the fact.
+4. **The HoneyBook form styling**, above.
+5. **Task 26 is a report, not a fix, by instruction.** Sixteen links labelled
+   "opens my scheduling page" point at honeybook.com rather than the scheduling
+   subdomain. Not two, as the brief expected. They are not broken; the label is
+   what is wrong.
+6. **Two pages contradict their own schema.** Home shows 4 questions against 7
+   in its FAQPage; Greece shows 16 against 10. Reconciling means deciding which
+   set is true.
+
+### The About page copy freeze, partially lifted
+
+Sections 03 and 04 of `about/index.html` carry **COPY FREEZE** notices. On
+29 August Cydnie lifted the **register** half: "I am a person, not depressed."
+Three clauses that dwell are gone and no event went with them.
+
+**The structural half still stands** and the file says so: do not split the
+"Then life smacked me in the face" paragraph, do not tighten run-on clauses
+joined with "and", do not add subheads or bullets inside the account.
+
+That page also runs a single light ground now with one Deepwater close, and
+the five "Also true" facts are cards that fill with Breath on hover.
