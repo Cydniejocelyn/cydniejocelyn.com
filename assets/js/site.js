@@ -373,6 +373,8 @@
   function initHero() {
     var hero = document.querySelector(".hero");
     if (!hero) return;
+
+    /* 12px of travel, no more */
     var img = hero.querySelector(".hero-water img");
     if (!img) return;
 
@@ -392,7 +394,26 @@
      a waterline that moves; a sticky bar and a nudge are both forms of the
      manufactured urgency this brand does not use. The booking link stands
      on its own in the nav, in the hero and once at the close, and the
-     letter is offered in the page, in the places it belongs. */
+     letter is offered in the page, in the places it belongs.
+
+     ASKED FOR AGAIN, AND DECLINED AGAIN, 29 AUGUST 2026. Phase 5 of the
+     home page brief asks for both by name: Task 29 the sticky bar, Task 30
+     a 2px progress bar at the top of home and contact. Cydnie was given
+     both with the evidence and left both out. The evidence, so nobody has
+     to reassemble it a third time:
+
+       - The progress bar contradicts the brief's OWN constraints, which say
+         the waterline fills once and holds, never a loop and never variable
+         length. A rule at the top that changes length is that.
+       - There is already a scroll indicator on every page: the depth gauge
+         down the left edge. Two at once is one too many.
+       - The sticky bar is fixed to the bottom edge, and so is the cookie
+         consent banner `.cc`. It would cover the one control on the site a
+         reader has to be able to answer.
+
+     If a future brief asks a third time, that is a decision, not an
+     oversight, and it needs the consent collision solved before anything
+     else. */
 
   /* ---------- 10. The condition, one recognition at a time ---
      The section holds a track five screens tall with a pinned stage

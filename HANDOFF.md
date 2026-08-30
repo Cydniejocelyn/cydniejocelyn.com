@@ -4622,3 +4622,212 @@ joined with "and", do not add subheads or bullets inside the account.
 
 That page also runs a single light ground now with one Deepwater close, and
 the five "Also true" facts are cards that fill with Breath on hover.
+
+## 45. Session twenty-five: Phase 5, and four tasks that asked for things already removed
+
+**Written at the end of session twenty-five, 29 August 2026.**
+Phase 5 of the home page brief is worked through. Most of it is NOT built,
+and every one of those is a decision with evidence, not an omission.
+Verified, not assumed:
+
+    suite                       453 pass / 0 fail, nine pages
+    tools/seams.py              0 mismatches
+    tools/build.py              clean, dist/ rebuilt
+    locked pages                changed by the cache stamp ONLY, diffed
+
+### Where the brief is
+
+`claude-code-brief.md` is **not in this repo and never was**. It is in
+`~/Downloads/`, with `home-page-v8.html` and `contact-page.html`. Section 44
+cited its phases by number without saying where to find it, which cost the
+first part of this session.
+
+### What shipped
+
+  * **Task 33.** The one Deepwater band runs a 168deg gradient into Fathom.
+  * **Task 34, the wash.** A soft Held gradient on the contact rail.
+  * **The hero, one stop brighter.** Not a brief task. Cydnie asked for the
+    photograph lighter, "not drastically, but not as dark". `.hero--lit`
+    lifts the SCRIM rather than the image: nothing is filtered and the water
+    keeps its own contrast. Measured on the built page, the ground under the
+    headline went rgb(55,71,73) to rgb(88,101,101), and contrast went
+    **8.13:1 to 5.07:1 for the headline and 8.16:1 to 6.66:1 for the sub**.
+    Both still clear AA. Home only: `.hero-scrim` is shared with both retreat
+    heroes, which are darker photographs and are locked.
+
+### Tasks 27 and 28 were built, reviewed, and rejected
+
+The two column hero and the booking card were built in full, published as an
+artifact, and **Cydnie kept the full bleed photograph**. Worth recording,
+because the reference file will ask for the two column version again:
+making the hero two columns turns the waterline from the thing the reader is
+standing in into a picture beside some text, and the photograph is the
+argument of the page.
+
+Three things were found while it was up, and they are the reason it is worth
+having built:
+
+  * **A light hero renders the headline invisible.** `.hero-line` and
+    `.hero-call` at section 9 hardcode `var(--surface)` because that hero was
+    only ever dark. On a light ground the first sentence was Surface on
+    Surface: present, holding its space, unreadable. `.hero-sub` at `#A8C4C0`
+    measured about 1.5:1. **Anyone lighting this hero again hits all three.**
+  * **`.hero-down` is 110px tall and anchored to the hero's bottom.** Any
+    layout that puts content along that edge collides with it, measured at
+    14px of overlap.
+  * **`onload` cannot work on this site.** The CSP is `script-src 'self'`
+    plus hashes with no `'unsafe-hashes'`, so an inline handler is blocked.
+
+There is a fourth, still live, that the artifact exposed: the reference file
+is desktop first. Stacking its two columns on a phone put the photograph
+under a full screen of type. At 375x812 the frame began at y=688 and 124px
+of a 251px image cleared the fold, most of it under the cookie banner.
+
+### Four tasks asked for things this site had already removed
+
+Reported with file and line numbers rather than resolved, which is the
+brief's own conflict rule. **Cydnie left all three decidable ones out.** The
+notes are in the code, at `site.js` section 7-8-9 and beside `.door`, so the
+next brief does not reopen them from scratch:
+
+  * **Task 29, the sticky bar.** Forbidden by the guide, recorded twice in
+    `site.css`. It is also fixed to the same edge as the cookie consent
+    banner `.cc` and would cover the one control a reader has to answer.
+  * **Task 30, the scroll progress bar.** Built and removed once already, on
+    the ground that a thin rule at the top that changes length reads as a
+    waterline that moves. **The brief's own constraints forbid exactly
+    that**, and the site already has a scroll indicator: the depth gauge.
+  * **Task 31, smooth scroll.** Already done and better: `site.css` does it
+    in CSS with `scroll-padding-top: 6rem`. The brief's JS would drop every
+    anchor target under the fixed header. No decision needed.
+  * **Task 32, hover lifts.** `.door` says it in words: no lift, no shadow,
+    no scale.
+
+### Task 13's second half is still not done, and now cannot be
+
+The brief asks that the band be the only Deepwater or Fathom ground. The
+thesis, the condition and Why me were flipped to light in this session and
+are still light. **The hero is Fathom again**, so the audit does not pass and
+will not while the photograph is the hero. That is the trade Cydnie chose.
+`tools/seams.py` caught the seam this left behind the moment the hero went
+back, which is exactly why it exists.
+
+### tools/build_artifact.py was broken and is repaired
+
+It had not been run since 27 August and had three faults, all fixed:
+
+  * it read the Google Fonts `<link>` out of the page to carry the
+    typefaces. **The site self hosts its faces now**, so the regex matched
+    nothing and the build died with an AttributeError. All eight woff2 files
+    are inlined as data URIs; the artifact reaches no external origin.
+  * it opened every image in `PICK` eagerly and died on one that no page
+    renders any more. Stale entries are skipped; anything the page actually
+    needs and cannot find is a hard failure rather than a blank photograph.
+  * **it only inlined images referenced from the markup.** The ink wordmark
+    is a `background-image`, so it published with an empty space where the
+    logo goes. Stylesheet `url(../img/...)` references are inlined too now.
+
+### Still open, unchanged from section 44
+
+Items 2, 3, 4, 5 and 6 of section 44's list: Angela appearing twice, Angela's
+source line, the HoneyBook form styling, the sixteen mislabelled scheduling
+links, and the two pages that contradict their own FAQPage schema.
+
+## 46. Where session twenty-five stopped, 30 August 2026
+
+**NOTHING IS COMMITTED, nothing is pushed, nothing is deployed.** Production
+is untouched. Everything below is UNCOMMITTED in the working tree, on disk
+and not in git, so do not run `git checkout`, `git stash` or `git reset` on
+these files without reading this first:
+
+    M HANDOFF.md
+     M a-sounding/index.html
+     M about/index.html
+     M assets/css/site.css
+     M assets/js/site.js
+     M contact/index.html
+     M index.html
+     M privacy-policy/index.html
+     M retreats/greece/index.html
+     M retreats/index.html
+     M the-build/index.html
+     M the-letters/index.html
+     M thequestions/index.html
+     M tools/build_artifact.py
+
+### The whole of it, in one line
+
+**The site is production, plus a lighter hero photograph. That is all.**
+
+`index.html` is byte identical to what is live except for a single class on
+one line: `<section class="hero hero--lit z-deep">`. `site.css` differs by
+one new rule and two comments. `site.js` differs by comments ONLY, zero
+functional change. Verified by diff, not assumed.
+
+### What Cydnie decided, and it closes the colour question
+
+On 30 August, having seen the light version built and published:
+
+  * **The site's colouring is right as it is and none of it moves.** The
+    thesis, the condition and Why me are back on Fathom. The band is flat
+    Deepwater again, its 168deg gradient reverted. The Held wash on the
+    contact rail is reverted. **Task 33 and Task 34's wash are OUT**, not
+    pending, along with Task 13's second half, which will now never pass its
+    own audit because the hero is Fathom and staying that way.
+  * **The Breath study is closed.** She does not want the page lighter. The
+    artifact stays for the record but nothing from it is wanted.
+  * **The lighter hero stays.** "I like the lighter hero in the beginning.
+    Just makes it not feel super dark."
+
+### The one thing that shipped, and why it is not a colour change
+
+`.hero--lit` lifts the SCRIM, not the image. `.hero-scrim` is two stacked
+gradients of Fathom laid over the photograph so white type stays readable on
+it, and that is what was dark. Nothing is filtered or brightened, so the
+water keeps its own contrast and the waterline reads across the frame.
+
+Measured on the built page: the ground under the headline went rgb(55,71,73)
+to rgb(88,101,101); contrast 8.13:1 to 5.07:1 on the headline and 8.16:1 to
+6.66:1 on the sub. Both clear AA. **The sub is what runs out first if this is
+ever lifted further.**
+
+Home only. `.hero-scrim` is shared with both retreat heroes, which are darker
+photographs that need what they have, and the brief locks them.
+
+### Phase 5 of the brief is finished, and almost none of it was built
+
+Tasks 27 and 28 built and rejected, the full bleed photograph kept. Tasks 29,
+30 and 32 declined with evidence, now written into `site.js` section 7-8-9
+and beside `.door` in `site.css` so a future brief cannot quietly reopen
+them. Task 31 was already done in CSS and better. Tasks 33 and 34 built and
+then reverted by the decision above. **Section 45 has the full reasoning and
+should be read before anyone acts on that brief again.**
+
+### Kept from this session, unrelated to how the site looks
+
+  * **`tools/build_artifact.py` repaired**, three real faults, see section 45.
+    It had not run since 27 August and died outright on the first two.
+  * `site.js` and `site.css` comments recording the declines.
+
+### State, verified before stopping
+
+    suite                 453 pass / 0 fail, nine pages
+    tools/seams.py        0 mismatches
+    tools/build.py        clean, dist/ built and current
+    index.html            identical to production but for `hero--lit`
+    site.js               comments only, no functional change
+    git                   main, 0 ahead 0 behind, all of the above unstaged
+
+### Picking this up
+
+1. `python3 tools/seams.py` and `sh tools/preview/runsuite.sh "$SP" 8814`
+   should read 0 mismatches and 453 / 0 before anything is touched.
+2. Nothing is waiting on a decision. The next step, whenever she wants it,
+   is to commit this and ship it.
+3. `ship.sh` is the only way to deploy: it carries the conflict copy guard
+   and the post deploy comment check that caught the source being uploaded
+   instead of `dist/`.
+4. Artifacts, both current:
+   home page  https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5
+   colour study, closed  https://claude.ai/code/artifact/51b4a69c-f0f3-46cd-a5df-60515db53415
+

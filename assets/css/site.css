@@ -1506,6 +1506,11 @@ button.door-note {
 /* Border colour, Meniscus to Breath, 150ms. No lift, no shadow, no scale. */
 .door { transition: border-color 150ms var(--ease-out); }
 .door:hover, .door:focus-within { border-color: var(--breath); }
+/* ASKED FOR AGAIN, AND DECLINED AGAIN, 29 AUGUST 2026. Task 32 of the home
+   page brief asks for a 3px lift and a soft shadow on these cards, and 2px
+   on the testimonials. That is the transform this file removed once already,
+   two lines above. Cydnie was shown both and kept the border. The hover is
+   the border colour, Meniscus into Breath, and nothing moves. */
 
 /* ---------- 13. FIFTEEN ------------------------------------- */
 .fifteen { display: grid; gap: var(--s-7); align-items: center; }
@@ -4962,6 +4967,43 @@ main > * { position: relative; z-index: 1; }
    line. */
 @media (max-width: 29.99rem) {
   .rt-facts { border-top: 0; padding-top: 0; }
+}
+
+/* ---------- 31. THE HERO, ONE STOP BRIGHTER -------------------
+   The only thing this session changed about how the site looks, and it is
+   not a colour change. Cydnie asked for the home photograph lighter, "not
+   drastically, but not as dark", and was explicit afterwards that the site's
+   colouring is right as it is and none of it should move.
+
+   WHAT IS DARK THERE IS NOT THE IMAGE. `.hero-scrim` at section 9 is two
+   stacked gradients of Fathom laid over the photograph so white type stays
+   readable on it. So this lifts the SCRIM. Nothing is filtered and nothing
+   is brightened, so the water keeps its own contrast and the waterline
+   reads across the frame instead of sinking into the ground.
+
+   Measured on the built page, not estimated. The ground under the headline
+   went rgb(55,71,73) to rgb(88,101,101). Contrast went 8.13:1 to 5.07:1 on
+   the headline and 8.16:1 to 6.66:1 on the sub. Both still clear AA, and
+   the sub is the one that runs out first if this is ever lifted further.
+
+   HOME ONLY. `.hero-scrim` is shared with /retreats/ and /retreats/greece/,
+   which are darker photographs that need every bit of what they have. The
+   modifier is on the section, so neither can be reached from here.
+
+   Same construction as the original and the same stop positions, each step
+   down in opacity. The across gradient drops about a fifth. The down
+   gradient KEEPS its top and bottom anchors: the top is what holds the
+   header legible and the bottom is what carries the seam into the section
+   below, and lifting either is what makes a hero look washed rather than
+   lit. */
+.hero--lit .hero-scrim {
+  background:
+    linear-gradient(90deg,
+      rgba(7,26,31,.74) 0%, rgba(7,26,31,.66) 30%,
+      rgba(7,26,31,.44) 56%, rgba(7,26,31,.30) 80%, rgba(7,26,31,.25) 100%),
+    linear-gradient(180deg,
+      rgba(7,26,31,.66) 0%, rgba(7,26,31,.32) 9%, rgba(7,26,31,.05) 22%,
+      rgba(7,26,31,.22) 60%, rgba(7,26,31,.74) 90%, var(--fathom) 100%);
 }
 
 /* ---------- 23. PRINT --------------------------------------- */

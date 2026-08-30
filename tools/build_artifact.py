@@ -41,11 +41,56 @@ js   = open(os.path.join(SRC, "assets/js/site.js"), encoding="utf-8").read()
 body   = html[html.index("<body>") + 6:html.index("</body>")]
 schema = re.search(r'<script type="application/ld\+json">.*?</script>', html, re.S).group(0)
 
-# Read the font link out of the page rather than restating it here. The last
-# build hardcoded Cinzel and DM Sans and kept shipping them long after the
-# stacks moved to Instrument and Plex, so the artifact was set in the wrong
-# faces with no error anywhere.
-fonts = re.search(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com[^"]*">', html).group(0)
+# THE FACES ARE SELF HOSTED NOW, AND THIS USED TO CRASH.
+# This read the Google Fonts <link> out of the page. The site stopped having
+# one: the faces were self hosted in session, and `_test.html` asserts that no
+# third party font stylesheet is on the critical path. So the regex matched
+# nothing, `.group(0)` raised AttributeError, and the artifact build died
+# outright rather than falling back to anything.
+#
+# The woff2 files are inlined into the folded stylesheet instead. They have to
+# be: `url(../fonts/...)` resolves to nothing inside an artifact, and the
+# viewer's CSP admits no host but Google Fonts, so there is nowhere to fetch
+# them from. About 107KB of font becomes about 143KB of base64, which is
+# nothing against the images.
+#
+# Every face the stylesheet names is inlined, including latin-ext and the
+# serif italic. Dropping the ext faces would silently lose the accented
+# characters that `unicode-range` exists to serve.
+FONTDIR = os.path.join(SRC, "assets/fonts")
+def inline_font(m):
+    name = m.group(1)
+    path = os.path.join(FONTDIR, name)
+    if not os.path.exists(path):
+        raise SystemExit("artifact: stylesheet names a font that is not there: " + name)
+    with open(path, "rb") as fh:
+        return "url(data:font/woff2;base64,%s) format('woff2')" % base64.b64encode(fh.read()).decode()
+fontcount = len(re.findall(r"url\(\.\./fonts/([^)]+\.woff2)\) format\('woff2'\)", css))
+css = re.sub(r"url\(\.\./fonts/([^)]+\.woff2)\) format\('woff2'\)", inline_font, css)
+if not fontcount:
+    raise SystemExit("artifact: no self hosted @font-face found; has the stylesheet moved?")
+
+# IMAGES REFERENCED FROM THE STYLESHEET, which the swap below never sees.
+# `swap` only rewrites `src="assets/img/..."` in the markup. The ink wordmark
+# is not an <img>: it is a `background-image` on `.brand-mark--ink`, so it was
+# left as `url(../img/...)`, resolved to nothing in the artifact, and the
+# header published with an empty space where the logo goes.
+#
+# It went unnoticed until the home hero became light. The ink mark only shows
+# once `.hdr.is-surfaced` is set, which used to mean "scrolled past a dark
+# hero"; now the top of the page is light and the header is surfaced from the
+# first pixel, so the missing asset is the first thing on the page.
+def inline_css_img(m):
+    name = m.group(1)
+    path = os.path.join(SRC, "assets/img", name)
+    if not os.path.exists(path):
+        raise SystemExit("artifact: stylesheet names an image that is not there: " + name)
+    with open(path, "rb") as fh:
+        return "url(data:image/webp;base64,%s)" % base64.b64encode(fh.read()).decode()
+
+cssimg = len(re.findall(r"url\(\.\./img/([^)]+)\)", css))
+css = re.sub(r"url\(\.\./img/([^)]+)\)", inline_css_img, css)
+
 
 # Every image the page actually renders. Keys are matched as substrings of the
 # src path, so they have to stay distinct from one another.
@@ -105,9 +150,22 @@ PICK = {
     "greece/kitchen":     "greece/kitchen-600.webp",
     "greece/pergola":     "greece/pergola-600.webp",
 }
-data = {}
+# PICK covers every page this tool can fold, so most of it is irrelevant to
+# whichever one is being built, and it goes stale as the site's assets move.
+# It used to open all of them eagerly: on 29 August that made the whole build
+# die on `reaching-shadow-632.webp`, an image no page renders any more.
+#
+# A stem whose file is gone is skipped rather than fatal. That is safe because
+# `swap` records anything the page actually asks for and cannot find, and the
+# check below turns that into a hard failure. A review artifact with a blank
+# photograph in it is worse than one that refuses to build.
+data, absent = {}, []
 for stem, name in PICK.items():
-    with open(os.path.join(SRC, "assets/img", name), "rb") as fh:
+    path = os.path.join(SRC, "assets/img", name)
+    if not os.path.exists(path):
+        absent.append(name)
+        continue
+    with open(path, "rb") as fh:
         data[stem] = "data:image/webp;base64," + base64.b64encode(fh.read()).decode()
 
 # One resolution each, so srcset and sizes have nothing left to choose between.
@@ -212,9 +270,9 @@ css, js = fold(css), fold(js)
 
 out = (
     "<title>" + TITLE + "</title>\n"
-    '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
-    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-    + fonts + "\n" + schema
+    # No preconnect and no font host. Every face is a data URI in the
+    # stylesheet below, so the artifact reaches no external origin at all.
+    + schema
     + "\n<style>\n" + css + "\n</style>\n"
     # the head script the body slice leaves behind. Without it .js-motion is
     # never set and every reveal rule sits inert, so the page arrives finished
@@ -227,5 +285,12 @@ open(OUT, "w", encoding="ascii").write(out)
 print("built   %s  (%s)" % (OUT, PAGE))
 print("size    %.2f MB" % (os.path.getsize(OUT) / 1024 / 1024))
 print("ascii   %s" % all(ord(c) < 128 for c in out))
-print("fonts   %s" % fonts[fonts.index("family="):][:72])
+print("fonts   %d self hosted faces inlined" % fontcount)
+print("cssimg  %d stylesheet image reference(s) inlined" % cssimg)
 print("missing %s" % (missing or "none"))
+print("skipped %d stale PICK entries" % len(absent))
+if missing:
+    raise SystemExit(
+        "artifact: %d image(s) on this page could not be inlined and would "
+        "publish blank:\n  %s\nAdd them to PICK, or point PICK at the "
+        "resolution that still exists." % (len(missing), "\n  ".join(missing)))
