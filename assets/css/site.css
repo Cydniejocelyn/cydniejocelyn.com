@@ -2568,8 +2568,34 @@ main > * { position: relative; z-index: 1; }
      THE TIGHTEST CASE IS 375x812, NOT THE SMALLEST SCREEN. The lede wraps
      to four lines there rather than three, so the copy block is 291px
      against 265px at 390. If this is ever retuned, measure 375 first: it is
-     the one that fails. */
-  min-height: 80vh; min-height: 80svh;
+     the one that fails.
+
+     RETUNED 30 AUGUST 2026, 80svh TO 94svh, because it failed again and the
+     note above is why it was findable. The job title line, "I do brand and
+     business development consulting", was added to this copy block AFTER
+     80svh was measured. It is one more paragraph, and at narrow widths it
+     wraps to two, which put the copy block back over what 38% could clear.
+     The line ran through "I'm Cydnie." again, reported by Cydnie on mobile.
+
+     Measured on the built page, rule to the top of the heading, before and
+     after, at both common phone heights:
+
+              320x812   360x812   375x812   390x812
+       80svh    -38       -9        -9        +20
+       94svh    +33      +62       +62       +91
+
+              320x844   360x844   375x844   390x844
+       80svh    -27       +1        +1        +30
+       94svh    +46      +75       +75      +103
+
+     Negative is the heading sitting ON the rule. 375 and 360 were within a
+     pixel of it, which is the report; 320 was a genuine overlap.
+
+     94svh is the first value that clears every case with room, and the
+     smallest screen is what sets it, not 375. THE COPY BLOCK IS THE THING
+     THAT MOVES. If a line is ever added to it again, this fails again and
+     silently: measure 320x812 first now, then 375. */
+  min-height: 94vh; min-height: 94svh;
   display: flex; align-items: flex-end;
   padding-block: clamp(7rem, 16vh, 10rem) clamp(3.5rem, 8vh, 5rem);
 }
