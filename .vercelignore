@@ -17,8 +17,14 @@ cydniejocelyn/
 # honest with each other.
 .claude/
 
-# build output and local tooling, not part of the deployed site
-tools/
+# TOOLS/ IS NOT EXCLUDED ANY MORE, AND IT CANNOT BE. `vercel.json` now runs
+# `python3 tools/build.py` as the buildCommand, so excluding this folder
+# removes the very file the build runs: the first deploy after that change
+# failed in 0ms for exactly this reason. It is safe to upload now in a way it
+# was not before, because `outputDirectory` is `dist` and Vercel serves only
+# what is inside it. Nothing in tools/ is reachable over the wire.
+#
+# Everything else here is still working documents, not build inputs.
 HANDOFF.md
 BRIEF.md
 README.md
@@ -61,6 +67,12 @@ the questions/
 # and a document that argues with itself in the margins is not the document
 # people should be reading when they look up what they signed.
 Privacy terms page/
+# Arrived 30 August 2026, 19:37, while a session was running: 48 location
+# screenshots, 145MB, for a Gatlinburg retreat that is on no page. Excluded
+# the same day it landed, per the rule above. Two reasons and either is
+# enough: 145MB of upload on every deploy, and these are unreleased location
+# photographs for an event that has not been announced.
+April Retreat Gatlinburg April 13th - 18th /
 
 # Referenced by nothing. Moved here out of assets/img/ on 28 August rather
 # than deleted, because most of them are alternates of files that are still

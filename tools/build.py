@@ -48,6 +48,10 @@ EXCLUDE_DIRS = {
     "cydniejocelyn", ".git", ".vercel", ".claude", "tools", "dist", "node_modules",
     "The Build page", "Greece Retreat", "Retreat drafts", "_unused",
     "A Sounding", "The Letters Page", "the questions", "Privacy terms page",
+    # Landed 30 August 2026. NOTE THE TRAILING SPACE in the folder name; it is
+    # real, it is on disk, and dropping it here makes the drift check below
+    # fail with two names that look identical in a terminal.
+    "April Retreat Gatlinburg April 13th - 18th ",
 }
 EXCLUDE_FILES = {"HANDOFF.md", "BRIEF.md", "README.md", ".DS_Store", ".vercelignore", ".gitignore"}
 
