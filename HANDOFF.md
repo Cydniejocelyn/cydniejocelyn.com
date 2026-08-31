@@ -4861,3 +4861,79 @@ WebP with responsive srcset, fonts self hosted at 120K with two preloaded.
 3. Items 2 to 6 of section 44 are untouched: Angela twice, Angela's source
    line, the HoneyBook form styling, the sixteen mislabelled scheduling
    links, and the two pages contradicting their own FAQPage schema.
+
+## 47. Two more, after section 46 was written
+
+Both committed, pushed and live. Section 46 stops at the eyebrow; these came
+after it.
+
+### The About head is no longer positioned by percentage
+
+`4d0de96`. Section 46 records the heading being lifted off the rule by
+raising `min-height` to 94svh. **That fix caused the next complaint**, a big
+gap between the navigation and the hero on mobile and desktop both: the copy
+is bottom aligned, so every pixel of the new height landed above it and about
+300px of the top of the page was empty at 1440x900.
+
+**Both faults were one construction.** A rule pinned at a PERCENTAGE of the
+section with the copy pinned to the BOTTOM ties clearance and void together.
+Raise the height and the emptiness grows; lower it and the heading walks back
+onto the rule. It had been hand tuned three times, 68svh then 80svh then
+94svh, each fixing the last one's damage. No percentage can serve both ends
+of the range: the copy block is 376px tall at 320px and 312px at 1440px.
+
+So the percentage is gone. `--ab-rule` puts the rule a fixed distance below
+the header, the top padding is written as `--ab-rule` plus a gap, and the
+section takes its height from its content. **Overlap is now structurally
+impossible rather than tuned**: the copy cannot reach the rule because the
+padding between them is defined in terms of where the rule is. Add a line to
+that copy block, which is exactly what broke it before, and the section grows
+downward instead.
+
+Measured on the built page at ten sizes, 320x812 to 1920x1080: header to rule
+46 to 68px, rule to heading 72 to 96px, section 597 to 661px. No tight case
+and no void anywhere, and the numbers barely move across the range.
+
+**This closes open item 1 of section 46.** The assertion offered there was to
+catch a silent recurrence of the overlap. That failure mode no longer exists
+by construction, so the assertion is now nice to have rather than needed.
+
+### April 2027 has a date, a partner and a reason to join the list
+
+`9ca2838`. Cydnie's copy, used as written, split across the block's existing
+two paragraphs at the sentence break. April is now 13 to 18 April 2027, in
+the United States, five days, fifteen seats, with **Kayla Freeman** named for
+movement. Doors open in the autumn and the list gets early bird pricing.
+
+Two things on the page contradicted it and were fixed with it: the comment
+justifying no Event schema said April had no date, and the `Retreat dates`
+ItemList named it "April 2027, location to be announced". The Event decision
+still stands for the right reason, schema.org requires a location and there
+is not one yet; when the property is named, put the Event on that retreat's
+own page the way Greece does, not here.
+
+The status line and the FAQ answer about pricing both still read true and
+were left alone.
+
+**ONE THING IS WAITING ON CYDNIE.** Her copy dates it "April 13-18, 2027".
+The Greece card directly beneath reads "13-20 August 2027", which is the
+format the rest of the site uses. The April card is internally consistent,
+its date line matches its paragraph, but the two cards do not match each
+other. Her words were used as given rather than reformatted. Ask before
+changing either.
+
+### State at close
+
+    suite                 453 pass / 0 fail, nine pages
+    tools/seams.py        0 mismatches
+    deploys               Ready, 3 to 4s, building dist/ correctly
+    production            zero HTML comments, verified in a real browser
+    git                   main, level with origin, working tree clean
+
+One untracked folder is deliberately not committed: "April Retreat Gatlinburg
+April 13th - 18th ", 48 screenshots, 145MB. It is excluded from deploys in
+both `.vercelignore` and `build.py`. **Decide whether it belongs in this repo
+at all before adding it**; 145MB of location photography in git is permanent.
+
+Still open, unchanged: item 2 of section 46, the home page artifact viewers
+being pinned to an earlier version, and items 2 to 6 of section 44.
