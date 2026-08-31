@@ -537,6 +537,29 @@ button { font: inherit; color: inherit; }
 }
 .eyebrow--plain::before { display: none; }
 
+/* THE TEXT LINES UP WITH THE HEADLINE, AND THE RULE HANGS IN THE MARGIN.
+   `.eyebrow` is a flex row, so its ::before rule and the gap after it push
+   the TEXT inward while everything below sits on the wrap's edge. Measured on
+   the home hero: the eyebrow text started 40px right of the headline at
+   390px and 64px right of it at 1440, and the headline, the call and the sub
+   all shared one edge. Only the eyebrow was out.
+
+   The rule is not dropped. It is pulled out into the margin, so the device
+   that runs on every eyebrow on this site survives and the text still aligns.
+
+   85rem, AND THAT NUMBER IS MEASURED RATHER THAN PICKED. The rule plus its
+   gap is 64px at full size. The space between the viewport edge and the
+   content edge is 64.0px at 1280 and 66.0px at 1320: flush, or 2px of room.
+   It is 88px at 1360. Below 85rem the rule would hang off the left of the
+   screen, and a first pass at 62rem did exactly that, 6px off at 992 to
+   1200, invisible in a 1440 screenshot. So below 85rem it is simply not
+   drawn, and the text lines up either way. */
+.eyebrow--hang::before { display: none; }
+@media (min-width: 85rem) {
+  .eyebrow--hang { margin-left: calc((clamp(1.5rem, 4vw, 3rem) + var(--s-3)) * -1); }
+  .eyebrow--hang::before { display: block; }
+}
+
 .lead { font-size: clamp(1.125rem, 1.5vw, 1.25rem); line-height: 1.6; max-width: var(--measure); }
 .body { max-width: var(--measure); }
 .muted { color: var(--muted); }
