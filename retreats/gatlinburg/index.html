@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- ============================================================
+     PRE-LAUNCH. THIS PAGE MUST NOT BE INDEXED UNTIL BOOKING OPENS.
+
+     noindex is applied in two places on purpose, because one of them
+     can be lost by an ordinary edit:
+
+       1. The two robots tags below.
+       2. An `X-Robots-Tag` header in vercel.json, scoped to
+          /retreats/gatlinburg/. That one survives someone editing
+          this head, and it is the reason the header block exists.
+
+     The page is also deliberately absent from sitemap.xml, the same
+     way /thequestions/ is, with a comment there saying so.
+
+     AT LAUNCH, and not before, in one commit:
+       - delete the two robots tags below
+       - delete the X-Robots-Tag block in vercel.json
+       - delete the pre-launch band at the top of <main>
+       - uncomment the canonical and the JSON-LD below
+       - add the URL to sitemap.xml and to tools/seams.py PAGES
+       - replace the four TK-HB hrefs with the real service records
+       - replace the og:image
+       - swap the Retreats index April card for a Gatlinburg card
+     ============================================================ -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+
+<title>Wide Open: The Gatlinburg Edition | Tennessee, April 2027</title>
+<meta name="description" content="Wide Open: five days in Gatlinburg, Tennessee, 13 to 18 April 2027. Lodging, every meal, daily movement, two workshops and two outings included. With Cydnie Jocelyn and Kayla Freeman.">
+<meta name="author" content="Cydnie Jocelyn Brown">
+<meta name="theme-color" content="#071A1F">
+<meta name="geo.region" content="US-TN">
+<meta name="geo.placename" content="Gatlinburg, Tennessee">
+
+<!-- AT LAUNCH: uncomment the canonical.
+<link rel="canonical" href="https://cydniejocelyn.com/retreats/gatlinburg/">
+-->
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cydnie Jocelyn">
+<meta property="og:url" content="https://cydniejocelyn.com/retreats/gatlinburg/">
+<meta property="og:title" content="Wide Open: The Gatlinburg Edition | Tennessee, April 2027">
+<meta property="og:description" content="Five days in the Smoky Mountains. 13 to 18 April 2027. Lodging, every meal, daily movement and two workshops included.">
+<!-- TK. The og image is the house at dusk for now, which is a real
+     photograph of the real place and is honest. Replace with a
+     purpose-built 1200x630 before launch if one is made. -->
+<meta property="og:image" content="https://cydniejocelyn.com/assets/img/gatlinburg/house-dusk-1200.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wide Open: The Gatlinburg Edition | Tennessee, April 2027">
+<meta name="twitter:description" content="Five days in the Smoky Mountains with Cydnie Jocelyn and Kayla Freeman. Lodging, every meal, movement and both workshops included.">
+
+<link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+
+<!-- THE FONTS ARE SELF HOSTED, and this page must not reintroduce a
+     third party on the critical path. The wireframe this page was
+     ported from carried two preconnects and a render blocking link to
+     fonts.googleapis.com for Bodoni Moda, plus an `IvyPresto Display`
+     first in its display stack. Both are out.
+
+     `--carved` is Instrument Serif and IvyPresto has never been served
+     on this site; see the long note above `--carved` in site.css for
+     the eight sessions that cost. Naming a face here that no
+     stylesheet provides is invisible, silent, and looks correct. -->
+<link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/site.css?v=cdcb4466">
+<script>document.documentElement.className += " js-motion";</script>
+
+<!-- AT LAUNCH: uncomment, then validate before pushing.
+
+     Every figure in here is also in the visible page and in HoneyBook.
+     If one changes, all three change in the same commit. Both rates
+     carry BOTH ends of their window, which is what the Search Console
+     warning on the Greece offers was about: an offer with a start and
+     no end, or an end and no start, is missing `validFrom` or
+     `validThrough`. The early rate opens 31 August 2026, which is the
+     day this page was built and the earliest date the rate is known to
+     have been published anywhere.
+
+     AT LAUNCH: wrap this JSON in a script element of type
+     application/ld+json. It is unwritten here on purpose, and so is that
+     tag name: build.py splits on script regions before it strips comments,
+     because a `<!--` inside a script is JavaScript rather than a comment.
+     So a commented-out script SHIPS to production, and so does a comment
+     that merely mentions one in angle brackets, which swallowed twenty two
+     other comments the first time this was fixed. Every other page on this
+     site serves zero HTML comments and so must this one.
+
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "@id": "https://cydniejocelyn.com/retreats/gatlinburg/#event",
+  "name": "Wide Open: The Gatlinburg Edition",
+  "startDate": "2027-04-13",
+  "endDate": "2027-04-18",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "url": "https://cydniejocelyn.com/retreats/gatlinburg/",
+  "image": "https://cydniejocelyn.com/assets/img/gatlinburg/house-dusk-1200.webp",
+  "description": "Five days in Gatlinburg, Tennessee. Lodging, every meal, daily movement, two workshops and two planned outings included.",
+  "location": {
+    "@type": "Place",
+    "name": "Gatlinburg, Tennessee",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Gatlinburg",
+      "addressRegion": "TN",
+      "addressCountry": "US"
+    }
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Cydnie Jocelyn LLC",
+    "url": "https://cydniejocelyn.com/"
+  },
+  "performer": [
+    { "@type": "Person", "name": "Cydnie Jocelyn Brown" },
+    { "@type": "Person", "name": "Kayla Freeman" }
+  ],
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Private king suite, early rate",
+      "price": "2790",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-08-31",
+      "validThrough": "2026-10-31",
+      "url": "https://cydniejocelyn.com/retreats/gatlinburg/#rooms"
+    },
+    {
+      "@type": "Offer",
+      "name": "Private king suite",
+      "price": "2900",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-11-01",
+      "url": "https://cydniejocelyn.com/retreats/gatlinburg/#rooms"
+    },
+    {
+      "@type": "Offer",
+      "name": "Shared room, early rate",
+      "price": "1490",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-08-31",
+      "validThrough": "2026-10-31",
+      "url": "https://cydniejocelyn.com/retreats/gatlinburg/#rooms"
+    },
+    {
+      "@type": "Offer",
+      "name": "Shared room",
+      "price": "1600",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-11-01",
+      "url": "https://cydniejocelyn.com/retreats/gatlinburg/#rooms"
+    }
+  ]
+}
+-->
+
+<!-- ANALYTICS IS NOT LOADED HERE. `gtag.js` is injected by
+     assets/js/consent.js and only after a reader accepts. Before that
+     there is no gtag, no dataLayer, and no request to any Google
+     domain. See the note at the top of consent.js. -->
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="gauge" aria-hidden="true">
+  <span class="gauge-label">Resurfacing</span>
+  <div class="gauge-track">
+    <div class="gauge-fill"></div>
+    <div class="gauge-dot"></div>
+  </div>
+  <span class="gauge-read">40m</span>
+</div>
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
+      <img class="brand-mark brand-mark--light" src="../../assets/img/mark-horiz-light-800.webp"
+           srcset="../../assets/img/mark-horiz-light-500.webp 500w, ../../assets/img/mark-horiz-light-800.webp 800w, ../../assets/img/mark-horiz-light-1200.webp 1200w"
+           sizes="(min-width: 56rem) 240px, 180px" width="2198" height="410" decoding="async"
+           alt="Cydnie Jocelyn, the resurfacing business">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        <span class="vh">Menu</span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+      <ul class="nav-links" role="list">
+        <li><a href="/the-build/">The Build</a></li>
+        <li><a href="/retreats/" aria-current="true">Retreats</a></li>
+        <li><a href="/the-letters/">The Letters</a></li>
+        <li><a href="/about/">About</a></li>
+      </ul>
+      <a class="btn" href="/contact/">
+        <span>Contact</span>
+        <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="gb">
+
+<!-- 01 / HERO.
+     Every photograph on this page was taken at the house. Nothing here
+     is Gatlinburg by implication and nothing is captioned as something
+     it is not, which is the rule the Greece page had to be rebuilt to
+     satisfy after its drafts captioned Costa Rica frames as Crete.
+
+     The house at dusk, for the same reason Greece opens on the house:
+     the reader is being asked to go and stay somewhere, so show her
+     the somewhere. The name plaque beside the front steps is cropped
+     out of every size of this file; the property is not named on this
+     page and a legible plaque would name it. -->
+<section class="hero hero--lit z-deep" data-zone aria-labelledby="gb-h">
+
+  <div class="hero-water" aria-hidden="true">
+    <img src="../../assets/img/gatlinburg/house-dusk-1200.webp"
+         srcset="../../assets/img/gatlinburg/house-dusk-600.webp 600w, ../../assets/img/gatlinburg/house-dusk-900.webp 900w, ../../assets/img/gatlinburg/house-dusk-1200.webp 1200w, ../../assets/img/gatlinburg/house-dusk-1600.webp 1600w"
+         sizes="100vw" width="1600" height="1090"
+         style="object-position: 50% 58%"
+         fetchpriority="high" decoding="async"
+         alt="A timber house on a wooded slope at dusk, its windows lit, with the ridgeline of the Smoky Mountains behind it.">
+  </div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="eyebrow r-fade">Wide Open &middot; The Gatlinburg Edition</p>
+      <h1 class="hero-line split" id="gb-h">Five days <em>in the Smokies.</em></h1>
+      <p class="hero-sub r-up" style="--d:120ms">A small group retreat for women in Gatlinburg, Tennessee, in a private house at the edge of the national park. You land in Knoxville and somebody is already waiting on you. Everything after that is handled.</p>
+
+      <div class="hero-acts r-up" style="--d:180ms">
+        <a class="btn" href="#rooms">
+          <span>Reserve your room</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+        </a>
+        <a class="hero-go" href="#week">
+          <span>What the week holds</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+        </a>
+      </div>
+
+      <!-- The price is in the hero for the same reason it is in Greece's:
+           a woman weighing five days should see what it costs before she
+           reads about the park. No seat count. -->
+      <dl class="rt-facts r-up" style="--d:240ms">
+        <div><dt>Dates</dt><dd><time datetime="2027-04-13">13</time>&ndash;<time datetime="2027-04-18">18 April 2027</time></dd></div>
+        <div><dt>Where</dt><dd>Gatlinburg, Tennessee</dd></div>
+        <div><dt>With</dt><dd>Cydnie and Kayla</dd></div>
+        <div><dt>Price</dt><dd>From $1,490</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 02 / THE PREMISE.
+     No outcome is promised. Describe the arrangement she is already
+     living in and she supplies the feeling herself. Same construction
+     as Greece, different weight: Greece is about being unreachable,
+     this one is about being under something. -->
+<section class="section z-silt" data-zone style="--from:var(--fathom)" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">Why this exists</p>
+        <h2 class="head h-2 split" id="why-h">You are not lacking anything. You are under something.</h2>
+      </div>
+      <div class="col-e">
+        <div class="body stack r-up" style="--d:60ms">
+          <p>Most of the women who come on a trip like this are handling more than the people around them can see, and handling it well, which is exactly why nobody offers to take any of it. There is no hole in your life that needs filling. There is weight sitting on top of it.</p>
+          <p>Five days does not remove the weight. What it does is get you out from under it long enough to look at it straight, next to women carrying something similar who will not need you to explain yourself first.</p>
+          <p>You go home having made a few decisions. That is what the workshops are for.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 / The view, full bleed. No data-zone: this is a figure band, and
+     the section below it names Silt because this one is Silt. -->
+<section class="section--tight z-silt" aria-label="The view from the deck">
+  <figure class="layer-band layer-band--wide" style="margin-bottom:0">
+    <img src="../../assets/img/gatlinburg/deck-view-1200.webp"
+         srcset="../../assets/img/gatlinburg/deck-view-600.webp 600w, ../../assets/img/gatlinburg/deck-view-900.webp 900w, ../../assets/img/gatlinburg/deck-view-1200.webp 1200w, ../../assets/img/gatlinburg/deck-view-1600.webp 1600w"
+         sizes="100vw" width="1600" height="1076"
+         loading="lazy" decoding="async"
+         alt="A covered deck with a long table and rocking chairs, looking across bare spring woodland to a mountain ridge under a clear sky.">
+  </figure>
+  <div class="wrap"><p class="rt-band-cap">01 &nbsp; The deck, and what it looks at</p></div>
+</section>
+
+<!-- 04 / THE FIVE DAYS, AS THE STORY BAR.
+     This is `.cond`, the same pinned stepped section the home page and the
+     Greece page run: a track five screens tall with a stage pinned inside
+     it, so scrolling the page walks the five instead of scrolling past
+     them. Nothing here is a new interaction; it is the one the site
+     already has, and the five days happen to be exactly the five steps it
+     is built for.
+
+     The page never stops moving under the reader: no wheel is swallowed,
+     no scroll is retimed, and the scrollbar keeps telling the truth. The
+     markup is the plain list of all five, and `is-stepped` is added only
+     when there is room for the stepped reading, so removing it puts the
+     list straight back.
+
+     STILL OPEN and deliberately not written as a placeholder: the forms of
+     movement across the week, the second workshop subject, and which two
+     outings. Every sentence below is true without them. -->
+<section class="section cond z-light" data-zone style="--from:#DCE4E1" id="week" aria-labelledby="week-h">
+  <div class="cond-track">
+   <div class="cond-stage">
+    <div class="wrap cond-in">
+      <div class="cond-head">
+        <p class="eyebrow r-fade">The five days</p>
+        <h2 class="head h-2 split" id="week-h">Full enough to matter. Thin enough to breathe.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
+        <ol class="cond-ticks" aria-label="Five things the week holds">
+          <li><button type="button" data-step="0" aria-label="One, movement"><span>01</span></button></li>
+          <li><button type="button" data-step="1" aria-label="Two, the workshops"><span>02</span></button></li>
+          <li><button type="button" data-step="2" aria-label="Three, the outings"><span>03</span></button></li>
+          <li><button type="button" data-step="3" aria-label="Four, open hours"><span>04</span></button></li>
+          <li><button type="button" data-step="4" aria-label="Five, the meals"><span>05</span></button></li>
+        </ol>
+        <div class="cond-gauge" aria-hidden="true"><span></span></div>
+      </div>
+
+      <ol class="cond-slots" role="list">
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">01</span>
+          <p><strong>Every morning starts with movement, led by Kayla.</strong> The day starts in your body before it starts asking anything of you. It is on the schedule every morning and it is optional every morning, and nobody is counting who came.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">02</span>
+          <p><strong>Twice in the week there is a workshop.</strong> Both led by Cydnie and Kayla together, in the house. Goal setting is one of them. No workbook, no binder, nothing to prepare and nothing to report back on.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">03</span>
+          <p><strong>Twice in the week you leave the property.</strong> Two of the days include something off site, and getting there and back is arranged and inside the price. There is no second number to find later.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">04</span>
+          <p><strong>Most days have long stretches with nothing on them.</strong> That is deliberate, and it is the part people underestimate before they arrive. You can sit on the porch. You can go into town. You can sleep.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">05</span>
+          <p><strong>Every meal is included and eaten together, with one exception.</strong> On the Friday, dinner is off site and on your own, so there is an evening in the middle of the week that belongs to nobody but you.</p>
+        </li>
+      </ol>
+    </div>
+   </div>
+  </div>
+</section>
+
+<!-- 05 / THE PLACE.
+     No photograph of the town and none of the park, because there is
+     no photograph of either. Every frame available is of the house.
+     Greece had the same problem with the harbour at Chania and the
+     beach at Kera, and the answer there is the answer here: where a
+     caption cannot be honoured by a real photograph, drop the figure
+     and let the fact be prose. -->
+<section class="section z-silt" data-zone style="--from:var(--surface)" id="place" aria-labelledby="place-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">The place</p>
+        <h2 class="head h-2 split" id="place-h">Gatlinburg.</h2>
+        <div class="body stack r-up" style="--d:60ms; margin-top:var(--s-5)">
+          <p>Gatlinburg sits at the entrance to Great Smoky Mountains National Park in eastern Tennessee. The town is small and walkable. The park is at the end of the road.</p>
+          <p>You fly into McGhee Tyson in Knoxville, about an hour out. From the airport forward, the logistics are ours.</p>
+        </div>
+      </div>
+      <div class="col-e">
+        <dl class="gb-rail r-up" style="--d:60ms">
+          <div>
+            <dt>Airport</dt>
+            <dd>McGhee Tyson, Knoxville, code TYS. Roughly forty miles from the house.</dd>
+          </div>
+          <div>
+            <dt>Getting there</dt>
+            <dd>Covered both ways. Cydnie arranges the shuttles. As the dates get close you will know who is on your flight, who is in your shuttle and exactly where everyone is meeting. You do not land in a strange airport and work it out alone.</dd>
+          </div>
+          <div>
+            <dt>Getting around</dt>
+            <dd>Transport to both outings is covered. The rest of the week, a trolley stop is about a fifteen minute walk from the house. That walk is the point.</dd>
+          </div>
+          <div>
+            <dt>Weather in April</dt>
+            <dd>Highs in town climb from around 64&deg;F early in the month to about 72&deg;F by the end of it, with overnight lows between the low 40s and 49&deg;F. Up on the higher trails it runs fifteen to twenty degrees colder than town, with the occasional morning frost or light dusting of snow. Pack layers and something warm for the mornings.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="pair pair--calm" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))" data-stagger="80">
+      <figure class="layer-fig r-img">
+        <img src="../../assets/img/gatlinburg/ridge-600.webp"
+             srcset="../../assets/img/gatlinburg/ridge-600.webp 600w, ../../assets/img/gatlinburg/ridge-1000.webp 1000w, ../../assets/img/gatlinburg/ridge-1400.webp 1400w"
+             sizes="(min-width: 42rem) 46vw, 100vw" width="1400" height="941"
+             loading="lazy" decoding="async"
+             alt="A long covered deck running the length of the house, looking out between the posts to a blue ridge.">
+        <figcaption>The ridge, from the deck</figcaption>
+      </figure>
+      <figure class="layer-fig r-img">
+        <img src="../../assets/img/gatlinburg/bedroom-ridge-600.webp"
+             srcset="../../assets/img/gatlinburg/bedroom-ridge-600.webp 600w, ../../assets/img/gatlinburg/bedroom-ridge-1000.webp 1000w"
+             sizes="(min-width: 42rem) 46vw, 100vw" width="1000" height="680"
+             loading="lazy" decoding="async"
+             alt="A bedroom with doors onto the balcony and the trees beyond them.">
+        <figcaption>And from most of the rooms</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 06 / THE PARK.
+     Laid out the way Greece lays out Crete, on Cydnie's instruction of 31
+     August 2026: `.stats` for the figures and `.drop` for the ones that are
+     a sentence. Both are the site's own components. `.gb-facts`, which was
+     written for this before anyone noticed, is gone.
+
+     These are checkable facts about a national park, not invented
+     statistics, which is the line the brand guide draws. Two are
+     deliberately qualified: the park charges no ENTRANCE fee and never has,
+     but since 2023 it sells a parking tag for stopping longer than fifteen
+     minutes, so a flat "no fee" would be true about entry and misleading
+     about a day out. And the Appalachian Trail mileage inside the park is
+     usually given as about seventy one; the wireframe said seventy four. -->
+<section class="section z-light" data-zone style="--from:#DCE4E1" id="park" aria-labelledby="park-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">Where you actually are</p>
+        <h2 class="head h-2 split" id="park-h">Great Smoky Mountains.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
+      </div>
+      <div class="col-e">
+        <p class="lead r-up" style="--d:60ms">The most visited national park in the country, by more than double the next one, and Gatlinburg sits at the main entrance to it.</p>
+        <p class="small muted r-up" style="--d:120ms; margin-top:var(--s-4)">April is the month the spring ephemerals come up through the leaf litter and flower before the canopy closes over them. It is why it gets called the Wildflower National Park.</p>
+      </div>
+    </div>
+
+    <div class="stats r-up" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))" data-stagger="60">
+      <div><b>12<small>m</small></b><span>Visits in 2024</span></div>
+      <div><b>848<small>mi</small></b><span>Of trail</span></div>
+      <div><b>522,427</b><span>Acres</span></div>
+      <div><b>30<small>+</small></b><span>Salamander species</span></div>
+    </div>
+
+    <div class="drop r-up" style="margin-top:clamp(var(--s-5),5vw,var(--s-6))">
+      <details>
+        <summary><span class="k">The fee</span> There is no entrance fee, and there never has been</summary>
+        <div class="a"><p>It is the one national park that charges nothing to come in, negotiated when it was established in 1934 and still holding. A parking tag is needed if you stop for longer than fifteen minutes, which is the only thing you would pay for.</p></div>
+      </details>
+      <details>
+        <summary><span class="k">Walking</span> About seventy one miles of the Appalachian Trail</summary>
+        <div class="a"><p>848 miles of trail in total across the park, from short loops to the AT running along the ridge. You do not have to be a hiker to get into any of it.</p></div>
+      </details>
+      <details>
+        <summary><span class="k">Recognised</span> A World Heritage Site since 1983</summary>
+        <div class="a"><p>UNESCO named it in 1983. It had already been an International Biosphere Reserve since 1976, which is the older and quieter of the two.</p></div>
+      </details>
+      <details>
+        <summary><span class="k">Salamanders</span> More species than anywhere else on earth</summary>
+        <div class="a"><p>Over thirty of them, which is why the park gets called the salamander capital of the world, and which is a fact you will want at some point on a trail.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 07 / THE HOUSE.
+     The property is not named, there is no address and there is no
+     link to a booking listing. It is a private house in Gatlinburg on
+     a resort, and that is the whole of what the page says about which
+     one it is.
+
+     No guest count anywhere on this page. Not in the copy, not in the
+     schema, not in the room cards. -->
+<section class="section z-silt" data-zone style="--from:var(--surface)" id="rooms" aria-labelledby="house-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">Where you stay</p>
+        <h2 class="head h-2 split" id="house-h">A private house in Gatlinburg.</h2>
+      </div>
+      <div class="col-e">
+        <div class="body stack r-up" style="--d:60ms">
+          <p>Everything happens here. You sleep here, you eat here, movement is here, and both workshops are here.</p>
+          <p>Two hot tubs belong to the house and are not shared with anyone else on the resort. The resort gym is open to us. There is a pool as well, and it opens in May, so it will be closed while we are there. Better you know that now than find it out on the Tuesday.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats r-up" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))" data-stagger="60">
+      <div><b>5</b><span>Nights, all yours</span></div>
+      <div><b>2</b><span>Ways to sleep, one price each</span></div>
+      <div><b>2</b><span>Hot tubs, ours alone</span></div>
+      <div><b>1</b><span>House, and we have all of it</span></div>
+    </div>
+
+    <!-- TWENTY FOUR TILES. Drag it, or use the arrows. `.gal` with `data-rail`
+         and `data-gallery` is the site's own carousel, the same one the
+         Greece page runs: a scroll-snapping rail that is keyboard
+         reachable, opens a tile full size, and degrades to a plain
+         horizontal scroller with no JavaScript at all.
+
+         It replaces two static figure groups. Cydnie asked for a carousel
+         and for movement rather than a wall of text, and this is the
+         component that already exists rather than a second one. -->
+    <div class="gal r-up" data-rail data-gallery data-loop style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
+      <div class="gal-rail" tabindex="0" role="group" aria-label="Photographs of the house, scrollable">
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/great-room-1000.webp">
+        <img src="../../assets/img/gatlinburg/great-room-600.webp"
+             srcset="../../assets/img/gatlinburg/great-room-600.webp 600w, ../../assets/img/gatlinburg/great-room-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="The great room, sofas and armchairs around a stone fireplace under a timber ceiling.">
+        <figcaption>The room everyone ends up in</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/living-1000.webp">
+        <img src="../../assets/img/gatlinburg/living-600.webp"
+             srcset="../../assets/img/gatlinburg/living-600.webp 600w, ../../assets/img/gatlinburg/living-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="The living room from the far side, a throw over the arm of the sofa and the deck doors behind.">
+        <figcaption>And the other end of it</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/bar-1000.webp">
+        <img src="../../assets/img/gatlinburg/bar-600.webp"
+             srcset="../../assets/img/gatlinburg/bar-600.webp 600w, ../../assets/img/gatlinburg/bar-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A long counter with a row of leather stools, open to the kitchen on one side and the living room on the other.">
+        <figcaption>Where most of the talking happens</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/kitchen-1000.webp">
+        <img src="../../assets/img/gatlinburg/kitchen-600.webp"
+             srcset="../../assets/img/gatlinburg/kitchen-600.webp 600w, ../../assets/img/gatlinburg/kitchen-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="The kitchen, a green cabinet run with a stone island in the middle of it.">
+        <figcaption>Every meal but one is cooked here</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/kitchen-wide-1000.webp">
+        <img src="../../assets/img/gatlinburg/kitchen-wide-600.webp"
+             srcset="../../assets/img/gatlinburg/kitchen-wide-600.webp 600w, ../../assets/img/gatlinburg/kitchen-wide-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="The kitchen from the counter, pendant lights over a long island with stools along it.">
+        <figcaption>The island, and the stools around it</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/king-suite-1000.webp">
+        <img src="../../assets/img/gatlinburg/king-suite-600.webp"
+             srcset="../../assets/img/gatlinburg/king-suite-600.webp 600w, ../../assets/img/gatlinburg/king-suite-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A four poster king bed with white linen, facing glass doors onto a private balcony.">
+        <figcaption>A private king suite</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/king-balcony-1000.webp">
+        <img src="../../assets/img/gatlinburg/king-balcony-600.webp"
+             srcset="../../assets/img/gatlinburg/king-balcony-600.webp 600w, ../../assets/img/gatlinburg/king-balcony-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A king bed with a bench at its foot, facing tall doors onto the deck.">
+        <figcaption>Another of the king rooms</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/bedroom-ridge-1000.webp">
+        <img src="../../assets/img/gatlinburg/bedroom-ridge-600.webp"
+             srcset="../../assets/img/gatlinburg/bedroom-ridge-600.webp 600w, ../../assets/img/gatlinburg/bedroom-ridge-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A bedroom with a framed ridgeline above the headboard and doors onto the balcony.">
+        <figcaption>Mountains from the bed</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/bunk-room-1000.webp">
+        <img src="../../assets/img/gatlinburg/bunk-room-600.webp"
+             srcset="../../assets/img/gatlinburg/bunk-room-600.webp 600w, ../../assets/img/gatlinburg/bunk-room-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A bunk room with white metal bunks made up in white and grey linen.">
+        <figcaption>The shared room</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/bunks-blue-1000.webp">
+        <img src="../../assets/img/gatlinburg/bunks-blue-600.webp"
+             srcset="../../assets/img/gatlinburg/bunks-blue-600.webp 600w, ../../assets/img/gatlinburg/bunks-blue-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A second bunk room, bunks made up in blue and white under a pine ceiling.">
+        <figcaption>And the other bunk room</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/bath-round-1000.webp">
+        <img src="../../assets/img/gatlinburg/bath-round-600.webp"
+             srcset="../../assets/img/gatlinburg/bath-round-600.webp 600w, ../../assets/img/gatlinburg/bath-round-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A bathroom with a round mirror over a stone counter and a window onto the trees.">
+        <figcaption>Bathrooms throughout</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/bath-double-1000.webp">
+        <img src="../../assets/img/gatlinburg/bath-double-600.webp"
+             srcset="../../assets/img/gatlinburg/bath-double-600.webp 600w, ../../assets/img/gatlinburg/bath-double-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A double vanity under a wide mirror against a green panelled wall.">
+        <figcaption>Two basins, no waiting</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/shower-1000.webp">
+        <img src="../../assets/img/gatlinburg/shower-600.webp"
+             srcset="../../assets/img/gatlinburg/shower-600.webp 600w, ../../assets/img/gatlinburg/shower-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A walk in shower, white tile with a pebble floor.">
+        <figcaption>The shower</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/gym-1000.webp">
+        <img src="../../assets/img/gatlinburg/gym-600.webp"
+             srcset="../../assets/img/gatlinburg/gym-600.webp 600w, ../../assets/img/gatlinburg/gym-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A gym under a pine ceiling with treadmills and a cable machine on black matting.">
+        <figcaption>The gym, open to us all week</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/gym-wide-1000.webp">
+        <img src="../../assets/img/gatlinburg/gym-wide-600.webp"
+             srcset="../../assets/img/gatlinburg/gym-wide-600.webp 600w, ../../assets/img/gatlinburg/gym-wide-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="The gym from the far end, treadmills and a cross trainer along the window wall.">
+        <figcaption>Enough of it for everyone</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/theater-1000.webp">
+        <img src="../../assets/img/gatlinburg/theater-600.webp"
+             srcset="../../assets/img/gatlinburg/theater-600.webp 600w, ../../assets/img/gatlinburg/theater-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A row of reclining cinema seats under film posters.">
+        <figcaption>The evening nobody planned</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/games-1000.webp">
+        <img src="../../assets/img/gatlinburg/games-600.webp"
+             srcset="../../assets/img/gatlinburg/games-600.webp 600w, ../../assets/img/gatlinburg/games-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A pool table on a patterned rug, with chairs and a door onto the deck behind it.">
+        <figcaption>Or this, if the evening goes that way</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/porch-swing-1000.webp">
+        <img src="../../assets/img/gatlinburg/porch-swing-600.webp"
+             srcset="../../assets/img/gatlinburg/porch-swing-600.webp 600w, ../../assets/img/gatlinburg/porch-swing-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A porch swing hanging on chains at the end of a covered deck, the valley beyond the rail.">
+        <figcaption>One of the open hours</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/deck-view-1000.webp">
+        <img src="../../assets/img/gatlinburg/deck-view-600.webp"
+             srcset="../../assets/img/gatlinburg/deck-view-600.webp 600w, ../../assets/img/gatlinburg/deck-view-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A covered deck with a long table and rocking chairs, looking across to a mountain ridge.">
+        <figcaption>The deck, and what it looks at</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/house-dusk-1000.webp">
+        <img src="../../assets/img/gatlinburg/house-dusk-600.webp"
+             srcset="../../assets/img/gatlinburg/house-dusk-600.webp 600w, ../../assets/img/gatlinburg/house-dusk-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="The house on its wooded slope at dusk, windows lit, the ridgeline behind it.">
+        <figcaption>The house, last thing</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/hot-tub-1000.webp">
+        <img src="../../assets/img/gatlinburg/hot-tub-600.webp"
+             srcset="../../assets/img/gatlinburg/hot-tub-600.webp 600w, ../../assets/img/gatlinburg/hot-tub-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A hot tub on a covered deck with a bench beside it and the treeline beyond the rail.">
+        <figcaption>One of the two hot tubs</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/hot-tub-stone-1000.webp">
+        <img src="../../assets/img/gatlinburg/hot-tub-stone-600.webp"
+             srcset="../../assets/img/gatlinburg/hot-tub-stone-600.webp 600w, ../../assets/img/gatlinburg/hot-tub-stone-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A hot tub set against a stone wall on an open deck.">
+        <figcaption>And the other one</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/sunset-1000.webp">
+        <img src="../../assets/img/gatlinburg/sunset-600.webp"
+             srcset="../../assets/img/gatlinburg/sunset-600.webp 600w, ../../assets/img/gatlinburg/sunset-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A high bar table along a deck rail, looking west to the ridge under a sunset sky.">
+        <figcaption>The end of most days</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/gatlinburg/deck-table-1000.webp">
+        <img src="../../assets/img/gatlinburg/deck-table-600.webp"
+             srcset="../../assets/img/gatlinburg/deck-table-600.webp 600w, ../../assets/img/gatlinburg/deck-table-1000.webp 1000w"
+             sizes="(min-width: 40rem) 24rem, 70vw" width="1000" height="680"
+             loading="lazy" decoding="async" alt="A long bar table and stools on the deck, rocking chairs beyond it and the mountains past the rail.">
+        <figcaption>Where the afternoon goes</figcaption>
+      </figure>
+      </div>
+    </div>
+
+    <!-- THE TWO ROOM CARDS.
+         Both prices, both dates and both payment routes on the card
+         for the room they belong to, so nothing has to be carried in
+         the reader's head from one part of the page to another.
+
+         THE FOUR HREFS ARE PLACEHOLDERS AND THE PAGE SAYS SO AT THE
+         TOP. They become the four HoneyBook service records at Phase
+         4, and every figure in those records has to match the figures
+         printed here before this page is linked from anywhere.
+
+         The per day arithmetic holds at the early rate only. $2,790
+         over five days is $558 and $1,490 over five days is $298. It
+         is $298 and not $300 on purpose: a rounded figure on a page
+         that publishes exact prices is a small thing that costs
+         trust. After 1 November the two numbers become $580 and $320,
+         so these two lines are either updated that day or removed
+         that day. -->
+    <div class="gb-rooms" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
+
+      <article class="gb-room r-up" aria-labelledby="room-king">
+        <figure class="gb-room-fig">
+          <img src="../../assets/img/gatlinburg/king-suite-1000.webp"
+               srcset="../../assets/img/gatlinburg/king-suite-600.webp 600w, ../../assets/img/gatlinburg/king-suite-1000.webp 1000w, ../../assets/img/gatlinburg/king-suite-1400.webp 1400w"
+               sizes="(min-width: 52rem) 46vw, 100vw" width="1400" height="952"
+               loading="lazy" decoding="async"
+               alt="A four poster king bed with white linen, facing glass doors onto a private balcony with the mountains beyond.">
+        </figure>
+        <div class="gb-room-body">
+          <h3 class="head h-3" id="room-king">Private king suite</h3>
+          <ul class="rt-incl" role="list">
+            <li>A king bed, and the room is yours alone</li>
+            <li>Your own bathroom</li>
+            <li>A private balcony facing the mountains</li>
+          </ul>
+          <p class="gb-price"><span class="gb-now">$2,790</span></p>
+          <p class="small muted">Through 31 October 2026. $2,900 from 1 November.</p>
+          <p class="small" style="margin-top:var(--s-3)">At the early rate that is $558 a day, with the room, the meals, the movement and both workshops inside the number. $500 holds it and comes off the total either way.</p>
+          <div class="actions">
+            <a class="btn" href="https://clients.cydniejocelyn.com/public/6a95932b2f7e28bf649a0db2" rel="noopener">
+              <span>Pay in full</span>
+              <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span class="vh"> (opens my booking page)</span></a>
+            <a class="btn btn--quiet" href="https://clients.cydniejocelyn.com/public/6a959328936d235b232fa952" rel="noopener">
+              <span>Five month plan</span>
+              <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span class="vh"> (opens my booking page)</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="gb-room r-up" style="--d:80ms" aria-labelledby="room-shared">
+        <figure class="gb-room-fig">
+          <img src="../../assets/img/gatlinburg/bunk-room-1000.webp"
+               srcset="../../assets/img/gatlinburg/bunk-room-600.webp 600w, ../../assets/img/gatlinburg/bunk-room-1000.webp 1000w, ../../assets/img/gatlinburg/bunk-room-1400.webp 1400w"
+               sizes="(min-width: 52rem) 46vw, 100vw" width="1400" height="952"
+               loading="lazy" decoding="async"
+               alt="A bunk room with white metal bunk beds made up in white and grey linen, under a pine ceiling.">
+        </figure>
+        <div class="gb-room-body">
+          <h3 class="head h-3" id="room-shared">Shared room</h3>
+          <ul class="rt-incl" role="list">
+            <li>Bunk style, shared with other guests</li>
+            <li>Bathrooms throughout the house, never a wait</li>
+          </ul>
+          <p class="gb-price"><span class="gb-now">$1,490</span></p>
+          <p class="small muted">Through 31 October 2026. $1,600 from 1 November.</p>
+          <p class="small" style="margin-top:var(--s-3)">At the early rate that is $298 a day, with everything above included the same way. $500 holds it and comes off the total either way.</p>
+          <div class="actions">
+            <a class="btn" href="https://clients.cydniejocelyn.com/public/6a95932478678c35b8ca7b0d" rel="noopener">
+              <span>Pay in full</span>
+              <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span class="vh"> (opens my booking page)</span></a>
+            <a class="btn btn--quiet" href="https://clients.cydniejocelyn.com/public/queensharedwomenschristianretreat" rel="noopener">
+              <span>Five month plan</span>
+              <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span class="vh"> (opens my booking page)</span></a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- 07a / THE ASK, where she has just seen both rooms and both prices.
+     In the flow, once. Not a sticky bar and not a slide in nudge: both are
+     declined and the evidence is in site.js section 7-8-9. -->
+<section class="section--tight z-silt" id="reserve" aria-label="Reserve">
+  <div class="wrap">
+    <div class="gb-strip r-up">
+      <div>
+        <p class="gb-strip-h">Register today.</p>
+        <p class="small muted">The early rate holds through 31 October 2026. $500 holds your room, and it comes off the total either way.</p>
+      </div>
+      <a class="btn" href="#rooms">
+        <span>Reserve your room</span>
+        <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 07b / The rockers, full bleed. No data-zone, so the ground stays
+     Silt and the section below it is right to name #DCE4E1. This is the
+     second and last full bleed on the page; the wireframe's other one
+     wanted "women together, or the table set for a meal" and there is
+     no photograph of either that does not also have wine in it. -->
+<section class="section--tight z-silt" aria-label="The deck">
+  <figure class="layer-band layer-band--wide" style="margin-bottom:0">
+    <img src="../../assets/img/gatlinburg/porch-1200.webp"
+         srcset="../../assets/img/gatlinburg/porch-600.webp 600w, ../../assets/img/gatlinburg/porch-900.webp 900w, ../../assets/img/gatlinburg/porch-1200.webp 1200w, ../../assets/img/gatlinburg/porch-1600.webp 1600w"
+         sizes="100vw" width="1600" height="1076"
+         loading="lazy" decoding="async"
+         alt="Wooden rocking chairs in a row along a covered deck, looking out through the posts to the mountains.">
+  </figure>
+  <div class="wrap"><p class="rt-band-cap">07 &nbsp; The rockers, most afternoons</p></div>
+</section>
+
+<!-- 08 / INCLUDED.
+     `.rt-incl` with `.no` is the same component Greece uses, so the
+     two retreat pages answer this question in the same shape.
+
+     ALCOHOL IS NOT INCLUDED, and that is the claim that matters and it
+     is made here. Four photographs with wine glasses in them were held
+     back at first on the reading that a photograph puts a thing on a
+     page as surely as a sentence does. Cydnie overruled that on 31
+     August 2026: they are the property's own listing frames and they
+     are aesthetics, not an offer. They are in the carousel. The line
+     below is unchanged and still true. -->
+<section class="section z-light" data-zone style="--from:#DCE4E1" id="included" aria-labelledby="inc-h">
+  <div class="wrap">
+    <div class="grid-12 grid-12--hold">
+      <div class="col-d">
+        <p class="eyebrow r-fade">What the price covers</p>
+        <h2 class="head h-2 split" id="inc-h">You land. We handle the rest.</h2>
+        <p class="body r-up" style="--d:60ms; margin-top:var(--s-5)">Written out plainly so you are not guessing at what the number means.</p>
+        <p class="small muted r-up" style="--d:120ms; margin-top:var(--s-4)">Your flight is the one thing you book yourself, and it is the one number to plan for on top of the room. Flights into Knoxville are running somewhere between $400 and $600 at the moment. Book early and it tends to sit at the lower end of that.</p>
+      </div>
+      <div class="col-e">
+        <ul class="rt-incl r-up" style="--d:60ms" role="list">
+          <li>Five nights in the room you choose</li>
+          <li>Every meal except one dinner</li>
+          <li>Movement every morning</li>
+          <li>Both workshops</li>
+          <li>Two planned outings off the property</li>
+          <li>Transport to and from both outings</li>
+          <li>Airport transport both ways, arranged for you</li>
+          <li>Two private hot tubs and the resort gym</li>
+          <li class="no">Airfare into Knoxville is not included</li>
+          <li class="no">The one dinner out on your own is not included</li>
+          <li class="no">Alcohol is not included, at any point in the week</li>
+          <li class="no">Travel insurance is not included</li>
+          <li class="no">Anything you buy in town is not included</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 / WHAT TO EXPECT. -->
+<section class="section z-silt" data-zone style="--from:var(--surface)" id="expect" aria-labelledby="exp-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">What to expect</p>
+        <h2 class="head h-2 split" id="exp-h">Nothing is asked of you in advance.</h2>
+        <!-- Under the headline, in Breath, on Cydnie's instruction of 31
+             August 2026. `.gb-ring` recolours it and nothing else; the
+             component and its fill are the site's own. -->
+        <!-- The ring sits under the copy rather than beside it: this
+             section already runs a two column grid and a third column
+             turns a statement into a dashboard. -->
+        <figure class="fifteen-fig rt-ring gb-ring r-img">
+          <svg viewBox="0 0 160 160" role="img" aria-labelledby="gb-ring-t">
+            <title id="gb-ring-t">A ring of circles, filling one after another, with one at the top left open.</title>
+            <circle class="dot is-her" cx="79.25" cy="24.70" r="7.90"></circle>
+            <circle class="dot" cx="103.59" cy="29.53" r="7.58"></circle>
+            <circle class="dot" cx="122.80" cy="44.39" r="7.58"></circle>
+            <circle class="dot" cx="133.75" cy="65.33" r="7.58"></circle>
+            <circle class="dot" cx="135.33" cy="86.32" r="7.58"></circle>
+            <circle class="dot" cx="128.33" cy="107.54" r="7.58"></circle>
+            <circle class="dot" cx="113.17" cy="124.18" r="7.58"></circle>
+            <circle class="dot" cx="90.33"  cy="134.74" r="7.58"></circle>
+            <circle class="dot" cx="66.22"  cy="133.99" r="7.58"></circle>
+            <circle class="dot" cx="46.03"  cy="124.18" r="7.58"></circle>
+            <circle class="dot" cx="31.66"  cy="107.77" r="7.58"></circle>
+            <circle class="dot" cx="24.65"  cy="86.35"  r="7.58"></circle>
+            <circle class="dot" cx="26.73"  cy="64.13"  r="7.58"></circle>
+            <circle class="dot" cx="36.90"  cy="44.81"  r="7.58"></circle>
+            <circle class="dot" cx="54.21"  cy="30.61"  r="7.58"></circle>
+          </svg>
+          <figcaption class="fig-cap">A small group, and one of them is you.</figcaption>
+        </figure>
+      </div>
+      <div class="col-e">
+        <div class="body stack r-up" style="--d:60ms">
+          <p>No reading, no workbook, no form to fill out, nothing to prepare. You arrive and the week starts.</p>
+          <p>The schedule is thin on purpose. There are long stretches where nothing is planned and nobody is waiting on you, and that tends to be the part women talk about afterwards.</p>
+          <p>You go home with a few decisions made, because you finally had the room to think about them.</p>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 / THE HOSTS.
+     Cydnie's portrait is the one already in the library rather than a
+     new crop, so there is one face for her across the site. Kayla is
+     new and this is her first retreat. -->
+<section class="section z-light" data-zone style="--from:#DCE4E1" id="hosts" aria-labelledby="hosts-h">
+  <div class="wrap">
+    <p class="eyebrow r-fade">Who you are with</p>
+    <h2 class="head h-2 split" id="hosts-h">Two of us, and neither of us is a guru.</h2>
+    <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
+
+    <div class="rt-person r-up" style="margin-top:clamp(var(--s-6),6vw,var(--s-8))">
+      <figure>
+        <img src="../../assets/img/retreats/cydnie-greece-600.webp"
+             srcset="../../assets/img/retreats/cydnie-greece-600.webp 600w, ../../assets/img/retreats/cydnie-greece-1000.webp 1000w"
+             sizes="(min-width: 48rem) 26rem, 100vw" width="1000" height="1407"
+             loading="lazy" decoding="async"
+             alt="Cydnie Jocelyn, standing, hands together, in a white shirt against a warm wall.">
+      </figure>
+      <div>
+        <h3 class="head h-3">Cydnie Jocelyn</h3>
+        <p class="rt-role">Brand and business development &middot; Forest Lake, Minnesota</p>
+        <div class="body stack">
+          <p>Cydnie runs The Resurfacing Business, doing brand strategy, operations and business development for women building something real.</p>
+          <p>The retreats came before the business did. She went on one, came home with her head clear for the first time in a long stretch, and understood that the clearing was the whole thing. Not another wellness week. A few days where a woman is actually seen and heard and gets to set down what she has been carrying, without anyone handing it back to her at the door.</p>
+          <p>She is a wife and a mom, and a rare genetic mutation runs through her husband and both of her kids. It is a full time job stacked on the other full time jobs, and it is most of the reason she knows how fast a woman ends up last on her own list. Getting other women out from under that turned into the best part of the work. <a class="link" href="/about/">The longer version is on the About page.</a></p>
+          <p>Costa Rica ran in April 2026. Greece is <a class="link" href="/retreats/greece/">August 2027</a>. This one is Gatlinburg.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rt-person rt-person--flip r-up">
+      <figure>
+        <img src="../../assets/img/gatlinburg/kayla-600.webp"
+             srcset="../../assets/img/gatlinburg/kayla-600.webp 600w, ../../assets/img/gatlinburg/kayla-900.webp 900w"
+             sizes="(min-width: 48rem) 26rem, 100vw" width="900" height="1339"
+             loading="lazy" decoding="async"
+             alt="Kayla Freeman, standing outdoors on a path, one hand in her pocket.">
+      </figure>
+      <div>
+        <h3 class="head h-3">Kayla Freeman</h3>
+        <p class="rt-role">Movement &middot; Minnesota National Guard, thirteen years active duty</p>
+        <div class="body stack">
+          <p>Kayla is co-hosting her first retreat, and she has been building toward it for a few years without calling it that. What she cares about is women taking the time, feeling good in their own skin, and getting a look at themselves that is not filtered through everybody else's needs.</p>
+          <p>She has served in the Minnesota National Guard for close to twenty years. The service taught her about resilience and balance, and about how much intention it takes to keep your own care anywhere on the schedule.</p>
+          <p>She is also a wife and a mom to a six year old and a four year old, so she knows the version of the day where every single person gets attended to except you.</p>
+          <p>She leads the morning movement, and she is good at getting women to take their health seriously in a way that fits the life they already have. No overhaul required. What she wants out of these five days is women who go home feeling seen, refreshed and steady.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 / FAQ.
+     Nine questions on the page. If a FAQPage node is ever added to
+     this file at launch, every question in it has to be one of these
+     nine, word for word. The home page shipped a FAQPage whose seven
+     questions appeared nowhere in the markup, which is a policy
+     problem Google can act on and Search Console never reported. See
+     HANDOFF section 48. -->
+<section class="section z-silt" data-zone style="--from:var(--surface)" id="faq" aria-labelledby="q-h">
+  <div class="wrap">
+    <div class="grid-12 grid-12--hold">
+      <div class="col-d">
+        <p class="eyebrow r-fade">Before you book</p>
+        <h2 class="head h-2 split" id="q-h">The practical answers.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
+      </div>
+      <div class="col-e">
+    <div class="faq r-up">
+      <details>
+        <summary>What should I plan for airfare? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Flights into Knoxville are running somewhere between $400 and $600 at the moment. Book early and it tends to sit at the lower end of that. Airfare is not included, and I would rather you heard that here than found it in a second tab.</p></div>
+      </details>
+      <details>
+        <summary>Do I need to know anyone going? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>No. Most women come on their own. That is the normal way to arrive at one of these.</p></div>
+      </details>
+      <details>
+        <summary>What if I do not want to do the movement? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Then do not. It is on the schedule every morning and it is optional every morning.</p></div>
+      </details>
+      <details>
+        <summary>Is there any preparation before I come? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>None. Nothing to read, nothing to fill out, nothing to bring except your things.</p></div>
+      </details>
+      <details>
+        <summary>What is the difference between the two rooms? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>The king suite is yours alone, with your own bathroom and your own balcony looking at the mountains. The shared room is bunk style with other guests. There are bathrooms throughout the house either way, and everything else about the five days is identical.</p></div>
+      </details>
+      <details>
+        <summary>Can I come with a friend? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Yes, and plenty of women do. The shared room is the natural fit if you are coming as a pair, and you can each book it separately.</p></div>
+      </details>
+      <details>
+        <summary>How do I get from the airport? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Cydnie arranges it. Fly into McGhee Tyson in Knoxville and you will already know who is on your flight, who is riding with you and where the group is meeting before you get on the plane. The same coming home.</p></div>
+      </details>
+      <details>
+        <summary>What happens after I book? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>You choose your room and how you want to pay. Your invoice, payment terms and contract arrive by email. From there it is Cydnie handling the details until you land in Knoxville.</p></div>
+      </details>
+      <details>
+        <summary>What is the cancellation policy? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>It is in your contract, and you see it before you pay anything. Cancellation and transfer terms are not published on this page because the contract is where they are binding.</p></div>
+      </details>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 / BOOKING.
+     THE BAND MARKS THE ACTION. One Deepwater band per page, on the
+     thing the page is asking for, rather than alternating as
+     decoration. No seat count, no countdown, no urgency copy. The
+     1 November price change is a real date and is stated as one. -->
+<section class="section z-deepwater" data-zone style="--from:#DCE4E1" id="booking" aria-labelledby="book-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">13 to 18 April 2027</p>
+        <h2 class="head h-2 split" id="book-h">Wide Open. The Gatlinburg Edition.</h2>
+      </div>
+      <div class="col-e">
+        <div class="body stack r-up" style="--d:60ms">
+          <p>Five days, a small group and one house at the edge of the Smokies. Fly into Knoxville and let go of the rest of it.</p>
+          <p>$500 holds your spot and applies to the total whether you pay in full or take the five month plan. Both routes are on the room you choose, and the early rate holds through 31 October 2026.</p>
+        </div>
+        <div class="actions gb-act r-up" style="--d:180ms">
+          <a class="btn" href="#rooms">
+            <span>Choose your room</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+          </a>
+          <span class="note-under">Your invoice, payment terms and contract come straight to your inbox.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 / ASK.
+     Same as Greece: a page of answers is also a list of the things
+     that did not answer her, and this is the way to reach a person
+     rather than a second door to the booking. -->
+<section class="section z-light" data-zone style="--from:var(--deepwater)" id="ask" aria-labelledby="ask-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">Still sitting on something</p>
+        <h2 class="head h-2 split" id="ask-h">Ask me before you decide.</h2>
+      </div>
+      <div class="col-e">
+        <p class="body r-up" style="--d:60ms">If there is a question this page did not answer, send it. A question you are sitting on for three weeks is worth two minutes of my time to answer, and I would rather you booked knowing than booked hoping.</p>
+        <div class="actions gb-act r-up" style="--d:120ms">
+          <a class="btn btn--quiet" href="/contact/">
+            <span>Ask a question</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+          </a>
+          <span class="note-under">Or email <a class="link" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a>.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 / CLOSE. `--from` follows the ground above it, which is Surface. -->
+<section class="section z-deep" data-zone style="--from:var(--surface)" aria-label="Close">
+  <div class="wrap">
+    <p class="eyebrow r-fade">13 to 18 April 2027</p>
+    <p class="lead r-up" style="--d:60ms; margin-top:var(--s-5)">Costa Rica ran in April 2026 and is complete. What the women said about it afterwards, in their own words, is on the <a class="link" href="/retreats/">retreats page</a>. Greece is <a class="link" href="/retreats/greece/">August 2027</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+<p class="ftr-top-link"><a class="more" href="#main"><span>Back to the top</span>
+<svg class="arw arw--up" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a></p>
+    <div class="ftr-top">
+      <div class="ftr-brand">
+        <img class="ftr-mark" src="../../assets/img/mark-horiz-light-800.webp"
+             srcset="../../assets/img/mark-horiz-light-500.webp 500w, ../../assets/img/mark-horiz-light-800.webp 800w"
+             sizes="240px" width="2198" height="410" loading="lazy" decoding="async"
+             alt="Cydnie Jocelyn, the resurfacing business">
+        <p class="small muted" style="max-width:26rem">Strategic brand partner for what&rsquo;s next. Forest Lake, Minnesota.</p>
+        <p class="small" style="margin-top:var(--s-4)"><a class="link" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a></p>
+        <p class="ftr-area tiny" style="margin-top:var(--s-3); max-width:26rem">In person around Forest Lake, Blaine, Anoka, Ramsey, East Bethel, Lino Lakes, Hugo, Shoreview, White Bear Lake, Cambridge, Isanti, North Branch and Crosslake, across Minneapolis and the wider Twin Cities, and remotely anywhere.</p>
+      </div>
+      <div class="ftr-nav">
+        <div>
+          <h3>The work</h3>
+          <ul role="list">
+            <li><a href="/a-sounding/">A Sounding</a></li>
+            <li><a href="/retreats/">Retreats</a></li>
+            <li><a href="/the-build/">The Build</a></li>
+            <li><a href="/the-build/#work">Client work</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>More</h3>
+          <ul role="list">
+            <li><a href="/about/">About Cydnie</a></li>
+            <li><a href="/the-letters/">The Letters</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+        <div class="ftr-social">
+          <h3>Elsewhere</h3>
+          <ul class="social" role="list">
+            <li><a href="https://www.instagram.com/cydniejocelyn/" rel="me noopener" aria-label="Instagram, opens in a new tab" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="fill" cx="17.4" cy="6.6" r="1.1"/></svg></a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61575458834389" rel="me noopener" aria-label="Facebook, opens in a new tab" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.6 8.2V6.8c0-.7.5-1.3 1.2-1.3h1.5V2.4h-2.4c-2.3 0-3.6 1.6-3.6 3.9v1.9H9v3.1h2.3V21h3.3v-9.7h2.4l.4-3.1z"/></svg></a></li>
+            <li><a href="https://www.pinterest.com/Cydniejocelyn/" rel="me noopener" aria-label="Pinterest, opens in a new tab" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10.4 17.6l1.3-5.1M9.9 10.3c0-1.4 1-2.4 2.3-2.4 1.2 0 2 .8 2 1.9 0 1.4-.8 3.1-2.1 3.1-.7 0-1.2-.5-1.1-1.2"/></svg></a></li>
+            <li><a href="https://www.youtube.com/@Cydniejocelyn" rel="me noopener" aria-label="YouTube, opens in a new tab" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.4" y="5.6" width="19.2" height="12.8" rx="3.6"/><path class="fill" d="M10.2 9.3v5.4l4.6-2.7z"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="ftr-btm">
+      <p>&copy; <span data-year>2026</span> Cydnie Jocelyn LLC. Forest Lake, Minnesota.</p>
+      <p class="ftr-legal"><a href="/privacy-policy/">Privacy policy</a><a href="/privacy-policy/#terms">Terms of use</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/site.js?v=cdcb4466" defer></script>
+<script src="../../assets/js/analytics.js?v=cdcb4466" defer></script>
+<script src="../../assets/js/consent.js?v=cdcb4466" defer></script>
+</body>
+</html>

@@ -7,6 +7,15 @@
   "trailingSlash": true,
   "headers": [
     {
+      "source": "/retreats/gatlinburg/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
       "source": "/assets/(img|fonts|og)/(.*)",
       "headers": [
         {

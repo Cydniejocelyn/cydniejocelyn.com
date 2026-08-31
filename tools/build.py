@@ -231,6 +231,46 @@ def warn_unreferenced():
             print("   %-52s %8d" % (p, s))
         print("   Move them to assets/_unused/ or reference them. See that folder's README.")
 
+    # ---- AND THE OTHER DIRECTION, WHICH IS THE DANGEROUS ONE -------------
+    # The check above finds files nothing points at, which costs disk. This
+    # one finds pointers with no file behind them, which costs a broken
+    # picture on a live page, and it was added on 31 August 2026 after
+    # exactly that shipped: a carousel helper wrote `-1000.webp` for every
+    # tile, two of the photographs had been made at 600/900/1200/1600 for a
+    # full-bleed band and had no 1000, and two tiles rendered as alt text.
+    # Nothing caught it. The stale check above cannot: a file that does not
+    # exist is not in the folder it walks.
+    #
+    # srcset is split on commas and the descriptor dropped, because a
+    # missing width in a srcset is the same bug and is harder to see: the
+    # browser falls back to `src` and the tile only breaks on the screens
+    # that ask for that width.
+    missing = set()
+    for page in src:
+        if not page.endswith(".html"):
+            continue
+        base = os.path.dirname(page)
+        text = io.open(page, encoding="utf-8", errors="replace").read()
+        refs = set(re.findall(r'(?:src|data-full)="([^"]*assets/img/[^"]+)"', text))
+        for group in re.findall(r'srcset="([^"]+)"', text):
+            for part in group.split(","):
+                url = part.strip().split(" ")[0]
+                if "assets/img/" in url:
+                    refs.add(url)
+        for ref in refs:
+            if ref.startswith(("http:", "https:", "data:")):
+                continue
+            path = (os.path.join(ROOT, ref.lstrip("/")) if ref.startswith("/")
+                    else os.path.normpath(os.path.join(base, ref)))
+            if not os.path.exists(path):
+                missing.add((os.path.relpath(page, ROOT), ref))
+    if missing:
+        print("BUILD FAILED: %d image reference(s) with no file behind them."
+              % len(missing))
+        for page, ref in sorted(missing):
+            print("   %-40s %s" % (page, ref))
+        sys.exit(1)
+
 
 
 

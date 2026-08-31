@@ -5126,3 +5126,185 @@ Scoped with a modifier. `.faq` is the same component on /retreats/ and
 it again before believing it.** Those are per-page Chrome profiles and they
 cache. That produced one phantom failure this session, after the file under
 test had already been restored.
+
+## 49. Session twenty-six: the Gatlinburg page, built and not pushed
+
+**Nothing in this session has been pushed or committed. A push is a deploy.**
+The artifact is published for review and the working tree is where the work
+is.
+
+    suite            527 pass / 0 fail, TEN pages
+    tools/seams.py   0 mismatches
+    build            clean
+    git              NOT pushed, NOT committed
+
+`/retreats/gatlinburg/`. Wide Open: The Gatlinburg Edition, 13 to 18 April
+2027. Ported from `gatlinburg-v5.html` in the untracked April folder, then
+revised three times against Cydnie's review on 31 August.
+
+**Pre-launch and noindex in three places on purpose:** two robots tags, an
+`X-Robots-Tag` on the route in `vercel.json`, and omission from
+`sitemap.xml` with a comment there saying so. The header is the one that
+survives an edit to the head. The visible pre-launch band was built and
+then removed on her instruction; it was only restating the noindex.
+
+### The rule that produced most of the good decisions here
+
+**Look for the component before writing one.** Nine were written for this
+page and seven were then deleted, because the site already had them:
+
+| written | what it actually was |
+|---|---|
+| `.gb-days` | `.cond`, the pinned stepped story bar |
+| `.gb-hosts` | `.rt-person` with `--flip` |
+| `.gb-pair` | `.pair pair--calm` |
+| `.gb-facts` / `.gb-n` | `.stats` and `.drop`, Greece's Crete layout |
+| `.gb-incl` scroll window | `.grid-12--hold`, the About page's sticky head |
+
+**What survives is four rules:** `.gb-rail`, `.gb-rooms` with `.gb-room`,
+`.gb-act` and `.gb-strip`, plus the colour block. Everything else on the
+page is the site's own, which is why a revision that changed five sections
+cost almost no new CSS.
+
+### The one new interaction, and it is opt in
+
+`data-loop` on `.gal`, asked for by name: "it should be a carousel that
+keeps relooping." It drives the rail's own arrows on a timer and wraps, so
+drag, keyboard, snapping and the progress rule all still work. It stops on
+hover, on focus, off screen and under `prefers-reduced-motion`, and once a
+reader has touched it it does not start again. **Greece does not declare
+the attribute, so that gallery is unchanged.** Verified advancing one tile
+per 3.6s in a browser, not assumed.
+
+**The sticky booking bar and the scroll progress rule are still out.** The
+wireframe carried both; site.js section 7-8-9 records them asked for and
+declined twice. They were not built and were not asked for again.
+
+### The photography
+
+Twenty-two photographs to WebP in `assets/img/gatlinburg/`, 5MB. The 145MB
+source folder stays out of git and is now excluded in `sync.sh` as well as
+`.vercelignore` and `build.py`.
+
+**Four frames were held back for the alcohol rule and then put back.**
+Two deck frames and both hot tub frames have glasses of red wine in them.
+The first reading was that the brief's "alcohol appears in the not-included
+list and nowhere else" covers photographs too, because a photograph puts a
+thing on a page as surely as a sentence does. **Cydnie overruled that on 31
+August: they are the property's own listing frames, they are aesthetics and
+not an offer.** They are in the carousel; the not-included line is
+unchanged and is the claim that actually matters. Recorded because the
+first reading was reasonable and somebody will make it again.
+
+The hero is still cropped to 84% width to remove the name plaque beside the
+front steps. **That one is not aesthetic**: the property is not named on
+this page and a legible plaque names it.
+
+No photograph of the town or the park exists. Both figures the wireframe
+wanted there were dropped and the facts are prose, which is what Greece had
+to do about Chania and Kera.
+
+### The ring, and the guest count question that was raised and closed
+
+`.fifteen-fig` is fifteen dots, fourteen filling and one open, and a reader
+can count them. The brief for this page says no guest count is published,
+so the two instructions collided and it was put to Cydnie rather than
+guessed at. **Her answer, 31 August 2026: "Keep the community circle,
+nobody needs to know the guest count on this one."** It stays, and the
+no-guest-count rule still holds for the words: nothing on the page states a
+number of seats. Do not reopen this on the strength of the brief alone.
+
+The open circle was Held, the warm note, which read as a red ring on a page
+of blues. It is Meniscus now, on her instruction, so it reads as the one
+that is not filled rather than as an alert.
+
+### The colour, added on review
+
+"The page is quite dull and sad." Every value is a palette token and all of
+it hangs off `.gb` on `<main>`, which exists only here: Held on the strip
+heading, Breath and Held on the two halves of the included list, Breath on
+the ring with a Held open circle, and a Breath fill on button hover which
+gains contrast rather than losing it. The hero was `hero--bright`, which is
+the DARKER modifier; it is `hero--lit` now, which is the one that lifts the
+scrim rather than the image.
+
+**The ring needed six classes of specificity.** `.z-silt .fifteen-fig
+.is-counting .dot.is-filled` is five and paints it Meniscus. The fill came
+back `rgb(47,90,97)` when measured in the browser, which is how it was
+caught; naming the figure's own two classes puts the page's rule in front.
+
+### Five page-specific guards in _test.html were coincidences, not guards
+
+Every one failed on a correct page and every one was gated on structure
+that stopped meaning what it used to once a second retreat page existed:
+
+  * five Greece assertions gated on `#ask` and `#booking`. Now on Greece's
+    path.
+  * two home FAQPage assertions gated on `.hero--lit`, a scrim modifier.
+    Now on `/`.
+  * two lightbox assertions pinned to the filename `bath-`. Now derived
+    from the tile's own `data-full`, which is better on any page.
+  * the off-site link assertion accepted "scheduling page" but not
+    "booking page", and a payment link is not a scheduling page.
+
+**A COMMENTED-OUT SCRIPT SHIPS TO PRODUCTION.** The launch JSON-LD was
+wrapped in `<!-- -->` with its script tags intact, and it went out in the
+built page while every other page serves zero HTML comments. `strip_html`
+in build.py splits on script and style regions BEFORE it strips comments,
+because a `<!--` inside a script is JavaScript, so a comment that wraps a
+script is cut in half and neither half is a complete comment. The stripper
+was right and the markup was wrong.
+
+The JSON sits in the comment unwrapped now, to be wrapped at launch. **And
+the comment must not name the tag in angle brackets either**: writing
+`<script type="application/ld+json">` as prose inside the comment opened a
+script region that ran to the next real `</script>` and left twenty two
+comments in the built page. Zero is the number; check it after any edit to
+that head.
+
+**TWO CAROUSEL TILES SHIPPED AS ALT TEXT, and nothing caught it.** The
+helper that wrote the twenty four tiles hardcoded `-1000.webp`, and
+`deck-view` and `house-dusk` had been made at 600/900/1200/1600 for a
+full-bleed band and had no 1000. `build.py` warns about image FILES nothing
+references, which costs disk; it had no check in the other direction, which
+costs a broken picture on a live page. **It does now, and it fails the
+build rather than warning**, srcset included, because a missing width in a
+srcset only breaks on the screens that ask for it. Proved by deleting a
+file and watching the build refuse.
+
+**`build_artifact.py` never swapped `data-full`**, so every gallery tile in
+every artifact ever published opened a broken picture. Greece has had it
+all along. Fixed; twenty tiles made it obvious.
+
+**The suite ran green against a stale server for one whole run.** A
+`python3 -m http.server` left from a previous session was serving that
+session's scratchpad, so the new page 404'd and the suite reported 16 pass
+/ 15 fail on a document that was not the page. Check the root first:
+
+    lsof -p $(lsof -nP -iTCP:8814 -sTCP:LISTEN -t) | awk '$4=="cwd"'
+
+### Five hand-maintained registries, four of which needed the page
+
+`tools/seams.py` PAGES, `tools/stamp.py` PAGES, `tools/preview/runsuite.sh`,
+and `tools/build_artifact.py` PAGES and PICK. `sitemap.xml` is the fifth and
+is the one it must NOT be added to yet. `build.py` walks the tree.
+
+### Open, in the order worth doing them
+
+1. **The story bar is on the five days, not the questions.** She asked for
+   it on the questions. `.cond` pins a stage and walks a small fixed number
+   of steps; nine questions is not that shape and a disclosure list is right
+   for questions. The five days are exactly five. Moveable.
+3. **Still open from the brief and deliberately not on the page as
+   placeholders**: the forms of movement, the second workshop subject, and
+   which two outings.
+4. **The per-day figures expire on 1 November 2026.** $558 and $298 hold at
+   the early rate only; after that it is $580 and $320. Updated that day or
+   removed that day.
+5. **The four HoneyBook records must be checked against the page.** The
+   links are live and wired. Nobody has confirmed the figures inside them
+   match $2,790, $2,900, $1,490 and $1,600, and their four ids are not in
+   the FORMS map in `_test.html`, which pins every other id on the site.
+6. **The og:image is the house at dusk**, real and honest, not a
+   purpose-built 1200x630.
+7. Section 48's open list is untouched.

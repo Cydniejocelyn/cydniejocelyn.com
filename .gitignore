@@ -5,6 +5,7 @@ tools/cydnie-jocelyn-about.html
 tools/cydnie-jocelyn-build.html
 tools/cydnie-jocelyn-retreats.html
 tools/cydnie-jocelyn-greece.html
+tools/cydnie-jocelyn-gatlinburg.html
 tools/cydnie-jocelyn-sounding.html
 tools/cydnie-jocelyn-letters.html
 
@@ -28,3 +29,14 @@ tools/cydnie-jocelyn-letters.html
 
 # Build output. `tools/build.py` regenerates it; never edit or commit it.
 dist/
+
+# THE GATLINBURG SOURCE FOLDER. 145MB of listing screenshots and one
+# portrait; the twenty two the page uses are converted to WebP in
+# assets/img/gatlinburg/ and are tracked. 145MB in git history is
+# permanent, so this is ignored rather than left merely untracked, where
+# one `git add .` would settle it forever.
+#
+# NOTE THE TRAILING SPACE in the folder name. It is real, it is on disk,
+# and it is escaped here because git strips an unescaped trailing space.
+# build.py, .vercelignore and tools/preview/sync.sh all depend on it too.
+April Retreat Gatlinburg April 13th - 18th\ /

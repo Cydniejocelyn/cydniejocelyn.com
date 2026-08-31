@@ -23,6 +23,8 @@ PAGES = {
     # two levels down, so its asset paths are ../../assets rather than ../assets
     "greece":   ("retreats/greece/index.html", "cydnie-jocelyn-greece.html",
                  "Rise Into Her: The Greece Edition"),
+    "gatlinburg": ("retreats/gatlinburg/index.html", "cydnie-jocelyn-gatlinburg.html",
+                 "Wide Open: The Gatlinburg Edition"),
     "sounding": ("a-sounding/index.html", "cydnie-jocelyn-sounding.html", "A Sounding"),
     "letters":  ("the-letters/index.html", "cydnie-jocelyn-letters.html", "The Letters"),
 }
@@ -39,7 +41,14 @@ css  = open(os.path.join(SRC, "assets/css/site.css"), encoding="utf-8").read()
 js   = open(os.path.join(SRC, "assets/js/site.js"), encoding="utf-8").read()
 
 body   = html[html.index("<body>") + 6:html.index("</body>")]
-schema = re.search(r'<script type="application/ld\+json">.*?</script>', html, re.S).group(0)
+# A PAGE MAY LEGITIMATELY HAVE NO JSON-LD, and this used to die on one.
+# Same shape as the Google Fonts crash written up below: `.group(0)` on a
+# regex that matched nothing. /retreats/gatlinburg/ is pre-launch, so its
+# structured data is parked in a comment until booking opens, and there is
+# no script to find. An artifact of a page with no schema is a correct
+# artifact of that page, not an error.
+_schema = re.search(r'<script type="application/ld\+json">.*?</script>', html, re.S)
+schema = _schema.group(0) if _schema else ""
 
 # THE FACES ARE SELF HOSTED NOW, AND THIS USED TO CRASH.
 # This read the Google Fonts <link> out of the page. The site stopped having
@@ -149,6 +158,35 @@ PICK = {
     "greece/table":       "greece/table-600.webp",
     "greece/kitchen":     "greece/kitchen-600.webp",
     "greece/pergola":     "greece/pergola-600.webp",
+    # Gatlinburg. Ten photographs of the house plus Kayla; Cydnie reuses the
+    # standing retreat portrait the Greece page already folds.
+    "gatlinburg/house-dusk":  "gatlinburg/house-dusk-600.webp",
+    "gatlinburg/deck-view":   "gatlinburg/deck-view-600.webp",
+    "gatlinburg/porch-swing": "gatlinburg/porch-swing-600.webp",
+    "gatlinburg/porch-":      "gatlinburg/porch-600.webp",
+    "gatlinburg/great-room":  "gatlinburg/great-room-600.webp",
+    "gatlinburg/bar":         "gatlinburg/bar-600.webp",
+    "gatlinburg/kitchen":     "gatlinburg/kitchen-600.webp",
+    "gatlinburg/gym":         "gatlinburg/gym-600.webp",
+    "gatlinburg/king-suite":  "gatlinburg/king-suite-600.webp",
+    "gatlinburg/bunk-room":   "gatlinburg/bunk-room-600.webp",
+    "gatlinburg/kayla":       "gatlinburg/kayla-600.webp",
+    "gatlinburg/ridge":       "gatlinburg/ridge-600.webp",
+    "gatlinburg/hot-tub-stone":   "gatlinburg/hot-tub-stone-600.webp",
+    "gatlinburg/hot-tub":         "gatlinburg/hot-tub-600.webp",
+    "gatlinburg/sunset":          "gatlinburg/sunset-600.webp",
+    "gatlinburg/deck-table":      "gatlinburg/deck-table-600.webp",
+    "gatlinburg/living":          "gatlinburg/living-600.webp",
+    "gatlinburg/kitchen-wide":    "gatlinburg/kitchen-wide-600.webp",
+    "gatlinburg/king-balcony":    "gatlinburg/king-balcony-600.webp",
+    "gatlinburg/bedroom-ridge":   "gatlinburg/bedroom-ridge-600.webp",
+    "gatlinburg/bunks-blue":      "gatlinburg/bunks-blue-600.webp",
+    "gatlinburg/bath-round":      "gatlinburg/bath-round-600.webp",
+    "gatlinburg/bath-double":     "gatlinburg/bath-double-600.webp",
+    "gatlinburg/shower":          "gatlinburg/shower-600.webp",
+    "gatlinburg/gym-wide":        "gatlinburg/gym-wide-600.webp",
+    "gatlinburg/theater":         "gatlinburg/theater-600.webp",
+    "gatlinburg/games":           "gatlinburg/games-600.webp",
 }
 # PICK covers every page this tool can fold, so most of it is irrelevant to
 # whichever one is being built, and it goes stale as the site's assets move.
@@ -186,6 +224,21 @@ def swap(m):
     return 'src=""'
 
 body = re.sub(r'src="(assets/img/[^"]+)"', swap, body)
+
+# THE LIGHTBOX READS `data-full`, AND IT WAS NEVER SWAPPED. Every gallery
+# tile carries the path of its full size file; inside an artifact that path
+# reaches nothing, so the tiles looked right and every one of them opened a
+# broken picture. Caught on the Gatlinburg page, where twenty tiles made it
+# obvious; the Greece artifact has had it all along. Same swap, and the same
+# `missing` list catches a stem that is not inlined.
+def swap_full(m):
+    for stem in sorted(data, key=len, reverse=True):
+        if stem in m.group(1):
+            return 'data-full="%s"' % data[stem]
+    missing.append(m.group(1))
+    return 'data-full=""'
+
+body = re.sub(r'data-full="(assets/img/[^"]+)"', swap_full, body)
 # the asset links now carry a ?v= build id, so match past it
 body = re.sub(r'<script src="assets/js/site\.js[^"]*" defer></script>', "", body)
 # An artifact is one page, so a link to another page of the site has nothing

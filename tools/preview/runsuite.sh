@@ -53,6 +53,7 @@ if [ -n "$ONE" ]; then
   one "$(echo "$ONE" | tr -d '/' )" "$ONE"
 else
   one greece   /retreats/greece/
+  one gatlinburg /retreats/gatlinburg/
   one retreats /retreats/
   one sounding /a-sounding/
   one letters  /the-letters/

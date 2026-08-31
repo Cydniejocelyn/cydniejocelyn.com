@@ -41,6 +41,7 @@ PAGES = (
     ("the-build/index.html",        "../assets/"),
     ("retreats/index.html",         "../assets/"),
     ("retreats/greece/index.html",  "../../assets/"),   # two levels down
+    ("retreats/gatlinburg/index.html", "../../assets/"),  # two levels down
     ("a-sounding/index.html",       "../assets/"),
     ("the-letters/index.html",      "../assets/"),
     ("privacy-policy/index.html",   "../assets/"),

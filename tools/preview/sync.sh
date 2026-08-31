@@ -15,6 +15,7 @@ rsync -a --delete \
   --exclude 'Retreat drafts' --exclude 'Greece Retreat' \
   --exclude 'A Sounding' --exclude 'The Letters Page' \
   --exclude 'the questions' --exclude 'Privacy terms page' \
+  --exclude 'April Retreat Gatlinburg April 13th - 18th ' \
   "$SRC/" "$SP/preview/"
 cp "$SRC/tools/preview/_shot.html"  "$SP/preview/_shot.html"
 cp "$SRC/tools/preview/_test.html"  "$SP/preview/_test.html"

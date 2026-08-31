@@ -1536,6 +1536,60 @@
     }, true);
     rail.addEventListener("dragstart", function (e) { e.preventDefault(); });
 
+    /* ---- OPT IN AUTO ADVANCE, `data-loop` -------------------
+       Asked for by name on 31 August 2026: "it should be a carousel that
+       keeps relooping." It is opt in and Greece does not declare it, so
+       that gallery is byte for byte the behaviour it had.
+
+       This is NOT a marquee and nothing here is a second scroller. It
+       drives the rail's own arrows on a timer and wraps to the start when
+       it runs out, so drag, keyboard, snapping and the progress rule all
+       keep working and a reader who touches it takes it straight over.
+
+       It stops rather than fights, in five cases:
+         - `prefers-reduced-motion`, where it never starts at all
+         - hover, so a reader looking at a tile is not moved off it
+         - focus inside the rail, or a keyboard reader loses their place
+         - a pointer down, which is a drag beginning
+         - the rail off screen, so nothing runs in a tab nobody is reading
+       Once a reader has taken hold of it, it does not start again. A
+       carousel that resumes under a hand is worse than one that never
+       moved. */
+    if (gal.hasAttribute("data-loop") && !reduce.matches) {
+      var timer = null, taken = false, onScreen = false;
+      function tick() {
+        var max = rail.scrollWidth - rail.clientWidth;
+        if (max <= 0) return;
+        if (rail.scrollLeft >= max - 2) {
+          rail.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          rail.scrollBy({ left: step(), behavior: "smooth" });
+        }
+      }
+      function start() {
+        if (timer || taken || !onScreen) return;
+        timer = window.setInterval(tick, 3600);
+      }
+      function stop() { if (timer) { window.clearInterval(timer); timer = null; } }
+      function take() { taken = true; stop(); }
+
+      ["mouseenter", "focusin"].forEach(function (e) {
+        gal.addEventListener(e, stop);
+      });
+      gal.addEventListener("mouseleave", start);
+      ["pointerdown", "keydown", "wheel"].forEach(function (e) {
+        gal.addEventListener(e, take, { passive: true });
+      });
+      foot.addEventListener("click", take);
+
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (es) {
+          onScreen = es[0].isIntersecting;
+          if (onScreen) start(); else stop();
+        }, { threshold: 0.25 }).observe(gal);
+      } else { onScreen = true; start(); }
+    }
+
     gal.classList.add("is-live");
     read();
     /* the tiles are lazy images and every one of them changes the width */

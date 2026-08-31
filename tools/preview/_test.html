@@ -62,7 +62,14 @@ f.addEventListener('load', function(){
      shots[1].querySelector('button').click();
      ok('lightbox: opens on tile click', !box.hidden);
      var img=box.querySelector('.lbx-stage img');
-     ok('lightbox: shows the full-size source', /bath-9|bath-1200/.test(img.getAttribute('src')||''));
+     /* WAS PINNED TO `bath-9|bath-1200`, which is a Greece filename, so it
+        failed on the Gatlinburg gallery for no reason but the name of the
+        second tile. Derived from the tile's own data-full instead, which
+        asserts the same thing on any page and rather more precisely: the
+        lightbox must show the file the tile declared. */
+     var wantFull = (shots[1].getAttribute('data-full')||'').split('/').pop();
+     ok('lightbox: shows the full-size source',
+        !!wantFull && (img.getAttribute('src')||'').indexOf(wantFull) > -1);
      ok('lightbox: carries the caption', (box.querySelector('.lbx-cap').textContent||'').length>3);
      ok('lightbox: focus moved into the dialog', d.activeElement && d.activeElement.classList.contains('lbx-x'));
      ok('lightbox: page behind is locked', d.documentElement.style.overflow==='hidden');
@@ -70,7 +77,8 @@ f.addEventListener('load', function(){
      box.querySelector('[data-go="1"]').click();
      ok('lightbox: next advances', box.querySelector('.lbx-stage img').getAttribute('src')!==src0);
      box.querySelector('[data-go="-1"]').click();
-     ok('lightbox: previous goes back', /bath-/.test(box.querySelector('.lbx-stage img').getAttribute('src')||''));
+     ok('lightbox: previous goes back',
+        box.querySelector('.lbx-stage img').getAttribute('src')===src0);
      var ev=new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true});
      d.dispatchEvent(ev);
      ok('lightbox: Escape closes it', box.hidden);
@@ -365,7 +373,13 @@ f.addEventListener('load', function(){
       swapped for seven different ones, which is the shape the drift actually
       took. So every question in the schema has to be findable in the FAQ
       markup as well. */
-   if (d.querySelector('.hero--lit')) {
+   /* GATED ON THE HOME PATH, NOT ON `.hero--lit`. The modifier was a proxy
+      for "this is the home page" until /retreats/gatlinburg/ lifted its own
+      hero scrim with the same class, at which point two home-only schema
+      assertions started failing on a page that carries no FAQPage at all
+      because it is still pre-launch. Third time this shape of guard has
+      bitten; see IS_GREECE above. */
+   if (d.location.pathname === '/') {
      var homeFaq = null;
      [].slice.call(d.querySelectorAll('script[type="application/ld+json"]')).forEach(function (t) {
        var j; try { j = JSON.parse(t.textContent); } catch (e) { return; }
@@ -441,8 +455,18 @@ f.addEventListener('load', function(){
       between, so a strip of a second near-white sat above the picture and
       read as a white line across the page. A full bleed photograph is only
       its own transition when it starts at the section's edge. */
+   /* THESE ARE GREECE'S ASSERTIONS, AND THEY ARE GATED ON GREECE'S PATH.
+      They used to be gated on `#ask` and `#booking` being present, which
+      was a fine proxy for "this is the Greece page" right up until
+      /retreats/gatlinburg/ was built with an ask block and a booking band
+      of its own. Five of them then failed on a page that was correct:
+      Gatlinburg has no Greece waitlist form and never will, and its close
+      seams from Surface rather than Silt because its section order is not
+      Greece's. A structural guard that names a different page's facts is
+      not a guard, it is a coincidence. */
+   var IS_GREECE = d.location.pathname.indexOf('/retreats/greece/') === 0;
    var askSec = d.querySelector('#ask');
-   if (askSec) {
+   if (askSec && IS_GREECE) {
      var grounds = askSec.nextElementSibling;
      while (grounds && grounds.nodeName !== 'SECTION') grounds = grounds.nextElementSibling;
      ok('greece: no colour change between the ask block and the photograph',
@@ -455,7 +479,7 @@ f.addEventListener('load', function(){
    }
 
    // ---- the ask block on /retreats/greece/ ----
-   if(d.querySelector('#booking')){
+   if(d.querySelector('#booking') && IS_GREECE){
      var ask=d.querySelector('#ask');
      ok('greece: the ask block is on the page', !!ask);
      ok('greece: it points at the contact form',
@@ -486,7 +510,7 @@ f.addEventListener('load', function(){
      ok('retreats: and it is a button, the way it was',
         !!pv && pv.classList.contains('btn'));
    }
-   if (d.querySelector('#booking')) {
+   if (d.querySelector('#booking') && IS_GREECE) {
      /* The plan buttons are the ones that carry the step suffix. The plain
         waitlist links point at the bare form and are counted separately. */
      var plans = [].slice.call(d.querySelectorAll('a[href*="/1-Contact_Information"]'));
@@ -689,7 +713,7 @@ f.addEventListener('load', function(){
    ok('links: every off-site link says so (' + offsite.length + ' of them)',
       offsite.every(function (a) {
         return /new tab/.test(a.getAttribute('aria-label') || '') ||
-               /new tab|scheduling page/.test(a.textContent || '');
+               /new tab|scheduling page|booking page/.test(a.textContent || '');
       }));
 
    /* ---- the licensed face, and the tag ----

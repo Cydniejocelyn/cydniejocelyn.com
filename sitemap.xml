@@ -50,6 +50,10 @@
   </url>
   <!-- /thequestions/ is deliberately absent. It is noindex: the URL is
        event scoped rather than permanent and the page names the event. -->
+  <!-- /retreats/gatlinburg/ is deliberately absent too, and for now only.
+       It is pre-launch and noindex in three places: the two robots tags in
+       its head, an X-Robots-Tag on the route in vercel.json, and this
+       omission. All three come off in the same commit at launch. -->
   <url>
     <loc>https://cydniejocelyn.com/contact/</loc>
     <changefreq>yearly</changefreq>

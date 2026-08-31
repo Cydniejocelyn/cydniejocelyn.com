@@ -71,6 +71,10 @@ PAGES = (
     "contact/index.html",
     "retreats/index.html",
     "retreats/greece/index.html",
+    # Pre-launch and noindex. In here anyway: seams are a build
+    # correctness check, not a search one, and the page has fourteen
+    # of them. Its absence from sitemap.xml is the deliberate part.
+    "retreats/gatlinburg/index.html",
 )
 
 

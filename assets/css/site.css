@@ -5135,6 +5135,182 @@ main > * { position: relative; z-index: 1; }
   .js-motion .faq--window details { opacity: 1; transform: none; transition: none; }
 }
 
+/* ---------- 22b. GATLINBURG ---------------------------------
+   Scoped to /retreats/gatlinburg/ with a `gb-` prefix, in the same
+   way `rt-` is the Retreats index and `faq--window` is the home FAQ.
+   Nothing in here restyles a shared component, so /retreats/ and
+   /retreats/greece/ are untouched by any of it.
+
+   The page reuses, rather than reimplementing: `.rt-facts` for the
+   hero facts, `.rt-incl` with `.no` for what is and is not included,
+   `.triptych` with `.layer-fig` for the three-ups, `.layer-band` and
+   `.rt-band-cap` for the full bleed, `.faq faq--two` for the
+   questions and `.grid-12` with `.col-d` and `.col-e` for every
+   two column band. Six components below are genuinely new. */
+
+/* THE PRE-LAUNCH BAND IS IN THE FLOW AND IS DELETED AT LAUNCH.
+   It is not `position: fixed`. The wireframe pinned it to the bottom
+   edge, which is where the cookie consent banner `.cc` sits, and
+   covering the one control a reader has to be able to answer is the
+   documented reason the sticky booking bar was declined twice. See
+   site.js section 7-8-9. */
+.prelaunch {
+  background: var(--deepwater);
+  color: var(--surface);
+  border-bottom: 1px solid var(--meniscus);
+  padding: var(--s-2) 0;
+}
+.prelaunch p {
+  margin: 0;
+  font: 400 .78rem/1.5 var(--utility);
+  letter-spacing: .02em;
+}
+.prelaunch b { color: var(--breath); font-weight: 500; }
+.prelaunch code { font-family: var(--utility); color: var(--breath); }
+
+/* THE LOGISTICS RAIL. A description list, not a table: each row is a
+   question with one answer and no second axis. */
+.gb-rail { margin: 0; }
+.gb-rail > div { padding: var(--s-4) 0; border-top: 1px solid var(--rule); }
+.gb-rail > div:last-child { border-bottom: 1px solid var(--rule); }
+.gb-rail dt {
+  font: 500 .68rem/1.4 var(--utility);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--label);
+  margin-bottom: var(--s-1);
+}
+.gb-rail dd { margin: 0; max-width: var(--measure); }
+
+/* ---- GATLINBURG, THE COLOUR ------------------------------
+   Cydnie, 31 August 2026: "the page is quite dull and sad", and "the CTAs
+   should stand out more or hover over colours should pop more".
+
+   Every value below is a palette token. Nothing new is invented and no
+   shared component is restyled: all of it hangs off `.gb` on <main>, which
+   exists only on this page, so /retreats/ and /retreats/greece/ are
+   untouched by any of it. Held is the warm note and Breath is the accent,
+   which is the division the guide already draws; the change here is that
+   this page uses both rather than neither. */
+
+/* The park figures carry the warm note. They are the only numbers on the
+   page that are not money, which is what keeps them from reading as one. */
+.gb .gb-strip-h { color: var(--warm); }
+
+/* The included list marks its two halves in the two accents rather than in
+   one grey. A reader scanning it can now see where the list turns. */
+.gb .rt-incl > li::before { color: var(--accent); }
+.gb .rt-incl > li.no::before { color: var(--warm); }
+
+/* THE RING IS BREATH, on instruction. The open circle keeps the ink
+   outline so it still reads as the one that is not filled. */
+/* THE ZONE RULES ARE ONE CLASS HEAVIER, so these have to be too.
+   `.z-silt .fifteen-fig.is-counting .dot.is-filled` is five classes and it
+   paints the ring Meniscus on a light band, which is right everywhere else
+   on the site and is the dark teal Cydnie was looking at here. Measured in
+   the browser rather than reasoned about: the fill came back
+   rgb(47,90,97). These name the figure's own two classes as well, which
+   takes them to six and puts them in front. */
+.gb .gb-ring.fifteen-fig .dot { fill: var(--breath); }
+.gb .gb-ring.fifteen-fig.is-counting .dot { fill: none; stroke: var(--breath); }
+.gb .gb-ring.fifteen-fig.is-counting .dot.is-filled { fill: var(--breath); stroke: var(--breath); }
+/* THE OPEN CIRCLE IS MENISCUS, NOT HELD. It was the warm note, which read
+   as a red ring on a page of blues. Cydnie, 31 August 2026: "it should be
+   like the darker blue or something." Meniscus is the darker blue in the
+   palette and is already the rule and label token, so the open one now
+   reads as unfilled rather than as an alert. */
+.gb .gb-ring.fifteen-fig .is-her,
+.gb .gb-ring.fifteen-fig.is-counting .is-her { fill: none; stroke: var(--meniscus); stroke-width: 2.4; }
+.gb .gb-ring { justify-content: flex-start; margin-top: var(--s-5); }
+
+/* THE BUTTONS POP ON HOVER. The resting state is unchanged, because a
+   button that is already shouting has nowhere to go; the hover fills with
+   Breath and takes the ink, which measures 10.1:1 against Fathom and about
+   15:1 the other way, so it gains contrast rather than losing it. */
+.gb .btn { transition: background-color var(--t-fast) var(--ease-soft),
+                       color var(--t-fast) var(--ease-soft),
+                       border-color var(--t-fast) var(--ease-soft); }
+.gb .btn:hover, .gb .btn:focus-visible {
+  background: var(--breath);
+  border-color: var(--breath);
+  color: var(--fathom);
+}
+.gb .btn:hover .arw, .gb .btn:focus-visible .arw { color: var(--fathom); }
+/* The two quiet buttons on the room cards take the warm note instead, so
+   "pay in full" and "five month plan" are not the same gesture twice. */
+.gb .btn--quiet:hover, .gb .btn--quiet:focus-visible {
+  background: var(--held-lift);
+  border-color: var(--held-lift);
+  color: var(--fathom);
+}
+
+/* THE TWO CROWDED ACTIONS. `.actions` centres its children on one row,
+   which put the explanatory note hard against the button and read, in
+   review, as the button sitting on top of the words. This breaks the note
+   onto its own line and puts real space above the pair. */
+.gb-act { margin-top: var(--s-5); row-gap: var(--s-3); }
+.gb-act .note-under { flex-basis: 100%; max-width: var(--measure); }
+
+/* REGISTER TODAY. One line and one button, in the flow, directly under the
+   rooms. It is a band and not a bar: nothing on this site is fixed to the
+   bottom edge, where the consent banner lives. */
+.gb-strip {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--s-4) var(--s-6);
+  justify-content: space-between;
+  padding: var(--s-5) 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.gb-strip > div { max-width: 34rem; }
+.gb-strip-h {
+  font-family: var(--carved);
+  font-size: clamp(1.42rem, 2.65vw, 2.09rem);
+  line-height: 1.12; color: var(--ink); margin: 0 0 var(--s-2);
+}
+
+/* THE TWO ROOM CARDS. The photograph, then the room, then the price,
+   then the two ways to pay, in that order and inside one card, so
+   that nothing about the decision has to be carried in the reader's
+   head from one part of the page to another.
+
+   No hover lift. `.door` carries the note on why this site does not
+   raise cards under a cursor. */
+.gb-rooms {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 52rem) { .gb-rooms { grid-template-columns: repeat(2, 1fr); } }
+.gb-room {
+  background: var(--field);
+  border: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+.gb-room-fig { margin: 0; }
+.gb-room-fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  /* Soft edge on the bottom only: the picture meets the card body
+     rather than the page, so it is a seam and not a cut-out. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
+}
+.gb-room-body { padding: var(--s-5); display: flex; flex-direction: column; flex: 1; }
+.gb-room-body .rt-incl { margin: var(--s-3) 0 var(--s-4); }
+.gb-room-body .actions { margin-top: auto; padding-top: var(--s-4); }
+.gb-price { margin: 0 0 var(--s-1); }
+.gb-now {
+  font-family: var(--carved);
+  font-size: clamp(1.8rem, 3.82vw, 2.93rem);
+  line-height: 1;
+  color: var(--ink);
+}
+
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {
   .hdr, .gauge, main { background: #fff; }
