@@ -5243,6 +5243,17 @@ serves a second CROP of the same frame below 46rem, 3:4, taken from the
 left half where the ridge, the sunset and the three tiers of balcony all
 are. `srcset` was never the tool: it picks a different SIZE of one crop.
 
+**The Greece hero eyebrow had the same defect and is fixed too**, on
+instruction, after the Gatlinburg one was. Measured before: eyebrow text at
+60px against a headline, sub, calls and facts row all at 20px. Forty out,
+which is the number the note beside `.eyebrow--hang` records for the home
+hero. It is `--plain` rather than `--hang` so the two retreat pages open the
+same way; the home hero keeps `--hang`, which aligns the text and hangs the
+rule in the margin instead. **Every other eyebrow on the site still has this
+defect**, in section heads rather than heroes, where it is a smaller thing
+because the eyebrow is not sitting directly above a headline on a shared
+edge. Worth a sweep, not urgent.
+
 **The hero eyebrow did not line up.** `.eyebrow` is a flex row and its
 `::before` rule pushed the TEXT inward while the headline, the sub and the
 buttons all sat on the wrap's edge. `.eyebrow--hang` is the site's measured

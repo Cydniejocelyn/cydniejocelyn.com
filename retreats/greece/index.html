@@ -491,7 +491,17 @@
 
   <div class="wrap hero-in">
     <div class="hero-copy">
-      <p class="eyebrow r-fade">Rise Into Her &middot; The Greece Edition</p>
+      <!-- `--plain`, so the name of the retreat stands on its own and the
+           text sits on the wrap's edge with the headline. `.eyebrow` is a
+           flex row and its ::before rule plus the gap after it pushed the
+           TEXT in while the headline, the sub and the two calls all sat on
+           that edge: measured 60px against 20px here, 40px out, which is
+           the same number the note beside `.eyebrow--hang` records for the
+           home hero. Matched to the Gatlinburg hero on Cydnie's
+           instruction, so the two retreat pages open the same way. The
+           home hero keeps `--hang`, which aligns the text and hangs the
+           rule in the margin instead. -->
+      <p class="eyebrow eyebrow--plain r-fade">Rise Into Her &middot; The Greece Edition</p>
       <h1 class="hero-line split" id="gr-h">Eight days <em>in Crete.</em></h1>
       <p class="hero-sub r-up" style="--d:120ms">A small group retreat for women in Douliana, a hillside village in western Crete with about forty houses in it. Fifteen seats, one property, and eight days that ask nothing of you.</p>
 
