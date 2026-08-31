@@ -53,7 +53,8 @@ EXCLUDE_DIRS = {
     # fail with two names that look identical in a terminal.
     "April Retreat Gatlinburg April 13th - 18th ",
 }
-EXCLUDE_FILES = {"HANDOFF.md", "BRIEF.md", "README.md", ".DS_Store", ".vercelignore", ".gitignore"}
+EXCLUDE_FILES = {"HANDOFF.md", "BRIEF.md", "README.md", "CLAUDE.md",
+                 ".DS_Store", ".vercelignore", ".gitignore"}
 
 
 # ---------- the strippers -------------------------------------------------

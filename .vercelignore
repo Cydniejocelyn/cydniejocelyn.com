@@ -28,6 +28,11 @@ cydniejocelyn/
 HANDOFF.md
 BRIEF.md
 README.md
+# Added 31 August 2026, the same hour the file was created. Without it the
+# build copied it into dist/ and it would have been served at /CLAUDE.md:
+# working notes, the deploy mechanics and the list of what the brand refuses,
+# public. Caught by looking in dist/ before pushing, not by any check.
+CLAUDE.md
 
 # Working documents. These are wireframes, briefs and copy decks that arrive
 # as folders beside the site, and Vercel serves whatever it is given: the

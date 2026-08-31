@@ -1,5 +1,20 @@
 # Handoff — Cydnie Jocelyn, the resurfacing business
 
+> ## READ SECTION 48 FIRST. It is at the end of this file.
+>
+> This file is five thousand lines and grows by a section per session, so the
+> newest state is the furthest from the top. **Section 48 is the current state
+> of the site**, written to be read cold, and it names the two other sections
+> worth reading and in what order. Section 0 below was accurate on 28 August
+> 2026 and several of its statements are now out of date, the deployment ones
+> especially. Where section 0 and section 48 disagree, **48 is right.**
+>
+> The three things most likely to cost you if you do not know them:
+> **a push to main is a live deploy in about four seconds**; **plain curl can
+> no longer prove a deploy**, because the bot-protection page it may return
+> has zero HTML comments and passes the usual check; and **`tools/seams.py`
+> must be run after any change to a section's zone or order.**
+
 **Rewritten at the end of session one, extended at the end of sessions two, three and four,
 26 August 2026. Section 0 re-measured at the end of session twenty-three, 28 August 2026.**
 Everything before the rewrite was appended in layers and several of those layers contradicted
@@ -4937,3 +4952,177 @@ at all before adding it**; 145MB of location photography in git is permanent.
 
 Still open, unchanged: item 2 of section 46, the home page artifact viewers
 being pinned to an earlier version, and items 2 to 6 of section 44.
+
+## 48. START HERE. The state of the site at the end of session twenty-five
+
+**Written to hand over to a new session. If you read one section, read this
+one, then 46 for the deploy path and 45 for the brief.**
+
+Everything is committed, pushed, deployed and verified. Twelve commits,
+`383ff37..1341c60`. Verified in a real browser on www, not by curl:
+
+    git                   main, level with origin, working tree clean
+    suite                 455 pass / 0 fail, nine pages
+    tools/seams.py        0 mismatches
+    deploys               Ready, 3 to 5s, building dist/ correctly
+    production            zero HTML comments, i.e. the BUILT output
+
+### The five things a new session most needs to know
+
+**1. A PUSH IS A DEPLOY.** There is a Vercel git integration. Since
+`15b46c5` it runs `python3 tools/build.py` and serves `dist/`, so a push to
+main builds and goes live in about four seconds. `ship.sh` still exists and
+still works, but it is no longer the only path and no longer the usual one.
+Do not push anything you are not willing to have live.
+
+**2. PLAIN CURL CANNOT PROVE A DEPLOY ANY MORE.** Polling tripped Vercel's
+bot protection, which answers **403 with `x-vercel-mitigated: challenge`**
+and an identical 33,830 byte challenge page for every path. **That page has
+no HTML comments**, so the comment-count check section 44 recommends read it
+as a clean build, and a checksum against dist said it did not match. A
+success was nearly reported that was not one. Use `vercel ls` for status,
+then read one page in a real browser. Do not poll.
+
+**3. THE HOME PAGE FAQ SCHEMA IS GENERATED FROM THE MARKUP.** Ten questions
+on the page, ten in the FAQPage, word for word. `_test.html` now asserts both
+the count AND that every schema question is findable on the page, because
+counting alone would not have caught the failure that actually happened.
+
+**4. NOTHING IS WAITING ON A DECISION** except the small list at the bottom.
+
+**5. `tools/build_artifact.py` works again** and is how Cydnie reviews
+things. `python3 tools/build_artifact.py home` folds the whole page into one
+self-contained file; publish it as an artifact. She reviews from that, not
+from descriptions, and not from screenshots when the real page will do.
+
+### Search Console, and what was actually wrong
+
+Cydnie forwarded a Search Console email: one non-critical Events issue,
+`Missing field "validFrom" in "offers"`. Fixed in `8bab4e2`. The Greece Event
+carries two offers and they were mirror images: the early rate had
+`validThrough` and no start, the standard rate had `validFrom` and no end,
+which is correct because it is open ended. The Event is restated on the home
+page under the same `@id`, so both files were short the same field and both
+were fixed.
+
+**`validFrom` is `2026-08-25` and that is the weakest fact in the repo.**
+`git log -S3265` puts the early rate in the first commit on 25 August 2026,
+so it is the earliest date this site is KNOWN to have published it. If the
+rate opened earlier, through HoneyBook or anywhere else, this is wrong and
+should be corrected. Both offers are SoldOut so nothing is being sold on it.
+**Cydnie was asked and has not answered.**
+
+**THE REAL PROBLEM WAS NOT THE ONE REPORTED.** While in there: the home
+page's FAQPage declared **seven questions and seven answers, and not one word
+of any of them was on the page**. The four a reader could open were different
+questions on different subjects. Google requires FAQ content to be visible,
+so that is a policy problem that can draw a manual action, where the missing
+`validFrom` could not. It was never reported by Search Console.
+
+Search Console reports what it checks, not everything that is wrong. **Audit
+structured data against the rendered page, not against the warning list.**
+
+Greece looked similar and mostly is not: its schema uses expanded labels for
+questions that ARE on the page, "Is there a single occupancy option in
+Crete?" against a visible "Is there a single room?". Same substance,
+different wording. Worth tidying, not urgent, and NOT the same fault.
+
+### Google Analytics is set up correctly, verified end to end
+
+Asked for and checked on the live site rather than read out of the code:
+
+  * **Before consent there is no `gtag` and no `dataLayer`, and zero requests
+    reach Google.** That is better than the usual Consent Mode setup, which
+    loads the tag immediately and merely tells it not to store.
+  * After Accept the tag loads as **G-KDB3GWPNHC** and a real GA4 hit reaches
+    `google-analytics.com/g/collect?v=2&tid=G-KDB3GWPNHC...&gcs=G101`.
+  * Custom events work. `faq_open` fired with `question_text`,
+    `question_position`, `question_count` and `page_path`. GA4 batches, so a
+    single event does not appear as its own request immediately: check
+    `dataLayer` rather than the network if verifying one.
+
+**One thing only Cydnie can confirm:** that G-KDB3GWPNHC is the right
+property. Hits are provably arriving there; whether that is the GA property
+she reads is not something this repo can answer.
+
+### The home FAQ now, and why it is built the way it is
+
+Ten questions, up from four. Cydnie chose to put the seven onto the page
+rather than delete them from the schema, because they are the SEO content.
+
+**"Is this coaching or therapy?" was added and then removed on her
+instruction.** Its answer had been rewritten to say plainly that this is not
+therapy and not a substitute for one, which the old answer never actually
+said. She removed the question entirely: naming it invites the association
+even while denying it. **The word appears nowhere on the home page.** It
+remains in the privacy policy, where it is a disclaimer doing the opposite
+job, and it should stay there.
+
+The list scrolls inside a fixed window, `.faq--window`, because ten stacked
+summaries measured 1,094px on a 390px phone:
+
+    phone    1,094px  1.30 screens  ->  650px  0.77 screens
+    desktop    954px  1.06 screens  ->  670px  0.74 screens
+
+Four things about it that are not obvious and should not be "simplified":
+
+  * **It has its own IntersectionObserver.** The site's reveal system is
+    keyed to the viewport, and from the viewport's position every row inside
+    the box is on screen the moment the section is, so all ten would light at
+    once. Passing the box as `root` is the whole difference.
+  * **`tabindex="0"` is load bearing.** A scrollable box that answers only a
+    mouse wheel cannot be reached by keyboard at all.
+  * Opening a question near the foot of the box scrolls it into view, or the
+    answer opens below the box's own fold and reads as nothing happening.
+  * It degrades twice: the box still scrolls without JavaScript because that
+    is the browser, and the rows are only hidden under `.js-motion`.
+
+Scoped with a modifier. `.faq` is the same component on /retreats/ and
+/the-build/ and neither is touched.
+
+### Design decisions made this session that should not be reopened casually
+
+  * **The hero is the full bleed photograph.** The two column version from
+    the brief was built, published for review and rejected. It turns the
+    waterline from the thing the reader stands in into a picture beside some
+    text. `.hero--lit` lifts the SCRIM, not the image.
+  * **The colouring does not move.** The light version was built and
+    reverted. Tasks 33 and 34 of the brief went with it.
+  * **Sticky bar, scroll progress bar and hover lifts are all declined**,
+    with evidence in `site.js` section 7-8-9 and beside `.door`.
+  * **The About head is positioned by a fixed offset, not a percentage.**
+    Three hand tunings preceded that. Do not put a percentage back.
+
+### Open, in the order worth doing them
+
+1. **The `validFrom` date above.** One line, needs a fact only Cydnie has.
+2. **April's date format.** Her copy reads "April 13-18, 2027"; the Greece
+   card beneath reads "13-20 August 2027", the house style. The April card is
+   internally consistent; the two cards are not consistent with each other.
+   Her words were used as given. Ask before changing either.
+3. **The Gatlinburg folder**, untracked, 48 screenshots, 145MB, excluded from
+   deploys in both `.vercelignore` and `build.py`. **Decide whether it
+   belongs in git at all before adding it.** 145MB there is permanent. NOTE
+   THE TRAILING SPACE in the folder name; it is real and both exclusion lists
+   depend on it.
+4. **Viewers of the home page artifact are pinned to an earlier version.**
+   Fixed from that page's share menu, not from here.
+5. **Greece's FAQ labels**, above. Cosmetic.
+6. Items 2 to 6 of section 44 are still untouched: Angela appearing twice,
+   Angela's source line, the HoneyBook form styling, the sixteen mislabelled
+   scheduling links, and the two pages contradicting their own FAQPage.
+
+### The tools, and when to run them
+
+    python3 tools/build.py              always, before looking at dist/
+    python3 tools/seams.py              after ANY zone or section order change
+    sh tools/preview/sync.sh            SP=<scratchpad>, mirrors the site
+    sh tools/preview/runsuite.sh        SP, port, [/page/]  -> 455 / 0
+    sh tools/shot.sh                    screenshots that actually show the page
+    python3 tools/build_artifact.py     fold a page into one file for review
+    vercel ls                           deployment status, the only reliable one
+
+**If the suite fails on a page you did not touch, delete `$SP/cr-*` and run
+it again before believing it.** Those are per-page Chrome profiles and they
+cache. That produced one phantom failure this session, after the file under
+test had already been restored.
