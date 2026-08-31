@@ -2617,11 +2617,44 @@ main > * { position: relative; z-index: 1; }
      94svh is the first value that clears every case with room, and the
      smallest screen is what sets it, not 375. THE COPY BLOCK IS THE THING
      THAT MOVES. If a line is ever added to it again, this fails again and
-     silently: measure 320x812 first now, then 375. */
-  min-height: 94vh; min-height: 94svh;
-  display: flex; align-items: flex-end;
-  padding-block: clamp(7rem, 16vh, 10rem) clamp(3.5rem, 8vh, 5rem);
+     silently: measure 320x812 first now, then 375.
+
+     THE PERCENTAGE WAS THE BUG, AND RAISING IT WAS TREATING THE SYMPTOM.
+  Rewritten 31 August 2026, after 94svh fixed the overlap and produced a
+  complaint about the opposite thing: "a big gap between the navigation and
+  the hero", on mobile and desktop both. Measured at 1440x900, the section
+  ran 846px with the copy bottom aligned, so roughly 300px of the top was
+  empty and the reader met a void before a word.
+
+  Both faults are the same construction. A rule pinned at a PERCENTAGE of the
+  section, with the copy pinned to the BOTTOM, ties the clearance and the
+  void together: raise the height and the gap above the copy grows with it,
+  lower it and the heading walks back onto the rule. No single percentage
+  serves 320px and 1440px, because the copy block is 376px tall at 320 and
+  312px at 1440 while the section it is measured against is not.
+
+  So the rule is no longer a percentage of anything. It sits a FIXED distance
+  below the header, and the copy starts a fixed distance below the rule,
+  which is what `--ab-rule` and the top padding say in one line each. The
+  section takes its height from its content.
+
+  Overlap is now structurally impossible rather than tuned: the copy cannot
+  reach the rule because the padding that separates them is defined as the
+  rule's own offset plus a gap. Add a line to the copy block and the section
+  grows downward, which is the direction that costs nothing. That is the
+  third time this composition has been tuned by hand and it should be the
+  last. */
+  --ab-rule: clamp(7.5rem, 17vh, 10rem);
+  /* A floor, not a target. Content exceeds it at every width measured; it
+     only stops the head collapsing if the copy is ever cut right back. Extra
+     space lands under the copy, never above it. */
+  min-height: 58vh; min-height: 58svh;
+  display: block;
+  padding-block: calc(var(--ab-rule) + clamp(2.5rem, 6vh, 4.5rem)) clamp(3.5rem, 8vh, 5rem);
 }
+/* Both are centred on the same line, so both take the same offset. */
+.ab-head--type .ab-head-rule,
+.ab-head--type .ab-head-tick { top: var(--ab-rule); }
 .ab-head--type .ab-head-copy { max-width: 44rem; margin-left: 0; }
 
 /* Overhangs both edges, because a waterline does not stop where the page
