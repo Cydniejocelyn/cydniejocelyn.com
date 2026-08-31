@@ -1,7 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
 
-  "_why_build": "The git integration was deploying the repository ROOT, so every push published the unbuilt source and silently overwrote whatever ship.sh had put there. These two keys make the git deploy build first and serve dist/. Vercel reads THIS file before the build, so the CSP that ships is always the committed copy, never the one build.py writes into dist/. Safe today because build.py does not touch inline scripts, all seven byte identical, verified. If you change an inline script, run build.py and commit the resealed hashes in the SAME commit or the CSP will block every one of them.",
   "buildCommand": "python3 tools/build.py",
   "outputDirectory": "dist",
 
