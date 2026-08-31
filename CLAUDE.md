@@ -1,7 +1,8 @@
 # Working on this site
 
 This file is a pointer, not a second source of truth. **`HANDOFF.md` section
-48 is the current state of the site.** Read it before doing anything. Where
+50 is the current state of the site**, and it carries the launch runbook for
+/retreats/gatlinburg/. Read it before doing anything. Where
 this file and HANDOFF disagree, HANDOFF is right and this file is stale: fix
 it rather than working around it.
 
@@ -17,6 +18,12 @@ Do not push anything you are not willing to have live.
 every path, and **that page contains zero HTML comments**, so the usual
 "comments == 0 means the build shipped" check passes on it. Use `vercel ls`
 for status, then read one page in a real browser. Do not poll.
+
+**/retreats/gatlinburg/ is live and deliberately unfindable.** It is
+`noindex` in two places, absent from the sitemap, and linked from nowhere.
+That is a prelaunch Cydnie is running by sending the URL to specific
+people. All four are load bearing and three of them are invisible. Section
+50 has the runbook for undoing them, in order, when she says go.
 
 **Run `python3 tools/seams.py` after any change to a section's zone class or
 to section order.** Every section names the ground of the section above it by

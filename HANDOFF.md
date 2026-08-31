@@ -5350,3 +5350,128 @@ is the one it must NOT be added to yet. `build.py` walks the tree.
 6. **The og:image is the house at dusk**, real and honest, not a
    purpose-built 1200x630.
 7. Section 48's open list is untouched.
+
+## 50. START HERE. End of session twenty-six, and the launch runbook
+
+**Everything is committed, pushed, deployed and verified in a real browser
+on www.** Seven commits, `d2c8907..df74adb`.
+
+    git                   main, level with origin, working tree clean
+    suite                 527 pass / 0 fail, TEN pages
+    tools/seams.py        0 mismatches
+    build                 clean, no missing and no unreferenced assets
+    production            /retreats/gatlinburg/ 200, zero HTML comments
+    noindex               meta + X-Robots-Tag, both confirmed on the route
+    booking               all four links 200
+
+### What is live tonight
+
+`/retreats/gatlinburg/` is live, and **it is deliberately a page nobody can
+find.** Nothing on the site links to it, it is absent from the sitemap, and
+it is `noindex, nofollow, noarchive` in two independent places. That is the
+prelaunch Cydnie asked for: she sends the URL to specific people, they can
+book, and search engines never see it.
+
+**Do not "fix" any of the four things above by accident.** Each one is load
+bearing until she says otherwise, and three of them are invisible.
+
+### THE LAUNCH RUNBOOK, in order, one commit each
+
+Nothing here should be done until Cydnie says the page is public.
+
+**1. Take the noindex off, all four places in one commit.**
+
+    retreats/gatlinburg/index.html   delete both robots meta tags
+    vercel.json                      delete the X-Robots-Tag block
+    retreats/gatlinburg/index.html   uncomment the canonical
+    sitemap.xml                      add the URL, delete the comment
+
+**2. The JSON-LD, and read this before pasting it.** It is parked in a
+comment in the head, and it is stored WITHOUT its script tags on purpose.
+`strip_html` in build.py splits on script regions before stripping
+comments, so a commented-out script SHIPS to production, and so does a
+comment that merely writes the tag name in angle brackets. Wrap the JSON in
+a script element of type application/ld+json, then check the built page:
+
+    grep -c '<!--' dist/retreats/gatlinburg/index.html      must be 0
+
+**3. Validate the structured data** against the RENDERED page, not against
+the warning list. Section 48 is the reason: the home page shipped a FAQPage
+whose seven questions appeared nowhere in the markup, Search Console never
+reported it, and it is the kind of thing that draws a manual action. **This
+page has nine questions on it and no FAQPage node.** If one is ever added,
+every question in it has to be one of those nine, word for word.
+
+**4. Add the Gatlinburg card to the Retreats index, above Greece.** April is
+asserted in SEVEN places on that page and they move together:
+
+    retreats/index.html   the #april card, its status and its copy
+    retreats/index.html   the ItemList schema, currently "location to be announced"
+    retreats/index.html   the FAQ answer that says April is not priced yet
+    retreats/index.html   the two meta descriptions
+    retreats/index.html   the closing CTA
+    tools/us_map.py       the unplaced pin, if the card keeps the map
+
+**5. Add the four HoneyBook ids to the FORMS map in `_test.html`.** Every
+other id on the site is pinned there. Rewriting a block once swapped
+`69fa33ac` for `69fa372c` and pointed a private retreat inquiry at the
+general contact mailbox; the link still worked, still returned 200 and
+still looked right. That assertion is what catches it next time.
+
+**6. Then run the three, and only then push.**
+
+    python3 tools/build.py
+    python3 tools/seams.py                      0
+    sh tools/preview/runsuite.sh "$SP" 8814     527 / 0
+
+### Two dated things that will go wrong on their own
+
+**1 November 2026.** The per-day figures on the room cards hold at the early
+rate only. $2,790 is $558 a day and $1,490 is $298 a day; after that date it
+is $580 and $320. Those two lines are updated that day or removed that day.
+Nothing on the page enforces it.
+
+**31 October 2026.** The early rate closes. The page says so in four places
+and they all have to agree with HoneyBook.
+
+### Still open, in the order worth doing them
+
+1. **Nobody has checked the four HoneyBook service records against the
+   page.** The links resolve and people can pay through them. The figures
+   inside them have never been compared to $2,790, $2,900, $1,490 and
+   $1,600. **This is the highest risk item on the list** and it is five
+   minutes of looking.
+2. **The og:image is the house at dusk**, which is a real photograph of the
+   real place and is honest, but it is not a purpose-built 1200x630.
+3. **Three things from the brief are still unwritten and are deliberately
+   not on the page as placeholders**: the forms of movement across the
+   week, the second workshop subject, and which two outings.
+4. **Every eyebrow on the site except three still sits 40px right of the
+   thing it labels.** `.eyebrow` is a flex row and its rule pushes the text
+   in. The home hero has `--hang`, and the two retreat heroes now have
+   `--plain`. The rest are section heads, where it matters less because the
+   eyebrow is not directly above a headline on a shared edge. One class
+   each. Worth a sweep, not urgent.
+5. Section 48's list is otherwise untouched: the Greece `validFrom` date,
+   Greece's FAQ labels, and items 2 to 6 of section 44.
+
+### Three traps this session found the hard way
+
+**The suite can run green against the wrong server.** A `python3 -m
+http.server` left from a previous session was serving that session's
+scratchpad. The new page 404'd and the suite reported a page that was not
+the page. Check the root before believing a result:
+
+    lsof -p $(lsof -nP -iTCP:8814 -sTCP:LISTEN -t) | awk '$4=="cwd"'
+
+**A guard gated on structure is a coincidence waiting to expire.** Five
+assertions were gated on `#ask` and `#booking` being present, two on the
+`.hero--lit` class, two on the filename `bath-`. All nine passed for a year
+and all nine failed the moment a second retreat page existed. Gate on the
+path, or derive the expectation from the element under test.
+
+**Setting half of a two-part rule is worse than setting neither.** `.btn`
+fills with a `::before` and recolours its text at the same moment. Three
+passes were spent on that hover, and the first two each left a real page
+with dark text on a dark fill. Measure the result in a browser; do not
+compute it and assume.
