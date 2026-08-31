@@ -75,7 +75,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=929affd3">
+<link rel="stylesheet" href="assets/css/site.css?v=17d932ae">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -452,18 +452,42 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is the resurfacing business?",
+          "name": "Is this brand strategy, or is this a conversation about how I feel?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It is how Cydnie Jocelyn describes her practice. She is not in the brand business or the retreat business; she brings women back to the surface and then builds the business around whoever comes up. The methodology is Resurface, then Reclaim, then Build: permission, a witness, and a plan, in that order."
+            "text": "It is brand strategy, and it starts with how you feel because that is where the information is. You cannot position a business when the person running it cannot say plainly what she wants it to do. So I lead with heart and I close with operations. You will leave with words for your business, not a mood."
           }
         },
         {
           "@type": "Question",
-          "name": "Where is Cydnie Jocelyn based?",
+          "name": "What if I cannot explain what is wrong?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Forest Lake, Minnesota, about thirty minutes north of Saint Paul. She works in person across the Twin Cities metro, including Minneapolis, Saint Paul, Stillwater, Woodbury, White Bear Lake, Blaine, Maple Grove, Wyoming and Hugo, and remotely with clients anywhere. Retreats run in the United States and internationally."
+            "text": "That is the normal starting condition, and it is the thing being solved. You have run out of external explanations, so the fault has quietly gone internal, and that is very hard to describe out loud. Bring it in the state it is in."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What actually happens, and when?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We talk once, for ninety minutes, and I ask a lot of questions because the useful information is not in the pitch deck. Two days later the written analysis arrives. It is yours to keep either way."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I am not ready to spend $300?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Worth knowing first: if you go on to a Build, the $300 comes off it, so it is not money spent twice. If that is still not the right moment, ask me a question or start with the letters. They are free, they arrive once a week, and they are written the week they go out. Read the letters."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the resurfacing business?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is how Cydnie Jocelyn describes her practice. She is not in the brand business or the retreat business; she brings women back to the surface and then builds the business around whoever comes up. The methodology is Resurface, then Reclaim, then Build: permission, a witness, and a plan, in that order."
           }
         },
         {
@@ -476,22 +500,6 @@
         },
         {
           "@type": "Question",
-          "name": "What does alone in a group of fifteen mean?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It is the design principle behind every retreat. Nobody needs anything from you and nobody leaves you to it. There is no forced sharing and no facilitated vulnerability, and you are also never on your own with it. Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is this coaching or therapy?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Neither. This is not life coaching, not mindset coaching, and not a wellness brand. It is brand strategy, operations and business development, delivered by someone who listens first. The interior work is real, but the deliverable is a business you can breathe inside."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "Do you publish your pricing?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -500,10 +508,26 @@
         },
         {
           "@type": "Question",
+          "name": "What does alone in a group of fifteen mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is the design principle behind every retreat. Nobody needs anything from you and nobody leaves you to it. There is no forced sharing and no facilitated vulnerability, and you are also never on your own with it. Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Are the retreats women only?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "The brand strategy work is for founders and leaders of any gender. Individual retreats are often women specific and are labeled that way on their own page."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is Cydnie Jocelyn based?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Forest Lake, Minnesota, about thirty minutes north of Saint Paul. She works in person across the Twin Cities metro, including Minneapolis, Saint Paul, Stillwater, Woodbury, White Bear Lake, Blaine, Maple Grove, Wyoming and Hugo, and remotely with clients anywhere. Retreats run in the United States and internationally."
           }
         }
       ]
@@ -1172,7 +1196,16 @@
         <h2 class="head h-2 split" id="faq-h">Before you ask.</h2>
       </div>
       <div class="col-b">
-        <div class="faq">
+        <!-- A WINDOW, NOT A LIST. Ten questions stacked ran 1,094px on a
+             phone, one and a third screens of nothing but summaries. The
+             list scrolls inside a fixed window instead, so the section is
+             about one screen whatever the count, and adding an eleventh
+             question costs nothing.
+
+             `tabindex="0"` is not decoration. A scrollable box that only
+             responds to a mouse wheel is unreachable by keyboard, so this
+             one is focusable and takes arrow keys like any scroll area. -->
+        <div class="faq faq--window" tabindex="0" role="group" aria-label="Questions">
           <details>
             <summary>Is this brand strategy, or is this a conversation about how I feel? <span class="sign" aria-hidden="true"></span></summary>
             <div class="answer"><p>It is brand strategy, and it starts with how you feel because that is where the information is. You cannot position a business when the person running it cannot say plainly what she wants it to do. So I lead with heart and I close with operations. You will leave with words for your business, not a mood.</p></div>
@@ -1188,6 +1221,30 @@
           <details>
             <summary>What if I am not ready to spend $300? <span class="sign" aria-hidden="true"></span></summary>
             <div class="answer"><p>Worth knowing first: if you go on to a Build, the $300 comes off it, so it is not money spent twice. If that is still not the right moment, ask me a question or start with the letters. They are free, they arrive once a week, and they are written the week they go out. <a class="link" href="/the-letters/">Read the letters</a>.</p></div>
+          </details>
+          <details>
+            <summary>What is the resurfacing business? <span class="sign" aria-hidden="true"></span></summary>
+            <div class="answer"><p>It is how Cydnie Jocelyn describes her practice. She is not in the brand business or the retreat business; she brings women back to the surface and then builds the business around whoever comes up. The methodology is Resurface, then Reclaim, then Build: permission, a witness, and a plan, in that order.</p></div>
+          </details>
+          <details>
+            <summary>How do I start working with Cydnie Jocelyn? <span class="sign" aria-hidden="true"></span></summary>
+            <div class="answer"><p>With one conversation. Ninety minutes on the business, nothing signed, and a written analysis two days later of where the brand can go, plus a straight answer on whether you need anything further, including when the honest answer is that you need less than you came for.</p></div>
+          </details>
+          <details>
+            <summary>Do you publish your pricing? <span class="sign" aria-hidden="true"></span></summary>
+            <div class="answer"><p>Retreat pricing is published in full on each retreat page. Brand work with a fixed scope can carry a number. Custom scoped work cannot, because the scope is the variable, and it is decided after listening rather than before.</p></div>
+          </details>
+          <details>
+            <summary>What does alone in a group of fifteen mean? <span class="sign" aria-hidden="true"></span></summary>
+            <div class="answer"><p>It is the design principle behind every retreat. Nobody needs anything from you and nobody leaves you to it. There is no forced sharing and no facilitated vulnerability, and you are also never on your own with it. Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance.</p></div>
+          </details>
+          <details>
+            <summary>Are the retreats women only? <span class="sign" aria-hidden="true"></span></summary>
+            <div class="answer"><p>The brand strategy work is for founders and leaders of any gender. Individual retreats are often women specific and are labeled that way on their own page.</p></div>
+          </details>
+          <details>
+            <summary>Where is Cydnie Jocelyn based? <span class="sign" aria-hidden="true"></span></summary>
+            <div class="answer"><p>Forest Lake, Minnesota, about thirty minutes north of Saint Paul. She works in person across the Twin Cities metro, including Minneapolis, Saint Paul, Stillwater, Woodbury, White Bear Lake, Blaine, Maple Grove, Wyoming and Hugo, and remotely with clients anywhere. Retreats run in the United States and internationally.</p></div>
           </details>
         </div>
       </div>
@@ -1315,13 +1372,13 @@
   </div>
 </footer>
 
-<script src="assets/js/site.js?v=929affd3" defer></script>
+<script src="assets/js/site.js?v=17d932ae" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="assets/js/analytics.js?v=929affd3" defer></script>
-<script src="assets/js/consent.js?v=929affd3" defer></script>
+<script src="assets/js/analytics.js?v=17d932ae" defer></script>
+<script src="assets/js/consent.js?v=17d932ae" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

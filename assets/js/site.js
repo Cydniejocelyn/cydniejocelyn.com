@@ -1600,6 +1600,48 @@
     if (fine.addEventListener) fine.addEventListener("change", leave);
   }
 
+  /* ---------- 18. The FAQ window ----------------------------
+     The home FAQ scrolls inside a fixed box so ten questions do not make a
+     one-and-a-third-screen section. Each row fades in as it enters THE BOX.
+
+     This needs its own observer. `initReveals` is keyed to the viewport, and
+     from the viewport's point of view every row inside the box is on screen
+     the moment the section is, so all ten would light at once and the fade
+     would never be seen. Passing the box as `root` is the whole difference.
+
+     Fails open, twice over. Without IntersectionObserver every row is shown
+     immediately, and the stylesheet only hides them under `.js-motion`, so
+     with JavaScript off they were never hidden to begin with. The box still
+     scrolls either way: that is the browser, not us. */
+  function initFaqWindow() {
+    var box = document.querySelector(".faq--window");
+    if (!box) return;
+    var rows = Array.prototype.slice.call(box.querySelectorAll("details"));
+    if (!rows.length) return;
+
+    function showAll() { rows.forEach(function (r) { r.classList.add("is-in"); }); }
+    if (reduce.matches || !("IntersectionObserver" in window)) return showAll();
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+      });
+    }, { root: box, rootMargin: "0px 0px -8% 0px", threshold: 0.15 });
+    rows.forEach(function (r) { io.observe(r); });
+
+    /* Opening an accordion near the foot of the box leaves the answer below
+       the fold of the box itself, which reads as nothing having happened.
+       `nearest` is the smallest scroll that fixes it, and it inherits the
+       stylesheet's smooth behaviour and its reduced-motion fallback. */
+    rows.forEach(function (r) {
+      r.addEventListener("toggle", function () {
+        if (!r.open) return;
+        var rb = r.getBoundingClientRect(), bb = box.getBoundingClientRect();
+        if (rb.bottom > bb.bottom) r.scrollIntoView({ block: "nearest" });
+      });
+    });
+  }
+
   function initYear() {
     document.querySelectorAll("[data-year]").forEach(function (el) {
       el.textContent = String(new Date().getFullYear());
@@ -1626,6 +1668,7 @@
     initGallery();
     initRail();
     initCursor();
+    initFaqWindow();
     initYear();
   }
 

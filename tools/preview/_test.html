@@ -351,6 +351,40 @@ f.addEventListener('load', function(){
      ok('letters: nav marks this page current',
         !!d.querySelector('.nav-links a[href="/the-letters/"][aria-current="page"]'));
    }
+   /* ---- the home FAQ, and the thing that had no assertion ----
+      On 31 August 2026 the home page's FAQPage declared SEVEN questions and
+      seven answers, and not one word of any of them was on the page. The
+      four a reader could open were different questions on different
+      subjects. Google requires FAQ content to be visible, so that is a
+      policy problem rather than an untidiness, and it survived because
+      /retreats/ and /a-sounding/ had an assertion like this one and the home
+      page did not.
+
+      This asserts more than the retreats version. Counting alone would have
+      caught seven against four, but it would NOT catch seven questions
+      swapped for seven different ones, which is the shape the drift actually
+      took. So every question in the schema has to be findable in the FAQ
+      markup as well. */
+   if (d.querySelector('.hero--lit')) {
+     var homeFaq = null;
+     [].slice.call(d.querySelectorAll('script[type="application/ld+json"]')).forEach(function (t) {
+       var j; try { j = JSON.parse(t.textContent); } catch (e) { return; }
+       ((j['@graph']) || [j]).forEach(function (n) {
+         if (n && n['@type'] === 'FAQPage') homeFaq = n.mainEntity || [];
+       });
+     });
+     var homeSummaries = [].slice.call(d.querySelectorAll('#faq .faq details summary'))
+       .map(function (el) { return (el.textContent || '').replace(/\s+/g, ' ').trim(); });
+     ok('home: every question on the page is in the FAQPage schema (' +
+        homeSummaries.length + ')',
+        !!homeFaq && homeFaq.length === homeSummaries.length && homeSummaries.length > 0);
+     ok('home: and every question in the schema is actually ON the page',
+        !!homeFaq && homeFaq.every(function (q) {
+          var name = (q.name || '').replace(/\s+/g, ' ').trim();
+          return homeSummaries.some(function (sm) { return sm.indexOf(name) === 0; });
+        }));
+   }
+
    // ---- the second picture pass and the ring, on /retreats/ ----
    if(d.querySelector('#format')){
      var ring=d.querySelector('.rt-ring');

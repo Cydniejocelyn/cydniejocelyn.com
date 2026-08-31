@@ -5088,6 +5088,53 @@ main > * { position: relative; z-index: 1; }
       rgba(7,26,31,.22) 60%, rgba(7,26,31,.74) 90%, var(--fathom) 100%);
 }
 
+/* ---------- 32. THE FAQ WINDOW, HOME ONLY --------------------
+   The home FAQ went from four questions to ten so that every question in
+   the FAQPage schema is actually on the page, which Google requires. Ten
+   stacked summaries measured 1,094px on a 390px phone, one and a third
+   screens, and 954px on desktop.
+
+   So the list scrolls inside a fixed window. The section is about one
+   screen whatever the count, and an eleventh question costs nothing.
+
+   HOME ONLY. `.faq` is the same component on /retreats/ and /the-build/,
+   where the lists are shorter and sit inside their own layouts. The
+   modifier keeps this off both.
+
+   It degrades to an ordinary list: without JavaScript the box still
+   scrolls, because that is the browser doing it and not us. Only the
+   fading in of each row is ours, and that is under `.js-motion` like every
+   other reveal here. */
+.faq--window {
+  max-height: clamp(22rem, 52vh, 30rem);
+  overflow-y: auto;
+  /* a flick past the last question scrolls the box, never the page behind it */
+  overscroll-behavior: contain;
+  /* The same top-and-bottom fade the gallery uses at section 21, so the box
+     says "there is more" without a scrollbar having to. The fade is short at
+     the top so the first question is never half lit. */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 5%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 5%, #000 92%, transparent 100%);
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+  /* the mask clips the focus ring at the edges, so the ring goes outside */
+  padding-inline: 2px;
+}
+.faq--window:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+
+/* Each row arrives as it enters the WINDOW, not the viewport. The site's
+   own reveal observer is keyed to the viewport, which would light all ten
+   the moment the section appeared. `initFaqWindow` in site.js runs a second
+   observer whose root is the box itself. */
+.js-motion .faq--window details {
+  opacity: 0; transform: translateY(6px);
+  transition: opacity var(--t-mid) var(--ease-out), transform var(--t-mid) var(--ease-out);
+}
+.js-motion .faq--window details.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .faq--window details { opacity: 1; transform: none; transition: none; }
+}
+
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {
   .hdr, .gauge, main { background: #fff; }
