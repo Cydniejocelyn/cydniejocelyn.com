@@ -5233,6 +5233,37 @@ scrim rather than the image.
 back `rgb(47,90,97)` when measured in the browser, which is how it was
 caught; naming the figure's own two classes puts the page's rule in front.
 
+### Three review fixes to the hero and the buttons
+
+**The phone hero was a strip of wall.** The file is 1.47:1 and a phone hero
+is about 0.46:1, so `cover` showed a 46% wide column of it: timber and one
+window, no house and no ridge. **No `object-position` fixes that**, because
+no single column of a landscape photograph contains both. A `<picture>`
+serves a second CROP of the same frame below 46rem, 3:4, taken from the
+left half where the ridge, the sunset and the three tiers of balcony all
+are. `srcset` was never the tool: it picks a different SIZE of one crop.
+
+**The hero eyebrow did not line up.** `.eyebrow` is a flex row and its
+`::before` rule pushed the TEXT inward while the headline, the sub and the
+buttons all sat on the wrap's edge. `.eyebrow--hang` is the site's measured
+fix and was tried first; Cydnie then asked for the rule gone entirely, so it
+is `.eyebrow--plain`. Measured after: eyebrow text, h1, sub and first button
+all report a left edge of 20px.
+
+**The button hover was unreadable, and it took three passes.** `.btn` fills
+with a `::before` that slides up, and the text recolours at the same moment,
+so the fill and the text are ONE decision. Pass one set `background` on the
+element, which the `::before` covers, and `color`, which landed: Meniscus
+fill with near-black text, 1.8:1. Pass two recoloured the fill per variant
+and set Fathom text on each; the quiet variant still measured 2.36:1 in the
+browser, so something in the cascade was still taking the colour.
+
+**Pass three removed the variants from the question.** Every button on this
+page hovers to a Fathom fill with Surface text, 14.93:1 on every ground.
+There is no combination left that can put dark text on a dark fill.
+Verified by pinning the hover state in the preview mirror and
+screenshotting it at 1440, not by computing it and hoping.
+
 ### Five page-specific guards in _test.html were coincidences, not guards
 
 Every one failed on a correct page and every one was gated on structure

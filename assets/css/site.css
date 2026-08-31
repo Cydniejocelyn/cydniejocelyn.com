@@ -5223,25 +5223,54 @@ main > * { position: relative; z-index: 1; }
 .gb .gb-ring.fifteen-fig.is-counting .is-her { fill: none; stroke: var(--meniscus); stroke-width: 2.4; }
 .gb .gb-ring { justify-content: flex-start; margin-top: var(--s-5); }
 
-/* THE BUTTONS POP ON HOVER. The resting state is unchanged, because a
-   button that is already shouting has nowhere to go; the hover fills with
-   Breath and takes the ink, which measures 10.1:1 against Fathom and about
-   15:1 the other way, so it gains contrast rather than losing it. */
-.gb .btn { transition: background-color var(--t-fast) var(--ease-soft),
-                       color var(--t-fast) var(--ease-soft),
-                       border-color var(--t-fast) var(--ease-soft); }
-.gb .btn:hover, .gb .btn:focus-visible {
-  background: var(--breath);
-  border-color: var(--breath);
-  color: var(--fathom);
+/* THE PHONE HERO NEEDS ITS OWN OBJECT-POSITION, and the inline one on the
+   <img> cannot give it one, because that attribute belongs to the element
+   and the element is shared by both sources.
+
+   The portrait crop is 3:4 and a phone hero is about 0.46:1, so `cover`
+   still shows only the middle 61% of it. Centred, that is the gable and the
+   balconies and no ridge at all, which is most of what was wrong in the
+   first place. Biased left and up, it is the ridge, the sunset and the
+   balconies together. 46rem is the same breakpoint the <source> uses; if one
+   moves, both move. */
+@media (max-width: 46rem) {
+  .gb .hero-water img { object-position: 24% 34% !important; }
 }
-.gb .btn:hover .arw, .gb .btn:focus-visible .arw { color: var(--fathom); }
-/* The two quiet buttons on the room cards take the warm note instead, so
-   "pay in full" and "five month plan" are not the same gesture twice. */
+
+/* THE BUTTONS, AND THE HOVER THAT WAS UNREADABLE TWICE.
+   `.btn` does not fill with a background. It fills with a `::before` that
+   slides up from beneath, and the text changes colour at the same moment,
+   so the fill and the text are one decision and have to be set together.
+
+   The first pass set `background` and `color` on the element. The
+   background did nothing, because the `::before` covers it; the colour DID
+   land and overrode the component's own with Fathom, so on a light band the
+   button filled Meniscus and put near-black text on it. Measured 1.8:1.
+
+   The second pass recoloured the fill per variant and set Fathom text on
+   each. The quiet variant still measured 2.36:1 in the browser, so
+   something in the cascade was still taking the text colour, and chasing it
+   was costing more than it was worth.
+
+   THIS PASS REMOVES THE VARIANTS FROM THE QUESTION. Every button on this
+   page hovers the same way: the fill goes to Fathom, the darkest ground
+   there is, and the text goes to Surface, the lightest ink there is. One
+   pair, no exceptions, nothing to reason about per variant, and it cannot
+   land dark text on a dark fill because the text is not dark.
+
+       Fathom fill, Surface text        14.93:1, every ground on the page
+
+   The arrow is `currentColor` and follows the text. Verified hovered in a
+   browser and screenshotted, not computed and hoped for. */
+.gb .btn::before,
+.gb .btn--solid::before,
+.gb .btn--quiet::before { background: var(--fathom); }
+
+.gb .btn:hover, .gb .btn:focus-visible,
+.gb .btn--solid:hover, .gb .btn--solid:focus-visible,
 .gb .btn--quiet:hover, .gb .btn--quiet:focus-visible {
-  background: var(--held-lift);
-  border-color: var(--held-lift);
-  color: var(--fathom);
+  color: var(--surface);
+  border-color: var(--fathom);
 }
 
 /* THE TWO CROWDED ACTIONS. `.actions` centres its children on one row,

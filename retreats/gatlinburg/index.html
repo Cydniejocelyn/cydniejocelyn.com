@@ -70,7 +70,7 @@
      stylesheet provides is invisible, silent, and looks correct. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/site.css?v=cdcb4466">
+<link rel="stylesheet" href="../../assets/css/site.css?v=97844f30">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- AT LAUNCH: uncomment, then validate before pushing.
@@ -228,23 +228,28 @@
 <section class="hero hero--lit z-deep" data-zone aria-labelledby="gb-h">
 
   <div class="hero-water" aria-hidden="true">
+    <picture>
+    <source media="(max-width: 46rem)"
+            srcset="../../assets/img/gatlinburg/house-dusk-portrait-600.webp 600w, ../../assets/img/gatlinburg/house-dusk-portrait-834.webp 834w"
+            sizes="100vw" width="834" height="1112">
     <img src="../../assets/img/gatlinburg/house-dusk-1200.webp"
          srcset="../../assets/img/gatlinburg/house-dusk-600.webp 600w, ../../assets/img/gatlinburg/house-dusk-900.webp 900w, ../../assets/img/gatlinburg/house-dusk-1200.webp 1200w, ../../assets/img/gatlinburg/house-dusk-1600.webp 1600w"
          sizes="100vw" width="1600" height="1090"
          style="object-position: 50% 58%"
          fetchpriority="high" decoding="async"
          alt="A timber house on a wooded slope at dusk, its windows lit, with the ridgeline of the Smoky Mountains behind it.">
+    </picture>
   </div>
   <div class="hero-scrim" aria-hidden="true"></div>
 
   <div class="wrap hero-in">
     <div class="hero-copy">
-      <p class="eyebrow r-fade">Wide Open &middot; The Gatlinburg Edition</p>
+      <p class="eyebrow eyebrow--plain r-fade">Wide Open &middot; The Gatlinburg Edition</p>
       <h1 class="hero-line split" id="gb-h">Five days <em>in the Smokies.</em></h1>
       <p class="hero-sub r-up" style="--d:120ms">A small group retreat for women in Gatlinburg, Tennessee, in a private house at the edge of the national park. You land in Knoxville and somebody is already waiting on you. Everything after that is handled.</p>
 
       <div class="hero-acts r-up" style="--d:180ms">
-        <a class="btn" href="#rooms">
+        <a class="btn btn--solid" href="#rooms">
           <span>Reserve your room</span>
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
         </a>
@@ -731,7 +736,7 @@
           <p class="small muted">Through 31 October 2026. $2,900 from 1 November.</p>
           <p class="small" style="margin-top:var(--s-3)">At the early rate that is $558 a day, with the room, the meals, the movement and both workshops inside the number. $500 holds it and comes off the total either way.</p>
           <div class="actions">
-            <a class="btn" href="https://clients.cydniejocelyn.com/public/6a95932b2f7e28bf649a0db2" rel="noopener">
+            <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/public/6a95932b2f7e28bf649a0db2" rel="noopener">
               <span>Pay in full</span>
               <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
             <span class="vh"> (opens my booking page)</span></a>
@@ -761,7 +766,7 @@
           <p class="small muted">Through 31 October 2026. $1,600 from 1 November.</p>
           <p class="small" style="margin-top:var(--s-3)">At the early rate that is $298 a day, with everything above included the same way. $500 holds it and comes off the total either way.</p>
           <div class="actions">
-            <a class="btn" href="https://clients.cydniejocelyn.com/public/6a95932478678c35b8ca7b0d" rel="noopener">
+            <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/public/6a95932478678c35b8ca7b0d" rel="noopener">
               <span>Pay in full</span>
               <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
             <span class="vh"> (opens my booking page)</span></a>
@@ -788,7 +793,7 @@
         <p class="gb-strip-h">Register today.</p>
         <p class="small muted">The early rate holds through 31 October 2026. $500 holds your room, and it comes off the total either way.</p>
       </div>
-      <a class="btn" href="#rooms">
+      <a class="btn btn--solid" href="#rooms">
         <span>Reserve your room</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
@@ -1030,7 +1035,7 @@
           <p>$500 holds your spot and applies to the total whether you pay in full or take the five month plan. Both routes are on the room you choose, and the early rate holds through 31 October 2026.</p>
         </div>
         <div class="actions gb-act r-up" style="--d:180ms">
-          <a class="btn" href="#rooms">
+          <a class="btn btn--solid" href="#rooms">
             <span>Choose your room</span>
             <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
           </a>
@@ -1130,8 +1135,8 @@
   </div>
 </footer>
 
-<script src="../../assets/js/site.js?v=cdcb4466" defer></script>
-<script src="../../assets/js/analytics.js?v=cdcb4466" defer></script>
-<script src="../../assets/js/consent.js?v=cdcb4466" defer></script>
+<script src="../../assets/js/site.js?v=97844f30" defer></script>
+<script src="../../assets/js/analytics.js?v=97844f30" defer></script>
+<script src="../../assets/js/consent.js?v=97844f30" defer></script>
 </body>
 </html>
