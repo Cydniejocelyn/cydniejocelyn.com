@@ -7,7 +7,7 @@
   "trailingSlash": true,
   "headers": [
     {
-      "source": "/retreats/gatlinburg/:path*",
+      "source": "/retreats/gatlinburg/(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
