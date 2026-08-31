@@ -4733,101 +4733,131 @@ Items 2, 3, 4, 5 and 6 of section 44's list: Angela appearing twice, Angela's
 source line, the HoneyBook form styling, the sixteen mislabelled scheduling
 links, and the two pages that contradict their own FAQPage schema.
 
-## 46. Where session twenty-five stopped, 30 August 2026
 
-**NOTHING IS COMMITTED, nothing is pushed, nothing is deployed.** Production
-is untouched. Everything below is UNCOMMITTED in the working tree, on disk
-and not in git, so do not run `git checkout`, `git stash` or `git reset` on
-these files without reading this first:
+## 46. Session twenty-five, shipped: and production had never served the build
 
-    M HANDOFF.md
-     M a-sounding/index.html
-     M about/index.html
-     M assets/css/site.css
-     M assets/js/site.js
-     M contact/index.html
-     M index.html
-     M privacy-policy/index.html
-     M retreats/greece/index.html
-     M retreats/index.html
-     M the-build/index.html
-     M the-letters/index.html
-     M thequestions/index.html
-     M tools/build_artifact.py
+**Everything below is committed, pushed and LIVE.** Five commits on main,
+`383ff37..a7d81c0`. Verified in a real browser on www, not by curl: the home
+page returns **zero HTML comments**, `hero--lit` is present, and the hero
+eyebrow measures 0px from the headline's left edge.
 
-### The whole of it, in one line
+### Read this first: the deploy path was the bug, and it was a second one
 
-**The site is production, plus a lighter hero photograph. That is all.**
+Sections 32, 38 and 44 each investigated production serving the SOURCE
+instead of `dist/`, and each blamed something real: `vercel deploy --cwd`
+uploading the wrong directory, an iCloud conflict copy landing after the
+sweep. Both were fixed and `ship.sh` guards both.
 
-`index.html` is byte identical to what is live except for a single class on
-one line: `<section class="hero hero--lit z-deep">`. `site.css` differs by
-one new rule and two comments. `site.js` differs by comments ONLY, zero
-functional change. Verified by diff, not assumed.
+**None of that was this.** There is a Vercel git integration on this repo.
+`vercel.json` carried no `buildCommand` and no `outputDirectory`, so **every
+push to main published the repository root** and silently overwrote whatever
+`ship.sh` had deployed. Every guard in `ship.sh` is irrelevant on that path,
+because `ship.sh` never runs. Two deploy paths, and the quiet one won.
 
-### What Cydnie decided, and it closes the colour question
+Measured on the live site before the fix:
 
-On 30 August, having seen the light version built and published:
+    /            69,654 bytes, 39 HTML comments      built: 55,931 and none
+    /about/      39,642 bytes, 28 HTML comments      built: 27,028 and none
+    site.css     72,538 bytes over the wire          built: 16,588
 
-  * **The site's colouring is right as it is and none of it moves.** The
-    thesis, the condition and Why me are back on Fathom. The band is flat
-    Deepwater again, its 168deg gradient reverted. The Held wash on the
-    contact rail is reverted. **Task 33 and Task 34's wash are OUT**, not
-    pending, along with Task 13's second half, which will now never pass its
-    own audit because the hero is Fathom and staying that way.
-  * **The Breath study is closed.** She does not want the page lighter. The
-    artifact stays for the record but nothing from it is wanted.
-  * **The lighter hero stays.** "I like the lighter hero in the beginning.
-    Just makes it not feel super dark."
+A first visit cost 99,693 bytes of compressed text against 39,942 built.
+Sixty per cent larger, on every reader. 13,365 bytes of internal build
+commentary were public on the home page and 12,354 on About, including
+Cydnie's own words back to her inside the page they describe.
 
-### The one thing that shipped, and why it is not a colour change
+`vercel.json` now sets `buildCommand` and `outputDirectory`, so a push builds
+and serves `dist/`. **There is one deploy path again and it is correct.**
 
-`.hero--lit` lifts the SCRIM, not the image. `.hero-scrim` is two stacked
-gradients of Fathom laid over the photograph so white type stays readable on
-it, and that is what was dark. Nothing is filtered or brightened, so the
-water keeps its own contrast and the waterline reads across the frame.
+### Three failed deploys getting there, and what each taught
 
-Measured on the built page: the ground under the headline went rgb(55,71,73)
-to rgb(88,101,101); contrast 8.13:1 to 5.07:1 on the headline and 8.16:1 to
-6.66:1 on the sub. Both clear AA. **The sub is what runs out first if this is
-ever lifted further.**
+  * **A `_why_build` key in vercel.json.** JSON has no comments so an
+    explanation was put in a key. Vercel validates that file strictly and
+    rejects unknown top-level properties, so the whole config was discarded
+    and the build never ran: 0ms, twice. **Explanations go in the commit
+    message, never in vercel.json.** `vercel build --prod` reproduces this
+    locally and is the check to run before pushing a config change.
+  * **`.vercelignore` excluded `tools/`,** the folder holding the build
+    script. Correct before, wrong the moment the build needed it. Safe to
+    include now only because `outputDirectory` means nothing outside `dist/`
+    is served.
+  * **`build.py` fails the build on drift** between its `EXCLUDE_DIRS` and
+    `.vercelignore`, which is exactly what it should do and did.
 
-Home only. `.hero-scrim` is shared with both retreat heroes, which are darker
-photographs that need what they have, and the brief locks them.
+**A failed build leaves the previous deployment serving.** The site stayed up
+throughout. That is the safe direction and it is why this was iterable in
+production.
 
-### Phase 5 of the brief is finished, and almost none of it was built
+### PLAIN CURL IS NO LONGER SUFFICIENT ON ITS OWN
 
-Tasks 27 and 28 built and rejected, the full bleed photograph kept. Tasks 29,
-30 and 32 declined with evidence, now written into `site.js` section 7-8-9
-and beside `.door` in `site.css` so a future brief cannot quietly reopen
-them. Task 31 was already done in CSS and better. Tasks 33 and 34 built and
-then reverted by the decision above. **Section 45 has the full reasoning and
-should be read before anyone acts on that brief again.**
+Polling during verification tripped Vercel's bot protection, which answered
+**403 with `x-vercel-mitigated: challenge`** and a 33,830 byte challenge page
+for every path. **That page contains no HTML comments.** So the comment count
+that section 44 recommends read it as a clean build, and a checksum against
+dist said it did not match. A success was nearly reported that was not one.
 
-### Kept from this session, unrelated to how the site looks
+Check `vercel ls` for deployment status first, then read one page in a real
+browser. Do not poll. Section 44's advice was right about `vercel curl` and
+is now incomplete.
 
-  * **`tools/build_artifact.py` repaired**, three real faults, see section 45.
-    It had not run since 27 August and died outright on the first two.
-  * `site.js` and `site.css` comments recording the declines.
+### What shipped
 
-### State, verified before stopping
+  * **The hero photograph, one stop brighter.** `.hero--lit` lifts the SCRIM,
+    not the image, so the water keeps its own contrast. Ground under the
+    headline rgb(55,71,73) to rgb(88,101,101); contrast 8.13:1 to 5.07:1 on
+    the headline, 8.16:1 to 6.66:1 on the sub. Both clear AA. **The sub runs
+    out first if this is ever lifted further.** Home only: `.hero-scrim` is
+    shared with both retreat heroes.
+  * **The About heading off the rule.** It overlapped by 27-38px at 320px and
+    sat within 1px at 360 and 375. Cause: the job title line was added to
+    that copy block after 80svh was measured, and under 390px it wraps to
+    two. `min-height` 80svh to 94svh. **Third time this fails if another line
+    is added, and it fails silently.**
+  * **The hero eyebrow aligned.** Its text sat 40px (390px) to 64px (1440px)
+    right of the headline, the call and the sub, which all shared one edge.
+    The rule now hangs in the margin via `.eyebrow--hang`. 85rem, measured:
+    the rule plus gap is 64px and the space to the content edge is 64.0px at
+    1280 and 88px at 1360. **A first pass at 62rem put the rule 6px off
+    screen from 992 to 1200 and the 1440 screenshot looked perfect.**
+  * **`.vercelignore`**: "April Retreat Gatlinburg April 13th - 18th " added
+    the day it landed. 48 screenshots, 145MB, unreleased location photography
+    for an unannounced retreat. **The folder name has a trailing space.**
+  * **`tools/build_artifact.py` repaired**, three faults, see section 45.
 
-    suite                 453 pass / 0 fail, nine pages
-    tools/seams.py        0 mismatches
-    tools/build.py        clean, dist/ built and current
-    index.html            identical to production but for `hero--lit`
-    site.js               comments only, no functional change
-    git                   main, 0 ahead 0 behind, all of the above unstaged
+### Phase 5 of the brief is closed, and almost none of it was built
 
-### Picking this up
+Tasks 27 and 28 built, published for review and rejected: the full bleed
+photograph stays. Tasks 29, 30 and 32 declined, each asking for something
+this site removed deliberately, with the evidence now in `site.js` section
+7-8-9 and beside `.door`. Task 31 was already done in CSS and better. Tasks
+33 and 34 built and reverted with the rest of the colour work, because the
+colouring is right as it is. **Section 45 has the reasoning. Read it before
+acting on that brief again.**
 
-1. `python3 tools/seams.py` and `sh tools/preview/runsuite.sh "$SP" 8814`
-   should read 0 mismatches and 453 / 0 before anything is touched.
-2. Nothing is waiting on a decision. The next step, whenever she wants it,
-   is to commit this and ship it.
-3. `ship.sh` is the only way to deploy: it carries the conflict copy guard
-   and the post deploy comment check that caught the source being uploaded
-   instead of `dist/`.
-4. Artifacts, both current:
-   home page  https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5
-   colour study, closed  https://claude.ai/code/artifact/51b4a69c-f0f3-46cd-a5df-60515db53415
+### The security and speed pass, 30 August
 
+Security is strong apart from what the deploy was leaking. CSP with per
+script hashes and no `unsafe-inline` for script, HSTS, `frame-ancestors
+none`, `X-Frame-Options DENY`, nosniff, Referrer-Policy, Permissions-Policy,
+COOP same-origin. **Consent gating verified: zero GTM or gtag references in
+the served HTML**, injected only after a choice. 57 of 57 `target="_blank"`
+carry `rel="noopener"`. No secrets; every "token" hit is a CSS design token.
+
+Soft spots, none urgent: `style-src` needs `'unsafe-inline'` for the inline
+`--d:` delays; HSTS is 63072000 on the apex and 31536000 on www with no
+`includeSubDomains`; `mark-horiz-light-1200.webp` is **55KB for a wordmark**
+in the header of every page, the one real image win left.
+
+Speed: TTFB 204ms, all edge hits, network is not the problem. Local A/B
+source against built: **FCP 100ms to 72ms, 622KB to 449KB.** Images are all
+WebP with responsive srcset, fonts self hosted at 120K with two preloaded.
+
+### Open
+
+1. **Nothing asserts the About heading clears the rule.** It has broken twice
+   and will break silently a third time. An assertion at 320 and 375 was
+   offered and not yet taken.
+2. Viewers of the home page artifact are pinned to an earlier version. Fixed
+   from that page's share menu, not from here.
+3. Items 2 to 6 of section 44 are untouched: Angela twice, Angela's source
+   line, the HoneyBook form styling, the sixteen mislabelled scheduling
+   links, and the two pages contradicting their own FAQPage schema.
