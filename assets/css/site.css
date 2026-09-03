@@ -4831,6 +4831,25 @@ main > * { position: relative; z-index: 1; }
   }
 }
 
+/* THE PATH STANDS OFF THE COPY WHEN THE HERO IS ONE COLUMN.
+   Below 62rem `.hero-in` stacks, so its row gap is the space between the
+   ask line, "Or ask me a question first", and the path that follows it.
+   That gap was 32px on a phone and the path read as part of the paragraph
+   above it rather than as its own thing.
+
+   96px, and that number is measured rather than picked: it is the space
+   between the foot of the path and "The difference" heading below it, so
+   the path now sits the same distance from what is above it as from what
+   is below. Cydnie asked for exactly that comparison.
+
+   It has to sit after the max-width 41.99rem block above, which sets
+   `row-gap: var(--s-5)` on the same single class selector; same weight, so
+   order is what decides it. At 62rem and up the hero is two columns, the
+   two are side by side, and none of this applies. */
+@media (max-width: 61.99rem) {
+  .hero-in { row-gap: var(--s-8); }
+}
+
 /* THE STEPPED CONDITION, ON A PHONE.
    ------------------------------------------------------------
    `--cond-run` is how much scroll one recognition is worth, and the note
