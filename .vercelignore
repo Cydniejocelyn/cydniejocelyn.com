@@ -84,3 +84,34 @@ April Retreat Gatlinburg April 13th - 18th /
 # in use. See assets/_unused/README.md. `tools/build.py` warns if assets/img/
 # grows another one.
 assets/_unused/
+
+# THE BACKEND SECRETS AND THE LOCAL ENVIRONMENT.
+# `.env.local` holds three database passwords and the IP hashing salt. It is
+# gitignored, so it would never reach Vercel through git, but `vercel deploy`
+# from this machine uploads the working directory and would carry it. The
+# real values belong in the project's environment variables, not in a file.
+#
+# `.venv` is 777 files of built wheels. Vercel installs from requirements.txt.
+#
+.env
+.env.local
+.env.example
+.venv/
+__pycache__/
+
+# `api/` IS LISTED, AND THAT IS THE SWITCH.
+#
+# Vercel turns every file in api/ into a live serverless function the moment
+# it is uploaded. On this repo a push is a deploy, so committing api/ without
+# this line would put four public write endpoints on cydniejocelyn.com the
+# same minute, and nothing on the site calls them. An endpoint nobody uses is
+# still an endpoint somebody can find: spam, rows, and a bill, for no benefit.
+#
+# The database and the code are kept because they are wanted later. They are
+# kept SWITCHED OFF because "later" is not today.
+#
+# DELETING THE NEXT LINE IS WHAT MAKES THEM LIVE. Before doing it: confirm
+# SITE_DATABASE_URL and IP_SALT are set in the Vercel project, and have a
+# page that actually calls an endpoint, or you have opened a door onto an
+# empty room. See HANDOFF section 51.
+api/

@@ -52,9 +52,32 @@ EXCLUDE_DIRS = {
     # real, it is on disk, and dropping it here makes the drift check below
     # fail with two names that look identical in a terminal.
     "April Retreat Gatlinburg April 13th - 18th ",
+
+    # THE BACKEND. Landed 10 September 2026, and every one of these is here
+    # because the first build after they were written copied all of them
+    # into dist/, which means a push would have served this at
+    # https://cydniejocelyn.com/.env.local:
+    #
+    #     SITE_DATABASE_URL=postgresql://site_api:<the password>@...
+    #
+    # `api/` and `db/` are not static assets. Vercel finds the functions in
+    # `api/` at the repository root on its own; it does not want them in the
+    # output directory, and serving their source would publish the rate
+    # limits, the honeypot field name and the table shape to anyone curious.
+    # `.venv` is 777 files of built wheels.
+    #
+    # NOTE: `api` is deliberately NOT in .vercelignore. Putting it there
+    # would stop the functions deploying at all. check_vercelignore() only
+    # fails on the other direction, so the two lists are allowed to differ
+    # here and this comment is why.
+    "api", "db", ".venv", "__pycache__",
 }
 EXCLUDE_FILES = {"HANDOFF.md", "BRIEF.md", "README.md", "CLAUDE.md",
-                 ".DS_Store", ".vercelignore", ".gitignore"}
+                 ".DS_Store", ".vercelignore", ".gitignore",
+                 # The secrets, and the two files that describe them. See the
+                 # note above; .env.local holds three database passwords and
+                 # the IP hashing salt.
+                 ".env", ".env.local", ".env.example", "requirements.txt"}
 
 
 # ---------- the strippers -------------------------------------------------
@@ -272,6 +295,52 @@ def warn_unreferenced():
         sys.exit(1)
 
 
+
+
+def check_no_secrets():
+    """Fail the build if anything that looks like a credential reached dist/.
+
+    ADDED AFTER IT ACTUALLY HAPPENED, 10 September 2026. The backend landed
+    and the very next build copied `.env.local` into the output directory,
+    because the exclude lists knew about working documents and photography
+    and had never had to know about a secret. Nothing was pushed, but the
+    only thing standing between that build and the database password being
+    served at https://cydniejocelyn.com/.env.local was noticing.
+
+    The exclude lists are the fix. This is the thing that catches the next
+    way in, which will not be a file called .env: a connection string pasted
+    into a page, a token in a data attribute, a key in an inline script.
+    Excluding by name only stops what you thought of.
+
+    It greps the BUILT output, which is the only thing that actually ships.
+    """
+    patterns = (
+        (re.compile(r"postgres(?:ql)?://[^\s\"'<>]*:[^\s\"'<>@]+@"), "a Postgres URL with a password in it"),
+        (re.compile(r"\bIP_SALT\b"),                                   "the IP hashing salt"),
+        (re.compile(r"\b(?:SITE_)?(?:CHECK_)?DATABASE_URL\s*="),       "a DATABASE_URL assignment"),
+        (re.compile(r"\bsk_live_|\bsk_test_|\bxox[baprs]-"),          "an API secret key"),
+        (re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"), "a private key"),
+    )
+    hits = []
+    for dirpath, _dirnames, filenames in os.walk(DIST):
+        for f in filenames:
+            path = os.path.join(dirpath, f)
+            if os.path.splitext(f)[1].lower() in (".webp", ".png", ".jpg", ".woff2", ".ico", ".pdf"):
+                continue
+            try:
+                text = io.open(path, encoding="utf-8", errors="ignore").read()
+            except OSError:
+                continue
+            for rx, what in patterns:
+                if rx.search(text):
+                    hits.append((os.path.relpath(path, DIST), what))
+    if hits:
+        print("SECRETS: the build output contains credentials. Nothing was")
+        print("   deployed. Add the file to EXCLUDE_DIRS or EXCLUDE_FILES above,")
+        print("   then rotate whatever was exposed, because it was on disk.")
+        for p, what in sorted(set(hits)):
+            print("   %-44s %s" % (p, what))
+        sys.exit(1)
 
 
 def check_headers():
@@ -502,6 +571,7 @@ def build():
     purge_icloud_conflicts()
     seal_csp()
     warn_unreferenced()
+    check_no_secrets()
     print("built dist/ at stamp %s" % stamp)
     for ext in sorted(counts):
         n, a, b = counts[ext]

@@ -40,3 +40,16 @@ dist/
 # and it is escaped here because git strips an unescaped trailing space.
 # build.py, .vercelignore and tools/preview/sync.sh all depend on it too.
 April Retreat Gatlinburg April 13th - 18th\ /
+
+# THE BACKEND SECRETS. .env.local holds three database passwords and the IP
+# hashing salt. There is no recovering from committing it: the history is
+# public the moment the repo is, and the credentials would have to be rotated
+# in Neon and in Vercel. .env.example carries the shape with no values.
+.env.local
+.env*.local
+
+# The local Python environment for db/ and api/. requirements.txt is the
+# tracked description of it; this is 40MB of built wheels.
+.venv/
+__pycache__/
+*.pyc

@@ -5475,3 +5475,124 @@ fills with a `::before` and recolours its text at the same moment. Three
 passes were spent on that hover, and the first two each left a real page
 with dark text on a dark fill. Measure the result in a browser; do not
 compute it and assume.
+
+## 51. A database exists, switched off, on purpose
+
+Added 10 September 2026. **Every form on the site is exactly where it was.**
+HoneyBook takes all 28 links and the Flodesk popup stays on `/the-letters/`.
+Cydnie confirmed on the day that both are right. No page markup was touched.
+
+    db suite       30 pass / 0 fail
+    site suite     527 pass / 0 fail, ten pages, unaffected
+    seams          0 mismatches
+    build          clean, and now refuses to ship a secret
+
+### Read this before you get excited about api/
+
+**The endpoints are switched off at the deploy boundary and that is the
+decision, not an oversight.** `api/` is listed in `.vercelignore`. Vercel
+turns every file in `api/` into a live serverless function the moment it is
+uploaded, and on this repo a push is a deploy, so without that line
+committing this would have put four public write endpoints on the live domain
+the same minute, with nothing on the site calling them. An endpoint nobody
+uses is still an endpoint somebody can find.
+
+**Deleting `api/` from `.vercelignore` is what makes them live.** Before
+doing it: confirm `SITE_DATABASE_URL` and `IP_SALT` are set in the Vercel
+project, and have a page that actually calls one, or you have opened a door
+onto an empty room.
+
+`check_vercelignore()` only fails when `.vercelignore` excludes something
+`build.py` does not, so `api` being in both lists is fine and intended.
+
+### Why it exists at all
+
+Asked for, kept "just in case". It was originally built on the reading that
+the site would capture its own signups instead of HoneyBook and Flodesk.
+**That reading was wrong** and the correction came before anything was wired
+or deployed, which is the only reason it cost nothing. The three POST
+endpoints duplicate things that already work.
+
+If it is ever picked up, **the strongest use is the opposite direction**:
+webhook endpoints that RECEIVE from HoneyBook and Flodesk rather than replace
+them. The comment on `/the-letters/` names the problem already, that
+addresses land in two systems and neither knows about the other and both have
+to be exported and merged by hand before a letter goes out. The two tables
+are close to the right shape for that now.
+
+### The near miss, which is the most useful thing in this section
+
+`tools/build.py` copies the tree into `dist/` and skips EXCLUDE_DIRS and
+EXCLUDE_FILES. Those lists knew about working documents and photography.
+They had never had to know about a secret, because there had never been one.
+**The first build after this landed copied `.env.local` into `dist/`**, so a
+push at that moment would have served the database password at
+`https://cydniejocelyn.com/.env.local`, along with `api/`, `db/` and 777
+files of `.venv`.
+
+The exclude lists are fixed. The thing that matters is the second fix:
+`check_no_secrets()` greps the BUILT output for connection strings, key
+prefixes and private key headers and **exits 1**. It was proved by planting a
+file and watching the build refuse. Excluding by name only stops what
+somebody thought of; the next leak will be a connection string pasted into a
+page, not a file called `.env`.
+
+**If it ever fires, nothing deployed, and whatever it names still has to be
+rotated, because it was written to disk.**
+
+### What exists in Neon
+
+A SECOND project, separate from Cydnie Ops deliberately:
+
+    project   Cydnie Jocelyn Site, id old-shape-52826022
+    org       Cydnie Jocelyn, org-quiet-math-76263929
+    region    aws-us-east-2, Postgres 18
+    branch main   empty, 0 rows
+    branch check  a throwaway, wiped and rebuilt by db/check.py
+
+**It is not the Ops database and must not become it.** Ops holds the whole
+client book and its own handoff says authentication there is still open. A
+credential that sits on a public endpoint must not be able to read that.
+
+Two tables. `submissions` and `subscribers`. Both empty.
+
+Vercel already has `SITE_DATABASE_URL` and `IP_SALT`, with production
+pointing at `main` and preview and development at the `check` branch, because
+a preview URL is public. They are inert while `api/` is ignored.
+
+### Decisions worth keeping if this is picked up
+
+**The site does not run as the owner.** It runs as `site_api`, which can
+INSERT and **cannot read a submission back**. Column level SELECT on exactly
+`ip_hash` and `created_at`, so rate limiting can count and nothing else.
+Eleven of the thirty checks are that role being refused.
+
+That caught a real bug rather than theoretically preventing one.
+`subscribe.py` used `returning (xmax = 0)` to tell a new signup from a
+repeat; `xmax` is a system column, column level grants do not cover it, and
+Postgres refused the statement. It now answers the same either way, which
+also closes an enumeration oracle.
+
+**`sslmode=verify-full`, CA resolved in code.** Neon hands out `require`,
+which encrypts and verifies nothing. `sslrootcert=system` is right on
+Vercel's Linux and FAILS on this Mac, because OpenSSL does not read the
+Keychain. Both were tried. `api/_lib/db.py` resolves it once, certifi first,
+so nobody hits the local failure and "fixes" it by weakening production too.
+
+**The raw IP is never stored**, and `hash_ip` fails closed without the salt,
+because an unsalted hash of an IPv4 address is reversible in seconds.
+
+**`setup_role.py` reuses the password by default.** `check.py` drops the
+schema and so must re-apply grants every run; an earlier version issued a
+fresh password each time and silently invalidated `.env.local` and Vercel.
+`--rotate` is how you ask.
+
+### Commands
+
+    .venv/bin/python db/migrate.py            apply migrations to main
+    .venv/bin/python db/migrate.py --check    and to the throwaway
+    .venv/bin/python db/setup_role.py         re-apply grants, reuse password
+    .venv/bin/python db/check.py              30 pass / 0 fail
+
+Run `setup_role.py` after any migration that adds a table. A new table is not
+covered by grants already applied.

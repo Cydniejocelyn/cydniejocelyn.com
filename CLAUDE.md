@@ -1,7 +1,7 @@
 # Working on this site
 
 This file is a pointer, not a second source of truth. **`HANDOFF.md` section
-50 is the current state of the site**, and it carries the launch runbook for
+51 is the current state of the site**, and it carries the launch runbook for
 /retreats/gatlinburg/. Read it before doing anything. Where
 this file and HANDOFF disagree, HANDOFF is right and this file is stale: fix
 it rather than working around it.
@@ -24,6 +24,15 @@ for status, then read one page in a real browser. Do not poll.
 That is a prelaunch Cydnie is running by sending the URL to specific
 people. All four are load bearing and three of them are invisible. Section
 50 has the runbook for undoing them, in order, when she says go.
+
+**There is a database, and it is switched off.** `api/` is in
+`.vercelignore`, so the four endpoints do not deploy and nothing on the site
+calls them. Deleting that line is what makes them live. Every form still goes
+to HoneyBook, and the Flodesk popup on /the-letters/ stays. Section 51.
+
+**The build refuses to ship a secret.** `.env.local` was copied into `dist/`
+once, which a push would have published. If `check_no_secrets()` ever fires,
+nothing deployed, and whatever it names still has to be rotated.
 
 **Run `python3 tools/seams.py` after any change to a section's zone class or
 to section order.** Every section names the ground of the section above it by
