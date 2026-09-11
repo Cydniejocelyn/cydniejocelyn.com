@@ -5513,12 +5513,17 @@ the site would capture its own signups instead of HoneyBook and Flodesk.
 or deployed, which is the only reason it cost nothing. The three POST
 endpoints duplicate things that already work.
 
-If it is ever picked up, **the strongest use is the opposite direction**:
-webhook endpoints that RECEIVE from HoneyBook and Flodesk rather than replace
-them. The comment on `/the-letters/` names the problem already, that
-addresses land in two systems and neither knows about the other and both have
-to be exported and merged by hand before a letter goes out. The two tables
-are close to the right shape for that now.
+**HONEYBOOK AND FLODESK ARE THE CRM. They are not a stopgap.** Cydnie said
+so plainly on 10 September, and a future session should treat replacing them
+as out of scope unless she reopens it. They hold the clients, the bookings,
+the payments and the list. This database holds nothing and is not a rival to
+them.
+
+One idea was raised and she has parked it, so it is recorded here as a note
+and not as a recommendation: webhook endpoints that RECEIVE from HoneyBook
+and Flodesk rather than replace them, because the comment on
+`/the-letters/` already names the cost of two systems that do not know about
+each other. **She said she will worry about that.** Do not start it.
 
 ### The near miss, which is the most useful thing in this section
 
@@ -5596,3 +5601,71 @@ fresh password each time and silently invalidated `.env.local` and Vercel.
 
 Run `setup_role.py` after any migration that adds a table. A new table is not
 covered by grants already applied.
+
+## 52. START HERE. End of the night, 10 September 2026
+
+**Everything is committed, pushed, deployed and verified on www.** Two
+commits tonight, `0c5b8c7` and `ef30cfd`. Both repos clean.
+
+    git                main, level with origin, working tree clean
+    site suite         527 pass / 0 fail, ten pages
+    db suite           30 pass / 0 fail
+    tools/seams.py     0 mismatches
+    production         site 200, every /api/ route 404, no secret served
+    cydnie-ops         untouched tonight, still at 5221f33
+
+### The one thing that decides everything else
+
+**HoneyBook and Flodesk are the CRM.** Every form on the site goes to one of
+them and that is correct and settled. The Flodesk popup on `/the-letters/`
+stays alongside the HoneyBook buttons; her own comment on that page records
+why. Nothing about the site's capture points changed tonight and nothing
+should change without her asking.
+
+### What actually happened tonight
+
+**Two small design fixes to the home hero, live.** The path now stands 96px
+off the ask line on a phone instead of 32, which is the same distance it sits
+from the heading below it, and "The path" took the `.eyebrow` class so it
+carries the same rule "The difference" does. Desktop untouched: above 62rem
+the hero is two columns and the two sit side by side.
+
+**A Neon database for the site, built and then switched off.** Section 51 has
+the whole of it. The short version: it was built on a wrong reading of what
+was wanted, the correction arrived before anything was wired or deployed, and
+Cydnie asked to keep it "just in case". `api/` is in `.vercelignore` so the
+four endpoints do not exist in production. Deleting that line is what makes
+them live.
+
+**A build guard that is worth more than the database.** `.env.local` was
+copied into `dist/` by the first build after the backend landed. A push then
+would have served the database password at `cydniejocelyn.com/.env.local`.
+`check_no_secrets()` now fails the build on a connection string, a key
+prefix or a private key header anywhere in the built output.
+
+### If you pick this up tomorrow
+
+Nothing is half done and nothing is waiting on a decision except the list
+below. The site is in the same shape it was at the end of section 50, plus
+two hero fixes, plus a dormant database.
+
+**The Gatlinburg launch runbook is still section 50** and is still the real
+next piece of work whenever she says go. It has not moved.
+
+### Open, in the order worth doing them
+
+1. **Nobody has checked the four HoneyBook service records against the
+   Gatlinburg page.** The links resolve and people can pay through them.
+   Nobody has confirmed the figures inside them read $2,790, $2,900, $1,490
+   and $1,600. Highest risk item on the list and five minutes of looking.
+2. **The per day figures expire on 1 November 2026.** $558 and $298 hold at
+   the early rate only; after that it is $580 and $320. Updated that day or
+   removed that day.
+3. **The Gatlinburg page is still prelaunch**: noindex in two places, absent
+   from the sitemap, linked from nowhere. Section 50 for how to undo that.
+4. **Every eyebrow on the site except three still sits 40px right of the
+   thing it labels.** Home hero has `--hang`; both retreat heroes now have
+   `--plain`. The rest are section heads, where it matters less. One class
+   each, worth a sweep, not urgent.
+5. Section 48's list is otherwise untouched: the Greece `validFrom` date,
+   Greece's FAQ labels, and items 2 to 6 of section 44.

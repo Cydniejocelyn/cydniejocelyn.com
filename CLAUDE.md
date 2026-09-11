@@ -1,7 +1,7 @@
 # Working on this site
 
 This file is a pointer, not a second source of truth. **`HANDOFF.md` section
-51 is the current state of the site**, and it carries the launch runbook for
+52 is the current state of the site**, and it carries the launch runbook for
 /retreats/gatlinburg/. Read it before doing anything. Where
 this file and HANDOFF disagree, HANDOFF is right and this file is stale: fix
 it rather than working around it.
@@ -24,6 +24,10 @@ for status, then read one page in a real browser. Do not poll.
 That is a prelaunch Cydnie is running by sending the URL to specific
 people. All four are load bearing and three of them are invisible. Section
 50 has the runbook for undoing them, in order, when she says go.
+
+**HoneyBook and Flodesk are the CRM.** Every form on the site goes to one
+of them, including the Flodesk popup on /the-letters/, and that is settled.
+Replacing them is out of scope unless Cydnie reopens it.
 
 **There is a database, and it is switched off.** `api/` is in
 `.vercelignore`, so the four endpoints do not deploy and nothing on the site
