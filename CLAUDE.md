@@ -1,7 +1,7 @@
 # Working on this site
 
 This file is a pointer, not a second source of truth. **`HANDOFF.md` section
-52 is the current state of the site**, and it carries the launch runbook for
+53 is the current state of the site**, and it carries the launch runbook for
 /retreats/gatlinburg/. Read it before doing anything. Where
 this file and HANDOFF disagree, HANDOFF is right and this file is stale: fix
 it rather than working around it.
@@ -37,6 +37,16 @@ to HoneyBook, and the Flodesk popup on /the-letters/ stays. Section 51.
 **The build refuses to ship a secret.** `.env.local` was copied into `dist/`
 once, which a push would have published. If `check_no_secrets()` ever fires,
 nothing deployed, and whatever it names still has to be rotated.
+
+**The site speaks to founders and leaders, not women.** Widened on
+11 September across thirteen strings. The retreats are the exception and
+stay women only, labelled on their own pages. Section 53.
+
+**Never measure a hero from a screenshot.** `tools/shot.sh` returns
+different contrast answers run to run and three attempts at the home hero
+shipped wrong numbers that way. Compute the composite in a browser instead:
+canvas, real object-fit mapping, gradients per pixel, worst pixel under the
+glyphs. Section 53 has the method.
 
 **Run `python3 tools/seams.py` after any change to a section's zone class or
 to section order.** Every section names the ground of the section above it by

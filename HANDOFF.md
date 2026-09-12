@@ -5669,3 +5669,128 @@ next piece of work whenever she says go. It has not moved.
    each, worth a sweep, not urgent.
 5. Section 48's list is otherwise untouched: the Greece `validFrom` date,
    Greece's FAQ labels, and items 2 to 6 of section 44.
+
+## 53. START HERE. End of session twenty-seven, 11 September 2026
+
+**Everything is committed, pushed, deployed and verified on www.** One
+commit, `9546fe5`. Working tree clean.
+
+    git                main, level with origin, clean
+    site suite         527 pass / 0 fail, ten pages
+    tools/seams.py     0 mismatches
+    production         home 200, hero plate live, both new section ids live
+    gatlinburg         still noindex, still linked from nowhere
+    api/               still switched off in .vercelignore
+
+### The three things that changed, and why
+
+**1. The audience is founders and leaders, not women.** Thirteen strings on
+five pages. **This was never a new position.** The home page FAQ has said
+"the brand strategy work is for founders and leaders of any gender" the whole
+time, while every headline, meta description and schema said women. The meta
+description is what Google shows and what every shared link renders as a
+card, so the contradiction was doing real damage. The FAQ was right; the
+headlines were stale.
+
+**Retreats are untouched and stay women only**, labelled that way on their
+own pages. That is the other half of the same FAQ answer and it is a real
+product boundary, not positioning drift. Do not "tidy" it.
+
+The prompt for this was an audit: her own three case studies include
+**Spencer Scott, SRS Performance**, a man, quoted on The Build, while the
+site said the work was for women.
+
+**2. The home page now says what the work is, in its own section.** The
+definitions of brand, operations and business development lived only on The
+Build, below the fold, where a first time visitor never reaches them. They
+are on the home page now, same `.triad` component and the same words so the
+two pages cannot drift.
+
+Then the section was split, because it had grown to three jobs. `#method`
+is "The work", what the work IS. `#offers` is "What it leads to", what you
+can BUY. Different questions from different readers; mixed together the
+first reader had to scroll past prices to learn what the work is. The seam
+below `#offers` was repointed from Surface to `#DCE4E1`.
+
+**3. The hero is a different plate.** Cydnie chose it by pointing at the
+rise band further down the page, the photograph the bubbles come up
+through, `layer-surface`. Cropped to its water it is `hero-rise-*`.
+
+    old plate  hero-line        saturation 0.114
+    new plate  hero-rise        saturation 0.361
+
+**That number is the whole story.** The hero read grey because it was
+desaturated, not because it was dark. She said several times she wanted it
+brighter and every attempt to lighten the scrim made both the greyness and
+the contrast worse. The complaint was never darkness. `hero-line` is retired
+to `assets/_unused/`.
+
+It has its own `.hero--open` modifier. `hero--lit` is shared with
+/retreats/gatlinburg/ and that page is settled.
+
+### How to measure this site's heroes, because three attempts got it wrong
+
+**Do not sample screenshots.** `tools/shot.sh` gives different contrast
+answers run to run, and one of those false passes was reported to Cydnie as
+a success. Three separate attempts at this hero shipped wrong numbers that
+way.
+
+The method that works, and that every current scrim value came from: in a
+real browser, draw the hero image to a canvas using its actual object-fit
+cover mapping and `object-position`, apply each gradient layer per pixel,
+and score the single worst pixel under each run of text against that run's
+ink. Then try candidate gradients and take the lightest with nothing under
+threshold. It is deterministic and it takes one `javascript_tool` call.
+
+Thresholds used: 4.5:1 for body and small caps, 3.0:1 for the large
+headline. Inks: Surface `#E7ECE8` and Muted `#A8C4C0`.
+
+### Two audits exist and are published
+
+Both are artifacts, both were built from the site's own copy and markup.
+
+  * **Who The Site Says You Serve.** Six findings on positioning.
+  * **Five Changes And A Position.** Conversion fixes ranked, plus the
+    category position: *the consultant who tells you the price and the
+    answer before you commit to anything.* Published pricing with no
+    discovery call is genuinely rare and the site treats it as a pricing
+    detail rather than a position.
+
+**Three of those five conversion fixes are still undone**, below.
+
+### Open, in the order worth doing them
+
+1. **The free offer has no buttons and the $300 offer has three.** On the
+   home page: "Book one conversation" has three `.btn`, The Letters has zero
+   and five text links. The lowest friction thing, the one that feeds the
+   retreats and new work first, is the only offer never given a button. One
+   button at the close. This is the highest value item on this list.
+2. **Every paid action leaves the domain.** The contact form is embedded, so
+   questions stay on site. Every booking opens `clients.cydniejocelyn.com`
+   at the moment somebody decided to pay. Embed the Sounding booking on
+   `/a-sounding/` the way contact already embeds its form. Leave the retreat
+   payments outbound.
+3. **Three case studies, zero outcomes.** "Narrowed from general fitness to
+   former competitive athletes" is a judgement most consultants could not
+   defend, and none of the three says what happened next. Needs one
+   defensible number each, **and only Cydnie has them.**
+4. **A stray `</div>` in index.html**, around line 738, in the section with
+   the reaching hand photograph. Pre-existing, committed, live. Browsers
+   ignore an unmatched end tag so nothing looks broken. Three closing divs
+   sit together there and removing the wrong one changes the nesting, so it
+   needs a careful read rather than a guess.
+5. **`reaching-water-*.webp` is unreferenced**, three files, 132KB. The
+   build warns about it every time. Either use it or move it to
+   `assets/_unused/`.
+6. **Nobody has checked the four Gatlinburg HoneyBook records against the
+   page.** People can pay through them. Highest risk item across the whole
+   project and five minutes of looking.
+7. Sections 50 and 52 still stand: the Gatlinburg launch runbook, the
+   1 November per-day figures, and the eyebrow sweep.
+
+### What this session did NOT do, on purpose
+
+  * **Did not touch the retreats.** Three pages, unchanged.
+  * **Did not turn the database on.** `api/` is still in `.vercelignore`.
+  * **Did not change HoneyBook or Flodesk.** They are the CRM. Section 51.
+  * **Did not fix the stray `</div>`**, for the reason above.
