@@ -5107,6 +5107,65 @@ main > * { position: relative; z-index: 1; }
       rgba(7,26,31,.22) 60%, rgba(7,26,31,.74) 90%, var(--fathom) 100%);
 }
 
+/* ---------- 31b. THE HOME HERO ------------------------------
+   `hero--lit` is shared with /retreats/gatlinburg/ and that page is
+   settled, so this is its own modifier and changes nothing there.
+
+   THE PLATE IS THE ONE FROM THE RISE BAND, cropped to its water. Cydnie
+   picked it by pointing at the band further down the page, and the numbers
+   agree with her: the old hero plate is 0.11 saturation, this crop is 0.36,
+   and that gap is the whole of why the hero read grey while the rise band
+   reads rich. Same photograph family, same waterline, three times the
+   colour.
+
+   It is the same file the rise band uses, cropped. That does mean one
+   photograph appears twice on the page, which is a deliberate trade rather
+   than an oversight: the hero shows its water and the band shows its
+   surface, and they are two thirds of one picture.
+
+   The crop is water top to bottom, so there is no pale sky for the copy to
+   sit on and no second phone crop to keep in step. The scrim is therefore
+   much lighter than it had to be before, and it still holds both text
+   columns on a desktop and the full width block on a phone. */
+.hero--open { background: var(--fathom); }
+
+/* Every number below is SOLVED, not chosen. The composite is computed in
+   the browser: the plate drawn to a canvas with its real object-fit cover
+   mapping, both gradient layers applied per pixel, and the single worst
+   pixel under each run of text scored against that run's ink. Candidates
+   were tried and these are the lightest that leave nothing under
+   threshold. Screenshot sampling gave different answers run to run and is
+   what sent three earlier attempts at this hero wrong. */
+.hero--open .hero-scrim {
+  background:
+    linear-gradient(90deg,
+      rgba(7,26,31,.72) 0%, rgba(7,26,31,.66) 56%,
+      rgba(7,26,31,.36) 62%, rgba(7,26,31,.38) 72%,
+      rgba(7,26,31,.68) 77%, rgba(7,26,31,.72) 100%),
+    linear-gradient(180deg,
+      rgba(7,26,31,.52) 0%, rgba(7,26,31,.36) 20%, rgba(7,26,31,.30) 55%,
+      rgba(7,26,31,.40) 78%, rgba(7,26,31,.64) 92%, var(--fathom) 100%);
+}
+
+/* THE PHONE TAKES THE LEFT EDGE OF THE PLATE, NOT THE MIDDLE.
+   The crop is 1800x485 and a phone hero is about 390x978, so `cover` shows
+   a slice roughly a tenth of the plate's width. Centred, that slice is the
+   brightest thing in the photograph, the shafts of light coming down
+   through the surface, and the copy sits straight on it: the eyebrow
+   measured 1.5:1. The left edge of the same plate is open water and gives
+   the words a ground. No across gradient here, because on a phone the copy
+   is a full width block and there is no window to open. */
+@media (max-width: 46rem) {
+  .hero--open .hero-water img { object-position: 0% 50%; }
+  .hero--open .hero-scrim {
+    background:
+      linear-gradient(180deg,
+        rgba(7,26,31,.78) 0%, rgba(7,26,31,.72) 10%, rgba(7,26,31,.62) 24%,
+        rgba(7,26,31,.54) 55%, rgba(7,26,31,.58) 78%, rgba(7,26,31,.72) 92%,
+        var(--fathom) 100%);
+  }
+}
+
 /* ---------- 32. THE FAQ WINDOW, HOME ONLY --------------------
    The home FAQ went from four questions to ten so that every question in
    the FAQPage schema is actually on the page, which Google requires. Ten
