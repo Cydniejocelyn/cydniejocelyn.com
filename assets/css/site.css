@@ -699,6 +699,29 @@ button { font: inherit; color: inherit; }
 
 .hdr-in { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
 .brand { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; line-height: 0; }
+
+/* HER FACE IN THE BAR. A solo practice, so the header says a person before
+   it says a business. It shrinks with the bar rather than holding its size,
+   because a portrait that stays put while everything around it tightens
+   reads as a sticker rather than part of the instrument.
+
+   36px at rest, 31px stuck. The asset is a square crop served at 72 and
+   144 so it is sharp on a retina screen at both sizes and still under 3KB.
+   The ring is Breath at low alpha on dark and Fathom on light, matching
+   what the nav links already do across the same boundary. */
+.hdr-id { display: flex; align-items: center; gap: var(--s-3); min-width: 0; }
+.hdr-face {
+  flex: 0 0 auto; display: block;
+  width: 36px; height: 36px; border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(159, 204, 198, .4);
+  transition: width var(--t-mid) var(--ease-soft),
+              height var(--t-mid) var(--ease-soft),
+              border-color var(--t-mid) var(--ease-soft);
+}
+.hdr.is-stuck .hdr-face { width: 31px; height: 31px; }
+.hdr.is-surfaced .hdr-face { border-color: rgba(12, 40, 48, .28); }
+@media (prefers-reduced-motion: reduce) { .hdr-face { transition: none; } }
 .brand-mark { width: clamp(9.5rem, 16vw, 15rem); height: auto; transition: opacity var(--t-mid) var(--ease-soft); }
 
 /* THE INK MARK IS PAINTED, NOT FETCHED.

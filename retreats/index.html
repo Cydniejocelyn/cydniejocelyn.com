@@ -67,7 +67,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=c9c4d477">
+<link rel="stylesheet" href="../assets/css/site.css?v=1d9b8d4f">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -329,7 +329,7 @@
           "name": "What does it cost and how do I hold a seat?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Greece is $3,265 at the early rate through 6 September 2026 and $3,450 after that, with a $500 non-refundable deposit. April 2027 is not priced yet; when it is, the letters hear first. Every figure is published on the retreat’s own page."
+            "text": "Greece is $3,450, with a $500 non-refundable deposit. April 2027 is not priced yet; when it is, the letters hear first. Every figure is published on the retreat’s own page."
           }
         },
         {
@@ -382,12 +382,23 @@
      Do not put an id back on this element. -->
 <header class="hdr">
   <div class="wrap hdr-in">
-    <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
+    <!-- THE FACE. This is a solo practice and she is the product, so the
+         header carries her rather than only the wordmark. It sits OUTSIDE
+         the brand anchor on purpose: `.brand` paints the ink wordmark as a
+         background-image once the reader has surfaced, and anything placed
+         inside it would sit on top of that swap. -->
+    <div class="hdr-id">
+      <img class="hdr-face" src="../assets/img/cydnie-face-72.webp"
+           srcset="../assets/img/cydnie-face-72.webp 72w, ../assets/img/cydnie-face-144.webp 144w"
+           sizes="36px" width="72" height="72" decoding="async"
+           alt="Cydnie Jocelyn">
+      <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
       <img class="brand-mark brand-mark--light" src="../assets/img/mark-horiz-light-800.webp"
            srcset="../assets/img/mark-horiz-light-500.webp 500w, ../assets/img/mark-horiz-light-800.webp 800w, ../assets/img/mark-horiz-light-1200.webp 1200w"
            sizes="(min-width: 56rem) 240px, 180px" width="2198" height="410" decoding="async"
            alt="Cydnie Jocelyn, the resurfacing business">
-    </a>
+      </a>
+    </div>
     <nav class="nav" aria-label="Primary">
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
         <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
@@ -465,7 +476,7 @@
         <!-- The figure was 1,292 words down, 71% of the page, on a page a
            woman reaches from an ad. April is genuinely unpriced, so this
            says what is known rather than guessing at what is not. -->
-      <div><dt>Greece</dt><dd>From $3,265</dd></div>
+      <div><dt>Greece</dt><dd>$3,450</dd></div>
       <div><dt>Preparation</dt><dd>None</dd></div>
       </dl>
     </div>
@@ -979,7 +990,7 @@
           <div class="faq">
             <details>
               <summary>What does it cost and how do I hold a seat? <span class="sign" aria-hidden="true"></span></summary>
-              <div class="answer"><p>Greece is $3,265 at the early rate through 6 September 2026 and $3,450 after that, with a $500 non-refundable deposit. April 2027 is not priced yet; when it is, <a class="link" href="/the-letters/">the letters</a> hear first. Every figure is published on the retreat&rsquo;s own page.</p></div>
+              <div class="answer"><p>Greece is $3,450, with a $500 non-refundable deposit. April 2027 is not priced yet; when it is, <a class="link" href="/the-letters/">the letters</a> hear first. Every figure is published on the retreat&rsquo;s own page.</p></div>
             </details>
             <details>
               <summary>Do I need travel insurance? <span class="sign" aria-hidden="true"></span></summary>
@@ -1111,13 +1122,13 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=c9c4d477" defer></script>
+<script src="../assets/js/site.js?v=1d9b8d4f" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=c9c4d477" defer></script>
-<script src="../assets/js/consent.js?v=c9c4d477" defer></script>
+<script src="../assets/js/analytics.js?v=1d9b8d4f" defer></script>
+<script src="../assets/js/consent.js?v=1d9b8d4f" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

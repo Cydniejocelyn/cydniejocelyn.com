@@ -74,7 +74,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=c9c4d477">
+<link rel="stylesheet" href="../assets/css/site.css?v=1d9b8d4f">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -114,12 +114,23 @@
      Do not put an id back on this element. -->
 <header class="hdr hdr--bare">
   <div class="wrap hdr-in">
-    <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
+    <!-- THE FACE. This is a solo practice and she is the product, so the
+         header carries her rather than only the wordmark. It sits OUTSIDE
+         the brand anchor on purpose: `.brand` paints the ink wordmark as a
+         background-image once the reader has surfaced, and anything placed
+         inside it would sit on top of that swap. -->
+    <div class="hdr-id">
+      <img class="hdr-face" src="../assets/img/cydnie-face-72.webp"
+           srcset="../assets/img/cydnie-face-72.webp 72w, ../assets/img/cydnie-face-144.webp 144w"
+           sizes="36px" width="72" height="72" decoding="async"
+           alt="Cydnie Jocelyn">
+      <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
       <img class="brand-mark brand-mark--light" src="../assets/img/mark-horiz-light-800.webp"
            srcset="../assets/img/mark-horiz-light-500.webp 500w, ../assets/img/mark-horiz-light-800.webp 800w, ../assets/img/mark-horiz-light-1200.webp 1200w"
            sizes="(min-width: 56rem) 240px, 180px" width="2198" height="410" decoding="async"
            alt="Cydnie Jocelyn, the resurfacing business">
-    </a>
+      </a>
+    </div>
     <nav class="nav" aria-label="Primary">
       <a class="btn btn--ink" href="#sounding">
         <span>A Sounding</span>
@@ -342,13 +353,13 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=c9c4d477" defer></script>
+<script src="../assets/js/site.js?v=1d9b8d4f" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=c9c4d477" defer></script>
-<script src="../assets/js/consent.js?v=c9c4d477" defer></script>
+<script src="../assets/js/analytics.js?v=1d9b8d4f" defer></script>
+<script src="../assets/js/consent.js?v=1d9b8d4f" defer></script>
 
 <!-- No A Sounding popup here, and /thequestions is also in SKIP_PATHS in
      sounding-popup.js so the exclusion survives someone pasting the tag on

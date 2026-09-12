@@ -67,7 +67,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/site.css?v=c9c4d477">
+<link rel="stylesheet" href="../../assets/css/site.css?v=1d9b8d4f">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -294,16 +294,6 @@
       "offers": [
         {
           "@type": "Offer",
-          "name": "Early rate, through 6 September 2026",
-          "price": "3265",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/SoldOut",
-          "url": "https://cydniejocelyn.com/retreats/greece/#booking",
-          "validFrom": "2026-08-25",
-          "validThrough": "2026-09-06"
-        },
-        {
-          "@type": "Offer",
           "name": "Standard rate, from 7 September 2026",
           "price": "3450",
           "priceCurrency": "USD",
@@ -322,7 +312,7 @@
           "name": "Are there still seats for the Greece retreat?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. All fifteen seats are taken. The waitlist is open and is called in order when a seat opens. If that opening comes on or before 6 September 2026, the early rate of $3,265 stands whatever the calendar says."
+            "text": "No. All fifteen seats are taken. The waitlist is open and is called in order when a seat opens."
           }
         },
         {
@@ -431,12 +421,23 @@
      Do not put an id back on this element. -->
 <header class="hdr">
   <div class="wrap hdr-in">
-    <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
+    <!-- THE FACE. This is a solo practice and she is the product, so the
+         header carries her rather than only the wordmark. It sits OUTSIDE
+         the brand anchor on purpose: `.brand` paints the ink wordmark as a
+         background-image once the reader has surfaced, and anything placed
+         inside it would sit on top of that swap. -->
+    <div class="hdr-id">
+      <img class="hdr-face" src="../../assets/img/cydnie-face-72.webp"
+           srcset="../../assets/img/cydnie-face-72.webp 72w, ../../assets/img/cydnie-face-144.webp 144w"
+           sizes="36px" width="72" height="72" decoding="async"
+           alt="Cydnie Jocelyn">
+      <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
       <img class="brand-mark brand-mark--light" src="../../assets/img/mark-horiz-light-800.webp"
            srcset="../../assets/img/mark-horiz-light-500.webp 500w, ../../assets/img/mark-horiz-light-800.webp 800w, ../../assets/img/mark-horiz-light-1200.webp 1200w"
            sizes="(min-width: 56rem) 240px, 180px" width="2198" height="410" decoding="async"
            alt="Cydnie Jocelyn, the resurfacing business">
-    </a>
+      </a>
+    </div>
     <nav class="nav" aria-label="Primary">
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
         <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
@@ -523,7 +524,7 @@
       <!-- The price was 1,335 words down. It is known, it is published
            further down anyway, and a woman weighing eight days should see
            it before she reads about the village. -->
-      <div><dt>Price</dt><dd>From $3,265</dd></div>
+      <div><dt>Price</dt><dd>$3,450</dd></div>
       </dl>
     </div>
   </div>
@@ -1080,17 +1081,13 @@
     <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
     <div class="body stack r-up" style="--d:60ms; margin-top:var(--s-5)">
       <p>The price is below anyway, because you should be able to see what a thing costs before you decide whether to wait for it. Shared room, twin beds, private bathroom. One room type, one price, and no single occupancy option.</p>
-      <p>Choose how you would pay and you go on the list. When a seat opens I call the list in order, and if that opening comes on or before 6 September 2026, you get the early rate whatever the calendar says.</p>
+      <p>Choose how you would pay and you go on the list. When a seat opens I call the list in order.</p>
     </div>
 
-    <dl class="rt-rates r-up" style="--d:120ms">
+    <dl class="rt-rates r-up" style="--d:120ms; grid-template-columns:1fr; max-width:26rem">
       <div class="rt-rate">
-        <dt>Early rate, through 6 September 2026</dt>
-        <dd><b>$3,265</b><p>Held for any seat that opens on or before that date.</p></dd>
-      </div>
-      <div class="rt-rate">
-        <dt>Standard rate, from 7 September 2026</dt>
-        <dd><b>$3,450</b><p>Applies to seats that open after the early date passes.</p></dd>
+        <dt>The seat</dt>
+        <dd><b>$3,450</b><p>The price for any seat that opens on the list.</p></dd>
       </div>
     </dl>
 
@@ -1191,7 +1188,7 @@
     <div class="faq faq--two r-up" style="margin-top:clamp(var(--s-5),5vw,var(--s-6))">
       <details>
         <summary>Are there still seats? <span class="sign" aria-hidden="true"></span></summary>
-        <div class="answer"><p>No. All fifteen are taken. The list is open and I call it in order when a seat opens, which does happen. If that opening comes on or before 6 September 2026, the early rate stands whatever the calendar says.</p></div>
+        <div class="answer"><p>No. All fifteen are taken. The list is open and I call it in order when a seat opens, which does happen.</p></div>
       </details>
       <details>
         <summary>Is there a single room? <span class="sign" aria-hidden="true"></span></summary>
@@ -1404,12 +1401,12 @@
   </div>
 </footer>
 
-<script src="../../assets/js/site.js?v=c9c4d477" defer></script>
+<script src="../../assets/js/site.js?v=1d9b8d4f" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../../assets/js/analytics.js?v=c9c4d477" defer></script>
-<script src="../../assets/js/consent.js?v=c9c4d477" defer></script>
+<script src="../../assets/js/analytics.js?v=1d9b8d4f" defer></script>
+<script src="../../assets/js/consent.js?v=1d9b8d4f" defer></script>
 </body>
 </html>

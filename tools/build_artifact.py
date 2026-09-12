@@ -106,9 +106,16 @@ css = re.sub(r"url\(\.\./img/([^)]+)\)", inline_css_img, css)
 PICK = {
     "reaching-shadow":    "reaching-shadow-632.webp",
     "cydnie-reading":     "cydnie-reading-1000.webp",
-    "hero-line":          "hero-line-1717.webp",
+    # The hero plate changed in session twenty-seven: hero-line was retired
+    # to assets/_unused/ and hero-rise, the rise band photograph cropped to
+    # its water, took its place. A stale stem here is skipped, but the new
+    # one being absent is fatal, which is how this was caught.
+    "hero-rise":          "hero-rise-1400.webp",
     "cydnie-veil":        "cydnie-veil-1100.webp",
     "cydnie-hero":        "cydnie-hero-1400.webp",
+    # The header portrait. 144 rather than 72 so the fold is sharp on a
+    # retina screen at the 36px the bar renders it at.
+    "cydnie-face":        "cydnie-face-144.webp",
     "layer-surface":      "layer-surface-1200.webp",
     "cydnie-reading":     "cydnie-reading-1000.webp",
     "armonia-arch":       "armonia-arch-900.webp",
