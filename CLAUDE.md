@@ -1,7 +1,7 @@
 # Working on this site
 
 This file is a pointer, not a second source of truth. **`HANDOFF.md` section
-53 is the current state of the site**, and it carries the launch runbook for
+56 is the current state of the site**, and it carries the launch runbook for
 /retreats/gatlinburg/. Read it before doing anything. Where
 this file and HANDOFF disagree, HANDOFF is right and this file is stale: fix
 it rather than working around it.

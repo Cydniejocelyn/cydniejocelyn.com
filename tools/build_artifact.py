@@ -251,7 +251,7 @@ body = re.sub(r'<script src="assets/js/site\.js[^"]*" defer></script>', "", body
 # An artifact is one page, so a link to another page of the site has nothing
 # to reach. Rewriting `/#retreat` to `#retreat` made twelve dead anchors that
 # swallowed the click silently; absolute URLs at least say where they go.
-SITE = "https://cydniejocelyn.com"
+SITE = "https://www.cydniejocelyn.com"
 
 # The two pages are published as two artifacts, so a cross page link inside
 # one of them is pointed at the other one's artifact. Without this, About in

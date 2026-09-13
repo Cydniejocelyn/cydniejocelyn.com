@@ -31,7 +31,7 @@ PAGE = """<!doctype html><meta charset="utf-8">
   <h1>You are unsubscribed.</h1>
   <p>You will not get The Letters again. Nothing else changes, and you are
      welcome back whenever you want.</p>
-  <p><a href="https://cydniejocelyn.com/">cydniejocelyn.com</a></p>
+  <p><a href="https://www.cydniejocelyn.com/">cydniejocelyn.com</a></p>
 </main>"""
 
 

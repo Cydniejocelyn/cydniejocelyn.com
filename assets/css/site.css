@@ -783,6 +783,8 @@ button { font: inherit; color: inherit; }
 /* Desktop: the wrapper is not a box, so the list and the button stay direct
    children of .nav and the row is exactly what it was. */
 .nav-menu { display: contents; }
+/* Descriptors exist for the phone menu only; the desktop bar stays as it is. */
+.nav-desc { display: none; }
 
 /* `has-menu` is set by site.js. Without it none of the collapsing below
    applies, so a phone with no JS gets the links as a plain stacked list
@@ -826,6 +828,9 @@ button { font: inherit; color: inherit; }
     font-size: 1rem; letter-spacing: .14em; color: var(--muted);
   }
   .has-menu .nav-links a[aria-current="page"] { color: var(--breath); }
+  /* Phase 4.4: a short descriptor after The Build and The Letters, in the
+     phone menu only. The brief keeps the desktop nav exactly as it is. */
+  .nav-desc { display: inline; text-transform: none; letter-spacing: .02em; color: var(--faint); white-space: pre; }
 
   .has-menu .nav-menu .btn {
     display: flex; width: 100%; margin-top: var(--s-5);
@@ -1070,22 +1075,42 @@ button { font: inherit; color: inherit; }
 /* The scrim is not decoration, it is the reason the type is readable on a
    photograph. Dark and near solid where the words are, gone by the middle,
    and a fade at each edge so the header and the seam below both hold. */
+/* THE HOME HERO HAS NO SCRIM AT ALL. Cydnie, 12 September 2026: "I want the
+   original and no changes to it. Remove the skim all the way."
+
+   The photograph is untouched and nothing is laid over it, so it reads at the
+   brightness it was shot at. What made that possible was moving the words,
+   not tinting the picture. Measured on the bare plate, the ground under the
+   headline ran from 0.006 to 0.976 relative luminance: it crosses the
+   waterline, so a single line of type had near black under one half of it and
+   near white under the other. No ink colour survives that range, which is why
+   changing the font colour was not the answer either.
+
+   The copy block now sits in the water BELOW the surface line, where the
+   ground is 0.05 to 0.19 and uniform. Light ink holds across all of it, the
+   sky and the waterline stay fully visible and fully bright above the type,
+   and the words are literally under the surface, which is the argument the
+   headline is making.
+
+   The retreat heroes keep their scrim: their plates are bright where their
+   words are and they have not been re-composed. */
+/* THE SHARED SCRIM, RESTORED 12 September. It was deleted in the home hero
+   rework, when the home page moved onto its own `.hero--open` scrim, and
+   /retreats/ is the one hero with no modifier, so it was left with nothing:
+   Surface type straight onto a pale sky. Production still had it. This is
+   the HEAD version, byte for byte, and it reaches only heroes without a
+   modifier that sets its own background. */
 .hero-scrim {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    /* across: near solid under the words, gone by the far side */
-    /* The far side used to fall to .12 because the old plate was uniformly
-       dark there. This one has bright sky on the right, which is where the
-       path rail stands, so it does not fall as far. */
     linear-gradient(90deg,
       rgba(7,26,31,.92) 0%, rgba(7,26,31,.84) 30%,
       rgba(7,26,31,.56) 56%, rgba(7,26,31,.38) 80%, rgba(7,26,31,.32) 100%),
-    /* down: the surface is allowed to stay bright, the foot goes to ground
-       so the seam into the condition is not a band */
     linear-gradient(180deg,
       rgba(7,26,31,.72) 0%, rgba(7,26,31,.40) 9%, rgba(7,26,31,.06) 22%,
       rgba(7,26,31,.28) 60%, rgba(7,26,31,.80) 90%, var(--fathom) 100%);
 }
+
 
 /* A photograph that is bright exactly where the words are. Both retreat
    heroes are: a pool at noon and a lit house against a dusk sky. The shared
@@ -1109,6 +1134,7 @@ button { font: inherit; color: inherit; }
 }
 
 .hero-copy { max-width: 42rem; }
+
 
 /* Hero only. Everywhere else the carved face is sentence case; here it is
    set as an inscription, which is the one place on the page that earns it. */
@@ -1147,11 +1173,31 @@ button { font: inherit; color: inherit; }
   font-size: clamp(1.35rem, 2.06vw, 1.63rem);
   line-height: 1.3; letter-spacing: .03em; color: var(--surface);
 }
+/* THE CATEGORY LINE, PROMOTED. It used to be the smallest type in the hero
+   and the fourth thing read, under a headline that says what is wrong and a
+   line that says it again. It is the only sentence up here that says what
+   the business actually sells, so it now sits directly under the H1 at a
+   size the eye stops on. Surface rather than the muted teal for the same
+   reason. */
 .hero-sub {
-  margin: var(--s-4) 0 0;
-  max-width: 32rem;
-  font-size: 1.0625rem; line-height: 1.6; color: #A8C4C0;
+  margin: clamp(var(--s-4), 3vh, var(--s-5)) 0 0;
+  max-width: 36rem;
+  font-size: clamp(1.0625rem, 1.35vw, 1.1875rem);
+  line-height: 1.55; color: var(--surface);
 }
+/* Three names, no logos. At this size a logo wall is five unreadable marks,
+   and the names carry more than the drawings would. Tracked caps so it reads
+   as a credit line rather than as another sentence. */
+/* Surface, not Faint. Measured: this strip sits on water at 0.03 to 0.09
+   luminance, which is plenty dark, and Faint still only reached 2.6:1 because
+   Faint is dim. The ground was never the problem here, the ink was. */
+.hero-clients {
+  margin: clamp(var(--s-5), 4vh, var(--s-6)) 0 0;
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--surface);
+}
+.hero-clients span { margin: 0 .5em; opacity: .6; }
 
 /* The two ways out of the hero, in the same register: tracked caps on a
    rule, the way the reference sets them. The paid one is the warm one. */
@@ -1466,6 +1512,415 @@ button { font: inherit; color: inherit; }
   object-fit: cover; object-position: 50% 38%;
 }
 
+/* The thesis clause, moved out of the hero. It completes the headline, so it
+   opens the section the headline is about rather than crowding the hero. */
+.cond-hinge {
+  margin: var(--s-4) 0 0;
+  font-family: var(--carved); font-style: italic;
+  font-size: clamp(1.125rem, 1.9vw, 1.4375rem);
+  line-height: 1.35; color: var(--muted); max-width: 34rem;
+}
+/* The deliverables, moved out of the hero into the section that sells them. */
+.method-scope { color: var(--muted); }
+
+/* ---------- 11c. MELISSA ------------------------------------------
+   THE FADE WAS ALREADY THERE AND YOU COULD NOT SEE IT. `.rt-play img` is in
+   the soft edge mask list with every other photograph on the site, but
+   `.rt-play` paints Fathom behind it, and on a Surface section that fades the
+   picture into a black rectangle instead of into the page. No background on
+   a light ground, and the edges do what they do everywhere else.
+
+   `.melissa .rt-play`, not `.melissa-play`: `.rt-play` ties a single class on
+   specificity and sits later in the file, so the short selector loses.
+
+   THIRD LAYOUT. A small portrait beside a two line quote left a third of the
+   row empty. A dark panel made a feature of it and boxed it in. This one
+   gives the quote the weight it has earned and the video real size, side by
+   side, with the quote first because the words are what carry somebody into
+   pressing play. */
+/* ON THE PAGE EDGE, 12 September. It was a 60rem block centred in a 73.5rem
+   wrap, so the quote started 108px right of every other heading on the page
+   and the carousel above it. It now spans the wrap: quote on the shared left
+   edge, video on the shared right edge. */
+.melissa {
+  display: grid; gap: clamp(var(--s-5), 5vw, var(--s-8));
+  align-items: center; justify-items: start;
+}
+@media (min-width: 48rem) {
+  .melissa { grid-template-columns: minmax(0, 1fr) minmax(0, 24rem); }
+  .melissa .rt-play { justify-self: end; }
+}
+.melissa .rt-play { background: none; max-width: 24rem; width: 100%; }
+.melissa-say { margin: 0; display: flex; flex-direction: column; gap: var(--s-4); }
+.melissa-say blockquote {
+  margin: 0; font-family: var(--carved); font-style: italic; font-weight: 400;
+  font-size: clamp(1.9rem, 4.6vw, 3.1rem); line-height: 1.14;
+  color: var(--ink); text-wrap: balance;
+}
+.melissa-say blockquote::before { content: "\201C"; }
+.melissa-say blockquote::after  { content: "\201D"; }
+.melissa-say figcaption { font-size: .9375rem; color: var(--muted); }
+.melissa-say figcaption span { display: block; color: var(--faint); margin-top: var(--s-2); }
+
+/* ---------- 11d. START HERE, THE OFFER AS A DECISION ----------------
+   `.decide` and `.offer-cost`, NOT `.offer` and `.offer-price`: those two
+   names already belonged to /the-build/ price cards further down this file,
+   and sharing them put a grid template on every card on that page.
+
+   Fourth layout. The centred stack before it was the only section on the
+   page off the shared left edge, and it spread the decision down the
+   section: price in a row of three, button a screen below, the objections
+   a screen below that. Cydnie asked for a layout built to convert.
+
+   So the page's own grammar, used for a sale:
+     left   the promise, what happens in order, then the objections
+     right  the decision, in one card: price, what it comes off, the
+            button, and the way to ask instead
+   The card rides beside everything on the left, so the button is in view
+   while the reader is working through what she gets and what worries her.
+   It is NOT sticky: the brand guide forbids sticky elements and a card that
+   follows you is a sticky bar with better manners.
+
+   On a phone the order is headline, card, steps, objections. The card
+   comes second so the ask is not four screens down.
+
+   The two steps ARE numbered, unlike the pillars, because they are a
+   sequence: the conversation happens and then the writing arrives. */
+.decide {
+  display: grid; gap: clamp(var(--s-5), 4vw, var(--s-6));
+  grid-template-areas: "head" "card" "steps" "rev";
+}
+.offer-head  { grid-area: head; }
+.offer-steps { grid-area: steps; }
+.offer-card  { grid-area: card; }
+.offer-rev   { grid-area: rev; }
+.offer-head .eyebrow { margin-bottom: var(--s-4); }
+.offer-head h2 { max-width: 16ch; margin: 0; }
+
+@media (min-width: 62rem) {
+  .decide {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-areas: "head card" "steps card" "rev card";
+    grid-template-rows: auto auto 1fr;
+    column-gap: clamp(var(--s-7), 8vw, var(--s-9));
+    row-gap: var(--s-6);
+  }
+  .offer-card { align-self: start; margin-top: var(--s-2); }
+}
+
+/* The steps: a rule runs down the left and draws as the section arrives,
+   with the number sitting on it. Transform only, and it rests drawn, so a
+   stalled animation leaves the rule in place rather than missing. */
+.offer-steps {
+  position: relative; list-style: none; margin: 0; padding: 0 0 0 var(--s-6);
+  display: grid; gap: var(--s-5); counter-reset: step;
+}
+.offer-steps::before {
+  content: ""; position: absolute; left: .75rem; top: .5rem; bottom: .5rem;
+  width: 1px; background: var(--rule); transform-origin: top;
+}
+.offer-steps li { position: relative; counter-increment: step; }
+.offer-steps li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute; left: calc(-1 * var(--s-6)); top: 0;
+  width: 1.5rem; padding-block: .2rem; text-align: center;
+  background: var(--field);
+  font-family: var(--utility); font-size: .625rem; letter-spacing: .12em; color: var(--label);
+}
+.offer-step-k {
+  margin: 0; font-family: var(--utility); font-size: .625rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--label); line-height: 1.9;
+}
+.offer-step-v { margin: var(--s-2) 0 0; font-size: 1.0625rem; line-height: 1.6; color: var(--ink); max-width: 34rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion .offer-steps.r-up::before { transform: scaleY(0); transition: transform 1100ms var(--ease-out) 200ms; }
+  .js-motion .offer-steps.is-in::before { transform: scaleY(1); }
+}
+
+/* The card. Lifted off the water by a faint Breath wash and a Breath
+   hairline, with a waterline across the top that draws in as it rises. */
+.offer-card {
+  position: relative; isolation: isolate;
+  padding: clamp(var(--s-5), 3.4vw, var(--s-6));
+  background: rgba(159, 204, 198, .06);
+  border: 1px solid rgba(159, 204, 198, .28);
+  box-shadow: 0 30px 80px -40px rgba(0, 0, 0, .55);
+}
+.offer-card::before {
+  content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 2px;
+  background: var(--breath); transform-origin: left;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion .offer-card.r-up::before { transform: scaleX(0); transition: transform 1000ms var(--ease-out) 380ms; }
+  .js-motion .offer-card.is-in::before { transform: scaleX(1); }
+}
+.offer-card-k {
+  margin: 0; font-family: var(--utility); font-size: .625rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--label);
+}
+.offer-cost { margin: var(--s-3) 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-2) var(--s-3); }
+.offer-cost b {
+  font-family: var(--carved); font-weight: 400; color: var(--ink);
+  font-size: clamp(3rem, 6vw, 4.25rem); line-height: 1;
+}
+.offer-cost span { font-size: .9375rem; color: var(--muted); }
+.offer-btn { width: 100%; justify-content: space-between; margin-top: var(--s-5); }
+.offer-more { margin: var(--s-4) 0 0; font-size: .875rem; }
+.offer-ask {
+  margin: var(--s-4) 0 0; padding-top: var(--s-4); border-top: 1px solid var(--rule);
+  font-size: .875rem; line-height: 1.6; color: var(--muted);
+}
+
+/* The objections, under a hairline, left column. Untouched interaction. */
+.offer-rev {
+  padding-top: clamp(var(--s-5), 4vh, var(--s-6));
+  border-top: 1px solid var(--rule); max-width: 40rem;
+}
+
+/* ---------- 11a. THE DESCENT RULE ---------------------------------
+   Section 3 was a wall of prose. This is the hero path rail's vocabulary,
+   moved to the one block on the page that actually enumerates three things:
+   a rule down the left that draws as the section arrives, and a pip that
+   lights as each pillar rises onto it.
+
+   It is not numbered and it must not become numbered. These are three things
+   held at once, not a sequence, and the note on The Build says the same.
+
+   The rule rests DRAWN. A keyframe from scaleY(0) would leave it invisible
+   for as long as it sat on its first frame, which is the same trap the
+   waterline rules are written around. */
+.triad-rail { position: relative; }
+@media (min-width: 48rem) { .triad-rail { padding-left: var(--s-6); } }
+
+/* ---------- 11b-i. THE THREE, HELD ------------------------------
+   REPLACED THE FLIP CARDS, 12 September. Three rounds of fixes to the flip
+   (perspective on the wrong element, a hover gate, a focus state that held
+   cards turned) each passed every test run from here, and Cydnie still
+   reported it broken in the viewer she reviews in. A 3D card with two faces
+   has more ways to fail than the section is worth, so the whole mechanism is
+   gone: no `preserve-3d`, no `backface-visibility`, no hidden face.
+
+   What replaced it is three panels in a row and one of them is always open.
+   The open one widens, a waterline draws across its top, light rises from
+   its floor, and the detail surfaces into it. The other two narrow to their
+   name and one line. Hover opens a panel where hover is real, a click or a
+   tap opens it everywhere, and the buttons are real buttons. Enter and Space
+   are also handled on keydown, so a key that reaches the page without its
+   synthetic click still opens the panel. Under 62rem it is the same
+   thing stacked: one open, the rest closed to their names.
+
+   ALWAYS ONE OPEN, which is what makes it impossible to get stuck. There is
+   no "back" state to fail to return to. Choosing a panel is the only action
+   and it always does something visible.
+
+   IT FAILS OPEN. Nothing collapses until site.js adds `.is-live`, so with no
+   script all three panels show their detail. Reduced motion keeps the
+   interaction and drops every transition. */
+.held { display: grid; gap: var(--s-4); margin: 0 0 var(--s-6); }
+@media (min-width: 62rem) { .held { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.held-p {
+  position: relative; isolation: isolate; overflow: hidden;
+  border: 1px solid var(--rule); background: transparent;
+  transition: border-color var(--t-mid) var(--ease-out), box-shadow 700ms var(--ease-out);
+}
+.held-h { margin: 0; }
+.held-b {
+  display: grid; grid-template-columns: 1fr auto; column-gap: var(--s-3); row-gap: var(--s-1);
+  align-items: start; width: 100%; margin: 0; border: 0; border-radius: 0;
+  background: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+  padding: clamp(var(--s-4), 2.4vw, var(--s-5)) clamp(var(--s-4), 2.4vw, var(--s-5)) var(--s-3);
+}
+.held-b:focus-visible { outline: 2px solid var(--focus); outline-offset: -4px; }
+.held-name { display: block; font-family: var(--carved); line-height: 1.1; color: var(--ink); }
+.held-teaser { grid-column: 1; display: block; color: var(--muted); font-size: .9375rem; }
+.held-cue {
+  grid-column: 2; grid-row: 1 / span 2; position: relative;
+  width: 14px; height: 14px; margin-top: .45em; color: var(--label);
+}
+.held-cue::before, .held-cue::after {
+  content: ""; position: absolute; left: 0; top: 6.5px; width: 14px; height: 1px;
+  background: currentColor; transition: transform var(--t-mid) var(--ease-out);
+}
+.held-cue::after { transform: rotate(90deg); }
+/* The padding lives on the paragraph, not on its wrapper: a closed row is
+   `0fr`, and padding on the wrapper would survive the collapse as a strip. */
+.held-d-in p {
+  margin: 0; color: var(--muted); font-size: .9375rem;
+  padding: 0 clamp(var(--s-4), 2.4vw, var(--s-5)) clamp(var(--s-4), 2.4vw, var(--s-5));
+}
+
+/* The waterline and the light. Both sit behind the text and neither moves
+   until a panel opens. */
+.held-p::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: var(--meniscus); transform: scaleX(0); transform-origin: left;
+  transition: transform 900ms var(--ease-out);
+}
+.held-p::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(to top, rgba(159, 204, 198, .30), rgba(159, 204, 198, 0) 65%);
+  opacity: 0; transform: translateY(18%);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+}
+
+/* ---- live: one open, the rest closed ---- */
+.held.is-live .held-p.is-open {
+  border-color: rgba(47, 90, 97, .42);
+  box-shadow: 0 0 0 1px rgba(159, 204, 198, .55), 0 28px 70px -34px rgba(12, 40, 48, .38);
+}
+.held.is-live .held-p.is-open::before { transform: scaleX(1); }
+.held.is-live .held-p.is-open::after  { opacity: 1; transform: none; }
+.held.is-live .held-p.is-open .held-cue::after { transform: rotate(0deg); }
+.held.is-live .held-p:not(.is-open) { cursor: pointer; }
+.held.is-live .held-p:not(.is-open):hover { border-color: rgba(47, 90, 97, .34); }
+
+.held.is-live .held-d {
+  display: grid; grid-template-rows: 0fr; visibility: hidden;
+  transition: grid-template-rows 650ms var(--ease-out), visibility 0s linear 650ms;
+}
+.held.is-live .is-open .held-d {
+  grid-template-rows: 1fr; visibility: visible;
+  transition: grid-template-rows 650ms var(--ease-out), visibility 0s;
+}
+.held.is-live .held-d-in { min-height: 0; overflow: hidden; }
+.held.is-live .held-d-in p {
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out);
+}
+.held.is-live .is-open .held-d-in p {
+  opacity: 1; transform: none;
+  transition: opacity 500ms var(--ease-out) 260ms, transform 700ms var(--ease-out) 260ms;
+}
+
+/* Wide: the open panel takes the room. The detail waits 260ms so it arrives
+   into a column that has mostly finished widening, rather than reflowing
+   in front of the reader. */
+@media (min-width: 62rem) {
+  .held.is-live { min-height: 23rem; transition: grid-template-columns 700ms var(--ease-out); }
+  .held.is-live[data-open="0"] { grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .held.is-live[data-open="1"] { grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr) minmax(0, 1fr); }
+  .held.is-live[data-open="2"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2.3fr); }
+  .held.is-live .held-p { display: flex; flex-direction: column; }
+  .held.is-live .held-b { flex: 0 0 auto; }
+  .held.is-live .held-d { flex: 1 1 auto; align-content: end; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .held, .held *, .held-p::before, .held-p::after,
+  .held-cue::before, .held-cue::after { transition: none !important; }
+}
+.descent {
+  display: none; position: absolute; left: 0; top: .8em; bottom: .8em;
+  width: 1px; background: var(--rule); transform-origin: top;
+}
+@media (min-width: 48rem) { .descent { display: block; } }
+@keyframes descent-draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: no-preference) {
+  .js-motion .descent.is-drawing { animation: descent-draw 1100ms var(--ease-out); }
+}
+.triad--railed > li { position: relative; }
+@media (min-width: 48rem) {
+  .triad--railed > li::before {
+    content: ""; position: absolute;
+    left: calc(-1 * var(--s-6) - 3.5px); top: .72em;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    opacity: 0; transform: scale(.4);
+    transition: opacity var(--t-slow) var(--ease-out), transform var(--t-slow) var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  .js-motion .triad--railed > li.is-in::before { opacity: 1; transform: scale(1); }
+  /* No JS, no observer: the pips are simply there. */
+  html:not(.js-motion) .triad--railed > li::before { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- 11b. WHAT THE WORK IS: proof of range, and the floors ----
+   Three pieces sit under the pillars and each does a different job, so none
+   of them is a card: a card would say "these are three of the same thing".
+
+   The range line is evidence of scale. The floors are the published prices,
+   set as anchors rather than a table because a table invites comparison
+   shopping between three things that are not alternatives. The note under
+   them is the one line rescued from the dissolved offers section. */
+.range-proof {
+  margin: 0 0 var(--s-7);
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--accent);
+  font-family: var(--carved); font-style: italic;
+  font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+  line-height: 1.35; color: var(--ink); max-width: 34rem;
+}
+.floors {
+  display: grid; gap: var(--s-4);
+  margin: 0; padding: 0;
+  border-top: 1px solid var(--rule);
+}
+@media (min-width: 48rem) { .floors { grid-template-columns: repeat(3, 1fr); gap: var(--s-6); } }
+.floors > div { padding-top: var(--s-4); }
+@media (min-width: 48rem) { .floors > div + div { border-left: 1px solid var(--rule); padding-left: var(--s-6); } }
+.floors dt {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--label);
+}
+.floors dd {
+  margin: var(--s-3) 0 0;
+  font-size: .9375rem; color: var(--muted);
+}
+.floors dd b {
+  display: block; font-family: var(--carved); font-weight: 400;
+  font-size: clamp(1.75rem, 3.4vw, 2.25rem); line-height: 1; color: var(--ink);
+  margin-bottom: .15em;
+}
+.floors-note { margin: var(--s-4) 0 0; font-size: .875rem; color: var(--muted); }
+.method-close {
+  margin: var(--s-7) 0 0;
+  font-family: var(--carved); font-style: italic;
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  line-height: 1.3; color: var(--ink);
+}
+
+/* ---- THE CLIENT WORK SHOWCASE, Phase 3.1 -------------------------
+   Three in a row on a wide screen, stacked on a phone. Each stage is a Silt
+   panel carrying the same mark and phone pair /the-build/ draws, from the
+   same components, so the two pages cannot drift. The multipliers that
+   level the three wordmarks (--mark-x) are on the items; only the base and
+   the device width are scaled down here for a third of the row.
+
+   The link is the live site, by its own domain name, in a new tab. */
+.work-showcase {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: var(--s-7);
+}
+@media (min-width: 62rem) {
+  .work-showcase { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(var(--s-5), 3vw, var(--s-6)); }
+}
+.ws { display: flex; flex-direction: column; }
+.ws-stage {
+  display: grid; place-items: center;
+  padding: clamp(var(--s-5), 3vw, var(--s-6)) var(--s-4);
+  background: #DCE4E1; min-height: clamp(18rem, 24vw, 22rem);
+}
+.ws .case-show { --mark-base: clamp(2.8rem, 3.7vw, 3.7rem); gap: clamp(var(--s-3), 2vw, var(--s-5)); }
+.ws .case-screen { --dev-w: clamp(5.4rem, 7vw, 7rem); }
+.ws-name { margin: var(--s-5) 0 var(--s-3); }
+.ws-copy { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.62; }
+.ws-more { margin: var(--s-6) 0 0; }
+.ws-link { align-self: flex-start; margin-top: auto; padding-top: var(--s-4); font-size: .875rem; }
+
+/* /the-build/ carries the same scope line and live link under each case. */
+.case-scope { color: var(--muted); max-width: 34rem; margin: var(--s-4) 0 0; }
+.case-live { margin: var(--s-4) 0 0; font-size: .875rem; }
+
+/* The three objections, compressed under the Sounding CTA. The reversal
+   INTERACTION is unchanged; only the container is tighter, because in
+   Section 5 it sits beneath a button rather than holding its own column. */
+.reversal--tight { margin-top: var(--s-6); }
+@media (min-width: 62rem) { .reversal--tight { max-width: 34rem; } }
+
+/* The questions, folded into the close. */
+.close-faq { margin-top: var(--s-8); padding-top: var(--s-7); border-top: 1px solid var(--rule); }
+
 /* ---------- 12. OFFERS -------------------------------------- */
 /* Rows, not cards. The Foundation refuses the box.
 
@@ -1603,6 +2058,9 @@ button.door-note {
 .quotes { display: grid; gap: var(--s-6); }
 .quote {
   display: flex; flex-direction: column; gap: var(--s-4);
+  /* `<figure>` carries a 40px browser margin on each side, which pushed
+     every review 40px off the shared left edge. */
+  margin: 0;
   padding-top: var(--s-5); border-top: 1px solid var(--rule);
 }
 /* The pull is the hook: her own phrase, said loudly, so a slide reads
@@ -1681,7 +2139,9 @@ button.door-note {
   flex: 0 0 auto;
   /* wide enough that the longest review does not run the slide, and the
      shortest is not left holding a column of air */
-  width: min(42rem, 80vw);
+  /* Never wider than the view it sits in. In a column narrower than 42rem
+     the review in front used to run past the right edge and lose its end. */
+  width: min(42rem, 80vw, 100%);
   opacity: .2; transform: scale(.94); transform-origin: center;
   transition: opacity 520ms var(--ease-out), transform 520ms var(--ease-out);
 }
@@ -3361,6 +3821,112 @@ main > * { position: relative; z-index: 1; }
 .bd-open { max-width: 40rem; color: var(--muted); }
 .bd-open b { color: var(--ink); font-weight: 500; }
 
+/* ---------- THE BUILD, REWRITTEN 12 September ------------------------
+   Seven sections where there were twelve. These are the pieces the shorter
+   page needed: the signs in the hero (the old problem section, as four
+   lines), tags on the cases, one price table, and production as rows.
+   Everything reveals with the site's own `.r-up`; nothing new moves. */
+.bd-head .bd-open { margin-top: var(--s-5); }
+.bd-signs {
+  list-style: none; margin: var(--s-5) 0 0; padding: 0;
+  display: grid; gap: var(--s-2) var(--s-6); max-width: 44rem;
+}
+@media (min-width: 48rem) { .bd-signs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.bd-signs li { position: relative; padding-left: var(--s-5); font-size: 1.0625rem; line-height: 1.5; color: var(--ink); }
+.bd-signs li::before {
+  content: ""; position: absolute; left: 0; top: .78em;
+  width: var(--s-4); height: 1px; background: var(--accent);
+}
+
+/* One list of refusals: the bold part is the refusal, the rest is why. */
+.refuse-plain--lead { max-width: none; }
+@media (min-width: 62rem) { .refuse-plain--lead { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-7); } }
+.refuse-plain--lead li { color: var(--muted); }
+.refuse-plain--lead li b { font-weight: 500; color: var(--ink); }
+
+/* What was built, as tags instead of a paragraph. */
+.case-tags { list-style: none; margin: var(--s-4) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.case-tags li {
+  font-family: var(--utility); font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink); border: 1px solid var(--rule); border-radius: 2px; padding: .35rem .6rem;
+}
+
+/* The price table. Four steps in the order a client climbs them. The first
+   carries the only button and sits on Fathom so it reads as where to begin;
+   `z-deep` on the card swaps its tokens, so everything inside it is already
+   the right colour for dark ground. */
+.tiers { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4); }
+@media (min-width: 48rem) { .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 80rem) { .tiers { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--s-5); } }
+/* Four across, a card name can take one line or two depending on the width.
+   Every name holds two lines of room so the four prices stay level. */
+@media (min-width: 80rem) { .tier-name { min-height: 2.3em; } }
+.tier {
+  position: relative; display: flex; flex-direction: column;
+  padding: clamp(var(--s-4), 1.8vw, var(--s-5));
+  border: 1px solid var(--rule);
+}
+.tier--first { border-color: var(--fathom); box-shadow: 0 28px 70px -36px rgba(12, 40, 48, .55); }
+.tier--first::before {
+  content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 2px; background: var(--breath);
+}
+.tier-step {
+  margin: 0; font-family: var(--utility); font-size: .625rem;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--label);
+}
+.tier-name {
+  margin: var(--s-3) 0 0; font-family: var(--carved); font-weight: 400;
+  font-size: clamp(1.35rem, 1.9vw, 1.6rem); line-height: 1.15; color: var(--ink);
+}
+.tier-price { margin: var(--s-4) 0 0; }
+.tier-price b { font-family: var(--carved); font-weight: 400; font-size: clamp(2.2rem, 3.2vw, 2.8rem); line-height: 1; color: var(--ink); }
+/* The qualifier sits ABOVE the number on every card, so the four figures
+   start at the same point. "Flat" after one number and "from" before the
+   next put them at four different offsets. */
+.tier-price span {
+  display: block; margin-bottom: .4rem; font-family: var(--utility); font-size: .625rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+}
+.tier-price b { display: block; }
+.tier-list {
+  list-style: none; margin: var(--s-5) 0 0; padding: var(--s-4) 0 0;
+  border-top: 1px solid var(--rule); display: grid; gap: var(--s-2); align-content: start;
+}
+.tier-list li { position: relative; padding-left: 1.1rem; font-size: .9375rem; line-height: 1.5; color: var(--muted); }
+.tier-list li::before { content: ""; position: absolute; left: 0; top: .72em; width: .45rem; height: 1px; background: var(--label); }
+/* Sized to its label, on one line. Full width it wrapped to two lines in a
+   276px card and read as a slab. */
+.tier-btn {
+  align-self: flex-start; margin-top: auto; white-space: nowrap;
+  min-height: 44px; padding: .75rem 1.1rem; gap: var(--s-2);
+  font-size: .8125rem; letter-spacing: .06em;
+}
+.tier--first .tier-list { margin-bottom: var(--s-6); }
+.tier-more { margin: var(--s-4) 0 0; font-size: .875rem; }
+
+/* Production, sold on its own: rows under the table, not more cards. */
+.alacarte { margin-top: clamp(var(--s-6), 6vw, var(--s-7)); }
+.alacarte-h {
+  margin: 0 0 var(--s-4); font-family: var(--utility); font-weight: 400; font-size: .6875rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--label);
+}
+.alacarte-rows { margin: 0; border-top: 1px solid var(--rule); }
+.alacarte-rows > div { display: grid; gap: var(--s-2) var(--s-5); padding-block: var(--s-4); border-bottom: 1px solid var(--rule); }
+/* The price column is a fixed width and right aligned, with the qualifier
+   stacked over the figure, so the three numbers share one right edge. */
+@media (min-width: 48rem) {
+  .alacarte-rows > div { grid-template-columns: 9rem minmax(0, 1fr) 11rem; align-items: center; }
+}
+.alacarte-rows dt { font-family: var(--carved); font-size: 1.3rem; color: var(--ink); }
+.alacarte-rows dd { margin: 0; }
+.alacarte-what { color: var(--muted); font-size: .9375rem; line-height: 1.55; max-width: 40rem; }
+.alacarte-cost { display: grid; gap: .3rem; color: var(--muted); white-space: nowrap; }
+@media (min-width: 48rem) { .alacarte-cost { justify-items: end; text-align: right; } }
+.alacarte-cost span {
+  font-family: var(--utility); font-size: .625rem; letter-spacing: .18em; text-transform: uppercase;
+}
+.alacarte-cost b { font-family: var(--carved); font-weight: 400; font-size: 1.75rem; line-height: 1; color: var(--ink); }
+
 /* The one door, restated under the offers that have no button of their own.
    A $15,000 engagement scoped over email is a $15,000 engagement scoped
    badly, and a single way in also keeps the calendar clean. */
@@ -3874,6 +4440,7 @@ main > * { position: relative; z-index: 1; }
 }
 .rt-play img { width: 100%; height: 100%; object-fit: cover; }
 .rt-play iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.rt-play video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--fathom); }
 .rt-play::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(7,26,31,.06), rgba(7,26,31,.42));
@@ -5161,13 +5728,23 @@ main > * { position: relative; z-index: 1; }
    what sent three earlier attempts at this hero wrong. */
 .hero--open .hero-scrim {
   background:
+    /* ACROSS. A third at the left where the words are, nothing at all by the
+       right hand edge. The shafts and the bright water on that side are the
+       reason this plate was chosen and they are not touched. */
     linear-gradient(90deg,
-      rgba(7,26,31,.72) 0%, rgba(7,26,31,.66) 56%,
-      rgba(7,26,31,.36) 62%, rgba(7,26,31,.38) 72%,
-      rgba(7,26,31,.68) 77%, rgba(7,26,31,.72) 100%),
+      rgba(7,26,31,.34) 0%, rgba(7,26,31,.30) 40%,
+      rgba(7,26,31,.14) 68%, rgba(7,26,31,0) 100%),
+    /* DOWN. This is the one that does the work, and it is shaped to the
+       photograph rather than to the layout. The top half of this frame is
+       near white sky and the bottom half is near black water: measured on
+       the bare plate, the ground under the headline ran 0.006 to 0.976, so
+       one run of type had both extremes inside it and no ink colour survived
+       that. The ramp is heavy over the sky and gone by the time it reaches
+       the water, which compresses that range instead of dimming the picture.
+       Below 62% the photograph is carrying itself. */
     linear-gradient(180deg,
-      rgba(7,26,31,.52) 0%, rgba(7,26,31,.36) 20%, rgba(7,26,31,.30) 55%,
-      rgba(7,26,31,.40) 78%, rgba(7,26,31,.64) 92%, var(--fathom) 100%);
+      rgba(7,26,31,.78) 0%, rgba(7,26,31,.74) 22%, rgba(7,26,31,.68) 42%,
+      rgba(7,26,31,.46) 60%, rgba(7,26,31,.10) 82%, var(--fathom) 100%);
 }
 
 /* THE PHONE TAKES THE LEFT EDGE OF THE PLATE, NOT THE MIDDLE.
@@ -5445,4 +6022,62 @@ main > * { position: relative; z-index: 1; }
 @media print {
   .hdr, .gauge, main { background: #fff; }
   body, .ftr, .z-light, .z-silt, .z-deep, .z-deepwater, .z-breath { background: #fff; color: #000; }
+}
+
+/* ---------- ONE PAGE GRID, 12 September ---------------------------------
+   Cydnie: "double check the pages alignment and the text alignment
+   throughout." Measured at 1440 on nine pages. Every heading already sat on
+   the wrap edge (132px), and `.grid-12` puts a right column at 837px, but
+   seven two column components each drew their own split and landed
+   somewhere else: 752, 784, 806, 846, 866, and a home FAQ on col-b at 635.
+   Three column rows drifted too, 532 / 538 / 540 for the second column,
+   because each picked its own gap.
+
+   This block puts them on the same tracks as `.grid-12`, twelve columns and
+   a 2rem gutter, from the width `.grid-12` switches on. Left half is columns
+   1 to 6, right half is 8 to 12, exactly `.col-d` and `.col-e`. It sits at
+   the end of the file so it wins without raising any specificity. */
+@media (min-width: 56rem) {
+  .refuse-plain--lead, .case, .ab-split, .lt-pair, .triad--flat li {
+    grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s-5);
+  }
+  .refuse-plain--lead > :nth-child(odd)  { grid-column: 1 / 7; }
+  .refuse-plain--lead > :nth-child(even) { grid-column: 8 / 13; }
+  .case > .case-show { grid-column: 1 / 7; }
+  .case > .case-copy { grid-column: 8 / 13; }
+  .case--flip > .case-show { grid-column: 8 / 13; grid-row: 1; }
+  .case--flip > .case-copy { grid-column: 1 / 7; grid-row: 1; }
+  .ab-split > :first-child, .lt-pair > :nth-child(odd)  { grid-column: 1 / 7; }
+  .ab-split > :last-child,  .lt-pair > :nth-child(even) { grid-column: 8 / 13; }
+  .triad--flat li > :first-child { grid-column: 1 / 7; }
+  .triad--flat li > :not(:first-child) { grid-column: 8 / 13; }
+  .retreat-grid { column-gap: var(--s-5); }
+}
+/* The retreat pages' two media modules, on the same tracks. A date is a
+   picture across columns 1 to 6 and its words from column 8, the same right
+   column as every `.col-e`; the second date leads with its words, so it
+   mirrors. The video's text column holds a quote carousel that needs width,
+   so it starts at column 5, the line every row of thirds starts its second
+   column on, rather than squeezing into col-e. */
+@media (min-width: 56rem) {
+  .rt-date, .rt-video { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s-5); }
+  .rt-date > .rt-date-fig { grid-column: 1 / 7; }
+  .rt-date > :not(.rt-date-fig) { grid-column: 8 / 13; }
+  .rt-date--flip > .rt-date-fig { grid-column: 8 / 13; order: 0; grid-row: 1; }
+  .rt-date--flip > :not(.rt-date-fig) { grid-column: 1 / 7; grid-row: 1; }
+  .rt-video > :first-child { grid-column: 1 / 5; }
+  .rt-video > :last-child { grid-column: 5 / 13; }
+}
+/* Thirds on the same gutter, so a second column starts where col 5 does. */
+@media (min-width: 62rem) {
+  .work-showcase, .cards, .ways { column-gap: var(--s-5); }
+  .decide {
+    grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s-5);
+    grid-template-areas: "head head head head head head . card card card card card"
+                         "steps steps steps steps steps steps . card card card card card"
+                         "rev rev rev rev rev rev . card card card card card";
+  }
+}
+@media (min-width: 48rem) {
+  .floors, .rt-count { column-gap: var(--s-5); }
 }

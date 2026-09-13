@@ -6,7 +6,7 @@
 
 <title>Cydnie Jocelyn | The Resurfacing Business, Forest Lake MN</title>
 <meta name="description" content="Brand strategy, operations and business development for founders and leaders who are successful on paper and depleted underneath. Forest Lake, Minnesota and the Twin Cities.">
-<link rel="canonical" href="https://cydniejocelyn.com/">
+<link rel="canonical" href="https://www.cydniejocelyn.com/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="author" content="Cydnie Jocelyn Brown">
 <meta name="theme-color" content="#071A1F">
@@ -19,17 +19,17 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cydnie Jocelyn">
 <meta property="og:locale" content="en_US">
-<meta property="og:url" content="https://cydniejocelyn.com/">
+<meta property="og:url" content="https://www.cydniejocelyn.com/">
 <meta property="og:title" content="Cydnie Jocelyn | The Resurfacing Business">
 <meta property="og:description" content="You're not broken. You're underwater. Let's get you to the surface.">
-<meta property="og:image" content="https://cydniejocelyn.com/assets/og/home.png">
+<meta property="og:image" content="https://www.cydniejocelyn.com/assets/og/home.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Cydnie Jocelyn, the resurfacing business.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cydnie Jocelyn | The Resurfacing Business">
 <meta name="twitter:description" content="You're not broken. You're underwater. Let's get you to the surface.">
-<meta name="twitter:image" content="https://cydniejocelyn.com/assets/og/home.png">
+<meta name="twitter:image" content="https://www.cydniejocelyn.com/assets/og/home.png">
 
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -73,9 +73,16 @@
      preloaded. If the carved stack is ever pointed at the kit for real,
      this line comes out in the same commit, or it is 15,340 bytes fetched
      on the critical path to render nothing. -->
+<!-- Phase 4.5: the hero photograph is the Largest Contentful Paint, so it is
+     fetched from the head rather than when the parser reaches the picture.
+     Same three candidates and sizes as the <img>, so the browser picks the
+     same file and nothing downloads twice. -->
+<link rel="preload" as="image" href="assets/img/layer-surface-1200.webp"
+      imagesrcset="assets/img/layer-surface-700.webp 700w, assets/img/layer-surface-1200.webp 1200w, assets/img/layer-surface-1800.webp 1800w"
+      imagesizes="100vw" type="image/webp" fetchpriority="high">
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css?v=1d9b8d4f">
+<link rel="stylesheet" href="assets/css/site.css?v=6ab576d2">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -96,22 +103,22 @@
         "ProfessionalService",
         "LocalBusiness"
       ],
-      "@id": "https://cydniejocelyn.com/#organization",
+      "@id": "https://www.cydniejocelyn.com/#organization",
       "name": "Cydnie Jocelyn LLC",
       "alternateName": [
         "Cydnie Jocelyn",
         "The Resurfacing Business"
       ],
-      "url": "https://cydniejocelyn.com/",
+      "url": "https://www.cydniejocelyn.com/",
       "slogan": "You're not broken. You're underwater.",
       "description": "Strategic brand partner for what's next. Cydnie Jocelyn helps visionaries and leaders resurface with clarity, reclaim their voice, and build brands and experiences that last. Based in Forest Lake, Minnesota, serving the Twin Cities metro and clients remotely.",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://cydniejocelyn.com/assets/img/mark-stacked-dark-900.webp"
+        "url": "https://www.cydniejocelyn.com/assets/img/mark-stacked-dark-900.webp"
       },
-      "image": "https://cydniejocelyn.com/assets/og/home.png",
+      "image": "https://www.cydniejocelyn.com/assets/og/home.png",
       "founder": {
-        "@id": "https://cydniejocelyn.com/#cydnie"
+        "@id": "https://www.cydniejocelyn.com/#cydnie"
       },
       "priceRange": "$$$",
       "email": "hello@cydniejocelyn.com",
@@ -193,6 +200,14 @@
           "name": "Saint Paul"
         },
         {
+          "@type": "City",
+          "name": "Stillwater"
+        },
+        {
+          "@type": "City",
+          "name": "Woodbury"
+        },
+        {
           "@type": "AdministrativeArea",
           "name": "Twin Cities metropolitan area"
         },
@@ -246,7 +261,7 @@
               "serviceType": "Brand strategy intensive",
               "description": "Ninety minutes on the business, and a written analysis two days later of where the brand can go, plus a straight answer on whether you need anything further.",
               "provider": {
-                "@id": "https://cydniejocelyn.com/#organization"
+                "@id": "https://www.cydniejocelyn.com/#organization"
               }
             }
           },
@@ -258,7 +273,7 @@
               "serviceType": "Small-group leadership retreat",
               "description": "Several days in which nobody needs anything from you. Structured solitude inside a group capped at fifteen.",
               "provider": {
-                "@id": "https://cydniejocelyn.com/#organization"
+                "@id": "https://www.cydniejocelyn.com/#organization"
               }
             }
           },
@@ -270,7 +285,7 @@
               "serviceType": "Brand identity, operations and business development",
               "description": "Bespoke engagement scoped after listening, never before. Brand creation, operations, business development, or a combination that has no name yet.",
               "provider": {
-                "@id": "https://cydniejocelyn.com/#organization"
+                "@id": "https://www.cydniejocelyn.com/#organization"
               }
             }
           }
@@ -287,11 +302,11 @@
     },
     {
       "@type": "Person",
-      "@id": "https://cydniejocelyn.com/#cydnie",
+      "@id": "https://www.cydniejocelyn.com/#cydnie",
       "name": "Cydnie Jocelyn Brown",
       "alternateName": "Cydnie Jocelyn",
-      "url": "https://cydniejocelyn.com/about/",
-      "image": "https://cydniejocelyn.com/assets/img/cydnie-reading-1000.webp",
+      "url": "https://www.cydniejocelyn.com/about/",
+      "image": "https://www.cydniejocelyn.com/assets/img/cydnie-reading-1000.webp",
       "jobTitle": [
         "Strategic Brand Partner",
         "Brand Strategist",
@@ -299,7 +314,7 @@
         "Podcast Host"
       ],
       "worksFor": {
-        "@id": "https://cydniejocelyn.com/#organization"
+        "@id": "https://www.cydniejocelyn.com/#organization"
       },
       "homeLocation": {
         "@type": "Place",
@@ -314,80 +329,41 @@
       "sameAs": [
         "https://www.instagram.com/cydniejocelyn/",
         "https://www.facebook.com/profile.php?id=61575458834389",
+        "https://www.pinterest.com/Cydniejocelyn/",
         "https://www.youtube.com/@Cydniejocelyn"
       ]
     },
     {
       "@type": "WebSite",
-      "@id": "https://cydniejocelyn.com/#website",
-      "url": "https://cydniejocelyn.com/",
+      "@id": "https://www.cydniejocelyn.com/#website",
+      "url": "https://www.cydniejocelyn.com/",
       "name": "Cydnie Jocelyn",
       "publisher": {
-        "@id": "https://cydniejocelyn.com/#organization"
+        "@id": "https://www.cydniejocelyn.com/#organization"
       },
       "inLanguage": "en-US"
     },
     {
       "@type": "WebPage",
-      "@id": "https://cydniejocelyn.com/#webpage",
-      "url": "https://cydniejocelyn.com/",
+      "@id": "https://www.cydniejocelyn.com/#webpage",
+      "url": "https://www.cydniejocelyn.com/",
       "name": "Cydnie Jocelyn | The Resurfacing Business, Forest Lake MN",
       "description": "You're not broken. You're underwater. Brand strategy for founders and leaders who are perfect on paper and holding their breath underneath, and small-group retreats for women.",
       "isPartOf": {
-        "@id": "https://cydniejocelyn.com/#website"
+        "@id": "https://www.cydniejocelyn.com/#website"
       },
       "about": {
-        "@id": "https://cydniejocelyn.com/#organization"
+        "@id": "https://www.cydniejocelyn.com/#organization"
       },
       "inLanguage": "en-US"
     },
     {
-      "@type": "Event",
-      "@id": "https://cydniejocelyn.com/retreats/greece/#event",
-      "_comment": "This @id is also emitted on /retreats/greece/, which is its canonical page and the source of truth. Change one, change both in the same commit.",
-      "name": "Rise Into Her: The Greece Edition",
-      "description": "An eight-day resurfacing retreat for fifteen women at Armonia Retreat Center in Douliana, Crete. Structured solitude inside a small group. Movement led by Kris Krause of Your Time Fitness LLC.",
-      "startDate": "2027-08-13",
-      "endDate": "2027-08-20",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "maximumAttendeeCapacity": 15,
-      "image": "https://cydniejocelyn.com/assets/img/greece/house-1200.webp",
-      "location": {
-        "@type": "Place",
-        "name": "Armonia Retreat Center",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Douliana",
-          "addressRegion": "Crete",
-          "addressCountry": "GR"
-        }
-      },
-      "organizer": {
-        "@id": "https://cydniejocelyn.com/#organization"
-      },
-      "performer": {
-        "@id": "https://cydniejocelyn.com/#cydnie"
-      },
-      "offers": [
-        {
-          "@type": "Offer",
-          "name": "Standard rate, from 7 September 2026",
-          "price": "3450",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/SoldOut",
-          "url": "https://cydniejocelyn.com/retreats/greece/#booking",
-          "validFrom": "2026-09-07"
-        }
-      ]
-    },
-    {
       "@type": "Service",
-      "@id": "https://cydniejocelyn.com/#retreat-service",
+      "@id": "https://www.cydniejocelyn.com/#retreat-service",
       "name": "Resurfacing retreats by Cydnie Jocelyn",
       "serviceType": "Small-group leadership retreat",
       "provider": {
-        "@id": "https://cydniejocelyn.com/#organization"
+        "@id": "https://www.cydniejocelyn.com/#organization"
       },
       "areaServed": {
         "@type": "Country",
@@ -438,7 +414,7 @@
     },
     {
       "@type": "FAQPage",
-      "@id": "https://cydniejocelyn.com/#faq",
+      "@id": "https://www.cydniejocelyn.com/#faq",
       "mainEntity": [
         {
           "@type": "Question",
@@ -454,22 +430,6 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "That is the normal starting condition, and it is the thing being solved. You have run out of external explanations, so the fault has quietly gone internal, and that is very hard to describe out loud. Bring it in the state it is in."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What actually happens, and when?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We talk once, for ninety minutes, and I ask a lot of questions because the useful information is not in the pitch deck. Two days later the written analysis arrives. It is yours to keep either way."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What if I am not ready to spend $300?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Worth knowing first: if you go on to a Build, the $300 comes off it, so it is not money spent twice. If that is still not the right moment, ask me a question or start with the letters. They are free, they arrive once a week, and they are written the week they go out. Read the letters."
           }
         },
         {
@@ -490,30 +450,6 @@
         },
         {
           "@type": "Question",
-          "name": "Do you publish your pricing?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Retreat pricing is published in full on each retreat page. Brand work with a fixed scope can carry a number. Custom scoped work cannot, because the scope is the variable, and it is decided after listening rather than before."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What does alone in a group of fifteen mean?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It is the design principle behind every retreat. Nobody needs anything from you and nobody leaves you to it. There is no forced sharing and no facilitated vulnerability, and you are also never on your own with it. Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Are the retreats women only?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The brand strategy work is for founders and leaders of any gender. Individual retreats are often women specific and are labeled that way on their own page."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "Where is Cydnie Jocelyn based?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -529,7 +465,7 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://cydniejocelyn.com/"
+          "item": "https://www.cydniejocelyn.com/"
         }
       ]
     }
@@ -599,9 +535,9 @@
       </button>
       <div class="nav-menu" id="nav-menu">
       <ul class="nav-links" role="list">
-        <li><a href="/the-build/">The Build</a></li>
+        <li><a href="/the-build/">The Build<span class="nav-desc">, brand and website work</span></a></li>
         <li><a href="/retreats/">Retreats</a></li>
-        <li><a href="/the-letters/">The Letters</a></li>
+        <li><a href="/the-letters/">The Letters<span class="nav-desc">, free weekly</span></a></li>
         <li><a href="/about/">About</a></li>
       </ul>
       <!-- THE NAV BUTTON IS CONTACT, on Cydnie's instruction of 29 August
@@ -621,22 +557,16 @@
 
 <main id="main">
 
-<!-- ===================== THE HERO =====================
-     The reader is in the water, so the photograph is the whole hero and
-     the words stand in it. No plate, no card: the old right hand plate had
-     to have its photographic surface line measured against a drawn one,
-     and that alignment is simply gone now. A scrim on the left carries the
-     type; the rail on the right is the four ways in. -->
-<section class="hero hero--lit hero--open z-deep" data-zone aria-labelledby="hero-h">
+<section class="hero hero--lit hero--open z-deep" data-zone id="hero" aria-labelledby="hero-h">
 
   <div class="hero-water" aria-hidden="true">
     <picture>
-      <source type="image/webp" srcset="assets/img/hero-rise-900.webp 900w, assets/img/hero-rise-1400.webp 1400w, assets/img/hero-rise-1800.webp 1800w" sizes="100vw">
-      <img src="assets/img/hero-rise-1400.webp"
-           srcset="assets/img/hero-rise-900.webp 900w, assets/img/hero-rise-1400.webp 1400w, assets/img/hero-rise-1800.webp 1800w"
-           sizes="100vw" width="1800" height="485"
+      <source type="image/webp" srcset="assets/img/layer-surface-700.webp 700w, assets/img/layer-surface-1200.webp 1200w, assets/img/layer-surface-1800.webp 1800w" sizes="100vw">
+      <img src="assets/img/layer-surface-1200.webp"
+           srcset="assets/img/layer-surface-700.webp 700w, assets/img/layer-surface-1200.webp 1200w, assets/img/layer-surface-1800.webp 1800w"
+           sizes="100vw" width="1800" height="692"
            fetchpriority="high" decoding="async"
-           alt="The surface of deep water seen from just beneath it, light breaking through from above.">
+           alt="The surface of open water with pale sky above it, and light falling in shafts through the water below.">
     </picture>
   </div>
   <div class="hero-scrim" aria-hidden="true"></div>
@@ -652,8 +582,7 @@
            line across viewports. Two lines at two heights is worse than one
            real one, so the drawn rule is dropped in the hero only. It is
            still on the about page head and at the close. -->
-      <p class="hero-call r-up" style="--d:120ms">Those are completely different problems, and only one of them is yours to fix.</p>
-      <p class="hero-sub r-up" style="--d:120ms">Brand, operations and business development for founders and leaders who are successful on paper and depleted underneath. Forest Lake, Minnesota.</p>
+      <p class="hero-sub r-up" style="--d:110ms">Brand, operations and business development for founders and leaders who are successful on paper and depleted underneath. Forest Lake, Minnesota.</p>
 
       <!-- The paid entry point, kept, in the shape this layout can hold.
            It is the first thing offered and the only one carrying a price. -->
@@ -663,21 +592,11 @@
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
         <span class="vh"> (opens my scheduling page)</span></a>
       </div>
-      <p class="hero-ask r-up" style="--d:240ms">Or <a class="link" href="/contact/">ask me a question first</a>. I answer those myself.</p>
+      <!-- The client strip. Three names, no logos: a logo wall at this size
+           is five unreadable marks, and the names are the proof. -->
+      <p class="hero-clients r-up" style="--d:240ms">Mane Alchemist Salon <span aria-hidden="true">&middot;</span> SolyRey <span aria-hidden="true">&middot;</span> SRS Performance</p>
     </div>
 
-    <!-- The path. Her own methodology, named in the structured data below
-         as the offer catalogue "Resurface, Reclaim, Build" and spelled out
-         in the FAQ: permission, a witness, and a plan, in that order. Each
-         stop goes to the offer that carries that stage. -->
-    <nav class="hero-path r-up" style="--d:240ms" aria-label="The path">
-      <p class="hero-path-label eyebrow">The path</p>
-      <ol role="list">
-        <li><a href="#sounding"><span class="pip" aria-hidden="true"></span><span class="path-stage">Resurface</span><span class="path-what">A Sounding, $300</span></a></li>
-        <li><a href="#fifteen"><span class="pip" aria-hidden="true"></span><span class="path-stage">Reclaim</span><span class="path-what">Retreats, from $3,450</span></a></li>
-        <li><a href="/the-build/"><span class="pip" aria-hidden="true"></span><span class="path-stage">Build</span><span class="path-what">Consulting, from $1,500</span></a></li>
-      </ol>
-    </nav>
   </div>
 
   <!-- The descent mark. Three lines narrowing, and a line going down. -->
@@ -689,77 +608,8 @@
     <span class="hero-drop" aria-hidden="true"></span>
   </a>
 </section>
-<!-- ===================== THE RE-DIAGNOSIS ===================== -->
-<section class="section z-deep" data-zone style="--from:var(--fathom)" id="turn" aria-labelledby="turn-h">
-  <div class="wrap">
-    <div class="turn-split">
-      <div class="col-c">
-        <p class="eyebrow r-fade">The difference</p>
-          <h2 class="carved c-1 split" id="turn-h">You didn't lose yourself.<br>You got buried under<br><em>everyone who needed you.</em></h2>
-        <div class="body stack r-up" style="--d:120ms; margin-top:var(--s-7)">
-          <p>Everything else in this category tells you that you have potential. You have a résumé full of evidence that you are capable, so flattery bounces off. What nothing has explained is why <em>capable</em> feels like this.</p>
-          <p>You are not lacking anything and you are not behind. You are <em>carrying</em> something, and pressure is not a character flaw.</p>
-          <p><strong>Nothing is wrong with you. Something is on top of you.</strong> Those are completely different problems, and only one of them is yours to fix.</p>
-        </div>
-      </div>
 
-      <!-- A hand reaching up toward the surface from under it. The
-           photograph is the sentence in the copy beside it, literally
-           -- "you are UNDER something" -- so it carries no caption.
-
-           Replaced the sunlit wall on 28 August. That one was a hand and
-           a shadow on dry land, which illustrated reaching but not water,
-           and water is the whole argument of this section.
-
-           The source is SQUARE, 1254x1254, and the frame is square to
-           match, so nothing is cropped to fit an aspect it was not shot
-           for. `sizes` describes the real box rather than the viewport:
-           on a phone the figure is the wrap width, not 100vw, and asking
-           for 100vw made every phone fetch a candidate a size too large. -->
-      <figure id="depth">
-        <img class="par" data-speed="0.22"
-             src="assets/img/layer-surface-1800.webp"
-             srcset="assets/img/layer-surface-700.webp 700w, assets/img/layer-surface-1200.webp 1200w, assets/img/layer-surface-1800.webp 1800w"
-             sizes="(min-width: 900px) 40vw, calc(100vw - 2.5rem)"
-             width="1254" height="1254" loading="lazy" decoding="async"
-             alt="A hand reaching up through dark water toward the light breaking on the surface above it.">
-      </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- THE ONE ACTION, and the one Deepwater band on the page. Task 13. It
-     comes straight after the thesis, so the page names the problem and then
-     names the thing that addresses it, before the recognition list rather
-     than after it. The price sits under the sentence that says what the
-     ninety minutes are, never above it. -->
-<section class="section z-deepwater" data-zone style="--from:var(--fathom)" id="band" aria-labelledby="band-h">
-  <div class="wrap">
-    <div class="grid-12">
-      <div class="col-d">
-        <p class="eyebrow r-fade">Start here</p>
-        <h2 class="carved c-2 split" id="band-h">One conversation. Nothing signed.</h2>
-        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-      </div>
-      <div class="col-e">
-        <p class="lead r-up" style="--d:60ms">Ninety minutes on the business, and I ask a lot of questions. Two days later you get it in writing: where the brand actually is, what is holding it there, and where it can go. Plus the first move, named.</p>
-        <p class="lead r-up" style="--d:120ms; margin-top:var(--s-4)"><b>$300</b>, and it comes off The Build if you go on to one.</p>
-        <div class="actions r-up" style="--d:180ms; margin-top:var(--s-6)">
-          <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6"><span>Book one conversation</span>
-            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg><span class="vh"> (opens my scheduling page)</span></a>
-        </div>
-        <p class="small r-up" style="--d:240ms; margin-top:var(--s-5)">Or <a class="link" href="/contact/">ask me a question first</a>.</p>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- ===================== THE CONDITION ===================== -->
-<!-- Five recognitions, one at a time. The track is five screens tall and the
-     stage inside it is pinned, so each screen of scroll brings the next
-     recognition up out of the dark. Without JS, under reduced motion, or on
-     a short screen, none of that is applied and it is an ordinary list of
-     all five. That plain list is the markup; the stepping sits on top. -->
+<!-- ===================== 2. THE CONDITION ===================== -->
 <section class="section cond z-deep" data-zone id="condition" aria-labelledby="cond-h">
   <div class="cond-track">
    <div class="cond-stage">
@@ -767,6 +617,7 @@
       <div class="cond-head">
         <p class="eyebrow r-fade">The condition</p>
         <h2 class="head h-2 split" id="cond-h">It is 11:40pm and the tabs in your mind won't close.</h2>
+        <p class="cond-hinge r-up" style="--d:120ms">Those are completely different problems, and only one of them is yours to fix.</p>
         <ol class="cond-ticks" aria-label="Four recognitions">
           <li><button type="button" data-step="0" aria-label="Recognition one"><span>01</span></button></li>
           <li><button type="button" data-step="1" aria-label="Recognition two"><span>02</span></button></li>
@@ -798,7 +649,7 @@
    </div>
   </div>
 </section>
-<!-- The rise. Where she comes up. -->
+
 <div class="rise-band" id="rise" style="--band-from:var(--deepwater)">
   <figure class="layer-band" aria-hidden="true">
     <img src="assets/img/layer-surface-1800.webp"
@@ -819,190 +670,190 @@
     <p>Come up</p>
   </div>
 </div>
-<!-- ===================== THE WORK ===================== -->
+
+<!-- ===================== 3. WHAT I ACTUALLY DO ===================== -->
 <section class="section z-light" data-zone id="method" aria-labelledby="method-h">
   <div class="wrap">
     <div class="grid-12" style="margin-bottom:var(--s-7)">
       <div class="col-d">
-        <p class="eyebrow r-fade">The work</p>
-        <h2 class="carved c-2 split" id="method-h">Brand, operations, and business development.</h2>
+        <p class="eyebrow r-fade">What I actually do</p>
+        <h2 class="carved c-2 split" id="method-h">Brand, operations and business development. One person, held at once.</h2>
       </div>
       <div class="col-e">
-        <p class="lead r-up" style="--d:120ms">Three things held at once, not a sequence. This is what each one means before anything is scoped or priced.</p>
+        <div class="body stack r-up" style="--d:120ms">
+          <p>Most businesses solve this with three vendors who never speak to each other, or three hires they cannot carry. I am the partnership instead. You get the scope your business actually needs, without a salary attached to it.</p>
+          <p>Every engagement is built for the business in front of me. A full brand audit if that is what is needed. A full build if that is what is needed. Nothing templated and no version of you I have already sold to someone else.</p>
+          <p class="method-scope">Logos, brand guides, websites, social strategy and launch plans, scoped to what the business in front of me actually needs.</p>
+        </div>
       </div>
     </div>
 
-    <!-- WHAT THE WORK ACTUALLY IS, before what it costs.
-         The home page named brand, operations and business development in
-         the hero and then never said what any of them meant; the three
-         definitions existed only on The Build, below the fold, where a
-         first time visitor does not reach them. Same `.triad triad--flat`
-         component and the same words, so the two pages cannot drift.
+    <!-- The three pillars. Deliberately not numbered: three things held at
+         once, not a sequence. The same `.triad triad--flat` component and the
+         same words as The Build, so the two pages cannot drift. -->
+    <!-- A RULE WITH THREE STOPS ON IT. The section was a wall of prose and
+         nothing told the eye where one idea ended. This is the hero path
+         rail's vocabulary, moved to the place that actually enumerates
+         three things: a line that draws downward as the section arrives,
+         and a pip that lights as each pillar rises. Not numbered, because
+         these are three things held at once and not a sequence. -->
+    <!-- THE THREE, HELD. Replaced the flip cards on 12 September; the
+         reasoning is at 11b-i in site.css. One panel is always open: it
+         widens, a waterline draws across it and the detail surfaces. Hover,
+         click, tap, Enter, Space and the arrow keys all choose a panel.
+         Without JS nothing collapses and all three read in full. Same words
+         as the cards, unchanged. -->
+    <div class="held" data-held>
+      <article class="held-p r-up" style="--d:0ms">
+        <h3 class="held-h"><button class="held-b" type="button" id="held-brand-b" aria-expanded="true" aria-controls="held-brand-d">
+          <span class="held-name c-3">Brand</span>
+          <span class="held-teaser">Logo, guide, website, launch</span>
+          <span class="held-cue" aria-hidden="true"></span>
+        </button></h3>
+        <div class="held-d" id="held-brand-d" role="region" aria-labelledby="held-brand-b"><div class="held-d-in">
+          <p>A logo, a brand guide, and a website of five to eight pages. The guide covers your colors, your voice, and how the brand gets used and how it does not. Then the social strategy, the content plan, and the launch plan that puts it in front of people. Ongoing support after launch runs two reels and one static a week, with captions, hashtags, posting and analytics.</p>
+        </div></div>
+      </article>
+      <article class="held-p r-up" style="--d:90ms">
+        <h3 class="held-h"><button class="held-b" type="button" id="held-ops-b" aria-expanded="true" aria-controls="held-ops-d">
+          <span class="held-name c-3">Operations</span>
+          <span class="held-teaser">Intake through handoff</span>
+          <span class="held-cue" aria-hidden="true"></span>
+        </button></h3>
+        <div class="held-d" id="held-ops-d" role="region" aria-labelledby="held-ops-b"><div class="held-d-in">
+          <p>We look at how the work actually moves, intake through handoff, and find the parts held together by you remembering to do them. Then we decide what changes and where the money is better spent.</p>
+        </div></div>
+      </article>
+      <article class="held-p r-up" style="--d:180ms">
+        <h3 class="held-h"><button class="held-b" type="button" id="held-bd-b" aria-expanded="true" aria-controls="held-bd-d">
+          <span class="held-name c-3">Business development</span>
+          <span class="held-teaser">Where the next client comes from</span>
+          <span class="held-cue" aria-hidden="true"></span>
+        </button></h3>
+        <div class="held-d" id="held-bd-d" role="region" aria-labelledby="held-bd-b"><div class="held-d-in">
+          <p>I come out of business development, so we start with the industries you are in and the people you want in front of. I build the vetting database that sorts who is hot, warm and cold. Then a 90 day plan covering where to pitch and what to say when you get there.</p>
+        </div></div>
+      </article>
+    </div>
 
-         Deliberately not numbered: three things held at once, not a
-         sequence. The note on The Build says the same. -->
-    <ul class="triad triad--flat" role="list" data-stagger="60" style="margin-bottom:var(--s-7)">
-      <li class="r-up">
-        <h3 class="carved c-3">Brand</h3>
-        <p>What you are, said in a way that a stranger can repeat correctly. Positioning, message, and the language you use everywhere else.</p>
-      </li>
-      <li class="r-up">
-        <h3 class="carved c-3">Operations</h3>
-        <p>How the work actually moves. Intake through handoff, and the parts currently held together by you remembering to do them.</p>
-      </li>
-      <li class="r-up">
-        <h3 class="carved c-3">Business development</h3>
-        <p>Where the next client comes from, on purpose rather than by referral luck. What you sell and what it costs to buy it.</p>
-      </li>
-    </ul>
+    <!-- Range proof. Its own line, set apart from the cards, because it is
+         evidence of scale rather than another definition. -->
+    <p class="range-proof r-up">Currently building five websites and the dashboard that runs them, for one client.</p>
+
+    <!-- THE FLOORS, NOT A RANGE. The old `$1,500 to $15,000` is gone from
+         this page: a range invites the reader to assume the bottom of it,
+         and the $1,500 day build anchors everything else down. That figure
+         stays on The Build, where it has its scope beside it. -->
+    <dl class="floors r-up" data-stagger="60">
+      <div><dt>Website</dt><dd>from <b>$4,000</b></dd></div>
+      <div><dt>Social and content</dt><dd>from <b>$3,600</b> a quarter</dd></div>
+      <div><dt>Full brand launch</dt><dd>from <b>$15,000</b></dd></div>
+    </dl>
+    <p class="floors-note r-up">Every price is published, and your Sounding fee comes off it.</p>
+
+    <p class="method-close r-up">I lead with heart and close with operations.</p>
+
+    <p class="small r-up" style="margin-top:var(--s-6)"><a class="more" href="/the-build/"><span>How an engagement is scoped</span>
+      <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a></p>
   </div>
 </section>
 
-<!-- ===================== WHAT IT LEADS TO =====================
-     Split from THE WORK above on 11 September 2026. That section had grown
-     to three jobs: the thesis, the definitions of the work, and the four
-     things you can buy. They answer different questions from different
-     readers, one deciding whether this is the right KIND of help and one
-     deciding WHICH. Mixed together the first reader has to scroll past
-     prices to find out what the work is.
-
-     The Build already separates these two, "What it covers" from the
-     offers, so splitting here makes the two pages agree. -->
-<section class="section z-silt" data-zone style="--from:var(--surface)" id="offers" aria-labelledby="offers-h">
-  <div class="wrap">
-    <div class="grid-12" style="margin-bottom:var(--s-7)">
-      <div class="col-d">
-        <p class="eyebrow r-fade">What it leads to</p>
-        <h2 class="carved c-2 split" id="offers-h">What one conversation leads to.</h2>
-      </div>
-      <div class="col-e">
-        <p class="lead r-up" style="--d:120ms">A Sounding comes first in every engagement. The rest is what it can turn into.</p>
-      </div>
-    </div>
-
-    <div class="doors" data-stagger="60">
-      <div class="door door--lead r-up" id="sounding">
-        <span class="door-stage">$300 &middot; The paid entry point</span>
-        <div>
-          <h3 class="carved c-3">A Sounding</h3>
-          <p>Ninety minutes on the business, and a written analysis two days later of where it can go.</p>
-        </div>
-        <!-- Every other door goes to the page that explains it. This one
-             alone skipped to checkout, which left the home page's only route
-             to the explanation as an unstyled prose link 300 lines below. -->
-        <a class="door-note door-note--link" href="/a-sounding/"><span>What a Sounding is</span></a>
-      </div>
-
-      <div class="door r-up">
-        <span class="door-stage">Fifteen seats</span>
-        <div>
-          <h3 class="carved c-3">Retreats</h3>
-          <p>The retreat. Fifteen seats, because above a certain number solitude becomes performance. Booking opens in September for the April getaway.</p>
-        </div>
-        <a class="door-note door-note--link" href="/retreats/"><span>Upcoming retreats</span></a>
-      </div>
-
-      <div class="door r-up" id="build">
-        <span class="door-stage">$1,500 to $15,000 &middot; The longer builds</span>
-        <div>
-          <h3 class="carved c-3">The Build</h3>
-          <p>Brand, operations and business development, scoped after listening and never before. Every price is published, and your Sounding fee comes off it.</p>
-        </div>
-        <a class="door-note door-note--link" href="/the-build/"><span>See The Build</span></a>
-      </div>
-
-      <div class="door r-up" id="letter">
-        <span class="door-stage">Free &middot; The entry point</span>
-        <div>
-          <h3 class="carved c-3">The Letters</h3>
-          <p>A letter on Sunday nights. There are no offers in them, ever. That is the whole arrangement.</p>
-        </div>
-        <a class="door-note door-note--link" href="/the-letters/"><span>Send it to me</span></a>
-      </div>
-    </div>
-
-    <div class="section-cta r-up">
-      <a class="btn btn--warm" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
-        <span>Book one conversation</span>
-        <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
-      <span class="vh"> (opens my scheduling page)</span></a>
-    </div>
-  </div>
-</section>
-<!-- Everything that stops her booking, removed one at a time, by her.
-     The reader picks the thing that is actually in the way and gets the
-     answer to that one. The markup below is the plain pairs: without JS
-     every worry and every answer is on the page, which is the whole
-     section either way. JS turns the pairs into a picker and a panel. -->
-<section class="section z-silt" data-zone style="--from:#DCE4E1" aria-labelledby="ready-h">
-  <div class="wrap">
-    <div class="grid-12">
-      <div class="col-a">
-        <p class="eyebrow r-fade">Before you book</p>
-        <h2 class="head h-2 split" id="ready-h">You do not have to arrive ready.</h2>
-        <p class="ready-lede r-up" style="--d:120ms">Whichever one is actually stopping you, it is already answered.</p>
-      </div>
-      <div class="col-b">
-        <div class="reversal r-up" data-reversal data-label="What is stopping you"
-             data-lede="Pick the one that is actually stopping you." style="--d:60ms">
-          <div class="rev">
-            <p class="rev-q">I do not know what it is yet.</p>
-            <p class="rev-a">Nothing to prepare. You do not have to know what it is yet.</p>
-          </div>
-          <div class="rev">
-            <p class="rev-q">It is all in my head and none of it is organised.</p>
-            <p class="rev-a">Bring it in the state it is in. Sorting it is the work.</p>
-          </div>
-          <div class="rev">
-            <p class="rev-q">I do not know what I would walk away with.</p>
-            <p class="rev-a">A written analysis of where the brand can go, and the first move to make.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BEFORE ANY OF IT. Task 15, placed before proof: the reader meets the
-     free way to reach her before she is asked to believe anybody else.
-     The waterline here is Held, and it is the only Held element on this
-     page. If a second one ever appears, one of them is wrong. -->
-<section class="section z-light" data-zone style="--from:#DCE4E1" id="reach" aria-labelledby="reach-h">
-  <div class="wrap">
-    <div class="grid-12">
-      <div class="col-d">
-        <p class="eyebrow r-fade">Before any of it</p>
-        <h2 class="carved c-2 split" id="reach-h">You can just ask me something.</h2>
-        <span class="wl-rule wl-rule--held" aria-hidden="true" style="max-width:11rem"></span>
-      </div>
-      <div class="col-e">
-        <div class="body stack r-up" style="--d:60ms">
-          <p>You do not have to book anything to talk to me. Write to me and I will answer it myself.</p>
-          <p>I sit with people for a long time before I put a price in front of them. Ask now rather than paying to find out.</p>
-        </div>
-        <div class="actions r-up" style="--d:120ms; margin-top:var(--s-6)">
-          <a class="btn" href="/contact/"><span>Ask me a question</span>
-            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a>
-        </div>
-        <p class="tiny r-up" style="--d:180ms; margin-top:var(--s-4)">hello@cydniejocelyn.com</p>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- MOVED UP. Proof used to sit three sections below the prices, after
-     the objection picker and the fifteen ring had already come and gone, so
-     the reader met every doubt-handling block on the page before she met
-     anybody who had paid. It sits between the price and the objections now,
-     which is where the doubt actually arrives. -->
-<!-- ===================== PROOF ===================== -->
+<!-- ===================== 4. PROOF ===================== -->
 <section class="section z-light" data-zone style="--from:var(--surface)" id="proof" aria-labelledby="proof-h">
   <div class="wrap stack-lg">
     <div class="grid-12">
-      <div class="col-c">
+      <div class="col-d">
         <p class="eyebrow r-fade">Proof</p>
-        <h2 class="head h-2 split" id="proof-h">Their words, not mine.</h2>
+        <h2 class="head h-2 split" id="proof-h">The work, and their words.</h2>
       </div>
     </div>
+
+    <!-- THE CLIENT WORK SHOWCASE, Phase 3.1. Fixed order: Mane Alchemist
+         Salon, SRS Performance, SolyRey. SRS sits second because it is the
+         only entry proving brand and operations inside one engagement, which
+         is the claim the section above opens with. Do not reorder it
+         alphabetically or by date. Project copy is the brief's, verbatim.
+
+         The images are the same mark and phone pair /the-build/#work draws,
+         with the same wordmark multipliers (--mark-x), scaled down for a
+         third of the row. The alt text is the text already live on
+         /the-build/ and is submitted for approval with this phase. -->
+    <ul class="work-showcase" id="work" role="list">
+      <li class="ws r-up" style="--d:0ms; --mark-x:2.08">
+        <div class="ws-stage">
+          <div class="case-show">
+            <figure class="case-mark">
+              <img src="assets/img/work/mane-alchemist-mark-400.webp"
+                   srcset="assets/img/work/mane-alchemist-mark-400.webp 400w, assets/img/work/mane-alchemist-mark-600.webp 600w"
+                   sizes="(min-width: 62rem) 12vw, 36vw" width="900" height="883"
+                   loading="lazy" decoding="async"
+                   alt="The Mane Alchemist Salon wordmark, a fine art deco script in cream with a gold linear motif behind it.">
+            </figure>
+            <figure class="case-screen">
+              <img src="assets/img/work/mane-alchemist-screen-300.webp"
+                   srcset="assets/img/work/mane-alchemist-screen-300.webp 300w, assets/img/work/mane-alchemist-screen-500.webp 500w"
+                   sizes="(min-width: 62rem) 7vw, 22vw" width="500" height="1095"
+                   loading="lazy" decoding="async"
+                   alt="The Mane Alchemist Salon home page on a phone, headed Where Transformation Meets Intention over a warm, low lit salon photograph.">
+            </figure>
+          </div>
+        </div>
+        <h3 class="carved c-3 ws-name">Mane Alchemist Salon</h3>
+        <p class="ws-copy">Full brand launch. Logo, brand guide, voice, and a website built to scale. Followed by a 90 day social launch plan that built demand before opening. Now on quarterly content and monthly strategy.</p>
+        <a class="more ws-link" href="https://manealchemistsalon.com" target="_blank" rel="noopener"><span>manealchemistsalon.com</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg><span class="vh"> (opens in a new tab)</span></a>
+      </li>
+      <li class="ws r-up" style="--d:90ms; --mark-x:1">
+        <div class="ws-stage">
+          <div class="case-show">
+            <figure class="case-mark">
+              <img src="assets/img/work/srs-performance-mark-400.webp"
+                   srcset="assets/img/work/srs-performance-mark-400.webp 400w, assets/img/work/srs-performance-mark-600.webp 600w"
+                   sizes="(min-width: 62rem) 12vw, 36vw" width="900" height="396"
+                   loading="lazy" decoding="async"
+                   alt="The SRS Performance logo, the letters S R S drawn as one continuous purple stroke above the word Performance.">
+            </figure>
+            <figure class="case-screen">
+              <img src="assets/img/work/srs-performance-screen-300.webp"
+                   srcset="assets/img/work/srs-performance-screen-300.webp 300w, assets/img/work/srs-performance-screen-500.webp 500w"
+                   sizes="(min-width: 62rem) 7vw, 22vw" width="500" height="1095"
+                   loading="lazy" decoding="async"
+                   alt="The SRS Performance home page on a phone, headed You&rsquo;re Still An Athlete, Train to a Standard, over a dark gym interior.">
+            </figure>
+          </div>
+        </div>
+        <h3 class="carved c-3 ws-name">SRS Performance</h3>
+        <p class="ws-copy">Brand and operations for a Minneapolis strength studio. Took over a half built site and rebuilt it as a brand. Then email funnels, offering guides, niche and differentiation, and a plan for getting into the community and vetting locations.</p>
+        <a class="more ws-link" href="https://srsperform.com" target="_blank" rel="noopener"><span>srsperform.com</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg><span class="vh"> (opens in a new tab)</span></a>
+      </li>
+      <li class="ws r-up" style="--d:180ms; --mark-x:1.32">
+        <div class="ws-stage">
+          <div class="case-show">
+            <figure class="case-mark">
+              <img src="assets/img/work/solyrey-mark-400.webp"
+                   srcset="assets/img/work/solyrey-mark-400.webp 400w, assets/img/work/solyrey-mark-600.webp 600w"
+                   sizes="(min-width: 62rem) 12vw, 36vw" width="900" height="433"
+                   loading="lazy" decoding="async"
+                   alt="The SolyRey wordmark, a fine handwritten script with a drawn sunburst rising from the final letter.">
+            </figure>
+            <figure class="case-screen">
+              <img src="assets/img/work/solyrey-screen-300.webp"
+                   srcset="assets/img/work/solyrey-screen-300.webp 300w, assets/img/work/solyrey-screen-500.webp 500w"
+                   sizes="(min-width: 62rem) 7vw, 22vw" width="500" height="1095"
+                   loading="lazy" decoding="async"
+                   alt="The SolyRey home page on a phone, headed Wander Freely, Discover Deeply, over a yellow camper van against red rock.">
+            </figure>
+          </div>
+        </div>
+        <h3 class="carved c-3 ws-name">SolyRey</h3>
+        <p class="ws-copy">Full brand refresh for a founder with a clear vision and no capacity to execute it. New logo, brand guide, and a complete website relaunch.</p>
+        <a class="more ws-link" href="https://solyrey.com" target="_blank" rel="noopener"><span>solyrey.com</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg><span class="vh"> (opens in a new tab)</span></a>
+      </li>
+    </ul>
+    <p class="small r-up ws-more"><a class="more" href="/the-build/#work"><span>The positioning behind each of the three</span>
+      <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a></p>
 
     <!-- One at a time, dragged or stepped through. Without JS it is the
          plain stack of all of them, which is the whole of the proof either
@@ -1020,47 +871,68 @@
       <figure class="quote">
         <p class="q-pull" aria-hidden="true">&ldquo;She is truly an invaluable asset&rdquo;</p>
         <blockquote>She listens with intention, quickly understands your vision, and brings it to life with ease. As a new business owner, she has lifted so much off my plate.</blockquote>
-        <figcaption><b>Tamara</b> <span>Consulting client &middot; A Sounding, then a brand build</span></figcaption>
-      </figure>
-      <figure class="quote">
-        <p class="q-pull" aria-hidden="true">&ldquo;I left being able to breathe&rdquo;</p>
-        <blockquote>I walked in carrying fear that the experience would take more from me than I had to give. I left being able to breathe.</blockquote>
-        <figcaption><b>BJB</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+        <figcaption><b>Tamara</b> <span>Mane Alchemist Salon</span></figcaption>
       </figure>
       <figure class="quote">
         <p class="q-pull" aria-hidden="true">&ldquo;She helped redesign how I operate&rdquo;</p>
         <blockquote>Cydnie is very knowledgeable and incredibly dedicated. She helped redesign how I operate!</blockquote>
-        <figcaption><b>Spencer Scott</b> <span>Consulting client &middot; SRS Performance</span></figcaption>
-      </figure>
-      <figure class="quote">
-        <p class="q-pull" aria-hidden="true">&ldquo;I mean, really, I don&rsquo;t know how you did it&hellip;&rdquo;</p>
-        <blockquote>I valued how Cydnie was always there, completely present. She shared her own story, which gave her the right to hear ours.</blockquote>
-        <figcaption><b>Carol</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+        <figcaption><b>Spencer Scott</b> <span>SRS Performance</span></figcaption>
       </figure>
       <figure class="quote">
         <p class="q-pull" aria-hidden="true">&ldquo;Her words land right where you need them&rdquo;</p>
         <blockquote>I&rsquo;m so grateful our paths crossed. Her words have a way of landing right where you need them, and her online presence reflects the warmth and wisdom she brings to every interaction.</blockquote>
-        <figcaption><b>Angela</b> <span>Client &middot; Alchemy with A</span></figcaption>
+        <figcaption><b>Angela</b> <span>Consulting client</span></figcaption>
       </figure>
       <figure class="quote">
-        <p class="q-pull" aria-hidden="true">&ldquo;Guests are in good hands from start to finish&rdquo;</p>
-        <blockquote>What stands out most is the dedication to making people feel welcome and at ease. It is comforting to know guests are in good hands from start to finish.</blockquote>
-        <figcaption><b>Kris</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+        <p class="q-pull" aria-hidden="true">&ldquo;Take a chance on an experience that will not disappoint you&rdquo;</p>
+        <blockquote>If you are weary from life and want to reset and refresh yourself, take a chance on an experience that will not disappoint you if you attend with open hands and heart.</blockquote>
+        <figcaption><b>Carol</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
       </figure>
       <figure class="quote">
-        <p class="q-pull" aria-hidden="true">&ldquo;I failed to show up for myself&rdquo;</p>
-        <blockquote>My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.</blockquote>
+        <p class="q-pull" aria-hidden="true">&ldquo;I always felt behind&rdquo;</p>
+        <blockquote>I was burnt out and struggling to figure out why I always felt behind. My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.</blockquote>
         <figcaption><b>Kristi</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
-      </figure>
-      <figure class="quote">
-        <p class="q-pull" aria-hidden="true">&ldquo;She was so willing to move mountains&rdquo;</p>
-        <blockquote>I valued how Cydnie was so willing to move mountains to make this trip be amazing and to make everyone feel comfortable and respected.</blockquote>
-        <figcaption><b>Anonymous</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
       </figure>
     </div>
 
-    <p class="small r-up" style="margin-top:var(--s-5)">One of them said it on camera.
-      <a class="link" href="https://www.youtube.com/watch?v=DrrP4hdw0lo" rel="noopener" target="_blank">Watch Melissa&rsquo;s review<span class="vh"> (opens in a new tab)</span></a>.</p>
+    <!-- MELISSA, AS A FACADE RATHER THAN A LINK OUT. Same component as
+         /retreats/: an anchor to the video with the real first frame as its
+         poster, so with no JS it is a working link, and with JS the player is
+         built in place. Nothing is fetched from YouTube until she presses it,
+         so it costs nothing against Largest Contentful Paint. -->
+
+    <!-- MELISSA. THE VIDEO PLAYS HERE AND NEVER LEAVES THE PAGE. The anchor
+         is a fallback for the no-JS case, not a destination: initVideo
+         intercepts the click, strips the target, and builds the player in
+         place, and nothing is fetched from YouTube until she presses it.
+
+         Third layout, and the first two are the reason for this one. A small
+         portrait beside a two line quote left a third of the row empty; a
+         dark panel made a feature of it but boxed it in. This gives the
+         quote the weight and the video the size, side by side on the
+         section's own ground, with the soft edge mask fading the picture
+         into the page the way every other photograph on the site does.
+
+         It stays 9:16 because she filmed it on her phone in her car. Framing
+         that wide would promise a production that does not exist. -->
+    <div class="melissa r-up">
+      <figure class="melissa-say">
+        <blockquote>I learned that I matter too.</blockquote>
+        <figcaption>Melissa, on the way home from Costa Rica.<span>Three minutes, filmed on her phone. It plays here.</span></figcaption>
+      </figure>
+      <a class="rt-play melissa-play" data-cursor="Play" data-video="DrrP4hdw0lo" data-src="assets/video/melissa.mp4" data-start="3"
+         data-title="Melissa on the Costa Rica retreat"
+         href="assets/video/melissa.mp4#t=3">
+        <img src="assets/img/retreats/melissa-poster-405.webp"
+             srcset="assets/img/retreats/melissa-poster-300.webp 300w, assets/img/retreats/melissa-poster-405.webp 405w"
+             sizes="(min-width: 48rem) 24rem, 74vw" width="405" height="720"
+             loading="lazy" decoding="async"
+             alt="Melissa, speaking to her phone camera in her car on the way home from the retreat.">
+        <span class="rt-play-btn" aria-hidden="true">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="currentColor"><path d="M0 0l18 10L0 20z"/></svg>
+        </span>
+        <span class="vh">Play Melissa&rsquo;s video about the Costa Rica retreat</span></a>
+    </div>
 
     <div class="grid-12" style="margin-bottom:var(--s-6)">
       <div class="col-d">
@@ -1087,92 +959,75 @@
         <h4>SRS Performance</h4>
         <p>Website for a strength and performance studio in Minneapolis.</p>
       </li>
-      <li class="card r-up">
-        <span class="card-n" aria-hidden="true">04</span>
-        <h4>T Sharp</h4>
-        <p>Brand voice and content.</p>
-      </li>
-      <li class="card r-up">
-        <span class="card-n" aria-hidden="true">05</span>
-        <h4>Alchemy with A</h4>
-        <p>Brand voice and content.</p>
-      </li>
     </ul>
   </div>
 </section>
-<!-- ===================== THE STORY ===================== -->
-<section class="section z-deep" data-zone style="--from:var(--surface)" id="story" aria-labelledby="story-h">
+
+<!-- ===================== 5. START HERE ===================== -->
+<section class="section z-deepwater" data-zone style="--from:var(--surface)" id="band" aria-labelledby="band-h">
+  <!-- THE OFFER, AS A DECISION. Fourth layout, 12 September, on Cydnie's
+       instruction that the centred stack was still not right and should be
+       rebuilt for conversion. Nothing here is new copy: every sentence is one
+       the centred version already carried.
+
+       Two sides. The left persuades: the promise, then the two things that
+       actually happen in the order they happen, then the objections. The
+       right is where the decision is made, in one place: the price, what it
+       comes off, the button, and the way to ask instead. On a phone the card
+       comes straight after the headline, so the button is one screen from
+       the top of the section rather than four.
+
+       Left aligned to the same edge as every other section. The centred
+       version was the only section on the page that was not. -->
   <div class="wrap">
-    <div class="story">
-      <div class="story-fig r-img">
-        <figure class="par" data-speed="0.07">
-          <img src="assets/img/cydnie-reading-1000.webp"
-               srcset="assets/img/cydnie-reading-600.webp 600w, assets/img/cydnie-reading-1000.webp 1000w"
-               sizes="(min-width: 56rem) 38vw, 100vw" width="1000" height="1500"
-               loading="lazy" decoding="async"
-               alt="Cydnie Jocelyn seated in low light, reading a sheet of paper, face turned away from the camera.">
-          <figcaption>Forest Lake, Minnesota</figcaption>
-        </figure>
+    <div class="decide">
+      <div class="offer-head">
+        <p class="eyebrow r-fade">Start here</p>
+        <h2 class="carved c-2 split" id="band-h">One conversation. Nothing signed.</h2>
       </div>
-      <div class="story-copy">
-        <p class="eyebrow r-fade">Why me</p>
-        <h2 class="head h-2 split" id="story-h">I was the client.</h2>
-        <div class="body stack r-up" style="--d:120ms">
-          <p>There were three years I describe properly on the about page, alongside postpartum, motherhood, and hospitals, because my children have a rare genetic mutation and we have not stopped going since.</p>
-          <p>Then an invitation came and I said yes in three days, with no plan, after two and a half years of not moving. I was alone in a group of fifteen and I heard myself for the first time in years. I came back and told that company I had a choice after all.</p>
+
+      <ol class="offer-steps r-up" style="--d:60ms">
+        <li>
+          <p class="offer-step-k">The conversation</p>
+          <p class="offer-step-v">Ninety minutes on the business, and I ask a lot of questions.</p>
+        </li>
+        <li>
+          <p class="offer-step-k">What arrives</p>
+          <p class="offer-step-v">Two days later, in writing: where the brand actually is, what is holding it there, and where it can go. Plus the first move, named.</p>
+        </li>
+      </ol>
+
+      <aside class="offer-card r-up" style="--d:120ms" aria-label="Book one conversation">
+        <p class="offer-card-k">What it costs</p>
+        <p class="offer-cost"><b>$300</b><span>comes off The Build</span></p>
+        <a class="btn btn--solid offer-btn" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6"><span>Book one conversation</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg><span class="vh"> (opens my scheduling page)</span></a>
+        <p class="offer-ask">Or <a class="link" href="/contact/">ask me a question first</a>. I answer those myself, at <a class="link" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a>.</p>
+        <p class="offer-more"><a class="more" href="/a-sounding/"><span>What happens in a Sounding</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a></p>
+      </aside>
+
+      <div class="reversal offer-rev r-up" data-reversal data-label="What is stopping you"
+           data-lede="Pick the one that is actually stopping you." style="--d:120ms">
+        <div class="rev">
+          <p class="rev-q">I do not know what it is yet.</p>
+          <p class="rev-a">Nothing to prepare. You do not have to know what it is yet.</p>
         </div>
-        <div class="stack r-up" style="--d:180ms; margin-top:var(--s-6)">
-          <p>I am not describing a woman I once coached. <strong>I lead with heart and close with operations.</strong> Heart alone is a nice conversation. Operations alone is why you are tired.</p>
-          <p style="margin-top:var(--s-5)">
-            <a class="more" href="/about/">
-              <span>About Cydnie</span>
-              <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
-            </a>
-          </p>
+        <div class="rev">
+          <p class="rev-q">It is all in my head and none of it is organised.</p>
+          <p class="rev-a">Bring it in the state it is in. Sorting it is the work.</p>
+        </div>
+        <div class="rev">
+          <p class="rev-q">I do not know what I would walk away with.</p>
+          <p class="rev-a">A written analysis of where the brand can go, and the first move to make.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- ===================== FIFTEEN ===================== -->
-<section class="section z-light" data-zone style="--from:var(--fathom)" id="fifteen" aria-labelledby="fifteen-h">
-  <div class="wrap">
-    <div class="fifteen">
-      <div class="fifteen-fig r-img">
-        <svg viewBox="0 0 160 160" role="img" aria-labelledby="fif-t">
-          <title id="fif-t">Fifteen circles in a ring. Fourteen are filled; one, at the top, is an open outline.</title>
-          <circle class="dot is-her" cx="79.25" cy="24.70" r="7.90"></circle>
-          <circle class="dot" cx="103.59" cy="29.53" r="7.58"></circle>
-          <circle class="dot" cx="122.80" cy="44.39" r="7.58"></circle>
-          <circle class="dot" cx="133.75" cy="65.33" r="7.58"></circle>
-          <circle class="dot" cx="135.33" cy="86.32" r="7.58"></circle>
-          <circle class="dot" cx="128.33" cy="107.54" r="7.58"></circle>
-          <circle class="dot" cx="113.17" cy="124.18" r="7.58"></circle>
-          <circle class="dot" cx="90.33"  cy="134.74" r="7.58"></circle>
-          <circle class="dot" cx="66.22"  cy="133.99" r="7.58"></circle>
-          <circle class="dot" cx="46.03"  cy="124.18" r="7.58"></circle>
-          <circle class="dot" cx="31.66"  cy="107.77" r="7.58"></circle>
-          <circle class="dot" cx="24.65"  cy="86.35"  r="7.58"></circle>
-          <circle class="dot" cx="26.73"  cy="64.13"  r="7.58"></circle>
-          <circle class="dot" cx="36.90"  cy="44.81"  r="7.58"></circle>
-          <circle class="dot" cx="54.21"  cy="30.61"  r="7.58"></circle>
-        </svg>
-        <p class="fig-cap">Alone in a group of fifteen</p>
-      </div>
-      <div class="fifteen-copy stack-lg">
-        <p class="eyebrow r-fade">The room I build</p>
-        <h2 class="head h-2 split" id="fifteen-h">You'll be alone here. And you'll never be alone again.</h2>
-        <div class="body stack r-up" style="--d:120ms">
-          <p>You want to be seen, and you want everyone to stop needing you. You have concluded those are opposites. They are not: your enemy was never invisibility, it is <em>extraction</em>.</p>
-          <p><strong>Nobody will need anything from you. Nobody will leave you either.</strong> That is not a feeling. It is architecture.</p>
-          <p class="tiny">Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- ===================== THE RETREAT ===================== -->
-<section class="section z-light" data-zone style="--from:var(--surface)" id="retreat" aria-labelledby="retreat-h">
+
+<!-- ===================== 6. RETREATS ===================== -->
+<section class="section z-light" data-zone style="--from:var(--deepwater)" id="retreat" aria-labelledby="retreat-h">
   <div class="wrap">
     <div class="retreat-grid">
       <div class="retreat-copy">
@@ -1182,19 +1037,21 @@
           <p class="lead">Eight days at Armonia Retreat Center in Douliana, Crete. Fifteen women. Twelve questions, and you answer the first before you get on the plane.</p>
           <p class="muted">Nobody will need anything from you for eight days. That is the entire brief.</p>
         </div>
+        <!-- Cut to the five things a reader needs here. The rate and the
+             deposit live on the Greece page, which is one click away and is
+             where somebody deciding to pay actually goes. -->
         <dl class="meta-list r-up" style="--d:180ms">
           <div><dt>Dates</dt><dd><time datetime="2027-08-13">13</time>&ndash;<time datetime="2027-08-20">20 August 2027</time></dd></div>
           <div><dt>Where</dt><dd>Douliana, Crete</dd></div>
           <div><dt>Seats</dt><dd>All fifteen taken. The waitlist moves.</dd></div>
-          <div><dt>Price</dt><dd>$3,450</dd></div>
-          <div><dt>Deposit</dt><dd>$500, non-refundable</dd></div>
         </dl>
         <div class="actions r-up" style="--d:180ms; margin-top:var(--s-5)">
           <a class="btn" href="/retreats/greece/"><span>Everything about Greece</span>
             <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a>
           <a class="link" href="https://clients.cydniejocelyn.com/public/6a21d07b6dcfbe3d85c663b6" rel="noopener">Join the waitlist<span class="vh"> (opens my scheduling page)</span></a>
         </div>
-        <p class="tiny r-up" style="--d:240ms; margin-top:var(--s-4)">A second date lands in April 2027. Both are on the <a class="link" href="/retreats/">retreats page</a>.</p>
+        <p class="small r-up" style="--d:240ms; margin-top:var(--s-5)"><a class="more" href="/retreats/"><span>How the retreats work</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a></p>
       </div>
       <figure class="retreat-fig r-img">
         <img src="assets/img/armonia-arch-900.webp"
@@ -1207,43 +1064,59 @@
     </div>
   </div>
 </section>
-<!-- ===================== THE REFUSALS ===================== -->
-<section class="section z-silt" data-zone style="--from:var(--surface)" id="refusals" aria-labelledby="ref-h">
+
+<!-- ===================== 7. THE CLOSE ===================== -->
+<section class="section z-light" data-zone style="--from:var(--surface)" id="start" aria-labelledby="start-h">
   <div class="wrap">
-    <div class="grid-12" style="margin-bottom:var(--s-6)">
-      <div class="col-d">
-        <p class="eyebrow r-fade">Before you decide</p>
-        <h2 class="head h-2 split" id="ref-h">Here is what I won't do.</h2>
-      </div>
-      <div class="col-e">
-        <p class="lead r-up" style="--d:120ms">A refusal you can read in advance is worth more than a promise you have to take on trust.</p>
+    <div class="close-grid">
+      <div class="close-copy">
+        <p class="eyebrow r-fade">Before you go</p>
+        <h2 class="carved c-1 split" id="start-h">There's no wrong way to do it.</h2>
+        <div class="body stack r-up" style="--d:120ms; margin-top:var(--s-6)">
+          <!-- "Nothing signed" framed a paid engagement as no-obligation at
+               the one moment the page asks for money, and the figure was
+               nowhere near the button. Both fixed. -->
+          <p>Ninety minutes, and a written analysis two days later. You leave with your brand looked at properly and somewhere to take it.</p>
+        </div>
+        <!-- THE FREE OFFER FINALLY GETS AN ACTION. It was the only thing on
+             this page never given one: three buttons on the $300 offer and
+             none on the free one, which is the lowest friction way in and the
+             thing that feeds the retreats and new work first.
+
+             The booking button that used to sit here is gone. Section 5 is
+             the Sounding with the same words and the same link; two of them
+             on one page read as one ask repeated.
+
+             IT GOES TO HONEYBOOK, NOT FLODESK, on Cydnie's instruction of
+             12 September 2026: the letters land in HoneyBook and this is the
+             form they land in. It is the same cf_id the two buttons on
+             /the-letters/ use, so all three entry points now feed one record
+             rather than two systems.
+
+             Flodesk was tried here first and measured out. Rendering the
+             account's only Flodesk form with `containerEl` puts the markup in
+             the container, so it looks inline; it is not. Flodesk builds that
+             form as `fd-modal fd-is-open`, `position: fixed`, `z-index: 1040`.
+             It is a modal that lands off screen by accident, and this brand
+             does not use modals. Do not retry it without an INLINE form id. -->
+        <div class="actions r-up" style="--d:180ms; margin-top:var(--s-6)">
+          <a class="btn btn--solid" href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/6a19d46a5cb4c5d7f86446a9" rel="noopener" target="_blank"><span>Take the letters, free</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg><span class="vh"> (opens in a new tab)</span></a>
+        </div>
+        <p class="small r-up" style="--d:240ms; margin-top:var(--s-5)">Not ready? <a class="link" href="/contact/">Ask me a question</a>. Or take <a class="link" href="/the-letters/">The Letters</a>, Sunday nights, no pitch.</p>
       </div>
     </div>
-    <dl class="refuse" data-stagger="60">
-      <div class="r-up"><dt>You get the honest answer, including the cheap one.</dt><dd>If the honest answer is smaller, cheaper or slower than what you came for, that is the answer you get. Sometimes the answer is that you don&rsquo;t need me at all.</dd></div>
-      <div class="r-up"><dt>Nothing is templated.</dt><dd>No package, no formula, no version of you I have already sold to someone else. You have been sold vibes before. You paid for a shift and went home with a journal and no plan.</dd></div>
-      <div class="r-up"><dt>You will meet me where you are.</dt><dd>You will meet me where you are and I will not flinch at any of it. No shame either.</dd></div>
-      <div class="r-up"><dt>Nobody pulls you out.</dt><dd>Nobody pulled me out. Resurfacing is something you choose, and I will be there when you do.</dd></div>
-    </dl>
-  </div>
-</section>
-<!-- The line the whole practice turns on. -->
-<section class="statement z-silt" data-zone aria-label="If I don't fit into a box, you shouldn't either">
-  <div class="wrap">
-    <svg class="statement-rule" viewBox="0 0 1200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M0 10 L1200 10"></path></svg>
-    <p class="carved statement-line split">If I don't fit into a box,<br>you shouldn't either.</p>
-    <svg class="statement-rule" viewBox="0 0 1200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M0 10 L1200 10"></path></svg>
-  </div>
-</section>
-<!-- ===================== QUESTIONS ===================== -->
-<section class="section z-light" data-zone style="--from:#DCE4E1" id="faq" aria-labelledby="faq-h">
-  <div class="wrap">
-    <div class="grid-12">
-      <div class="col-a">
-        <p class="eyebrow r-fade">Questions</p>
-        <h2 class="head h-2 split" id="faq-h">Before you ask.</h2>
-      </div>
-      <div class="col-b">
+
+
+    <!-- THE QUESTIONS, folded into the close rather than standing as their
+         own section. `id="faq"` is load bearing: /about/ links to /#faq. -->
+    <div class="close-faq" id="faq" aria-labelledby="faq-h">
+      <div class="grid-12">
+        <div class="col-d">
+          <p class="eyebrow r-fade">Questions</p>
+          <h2 class="head h-2 split" id="faq-h">Before you ask.</h2>
+        </div>
+        <div class="col-e">
         <!-- A WINDOW, NOT A LIST. Ten questions stacked ran 1,094px on a
              phone, one and a third screens of nothing but summaries. The
              list scrolls inside a fixed window instead, so the section is
@@ -1263,14 +1136,6 @@
             <div class="answer"><p>That is the normal starting condition, and it is the thing being solved. You have run out of external explanations, so the fault has quietly gone internal, and that is very hard to describe out loud. Bring it in the state it is in.</p></div>
           </details>
           <details>
-            <summary>What actually happens, and when? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>We talk once, for ninety minutes, and I ask a lot of questions because the useful information is not in the pitch deck. Two days later the written analysis arrives. It is yours to keep either way.</p></div>
-          </details>
-          <details>
-            <summary>What if I am not ready to spend $300? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Worth knowing first: if you go on to a Build, the $300 comes off it, so it is not money spent twice. If that is still not the right moment, ask me a question or start with the letters. They are free, they arrive once a week, and they are written the week they go out. <a class="link" href="/the-letters/">Read the letters</a>.</p></div>
-          </details>
-          <details>
             <summary>What is the resurfacing business? <span class="sign" aria-hidden="true"></span></summary>
             <div class="answer"><p>It is how Cydnie Jocelyn describes her practice. She is not in the brand business or the retreat business; she brings founders and leaders back to the surface and then builds the business around whoever comes up. The methodology is Resurface, then Reclaim, then Build: permission, a witness, and a plan, in that order.</p></div>
           </details>
@@ -1279,59 +1144,17 @@
             <div class="answer"><p>With one conversation. Ninety minutes on the business, nothing signed, and a written analysis two days later of where the brand can go, plus a straight answer on whether you need anything further, including when the honest answer is that you need less than you came for.</p></div>
           </details>
           <details>
-            <summary>Do you publish your pricing? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>Retreat pricing is published in full on each retreat page. Brand work with a fixed scope can carry a number. Custom scoped work cannot, because the scope is the variable, and it is decided after listening rather than before.</p></div>
-          </details>
-          <details>
-            <summary>What does alone in a group of fifteen mean? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>It is the design principle behind every retreat. Nobody needs anything from you and nobody leaves you to it. There is no forced sharing and no facilitated vulnerability, and you are also never on your own with it. Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance.</p></div>
-          </details>
-          <details>
-            <summary>Are the retreats women only? <span class="sign" aria-hidden="true"></span></summary>
-            <div class="answer"><p>The brand strategy work is for founders and leaders of any gender. Individual retreats are often women specific and are labeled that way on their own page.</p></div>
-          </details>
-          <details>
             <summary>Where is Cydnie Jocelyn based? <span class="sign" aria-hidden="true"></span></summary>
             <div class="answer"><p>Forest Lake, Minnesota, about thirty minutes north of Saint Paul. She works in person across the Twin Cities metro, including Minneapolis, Saint Paul, Stillwater, Woodbury, White Bear Lake, Blaine, Maple Grove, Wyoming and Hugo, and remotely with clients anywhere. Retreats run in the United States and internationally.</p></div>
           </details>
+        </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- ===================== THE SURFACE ===================== -->
-<!-- THE BAND MARKS THE ACTION. One Deepwater band per page, on the
-     thing the page is asking for. It used to alternate as decoration: across
-     the eight content pages the band landed on a thesis, a testimonial, a
-     pricing tier or a "who this is not for", and on no page at all did it
-     sit on the booking. Three pages carried two or three of them. -->
-<section class="section z-light" data-zone style="--from:var(--surface)" id="start" aria-labelledby="start-h">
-  <div class="wrap">
-    <div class="close-grid">
-      <div class="close-copy">
-        <p class="eyebrow r-fade">Start here</p>
-        <h2 class="carved c-1 split" id="start-h">There's no wrong way to do it.</h2>
-        <div class="body stack r-up" style="--d:120ms; margin-top:var(--s-6)">
-          <!-- "Nothing signed" framed a paid engagement as no-obligation at
-               the one moment the page asks for money, and the figure was
-               nowhere near the button. Both fixed. -->
-          <p>Ninety minutes, and a written analysis two days later. You leave with your brand looked at properly and somewhere to take it.</p>
-        </div>
-        <div class="actions r-up" style="--d:180ms; margin-top:var(--s-6)">
-          <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6"><span>Book one conversation</span>
-            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg><span class="vh"> (opens my scheduling page)</span></a>
-        </div>
-        <p class="small r-up" style="--d:240ms; margin-top:var(--s-5)">Not ready? <a class="link" href="/contact/">Ask me a question</a>. Or take <a class="link" href="/the-letters/">The Letters</a>, Sunday nights, no pitch.</p>
-      </div>
-    </div>
 
-    <div style="margin-top:var(--s-8)">
-      <hr class="rule">
-      <h2 class="head h-3 r-up" style="margin-top:var(--s-5); margin-bottom:var(--s-3)">Brand strategy across Minnesota</h2>
-      <p class="small muted r-up" style="max-width:48rem">In person across the Twin Cities metro, including Forest Lake, Stillwater, Woodbury and Maple Grove. Remote anywhere.</p>
-    </div>
-  </div>
-</section></main>
+</main>
 
 <!-- THE FOOTER. One footer, byte for byte the same on all seven pages
      apart from the asset prefix. It used to differ on every one of them:
@@ -1369,7 +1192,7 @@
              srcset="assets/img/mark-horiz-light-500.webp 500w, assets/img/mark-horiz-light-800.webp 800w"
              sizes="240px" width="2198" height="410" loading="lazy" decoding="async"
              alt="Cydnie Jocelyn, the resurfacing business">
-        <p class="small muted" style="max-width:26rem">Strategic brand partner for what&rsquo;s next. Forest Lake, Minnesota.</p>
+        <p class="small muted" style="max-width:26rem">Brand, operations and business development for founders and leaders. Forest Lake, Minnesota.</p>
         <p class="small" style="margin-top:var(--s-4)"><a class="link" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a></p>
         <!-- THE SERVICE AREA. One sentence, once, in one place.
              The precise list lives in `areaServed` on the LocalBusiness node
@@ -1378,7 +1201,7 @@
              sentence deliberately: a block of city names repeated on nine
              pages is what a keyword pile looks like to a reader and to
              Google, and the structured data already carries the precision. -->
-        <p class="ftr-area tiny" style="margin-top:var(--s-3); max-width:26rem">In person around Forest Lake, Blaine, Anoka, Ramsey, East Bethel, Lino Lakes, Hugo, Shoreview, White Bear Lake, Cambridge, Isanti, North Branch and Crosslake, across Minneapolis and the wider Twin Cities, and remotely anywhere.</p>
+        <p class="ftr-area tiny" style="margin-top:var(--s-3); max-width:26rem">In person around Forest Lake, Minneapolis, Saint Paul, Stillwater, Woodbury and White Bear Lake, and remotely anywhere.</p>
       </div>
       <div class="ftr-nav">
         <div>
@@ -1386,7 +1209,7 @@
           <ul role="list">
             <li><a href="/a-sounding/">A Sounding</a></li>
             <li><a href="/retreats/">Retreats</a></li>
-            <li><a href="/the-build/">The Build</a></li>
+            <li><a href="/the-build/">The Build, brand and website work</a></li>
             <li><a href="/the-build/#work">Client work</a></li>
           </ul>
         </div>
@@ -1394,7 +1217,7 @@
           <h3>More</h3>
           <ul role="list">
             <li><a href="/about/">About Cydnie</a></li>
-            <li><a href="/the-letters/">The Letters</a></li>
+            <li><a href="/the-letters/">The Letters, free weekly</a></li>
             <li><a href="/contact/">Contact</a></li>
           </ul>
         </div>
@@ -1420,13 +1243,13 @@
   </div>
 </footer>
 
-<script src="assets/js/site.js?v=1d9b8d4f" defer></script>
+<script src="assets/js/site.js?v=6ab576d2" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="assets/js/analytics.js?v=1d9b8d4f" defer></script>
-<script src="assets/js/consent.js?v=1d9b8d4f" defer></script>
+<script src="assets/js/analytics.js?v=6ab576d2" defer></script>
+<script src="assets/js/consent.js?v=6ab576d2" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

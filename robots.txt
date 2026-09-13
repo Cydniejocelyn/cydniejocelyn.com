@@ -21,4 +21,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://cydniejocelyn.com/sitemap.xml
+Sitemap: https://www.cydniejocelyn.com/sitemap.xml

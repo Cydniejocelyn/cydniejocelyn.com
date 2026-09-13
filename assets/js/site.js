@@ -862,10 +862,14 @@
 
     function pad(n) { return (n < 10 ? "0" : "") + n; }
 
-    /* where the track has to sit for slide i to be centred in the view */
+    /* Where the track has to sit for slide i to start on the view's left
+       edge. It used to centre the slide, which put the quote in front 250px
+       right of every heading on the page at 1440. Left anchored, it sits on
+       the same edge as the section title and the controls under it, and the
+       next quote waits to the right. Measured from the first slide so it
+       does not matter what `offsetLeft` is relative to. */
     function xFor(i) {
-      var s = figs[i];
-      return Math.round(view.clientWidth / 2 - (s.offsetLeft + s.offsetWidth / 2));
+      return Math.round(figs[0].offsetLeft - figs[i].offsetLeft);
     }
 
     /* The transition is the nice part, not the load bearing part. A
@@ -1222,6 +1226,18 @@
       if (r.closest(".ab-head, .hero")) draw(r);
       else watch(r, function () { draw(r); }, null, true);
     });
+
+    /* The descent rule in section 3 draws downward rather than across, and
+       takes longer because it is the height of three pillars rather than the
+       width of a heading. Same contract otherwise: drawn once, on entry, and
+       resting drawn so a browser that never advances it still shows a rule. */
+    Array.prototype.slice.call(document.querySelectorAll(".descent"))
+      .forEach(function (d) {
+        watch(d, function () {
+          d.classList.add("is-drawing");
+          window.setTimeout(function () { d.classList.remove("is-drawing"); }, 1200);
+        }, null, true);
+      });
   }
 
   /* ---------- 15. The video ---------------------------------
@@ -1252,8 +1268,34 @@
           "Play the video" + (a.dataset.title ? ": " + a.dataset.title : ""));
 
         a.addEventListener("click", function (e) {
-          if (a.classList.contains("is-playing")) return;
           e.preventDefault();
+          /* SELF HOSTED FIRST. With `data-src` on the anchor the file comes
+             from this site and plays in a native <video>: no YouTube player,
+             no YouTube logo linking away, and it plays inside the review
+             artifact, whose sandbox blocks every outside frame. The YouTube
+             embed below is only the fallback for a video with no file. */
+          if (a.dataset.src) {
+            var v = document.createElement("video");
+            /* `#t=` is a media fragment: the file starts where the YouTube
+               embed did, and the reader can still scrub back to zero. */
+            v.src = a.dataset.src + (a.dataset.start ? "#t=" + a.dataset.start : "");
+            v.controls = true;
+            v.autoplay = true;
+            v.playsInline = true;
+            v.setAttribute("playsinline", "");
+            v.preload = "auto";
+            var poster = a.querySelector("img");
+            if (poster) v.poster = poster.currentSrc || poster.src;
+            v.setAttribute("aria-label", a.dataset.title || "Video");
+            var vbox = document.createElement("div");
+            vbox.className = a.className + " is-playing";
+            vbox.appendChild(v);
+            a.parentNode.replaceChild(vbox, a);
+            var go = v.play && v.play();
+            if (go && go.catch) go.catch(function () {});
+            v.focus();
+            return;
+          }
           var f = document.createElement("iframe");
           f.src = "https://www.youtube-nocookie.com/embed/" + a.dataset.video +
                   "?autoplay=1&start=" + (a.dataset.start || "0") +
@@ -1275,9 +1317,20 @@
           f.allow = "autoplay; encrypted-media; picture-in-picture";
           f.referrerPolicy = "strict-origin-when-cross-origin";
           f.setAttribute("allowfullscreen", "");
-          a.classList.add("is-playing");
-          a.innerHTML = "";
-          a.appendChild(f);
+          /* THE PLAYER MUST NOT SIT INSIDE THE LINK. It used to: the anchor
+             was emptied and the iframe put inside it, so the player was
+             still wrapped in an `href` to youtube.com with its target
+             stripped. Any click that reached the anchor rather than the
+             frame, a tap on the edge while the frame loaded, or Enter on
+             the still focused link, sent the whole page to YouTube. Cydnie
+             hit exactly that. Now the anchor is swapped for a plain box
+             carrying the same classes, so once she presses play there is no
+             link left on the page to follow. */
+          var box = document.createElement("div");
+          box.className = a.className + " is-playing";
+          box.appendChild(f);
+          a.parentNode.replaceChild(box, a);
+          f.focus();
         });
       });
   }
@@ -1696,6 +1749,72 @@
     });
   }
 
+  /* ---------- 19. The three, held ----------------------------------- */
+  /* THE THREE, HELD. Replaced the flip cards; see 11b-i in site.css.
+     One panel is always open. Choosing one is the only action there is, so
+     no state can be left behind for the reader to undo. */
+  function initHeld() {
+    Array.prototype.slice.call(document.querySelectorAll("[data-held]")).forEach(function (host) {
+      var panels = Array.prototype.slice.call(host.querySelectorAll(".held-p"));
+      var buttons = panels.map(function (p) { return p.querySelector(".held-b"); });
+      if (panels.length < 2 || buttons.indexOf(null) !== -1) return;
+      var wideHover = window.matchMedia("(hover: hover) and (min-width: 62rem)");
+      var current = -1, timer = 0;
+
+      function open(i) {
+        if (i === current) return;
+        current = i;
+        host.setAttribute("data-open", String(i));
+        panels.forEach(function (p, j) {
+          var on = j === i;
+          p.classList.toggle("is-open", on);
+          buttons[j].setAttribute("aria-expanded", on ? "true" : "false");
+        });
+      }
+
+      open(0);
+      host.classList.add("is-live");
+
+      buttons.forEach(function (b, i) {
+        /* The whole panel takes the click, not only its heading. Wide, a
+           closed panel is mostly empty ground below its name, and on a
+           touchscreen laptop with no hover a tap there has to do something. */
+        panels[i].addEventListener("click", function () {
+          var wasTop = b.getBoundingClientRect().top;
+          open(i);
+          /* Stacked, closing the panel above can carry this one up past the
+             header. Put it back in view once the rows have settled. */
+          if (!wideHover.matches && wasTop >= 0) {
+            setTimeout(function () {
+              var top = b.getBoundingClientRect().top;
+              if (top < 72) window.scrollBy({ top: top - 88, behavior: reduce.matches ? "auto" : "smooth" });
+            }, 680);
+          }
+        });
+        b.addEventListener("keydown", function (e) {
+          var k = e.key, n = buttons.length, to = -1;
+          if (k === "Enter" || k === " " || k === "Spacebar") to = i;
+          else if (k === "ArrowRight" || k === "ArrowDown") to = (i + 1) % n;
+          else if (k === "ArrowLeft" || k === "ArrowUp") to = (i - 1 + n) % n;
+          else if (k === "Home") to = 0;
+          else if (k === "End") to = n - 1;
+          if (to < 0) return;
+          e.preventDefault();
+          buttons[to].focus();
+          open(to);
+        });
+        /* A short intent delay, so a pointer crossing the row on its way
+           somewhere else does not open every panel it passes over. */
+        panels[i].addEventListener("mouseenter", function () {
+          if (!wideHover.matches) return;
+          clearTimeout(timer);
+          timer = setTimeout(function () { open(i); }, 110);
+        });
+        panels[i].addEventListener("mouseleave", function () { clearTimeout(timer); });
+      });
+    });
+  }
+
   function initYear() {
     document.querySelectorAll("[data-year]").forEach(function (el) {
       el.textContent = String(new Date().getFullYear());
@@ -1723,6 +1842,7 @@
     initRail();
     initCursor();
     initFaqWindow();
+    initHeld();
     initYear();
   }
 

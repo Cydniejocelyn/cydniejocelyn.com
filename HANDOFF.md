@@ -5794,3 +5794,688 @@ Both are artifacts, both were built from the site's own copy and markup.
   * **Did not turn the database on.** `api/` is still in `.vercelignore`.
   * **Did not change HoneyBook or Flodesk.** They are the CRM. Section 51.
   * **Did not fix the stray `</div>`**, for the reason above.
+
+---
+
+## 54. START HERE. Session twenty-eight, 12 September 2026. NOTHING SHIPPED.
+
+**Read this before section 53. Everything below is uncommitted and unpushed,
+and that is deliberate: Cydnie ended the session with "nothing is allowed to
+be pushed or published."**
+
+    git            HEAD f8cbf95, level with origin, 14 files modified
+    production     still f8cbf95, which is the header portrait and the
+                   Greece early rate removal. None of the work below is live.
+    site suite     529 pass / 0 fail, ten pages
+    tools/seams.py 0 mismatches
+    gatlinburg     still noindex, still linked from nowhere
+    api/           still switched off in .vercelignore
+
+### The one thing that is broken and was not fixed
+
+**THE FLIP CARDS IN SECTION 3 DO NOT WORK.** Cydnie has reported this three
+times. Two causes were found and fixed and it still does not work for her, so
+there is a third and I did not find it.
+
+Fixed, and verified in a headless browser each time:
+
+  1. `perspective` was on `.flips`, the list. The property applies to an
+     element's DIRECT children only, and the rotating element `.flip-in` is a
+     grandchild, so it turned with no perspective: a flat mirror flip with no
+     depth. Moved onto `.flip`.
+  2. The whole flip was behind `@media (hover: hover) and (pointer: fine)`.
+     That does not match on a touchscreen laptop or in some embedded viewers,
+     and in those the cards never turned at all. Regated on `.js-motion`, and
+     a tap and keyboard toggle were added in `initFlips`, site.js section 19.
+
+What is verified working in headless Chrome at 1140px: click flips and
+unflips, Enter flips, real pointer hover flips, the halo paints, and with
+`.js-motion` removed both faces stack and stay readable.
+
+**So the next session should not start by re-reading the CSS.** Start by
+finding out what Cydnie is actually looking at and on what, because the
+component passes every test that can be run from here:
+
+  * Is she reviewing the ARTIFACT or a local build? The artifact is a folded
+    single file in a sandboxed frame and is the most likely differing
+    environment.
+  * What browser and what device? Safari needs `-webkit-backface-visibility`,
+    which is set, but Safari also flattens `preserve-3d` when an ancestor has
+    `overflow` other than visible, and `.proof` and `.wrap` above it have not
+    been checked for that.
+  * Does the card move AT ALL for her, or is it that the back is unreadable,
+    or that the halo is the part that does not show? "Does not work" has
+    covered three different things so far.
+
+`overflow` on an ancestor flattening the 3D context is the strongest
+remaining candidate and is the first thing to check.
+
+### What is in the working tree, none of it live
+
+**Phases 1 and 2 of the home restructure brief, built together.** Phase 1
+deletes three sections that Phase 2 relocates, so shipping Phase 1 alone
+would take that content off the site entirely.
+
+Seventeen blocks to seven: hero, the condition, what I actually do, proof,
+start here, retreats, the close. Deleted outright: The difference, What it
+leads to, Before any of it, the box statement, the mid-page city band, and
+the hero path rail. Relocated: the refusals to /the-build/ above the prices
+and cut from four items to three, The room I build to /retreats/ as copy only
+because that page already draws the fifteen ring and `initFifteen` finds it
+with `querySelector`, singular. Five FAQ questions split off the home page
+onto /the-build/, /retreats/ and /a-sounding/, markup and FAQPage schema
+together. "I was the client" was deleted without relocating because /about/
+already carries that narrative in fuller form.
+
+**Motion lost, per standing rule 1:** both parallax elements, so the home
+page now has none; the four-door stagger; one of the two waterline rules;
+four split headlines. The reversal interaction was NOT lost: the brief asked
+for the three objections as inline lines, which would have deleted it, so the
+component moved intact and only its container tightened.
+
+**The hero, after a long and mostly wasted argument.** The plate is
+`layer-surface`, the full frame, unedited and restored from git byte for
+byte. No scrim was the instruction at one point and it is not survivable:
+measured on the bare plate the ground under the headline runs 0.006 to 0.976
+relative luminance because the words cross the waterline, and no single ink
+colour survives that range. The scrim is back, shaped to the photograph
+rather than flat over it: real weight across the top where the sky is near
+white, nothing at all at the right hand edge where the shafts are. Every run
+measured against the glyph runs, not the element boxes.
+
+    eyebrow 5.89   H1 5.97   category 4.91   CTA 7.60   clients 6.64
+
+**MEASURE THE GLYPH RUNS, NOT THE ELEMENT BOXES.** A block level `<p>` is as
+wide as its column and its letters are not, so scoring the box scores empty
+ground and reports failures that are not there. Two "failures" were reported
+to Cydnie that way before it was caught. Use `Range.getClientRects()`.
+
+### Decisions Cydnie made this session, so they are not reopened
+
+  * The depth gauge stays. No alternative was wanted.
+  * The Greece early rate is removed. Gatlinburg's runs to 31 October and is
+    untouched.
+  * Header portrait: frame 48 from the branding shoot, chosen on measured
+    separation against both bar colours. Frame 20 lost at 1.88:1 on the dark
+    bar. Seven cropped portraits are in `assets/img/` lineage if wanted.
+  * The Letters go to HONEYBOOK, not Flodesk, cf_id
+    `6a19d46a5cb4c5d7f86446a9`, the same record the two buttons on
+    /the-letters/ use. Flodesk was tried inline and measured out: that
+    account's only form is built as `fd-modal fd-is-open`, `position: fixed`,
+    `z-index: 1040`. It is a popup, and this brand does not use modals. An
+    inline capture needs a form created as an INLINE form in Flodesk and a
+    new id, which does not exist yet.
+  * Section 7 lost its "Start here" eyebrow and its booking button, because
+    section 5 is the same ask thirty lines up. Its eyebrow is "Before you go".
+  * Melissa's video STAYS. It was removed once by misreading "I don't like
+    the layout" as "remove it". It is on its third layout: quote leading at
+    full size, video at 24rem beside it, soft edges into the page. It plays
+    in place and never navigates.
+  * The CTA describes the Sounding rather than naming it. "A written page,
+    two days later" was rejected as something nobody registers for.
+
+### Open, and none of it started
+
+  1. **The flip cards.** Above.
+  2. **Phase 3**, the client work showcase. `#work` on the home page is an
+     empty placeholder. The three thumbnails already exist in
+     `assets/img/work/`, eighteen files, and /the-build/#work renders them.
+  3. **Phase 4**, canonical, schema and performance. The canonical mismatch
+     is sitewide: production serves www, and all 190 absolute references in
+     source point at the apex, which 308s. Not one line of Phase 4 is done.
+  4. **Phase 5**, the Gatlinburg swap, held for 16 September.
+  5. `Salon &middot; Chisago Lakes MN` on /the-build/ now says salon twice,
+     since the name was corrected to Mane Alchemist Salon.
+  6. The stray `</div>` in index.html, still there, still harmless.
+  7. `reaching-water-*.webp` and `cydnie-reading-600.webp` are unreferenced
+     and the build warns about them every time.
+
+### How to resume
+
+    python3 tools/build.py
+    python3 tools/seams.py                      0
+    sh tools/preview/runsuite.sh "$SP" 8814     529 / 0, ten pages
+
+If pages report `0 pass / 0 fail`, a stale headless Chrome is holding its
+profile directories and the cleanup silently failed. `pkill -f 'Google
+Chrome.*--headless'`, delete `$SP/cr-*`, run it again. That happened once
+this session and looked like four pages failing.
+
+## 55. START HERE. Session twenty-nine, 12 September 2026. Still nothing shipped.
+
+**Section 54 still holds for everything except the flip cards.** Nothing was
+committed, pushed or published this session either.
+
+    git            HEAD f8cbf95, working tree now 14 files modified + this
+    site suite     529 pass / 0 fail, ten pages
+    tools/seams.py 0 mismatches
+
+### The flip cards: the third cause, found and fixed
+
+It was never the 3D. Every ancestor was checked for `overflow`, `opacity`,
+`transform`, `filter` and `contain`; the only hit is `body { overflow-x:
+hidden }`, which cannot flatten `.flip-in`. The overflow theory is dead.
+
+**The cards got stuck.** The turn answered three states at once, `:hover`,
+`:focus-within` and `.is-flipped`. A click focuses the card, because it
+carries `tabindex="0"`, so `:focus-within` held it turned. Measured with real
+pointer events in the Browser pane before the fix:
+
+    hover            turned
+    click            turned, focused
+    click again      STILL turned (class off, focus and hover hold it)
+    mouse away       STILL turned (focus holds it)
+
+On a phone it was worse: `:hover` sticks after a tap, so a tapped card never
+came back at all. Every test in section 54 flipped a card once and stopped,
+which is why they all passed.
+
+**Fix.** `.is-flipped` is the one state that turns a card. `:hover` turns it
+only inside `@media (hover: hover)`. Keyboard focus draws the halo through
+`:focus-visible` and does not turn. `initFlips` gained a `focusout` that
+clears the class. Verified after, each with real input:
+
+    mouse    hover turns, away returns, click then away returns, hover again turns
+    phone    375px touch emulation, hover:none. Tap turns, tap returns,
+             tap elsewhere returns
+    keyboard Enter turns, Enter returns, Tab away returns
+
+**The review artifact was stale.** Cydnie reported "it doesn't work based off
+the artifact": that artifact (50fca51a) was folded in session twenty-eight,
+before this fix, and still carried `:focus-within`. The fold was re-run and
+tested with storage throwing, the way the sandboxed viewer behaves; boot
+survives and the flips work. Republished to the same URL on her word,
+version label "Flip cards no longer stick". The site itself is still not
+pushed.
+
+Not verified: real Safari and a real phone. If Cydnie still sees a problem,
+ask what browser and device before touching the code again.
+
+### Also noticed
+
+`sounding-popup.js` fires after 45 seconds on the home page and covered the
+cards mid test. That is the popup wired on 26 August (section 10, the
+`sounding-popup.js` notes), not a regression, but it is a modal on a brand that forbids modals and
+anyone testing for more than 45 seconds will meet it.
+
+### Later the same session: THE FLIP CARDS ARE GONE
+
+Cydnie tested the fixed artifact and the flips "still don't work", and asked
+for a different interactive section instead. So the fix above is superseded:
+`.flips`, `.flip-*` and `initFlips` are deleted, not patched again.
+
+**Replaced by "the three, held"**: `.held` in index.html, 11b-i in site.css,
+`initHeld` at section 19 of site.js. Same three names, teasers and detail
+copy, word for word (the build script asserted it).
+
+  * Three panels in a row, ONE ALWAYS OPEN. The open one widens to 2.3fr, a
+    Meniscus waterline draws across its top, Breath light rises from its
+    floor, and the detail surfaces 260ms later. Under 62rem the same thing
+    stacks as an accordion, one open.
+  * No 3D anywhere. No `preserve-3d`, no `backface-visibility`, no hidden
+    face, and no "turn back" state to get stuck in: choosing a panel is the
+    only action.
+  * Hover opens a panel only under `(hover: hover) and (min-width: 62rem)`,
+    with a 110ms intent delay. A click or tap anywhere on a panel opens it.
+    Enter, Space, arrows, Home and End on the heading buttons. Stacked, the
+    tapped heading is scrolled back under the header if closing the panel
+    above carried it off.
+  * Fails open: nothing collapses until JS adds `.is-live`. Reduced motion
+    drops every transition and keeps the interaction.
+
+Measured at 1280: section height 368px whichever panel is open, so nothing
+below it shifts. Detail text worst glyph run 4.97:1 on the risen light.
+Tested with real clicks, taps and keys at 446px and synthetic events at
+1280, and in the folded artifact with storage throwing. Suite 529 / 0,
+seams 0. Artifact 50fca51a republished, label "Three panels replace the
+flip cards". Still nothing pushed.
+
+### Melissa's video was leaving the page
+
+Cydnie: "the video of melissa gets pulled offsite." Real, and reproduced:
+`initVideo` emptied the `<a href="youtube.com/watch...">` and put the iframe
+INSIDE it, with `target` stripped. A click that reached the anchor rather
+than the frame navigated the whole tab to YouTube; the test click in the
+Browser pane did exactly that. Fixed in site.js section 15: on play the
+anchor is replaced by a `<div>` carrying the same classes, so no link is
+left. Verified: plays in place, no `<a>` left in `.melissa`, a click on the
+box stays on the page. Also fixes /retreats/, same component. Suite 529 / 0.
+
+**Two things this cannot fix, both because it is YouTube:**
+  * YouTube's own logo and title inside the player still link to YouTube.
+    That is YouTube's player and cannot be switched off.
+  * The artifact viewer blocks frames from every outside host, so in the
+    review link the YouTube player cannot play at all.
+The complete fix is to host the file on the site and use a native
+`<video>` (CSP already has `media-src 'self'`). Waiting on the original file
+from Cydnie; nothing named Melissa exists locally and there is no ffmpeg.
+Not pushed, and the artifact was not republished for this.
+
+### Alignment, the offer section, and the video (same session, later)
+
+**Alignment, measured at 1440 on glyph runs.** Every section's heading,
+eyebrow rule and first block now start at x=132, the wrap's inner edge.
+Before: /proof header on `col-c` (233), the carousel CENTRED its front quote
+(384), `.melissa` a 60rem block centred in the wrap (240), and every
+`<figure class="quote">` carried the UA 40px margin. Fixed: header on
+`col-d`; `xFor()` in initQuotes now left-anchors the front slide (desktop
+drag mode only; the touch scroller still centres); `.melissa` spans the wrap
+with the video on the right edge (1308); `.quote { margin: 0 }`. The
+carousel change also applies on /retreats/, same component.
+
+**#band rebuilt as "the offer as a decision"** (site.css 11d). Left: eyebrow,
+H2, two numbered steps (the conversation, what arrives) on a drawn rule,
+then the reversal, intact. Right: one card with the price, "comes off The
+Build", a full width "Book one conversation" and the ask line. Phone order
+is head, card, steps, objections. Not sticky. No new copy; every string
+was asserted against the previous build. `.band-mid`, `.band-facts`,
+`.band-ask` and `.actions--mid` are gone from the CSS and were used nowhere
+else.
+
+**Melissa.** The link Cydnie pointed to is in
+`CydnieJocelyn-Site/Website Links.pdf` and is the same YouTube URL the page
+already uses. The site now plays it in place, but the artifact viewer blocks
+all outside frames, so the review link can never play a YouTube embed.
+`initVideo` now takes `data-src` on the anchor and builds a native `<video>`
+from a self hosted file instead; tested with a stand-in clip (not committed).
+The file itself is still missing: nothing local matches, no ffmpeg or
+yt-dlp. Once `assets/video/melissa.mp4` exists, add
+`data-src="assets/video/melissa.mp4"` to the anchor on / and /retreats/ and
+fold the file into the artifact.
+
+Suite 529 / 0, seams 0. Artifact republished, label "Aligned proof, new
+offer layout". Nothing pushed.
+
+### PHASE 3 BUILT, AT GATE 3 (not approved yet, nothing pushed)
+
+Cydnie said "lets move onto the next phases". Phase 3 of
+`home-restructure-claude-code-brief.md` (in the repo root) is built. The
+brief's standing rule 7 makes every phase end at an approval gate, so
+Phase 4 has NOT been started. Phase 5 stays held for 16 September.
+
+**3.1 home `#work`**: `<ul class="work-showcase" id="work">`, top of
+#proof. Mane Alchemist Salon, SRS Performance, SolyRey, in that order,
+brief copy verbatim (asserted against the brief file), each with the
+mark and phone pair from /the-build/ (same `.case-show`, `.case-mark`,
+`.case-screen`, same `--mark-x`), and the live site by its domain in a new
+tab, `rel="noopener"`. CSS `.ws*` beside the old `.work-showcase:empty`
+note. Three columns from 62rem; nothing overflows its Silt stage at 1000
+or 1440. Images are the existing `assets/img/work/*-mark-*` and
+`*-screen-*` files, already descriptive filenames, lazy, with width and
+height.
+
+**3.2 /the-build/#work**: each case gains `.case-scope` (the same brief
+copy) and `.case-live` (the same link). Nothing existing was rewritten.
+
+**Waiting on Cydnie at the gate:**
+  1. Alt text. The brief says submit, not publish. The six alts are the
+     ones already live on /the-build/, reused.
+  2. "Built to stand." and its three `.cards` still sit under Melissa and
+     now name the same three clients as the showcase. Recommended to
+     remove; not removed, because it is copy the brief does not name and
+     it carries a 60ms stagger reveal (motion lock).
+  3. Melissa video file, still.
+
+Suite 529 / 0, seams 0. Artifacts republished: home 50fca51a ("Phase 3:
+client work showcase"), The Build 6384d178 ("Phase 3.2: work parity").
+
+### PHASE 3 APPROVED. PHASE 4 BUILT, AT GATE 4 (nothing pushed)
+
+Cydnie approved Gate 3 with "approved". "Built to stand." was not decided
+in that reply and is still on the page.
+
+**4.1 hostname: www.** Production already 308s the apex to www. Every
+absolute `https://cydniejocelyn.com` in the 11 pages (canonical, og:url,
+og:image, every schema @id and url), sitemap.xml, robots.txt, llms.txt,
+tools/build_artifact.py and api/unsubscribe.py is now www: 179 in pages, 0
+apex left. The redirect is 308, not the 301 the brief names; both are
+permanent and Google treats them the same. Changing the code means the
+Vercel dashboard domain setting, which is Cydnie's account.
+
+**4.2 FAQ.** Home 5, /a-sounding/ carries its two, /the-build/ its one,
+/retreats/ its two, all with matching FAQPage schema (checked visible
+summaries against schema names). One duplicate existed across pages, "Do I
+need travel insurance?" on /retreats/ and /retreats/greece/; dropped from
+the GREECE schema only. The visible copy on both pages is unchanged.
+
+**4.3 schema.** Home: the Greece Event node REMOVED (it lives on
+/retreats/greece/ only now). Person sameAs is the four socials on every
+page that has a Person. LocalBusiness areaServed gained Stillwater and
+Woodbury on every page (the footer names them now). /the-build/ Service
+gained `offers`: three AggregateOffer with lowPrice 4000, 3600, 15000 USD.
+/contact/ had no schema at all; it now has ContactPage with a
+BreadcrumbList. Breadcrumbs already existed, nested in WebPage, on every
+other indexable non-home page. Gatlinburg is Phase 5 and untouched.
+NOT DONE: Google's Rich Results Test. It needs a live URL or pasting the
+code into Google's form; left for after deploy.
+
+**4.4 on-page.** One H1 on every page. No H2 to H4 skip anywhere. One skip
+of another kind, reported and not changed: /contact/ goes H1 straight to
+the footer's H3 column headings because the page has no H2. The home hero
+section gained `id="hero"`; every other home section already had one.
+Footer area line cut to the brief's six places, "and remotely anywhere"
+kept. Footer descriptor is now "Brand, operations and business development
+for founders and leaders." Footer links read "The Build, brand and website
+work" and "The Letters, free weekly". The phone menu shows the same
+descriptors through `.nav-desc`, which is `display: none` at 56rem and up,
+so the desktop nav is byte-for-byte unchanged on screen. Internal links
+added on home: under the showcase "The positioning behind each of the
+three" to /the-build/#work, in the offer card "What happens in a Sounding"
+to /a-sounding/, under Greece "How the retreats work" to /retreats/.
+Section 3 already linked /the-build/. The test's CITIES list is now the
+six and checked as a subset of areaServed.
+
+**4.4b alt text.** Every home image has alt text. The one empty alt is the
+second `layer-surface-1800` in the rise band, inside an `aria-hidden`
+figure: decorative on purpose, so a screen reader does not hear the hero
+description twice. Two instances remain (hero and band), not one as the
+brief expected. No alt text was written.
+
+**4.5 performance.** Home now preloads the hero image with the same
+srcset and sizes as the `<img>` (one request confirmed, no double
+download). Width and height are on every image sitewide. Lazy loading
+audited at 375x812 in headless Chrome on ten pages: nothing lazy in the
+first screen, nothing eager below it. Every @font-face is swap.
+NOT DONE: Core Web Vitals before and after on mobile. PageSpeed Insights'
+keyless daily quota was exhausted, Lighthouse is not installed, and the
+Browser pane is hidden so it records no paint timings. Run PSI on the live
+URL before and after the push, or install Lighthouse with her OK.
+
+**4.6 cleanup.** No broken in-page or cross-page anchors on 11 pages. All
+three Letters buttons use cf_id 6a19d46a5cb4c5d7f86446a9. sitemap.xml is
+www with lastmod 2026-09-12, still WITHOUT gatlinburg and thequestions;
+robots.txt points at it. Gatlinburg noindex untouched in all three places.
+
+Suite 529 / 0, seams 0. Artifacts republished, label "Phase 4: SEO and
+schema". Nothing pushed.
+
+### Melissa's video is self hosted. The Build page reordered for conversion.
+
+**Video.** On Cydnie's go-ahead, downloaded from YouTube with yt-dlp in a
+scratchpad venv (android client; every other client refused). YouTube only
+serves this video as format 18, 360x640 H.264 with AAC, 6.85MB. Remuxed
+with faststart to `assets/video/melissa.mp4` (7.25MB). Both anchors (home
+and /retreats/) carry `data-src`, start at 3s via `#t=3`, and their no-JS
+href is the file itself, so nothing on the page points at YouTube now.
+VideoObject `contentUrl` on /retreats/ is the file. Verified: plays in a
+native `<video>`, no iframe, no link left. The home artifact publishes the
+file as a supporting file at `assets/video/melissa.mp4`.
+
+**TWO THINGS SHE HAS NOT SEEN YET:**
+  * The video is 3:10 long. The caption on the home page says "Forty
+    seconds, filmed on her phone." One of the two is wrong.
+  * 360 wide is soft at 24rem on a retina screen. If she has the original
+    phone file, it should replace this one.
+
+**/the-build/ order**, 12 sections, moved intact:
+  head, where this starts, what it covers, WHAT I WON'T DO, WORK, SOUNDING,
+  The Build, FULL ENGAGEMENT, PRODUCTION, what I do not do, FAQ, close.
+Was: ... what it covers, work, what I won't do, sounding, build,
+production, full, ... . The refusals no longer sit between the proof and the
+first price (still above the prices, as brief 2.1 wants), and the price
+ladder climbs once: $300, $1,500 / $6,000, $15,000, then a la carte.
+Work changed ground silt to light so grounds alternate; five `--from`
+values repointed; seams 0. The hero gained "Book a Sounding, $300" and a
+"See every price" link to #sounding: the first button used to be six
+sections down. Suite 529 / 0. Artifact 6384d178 republished.
+
+### Melissa: original file in, caption fixed. Build page copy review given.
+
+Cydnie put the original in `CydnieJocelyn-Site/IMG_3670.mov` (256MB,
+1080x1920, 3:10; that folder is gitignored and vercelignored). Encoded with
+the imageio-ffmpeg binary in the scratchpad venv to 720x1280, H.264 CRF 31,
+AAC 96k, faststart: 13.9MB at `assets/video/melissa.mp4`, replacing the
+360p YouTube copy. CRF 30 was 15.5MB, over the artifact's 15MB per binary
+file. Caption on home is now "Three minutes, filmed on her phone. It plays
+here." on her instruction. Home artifact republished with the new file.
+
+**/the-build/ copy review (recommendations only, nothing changed):**
+1,785 words in the main content, more than the home page (1,596), in 12
+sections. Findings given to Cydnie:
+  * The same point is made 2 to 3 times: logo not sold alone (full
+    engagement, What I do not do, FAQ), not coaching (What I do not do,
+    FAQ), no call needed to see prices (hero, two FAQs), nothing to prepare
+    (Sounding, FAQ), monthly care (production, FAQ), every price (the FAQ
+    "What does an engagement cost?" restates nine prices already shown).
+  * Two "no" sections, 238 words: "Here is what I won't do" and "What I do
+    not do".
+  * Prices spread over four sections in paragraphs.
+  * "Do you publish your pricing?" (moved verbatim by brief 2.1) says custom
+    work cannot carry a number; the hero says every price is published.
+    They contradict each other.
+  * The Sounding section repeats /a-sounding/, which exists to explain it.
+Recommended target roughly 850 to 950 words. Awaiting her choice.
+
+### /the-build/ REWRITTEN, on Cydnie's instruction (not pushed)
+
+"Move forward with the changes and provide proper copy." All six
+recommendations built. 1,785 words in 12 sections is now 773 in 7:
+
+  hero (93)          H1 kept; lead cut to two sentences; the old "Where
+                     this usually starts" section folded in as `.bd-signs`,
+                     four short lines; CTA + "See every price" -> #pricing
+  What it covers(52) three items, one sentence each
+  #refusals (89)     the two refusal sections merged into ONE list of six:
+                     bold refusal + short reason (`.refuse-plain--lead`)
+  #work (116)        case-body and case-scope paragraphs replaced by
+                     `.case-tags`; Tamara's quote removed here (it is on
+                     home), Spencer's kept whole; "Salon · Chisago Lakes MN"
+                     is "Chisago Lakes MN" (closes open item 5)
+  #pricing (212)     NEW. `.tiers`: Sounding (z-deep card, the only button,
+                     keeps id="sounding"), one day $1,500, season from
+                     $6,000, full engagement from $15,000. Website, Content
+                     and Site care as `.alacarte` rows underneath
+  #faq (178)         11 questions to 5, FAQPage schema rebuilt from the
+                     visible markup. "Do you publish your pricing?" now says
+                     yes, matching the closed decision "floors, published"
+  close (33)         location line dropped (footer has it), retreats line
+                     shortened
+
+Grounds now light, silt, light, silt, light, silt, deepwater; seams 0. No
+em dashes. No invented numbers: every price and fact is one the page
+already carried.
+
+**A collision fixed on the way.** The home offer section (11d) used
+`.offer` and `.offer-price`, names already owned by the old Build price
+cards, which put a grid template on those cards. Home's are now `.decide`
+and `.offer-cost`. The old Build-only rules (`.offers`, `.offer`, `.shapes`,
+`.phases`, `.crows`, `.refuse`, `.bd-only`, `.case-body`, `.case-scope`)
+are now unused and still in site.css.
+
+On a 375x812 phone the hero button sits at y=800, right at the fold.
+Suite 529 / 0. Artifacts republished: Build 6384d178, home 50fca51a.
+
+### Alignment pass: one page grid, Build prices aligned (not pushed)
+
+Cydnie liked the new Build page and asked for the "sold on its own" prices
+aligned, alignment checked throughout, and the Sounding button on one line.
+
+**Measured at 1440 on nine pages.** Every heading, eyebrow rule and lead
+already started at the wrap edge (132). Right columns did not agree:
+`.grid-12` puts col-e at 837, but `.refuse-plain--lead` 752, `.case` 784,
+`.ab-split` (about) 806, `.retreat-grid` (home) 846, `.decide` (home) 866,
+`.lt-pair` (letters) 752, and home's closing FAQ used col-a/col-b (635).
+Thirds drifted 532 / 538 / 540. A block at the END of site.css, "ONE PAGE
+GRID", puts all of them on the `.grid-12` tracks (12 columns, 2rem gutter,
+halves at 1-6 and 8-12). Home FAQ markup moved to col-d/col-e. After: every
+two column text layout starts its right column at 837, thirds at 535 / 937,
+the four price cards at 132 / 434 / 736 / 1038.
+
+Left as they are, and reported: /retreats/ and /retreats/greece/ media
+splits `.rt-video` (600) and `.rt-date` (656) are picture-plus-text modules
+with their own proportions; `.pair` (736) and `.rt-person` (937) already sit
+on grid lines. Home hero eyebrow hangs its rule into the gutter on purpose.
+
+**Build prices.** Qualifiers ("Flat", "Starting at", "Per quarter", "Per
+month, starting at") now sit ABOVE every figure, so the four tier figures
+share one top and the three a la carte figures share one right edge (fixed
+11rem column, right aligned). Checked level at 1280 to 2560. The table goes
+four across from 80rem (it was 75rem): at 1200 the step labels wrapped and
+knocked two figures 16px lower. Tier names hold two lines of height at four
+across.
+
+**Sounding button** in the tier is sized to its label: nowrap, .8125rem,
+.75rem by 1.1rem padding, 44px minimum. 206px, fits its card from 375 to
+2560.
+
+Suite 529 / 0, seams 0. Artifacts republished: Build and home. /about/ and
+/the-letters/ changed too (one component each) and have no current artifact.
+
+### READ THIS: the suite had been testing a stale copy all session
+
+**Every "529 / 0" earlier in section 55 was run against the WRONG SERVER.**
+Port 8814 was held by `tools/preview/serve.py` from a previous session,
+serving that session's scratchpad `preview/` as synced at 10:54 on 12
+September, before any of this session's work. The trap in section 50 ("the
+suite can run green against the wrong server") happened again. It was found
+at 20:00, the old server was killed, `sync.sh` re-run into this session's
+scratchpad, and a fresh server started on 8814 from it.
+
+Run against the real tree, the suite was 521 / 8. All eight were the four
+video assertions on / and /retreats/ still expecting the YouTube iframe.
+They now assert the self hosted player (link to the file with no JS, no
+YouTube link anywhere, native `<video>` in place, anchor gone on play,
+`#t=3`). **Real result: 531 / 0, ten pages.** Before trusting any run:
+
+    lsof -p $(lsof -nP -iTCP:8814 -sTCP:LISTEN -t) | awk '$4=="cwd"'
+    ps -o command= -p $(lsof -nP -iTCP:8814 -sTCP:LISTEN -t)   # names the root
+    curl -s http://127.0.0.1:8814/the-build/ | grep -c 'Every price, before you book'
+
+and re-run `SP=... sh tools/preview/sync.sh` after every edit, because the
+suite reads the synced copy, not the working tree.
+
+### Retreats lined up
+
+`.rt-date` is on the page grid from 56rem: picture cols 1-6, words cols
+8-12 (837 at 1440), mirrored on `--flip`. `.rt-video` puts the video in
+cols 1-4 and the words from col 5 (535), not col-e: its text column holds a
+quote carousel that needs the width. `.q-slide` is now `min(42rem, 80vw,
+100%)`; in a column narrower than 42rem the review in front used to run
+past the right edge. The /retreats/ caption said "two minutes long"; it is
+3:10 and now says three. Retreats artifact b71b2da8 republished.
+
+### PHASE 5 PREPARED, NOT APPLIED
+
+Cydnie said "move to the next phase". Phase 5 is the Gatlinburg swap, which
+the brief holds for 16 September and says "prepare only". It is prepared as
+`tools/launch_gatlinburg.py` and is NOT applied to the working tree, because
+Phases 1-4 are uncommitted in the same files and the swap links the
+unfindable page from the home page. Run it only on her word:
+
+    python3 tools/launch_gatlinburg.py --check     "Not launched yet"
+    python3 tools/launch_gatlinburg.py             applies it, or stops and writes nothing
+
+It does the section 50 runbook and the brief in one pass: robots tags and the
+vercel.json X-Robots-Tag off, canonical on, the parked Event JSON-LD wrapped
+in a @graph with the organisation node copied from the Greece page (the suite
+requires it once the page is indexable), sitemap entry; home section 6 becomes
+Gatlinburg (both room rates, $500 deposit, Knoxville TYS, "Prices rise on 1
+November" as the one scarcity line, Greece as one line with the waitlist
+link); the Retreats index April card, ItemList, both descriptions, the price
+FAQ answer (visible and schema), the facts row and the closing button; and
+llms.txt. No popup, per the brief.
+
+Tested on a copy in the scratchpad: applies cleanly, refuses a second run,
+build clean, seams 0, zero HTML comments in the built Gatlinburg page, the
+Event carries 4 offers, suite 527 / 0 on a separate server (8815; /retreats/
+loses its four map assertions because the map card is replaced). Preview
+artifacts from that copy: home b895b7fb, retreats 8a605cf1.
+
+**Not doable from here, and required before launch:** open the four HoneyBook
+service records and confirm $2,790 / $2,900 king, $1,490 / $1,600 shared,
+$500 deposit. **Flagged, not changed:** the Gatlinburg page describes
+Cydnie's consulting as "for women building something real", which the
+11 September founders-and-leaders decision replaced everywhere else.
+`armonia-arch` images become unreferenced after the swap (build warns).
+
+## 56. START HERE. End of session twenty-nine, 12 September 2026. PUSHED.
+
+**Read this first; section 55 is the long record of how it got here.**
+Cydnie paused the Retreats page mid-fix and asked for everything to be pushed
+and for notes to start a new chat from. Everything in the working tree at the
+end of this session was committed and pushed to `main` (a live deploy).
+
+    what shipped   Phases 1-4 of home-restructure-claude-code-brief.md, the
+                   rewritten /the-build/, the one page grid, Melissa's video
+                   self hosted, and the shared hero scrim restored
+    NOT shipped    Phase 5 (Gatlinburg). tools/launch_gatlinburg.py exists and
+                   has NOT been run. Gatlinburg is still noindex in both
+                   places, absent from the sitemap, linked from nowhere.
+    suite          531 / 0, ten pages, against a fresh sync (see below)
+    seams          0
+
+### THE RETREATS PAGE: where it was paused
+
+Cydnie's two notes, verbatim: "Gatlinburg is not linked to the retreats page
+yet." and "the hero on the retreats page doesn't work with the text."
+
+**1. The hero.** Found and fixed ONE cause, not yet confirmed as the whole
+answer. The base `.hero-scrim` gradient had been deleted during the home
+hero rework (session 28); home moved to `.hero--open`, Greece has
+`.hero--bright`, Gatlinburg `.hero--lit`, and /retreats/ is the only hero
+with no modifier, so its Surface type sat directly on the pale sky of
+`cr-horizon`. Production still had the scrim, so pushing without restoring it
+would have broken the live page. It is restored byte for byte from HEAD
+(site.css, "THE SHARED SCRIM, RESTORED").
+
+**Still to do, in this order:**
+  a. Measure the /retreats/ hero with the composite method in section 53:
+     canvas, the real object-fit mapping (`.hero-water img` is 112% wide and
+     tall at -6%, `object-position: 50% 22%`), both scrim gradients per
+     pixel, the WORST pixel under each glyph run (`Range.getClientRects()`),
+     at 1440 and 390. Never from a screenshot.
+  b. If anything is under 4.5:1, give /retreats/ its own modifier shaped to
+     this photograph, the way `.hero--open` is shaped to the home plate.
+     Do not edit the shared `.hero-scrim`; three other heroes do not use it
+     but any future one would.
+  c. Ask Cydnie what "doesn't work with the text" means before redesigning.
+     It may be legibility (above), or it may be the copy: `.hero-sub` is 70
+     words and "Two dates" / "The two dates" will be wrong after launch.
+
+**2. Gatlinburg and the Retreats page.** Not linked, ON PURPOSE: the page is
+in prelaunch (section 50) and linking it is part of the launch. The launch
+swap is prepared in `tools/launch_gatlinburg.py` (section 55) and replaces
+the April card with a Gatlinburg card that links the page. Two things to
+settle with Cydnie before touching it:
+  * Does she want the Retreats page to link Gatlinburg NOW, ahead of the
+    16 September launch? That makes it findable. If yes, the cheapest honest
+    version keeps the noindex and only swaps the card; say so explicitly.
+  * The launch preview artifacts (home b895b7fb, retreats 8a605cf1) show the
+    Gatlinburg links as dead, because `tools/build_artifact.py` rewrites
+    cross page hrefs only for pages it knows. It has no rule for
+    `/retreats/gatlinburg/` (add one BEFORE the `/retreats/#` replace, which
+    would otherwise eat it), and its ARTIFACT map is stale. Current review
+    artifacts: home 50fca51a, The Build 6384d178, Retreats b71b2da8, Greece
+    e3dd4a3d. `/contact/` is still rewritten to `#start`; contact exists now.
+
+### Other open items, none started
+
+  1. HoneyBook: confirm the four Gatlinburg service records charge $2,790 /
+     $2,900, $1,490 / $1,600, $500 deposit. Cydnie's to do. Required by the
+     brief before the Phase 5 launch.
+  2. /retreats/gatlinburg/ calls the consulting "for women building something
+     real"; the 11 September decision widened that everywhere else. Asked,
+     not answered.
+  3. "Built to stand." on home repeats the showcase's three clients. Asked
+     twice, not answered. Still on the page.
+  4. Core Web Vitals before/after were never measured (PSI quota, no
+     Lighthouse). Run PageSpeed Insights on www now that it is live.
+  5. Rich Results Test on the live URLs, now possible.
+  6. The apex redirect is 308, not the 301 the brief names; a Vercel
+     dashboard setting.
+  7. Unused CSS left behind by the Build rewrite: `.offers`, `.offer`,
+     `.shapes`, `.phases`, `.crows`, `.refuse`, `.bd-only`, `.case-body`,
+     `.case-scope`.
+  8. /contact/ skips from H1 to the footer's H3s.
+  9. On a 375x812 phone the Build hero button sits at the fold (y=800).
+
+### THE SUITE TRAP, AGAIN. Do this before trusting any run.
+
+For most of this session port 8814 was a leftover server from an earlier
+session serving files synced before the session began, and every run came
+back green against them. The suite reads `$SP/preview`, never the working
+tree. Every time:
+
+    SP=<this session's scratchpad> sh tools/preview/sync.sh
+    ps -o command= -p $(lsof -nP -iTCP:8814 -sTCP:LISTEN -t)   # must name $SP
+    sh tools/preview/runsuite.sh "$SP" 8814

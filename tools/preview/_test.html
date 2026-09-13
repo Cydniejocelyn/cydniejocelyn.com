@@ -110,13 +110,18 @@ f.addEventListener('load', function(){
    // ---- video (retreats page only) ----
    var v=d.querySelector('[data-video]');
    if(v){
+     /* SELF HOSTED since 12 September. Melissa's video is a file on this site
+        and plays in a native <video>. The anchor is swapped for a plain box on
+        play, so nothing that was a link to YouTube is left on the page. */
+     var parent=v.parentNode;
      ok('video: nothing from youtube before the click', d.querySelectorAll('iframe[src*="youtube"]').length===0);
-     ok('video: is a real link with no JS', (v.getAttribute('href')||'').indexOf('youtube.com/watch')>-1);
+     ok('video: is a real link to the file with no JS', /video\/melissa\.mp4/.test(v.getAttribute('href')||''));
+     ok('video: nothing on the page links to YouTube for it', !d.querySelector('a[href*="youtube.com/watch"]'));
      v.click();
-     var yt=v.querySelector('iframe');
-     ok('video: click swaps in the player', !!yt);
-     ok('video: uses the no-cookie host', !!yt && /youtube-nocookie\.com/.test(yt.src));
-     ok('video: starts where asked', !!yt && /start=3/.test(yt.src));
+     var vid=parent.querySelector('video');
+     ok('video: click swaps in a native player in place', !!vid && !parent.querySelector('iframe'));
+     ok('video: the link is gone once it plays', !parent.querySelector('a[data-video]'));
+     ok('video: starts where asked', !!vid && /#t=3$/.test(vid.getAttribute('src')||''));
    }
    // ---- faq ----
    /* Guarded on the count. Not every page has questions: /the-letters/ has
@@ -322,9 +327,23 @@ f.addEventListener('load', function(){
      ok('sounding: the nav button is Contact, like every other page',
         (function(){ var b=d.querySelector('.hdr .btn');
           return !!b && b.getAttribute('href')==='/contact/'; })());
-     ok('sounding: six questions, mirrored in the FAQPage schema',
-        d.querySelectorAll('.faq details').length===6 &&
-        (d.querySelector('script[type="application/ld+json"]').textContent.match(/"@type": "Question"/g)||[]).length===6);
+     /* Was six. Phase 2 of the home restructure moved "What actually happens,
+        and when?" and "What if I am not ready to spend $300?" off the home
+        page and onto this one, because duplicated FAQ schema across two pages
+        is routinely ignored. The count is no longer the point: what this
+        guards is that the markup and the schema still mirror each other, and
+        that the two relocated questions arrived in BOTH rather than one. */
+     ok('sounding: the questions mirror the FAQPage schema',
+        (function(){
+          var ld = d.querySelector('script[type="application/ld+json"]').textContent;
+          var inMarkup = d.querySelectorAll('.faq details').length;
+          var inSchema = (ld.match(/"@type": "Question"/g)||[]).length;
+          var moved = ['What actually happens, and when?',
+                       'What if I am not ready to spend $300?'];
+          var text = d.body.innerText;
+          return inMarkup === inSchema && inMarkup === 8 &&
+                 moved.every(function(q){ return text.indexOf(q) > -1 && ld.indexOf(q) > -1; });
+        })());
      ok('sounding: the A Sounding popup is NOT on this page',
         !d.querySelector('script[src*="sounding-popup"]') && !w.sdPopPreview);
      var q=d.querySelector('.sd-quote');
@@ -583,9 +602,10 @@ f.addEventListener('load', function(){
       Cydnie works. Fifteen cities, checked in both places. */
    var area = d.querySelector('.ftr-area');
    ok('footer: the service area line is present', !!area);
-   var CITIES = ['Forest Lake','Blaine','Anoka','Ramsey','East Bethel','Lino Lakes',
-                 'Hugo','Shoreview','White Bear Lake','Cambridge','Isanti',
-                 'North Branch','Crosslake','Minneapolis'];
+   /* Phase 4.4, 12 September: the footer line is cut to the six places the
+      brief names. The machine half keeps the full list and gained Stillwater
+      and Woodbury, so the footer is still a subset of areaServed. */
+   var CITIES = ['Forest Lake','Minneapolis','Saint Paul','Stillwater','Woodbury','White Bear Lake'];
    ok('footer: every city in the service area line',
       !!area && CITIES.every(function (c) { return area.textContent.indexOf(c) > -1; }));
    var org = null;
@@ -603,7 +623,7 @@ f.addEventListener('load', function(){
    if (indexable) {
      ok('schema: a LocalBusiness node with the same fifteen cities in areaServed',
         !!org && (org['@type']||[]).indexOf('LocalBusiness') > -1 &&
-        CITIES.concat(['Saint Paul']).every(function (c) {
+        CITIES.every(function (c) {
           return (org.areaServed||[]).some(function (a) { return a.name === c; });
         }));
    } else {
