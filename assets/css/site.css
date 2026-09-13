@@ -3357,7 +3357,7 @@ main > * { position: relative; z-index: 1; }
    button, and her beside it. */
 .ab-close--sign { padding-block: clamp(var(--s-7), 10vw, var(--s-9)); }
 .ab-close-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
-@media (min-width: 56rem) { .ab-close-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); } }
+@media (min-width: 42rem) { .ab-close-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); } }
 .ab-close--sign .ab-close-line { margin: 0; max-width: 16em; font-size: clamp(1.9rem, 4vw, 3.1rem); line-height: 1.12; }
 .ab-close-sub { margin-top: var(--s-5); color: var(--muted); max-width: 32rem; font-size: clamp(1.0625rem, 1.4vw, 1.1875rem); line-height: 1.55; }
 .ab-close--sign .actions { margin-top: clamp(var(--s-5), 4vw, var(--s-6)); }
@@ -3367,7 +3367,13 @@ main > * { position: relative; z-index: 1; }
   margin-top: var(--s-3);
   font-family: var(--carved); font-style: italic; font-size: 1.5rem; color: var(--ink);
 }
-@media (max-width: 55.99rem) { .ab-close-photo { justify-self: start; max-width: 15rem; } }
+/* On a phone the photograph spans the column, square, so it lines up with
+   the copy and the button above it on both edges. At 15rem and left aligned
+   it read as a thumbnail that had lost its place (Cydnie, 12 September). */
+@media (max-width: 41.99rem) {
+  .ab-close-photo { justify-self: stretch; max-width: none; }
+  .ab-close-photo img { aspect-ratio: 1 / 1; object-position: 50% 30%; }
+}
 
 /* The tall frame takes whatever height the two beside it add up to, so the
    three always share a top and a bottom edge. */

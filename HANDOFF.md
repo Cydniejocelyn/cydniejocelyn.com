@@ -6709,3 +6709,51 @@ measured 390px wide at 390 afterwards.
 THE SUITE DID NOT CATCH IT and cannot as written: it runs at 1280, where the
 desktop rule already set the columns. A phone width overflow check
 (documentElement.scrollWidth <= innerWidth at 390) is worth adding.
+
+## 60. START HERE. End of the night, 12 September 2026. Everything pushed.
+
+**Read this first; 57 to 59 are the detail.** The working tree is clean after
+this commit. Nothing is waiting for approval.
+
+### Live tonight (every push verified on www in a real browser)
+
+    c32c9d6  home      client boxes: gap under the heading, hairline panels
+    251a06a  retreats  rewrite, two line hero, phone scrim; home box halo
+    5ad6b1e  about     rebuild: portrait head, story, faith, all 11 quotes
+    704f070  about     rest of me as a bento (Breath hover restored),
+                       close as a sign-off with her photo
+    6d89b66  about     PHONE FIX: the page was 10,085px wide (see 59 addendum)
+    this     about     close photo on phones: spans the column, square;
+                       from 42rem up it sits beside the copy as on desktop
+
+    suite 536 / 0 (port 8816, fresh sync), seams 0
+    all eleven pages measured 390px wide at a 390 viewport
+
+### Next session, in this order
+
+  1. **Add a phone width check to the suite** before auditing anything else:
+     `documentElement.scrollWidth <= innerWidth` at 390 on every page. The
+     suite runs at 1280 and passed straight through the About overflow.
+  2. **Audit /a-sounding/** (9 sections, 1,109 words): the $300 offer every
+     page's main button points at. Same method as retreats and about:
+     sections, words, screens, button positions, recommendations, her
+     answers, build, review artifact, push on her word.
+  3. **Audit /retreats/gatlinburg/** before the 16 September launch, then
+     run `tools/launch_gatlinburg.py` only when she says go (section 50).
+  4. Then /retreats/greece/, /the-letters/, /contact/, /thequestions/.
+     Home and /the-build/ are DONE; do not re-audit them.
+
+### Open questions for Cydnie, carried forward
+
+  * HoneyBook Gatlinburg prices ($2,790 / $2,900 / $1,490 / $1,600, $500).
+  * "for women building something real" on /retreats/gatlinburg/.
+  * "Built to stand." repeating the home showcase clients.
+  * The Sounding popup (`sounding-popup.js`) is a modal; the brand guide
+    forbids modals.
+
+### Check on every About change
+
+  * Every grid on a phone needs `grid-template-columns: minmax(0, 1fr)` as
+    its base when it can hold a carousel, a scroll track or a long word.
+  * Image sides alternate: head right, story none, faith left, Melissa
+    right, bento mixed, close right (full width on a phone).
