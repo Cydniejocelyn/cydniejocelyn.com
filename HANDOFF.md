@@ -6479,3 +6479,11 @@ tree. Every time:
     SP=<this session's scratchpad> sh tools/preview/sync.sh
     ps -o command= -p $(lsof -nP -iTCP:8814 -sTCP:LISTEN -t)   # must name $SP
     sh tools/preview/runsuite.sh "$SP" 8814
+
+**Deploy verified, 12 September.** Commit `dab01aa` pushed; `vercel ls`
+showed Production Ready in 7s. Read in a real browser on www: /the-build/
+has `#pricing` with four tiers and a www canonical; home has the three item
+showcase and `data-src` on Melissa; /retreats/ links Gatlinburg zero times;
+/retreats/gatlinburg/ still serves `noindex, nofollow, noarchive`; zero HTML
+comments on all three; the live site.css carries the restored shared scrim;
+`/assets/video/melissa.mp4` answers 200 `video/mp4`, 13,883,035 bytes.
