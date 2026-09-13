@@ -6548,3 +6548,54 @@ page had passed at 4.69 / 4.55 / 6.23). Fixed with a phone-only
 `.hero--rt .hero-scrim` under 47.99rem, shared scrim untouched. After: every
 run passes at 320, 360, 375, 390, 430, 600, 767, 768, 1024, 1280, 1440, 1920;
 tightest are links 4.87 at 360 and h1 3.77 at 1024.
+
+## 58. Session thirty, continued: the About page rebuild. NOT PUSHED.
+
+Cydnie asked for an audit ("I am the brand. I must be sold."), then said
+"yes, to all" to: cutting her story using only her own sentences, pulling
+photos from the branding shoot, and using every client and guest quote.
+
+**Uncommitted in the working tree. Do not push before she approves it.**
+Review artifact: https://claude.ai/code/artifact/22daed8f-7d02-4fad-ac49-41b81414747a
+
+  * Head: portrait (shoot frame -54, denim and laptop) beside the copy,
+    a real `.btn--solid` booking button, client names under it. Rule and
+    Held tick kept (`.ab-head--face`, `.ab-head-grid`).
+  * "Before I tell you about me" removed (repeated the head sentence).
+  * Account and "What held" cut, not rewritten: every sentence left is
+    hers verbatim. The old freeze's no-bullets rule still holds.
+  * What held: photo (frame -99) in the held column, baptism line as
+    `.ab-pull` (Meniscus rule, not Held: the tick is the page's one Held).
+  * New `#words` section on Silt: all 11 quotes in the home carousel
+    component plus the Melissa facade, then a booking button. BJB's "I
+    walked in carrying fear" came from the home page's Review schema.
+  * The rest of me: five lines unchanged, as `.ab-rest-list` beside three
+    frames (-46 singing, -68 mug, -31 journal). `.ab-true` CSS now unused.
+  * "The work goes in an order" section removed; each Where to start card
+    carries its line; the Questions line (which pointed at /#faq) removed.
+  * New images: assets/img/cydnie-{hero,sing,mug,journal,window}-*.webp.
+    build_artifact.py PICK updated.
+
+    her own copy   1,358 -> 914 words
+    page length    9.2 -> 9.4 screens at 1440, 12.6 -> 13.1 at 390 (six
+                   photographs and the proof section added the length back)
+    photos of her  1 -> 6
+    suite          538 / 0 (about 40 -> 46: the carousel and video checks
+                   now apply to it), seams 0
+
+The 15 shoot videos are 4 to 34 second behind the scenes clips with the
+photographer in frame; none is Cydnie speaking to camera.
+
+**About, second pass (same session, still NOT pushed).** Cydnie: the section
+under the head "with back to back images from the hero doesn't flow", copy
+still heavy, wants trending but converting layouts.
+  * Story is now five moments on a rail (`#story`, `.ab-time`), no photo.
+    Veil portrait no longer used on the page. Beats are her phrasing
+    COMPRESSED, not verbatim: say so if she asks.
+  * Images alternate: head right, story none, faith left (`.ab-faith`),
+    rise band moved to after faith, Melissa right (`.ab-proof`, side by
+    side with the carousel), rest of me photos left (`.ab-rest--flip`).
+  * Faith copy compressed again; "Days before, I almost backed out." kept.
+  * Her own copy 1,358 -> 937 (first pass) -> 733. Page 9.2 -> 8.3 screens
+    at 1440. Booking buttons at 0.7, 5.0, 6.5, 7.3 screens.
+  * Suite 536/0 (about 44; it was 46 with the veil portrait's parallax), seams 0.

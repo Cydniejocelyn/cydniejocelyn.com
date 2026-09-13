@@ -63,7 +63,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=3b94182f">
+<link rel="stylesheet" href="../assets/css/site.css?v=afada47e">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -367,180 +367,110 @@
 
 <main id="main">
 
-<!-- 01 / PAGE HEAD. Typographic, per the refinement command: full bleed
-     Fathom, a 1px Meniscus rule at 38% from the top running past both
-     edges, nothing above the rule, the name and lede below it, and a
-     single Held tick crossing the rule at the left margin.
+<!-- 01 / PAGE HEAD. The rule and the Held tick stay: they are the page's
+     one Held element. What changed on 12 September is that she is in it.
+     "I am the brand. I must be sold." The head was type only, with the right
+     half of the first screen empty, and the only portrait on the page was
+     half behind a curtain three screens down. The portrait is from the
+     branding shoot (frame 54), looking straight out, at work.
 
-     The photograph is gone and no stock image replaces it. The
-     construction is its own fallback: nothing can fail to load, so
-     nothing can break. This tick is also the page's one Held element,
-     so there is no Held anywhere else on the page. -->
-<!-- LIGHT, 29 August 2026. "This page shouldn't be dark either. It needs to
-     be light and inspiring." Six of the eight sections were Fathom, so the
-     page a reader met was near black from the name at the top to the offers
-     at the foot, and the only relief was one light section three quarters of
-     the way down. It runs Surface and Silt now, alternating, with the single
-     Deepwater band kept where the rule puts it: on the close, which is the
-     one thing this page asks for. -->
-<section class="section ab-head ab-head--type z-light" data-zone aria-labelledby="ab-h">
+     The booking link was a thin text link. It is a button now, and the
+     client names sit under it the way they do on the home hero. -->
+<section class="section ab-head ab-head--type ab-head--face z-light" data-zone aria-labelledby="ab-h">
   <span class="ab-head-rule" aria-hidden="true"></span>
   <span class="ab-head-tick" aria-hidden="true"></span>
-  <div class="wrap">
+  <div class="wrap ab-head-grid">
     <div class="ab-head-copy">
       <h1 class="carved c-1 split" id="ab-h">I&rsquo;m Cydnie.</h1>
       <p class="lead r-up" style="--d:60ms">I work with founders and leaders who are the only reason their business runs, and who have been the only reason for a long time.</p>
-      <!-- THE JOB TITLE. This page reached word 1,152 of 1,381 before it
-           said what the work is, which is 83% of the way down. The sentence
-           is not new: it is the one already on /thequestions/, moved to the
-           page people actually read to find out who she is. -->
-      <p class="r-up" style="--d:90ms">I do brand and business development consulting, in Forest Lake, Minnesota.</p>
-      <p class="r-up ab-head-book" style="--d:120ms"><a class="booking" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">Book a Sounding, $300<span class="vh"> (opens my scheduling page)</span></a></p>
-    </div>
-  </div>
-</section>
-
-<!-- 02 / THE READER, BEFORE ME. She reads about me only after I have
-     proved I can see her. -->
-<section class="section z-light" data-zone style="--from:var(--surface)" aria-labelledby="ab-you">
-  <div class="wrap">
-    <div class="grid-12 grid-12--hold">
-      <div class="col-d">
-        <p class="eyebrow r-fade" id="ab-you">Before I tell you about me</p>
+      <p class="ab-head-job r-up" style="--d:90ms">I do brand and business development consulting, in Forest Lake, Minnesota.</p>
+      <div class="actions r-up" style="--d:120ms">
+        <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
+          <span>Book a Sounding, $300</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+        <span class="vh"> (opens my scheduling page)</span></a>
       </div>
-      <div class="col-e">
-        <div class="body stack r-up" style="--d:60ms">
-          <p>Most of the founders I talk to are doing fine on paper. The business works. They are the only reason it works, and they have been the only reason for a long time. Nobody around them can see a problem, so at some point they stopped bringing it up.</p>
-          <p>Nothing is wrong. That is the part that is hard to explain to anyone. You are not in crisis, you have not lost anything, everyone would say you are doing well, and you have not felt like yourself in a while and you cannot point to a single reason why.</p>
-          <p>I know what that costs because I did it for longer than I should have, and nobody could see it on me either. What happened to me next was loud, and it did not have to be. Nothing has to break first.</p>
-        </div>
-      </div>
+      <p class="ab-head-clients r-up" style="--d:180ms">Mane Alchemist Salon <span aria-hidden="true">&middot;</span> SRS Performance <span aria-hidden="true">&middot;</span> SolyRey</p>
     </div>
+    <figure class="ab-head-photo r-img">
+      <img src="../assets/img/cydnie-hero-1000.webp"
+           srcset="../assets/img/cydnie-hero-700.webp 700w, ../assets/img/cydnie-hero-1000.webp 1000w, ../assets/img/cydnie-hero-1400.webp 1400w"
+           sizes="(min-width: 56rem) 34vw, 88vw" width="1000" height="1500"
+           fetchpriority="high" decoding="async"
+           alt="Cydnie Jocelyn standing by a window in a denim jacket, holding an open laptop and smiling at the camera.">
+    </figure>
   </div>
 </section>
 
-<!-- 03 / THE ACCOUNT. COPY FREEZE, PARTIALLY LIFTED 29 August 2026.
-     Cydnie: "I am a person, not depressed." The page was reading as a
-     catalogue of the hard parts, so three clauses that dwell rather than
-     tell are gone. Everything that happened is still here: the fourteen
-     years, the wedding in three months, the postpartum depression, the
-     trip, the text, the notice, the hospital, the stroke.
+<!-- 02 / WHAT HAPPENED, AS FIVE MOMENTS. Second pass, 12 September.
+     Cydnie: the section "with back to back images from the hero doesn't
+     flow", and the copy was still heavy. The head has her portrait on the
+     right and this section had the veil portrait on the right directly under
+     it, so the two read as one repeated block. This section carries no
+     photograph now; the pictures alternate down the page instead (head on
+     the right, what held on the left).
 
-     What is still frozen, and this half of the freeze stands: do not split
-     the paragraph beginning "Then life smacked me in the face." Do not
-     tighten run on clauses joined with "and". Do not elevate register. Do
-     not add subheads, pull quotes or bullets, and do not break this into
-     anything scannable: a testimony that can be skimmed is not read at all.
-
-     The account runs far longer than the portrait beside it, so the right
-     of the page used to go empty for most of the scroll. The portrait holds
-     now and drifts as she reads past it, and each paragraph arrives as it
-     reaches her rather than the whole block landing at once.
-
-     The refinement command forbade motion in this section. Cydnie has
-     overruled that. -->
-<section class="section z-light" data-zone style="--from:var(--surface)" aria-labelledby="ab-acct">
+     The account was nine paragraphs. It is five moments on a rail, in her
+     phrasing, compressed for length, with the closing line kept whole. The
+     earlier "no scannable testimony" rule is lifted by her request for less
+     copy; the beats are still sentences, not bullets. -->
+<section class="section z-light" data-zone style="--from:var(--surface)" id="story" aria-labelledby="ab-acct">
   <div class="wrap">
-    <div class="ab-split">
-      <div class="ab-acct">
-        <p class="eyebrow r-fade">What happened</p>
-        <h2 class="carved c-2 split" id="ab-acct">They told me I didn&rsquo;t have a choice. I told them I did.</h2>
-        <div class="body stack-lg ab-account" style="margin-top:var(--s-6)">
-              <p class="r-up">I had been performing a strength I did not have since I was a teenager. Pushing, grinding, hustling to prove I was competent, hiding under achievements that never once made me feel successful.</p>
-          <p class="r-up">For fourteen years that looked like doing well. I was good at the job and I was respected in it, and I could not have told you the last time I felt like myself. There was nothing to point at and nobody was unkind to me, I just kept getting quieter, and the quieter I got the harder I worked, because working was the one thing I still knew how to do.</p>
-          <p class="r-up">Then it got loud. I got engaged, found out we were pregnant, and designed and planned a destination wedding in three months, and twenty weeks after that our first son arrived. I lost the first two and a half years of his life to postpartum depression while giving everything I had to a company that taught me I was replaceable and that the only opinions worth anything belonged to the people who made money. I kept teaching myself the same lesson, that no matter how hard I pushed or how right I tried to get it, I was devaluing myself for somewhere that could be rid of me in an instant.</p>
-          <p class="r-up">In 2025, with two boys fifteen months apart and my second having just turned one, I had an urge to book a trip. Not a family trip. A trip for myself. I decided in three days and it left in two weeks, after two and a half years of not moving. I got on the plane hoping for something.</p>
-          <p class="r-up">I went as a guest, in a group of fifteen, and I knew nobody, and it was the first time in years I had been alone, alone enough to hear myself again while I processed everything I had been carrying.</p>
-          <p class="r-up">Two days in, after surfing for the first time in my life, I checked my personal phone hoping my husband had texted to check on me. It was work, telling me I didn&rsquo;t have a choice.</p>
-          <p class="r-up">I texted back shaking that I did have a choice, and that I chose my family and my children&rsquo;s health.</p>
-          <p class="r-up">I decided right there that I was not going back. It took my husband three days to get on board with me leaving a job that was part of how we paid for our life. I came home and I put my notice in.</p>
-          <p class="r-up">I built what came next while my boys were in and out of the hospital with a rare genetic mutation. Partway through, my husband had a stroke at thirty-six.</p>
-          <p class="r-up">Nobody was coming to do it for me. The time was finally mine to choose.</p>
-        </div>
-      </div>
-      <figure class="ab-portrait par" data-speed="0.14">
-        <img src="../assets/img/cydnie-veil-1100.webp"
-             srcset="../assets/img/cydnie-veil-700.webp 700w, ../assets/img/cydnie-veil-1100.webp 1100w"
-             sizes="(min-width: 56rem) 38vw, 100vw" width="1100" height="1650"
-             loading="lazy" decoding="async"
-             alt="Cydnie Jocelyn seated behind a sheer curtain, half obscured by it, looking away from the camera into the light.">
-      </figure>
+    <div class="ab-story-head">
+      <p class="eyebrow r-fade">What happened</p>
+      <h2 class="carved c-2 split" id="ab-acct">They told me I didn&rsquo;t have a choice. I told them I did.</h2>
     </div>
+    <ol class="ab-time" role="list" data-stagger="80">
+      <li class="r-up">
+        <span class="ab-time-when">Fourteen years</span>
+        <p>I had been performing a strength I did not have since I was a teenager. It looked like doing well, and I could not have told you the last time I felt like myself.</p>
+      </li>
+      <li class="r-up">
+        <span class="ab-time-when">Then it got loud</span>
+        <p>A wedding planned in three months, and our first son twenty weeks later. I lost the first two and a half years of his life to postpartum depression while giving everything I had to a company that taught me I was replaceable.</p>
+      </li>
+      <li class="r-up">
+        <span class="ab-time-when">2025</span>
+        <p>I booked a trip. Not a family trip. A trip for myself. I went as a guest, in a group of fifteen, and I knew nobody.</p>
+      </li>
+      <li class="r-up">
+        <span class="ab-time-when">Two days in</span>
+        <p>It was work, telling me I didn&rsquo;t have a choice. I texted back shaking that I did, and that I chose my family and my children&rsquo;s health.</p>
+      </li>
+      <li class="r-up">
+        <span class="ab-time-when">After</span>
+        <p>I put my notice in, and I built what came next while my boys were in and out of the hospital and my husband had a stroke at thirty-six.</p>
+      </li>
+    </ol>
+    <p class="ab-time-end r-up">Nobody was coming to do it for me. <b>The time was finally mine to choose.</b></p>
   </div>
 </section>
 
-<!-- THE PERSONAL BIT. Moved up out of the run of offers to sit directly
-     after the account, on the same dark ground, where it lands as a breath
-     between the hardest section on the page and the faith that held it.
-     "It has not all been the hard parts" only does its work here. -->
-<section class="section section--tight z-light" data-zone style="--from:var(--surface)" aria-labelledby="ab-true">
-  <div class="wrap">
-    <!-- These were one run on sentence at the bottom of the account, and
-         they closed with "It has not all been the hard parts", which is the
-         page apologising for itself. A line like that is only needed when
-         the page around it is grim. The facts are good and they were doing
-         their work in a footnote, so they get their own air and their own
-         heading, and the apology is gone because it is no longer earned. -->
-    <p class="eyebrow r-fade">Also true</p>
-    <h2 class="head h-2 split" id="ab-true">The rest of me.</h2>
-    <ul class="ab-true" role="list" data-stagger="90">
-      <li class="r-up">My spirit animal is somewhere between a cheetah and a turtle.</li>
-      <li class="r-up">There is a craft room in my house that I use more than I let on.</li>
-      <li class="r-up">I drink a truly unreasonable amount of water and I am unbothered about it.</li>
-      <li class="r-up">I sing. Not in front of people.</li>
-      <li class="r-up">Currently reading ACOTAR and a Proverb a day.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- The rise. The one place on this page where the copy has actually come
-     up, and the transition from the account into what held it up. -->
-<!-- The section above is Silt and the one below is Surface, so the band
-     fades out of one and into the other rather than out of and into the
-     same colour, which is what left an edge at the top. The fades are
-     deeper here than the default: this photograph is dark and the page
-     around it is not, so it needs longer to arrive and longer to go. -->
-  <div class="rise-band" id="rise" style="--band-from:var(--surface); --band-into:var(--surface); --band-fade-top:56%; --band-fade-bot:50%; --surfacing-ink:var(--fathom); --surfacing-halo:rgba(231,236,232,.85)">
-  <figure class="layer-band" aria-hidden="true">
-    <img src="../assets/img/layer-surface-1800.webp"
-         srcset="../assets/img/layer-surface-700.webp 700w, ../assets/img/layer-surface-1200.webp 1200w, ../assets/img/layer-surface-1800.webp 1800w"
-         sizes="100vw" width="1800" height="692" loading="lazy" decoding="async" alt="">
-  </figure>
-  <div class="wrap surfacing" aria-hidden="true">
-    <svg viewBox="0 0 40 96" role="presentation">
-      <circle class="bub b1" cx="18" cy="84" r="2.4"></circle>
-      <circle class="bub b2" cx="21" cy="84" r="3.1"></circle>
-      <circle class="bub b3" cx="19.5" cy="84" r="4"></circle>
-    </svg>
-    <p>Come up</p>
-  </div>
-</div>
-
-<!-- 04 / WHAT HELD. COPY FREEZE applies here too: do not lengthen
-     "Days before, I almost backed out." It is the only short sentence in
-     the section and it is where the reader stops. -->
+<!-- 03 / WHAT HELD. Second pass: shorter again, in her phrasing. "Days
+     before, I almost backed out." is kept whole and still stands alone.
+     The photograph sits on the left here, opposite the head's. -->
 <section class="section z-light" data-zone style="--from:var(--surface)" aria-labelledby="ab-god">
   <div class="wrap">
-    <div class="grid-12 grid-12--hold">
-      <div class="col-d">
+    <div class="ab-faith">
+      <figure class="ab-faith-photo r-img">
+        <img src="../assets/img/cydnie-window-1000.webp"
+             srcset="../assets/img/cydnie-window-600.webp 600w, ../assets/img/cydnie-window-1000.webp 1000w"
+             sizes="(min-width: 56rem) 36vw, 88vw" width="1000" height="1500"
+             loading="lazy" decoding="async"
+             alt="Cydnie Jocelyn by a window in a white shirt, one hand in her hair, smiling and looking down into the light.">
+      </figure>
+      <div class="ab-faith-copy">
         <p class="eyebrow r-fade">What held</p>
         <h2 class="carved c-2 split" id="ab-god">God isn&rsquo;t an afterthought. He is the whole foundation.</h2>
-      </div>
-      <div class="col-e">
-        <div class="body stack r-up" style="--d:60ms">
-          <p>Church was not something I was avoiding, it just was not part of my life, and neither was the bible.</p>
-          <p>In April 2025 I felt a need to join a women&rsquo;s bible study run by a local company where I live, which made no sense at the time and makes more sense now, because I was at my breaking point and God was finding a way to shepherd me to Him.</p>
-          <p>The first day I walked into that church I was in such need of hope that I raised my hand and surrendered my life to Him, and He kept going after that, opening doors and closing the ones that were never meant to stay open.</p>
-          <p>That fall He moved again and I felt the urge to be obedient and be baptized in His name. Days before, I almost backed out.</p>
-          <p>Moments before I stepped on stage in front of eight hundred people to give my testimony, I was tapping my chest trying to slow myself down, after fourteen years of not being able to say one true thing about myself out loud. I went under shaking and I have never felt relief like coming up out of that water.</p>
-          <p>God is in my life, so He is in how I work. He does not have to be in yours. I meet you where you are.</p>
+        <div class="body stack r-up" style="--d:60ms; margin-top:var(--s-5)">
+          <p>In April 2025, at my breaking point, I joined a women&rsquo;s bible study. The first day I walked into that church, I raised my hand and surrendered my life to Him.</p>
+          <p>That fall I was baptized, and gave my testimony in front of eight hundred people. Days before, I almost backed out.</p>
         </div>
+        <p class="ab-pull r-up">I went under shaking and I have never felt relief like coming up out of that water.</p>
+        <p class="ab-meet r-up">God is in my life, so He is in how I work. He does not have to be in yours. <b>I meet you where you are.</b></p>
       </div>
     </div>
 
-    <!-- The three beliefs, in a sentence rather than a list, each opening
-         the verse it rests on. Checkbox toggles, so it works with no JS
-         and nothing animates while she is reading. -->
     <div class="creed r-up" style="--d:120ms">
       <input type="checkbox" id="v1" class="vtoggle" aria-label="Show Ephesians 2:10">
       <input type="checkbox" id="v2" class="vtoggle" aria-label="Show Isaiah 43:19">
@@ -562,29 +492,170 @@
   </div>
 </section>
 
-<!-- 05 / WHAT I DO NOW. The triad, defined, and named at the end so the
-     words arrive after the thing they describe. -->
-<section class="section z-light" data-zone style="--from:var(--surface)" id="triad" aria-labelledby="ab-triad">
+<!-- The rise, between what held and their words. It used to sit directly
+     above the faith photograph, which put two pictures back to back. -->
+  <div class="rise-band" id="rise" style="--band-from:var(--surface); --band-into:var(--surface); --band-fade-top:56%; --band-fade-bot:50%; --surfacing-ink:var(--fathom); --surfacing-halo:rgba(231,236,232,.85)">
+  <figure class="layer-band" aria-hidden="true">
+    <img src="../assets/img/layer-surface-1800.webp"
+         srcset="../assets/img/layer-surface-700.webp 700w, ../assets/img/layer-surface-1200.webp 1200w, ../assets/img/layer-surface-1800.webp 1800w"
+         sizes="100vw" width="1800" height="692" loading="lazy" decoding="async" alt="">
+  </figure>
+  <div class="wrap surfacing" aria-hidden="true">
+    <svg viewBox="0 0 40 96" role="presentation">
+      <circle class="bub b1" cx="18" cy="84" r="2.4"></circle>
+      <circle class="bub b2" cx="21" cy="84" r="3.1"></circle>
+      <circle class="bub b3" cx="19.5" cy="84" r="4"></circle>
+    </svg>
+    <p>Come up</p>
+  </div>
+</div>
+
+<!-- 04 / IN THEIR WORDS. Second pass: the carousel and Melissa side by
+     side rather than stacked, which took a screen off the section, and the
+     one ask directly under both. Every client and guest quote is still here,
+     alternating, with the engagement named on each. -->
+<section class="section z-silt" data-zone style="--from:var(--surface)" id="words" aria-labelledby="ab-words">
   <div class="wrap">
-    <div class="grid-12 grid-12--hold">
-      <div class="col-d">
-        <p class="eyebrow r-fade">What I do now</p>
-        <h2 class="head h-2 split" id="ab-triad">The work goes in an order.</h2>
+    <p class="eyebrow r-fade">Clients and guests</p>
+    <h2 class="head h-2 split" id="ab-words">In their words.</h2>
+    <div class="ab-proof">
+      <div class="ab-proof-quotes">
+    <div class="quotes r-up" data-quotes>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;She is truly an invaluable asset&rdquo;</p>
+        <blockquote>Working with Cydnie has been an absolute pleasure. She listens with intention, quickly understands your vision, and brings it to life with ease. As a new business owner, she has lifted so much off my plate, allowing me to focus on what matters most. She is truly an invaluable asset to any business.</blockquote>
+        <figcaption><b>Tamara</b> <span>Mane Alchemist Salon &middot; brand build</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;I always felt behind&rdquo;</p>
+        <blockquote>I was burnt out and struggling to figure out why I always felt behind. My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.</blockquote>
+        <figcaption><b>Kristi</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;She helped redesign how I operate&rdquo;</p>
+        <blockquote>Cydnie is very knowledgeable and incredibly dedicated. She helped redesign how I operate!</blockquote>
+        <figcaption><b>Spencer Scott</b> <span>SRS Performance &middot; brand and operations</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;I left being able to breathe&rdquo;</p>
+        <blockquote>I walked in carrying fear that the experience would take more from me than I had to give. I left being able to breathe, with old and new friends who cared about me.</blockquote>
+        <figcaption><b>BJB</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;Her words land right where you need them&rdquo;</p>
+        <blockquote>I&rsquo;m so grateful our paths crossed. Her words have a way of landing right where you need them, and her online presence reflects the warmth and wisdom she brings to every interaction.</blockquote>
+        <figcaption><b>Angela</b> <span>Consulting client</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;Take a chance on an experience that will not disappoint you&rdquo;</p>
+        <blockquote>If you are weary from life and want to reset and refresh yourself, take a chance on an experience that will not disappoint you if you attend with open hands and heart.</blockquote>
+        <figcaption><b>Carol</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;She&rsquo;s truly a breath of fresh air&rdquo;</p>
+        <blockquote>She&rsquo;s truly a breath of fresh air.</blockquote>
+        <figcaption><b>Angela</b> <span>Consulting client</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;The fact that you&rsquo;re even considering it&rdquo;</p>
+        <blockquote>The fact that you&rsquo;re even considering it should tell you that you should go. You&rsquo;ll come out the other end with new people in your life.</blockquote>
+        <figcaption><b>Kristi</b> <span>Retreat guest &middot; asked what she would say to someone afraid to come alone</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;No waiting, no rushing&rdquo;</p>
+        <blockquote>Intimate group size, and leaders able to make us think, laugh and cry without judgement. No waiting, no rushing.</blockquote>
+        <figcaption><b>Carol</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;The friends you meet will be there for you&rdquo;</p>
+        <blockquote>The friends you meet will be there for you if you are willing to reach out and share yourself. Costa Rica will remain in my heart forever.</blockquote>
+        <figcaption><b>BJB</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;My only regret was that I did not pack more swim suits&rdquo;</p>
+        <blockquote>It greatly surpassed all my expectations. My only regret was that I did not pack more swim suits.</blockquote>
+        <figcaption><b>Alice</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+    </div>
       </div>
-      <div class="col-e">
-        <div class="body stack r-up" style="--d:60ms">
-          <p>The first part is working out what is actually going on, which is almost never what you came in thinking it was. Most people arrive certain they have a marketing problem and leave knowing they have an operations one, or the other way around.</p>
-          <p>The second is getting back the hours and the decisions you gave away to keep it running. This is usually where the resistance is, because every one of those handoffs felt like relief at the time.</p>
-          <p>The third is setting it up so it does not fall over when you step back.</p>
-        </div>
-        <p class="ab-triad-name r-up" style="--d:120ms">Resurface, reclaim, build. I named them that way because that is the order I went in.</p>
+      <figure class="ab-melissa r-up">
+      <a class="rt-play melissa-play" data-cursor="Play" data-video="DrrP4hdw0lo" data-src="../assets/video/melissa.mp4" data-start="3"
+         data-title="Melissa on the Costa Rica retreat"
+         href="../assets/video/melissa.mp4#t=3">
+        <img src="../assets/img/retreats/melissa-poster-405.webp"
+             srcset="../assets/img/retreats/melissa-poster-300.webp 300w, ../assets/img/retreats/melissa-poster-405.webp 405w"
+             sizes="(min-width: 48rem) 24rem, 74vw" width="405" height="720"
+             loading="lazy" decoding="async"
+             alt="Melissa, speaking to her phone camera in her car on the way home from the retreat.">
+        <span class="rt-play-btn" aria-hidden="true">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="currentColor"><path d="M0 0l18 10L0 20z"/></svg>
+        </span>
+        <span class="vh">Play Melissa&rsquo;s video about the Costa Rica retreat</span></a>
+        <figcaption><b>&ldquo;I learned that I matter too.&rdquo;</b> Melissa, on the drive home from Costa Rica. Three minutes, filmed on her phone.</figcaption>
+      </figure>
+    </div>
+    <div class="actions ab-words-ask r-up">
+      <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
+        <span>Book a Sounding, $300</span>
+        <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+      <span class="vh"> (opens my scheduling page)</span></a>
+      <span class="note-under">The written page is yours whether or not we ever speak again.</span>
+    </div>
+  </div>
+</section>
+
+<!-- 05 / THE REST OF ME. The five lines are unchanged. They were five
+     bordered cards, which is the features grid whatever it says; they are a
+     plain list now beside three frames from the shoot that show the same
+     person: singing into a microphone with her eyes shut, laughing over a
+     mug, writing. -->
+<section class="section z-light" data-zone style="--from:#DCE4E1" aria-labelledby="ab-true">
+  <div class="wrap">
+    <div class="ab-rest ab-rest--flip">
+      <div class="ab-rest-copy">
+        <p class="eyebrow r-fade">Also true</p>
+        <h2 class="head h-2 split" id="ab-true">The rest of me.</h2>
+        <ul class="ab-rest-list" role="list" data-stagger="90">
+          <li class="r-up">My spirit animal is somewhere between a cheetah and a turtle.</li>
+          <li class="r-up">There is a craft room in my house that I use more than I let on.</li>
+          <li class="r-up">I drink a truly unreasonable amount of water and I am unbothered about it.</li>
+          <li class="r-up">I sing. Not in front of people.</li>
+          <li class="r-up">Currently reading ACOTAR and a Proverb a day.</li>
+        </ul>
+      </div>
+      <div class="ab-rest-photos">
+        <figure class="ab-rest-a r-img">
+          <img src="../assets/img/cydnie-sing-1000.webp"
+               srcset="../assets/img/cydnie-sing-600.webp 600w, ../assets/img/cydnie-sing-1000.webp 1000w"
+               sizes="(min-width: 56rem) 24vw, 48vw" width="1000" height="1500"
+               loading="lazy" decoding="async"
+               alt="Cydnie Jocelyn in headphones on a sofa, eyes shut and tongue out, singing into a microphone with one hand up.">
+        </figure>
+        <figure class="ab-rest-b r-img">
+          <img src="../assets/img/cydnie-mug-600.webp"
+               srcset="../assets/img/cydnie-mug-600.webp 600w, ../assets/img/cydnie-mug-1000.webp 1000w"
+               sizes="(min-width: 56rem) 18vw, 48vw" width="600" height="900"
+               loading="lazy" decoding="async"
+               alt="Cydnie Jocelyn laughing on a sofa with a mug in her hand and flowers beside her.">
+        </figure>
+        <figure class="ab-rest-c r-img">
+          <img src="../assets/img/cydnie-journal-600.webp"
+               srcset="../assets/img/cydnie-journal-600.webp 600w, ../assets/img/cydnie-journal-1000.webp 1000w"
+               sizes="(min-width: 56rem) 18vw, 48vw" width="600" height="400"
+               loading="lazy" decoding="async"
+               alt="Close on Cydnie Jocelyn&rsquo;s hands writing in a journal, a mug on the floor beside her.">
+        </figure>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 07 / WHERE TO START. Three doors mapped to the three words. The
-     Letters sit underneath, attached and quieter: not a fourth door. -->
+<!-- 06 / WHERE TO START. "The work goes in an order" was its own section
+     explaining resurface, reclaim and build, directly above three cards
+     labelled resurface, reclaim and build. Each card carries its own line of
+     it now, and her sentence about why they are named that way closes the
+     row. The Questions line went: five exits was four too many, and it
+     pointed at the home page rather than /thequestions/. -->
 <section class="section z-light" data-zone style="--from:var(--surface)" id="ways" aria-labelledby="ab-ways">
   <div class="wrap">
     <div class="grid-12" style="margin-bottom:var(--s-7)">
@@ -598,7 +669,7 @@
       <div class="way r-up">
         <p class="way-word">01 / Resurface</p>
         <h3 class="carved c-3">A Sounding</h3>
-        <p class="way-meta">Ninety minutes, then a written page two days later.</p>
+        <p class="way-meta">Working out what is actually going on, which is almost never what you came in thinking it was. Ninety minutes, then a written page two days later.</p>
         <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
           <span>Book a Sounding, $300</span>
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
@@ -616,11 +687,7 @@
       <div class="way r-up">
         <p class="way-word">03 / Build</p>
         <h3 class="carved c-3">The Build</h3>
-        <p class="way-meta">Sustained work on the structure underneath, so it holds when you step back.</p>
-        <!-- This pointed at /#build, which is a card on the home page, so a
-             reader on this page who asked to see The Build was sent to a
-             different page entirely and had to find it again. The Build has
-             had its own page for a while; this is it. -->
+        <p class="way-meta">Setting it up so it does not fall over when you step back.</p>
         <a class="btn btn--quiet" href="/the-build/">
           <span>See The Build</span>
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
@@ -628,7 +695,7 @@
       </div>
     </div>
 
-    <p class="ways-reversal r-up" style="--d:120ms">The written page is yours whether or not we ever speak again.</p>
+    <p class="ways-reversal r-up" style="--d:120ms">Resurface, reclaim, build. I named them that way because that is the order I went in.</p>
 
     <div class="ways-letters r-up" style="--d:120ms">
       <p><b>The Letters.</b> One letter a week about what it costs to run the thing you built. Free, and not a newsletter.</p>
@@ -636,21 +703,10 @@
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
       </a>
     </div>
-
-    <p class="ways-questions r-up" style="--d:120ms">If you are weighing whether any of this is for you, the <a class="link" href="/#faq">Questions</a> page answers the things people ask before they book.</p>
   </div>
 </section>
 
-<!-- 08 / CLOSE. The booking link for the third and last time in the page,
-     worded identically to the hero and the offers. -->
-<!-- THE BAND MARKS THE ACTION. One Deepwater band per page, on the
-     thing the page is asking for, rather than alternating as decoration. -->
-<!-- THE ONE DARK MOMENT. The page runs a single light ground the whole
-     way down and spends its contrast in three places that mean
-     something: the waterline band at the midpoint, the Breath fill on
-     the cards, and this. Alternating Surface against Silt section by
-     section was eight points of difference doing no work, which read as
-     one texture rather than as rhythm. -->
+<!-- 07 / CLOSE. One Deepwater band, on the thing the page is asking for. -->
 <section class="section ab-close z-deepwater" data-zone style="--from:var(--surface)" aria-label="Close">
   <div class="wrap">
     <p class="ab-close-line split">Come up. There&rsquo;s no wrong way to do it.</p>
@@ -749,12 +805,12 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=3b94182f" defer></script>
+<script src="../assets/js/site.js?v=afada47e" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=3b94182f" defer></script>
-<script src="../assets/js/consent.js?v=3b94182f" defer></script>
+<script src="../assets/js/analytics.js?v=afada47e" defer></script>
+<script src="../assets/js/consent.js?v=afada47e" defer></script>
 </body>
 </html>

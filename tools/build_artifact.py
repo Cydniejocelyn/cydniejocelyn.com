@@ -112,7 +112,12 @@ PICK = {
     # one being absent is fatal, which is how this was caught.
     "hero-rise":          "hero-rise-1400.webp",
     "cydnie-veil":        "cydnie-veil-1100.webp",
-    "cydnie-hero":        "cydnie-hero-1400.webp",
+    "cydnie-hero":        "cydnie-hero-1000.webp",
+    # About, 12 September: the rest of me and what held, from the shoot.
+    "cydnie-sing":        "cydnie-sing-600.webp",
+    "cydnie-mug":         "cydnie-mug-600.webp",
+    "cydnie-journal":     "cydnie-journal-600.webp",
+    "cydnie-window":      "cydnie-window-600.webp",
     # The header portrait. 144 rather than 72 so the fold is sharp on a
     # retina screen at the 36px the bar renders it at.
     "cydnie-face":        "cydnie-face-144.webp",

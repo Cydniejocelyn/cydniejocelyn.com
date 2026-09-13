@@ -3181,6 +3181,120 @@ main > * { position: relative; z-index: 1; }
 .ab-head--type .ab-head-tick { top: var(--ab-rule); }
 .ab-head--type .ab-head-copy { max-width: 44rem; margin-left: 0; }
 
+/* SHE IS IN THE HEAD NOW (12 September). "I am the brand. I must be sold."
+   Copy on the left, the portrait on the right, both under the rule. On a
+   phone the portrait follows the copy, so the name, the line and the button
+   still hold the first screen and her face is the next thing up. */
+.ab-head--face .ab-head-grid { display: grid; gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
+@media (min-width: 56rem) {
+  .ab-head--face .ab-head-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+}
+.ab-head--face .ab-head-copy { max-width: 36rem; }
+.ab-head-job { margin-top: var(--s-4); color: var(--muted); }
+.ab-head--face .actions { margin-top: clamp(var(--s-5), 4vh, var(--s-6)); }
+.ab-head-clients {
+  margin-top: var(--s-5);
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--label);
+}
+.ab-head-photo { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; max-width: 30rem; width: 100%; justify-self: end; }
+.ab-head-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+@media (max-width: 55.99rem) { .ab-head-photo { justify-self: start; max-width: 26rem; } }
+
+/* What held: the photograph on the left, opposite the head's, and the
+   baptism line set as the moment the page turns on. */
+.ab-faith { display: grid; gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
+@media (min-width: 56rem) { .ab-faith { grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); } }
+.ab-faith-photo { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; max-width: 30rem; width: 100%; }
+@media (max-width: 55.99rem) { .ab-faith-photo { max-width: 22rem; order: 2; } }
+.ab-faith-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; display: block; }
+.ab-pull {
+  margin-top: clamp(var(--s-6), 5vw, var(--s-7));
+  padding-left: var(--s-5); border-left: 1px solid var(--meniscus);
+  font-family: var(--carved);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  line-height: 1.28; letter-spacing: .02em; color: var(--ink);
+  text-wrap: balance;
+}
+.ab-meet { margin-top: clamp(var(--s-5), 4vw, var(--s-6)); color: var(--muted); max-width: 36rem; }
+.ab-meet b { font-weight: 400; color: var(--ink); }
+
+/* What happened, as five moments on a rail. No photograph: the head above
+   carries one on the right and what held below carries one on the left. */
+.ab-story-head { max-width: 44rem; }
+.ab-time {
+  list-style: none; padding: 0; margin: clamp(var(--s-6), 5vw, var(--s-7)) 0 0;
+  position: relative; max-width: 64rem;
+}
+.ab-time::before {
+  content: ""; position: absolute; top: .5rem; bottom: .5rem; left: .3rem;
+  width: 1px; background: var(--rule);
+}
+.ab-time li {
+  position: relative; display: grid; gap: var(--s-2);
+  padding: 0 0 clamp(var(--s-5), 4vw, var(--s-6)) var(--s-6);
+}
+.ab-time li::before {
+  content: ""; position: absolute; left: 0; top: .45rem;
+  width: .6875rem; height: .6875rem; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--meniscus);
+}
+@media (min-width: 48rem) {
+  .ab-time li { grid-template-columns: 11rem minmax(0, 1fr); gap: var(--s-5); align-items: baseline; }
+}
+.ab-time-when {
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--label);
+}
+.ab-time p { margin: 0; color: var(--muted); font-size: 1.0625rem; line-height: 1.6; max-width: 40rem; }
+.ab-time-end {
+  margin-top: var(--s-3); max-width: 44rem;
+  font-family: var(--carved);
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  line-height: 1.25; letter-spacing: .02em; color: var(--muted);
+  text-wrap: balance;
+}
+.ab-time-end b { font-weight: 400; color: var(--ink); }
+
+/* In their words: the carousel and Melissa side by side, then the ask. */
+.ab-proof { display: grid; gap: clamp(var(--s-6), 5vw, var(--s-8)); margin-top: clamp(var(--s-6), 5vw, var(--s-7)); align-items: center; }
+@media (min-width: 62rem) { .ab-proof { grid-template-columns: minmax(0, 1fr) minmax(0, 19rem); } }
+.ab-melissa { margin: 0; display: grid; gap: var(--s-4); max-width: 19rem; }
+.ab-melissa .rt-play { background: none; width: 100%; }
+.ab-melissa figcaption { font-size: .875rem; line-height: 1.55; color: var(--muted); }
+.ab-melissa figcaption b { display: block; font-family: var(--carved); font-weight: 400; font-style: italic; font-size: 1.375rem; line-height: 1.25; color: var(--ink); margin-bottom: var(--s-2); }
+.ab-words-ask { margin-top: clamp(var(--s-6), 5vw, var(--s-7)); }
+
+/* The rest of me: the five lines as a plain list beside three frames from
+   the shoot, one tall and two stacked. */
+.ab-rest { display: grid; gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
+@media (min-width: 56rem) { .ab-rest { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); } }
+.ab-rest-list { list-style: none; margin: clamp(var(--s-5), 4vw, var(--s-6)) 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.ab-rest-list li {
+  padding-block: var(--s-4); border-bottom: 1px solid var(--rule);
+  font-family: var(--carved);
+  font-size: clamp(1.15rem, 1.7vw, 1.35rem);
+  line-height: 1.35; letter-spacing: .01em; color: var(--ink);
+}
+/* Photographs on the left, so they do not stack on the same side as
+   Melissa's video directly above. */
+@media (min-width: 56rem) {
+  .ab-rest--flip { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+  .ab-rest--flip .ab-rest-photos { order: -1; }
+}
+/* The next quote peeks in from the right edge of its column; fade it out so
+   the cut reads as more to drag to rather than as a clipped block. */
+.ab-proof-quotes .q-view { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+.ab-rest-photos { display: grid; grid-template-columns: 1.15fr 1fr; grid-template-rows: auto auto; gap: var(--s-4); }
+.ab-rest-photos figure { margin: 0; overflow: hidden; }
+.ab-rest-photos img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* The tall frame takes whatever height the two beside it add up to, so the
+   three always share a top and a bottom edge. */
+.ab-rest-a { grid-row: 1 / span 2; position: relative; min-height: 18rem; }
+.ab-rest-a img { position: absolute; inset: 0; }
+.ab-rest-b { aspect-ratio: 4 / 5; }
+.ab-rest-c { aspect-ratio: 4 / 3; }
+
 /* Overhangs both edges, because a waterline does not stop where the page
    does. Drawn once on load, left to right. */
 .ab-head-rule {
