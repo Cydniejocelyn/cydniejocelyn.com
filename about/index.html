@@ -63,7 +63,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=afada47e">
+<link rel="stylesheet" href="../assets/css/site.css?v=595fb3a7">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -604,49 +604,47 @@
   </div>
 </section>
 
-<!-- 05 / THE REST OF ME. The five lines are unchanged. They were five
-     bordered cards, which is the features grid whatever it says; they are a
-     plain list now beside three frames from the shoot that show the same
-     person: singing into a microphone with her eyes shut, laughing over a
-     mug, writing. -->
+<!-- 05 / THE REST OF ME. Third layout, 12 September. Cydnie asked for a
+     different one again. A bento of five tiles: three photographs from the
+     shoot, each carrying the line it belongs to (singing, the mug, the
+     journal), and two word tiles, set as a checkerboard so each row mixes
+     pictures with words.
+
+     THE BREATH FILL IS BACK. The cards lit to Breath on hover because she
+     asked for an event, and the first rebuild of this section dropped it.
+     Word tiles fill; photo captions fill. Colour only: no lift, no scale. -->
 <section class="section z-light" data-zone style="--from:#DCE4E1" aria-labelledby="ab-true">
   <div class="wrap">
-    <div class="ab-rest ab-rest--flip">
-      <div class="ab-rest-copy">
-        <p class="eyebrow r-fade">Also true</p>
-        <h2 class="head h-2 split" id="ab-true">The rest of me.</h2>
-        <ul class="ab-rest-list" role="list" data-stagger="90">
-          <li class="r-up">My spirit animal is somewhere between a cheetah and a turtle.</li>
-          <li class="r-up">There is a craft room in my house that I use more than I let on.</li>
-          <li class="r-up">I drink a truly unreasonable amount of water and I am unbothered about it.</li>
-          <li class="r-up">I sing. Not in front of people.</li>
-          <li class="r-up">Currently reading ACOTAR and a Proverb a day.</li>
-        </ul>
-      </div>
-      <div class="ab-rest-photos">
-        <figure class="ab-rest-a r-img">
-          <img src="../assets/img/cydnie-sing-1000.webp"
-               srcset="../assets/img/cydnie-sing-600.webp 600w, ../assets/img/cydnie-sing-1000.webp 1000w"
-               sizes="(min-width: 56rem) 24vw, 48vw" width="1000" height="1500"
-               loading="lazy" decoding="async"
-               alt="Cydnie Jocelyn in headphones on a sofa, eyes shut and tongue out, singing into a microphone with one hand up.">
-        </figure>
-        <figure class="ab-rest-b r-img">
-          <img src="../assets/img/cydnie-mug-600.webp"
-               srcset="../assets/img/cydnie-mug-600.webp 600w, ../assets/img/cydnie-mug-1000.webp 1000w"
-               sizes="(min-width: 56rem) 18vw, 48vw" width="600" height="900"
-               loading="lazy" decoding="async"
-               alt="Cydnie Jocelyn laughing on a sofa with a mug in her hand and flowers beside her.">
-        </figure>
-        <figure class="ab-rest-c r-img">
-          <img src="../assets/img/cydnie-journal-600.webp"
-               srcset="../assets/img/cydnie-journal-600.webp 600w, ../assets/img/cydnie-journal-1000.webp 1000w"
-               sizes="(min-width: 56rem) 18vw, 48vw" width="600" height="400"
-               loading="lazy" decoding="async"
-               alt="Close on Cydnie Jocelyn&rsquo;s hands writing in a journal, a mug on the floor beside her.">
-        </figure>
-      </div>
-    </div>
+    <p class="eyebrow r-fade">Also true</p>
+    <h2 class="head h-2 split" id="ab-true">The rest of me.</h2>
+    <ul class="ab-bento" role="list" data-stagger="80">
+      <li class="ab-tile ab-tile--photo ab-tile--tall r-up">
+        <img src="../assets/img/cydnie-sing-1000.webp"
+             srcset="../assets/img/cydnie-sing-600.webp 600w, ../assets/img/cydnie-sing-1000.webp 1000w"
+             sizes="(min-width: 62rem) 36vw, (min-width: 42rem) 48vw, 92vw" width="1000" height="1500"
+             loading="lazy" decoding="async"
+             alt="Cydnie Jocelyn in headphones on a sofa, eyes shut and tongue out, singing into a microphone with one hand up.">
+        <p>I sing. Not in front of people.</p>
+      </li>
+      <li class="ab-tile ab-tile--word r-up"><p>My spirit animal is somewhere between a cheetah and a turtle.</p></li>
+      <li class="ab-tile ab-tile--photo r-up">
+        <img src="../assets/img/cydnie-mug-600.webp"
+             srcset="../assets/img/cydnie-mug-600.webp 600w, ../assets/img/cydnie-mug-1000.webp 1000w"
+             sizes="(min-width: 62rem) 30vw, (min-width: 42rem) 48vw, 92vw" width="600" height="900"
+             loading="lazy" decoding="async"
+             alt="Cydnie Jocelyn laughing on a sofa with a mug in her hand and flowers beside her.">
+        <p>I drink a truly unreasonable amount of water and I am unbothered about it.</p>
+      </li>
+      <li class="ab-tile ab-tile--photo r-up">
+        <img src="../assets/img/cydnie-journal-600.webp"
+             srcset="../assets/img/cydnie-journal-600.webp 600w, ../assets/img/cydnie-journal-1000.webp 1000w"
+             sizes="(min-width: 62rem) 30vw, (min-width: 42rem) 48vw, 92vw" width="600" height="400"
+             loading="lazy" decoding="async"
+             alt="Close on Cydnie Jocelyn&rsquo;s hands writing in a journal, a mug on the floor beside her.">
+        <p>Currently reading ACOTAR and a Proverb a day.</p>
+      </li>
+      <li class="ab-tile ab-tile--word r-up"><p>There is a craft room in my house that I use more than I let on.</p></li>
+    </ul>
   </div>
 </section>
 
@@ -706,12 +704,34 @@
   </div>
 </section>
 
-<!-- 07 / CLOSE. One Deepwater band, on the thing the page is asking for. -->
-<section class="section ab-close z-deepwater" data-zone style="--from:var(--surface)" aria-label="Close">
+<!-- 07 / CLOSE. Second layout, 12 September: Cydnie asked for a different
+     one. It was a single centred line and a text link on Deepwater. It is a
+     sign-off now: the line, one sentence of what happens, the button, and
+     her beside it, writing (shoot frame 78), because the thing she is asking
+     people to book ends in a page she writes. One Deepwater band per page,
+     on the thing the page is asking for. -->
+<section class="section ab-close ab-close--sign z-deepwater" data-zone style="--from:var(--surface)" aria-labelledby="ab-close-h">
   <div class="wrap">
-    <p class="ab-close-line split">Come up. There&rsquo;s no wrong way to do it.</p>
-    <p class="r-up ab-close-book" style="--d:120ms"><a class="booking" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">Book a Sounding, $300<span class="vh"> (opens my scheduling page)</span></a></p>
-    <span class="wl-rule" aria-hidden="true"></span>
+    <div class="ab-close-grid">
+      <div class="ab-close-copy">
+        <h2 class="ab-close-line split" id="ab-close-h">Come up. There&rsquo;s no wrong way to do it.</h2>
+        <p class="ab-close-sub r-up" style="--d:60ms">One conversation about your business, and a written page two days later. Nothing to prepare.</p>
+        <div class="actions r-up" style="--d:120ms">
+          <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
+            <span>Book a Sounding, $300</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+          <span class="vh"> (opens my scheduling page)</span></a>
+        </div>
+      </div>
+      <figure class="ab-close-photo r-img">
+        <img src="../assets/img/cydnie-writing-600.webp"
+             srcset="../assets/img/cydnie-writing-600.webp 600w, ../assets/img/cydnie-writing-1000.webp 1000w"
+             sizes="(min-width: 56rem) 24vw, 60vw" width="600" height="900"
+             loading="lazy" decoding="async"
+             alt="Cydnie Jocelyn sitting on the floor with an open notebook and a pen, looking up at the camera and smiling.">
+        <figcaption>Cydnie</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -805,12 +825,12 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=afada47e" defer></script>
+<script src="../assets/js/site.js?v=595fb3a7" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=afada47e" defer></script>
-<script src="../assets/js/consent.js?v=afada47e" defer></script>
+<script src="../assets/js/analytics.js?v=595fb3a7" defer></script>
+<script src="../assets/js/consent.js?v=595fb3a7" defer></script>
 </body>
 </html>

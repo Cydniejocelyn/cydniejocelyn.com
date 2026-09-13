@@ -118,6 +118,7 @@ PICK = {
     "cydnie-mug":         "cydnie-mug-600.webp",
     "cydnie-journal":     "cydnie-journal-600.webp",
     "cydnie-window":      "cydnie-window-600.webp",
+    "cydnie-writing":     "cydnie-writing-600.webp",
     # The header portrait. 144 rather than 72 so the fold is sharp on a
     # retina screen at the 36px the bar renders it at.
     "cydnie-face":        "cydnie-face-144.webp",

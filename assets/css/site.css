@@ -3288,6 +3288,70 @@ main > * { position: relative; z-index: 1; }
 .ab-rest-photos { display: grid; grid-template-columns: 1.15fr 1fr; grid-template-rows: auto auto; gap: var(--s-4); }
 .ab-rest-photos figure { margin: 0; overflow: hidden; }
 .ab-rest-photos img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* THE REST OF ME AS A BENTO (12 September, third layout). Photograph and
+   word tiles mix: on a wide screen the singing frame holds two rows on the
+   left, and the other four sit two by two in a checkerboard. */
+.ab-bento {
+  list-style: none; padding: 0; margin: clamp(var(--s-6), 5vw, var(--s-7)) 0 0;
+  display: grid; gap: var(--s-4); grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 42rem) {
+  .ab-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(14rem, auto); }
+  .ab-tile--tall { grid-row: span 2; }
+}
+@media (min-width: 62rem) {
+  .ab-bento { grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(15rem, 20vw, 19rem); }
+}
+.ab-tile { position: relative; margin: 0; overflow: hidden; }
+.ab-tile--photo { min-height: 14rem; }
+@media (max-width: 41.99rem) { .ab-tile--photo { aspect-ratio: 4 / 5; } }
+.ab-tile--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* The line sits on a Surface chip, not on the photograph, so it reads the
+   same on every frame without a scrim to measure. */
+.ab-tile--photo p {
+  position: absolute; left: var(--s-4); right: var(--s-4); bottom: var(--s-4);
+  margin: 0; padding: var(--s-3) var(--s-4);
+  background: rgba(231, 236, 232, .94); color: var(--ink);
+  font-family: var(--carved); font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.3;
+}
+.ab-tile--word {
+  display: flex; align-items: flex-end;
+  padding: clamp(var(--s-5), 3vw, var(--s-6));
+  background: #DCE4E1; border: 1px solid var(--rule);
+}
+.ab-tile--word p {
+  margin: 0; color: var(--ink);
+  font-family: var(--carved); font-size: clamp(1.3rem, 2vw, 1.7rem);
+  line-height: 1.25; letter-spacing: .01em; text-wrap: balance;
+}
+@media (hover: hover) {
+  .ab-tile--word, .ab-tile--photo p, .ab-tile--word p {
+    transition: background-color 260ms var(--ease-out), color 260ms var(--ease-out), border-color 260ms var(--ease-out);
+  }
+  .ab-tile--word:hover { background: var(--breath); border-color: var(--breath); }
+  .ab-tile--word:hover p, .ab-tile--photo:hover p { color: var(--fathom); }
+  .ab-tile--photo:hover p { background: var(--breath); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ab-tile--word, .ab-tile--photo p, .ab-tile--word p { transition: none; }
+}
+
+/* THE CLOSE AS A SIGN-OFF (12 September). The line, one sentence, the
+   button, and her beside it. */
+.ab-close--sign { padding-block: clamp(var(--s-7), 10vw, var(--s-9)); }
+.ab-close-grid { display: grid; gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
+@media (min-width: 56rem) { .ab-close-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); } }
+.ab-close--sign .ab-close-line { margin: 0; max-width: 16em; font-size: clamp(1.9rem, 4vw, 3.1rem); line-height: 1.12; }
+.ab-close-sub { margin-top: var(--s-5); color: var(--muted); max-width: 32rem; font-size: clamp(1.0625rem, 1.4vw, 1.1875rem); line-height: 1.55; }
+.ab-close--sign .actions { margin-top: clamp(var(--s-5), 4vw, var(--s-6)); }
+.ab-close-photo { margin: 0; justify-self: end; width: 100%; max-width: 21rem; }
+.ab-close-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 35%; display: block; }
+.ab-close-photo figcaption {
+  margin-top: var(--s-3);
+  font-family: var(--carved); font-style: italic; font-size: 1.5rem; color: var(--ink);
+}
+@media (max-width: 55.99rem) { .ab-close-photo { justify-self: start; max-width: 15rem; } }
+
 /* The tall frame takes whatever height the two beside it add up to, so the
    three always share a top and a bottom edge. */
 .ab-rest-a { grid-row: 1 / span 2; position: relative; min-height: 18rem; }

@@ -6643,13 +6643,11 @@ still heavy, wants trending but converting layouts.
 | # | Page | Now | Why this order |
 |---|---|---|---|
 | 1 | **/a-sounding/** | 9 sections, 1,109 words | The $300 offer every page's main button points at. Most conversion critical page not yet audited. |
-| 2 | **/** home | 7 sections, 1,455 words | Highest traffic. Restructured in phases 1-4 but still the second heaviest non-retreat page. "Built to stand." still repeats the showcase clients (asked twice, unanswered). The Sounding popup (`sounding-popup.js`, 45s) is a modal on a brand guide that forbids modals: confirm with her. |
-| 3 | **/retreats/gatlinburg/** | 16 sections, 2,393 words | Launches 16 September. Audit BEFORE the launch script runs. Open: "for women building something real" wording; HoneyBook prices ($2,790 / $2,900 / $1,490 / $1,600, $500 deposit) are hers to confirm. |
-| 4 | **/retreats/greece/** | 16 sections, 2,436 words | Heaviest page on the site. Full, waitlist only, so the job is the waitlist and trust, not selling seats. |
-| 5 | **/the-build/** | 7 sections, 747 words | Rewritten on 12 September; a lighter pass for flow and image rhythm. |
-| 6 | **/the-letters/** | 6 sections, 320 words | Short already. Check the Flodesk popup and the one ask. |
-| 7 | **/contact/** | 1 section, 97 words | Quick: skips from H1 to the footer's H3s. |
-| 8 | **/thequestions/** | 6 sections, 309 words, noindex, not in sitemap | Decide keep, fold into pages, or remove. /about/ no longer links it. |
+| 2 | **/retreats/gatlinburg/** | 16 sections, 2,393 words | Launches 16 September. Audit BEFORE the launch script runs. Open: "for women building something real" wording; HoneyBook prices ($2,790 / $2,900 / $1,490 / $1,600, $500 deposit) are hers to confirm. |
+| 3 | **/retreats/greece/** | 16 sections, 2,436 words | Heaviest page on the site. Full, waitlist only, so the job is the waitlist and trust, not selling seats. |
+| 4 | **/the-letters/** | 6 sections, 320 words | Short already. Check the Flodesk popup and the one ask. |
+| 5 | **/contact/** | 1 section, 97 words | Quick: skips from H1 to the footer's H3s. |
+| 6 | **/thequestions/** | 6 sections, 309 words, noindex, not in sitemap | Decide keep, fold into pages, or remove. /about/ no longer links it. |
 | - | /privacy-policy/ | legal | Not a conversion page. Skip unless asked. |
 
 ### Still open from section 56 (none started)
@@ -6679,3 +6677,22 @@ still heavy, wants trending but converting layouts.
     served from its own scratchpad. Sync, check the process, then run.
   * Review artifacts this session: retreats a478bcca, about 22daed8f,
     home 50fca51a (republished with the halo).
+
+**Addendum to 59, same evening. PUSHED on her approval.** She asked
+for new layouts for "Also true" and the closing "Come up" band on /about/.
+  * Also true is a bento (`.ab-bento`, `.ab-tile--photo/--word`): singing
+    frame tall on the left, mug, journal and two word tiles as a
+    checkerboard, each photo carrying its own line on a Surface chip.
+  * THE BREATH HOVER IS RESTORED. The original `.ab-true` cards filled to
+    Breath on hover (her request); the first rebuild (5ad6b1e, live) dropped
+    it. Word tiles and photo chips fill again. Live until this ships: no hover.
+  * Close is a sign-off (`.ab-close--sign`): line, one sentence, button, and
+    her beside it writing (shoot frame -78, `cydnie-writing-*.webp`), with
+    "Cydnie" under the photo.
+  * Suite 536/0, seams 0. Review artifact 22daed8f republished.
+
+**Correction from Cydnie, same evening:** home and /the-build/ are already
+audited ("We already did the home and the build page"). They are off the
+list. Remaining order: A Sounding, Gatlinburg (before 16 Sept), Greece, The
+Letters, Contact, The Questions. Still worth raising with her separately:
+"Built to stand." repeating the home showcase, and the Sounding popup modal.
