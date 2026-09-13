@@ -6696,3 +6696,16 @@ audited ("We already did the home and the build page"). They are off the
 list. Remaining order: A Sounding, Gatlinburg (before 16 Sept), Greece, The
 Letters, Contact, The Questions. Still worth raising with her separately:
 "Built to stand." repeating the home showcase, and the Sounding popup modal.
+
+**Mobile regression on /about/, found by Cydnie, fixed the same evening.**
+From 5ad6b1e to the fix, the About page was 10,085px wide on a phone: the
+single column of `.ab-proof` had no `grid-template-columns`, so its implicit
+track sized to the carousel's native scroll track (eleven slides). Every new
+About grid now declares `minmax(0, 1fr)` as its base. Also: the edge fade on
+the carousel is wide screens only, and below 48rem that carousel shows
+"back, 01 / 11, forward" instead of eleven wrapping dots. All eleven pages
+measured 390px wide at 390 afterwards.
+
+THE SUITE DID NOT CATCH IT and cannot as written: it runs at 1280, where the
+desktop rule already set the columns. A phone width overflow check
+(documentElement.scrollWidth <= innerWidth at 390) is worth adding.

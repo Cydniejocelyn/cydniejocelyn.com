@@ -3185,7 +3185,7 @@ main > * { position: relative; z-index: 1; }
    Copy on the left, the portrait on the right, both under the rule. On a
    phone the portrait follows the copy, so the name, the line and the button
    still hold the first screen and her face is the next thing up. */
-.ab-head--face .ab-head-grid { display: grid; gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
+.ab-head--face .ab-head-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
 @media (min-width: 56rem) {
   .ab-head--face .ab-head-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
 }
@@ -3203,7 +3203,7 @@ main > * { position: relative; z-index: 1; }
 
 /* What held: the photograph on the left, opposite the head's, and the
    baptism line set as the moment the page turns on. */
-.ab-faith { display: grid; gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
+.ab-faith { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
 @media (min-width: 56rem) { .ab-faith { grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); } }
 .ab-faith-photo { margin: 0; aspect-ratio: 4 / 5; overflow: hidden; max-width: 30rem; width: 100%; }
 @media (max-width: 55.99rem) { .ab-faith-photo { max-width: 22rem; order: 2; } }
@@ -3257,7 +3257,12 @@ main > * { position: relative; z-index: 1; }
 .ab-time-end b { font-weight: 400; color: var(--ink); }
 
 /* In their words: the carousel and Melissa side by side, then the ask. */
-.ab-proof { display: grid; gap: clamp(var(--s-6), 5vw, var(--s-8)); margin-top: clamp(var(--s-6), 5vw, var(--s-7)); align-items: center; }
+/* minmax(0, 1fr) on the single column is load bearing. Without it the one
+   track sizes to its content, the carousel's native scroll track is eleven
+   slides wide, and on a phone the column (and the page) went 10,065px wide.
+   Shipped that way in 5ad6b1e; fixed the same evening. */
+.ab-proof { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-6), 5vw, var(--s-8)); margin-top: clamp(var(--s-6), 5vw, var(--s-7)); align-items: center; }
+.ab-proof-quotes { min-width: 0; }
 @media (min-width: 62rem) { .ab-proof { grid-template-columns: minmax(0, 1fr) minmax(0, 19rem); } }
 .ab-melissa { margin: 0; display: grid; gap: var(--s-4); max-width: 19rem; }
 .ab-melissa .rt-play { background: none; width: 100%; }
@@ -3267,7 +3272,7 @@ main > * { position: relative; z-index: 1; }
 
 /* The rest of me: the five lines as a plain list beside three frames from
    the shoot, one tall and two stacked. */
-.ab-rest { display: grid; gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
+.ab-rest { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
 @media (min-width: 56rem) { .ab-rest { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); } }
 .ab-rest-list { list-style: none; margin: clamp(var(--s-5), 4vw, var(--s-6)) 0 0; padding: 0; border-top: 1px solid var(--rule); }
 .ab-rest-list li {
@@ -3283,8 +3288,20 @@ main > * { position: relative; z-index: 1; }
   .ab-rest--flip .ab-rest-photos { order: -1; }
 }
 /* The next quote peeks in from the right edge of its column; fade it out so
-   the cut reads as more to drag to rather than as a clipped block. */
-.ab-proof-quotes .q-view { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+   the cut reads as more to drag to rather than as a clipped block. Wide
+   screens only: on a phone the slide fills the view and the fade dimmed the
+   quote being read. */
+@media (min-width: 62rem) {
+  .ab-proof-quotes .q-view { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+}
+/* Eleven quotes is eleven dots, and on a phone they wrapped onto two rows
+   around the arrows. Below 48rem this carousel shows the count between the
+   arrows instead: back, 01 / 11, forward. */
+@media (max-width: 47.99rem) {
+  .ab-proof-quotes .q-dots { display: none; }
+  .ab-proof-quotes .q-count { display: block; order: 1; flex: 1 1 auto; margin: 0; text-align: center; }
+  .ab-proof-quotes .q-arrow[data-dir="1"] { order: 2; }
+}
 .ab-rest-photos { display: grid; grid-template-columns: 1.15fr 1fr; grid-template-rows: auto auto; gap: var(--s-4); }
 .ab-rest-photos figure { margin: 0; overflow: hidden; }
 .ab-rest-photos img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -3339,7 +3356,7 @@ main > * { position: relative; z-index: 1; }
 /* THE CLOSE AS A SIGN-OFF (12 September). The line, one sentence, the
    button, and her beside it. */
 .ab-close--sign { padding-block: clamp(var(--s-7), 10vw, var(--s-9)); }
-.ab-close-grid { display: grid; gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
+.ab-close-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
 @media (min-width: 56rem) { .ab-close-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); } }
 .ab-close--sign .ab-close-line { margin: 0; max-width: 16em; font-size: clamp(1.9rem, 4vw, 3.1rem); line-height: 1.12; }
 .ab-close-sub { margin-top: var(--s-5); color: var(--muted); max-width: 32rem; font-size: clamp(1.0625rem, 1.4vw, 1.1875rem); line-height: 1.55; }
