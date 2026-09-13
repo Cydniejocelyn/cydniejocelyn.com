@@ -1889,7 +1889,9 @@ button { font: inherit; color: inherit; }
 
    The link is the live site, by its own domain name, in a new tab. */
 .work-showcase {
-  list-style: none; margin: 0; padding: 0;
+  /* margin-top restates .stack-lg's gap at the size the heading needs; a bare
+     `margin: 0` here beat .stack-lg and glued the panels to the h2. */
+  list-style: none; margin: var(--s-6) 0 0; padding: 0;
   display: grid; gap: var(--s-7);
 }
 @media (min-width: 62rem) {
@@ -1900,6 +1902,9 @@ button { font: inherit; color: inherit; }
   display: grid; place-items: center;
   padding: clamp(var(--s-5), 3vw, var(--s-6)) var(--s-4);
   background: #DCE4E1; min-height: clamp(18rem, 24vw, 22rem);
+  /* Silt alone is one step off the ground and read as a smudge; the hairline
+     is what makes it a panel, the same pairing as .sd-panel. */
+  border: 1px solid var(--rule);
 }
 .ws .case-show { --mark-base: clamp(2.8rem, 3.7vw, 3.7rem); gap: clamp(var(--s-3), 2vw, var(--s-5)); }
 .ws .case-screen { --dev-w: clamp(5.4rem, 7vw, 7rem); }
