@@ -1162,6 +1162,33 @@ button { font: inherit; color: inherit; }
 }
 .hero-line em { font-style: normal; color: var(--breath); display: block; }
 
+/* /retreats/: two lines, not three. The second sentence, "the one holding
+   it together.", is the long one: 711px at the 3.4rem cap against a 672px
+   column, so it broke in two under the first. Measured 12 September. The
+   column widens to 48rem for the headline only (the sub keeps its 36rem),
+   and the floor comes down so a 375px phone holds it to two as well. */
+.hero--rt .hero-copy { max-width: 48rem; }
+.hero--rt .hero-line { font-size: clamp(1.5rem, 4.6vw, 3.4rem); }
+/* Shortening the sub and the headline lifted the phone copy into the pale
+   sky, and the shared scrim's .06 floor at 22% let it fail there: headline
+   2.84:1, sub 4.43, links 4.34, measured by the section 53 composite at 390.
+   The live page had passed at 4.69 / 4.55 / 6.23 with the taller copy. The
+   shared scrim is not touched. This is its own gradients with the middle of
+   each raised a little. The lightest candidate passed at 390 but left the
+   links at 4.33 on a 360 phone, so this is the next one up. Wide screens
+   pass on the shared scrim (headline 4.43 at 1440, 3.77 at 1024) and keep it. */
+@media (max-width: 47.99rem) {
+  .hero--rt .hero-scrim {
+    background:
+      linear-gradient(90deg,
+        rgba(7,26,31,.92) 0%, rgba(7,26,31,.84) 30%,
+        rgba(7,26,31,.64) 56%, rgba(7,26,31,.50) 80%, rgba(7,26,31,.44) 100%),
+      linear-gradient(180deg,
+        rgba(7,26,31,.72) 0%, rgba(7,26,31,.44) 9%, rgba(7,26,31,.18) 22%,
+        rgba(7,26,31,.30) 60%, rgba(7,26,31,.80) 90%, var(--fathom) 100%);
+  }
+}
+
 /* The hero has no drawn waterline. The photograph's own surface line sits
    at roughly 24% from the top and the headline is centred in the frame, so
    the drawn rule cannot be held to the same height across viewports. Never
@@ -1905,7 +1932,16 @@ button { font: inherit; color: inherit; }
   /* Silt alone is one step off the ground and read as a smudge; the hairline
      is what makes it a panel, the same pairing as .sd-panel. */
   border: 1px solid var(--rule);
+  transition: box-shadow .45s var(--ease-soft), border-color .45s var(--ease-soft);
 }
+/* A Breath halo when a client is hovered, or its link has keyboard focus
+   (Cydnie, 12 September). Breath rather than Meniscus: Meniscus is a dark
+   teal and on this light ground it reads as a drop shadow, not light. */
+@media (hover: hover) {
+  .ws:hover .ws-stage { border-color: var(--breath); box-shadow: 0 0 0 1px var(--breath), 0 0 2.5rem .25rem rgba(159, 204, 198, .6); }
+}
+.ws:focus-within .ws-stage { border-color: var(--breath); box-shadow: 0 0 0 1px var(--breath), 0 0 2.5rem .25rem rgba(159, 204, 198, .6); }
+@media (prefers-reduced-motion: reduce) { .ws-stage { transition: none; } }
 .ws .case-show { --mark-base: clamp(2.8rem, 3.7vw, 3.7rem); gap: clamp(var(--s-3), 2vw, var(--s-5)); }
 .ws .case-screen { --dev-w: clamp(5.4rem, 7vw, 7rem); }
 .ws-name { margin: var(--s-5) 0 var(--s-3); }
@@ -4520,6 +4556,22 @@ main > * { position: relative; z-index: 1; }
 .rt-incl .no { color: var(--muted); }
 .rt-incl .no::before { content: "\2212"; color: var(--muted); }
 
+/* Who this is for, and who it is not, on /retreats/. The heading sits above
+   and the two lists run side by side under it at equal width. In the right
+   hand column of a grid-12 they left the whole left half of a dark section
+   empty under a short heading (Cydnie, 12 September). Side by side is safe
+   here where it was not for the inclusions: these are a pair, headed as a
+   pair, and neither is the one line a reader must not miss. */
+.rt-fit-head { max-width: 40rem; }
+.rt-fit {
+  display: grid; gap: clamp(var(--s-6), 5vw, var(--s-7));
+  margin-top: clamp(var(--s-6), 5vw, var(--s-7));
+}
+@media (min-width: 48rem) {
+  .rt-fit { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(var(--s-6), 6vw, var(--s-8)); }
+}
+.rt-fit .eyebrow { margin-bottom: var(--s-3); }
+
 /* --- The two rates. Published, the way every price on this site is, and
    the early one is not styled as a prize. */
 .rt-rates { display: grid; gap: var(--s-4); margin-top: var(--s-6); }
@@ -4602,12 +4654,22 @@ main > * { position: relative; z-index: 1; }
    bottom of this page read as a list, and on a phone, where the columns
    collapse, it was four identical stacks in a row. A change of frame is
    what makes this one a beat instead of another entry. */
+/* A PANEL SINCE 12 SEPTEMBER. The 40rem column on a rule left the right
+   half of the section empty and read as unfinished. It is a lifted panel
+   now, heading on the left and copy with its button on the right, which
+   still keeps it off the eyebrow-rule-heading frame of its neighbours.
+   Surface on Silt: the reverse of .sd-panel, same hairline. */
 .rt-aside {
-  max-width: 40rem;
-  padding-top: var(--s-5);
-  border-top: 1px solid var(--rule);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: clamp(var(--s-5), 4vw, var(--s-7));
+  display: grid; gap: var(--s-5);
+}
+@media (min-width: 56rem) {
+  .rt-aside { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); column-gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
 }
 .rt-aside .eyebrow { margin-bottom: var(--s-3); }
+.rt-aside-body .actions { margin-top: var(--s-5); }
 
 /* Terms, now the first movement of the questions rather than a section of
    their own.

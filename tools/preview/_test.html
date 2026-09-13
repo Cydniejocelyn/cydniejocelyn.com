@@ -432,10 +432,16 @@ f.addEventListener('load', function(){
         srcs.indexOf('cr-cards')===-1 && srcs.indexOf('cr-water')===-1);
      ok('retreats: their replacements are in place',
         srcs.indexOf('cr-floor')>-1 && srcs.indexOf('cr-surf')>-1);
-     ok('retreats: before-you-book runs in three movements, terms first',
-        d.querySelectorAll('#faq .rt-qs').length===3 &&
-        d.querySelectorAll('#faq .rt-qs-lead').length===3 &&
-        !!d.querySelector('#faq .rt-qs:first-child .rt-terms'));
+     /* Was three movements with terms first. Cut on 12 September: the
+        balance terms differ by retreat (six payments for Greece, a five month
+        plan for Gatlinburg), so one "Balance" line on the hub was wrong for
+        one of them. Each retreat's own page carries its terms. */
+     ok('retreats: before-you-book is questions only, no hub-wide terms',
+        !d.querySelector('#faq .rt-terms') &&
+        d.querySelectorAll('#faq .faq details').length>=5);
+     ok('retreats: the dates come straight after the hero',
+        (function(){var h=d.querySelector('main section');var n=h&&h.nextElementSibling;
+          while(n&&n.nodeName!=='SECTION')n=n.nextElementSibling;return !!n&&n.id==='dates';})());
      /* This used to assert seven accordions, a number that only meant
         "however many there were the day it was written", and adding an
         eighth question turned it red for no reason. The page's own comment

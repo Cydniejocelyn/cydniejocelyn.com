@@ -67,7 +67,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=2fe95bd3">
+<link rel="stylesheet" href="../assets/css/site.css?v=3b94182f">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -297,7 +297,7 @@
           "name": "Do I have to own a business to come?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The retreats are not a business product and there is nothing to bring. Some women who come run companies, some do not, and it has never once mattered in the room. The consulting is separate and it is A Sounding and The Build."
+            "text": "No. Some women who come run companies and some do not, and it has never once mattered in the room. The consulting is separate: A Sounding and The Build."
           }
         },
         {
@@ -310,18 +310,10 @@
         },
         {
           "@type": "Question",
-          "name": "Is this a work thing or a rest thing?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Rest. There is no curriculum, no deliverable, and nothing you have to report back on. I am a consultant and I do run diagnostic work, but that is A Sounding and it is a separate thing you can book any time."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "What fitness level does this require?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "None in particular. Movement is led by Kris Krause and designed around who is in the room, not around who is fittest. Where the walking is on uneven ground it says so on that retreat’s page, and if stairs and trails are a real concern, tell me before you book and I will be straight with you."
+            "text": "None in particular. Movement is led every day and shaped around who is in the room, not around who is fittest. If stairs and trails are a real concern, tell me before you book and I will be straight with you."
           }
         },
         {
@@ -345,23 +337,7 @@
           "name": "Do I need travel insurance?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It is not required and I would buy it anyway, on the day you book. The deposit is non-refundable and your flight will be booked months out. Insurance is the only thing covering either of those."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I book a private retreat for my own group?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. Small groups, teams and communities. Send an inquiry and we will start with what you are actually trying to give them."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What does alone in a group of fifteen mean?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It is the design principle behind every retreat. Nobody needs anything from you and nobody leaves you to it. There is no forced sharing and no facilitated vulnerability, and you are also never on your own with it. Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance."
+            "text": "It is not required, and I would buy it the day you book. The deposit is non-refundable and your flight will be booked months out."
           }
         },
         {
@@ -369,7 +345,7 @@
           "name": "Are the retreats women only?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The brand strategy work is for founders and leaders of any gender. Individual retreats are often women specific and are labeled that way on their own page."
+            "text": "Yes. Each retreat says so on its own page. The consulting is for founders and leaders of any gender."
           }
         }
       ]
@@ -463,7 +439,7 @@
      same one the whole brand is built from -- except this one she took
      herself, on one of these weeks. The pool candids are further down the
      page, where they are about a week rather than about a promise. -->
-<section class="hero z-deep" data-zone aria-labelledby="rt-h">
+<section class="hero hero--rt z-deep" data-zone aria-labelledby="rt-h">
 
   <div class="hero-water" aria-hidden="true">
     <img src="../assets/img/retreats/cr-horizon-1200.webp"
@@ -481,11 +457,11 @@
       <!-- The business was not named until word 969 on a page a woman
            reaches from an ad. She should know whose retreat this is, and
            that the consulting is a separate thing she is not being sold. -->
-      <p class="hero-sub r-up" style="--d:120ms">Small group retreats for women who are the reason everything works, run by a brand and business development consultant who went on one as a guest first. You do not need to own a business to come. Capped at fifteen, because past fifteen a room stops being a group and becomes an audience, and you go home having met nobody.</p>
+      <p class="hero-sub r-up" style="--d:120ms">Small group retreats for women who are the reason everything works, from a brand consultant who went on one as a guest first. You do not need to own a business to come.</p>
 
       <div class="hero-acts r-up" style="--d:180ms">
         <a class="hero-go" href="#dates">
-          <span>The two dates</span>
+          <span>See the dates</span>
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
         </a>
         <a class="hero-go" href="/retreats/greece/">
@@ -507,94 +483,18 @@
   </div>
 </section>
 
-<!-- 02 / THE FORMAT.
-     The cap is the format, so it is said first and it is said as a reason
-     rather than as scarcity. No seats-remaining figure appears anywhere on
-     either retreat page: that is a countdown, and this brand does not run
-     countdowns. -->
-<section class="section z-silt" data-zone style="--from:var(--fathom)" id="format" aria-labelledby="fmt-h">
-  <div class="wrap">
-    <div class="grid-12">
-      <div class="col-d">
-        <p class="eyebrow r-fade">The format</p>
-        <h2 class="head h-2 split" id="fmt-h">Fifteen.</h2>
-        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-        <!-- The ring. Same mark and same movement as the home page, and the
-             geometry is copied from it rather than re-derived, so the two cannot
-             drift apart. Fourteen fill as she scrolls past and the fifteenth
-             stays open, which is the seat being described three inches to the
-             left. site.js finds it by class and needs no change.
+<!-- 02 / THE CALENDAR.
+     Second, directly under the hero, because the dates are what a woman
+     arriving from an ad came to find. It used to be the fourth section, three
+     and a half screens down on a desktop and nearly five on a phone, behind
+     two sections that both explained the cap (12 September audit).
 
-             It sits under the heading rather than beside it because this section
-             already runs a two column grid, and a third column would turn a
-             statement into a dashboard. -->
-        <figure class="fifteen-fig rt-ring r-img">
-            <svg viewBox="0 0 160 160" role="img" aria-labelledby="rt-fif-t">
-            <title id="rt-fif-t">Fifteen circles in a ring. Fourteen are filled; one, at the top, is an open outline.</title>
-            <circle class="dot is-her" cx="79.25" cy="24.70" r="7.90"></circle>
-            <circle class="dot" cx="103.59" cy="29.53" r="7.58"></circle>
-            <circle class="dot" cx="122.80" cy="44.39" r="7.58"></circle>
-            <circle class="dot" cx="133.75" cy="65.33" r="7.58"></circle>
-            <circle class="dot" cx="135.33" cy="86.32" r="7.58"></circle>
-            <circle class="dot" cx="128.33" cy="107.54" r="7.58"></circle>
-            <circle class="dot" cx="113.17" cy="124.18" r="7.58"></circle>
-            <circle class="dot" cx="90.33"  cy="134.74" r="7.58"></circle>
-            <circle class="dot" cx="66.22"  cy="133.99" r="7.58"></circle>
-            <circle class="dot" cx="46.03"  cy="124.18" r="7.58"></circle>
-            <circle class="dot" cx="31.66"  cy="107.77" r="7.58"></circle>
-            <circle class="dot" cx="24.65"  cy="86.35"  r="7.58"></circle>
-            <circle class="dot" cx="26.73"  cy="64.13"  r="7.58"></circle>
-            <circle class="dot" cx="36.90"  cy="44.81"  r="7.58"></circle>
-            <circle class="dot" cx="54.21"  cy="30.61"  r="7.58"></circle>
-            </svg>
-          <figcaption class="fig-cap">Alone in a group of fifteen</figcaption>
-        </figure>
-      </div>
-      <div class="col-e">
-        <div class="body stack r-up" style="--d:60ms">
-          <p>Every retreat is capped at fifteen women. Not because it sells better that way. Because fifteen is how many people can actually be known in a week.</p>
-          <p>The days hold rest, movement, food somebody else made, and long stretches of unscheduled time. There are conversations, and they are real ones. There is no workbook, no morning intention circle, and no expectation that you arrive with anything worked out.</p>
-          <p>You do not need to prepare. That is true of everything I run.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="rt-count" data-stagger="60">
-      <div class="r-up"><b>15</b><span>Guest seats, capped</span></div>
-      <div class="r-up"><b>2</b><span>Dates on the calendar</span></div>
-      <div class="r-up"><b>0</b><span>Preparation required</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 03 / THE CALENDAR.
      Chronological, so the nearer date leads. Each row is a figure and a
      block of copy rather than a card, which is the same refusal of the box
      that governs the offers on the home page. The row is not itself a
      link: it holds its own, and a row that is a link with links inside it
      is a trap for anyone tabbing. -->
-<!-- THE ROOM I BUILD, from the home page. The copy only: this page has
-     carried the fifteen circle ring since it was built, in "The format"
-     directly above, and initFifteen finds it with querySelector. A second
-     ring here would never fill. Same ground as the section above, so no
-     seam is declared. -->
-<section class="section z-silt" data-zone id="room" aria-labelledby="fifteen-h">
-  <div class="wrap">
-    <div class="grid-12">
-      <div class="col-a">
-        <p class="eyebrow r-fade">The room I build</p>
-        <h2 class="head h-2 split" id="fifteen-h">You'll be alone here. And you'll never be alone again.</h2>
-        <div class="body stack r-up" style="--d:120ms">
-          <p>You want to be seen, and you want everyone to stop needing you. You have concluded those are opposites. They are not: your enemy was never invisibility, it is <em>extraction</em>.</p>
-          <p><strong>Nobody will need anything from you. Nobody will leave you either.</strong> That is not a feeling. It is architecture.</p>
-          <p class="tiny">Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section z-light" data-zone style="--from:#DCE4E1" id="dates" aria-labelledby="dates-h">
+<section class="section z-light" data-zone style="--from:var(--fathom)" id="dates" aria-labelledby="dates-h">
   <div class="wrap">
     <div class="grid-12" style="margin-bottom:var(--s-6)">
       <div class="col-d">
@@ -602,7 +502,7 @@
         <h2 class="head h-2 split" id="dates-h">Two dates.</h2>
       </div>
       <div class="col-e">
-        <p class="small muted r-up" style="--d:60ms">Twice a year, and when a date fills it closes. Everything about both of them that is settled is on this page; nothing that is not settled is guessed at.</p>
+        <p class="small muted r-up" style="--d:60ms">Twice a year, and when a date fills it closes.</p>
       </div>
     </div>
 
@@ -689,23 +589,74 @@
   </div>
 </section>
 
+<!-- 03 / FIFTEEN.
+     "The format" and "The room I build" were two sections making one point.
+     They are one now. The stat row under it (15 / 2 / 0) repeated the hero's
+     facts exactly and is gone; the line kept from the room section is the
+     one that carries it.
+
+     The cap is said as a reason rather than as scarcity. No seats-remaining
+     figure appears anywhere on either retreat page: that is a countdown, and
+     this brand does not run countdowns. The ring is the home page's mark,
+     geometry copied rather than re-derived; initFifteen finds it by class. -->
+<section class="section z-silt" data-zone style="--from:var(--surface)" id="format" aria-labelledby="fmt-h">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="col-d">
+        <p class="eyebrow r-fade">The format</p>
+        <h2 class="head h-2 split" id="fmt-h">Fifteen.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
+        <figure class="fifteen-fig rt-ring r-img">
+            <svg viewBox="0 0 160 160" role="img" aria-labelledby="rt-fif-t">
+            <title id="rt-fif-t">Fifteen circles in a ring. Fourteen are filled; one, at the top, is an open outline.</title>
+            <circle class="dot is-her" cx="79.25" cy="24.70" r="7.90"></circle>
+            <circle class="dot" cx="103.59" cy="29.53" r="7.58"></circle>
+            <circle class="dot" cx="122.80" cy="44.39" r="7.58"></circle>
+            <circle class="dot" cx="133.75" cy="65.33" r="7.58"></circle>
+            <circle class="dot" cx="135.33" cy="86.32" r="7.58"></circle>
+            <circle class="dot" cx="128.33" cy="107.54" r="7.58"></circle>
+            <circle class="dot" cx="113.17" cy="124.18" r="7.58"></circle>
+            <circle class="dot" cx="90.33"  cy="134.74" r="7.58"></circle>
+            <circle class="dot" cx="66.22"  cy="133.99" r="7.58"></circle>
+            <circle class="dot" cx="46.03"  cy="124.18" r="7.58"></circle>
+            <circle class="dot" cx="31.66"  cy="107.77" r="7.58"></circle>
+            <circle class="dot" cx="24.65"  cy="86.35"  r="7.58"></circle>
+            <circle class="dot" cx="26.73"  cy="64.13"  r="7.58"></circle>
+            <circle class="dot" cx="36.90"  cy="44.81"  r="7.58"></circle>
+            <circle class="dot" cx="54.21"  cy="30.61"  r="7.58"></circle>
+            </svg>
+          <figcaption class="fig-cap">Alone in a group of fifteen</figcaption>
+        </figure>
+      </div>
+      <div class="col-e">
+        <div class="body stack r-up" style="--d:60ms">
+          <p>Every retreat is capped at fifteen women, because fifteen is how many people can actually be known in a week.</p>
+          <p>The days hold rest, movement, food somebody else made, and long stretches of unscheduled time. No workbook, no intention circle, nothing to prepare.</p>
+          <p><strong>Nobody will need anything from you. Nobody will leave you either.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 04 / COSTA RICA.
      The proof, and it is the last retreat rather than a testimonial wall.
 
      There is no average score here and there should not be. Six people
-     filled in the form, and an average of six is not a rating: it is a
-     number small enough that one person moves it by two tenths, and putting
-     it on the page invites exactly the arithmetic that makes it look worse
-     than the words do. Cydnie's own read, and she is right. The quotes are
-     stronger than any figure derived from them.
+     filled in the form, and an average of six is not a rating. Cydnie's own
+     read, and she is right. If a real sample ever exists, the figure goes
+     back in three places at once: here, `llms.txt`, and the AggregateRating
+     on the home page.
 
-     If a real sample ever exists, the figure goes back in three places at
-     once: here, `llms.txt`, and the AggregateRating on the home page.
+     THREE QUOTES, NOT FIVE (12 September). Kristi answers the objection this
+     section exists to meet, coming alone; Carol names the group size; BJB
+     names what lasts. Alice's and Carol's second quote were cut, not lost:
+     both are in the git history.
 
-     The written quotes are the answers to one question, what would you say
-     to someone afraid to come alone, because that is the objection this
-     section exists to meet. -->
-<section class="section z-deep" data-zone style="--from:var(--surface)" id="costa-rica" aria-labelledby="cr-h">
+     It ends on a button. This is the point on the page where a reader trusts
+     it most, and it used to be followed by three sections of text before the
+     next thing she could do. -->
+<section class="section z-deep" data-zone style="--from:#DCE4E1" id="costa-rica" aria-labelledby="cr-h">
   <div class="wrap stack-lg">
     <div class="grid-12">
       <div class="col-d">
@@ -714,7 +665,7 @@
         <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
       </div>
       <div class="col-e">
-        <p class="lead r-up" style="--d:60ms">Rise &amp; Reground ran in Nosara in April 2026 and is complete. What the women said about it afterward is below, in their own words, including the one who said it on camera.</p>
+        <p class="lead r-up" style="--d:60ms">Rise &amp; Reground ran in Nosara in April 2026. This is what the women said afterward, in their own words.</p>
       </div>
     </div>
 
@@ -747,47 +698,22 @@
             <figcaption><b>Kristi</b> <span>Asked what she would say to someone afraid to come alone</span></figcaption>
           </figure>
           <figure class="quote">
-            <p class="q-pull" aria-hidden="true">&ldquo;My only regret was that I did not pack more swim suits&rdquo;</p>
-            <blockquote>It greatly surpassed all my expectations. My only regret was that I did not pack more swim suits.</blockquote>
-            <figcaption><b>Alice</b> <span>Rise &amp; Reground, Costa Rica</span></figcaption>
+            <p class="q-pull" aria-hidden="true">&ldquo;No waiting, no rushing&rdquo;</p>
+            <blockquote>Intimate group size, and leaders able to make us think, laugh and cry without judgement. No waiting, no rushing.</blockquote>
+            <figcaption><b>Carol Poedel</b> <span>Rise &amp; Reground, Costa Rica</span></figcaption>
           </figure>
           <figure class="quote">
             <p class="q-pull" aria-hidden="true">&ldquo;The friends you meet will be there for you&rdquo;</p>
             <blockquote>The friends you meet will be there for you if you are willing to reach out and share yourself. Costa Rica will remain in my heart forever.</blockquote>
             <figcaption><b>BJB</b> <span>Rise &amp; Reground, Costa Rica</span></figcaption>
           </figure>
-          <figure class="quote">
-            <p class="q-pull" aria-hidden="true">&ldquo;No waiting, no rushing&rdquo;</p>
-            <blockquote>Intimate group size, and leaders able to make us think, laugh and cry without judgement. No waiting, no rushing.</blockquote>
-            <figcaption><b>Carol Poedel</b> <span>Rise &amp; Reground, Costa Rica</span></figcaption>
-          </figure>
-          <figure class="quote">
-            <p class="q-pull" aria-hidden="true">&ldquo;Challenges, reflection, laughter, movement, tears, peace&rdquo;</p>
-            <blockquote>If you are weary from life and want to reset yourself, take a chance on an experience that will not disappoint you if you attend with open hands and heart.</blockquote>
-            <figcaption><b>Carol Poedel</b> <span>Asked what the week&rsquo;s energy was</span></figcaption>
-          </figure>
         </div>
       </div>
     </div>
 
-    <!-- The week in three beats, and they are in order: the room in the
-         morning, what the middle of it looks like from close up, and what
-         everyone does at some point on their own.
-
-         The first pass here was three pool candids. They are true and they
-         all said the same thing. These three say three different things, and
-         two of them have nobody's face turned to camera, which is the board's
-         own direction: photograph from behind, above, or in fragment.
-
-         SECOND PASS, 26 August 2026. Two of the three were replaced on
-         Cydnie's note that they clashed with the site, and in both cases the
-         clash was the subject rather than the grade. The floor frame was
-         amber boards under a spread of rainbow cards, two saturated colour
-         families the palette does not contain. The water frame was a guest
-         facing camera holding a coconut, the one picture on the page that
-         read as stock, and its alt text described a different photograph
-         entirely. Both replacements are shot from behind. See
-         tools/retreat_images.py. -->
+    <!-- The week in three beats, in order: the room in the morning, the
+         middle of it from close up, and what everyone does at some point on
+         their own. See tools/retreat_images.py for why these three. -->
     <figure class="layer-band layer-band--tall layer-band--par r-img" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
       <img class="par" data-speed="0.06"
            src="../assets/img/retreats/cr-room-1200.webp"
@@ -796,7 +722,7 @@
            loading="lazy" decoding="async"
            alt="The open-sided pavilion at the Costa Rica retreat, mats and cushions laid out across the floor, the pool and the trees beyond it.">
     </figure>
-    <p class="rt-band-line r-up"><b>Nine in the morning, day three.</b> Nobody was asked to be there and everybody was. That is the whole design: enough shape that the days do not drift, and no register taken.</p>
+    <p class="rt-band-line r-up"><b>Nine in the morning, day three.</b> Nobody was asked to be there and everybody was.</p>
 
     <div class="pair" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
       <figure class="layer-fig r-img">
@@ -816,21 +742,21 @@
         <figcaption>Everyone does this at some point</figcaption>
       </figure>
     </div>
+
+    <div class="actions r-up" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
+      <a class="btn" href="#dates">
+        <span>See the dates</span>
+        <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
 <!-- 04b / THE LAST EVENING.
-     One picture at full width, and it is the only unguarded thing on the
-     page. The rest of the site refuses this register on purpose -- no
-     sunsets, no promise of transformation -- and it is allowed here because
-     it is a photograph of a week that actually happened, captioned with the
-     day it happened on, rather than an image of a feeling being sold.
-
-     The band's own section declares no --from, because a photograph running
-     edge to edge is its own transition and a seam drawn over the top of one
-     reads as a smear. The section under it keeps its --from: that seam is
-     Fathom into Deepwater, two darks, and it is what stops the refusals
-     block reading as a separate page stapled on. -->
+     One picture at full width, and the only unguarded thing on the page. It
+     is allowed here because it is a photograph of a week that actually
+     happened, captioned with the day, rather than a feeling being sold.
+     No --from: a photograph running edge to edge is its own transition. -->
 <section class="section--tight z-deep" aria-label="The last evening in Costa Rica">
   <figure class="layer-band layer-band--wide layer-band--par r-img">
     <img class="par" data-speed="0.05"
@@ -842,94 +768,61 @@
   </figure>
   <div class="wrap">
     <p class="rt-band-cap">Costa Rica &middot; the last evening, 2 May 2026</p>
-    <p class="rt-band-line r-up">Low tide, and the beach was doing the thing where it holds the whole sky. <b>Nobody organised this part.</b> Everyone just walked down and stood in it, and then went and had dinner.</p>
+    <p class="rt-band-line r-up">Low tide, and the whole sky in the sand. <b>Nobody organised this part.</b></p>
   </div>
 </section>
 
-<!-- 05 / WHO THIS IS NOT FOR.
-     Before the price, not after it. The refusals on the home page are the
-     same move and they are the most quoted thing on the site. -->
-<section class="section z-deep" data-zone style="--from:var(--fathom)" aria-labelledby="not-h">
+<!-- 05 / WHO THIS IS FOR.
+     "Who this is not for" and "Built for the week after" were two sections
+     and about three hundred words. They are two short lists now, the not
+     list kept because the refusals are the most quoted move on the site.
+
+     The "Included, on every retreat" list is gone from this page on purpose.
+     Inclusions differ by retreat and each retreat's own page lists them in
+     full; a general list here was one more thing to keep in step. -->
+<section class="section z-deep" data-zone style="--from:var(--fathom)" id="fit" aria-labelledby="not-h">
   <div class="wrap">
-    <!-- HELD, like the questions below it. Four paragraphs in one column
-         under a heading that scrolls away with them read as a block to get
-         through. The heading holds now and the refusals move past it, which
-         is the same treatment the longest column on this page already had. -->
-    <div class="grid-12 grid-12--hold">
-      <div class="col-d">
-        <p class="eyebrow r-fade">Read this part</p>
-        <h2 class="head h-2 split" id="not-h">Who this is not for.</h2>
-        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-      </div>
-      <div class="col-e">
-        <p class="rt-qs-lead r-up">Three kinds of week to rule out, and then the one this is.</p>
-        <div class="body stack r-up" style="--d:60ms">
-          <p>If you want a mastermind, this is the wrong week. Nobody is going to pitch.</p>
-          <p>If you want a curriculum and a binder to take home, I do not make those.</p>
-          <p>If you need the week to produce a measurable outcome before you can justify the cost, do not book it. You will spend it auditing the experience instead of having it.</p>
-          <!-- The last line used to stop at "the arrangement", which left the
-               reader to guess whether the week was for people who run
-               companies. Enough women asked that it is now answered here and
-               again in the questions below. The qualifier is the depending. -->
-          <p>What is left is a woman who is tired of being the one everybody depends on and wants a stretch of days where that is not the arrangement. She might run a company. She might run a household, or a department, or a family through a hard year. The qualifier is the depending, not the job title.</p>
-        </div>
-      </div>
+    <div class="rt-fit-head">
+      <p class="eyebrow r-fade">Read this part</p>
+      <h2 class="head h-2 split" id="not-h">Who this is for.</h2>
+      <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
     </div>
+        <div class="rt-fit r-up" style="--d:60ms">
+          <div>
+            <p class="eyebrow eyebrow--plain">For you if</p>
+            <ul class="rt-incl" role="list">
+              <li>You are the one everybody depends on, at work, at home, or both</li>
+              <li>You want a stretch of days where that is not the arrangement</li>
+              <li>You want to come home knowing fourteen women well enough to text them</li>
+            </ul>
+          </div>
+          <div>
+            <p class="eyebrow eyebrow--plain">Not for you if</p>
+            <ul class="rt-incl" role="list">
+              <li class="no">You want a mastermind. Nobody is going to pitch.</li>
+              <li class="no">You want a curriculum and a binder to take home.</li>
+              <li class="no">You need a measurable outcome before the cost feels justified.</li>
+            </ul>
+          </div>
+        </div>
   </div>
 </section>
 
-<!-- 06 / WHAT IT HOLDS. -->
-<section class="section z-light" data-zone style="--from:var(--fathom)" aria-labelledby="holds-h">
-  <div class="wrap">
-    <div class="grid-12">
-      <div class="col-d">
-        <p class="eyebrow r-fade">What it holds</p>
-        <h2 class="head h-2 split" id="holds-h">Built for the week after.</h2>
-        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-        <p class="rt-qs-lead r-up" style="margin-top:var(--s-5)">That woman is the one the week is built around, so here is what it actually holds.</p>
-        <div class="body stack r-up" style="--d:60ms">
-          <p>A retreat that only works while you are on it is a vacation. The point is the Tuesday you get home and something is different about how you answer the phone.</p>
-          <p>The structure is loose on purpose. Enough shape that the days do not drift, enough air that you can leave the room. Nobody will notice out loud if you sleep through the morning.</p>
-          <p>You will come home knowing fourteen women well enough to text them. Nothing in the schedule arranges that. It happens every time.</p>
-        </div>
-      </div>
-      <div class="col-e">
-        <p class="eyebrow r-fade">Included, on every retreat</p>
-        <ul class="rt-incl r-up" style="--d:60ms" role="list">
-          <li>Lodging for the full stay</li>
-          <li>Every meal</li>
-          <li>Daily movement, led</li>
-          <li>Every session and excursion</li>
-          <li>Ground transport once you arrive</li>
-          <li>Facilitation throughout</li>
-          <li class="no">Airfare is not included</li>
-          <li class="no">Travel insurance is not included</li>
-        </ul>
-        <p class="tiny r-up" style="--d:120ms; margin-top:var(--s-4)">Exact inclusions vary by retreat and are listed in full on each retreat&rsquo;s own page.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 07 / PRIVATE.
-     The one thing on this page that does not have a published price, because
-     it genuinely cannot: the figure is a function of where and how long. So
-     it says that, rather than saying "inquire for pricing".
-
-     COMPACT ON PURPOSE. Four sections in a row on this page used the same
-     frame -- small label, large heading, rule, body in the right hand
-     column -- and on a phone, where the columns collapse, four of those in
-     sequence is the thing that reads as a list rather than a page. This one
-     is a single measure with a smaller heading and the action inline. The
-     change of frame is what makes it a beat rather than another entry. -->
-<section class="section section--tight z-silt" data-zone style="--from:var(--surface)" id="private" aria-labelledby="pvt-h">
+<!-- 06 / PRIVATE.
+     The one thing on this page without a published price, because it
+     genuinely cannot have one. Compact on purpose: a single measure with a
+     smaller heading and the action inline, so it reads as a beat rather than
+     another entry. -->
+<section class="section z-silt" data-zone style="--from:var(--fathom)" id="private" aria-labelledby="pvt-h">
   <div class="wrap">
     <div class="rt-aside r-up">
-      <p class="eyebrow eyebrow--plain">By inquiry</p>
-      <h2 class="head h-3" id="pvt-h">Bring your own fifteen.</h2>
-      <div class="body stack" style="margin-top:var(--s-4)">
-        <p>If you already have the women, I will build the week. Your group, your dates, your location, run the way the open retreats are run.</p>
-        <p>This is also how teams and communities use it. The price is a function of where and how long, which is the one number on this site I cannot publish in advance, so it starts with a conversation instead.</p>
+      <div class="rt-aside-head">
+        <p class="eyebrow eyebrow--plain">By inquiry</p>
+        <h2 class="head h-2" id="pvt-h">Bring your own fifteen.</h2>
+      </div>
+      <div class="rt-aside-body">
+      <div class="body stack">
+        <p>If you already have the women, I will build the week: your group, your dates, your location. Teams and communities use it too. The price depends on where and how long, so it starts with a conversation.</p>
       </div>
       <!-- The private retreat inquiry, cf_id 69fa33ac, and it is NOT the
            general contact form. Rewriting this block into an aside on
@@ -945,128 +838,72 @@
           <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
         <span class="vh"> (opens my scheduling page)</span></a>
       </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 08 / BEFORE YOU BOOK.
-     Terms and questions were two sections. They are one now, in three
-     movements, because they answer the same thing at three depths: what you
-     are agreeing to, whether the week is for you, and what it costs to hold
-     a seat.
+<!-- 07 / BEFORE YOU BOOK.
+     Questions only (12 September). The terms block is gone from this page:
+     the balance terms differ by retreat (Greece six monthly payments,
+     Gatlinburg a five month plan), so a single "Balance" line here was
+     wrong for one of them, and each retreat's own page states its terms.
+     The deposit is in the pricing answer. Questions the sections above
+     already answer (work or rest, private groups, alone in fifteen) were
+     cut rather than repeated.
 
-     Two reasons to merge them. The bottom half of this page had five
-     consecutive sections built on the same frame, and on a phone, where the
-     columns collapse, five of those in sequence is a list rather than a
-     page. And terms standing alone read as small print however plainly they
-     are written; sitting at the head of the questions, they read as the
-     first answer, which is what they are.
+     The pricing answer is byte for byte what tools/launch_gatlinburg.py
+     matches on. Do not reword it before the launch runs.
 
-     Terms lead. A non-refundable deposit that surfaces after the decision
-     reads as a trap however reasonable it is. Published before the
-     questions, it reads as terms.
-
-     The accordions are unchanged and still exclusive-open. The FAQPage
-     schema in the head is generated from this markup: edit a question here
-     and regenerate rather than hand-editing both. -->
+     The FAQPage schema in the head is generated from this markup: edit a
+     question here and regenerate rather than hand-editing both. -->
 <section class="section z-silt" data-zone style="--from:#DCE4E1" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
-    <!-- `grid-12--hold` holds the heading column while the movements scroll
-         past it, the same way the About page carries its longest sections.
-         This is the longest column on the page by some distance: three terms
-         and seven questions. Scrolling it against a fixed heading is what
-         stops it reading as a list you have to get to the end of. -->
     <div class="grid-12 grid-12--hold">
       <div class="col-d">
         <p class="eyebrow r-fade">Before you book</p>
-        <h2 class="head h-2 split" id="faq-h">What you are agreeing to, and what people ask.</h2>
+        <h2 class="head h-2 split" id="faq-h">What people ask.</h2>
         <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-        <p class="small muted r-up" style="--d:60ms; margin-top:var(--s-5); max-width:24rem">The terms first, because they are the part that should never arrive as a surprise. Then the questions, in the order they actually turn up.</p>
       </div>
       <div class="col-e">
-
-        <div class="rt-qs r-up">
-          <p class="rt-qs-lead">Three things you are agreeing to, and none of them changes after you book.</p>
-          <dl class="rt-terms" data-stagger="60">
-          <div class="r-up">
-          <dt>Deposit</dt>
-          <dd>$500 holds your seat. It comes off the total, and it is not refundable.</dd>
-          </div>
-          <div class="r-up">
-          <dt>Balance</dt>
-          <dd>Pay in full, or in six monthly payments. If neither of those works, say so and we will talk about it.</dd>
-          </div>
-          <div class="r-up">
-          <dt>Travel insurance</dt>
-          <dd>Buy it, and buy it the day you book. Your deposit and your flights are both committed early. Insurance covers the things I cannot.</dd>
-          </div>
-          </dl>
-        </div>
-
-        <div class="rt-qs r-up" style="--d:60ms">
-          <p class="rt-qs-lead">Most of the rest comes down to one worry, which is whether you would be the wrong person in the room.</p>
-          <div class="faq">
+        <div class="faq r-up">
             <details>
               <summary>Do I have to own a business to come? <span class="sign" aria-hidden="true"></span></summary>
-              <div class="answer"><p>No. The retreats are not a business product and there is nothing to bring. Some women who come run companies, some do not, and it has never once mattered in the room. The consulting is separate and it is <a class="link" href="/a-sounding/">A Sounding</a> and <a class="link" href="/the-build/">The Build</a>.</p></div>
+              <div class="answer"><p>No. Some women who come run companies and some do not, and it has never once mattered in the room. The consulting is separate: <a class="link" href="/a-sounding/">A Sounding</a> and <a class="link" href="/the-build/">The Build</a>.</p></div>
             </details>
             <details>
               <summary>Do I have to come with someone? <span class="sign" aria-hidden="true"></span></summary>
               <div class="answer"><p>Most women come alone. That is the normal way to do this, not the brave version of it. Fifteen is small enough that by the second day you are not on the edge of anything.</p></div>
             </details>
             <details>
-              <summary>Is this a work thing or a rest thing? <span class="sign" aria-hidden="true"></span></summary>
-              <div class="answer"><p>Rest. There is no curriculum, no deliverable, and nothing you have to report back on. I am a consultant and I do run diagnostic work, but that is <a class="link" href="/a-sounding/">A Sounding</a> and it is a separate thing you can book any time.</p></div>
-            </details>
-            <details>
               <summary>What fitness level does this require? <span class="sign" aria-hidden="true"></span></summary>
-              <div class="answer"><p>None in particular. Movement is led by Kris Krause and designed around who is in the room, not around who is fittest. Where the walking is on uneven ground it says so on that retreat&rsquo;s page, and if stairs and trails are a real concern, tell me before you book and I will be straight with you.</p></div>
+              <div class="answer"><p>None in particular. Movement is led every day and shaped around who is in the room, not around who is fittest. If stairs and trails are a real concern, tell me before you book and I will be straight with you.</p></div>
             </details>
             <details>
               <summary>Can you accommodate how I eat? <span class="sign" aria-hidden="true"></span></summary>
               <div class="answer"><p>Yes. List anything when you book and it reaches the kitchen well before you land.</p></div>
             </details>
-          </div>
-        </div>
-
-        <div class="rt-qs r-up" style="--d:120ms">
-          <p class="rt-qs-lead">The rest is arithmetic and dates, and all of it is published rather than sent after a call.</p>
-          <div class="faq">
             <details>
               <summary>What does it cost and how do I hold a seat? <span class="sign" aria-hidden="true"></span></summary>
               <div class="answer"><p>Greece is $3,450, with a $500 non-refundable deposit. April 2027 is not priced yet; when it is, <a class="link" href="/the-letters/">the letters</a> hear first. Every figure is published on the retreat&rsquo;s own page.</p></div>
             </details>
             <details>
               <summary>Do I need travel insurance? <span class="sign" aria-hidden="true"></span></summary>
-              <div class="answer"><p>It is not required and I would buy it anyway, on the day you book. The deposit is non-refundable and your flight will be booked months out. Insurance is the only thing covering either of those.</p></div>
-            </details>
-            <details>
-              <summary>Can I book a private retreat for my own group? <span class="sign" aria-hidden="true"></span></summary>
-              <div class="answer"><p>Yes. Small groups, teams and communities. <a class="link" href="#private">Send an inquiry</a> and we will start with what you are actually trying to give them.</p></div>
-            </details>
-            <details>
-              <summary>What does alone in a group of fifteen mean? <span class="sign" aria-hidden="true"></span></summary>
-              <div class="answer"><p>It is the design principle behind every retreat. Nobody needs anything from you and nobody leaves you to it. There is no forced sharing and no facilitated vulnerability, and you are also never on your own with it. Fifteen is a cap, not a scarcity tactic. Above a certain number, solitude becomes performance.</p></div>
+              <div class="answer"><p>It is not required, and I would buy it the day you book. The deposit is non-refundable and your flight will be booked months out.</p></div>
             </details>
             <details>
               <summary>Are the retreats women only? <span class="sign" aria-hidden="true"></span></summary>
-              <div class="answer"><p>The brand strategy work is for founders and leaders of any gender. Individual retreats are often women specific and are labeled that way on their own page.</p></div>
+              <div class="answer"><p>Yes. Each retreat says so on its own page. The consulting is for founders and leaders of any gender.</p></div>
             </details>
-          </div>
         </div>
-
       </div>
     </div>
   </div>
 </section>
 
-<!-- 10 / CLOSE. -->
-<!-- THE BAND MARKS THE ACTION, and this page had no action to mark. It
-     offered six exits and closed on a button to Greece, which is full, with
-     the only thing a reader can actually do reduced to a text link beside
-     it. The waitlist is the action now and it is the button. Greece keeps
-     its place as a signpost, in body text, which is the rule the rest of
-     the site already follows for a second door. -->
+<!-- 08 / CLOSE.
+     The waitlist is the action and it is the button. Greece keeps its place
+     as a signpost in body text. -->
 <section class="section z-deepwater" data-zone style="--from:#DCE4E1" aria-label="Close">
   <div class="wrap">
     <p class="eyebrow r-fade">Twice a year</p>
@@ -1174,13 +1011,13 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=2fe95bd3" defer></script>
+<script src="../assets/js/site.js?v=3b94182f" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=2fe95bd3" defer></script>
-<script src="../assets/js/consent.js?v=2fe95bd3" defer></script>
+<script src="../assets/js/analytics.js?v=3b94182f" defer></script>
+<script src="../assets/js/consent.js?v=3b94182f" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

@@ -6487,3 +6487,64 @@ showcase and `data-src` on Melissa; /retreats/ links Gatlinburg zero times;
 /retreats/gatlinburg/ still serves `noindex, nofollow, noarchive`; zero HTML
 comments on all three; the live site.css carries the restored shared scrim;
 `/assets/video/melissa.mp4` answers 200 `video/mp4`, 13,883,035 bytes.
+
+## 57. START HERE. Session thirty, 12 September 2026. One push, one draft held.
+
+**Pushed (c32c9d6), verified live in a browser:** the home client boxes.
+`.work-showcase { margin: 0 }` beat `.stack-lg` and left 0px under the Proof
+heading; now 48px. `.ws-stage` gained `border: 1px solid var(--rule)`, the
+`.sd-panel` pairing, because Silt alone read as a smudge. Suite 531/0.
+
+**PUSHED 12 September after Cydnie approved it: the /retreats/ rewrite.** (Was:
+before she approves it, and remember any push ships the working tree.
+Review artifact: https://claude.ai/code/artifact/a478bcca-86b9-4e4b-8846-87afb5068051
+(the old page is still b71b2da8 for comparison).
+
+    before   11 sections, ~1,865 words, 14 screens at 1440, first HoneyBook button at 3.5 screens
+    after     9 sections,   ~986 words, 11.1 screens at 1440, first button at 1.8 screens
+
+  * Dates moved to second, directly under the hero.
+  * Format and "The room I build" merged into one "Fifteen." section; the
+    15/2/0 stat row (a copy of the hero facts) removed. `.rt-count` CSS now unused.
+  * Costa Rica: three quotes (Kristi, Carol "No waiting", BJB), not five;
+    ends on a "See the dates" button.
+  * "Who this is not for" and "Built for the week after" became one `#fit`
+    section of two `.rt-incl` lists. The general "Included" list is gone.
+  * FAQ: terms block removed (its "six monthly payments" was wrong for
+    Gatlinburg's five month plan); 7 questions; Kris Krause no longer named
+    as leading all movement; "women only?" now answers Yes, per section 53.
+    FAQPage schema regenerated from the markup.
+  * The April card, the pricing answer and the close button are byte for
+    byte unchanged, so `tools/launch_gatlinburg.py` still applies (tested on
+    a throwaway copy).
+  * `_test.html`: the three-movement FAQ assertion replaced with "questions
+    only, no hub-wide terms" and "dates straight after the hero". Suite 532/0, seams 0.
+
+Defaults taken without her answer, to confirm: the "extraction" paragraph
+cut, the line "Nobody will need anything from you. Nobody will leave you
+either." kept; which three quotes; Gatlinburg still NOT linked (prelaunch).
+The browser pane reports `visibilityState: hidden` this session, so visual
+checks used `tools/shot.sh` on port 8816.
+
+**Second round, same session, pushed with the rewrite:**
+  * `#fit` ("Read this part"): heading above, the two lists side by side at
+    48rem and up (`.rt-fit-head`, `.rt-fit` grid).
+  * `#private` ("By inquiry"): `.rt-aside` is now a Surface panel on Silt
+    with a hairline, heading (now h-2) left, copy and button right at 56rem.
+    Lost `section--tight` so the dark-to-light seam clears the panel's edge.
+  * Hero: `.hero--rt` widens `.hero-copy` to 48rem and drops the H1 floor to
+    1.5rem. Two lines measured at 1440, 1280, 1024, 768 and 390; three only
+    at 320. Count lines from TEXT NODES: the split-word `<i>` wrappers carry
+    transforms and a Range over the whole h1 reports false extra lines.
+    Hero contrast NOT re-measured after the widening (section 56 item a).
+  * Home: `.ws-stage` takes a Breath halo on `.ws:hover` (hover devices) and
+    `:focus-within`. Review artifact 50fca51a republished with it.
+  Suite 532/0, seams 0.
+
+**Pre-push hero measurement, same session.** `tools/hero_composite.js` is the
+section 53 method as one script. The rewrite's shorter copy lifted the phone
+text into the sky and failed at 390 (h1 2.84, sub 4.43, links 4.34; the live
+page had passed at 4.69 / 4.55 / 6.23). Fixed with a phone-only
+`.hero--rt .hero-scrim` under 47.99rem, shared scrim untouched. After: every
+run passes at 320, 360, 375, 390, 430, 600, 767, 768, 1024, 1280, 1440, 1920;
+tightest are links 4.87 at 360 and h1 3.77 at 1024.
