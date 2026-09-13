@@ -6599,3 +6599,83 @@ still heavy, wants trending but converting layouts.
   * Her own copy 1,358 -> 937 (first pass) -> 733. Page 9.2 -> 8.3 screens
     at 1440. Booking buttons at 0.7, 5.0, 6.5, 7.3 screens.
   * Suite 536/0 (about 44; it was 46 with the veil portrait's parallax), seams 0.
+
+## 59. START HERE. End of session thirty, 12 September 2026. PAUSED FOR THE EVENING.
+
+**Read this first.** Sections 57 and 58 are the detail behind it.
+
+### What is live (all pushed, all verified in a real browser on www)
+
+    c32c9d6  home     client boxes: 48px under the Proof heading, hairline panels
+    251a06a  retreats rewrite (11 -> 9 sections, ~1,865 -> ~1,014 words),
+             two line hero, phone-only hero scrim, fit lists side by side,
+             private inquiry as a panel; home client boxes get a Breath halo
+    5ad6b1e  about    rebuilt (8 -> 7 sections, her copy 1,358 -> 733 words):
+             portrait in the head, story as five moments, faith with photo,
+             all 11 quotes + Melissa, rest of me with three shoot photos
+
+    suite  536 / 0 on a fresh sync (port 8816 this session, see below)
+    seams  0
+    Gatlinburg: still noindex, still not in the sitemap, still linked from
+    nowhere. tools/launch_gatlinburg.py still applies cleanly (tested on a
+    throwaway copy after the retreats rewrite). NOT RUN.
+
+### How Cydnie wants pages worked, learned this session
+
+  * Audit first: sections, words, screens, where the buttons fall, then
+    recommendations. She answers, then build and publish a review artifact.
+  * Her goals, in her words: not copy heavy, do not lose the story,
+    authenticity and conversion, "I am the brand. I must be sold."
+  * She notices back to back images and repeated frames. Alternate photo
+    sides; never put two pictures in a row.
+  * She approved compressing her own copy in her own phrasing. Say plainly
+    when copy is compressed rather than verbatim.
+  * Quotes: she approved using every client and retreat guest quote.
+  * Branding shoot: 77 unique photos in `CydnieJocelyn-Site/Branding copy/`
+    (the `Branding 2/` folder duplicates them). Contact sheets numbered 1 to
+    77 were sent to her; the numbering is sort order by the number in the
+    filename. The 15 videos are behind the scenes clips, not to camera.
+    Used so far: frame -54 (about head), -99 (what held), -46 singing,
+    -68 mug, -31 journal.
+
+### Pages still to audit, in the order worth doing them
+
+| # | Page | Now | Why this order |
+|---|---|---|---|
+| 1 | **/a-sounding/** | 9 sections, 1,109 words | The $300 offer every page's main button points at. Most conversion critical page not yet audited. |
+| 2 | **/** home | 7 sections, 1,455 words | Highest traffic. Restructured in phases 1-4 but still the second heaviest non-retreat page. "Built to stand." still repeats the showcase clients (asked twice, unanswered). The Sounding popup (`sounding-popup.js`, 45s) is a modal on a brand guide that forbids modals: confirm with her. |
+| 3 | **/retreats/gatlinburg/** | 16 sections, 2,393 words | Launches 16 September. Audit BEFORE the launch script runs. Open: "for women building something real" wording; HoneyBook prices ($2,790 / $2,900 / $1,490 / $1,600, $500 deposit) are hers to confirm. |
+| 4 | **/retreats/greece/** | 16 sections, 2,436 words | Heaviest page on the site. Full, waitlist only, so the job is the waitlist and trust, not selling seats. |
+| 5 | **/the-build/** | 7 sections, 747 words | Rewritten on 12 September; a lighter pass for flow and image rhythm. |
+| 6 | **/the-letters/** | 6 sections, 320 words | Short already. Check the Flodesk popup and the one ask. |
+| 7 | **/contact/** | 1 section, 97 words | Quick: skips from H1 to the footer's H3s. |
+| 8 | **/thequestions/** | 6 sections, 309 words, noindex, not in sitemap | Decide keep, fold into pages, or remove. /about/ no longer links it. |
+| - | /privacy-policy/ | legal | Not a conversion page. Skip unless asked. |
+
+### Still open from section 56 (none started)
+
+  1. HoneyBook Gatlinburg service records: Cydnie confirms prices.
+  2. Core Web Vitals / PageSpeed Insights on www (never measured).
+  3. Rich Results Test on live URLs.
+  4. Apex redirect is 308, brief says 301 (Vercel dashboard).
+  5. Unused CSS: `.offers`, `.offer`, `.shapes`, `.phases`, `.crows`,
+     `.refuse`, `.bd-only`, `.case-body`, `.case-scope`; now also
+     `.rt-count`, `.ab-true`, `.triad` block on about, `.ways-questions`.
+  6. /the-build/ hero button sits at the fold on a 375x812 phone.
+  7. build_artifact.py ARTIFACT map is stale and has no /retreats/gatlinburg/
+     rewrite rule (section 56).
+
+### Tools and traps from this session
+
+  * `tools/hero_composite.js`: the section 53 contrast method as one script.
+    In a hidden preview pane `setTimeout` never fires; it uses none.
+  * Count heading lines from TEXT NODES; the split-word `<i>` wrappers make
+    a Range over the whole h1 report false extra lines.
+  * The preview pane reports `visibilityState: hidden`: screenshots come back
+    blank. Use `sh tools/shot.sh <port> <path> <out> <w> <h> <scrollY|anchor>`.
+    A very tall shot.sh capture inflates vh-based heights (about head).
+  * Port 8814 was again a leftover server from an older scratchpad. This
+    session ran the suite on 8816 (`suite-s30` in .claude/launch.json),
+    served from its own scratchpad. Sync, check the process, then run.
+  * Review artifacts this session: retreats a478bcca, about 22daed8f,
+    home 50fca51a (republished with the halo).
