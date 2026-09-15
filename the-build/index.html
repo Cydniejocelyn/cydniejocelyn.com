@@ -70,7 +70,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=fabc1373">
+<link rel="stylesheet" href="../assets/css/site.css?v=ebc11534">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -561,23 +561,28 @@
 </section>
 
 <section class="section z-silt" data-zone style="--from:var(--surface)" aria-labelledby="bd-areas">
+  <!-- WHAT IT COVERS, AS THREE PANELS. Cydnie, 14 September: this and
+       "Before you decide" were "both the same layout and don't make anything
+       stand out". Both were rows between hairlines. This one is now three
+       tiles side by side that fill with Breath under a pointer, the About
+       bento's hover; the refusals below are one column of large lines, each
+       struck through as it arrives. -->
   <div class="wrap">
-    <div class="grid-12" style="margin-bottom:var(--s-6)">
-      <div class="col-d">
-        <p class="eyebrow r-fade">What it covers</p>
-        <h2 class="head h-2 split" id="bd-areas">Brand, operations, and business development</h2>
-      </div>
-    </div>
-    <ul class="triad triad--flat" role="list" data-stagger="60">
+    <p class="eyebrow r-fade">What it covers</p>
+    <h2 class="head h-2 split" id="bd-areas">Brand, operations, and business development</h2>
+    <ul class="bd-areas" role="list" data-stagger="60">
       <li class="r-up">
+        <span class="bd-area-n" aria-hidden="true">01</span>
         <h3 class="carved c-3">Brand</h3>
         <p>What you are, said so a stranger can repeat it. Positioning, message and language.</p>
       </li>
       <li class="r-up">
+        <span class="bd-area-n" aria-hidden="true">02</span>
         <h3 class="carved c-3">Operations</h3>
         <p>How the work moves from intake to handoff, without you remembering every step.</p>
       </li>
       <li class="r-up">
+        <span class="bd-area-n" aria-hidden="true">03</span>
         <h3 class="carved c-3">Business development</h3>
         <p>Where the next client comes from, on purpose instead of by referral luck.</p>
       </li>
@@ -591,20 +596,20 @@
        list of short lines now. Still below the scope and above the prices,
        where Phase 2.1 of the brief put the refusals. -->
   <div class="wrap">
-    <div class="grid-12" style="margin-bottom:var(--s-6)">
-      <div class="col-d">
+    <div class="bd-nots">
+      <div class="bd-nots-head">
         <p class="eyebrow r-fade">Before you decide</p>
         <h2 class="head h-2 split" id="ref-h">Here is what I won't do.</h2>
       </div>
+      <ul class="bd-not-list" role="list" data-stagger="60">
+        <li class="r-up"><s>Sell you more than you need.</s> <span>If the honest answer is smaller, that is the answer you get.</span></li>
+        <li class="r-up"><s>Hand you a template.</s> <span>Nothing here was sold to someone else first.</span></li>
+        <li class="r-up"><s>Sell a logo on its own.</s> <span>Identity comes after the positioning it has to carry.</span></li>
+        <li class="r-up"><s>Keep you on a retainer.</s> <span>Every engagement has a last day. Site care is the one exception.</span></li>
+        <li class="r-up"><s>Coach you.</s> <span>I will tell you what I think.</span></li>
+        <li class="r-up"><s>Promise you a revenue number.</s> <span>No one honest can.</span></li>
+      </ul>
     </div>
-    <ul class="refuse-plain refuse-plain--lead" role="list" data-stagger="60">
-      <li class="r-up"><b>Sell you more than you need.</b> If the honest answer is smaller, that is the answer you get.</li>
-      <li class="r-up"><b>Hand you a template.</b> Nothing here was sold to someone else first.</li>
-      <li class="r-up"><b>Sell a logo on its own.</b> Identity comes after the positioning it has to carry.</li>
-      <li class="r-up"><b>Keep you on a retainer.</b> Every engagement has a last day. Site care is the one exception.</li>
-      <li class="r-up"><b>Coach you.</b> I will tell you what I think.</li>
-      <li class="r-up"><b>Promise you a revenue number.</b> No one honest can.</li>
-    </ul>
   </div>
 </section>
 
@@ -944,13 +949,13 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=fabc1373" defer></script>
+<script src="../assets/js/site.js?v=ebc11534" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=fabc1373" defer></script>
-<script src="../assets/js/consent.js?v=fabc1373" defer></script>
+<script src="../assets/js/analytics.js?v=ebc11534" defer></script>
+<script src="../assets/js/consent.js?v=ebc11534" defer></script>
 <script src="/sounding-popup.js" defer></script>
 </body>
 </html>

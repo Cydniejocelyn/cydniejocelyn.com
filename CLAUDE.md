@@ -1,7 +1,7 @@
 # Working on this site
 
 This file is a pointer, not a second source of truth. **`HANDOFF.md` section
-60 is the current state of the site**, and it carries the launch runbook for
+61 is the current state of the site**, and it carries the launch runbook for
 /retreats/gatlinburg/. Read it before doing anything. Where
 this file and HANDOFF disagree, HANDOFF is right and this file is stale: fix
 it rather than working around it.
@@ -80,4 +80,6 @@ Several of these have been asked for more than once and declined each time,
 with the evidence recorded in `assets/js/site.js` at section 7-8-9 and beside
 `.door` in `assets/css/site.css`. Read those notes before building any of
 them, and treat a fresh request for one as a decision to confirm, not an
-oversight to correct.
+oversight to correct. On 14 September 2026 Cydnie said "brand guide isn't
+always right": when her ask conflicts with the guide, name the conflict in a
+line and build what she asked for.

@@ -201,10 +201,13 @@
           var r = el.getBoundingClientRect();
           if (r.bottom < -200 || r.top > vh + 200) return;
           var sp = parseFloat(el.dataset.speed || "0.08");
+          /* `data-max` lifts the 12px cap for one image. Only Gatlinburg's
+             deck band uses it, on Cydnie's ask for more movement there. */
+          var mx = parseFloat(el.dataset.max || PAR_MAX);
           var mid = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);
           var y = mid * sp * -100;
-          if (y >  PAR_MAX) y =  PAR_MAX;
-          if (y < -PAR_MAX) y = -PAR_MAX;
+          if (y >  mx) y =  mx;
+          if (y < -mx) y = -mx;
           el.style.setProperty("--py", y.toFixed(2) + "px");
         });
       }
@@ -1815,6 +1818,120 @@
     });
   }
 
+  /* ---------- 20. Gatlinburg's movement, 14 September 2026 ------
+     Cydnie asked for animation and movement on /retreats/gatlinburg/ and
+     said the guide is not always right about it. Three behaviours, each
+     keyed to an attribute rather than to the page, and each written so the
+     markup already holds the finished state: no script, no frames, reduced
+     motion, all get the whole sentence, the real numbers and the plain
+     early-rate line. */
+
+  /* Words brighten in order as the reader scrolls through the statement.
+     Lit is decided by scroll position, so scrolling back up dims them again;
+     once the block has gone past the upper third, everything is lit. */
+  function initWordLight() {
+    Array.prototype.slice.call(document.querySelectorAll("[data-wordlight]")).forEach(function (el) {
+      if (reduce.matches) return;
+      var words = [];
+      (function walk(node) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+          if (n.nodeType === 3) {
+            var frag = document.createDocumentFragment();
+            n.nodeValue.split(/(\s+)/).forEach(function (part) {
+              if (!part) return;
+              if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+              var s = document.createElement("span");
+              s.className = "gb-w"; s.textContent = part;
+              frag.appendChild(s); words.push(s);
+            });
+            node.replaceChild(frag, n);
+          } else if (n.nodeType === 1) {
+            walk(n);
+          }
+        });
+      })(el);
+      if (!words.length) return;
+      el.classList.add("is-dim");
+
+      function frame() {
+        var vh = window.innerHeight, r = el.getBoundingClientRect();
+        /* 0 when the top of the statement is at 85% of the viewport, 1 when
+           its bottom reaches 40% */
+        var p = (vh * 0.85 - r.top) / ((vh * 0.85 - vh * 0.4) + r.height);
+        if (r.bottom < vh * 0.33) p = 1;
+        p = Math.max(0, Math.min(1, p));
+        var n = Math.round(p * words.length);
+        for (var i = 0; i < words.length; i++) words[i].classList.toggle("is-lit", i < n);
+      }
+      frame();
+      window.addEventListener("scroll", frame, { passive: true });
+      window.addEventListener("resize", frame, { passive: true });
+    });
+  }
+
+  /* A number counts up once, from zero, when it arrives. The element holds
+     the real figure; it is only set to 0 at the moment counting starts. */
+  function initCount() {
+    Array.prototype.slice.call(document.querySelectorAll("[data-count]")).forEach(function (el) {
+      var to = parseInt(el.dataset.count, 10);
+      if (!to || reduce.matches) return;
+      watch(el, function () {
+        var t0 = null, dur = 1600;
+        if (document.documentElement.classList.contains("no-tween")) return;
+        /* zeroed on the first frame, not before it: if frames never arrive
+           the real figure simply stays */
+        function step(ts) {
+          if (t0 === null) { t0 = ts; el.textContent = "0"; }
+          var k = Math.min(1, (ts - t0) / dur);
+          var e = 1 - Math.pow(1 - k, 3);
+          el.textContent = String(Math.round(to * e));
+          if (k < 1) window.requestAnimationFrame(step);
+        }
+        window.requestAnimationFrame(step);
+        /* frames can stop arriving in a hidden tab; the figure lands anyway */
+        window.setTimeout(function () { el.textContent = String(to); }, dur + 400);
+      }, null, true);
+    });
+  }
+
+  /* A countdown to a real deadline, which removes itself when it arrives.
+     Ships `hidden`; revealed only once there is a positive time to show. */
+  function initCountdown() {
+    Array.prototype.slice.call(document.querySelectorAll("[data-countdown]")).forEach(function (el) {
+      var end = Date.parse(el.dataset.countdown);
+      if (isNaN(end)) return;
+      var cells = {};
+      ["d", "h", "m", "s"].forEach(function (u) { cells[u] = el.querySelector('[data-unit="' + u + '"]'); });
+      function pad(n) { return (n < 10 ? "0" : "") + n; }
+      function tick() {
+        var left = end - Date.now();
+        if (left <= 0) { el.parentNode && el.parentNode.removeChild(el); return false; }
+        var s = Math.floor(left / 1000);
+        if (cells.d) cells.d.textContent = pad(Math.floor(s / 86400));
+        if (cells.h) cells.h.textContent = pad(Math.floor(s / 3600) % 24);
+        if (cells.m) cells.m.textContent = pad(Math.floor(s / 60) % 60);
+        if (cells.s) cells.s.textContent = pad(s % 60);
+        return true;
+      }
+      if (!tick()) return;
+      el.hidden = false;
+      var id = window.setInterval(function () { if (!tick()) window.clearInterval(id); }, 1000);
+    });
+  }
+
+  /* "47 days left" beside the early rate date by the rooms. Days only, so it
+     changes once a day, not every second. Hidden until there is a number. */
+  function initDaysLeft() {
+    Array.prototype.slice.call(document.querySelectorAll("[data-daysleft]")).forEach(function (el) {
+      var end = Date.parse(el.dataset.daysleft);
+      if (isNaN(end)) return;
+      var days = Math.ceil((end - Date.now()) / 86400000);
+      if (days < 1) return;
+      el.textContent = days === 1 ? "Last day" : days + " days left";
+      el.hidden = false;
+    });
+  }
+
   function initYear() {
     document.querySelectorAll("[data-year]").forEach(function (el) {
       el.textContent = String(new Date().getFullYear());
@@ -1843,6 +1960,10 @@
     initCursor();
     initFaqWindow();
     initHeld();
+    initWordLight();
+    initCount();
+    initCountdown();
+    initDaysLeft();
     initYear();
   }
 

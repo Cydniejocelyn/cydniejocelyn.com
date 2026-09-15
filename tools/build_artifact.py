@@ -173,8 +173,8 @@ PICK = {
     "greece/pergola":     "greece/pergola-600.webp",
     # Gatlinburg. Ten photographs of the house plus Kayla; Cydnie reuses the
     # standing retreat portrait the Greece page already folds.
-    "gatlinburg/house-dusk":  "gatlinburg/house-dusk-600.webp",
-    "gatlinburg/deck-view":   "gatlinburg/deck-view-600.webp",
+    "gatlinburg/house-dusk":  "gatlinburg/house-dusk-1632.webp",
+    "gatlinburg/deck-view":   "gatlinburg/deck-view-1654.webp",
     "gatlinburg/porch-swing": "gatlinburg/porch-swing-600.webp",
     "gatlinburg/porch-":      "gatlinburg/porch-600.webp",
     "gatlinburg/great-room":  "gatlinburg/great-room-600.webp",
@@ -184,6 +184,7 @@ PICK = {
     "gatlinburg/king-suite":  "gatlinburg/king-suite-600.webp",
     "gatlinburg/bunk-room":   "gatlinburg/bunk-room-600.webp",
     "gatlinburg/kayla":       "gatlinburg/kayla-600.webp",
+    "gatlinburg/kayla-face":  "gatlinburg/kayla-face-144.webp",
     "gatlinburg/ridge":       "gatlinburg/ridge-600.webp",
     "gatlinburg/hot-tub-stone":   "gatlinburg/hot-tub-stone-600.webp",
     "gatlinburg/hot-tub":         "gatlinburg/hot-tub-600.webp",

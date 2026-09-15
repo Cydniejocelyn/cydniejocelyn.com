@@ -6249,8 +6249,8 @@ main > * { position: relative; z-index: 1; }
    that nothing about the decision has to be carried in the reader's
    head from one part of the page to another.
 
-   No hover lift. `.door` carries the note on why this site does not
-   raise cards under a cursor. */
+   They lift under a pointer since the rebuild of 14 September; see the
+   rebuild block below. */
 .gb-rooms {
   display: grid;
   gap: var(--s-5);
@@ -6284,6 +6284,326 @@ main > * { position: relative; z-index: 1; }
   font-size: clamp(1.8rem, 3.82vw, 2.93rem);
   line-height: 1;
   color: var(--ink);
+}
+
+/* ---- GATLINBURG, THE REBUILD, 14 September 2026 ---------------
+   Cydnie: "focus on the feeling and the conversion of booking ... The
+   sections should alternate as well where they don't always look the same
+   but they have a flow, feel and vibe. There should be animations,
+   movement." And, on the guide's motion limits: "brand guide isn't always
+   right." So this page moves more than the rest of the site, on purpose,
+   and all of it is scoped here.
+
+   Every motion below resolves once and holds; the countdown is the only
+   thing that keeps changing, and it is counting to a real date. Reduced
+   motion gets the finished page. Every grid names `minmax(0, 1fr)` as its
+   base (the About overflow of 12 September). */
+
+/* The hero photograph pushes in, slowly, once. `scale` rather than
+   `transform`, because initHero writes the 12px parallax into the inline
+   transform and an animated transform would override it. */
+@keyframes gb-push { from { scale: 1; } to { scale: 1.035; } }
+.js-motion .gb-push .hero-water img { animation: gb-push 24s cubic-bezier(.25, .6, .3, 1) both; }
+
+/* SHARPER, 14 September: "Can the hero image and the deck porch image not be
+   so blurry?" The sources are listing screenshots, 1632 and 1654px wide at
+   most, so every extra percent of enlargement shows. The shared hero sizes
+   its image to 112% for parallax headroom, which is 8% more than 12px needs
+   here; this page takes 104%, and the push-in stops at 3.5%, not 7%. The
+   files were re-exported at native width, q86, with a light unsharp mask
+   (house-dusk-1632, deck-view-1654). */
+.gb-push .hero-water img { width: 104%; height: 104%; left: -2%; top: -2%; }
+
+/* THE PHONE HERO FAILED CONTRAST BEFORE THIS SESSION, and the six facts made
+   it worse. Measured 14 September with tools/hero_composite.js at 390: the
+   committed page read h1 2.46 (needs 3), eyebrow 2.28 and sub 4.22 (need
+   4.5); after the facts row, sub 3.99 and dt 4.42. The portrait crop puts
+   the lit sky behind the headline. A phone-only scrim, the /retreats/ fix
+   of 12 September in stronger form; the shared scrim is untouched. */
+@media (max-width: 47.99rem) {
+  .gb .gb-push .hero-scrim {
+    background:
+      linear-gradient(90deg,
+        rgba(7,26,31,.84) 0%, rgba(7,26,31,.70) 40%,
+        rgba(7,26,31,.50) 70%, rgba(7,26,31,.40) 100%),
+      linear-gradient(180deg,
+        rgba(7,26,31,.72) 0%, rgba(7,26,31,.46) 12%, rgba(7,26,31,.34) 30%,
+        rgba(7,26,31,.34) 60%, rgba(7,26,31,.80) 90%, var(--fathom) 100%);
+  }
+}
+/* Tablets, where the committed page also failed: 768 read sub 3.28 and
+   eyebrow 3.17, 1024x768 read sub 3.65 and the link 4.43. The copy runs most
+   of the way across a tablet, so the left-to-right fade holds longer. */
+@media (min-width: 48rem) and (max-width: 84.99rem) {
+  .gb .gb-push .hero-scrim {
+    background:
+      linear-gradient(90deg,
+        rgba(7,26,31,.90) 0%, rgba(7,26,31,.84) 35%,
+        rgba(7,26,31,.68) 60%, rgba(7,26,31,.42) 85%, rgba(7,26,31,.32) 100%),
+      linear-gradient(180deg,
+        rgba(7,26,31,.70) 0%, rgba(7,26,31,.44) 9%, rgba(7,26,31,.24) 22%,
+        rgba(7,26,31,.40) 60%, rgba(7,26,31,.78) 90%, var(--fathom) 100%);
+  }
+}
+/* Wide screens keep the lit scrim and the lit house. Only the eyebrow was
+   under, 4.49 at 1440, so it takes a lighter ink rather than darkening the
+   photograph. */
+.gb .gb-push .hero-copy .eyebrow { color: #C9DCD9; }
+
+.gb-center { text-align: center; margin-inline: auto; justify-content: center; }
+
+/* THE STATEMENT. One sentence, centred and large, on Fathom straight out of
+   the hero. The words brighten as she reads down through it: site.js adds
+   `.is-dim` and lights `.gb-w` in order against the scroll. */
+.gb-say-sec { padding-block: clamp(5rem, 13vw, 10rem) clamp(3.5rem, 8vw, 6rem); }
+.gb-say {
+  font-family: var(--carved); font-weight: 400;
+  font-size: clamp(2.2rem, 6.2vw, 4.8rem); line-height: 1.06; letter-spacing: .005em;
+  text-align: center; max-width: 16ch; margin: 0 auto; color: var(--ink);
+}
+.gb-say em { font-style: italic; color: var(--breath); }
+.gb-say-sec .lead { margin-top: clamp(var(--s-5), 4vw, var(--s-7)); max-width: 36rem; color: var(--muted); }
+.gb-w { transition: opacity 450ms var(--ease-out); }
+.gb-say.is-dim .gb-w { opacity: .2; }
+.gb-say.is-dim .gb-w.is-lit { opacity: 1; }
+
+.gb-band { padding-top: 0; }
+
+/* THE HOUSE. The heading sits above the gallery at full width; the room
+   cards rise and glow under a pointer. `translate`, not `transform`, so the
+   lift does not fight the reveal's transform. */
+.gb-house-head { max-width: 46rem; }
+.gb-house-head .lead { margin-top: var(--s-5); }
+.gb-room { transition: translate 420ms var(--ease-out), box-shadow 420ms var(--ease-out), border-color 420ms var(--ease-out); }
+.gb-room-fig { overflow: hidden; }
+.gb-room-fig img { transition: scale 900ms var(--ease-out); }
+.gb-room-body .rt-incl { margin: var(--s-4) 0; }
+@media (hover: hover) {
+  .gb-room:hover {
+    translate: 0 -6px; border-color: var(--breath);
+    box-shadow: 0 0 0 1px var(--breath), 0 1.5rem 3rem -1.25rem rgba(12, 40, 48, .35), 0 0 2.5rem .25rem rgba(159, 204, 198, .45);
+  }
+  .gb-room:hover .gb-room-fig img { scale: 1.04; }
+}
+.gb-room:focus-within { border-color: var(--breath); box-shadow: 0 0 0 1px var(--breath), 0 0 2.5rem .25rem rgba(159, 204, 198, .45); }
+
+/* WHAT THE PRICE COVERS. Eight tiles, and each tick draws itself as its
+   tile arrives. The path is about 20 units long. */
+.gb-inc-head { max-width: 40rem; margin: 0 auto clamp(var(--s-6), 5vw, var(--s-7)); }
+.gb-checks {
+  list-style: none; margin: 0 auto; padding: 0; max-width: 68rem;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3);
+}
+@media (min-width: 36rem) { .gb-checks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 62rem) { .gb-checks { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.gb-checks li {
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-4); background: var(--surface); border: 1px solid var(--rule);
+  font-size: 1.0625rem; line-height: 1.35;
+  transition: background-color 300ms var(--ease-out), border-color 300ms var(--ease-out);
+}
+@media (hover: hover) { .gb-checks li:hover { background: var(--breath); border-color: var(--breath); } }
+.gb-tick { flex: none; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--fathom); padding: .32rem; }
+.gb-tick path { fill: none; stroke: var(--breath); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 21; stroke-dashoffset: 0; }
+.js-motion .gb-checks li.r-up .gb-tick path { stroke-dashoffset: 21; transition: stroke-dashoffset 650ms var(--ease-out); transition-delay: calc(var(--d, 0ms) + 260ms); }
+.js-motion .gb-checks li.is-in .gb-tick path { stroke-dashoffset: 0; }
+.gb-not { text-align: center; max-width: 44rem; margin: clamp(var(--s-5), 4vw, var(--s-6)) auto 0; color: var(--muted); }
+.gb-not b { color: var(--warm); font-weight: 500; }
+
+/* WHERE YOU ARE. Three numbers that count up once, then the three things
+   to know about getting there, as panels. */
+.gb-place-head { max-width: 52rem; }
+.gb-place-head .lead { margin-top: var(--s-5); color: var(--muted); }
+.gb-nums {
+  display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--s-5);
+  margin-top: clamp(var(--s-7), 7vw, var(--s-8)); border-top: 1px solid var(--rule);
+}
+@media (min-width: 42rem) { .gb-nums { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.gb-nums > div { padding-top: var(--s-5); padding-bottom: var(--s-4); }
+.gb-nums b {
+  display: block; font-family: var(--carved); font-weight: 400;
+  font-size: clamp(3.4rem, 8vw, 6.5rem); line-height: 1; color: var(--breath);
+  font-variant-numeric: tabular-nums;
+}
+.gb-nums b small { font-size: .45em; margin-left: .06em; }
+.gb-nums > div > span {
+  display: block; margin-top: var(--s-3);
+  font: .75rem/1.45 var(--utility); letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+}
+.gb-legs {
+  margin: clamp(var(--s-6), 6vw, var(--s-7)) 0 0;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4);
+}
+@media (min-width: 56rem) { .gb-legs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); } }
+.gb-legs > div { padding: var(--s-5); border: 1px solid var(--rule); background: rgba(159, 204, 198, .05); }
+.gb-legs dt {
+  font: 500 .68rem/1.4 var(--utility); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--label); margin-bottom: var(--s-2);
+}
+.gb-legs dd { margin: 0; }
+
+/* THE HOSTS, side by side, the second set lower so the pair steps down the
+   page rather than sitting as a row of two boxes. The portraits unveil
+   upward as they arrive and lean in a little under a pointer. */
+.gb-hosts {
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  gap: clamp(var(--s-7), 6vw, var(--s-8)) clamp(var(--s-5), 5vw, var(--s-8));
+  margin-top: clamp(var(--s-6), 5vw, var(--s-7));
+}
+@media (min-width: 48rem) {
+  .gb-hosts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gb-host:nth-child(2) { margin-top: clamp(var(--s-7), 9vw, var(--s-9)); }
+}
+.gb-host figure { margin: 0 0 var(--s-5); overflow: hidden; }
+.gb-host img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; display: block; }
+.gb-host-copy { margin-top: var(--s-4); max-width: 34rem; }
+.js-motion .gb-host .r-img img {
+  clip-path: inset(100% 0 0 0); scale: 1.12;
+  transition: clip-path 1100ms var(--ease-out), scale 1400ms var(--ease-out);
+  transition-delay: var(--d, 0ms);
+}
+.js-motion .gb-host .r-img.is-in img { clip-path: inset(0 0 0 0); scale: 1; }
+@media (hover: hover) {
+  .js-motion .gb-host .r-img.is-in:hover img { scale: 1.04; transition-delay: 0ms; }
+}
+
+/* BOOK. The copy and the countdown on the left, both rooms with their own
+   buttons on the right. The cards are lighter than the band so the Fathom
+   hover fill on `.gb .btn` still has an edge. */
+.gb-book { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-6), 6vw, var(--s-8)); align-items: center; }
+@media (min-width: 62rem) { .gb-book { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); } }
+.gb-book-copy .lead { margin-top: var(--s-5); color: var(--muted); }
+.gb-count { margin-top: clamp(var(--s-5), 4vw, var(--s-6)); }
+.gb-count-label {
+  font: .6875rem/1.4 var(--utility); letter-spacing: .28em; text-transform: uppercase;
+  color: var(--breath); margin: 0 0 var(--s-3);
+}
+.gb-count-cells { display: grid; grid-template-columns: repeat(4, minmax(0, 5.25rem)); gap: var(--s-2); }
+.gb-count-cells span {
+  display: flex; flex-direction: column; align-items: center;
+  padding: var(--s-3) var(--s-1);
+  border: 1px solid var(--rule); background: rgba(7, 26, 31, .5);
+}
+.gb-count-cells b {
+  font-family: var(--carved); font-weight: 400;
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem); line-height: 1; color: var(--surface);
+  font-variant-numeric: tabular-nums;
+}
+.gb-count-cells i {
+  font-style: normal; margin-top: var(--s-2);
+  font: .625rem/1 var(--utility); letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+}
+.gb-rate-line { margin-top: var(--s-4); color: var(--muted); max-width: 32rem; }
+.gb-book-rooms { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+.gb-pick {
+  padding: var(--s-5); border: 1px solid var(--rule); background: rgba(159, 204, 198, .06);
+  transition: translate 300ms var(--ease-out), border-color 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
+}
+@media (hover: hover) {
+  .gb-pick:hover { translate: 0 -4px; border-color: var(--breath); box-shadow: 0 0 2rem .1rem rgba(159, 204, 198, .22); }
+}
+.gb-pick-name {
+  margin: 0; font: .75rem/1.4 var(--utility); letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+}
+.gb-pick-price { font-family: var(--carved); font-size: clamp(2rem, 3.6vw, 2.6rem); line-height: 1; margin: var(--s-2) 0 var(--s-4); color: var(--surface); }
+.gb-book-rooms .note-under { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .gb-push .hero-water img { animation: none; }
+  .gb-say.is-dim .gb-w { opacity: 1; }
+  .js-motion .gb-checks li.r-up .gb-tick path { stroke-dashoffset: 0; transition: none; }
+  .js-motion .gb-host .r-img img { clip-path: none; scale: 1; transition: none; }
+  .gb-room, .gb-room-fig img, .gb-pick, .gb-checks li { transition: none; }
+}
+
+
+/* CONVERSION PASS, 14 September. Cydnie: "Make the right changes to drum up
+   conversion and sales." The five month plan starts with the $500 deposit
+   (her words), so "Hold my room, $500" is the plan's link and the primary
+   button everywhere; paying in full is the quiet one. */
+.gb-facts { row-gap: var(--s-4); }
+@media (max-width: 29.99rem) { .gb-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-5); } }
+.gb-with { display: flex; align-items: center; gap: var(--s-2); }
+.gb-faces { display: inline-flex; flex: none; }
+.gb-faces img {
+  width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block;
+  border: 2px solid var(--fathom);
+}
+.gb-faces img + img { margin-left: -10px; }
+.gb-rate-strip {
+  display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3);
+  margin-top: var(--s-5); padding: var(--s-2) var(--s-4);
+  border: 1px solid var(--warm); color: var(--warm);
+  font: .75rem/1.4 var(--utility); letter-spacing: .16em; text-transform: uppercase;
+}
+.gb-rate-strip b { font-weight: 500; color: var(--ink); }
+.gb-room-acts { margin-top: var(--s-2); }
+.gb-hold-note { margin: var(--s-3) 0 0; font-size: .875rem; line-height: 1.5; color: var(--muted); }
+.gb-list {
+  margin-top: clamp(var(--s-5), 4vw, var(--s-6)); padding: var(--s-5);
+  background: var(--surface); border: 1px solid var(--rule); max-width: 30rem;
+}
+.gb-list-h { font-family: var(--carved); font-size: clamp(1.33rem, 1.86vw, 1.58rem); line-height: 1.2; margin: 0 0 var(--s-2); color: var(--ink); }
+.gb-list .btn { margin-top: var(--s-4); }
+.gb-later { margin: clamp(var(--s-6), 5vw, var(--s-7)) 0 0; padding-top: var(--s-5); border-top: 1px solid var(--rule); color: var(--muted); }
+
+/* ---- THE BUILD, WHAT IT COVERS AND WHAT I WON'T DO, 14 September 2026 --
+   Cydnie: the two sections were "both the same layout and don't make
+   anything stand out". Now they are opposites. What it covers is three
+   panels that fill with Breath under a pointer. What I won't do is a held
+   heading beside one column of large lines, and a rule is drawn through each
+   refusal as it arrives, so the section says no before it is read. <s> is
+   the right element: these are things that are not offered. */
+.bd-areas {
+  list-style: none; padding: 0; margin: clamp(var(--s-6), 5vw, var(--s-7)) 0 0;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4);
+}
+@media (min-width: 48rem) { .bd-areas { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); } }
+.bd-areas li {
+  display: flex; flex-direction: column; gap: var(--s-4);
+  min-height: clamp(14rem, 24vw, 19rem);
+  padding: clamp(var(--s-5), 3vw, var(--s-6));
+  background: var(--surface); border: 1px solid var(--rule);
+  transition: background-color 320ms var(--ease-out), border-color 320ms var(--ease-out), translate 320ms var(--ease-out);
+}
+.bd-areas h3 { margin: auto 0 0; }
+.bd-areas p { margin: 0; color: var(--muted); max-width: 22rem; transition: color 320ms var(--ease-out); }
+.bd-area-n { font-family: var(--utility); font-size: .75rem; letter-spacing: .28em; color: var(--label); }
+@media (hover: hover) {
+  .bd-areas li:hover { background: var(--breath); border-color: var(--breath); translate: 0 -4px; }
+  .bd-areas li:hover p { color: var(--fathom); }
+}
+
+.bd-nots { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-5), 4vw, var(--s-7)); }
+@media (min-width: 56rem) {
+  .bd-nots { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s-5); align-items: start; }
+  .bd-nots-head { grid-column: 1 / 5; position: sticky; top: 7rem; }
+  .bd-not-list { grid-column: 5 / 13; }
+}
+.bd-not-list { list-style: none; margin: 0; padding: 0; }
+.bd-not-list li { padding-block: clamp(var(--s-4), 2.4vw, var(--s-5)); }
+.bd-not-list li + li { border-top: 1px solid var(--rule); }
+.bd-not-list s {
+  display: inline; position: relative; text-decoration: none;
+  font-family: var(--level); letter-spacing: -.015em;
+  /* BELOW THE SECTION HEADING, measured 14 September. The first pass was
+     clamp(1.45rem, 3.3vw, 2.5rem): 40px lines under a 33.4px h-2 at 1440,
+     and 23.2 against 22.7 at 390, so every refusal outranked the heading.
+     Now 26px at 1440 and 20px on a phone: between the h-2 and the 18px
+     explanation at every width. */
+  font-size: clamp(1.25rem, 1.8vw, 1.625rem); line-height: 1.25; color: var(--ink);
+}
+.bd-not-list s::after {
+  content: ""; position: absolute; left: -.08em; right: -.08em; top: 55%;
+  height: max(2px, .06em); background: var(--warm);
+  transform-origin: left; transform: scaleX(1);
+}
+.js-motion .bd-not-list li.r-up s::after { transform: scaleX(0); transition: transform 700ms var(--ease-out); transition-delay: calc(var(--d, 0ms) + 300ms); }
+.js-motion .bd-not-list li.is-in s::after { transform: scaleX(1); }
+.bd-not-list span { display: block; margin-top: var(--s-2); color: var(--muted); max-width: 36rem; }
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .bd-not-list li.r-up s::after { transform: scaleX(1); transition: none; }
+  .bd-areas li, .bd-areas p { transition: none; }
 }
 
 /* ---------- 23. PRINT --------------------------------------- */

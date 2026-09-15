@@ -6757,3 +6757,202 @@ this commit. Nothing is waiting for approval.
     its base when it can hold a carousel, a scroll track or a long word.
   * Image sides alternate: head right, story none, faith left, Melissa
     right, bento mixed, close right (full width on a phone).
+
+## 61. START HERE. Session thirty one, 14 September 2026. PUSHED ON HER WORD.
+
+Cydnie, end of session: "both can be push to github then vercel ... We will
+pick up tomorrow on more edits to these two pages and get ready for the
+launch on the 16th." Both pages below are live; the commit is the one that
+added this section.
+
+### Tomorrow, 15 September, in this order
+
+  1. **Her edits to /retreats/gatlinburg/ and /the-build/.** She reviews from
+     the artifacts (Gatlinburg S3YW3q4Zyfp9crbujmDFuR, Build
+     2fDqqChjFryBdVYxDSPnXC). Republish the same files after each change:
+     `python3 tools/build_artifact.py gatlinburg` / `build`, then publish
+     `tools/cydnie-jocelyn-gatlinburg.html` / `-build.html`. A new session
+     must pass the artifact URL to update rather than create a new one.
+  2. **Decisions still open with her:**
+       * Countdown in the booking band, or only the plain line? (Delete
+         `.gb-count` for the plain line; nothing else changes.)
+       * Monthly amounts under "Hold my room, $500"? Only if she confirms the
+         HoneyBook split. Arithmetic if it is even: king (2790-500)/5 = $458,
+         shared (1490-500)/5 = $198; from 1 November $480 and $220.
+       * A sticky booking bar: she declined it twice before; only if she asks.
+       * Original, full resolution house photographs from the host or the
+         listing, for a truly sharp hero and deck band.
+  3. **Launch prep for 16 September (section 50 is the runbook).**
+       * `python3 tools/launch_gatlinburg.py --check`, then run it ONLY when
+         she says go. It touches the page head, vercel.json, sitemap.xml, the
+         home and Retreats cards, site.css and llms.txt; it was re-tested on a
+         throwaway copy after this rebuild and applies cleanly.
+       * After: build, seams 0, suite, `grep -c '<!--' dist/retreats/gatlinburg/index.html` = 0,
+         push, `vercel ls`, read the page in a real browser (curl can be
+         challenged; section 60), then Search Console URL Inspection on the
+         live URL and a Rich Results test for the Event JSON-LD.
+       * Consider at launch: an FAQPage node generated from the six questions
+         on the page (every question must be on the page word for word), and
+         a purpose-made 1200x630 og:image.
+  4. **Carried, not started:** the phone width check in the suite (section 60
+     item 1; checked by hand this session with a 390px probe: every page
+     390 wide); llms.txt line 18 still says "women"; home and Gatlinburg meta
+     descriptions over 160 characters; unused CSS now also `.gb-strip`,
+     `.gb-rail`, `.prelaunch`, and on /the-build/ `.triad--flat` and
+     `.refuse-plain--lead`; the A Sounding, Greece, Letters, Contact and
+     Questions audits (section 60).
+
+### Session setup that worked this time
+  * Preview copy for screenshots and measuring: `SP=$SP/s2 sh tools/preview/sync.sh`
+    served on its own port. Run the suite from a copy nothing else syncs
+    into; syncing during a run spoiled two runs today.
+  * `tools/shot.sh` in parallel pairs only; four at once returned blank frames.
+  * Hero contrast: open the page in the browser pane, `resize_window`, then
+    `await eval(await (await fetch('/_hc.js')).text())` with
+    `tools/hero_composite.js` copied into the served root as `_hc.js`.
+
+### What was built (the detail)
+
+The detail below was written before the push; "uncommitted" in it means
+"at the time". Gatlinburg is still noindex, still out of the sitemap, still
+linked from nowhere; `tools/launch_gatlinburg.py` was re-tested on a throwaway
+copy after the rebuild and applies cleanly (it only touches the head of the
+page). NOT RUN.
+
+### Her answers this session (saved to memory)
+  * HoneyBook is covered, prices are right, $500 holds the spot. Stop asking.
+  * "Gatlinburg is for all women." The bio line "for women building
+    something real" is gone.
+  * "brand guide isn't always right." Do not raise the Sounding popup again;
+    when an ask conflicts with the guide, build the ask.
+  * Costa Rica quotes and Melissa's video on Gatlinburg: yes.
+  * Kayla (her own bio, sent in chat): Minnesota National Guard nearly 20
+    years, currently in her 13th year of active duty. Wife, mom of two, 6 and 4.
+  * Host photo: from the branding shoot (used `cydnie-window`).
+  * Park trivia cut to three numbers.
+  * Countdown: "can we see an example of it or maybe we just do the plain
+    line". The example is built; the plain line is always under it.
+
+### /retreats/gatlinburg/ rebuilt
+Review artifact: https://claude.ai/artifact/S3YW3q4Zyfp9crbujmDFuR
+(the old page is XkGkenbSEuPinTfwjjeGFn, 31 August).
+
+    before  16 sections, 2,409 words, 18.9 screens at 1440, 24.7 at 390
+            first HoneyBook button at 10.7 screens (12.3 at 390)
+    after   11 sections, 1,522 words (about 250 of them the quotes),
+            15.0 screens at 1440, 19.1 at 390
+            first HoneyBook button at 8.5 screens (7.8 at 390)
+            the five-day step-through alone is 3.5 screens of scroll
+
+Order and grounds: hero (deep) / statement (deep) / deck band (deep) / five
+days `.cond` (light) / In their words `.ab-proof` (silt) / house: room cards
+then the 24 tile rail (light) / included checklist (silt) / where you are
+(deep) / hosts side by side (light) / FAQ, six questions with the ask line
+(silt) / book (deepwater), page ends there. Removed: the "Register today"
+strip and the close band (both only linked back up the page), the rockers
+band, What to expect (repeated the premise and the FAQ), the park dropdowns
+and stats.
+
+New motion, all in site.css "GATLINBURG, THE REBUILD" and site.js section 20:
+  * `.gb-push`: hero photo `scale` 1 to 1.07 over 24s, once. `scale`, not
+    `transform`, so initHero's inline parallax transform still applies.
+  * `[data-wordlight]`: statement words brighten with scroll (`.gb-w`).
+  * `.par[data-max]`: per-image lift of the 12px parallax cap (deck band 40).
+  * `.gb-checks`: ticks draw in (stroke-dashoffset) with the reveal.
+  * `[data-count]`: numbers count from 0 once; zeroed on the first frame
+    only, so no frames means the real figure stays.
+  * `.gb-host .r-img`: portraits unveil upward (clip-path) and lean in on hover.
+  * Room cards and booking picks lift with a Breath glow (`translate`, so the
+    reveal transform is not fought).
+  * `[data-countdown]`: to 2026-11-01T00:00:00-05:00 (midnight Central after
+    31 Oct), ships `hidden`, removes itself at zero. IF SHE PICKS THE PLAIN
+    LINE, delete `.gb-count` from the page and nothing else changes.
+
+Copy compressed rather than verbatim: the statement's lead, the five day
+lines, both host bios (now first person), the where-you-are panels.
+
+### /the-build/: What it covers and What I won't do
+Review artifact: https://claude.ai/artifact/2fDqqChjFryBdVYxDSPnXC
+Her note: both sections were "the same layout and don't make anything stand
+out". What it covers is `.bd-areas`, three panels that fill Breath on hover.
+What I won't do is `.bd-nots`: sticky heading left, one column of large lines
+right, a Held-warm rule drawn through each (`<s>`) as it arrives. `.triad
+--flat` and `.refuse-plain--lead` are now unused on this page.
+
+### Crawlability (she asked mid-session)
+Checked read-only: nothing blocks crawlers. Live pages, robots.txt and the
+sitemap return 200; no custom firewall rules; Attack Mode off; Bot Protection
+and AI Bots rulesets at defaults. Verified bots are exempt from Vercel's bot
+protection, but a custom rule or AI Bots set to Deny would block them. Fixed:
+  * `home-restructure-claude-code-brief.md` was LIVE at its path (phase plan
+    and launch date). Now in `.vercelignore` and build.py EXCLUDE_FILES.
+  * llms.txt said there is no /contact/ page. There is.
+  * sitemap lastmod for /the-build/ to 2026-09-14.
+Not changed, worth raising: llms.txt line 18 USP still says "women"; home and
+Gatlinburg meta descriptions run 173 and 183 characters.
+
+### Second round, same session: photos, type, conversion
+
+**Photos.** "Can the hero image and the deck porch image not be so blurry?"
+Mostly the review artifact, whose PICK used the 600px files; now 1632/1654.
+On the page: the sources are listing screenshots (hero 1944x1112, cropped to
+1632 to lose the plaque; deck 1654x1112), so the old 1600 files were already
+near native. Re-exported at native width, q86, UnsharpMask(1.4, 70, 2) as
+`house-dusk-1632.webp` and `deck-view-1654.webp`; hero image 104% instead of
+112% on this page, push-in 1.035. Truly sharp needs the original photographs.
+
+**Build type.** "verify the font sizes for the what I won't do section".
+Measured: the struck lines were 40px under a 33.4px h-2 at 1440 (23.2 vs 22.7
+at 390), and the area titles (c-2) were 35.7px under the same h-2. Now
+clamp(1.25rem, 1.8vw, 1.625rem) = 26px / 20px, and the titles are c-3 (23.8 /
+21.3). Every level sits under its heading at every width.
+
+**Conversion.** Cydnie: the five month plan starts with the $500 deposit, the
+first of five payments is the month after; "Make the right changes to drum up
+conversion and sales."
+  * "Hold my room, $500" is now the PRIMARY button on both room cards and both
+    booking picks and links the five month plan record; "Pay in full" is the
+    quiet one. A note under each card says how the plan runs. Hero button:
+    "Hold your room for $500" (to #rooms).
+  * Hero facts are six: Dates, Where, Group (Fifteen women, the cap every
+    retreat page states), With (both faces, new `kayla-face-72/144.webp`),
+    From $1,490, To hold a room $500. Two columns on phones.
+  * `.gb-rate-strip` above the room cards: "Early rate through 31 October"
+    plus `[data-daysleft]` ("47 days left", hidden until JS has a number).
+  * `.gb-list` in the FAQ's left column and `.gb-later` under the booking
+    band: "Not ready to decide? Join the Gatlinburg list", HoneyBook
+    69fa3c69 (April 2027 pre-registration, already pinned in _test.html).
+  * NOT DONE, on purpose: per-month dollar amounts (HoneyBook's split is not
+    confirmed), a sticky booking bar (she declined it twice, and the consent
+    banner owns the bottom edge).
+
+**Hero contrast, measured with tools/hero_composite.js in the browser pane.**
+The COMMITTED page already failed on phones and tablets: 390 h1 2.46, eyebrow
+2.28, sub 4.22; 768 eyebrow 3.17, sub 3.28; 1024x768 sub 3.65, link 4.43.
+Fixed with page-scoped scrims: one under 47.99rem, a stronger across-fade from
+48 to 84.99rem, and the lit scrim kept above that (wide screens keep the lit
+house) with the eyebrow ink lifted to #C9DCD9 (was 4.49 at 1440). After:
+passes at 360, 390, 430, 768, 1024, 1152, 1280, 1366, 1440 and 1920. Tightest:
+h1 3.04 at 1920, sub 4.52 at 1366. The "SPAN" row the script reports is the
+solid button's own label on its Breath fill, not text on the photograph.
+
+### Checks
+    build, 0 comments in dist for both pages, seams 0,
+    launch script applies on a throwaway copy with valid JSON-LD
+    suite 544 pass / 0 fail on ten pages (gatlinburg 80, build 39), fresh
+    sync, run from `$SP/s2` on a threaded server
+    every page checked 390px wide at a 390 viewport (by hand, not in the suite)
+
+**THE SUITE HUNG ON GATLINBURG, AND IT WAS THE SERVER, NOT THE PAGE.**
+`tools/preview/serve.py` was a single-threaded TCPServer. Headless Chrome's
+virtual clock stops while any request is outstanding, and the rebuilt page
+plus the 375px probe iframe open enough connections that one idle keep-alive
+socket held the queue: an empty dump for 12+ minutes, reproducible, and it
+bisected to "page length" rather than to any one section. The browser pane
+ran the same test to completion. `serve.py` is now a ThreadingTCPServer and
+the page finishes in 4 seconds. If a suite run ever hangs with `dom-<page>.html`
+at 0 bytes, check the server first.
+
+`_test.html` changed twice, both deliberately: the parallax cap is now each
+target's own `data-max` (12px when none is declared), and "opens a short form"
+counts as an off-site link that says so.

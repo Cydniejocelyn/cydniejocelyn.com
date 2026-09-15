@@ -73,6 +73,10 @@ EXCLUDE_DIRS = {
     "api", "db", ".venv", "__pycache__",
 }
 EXCLUDE_FILES = {"HANDOFF.md", "BRIEF.md", "README.md", "CLAUDE.md",
+                 # Found live on 14 September 2026 at
+                 # /home-restructure-claude-code-brief.md, returning 200: the phase
+                 # plan and the Gatlinburg launch date, crawlable.
+                 "home-restructure-claude-code-brief.md",
                  ".DS_Store", ".vercelignore", ".gitignore",
                  # The secrets, and the two files that describe them. See the
                  # note above; .env.local holds three database passwords and

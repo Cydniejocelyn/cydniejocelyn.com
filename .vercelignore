@@ -33,6 +33,9 @@ README.md
 # working notes, the deploy mechanics and the list of what the brand refuses,
 # public. Caught by looking in dist/ before pushing, not by any check.
 CLAUDE.md
+# Found live and crawlable on 14 September 2026: the home restructure brief,
+# with the phase plan and the Gatlinburg launch date in it.
+home-restructure-claude-code-brief.md
 
 # Working documents. These are wireframes, briefs and copy decks that arrive
 # as folders beside the site, and Vercel serves whatever it is given: the

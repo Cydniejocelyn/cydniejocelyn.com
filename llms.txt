@@ -147,4 +147,4 @@ eighteen and over.
 
 hello@cydniejocelyn.com. The contact form is
 https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa372ccd31fefc073c5d28
-There is no /contact/ page on this site; an earlier version of this file named one.
+The contact page is https://www.cydniejocelyn.com/contact/

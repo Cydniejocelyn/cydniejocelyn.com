@@ -172,7 +172,13 @@ f.addEventListener('load', function(){
      // An element sitting exactly on the viewport centre gets 0px and that is
      // correct, so the test is that every target is DRIVEN and none exceeds
      // the 12px cap -- not that every one has moved at this instant.
-     var capped = set.filter(function(v){ return Math.abs(parseFloat(v)) <= 12.01; });
+     /* `data-max` lifts the cap for one image on purpose (Gatlinburg's deck
+        band, 14 September, on Cydnie's ask for more movement), so each
+        target is held to its own declared cap, 12px when it declares none. */
+     var capped = vals.filter(function(v, i){
+       if (v === '') return false;
+       var mx = parseFloat((pars[i] && pars[i].getAttribute('data-max')) || '12');
+       return Math.abs(parseFloat(v)) <= mx + 0.01; });
      ok('parallax: '+set.length+'/'+pars.length+' targets driven ['+vals.join(', ')+']', set.length===pars.length);
      ok('parallax: none past the 12px cap', capped.length===set.length);
    } else if (pars.length) {
@@ -739,7 +745,7 @@ f.addEventListener('load', function(){
    ok('links: every off-site link says so (' + offsite.length + ' of them)',
       offsite.every(function (a) {
         return /new tab/.test(a.getAttribute('aria-label') || '') ||
-               /new tab|scheduling page|booking page/.test(a.textContent || '');
+               /new tab|scheduling page|booking page|short form/.test(a.textContent || '');
       }));
 
    /* ---- the licensed face, and the tag ----
