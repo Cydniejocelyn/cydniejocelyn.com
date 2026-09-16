@@ -7024,5 +7024,24 @@ named only those two: the Gatlinburg hero fact "Group: Fifteen women", the
 rooms lead and the booking band lead on that page; on /retreats/ the
 "Fifteen." section and its ring, "Bring your own fifteen.", the closing
 "Fifteen seats" heading, the FAQ answer and the og/twitter titles; and the
-home page's retreat schema description. Ask her whether the cap should go
-from those too.
+home page's retreat schema description. She answered: "the two places are
+great." The other fifteens STAY. Do not remove them.
+
+### End of day, 16 September 2026. Everything pushed, tree clean.
+
+    4656f27  launch: indexed, home and Retreats cards, launch popup
+    6f8647e  fifteen removed from the popup and the Retreats hero
+    suite 540 / 0 before the launch push; retreats 61 / 0 and home 58 / 0
+    before the second; seams 0; both deploys Ready and read on www
+
+**Next session, in this order:**
+  1. Ask whether she requested indexing in Search Console and resubmitted
+     the sitemap (her job; see "After the push" above). A Rich Results Test
+     on the Gatlinburg URL is worth running.
+  2. Her further edits to /retreats/gatlinburg/ and /the-build/ (the review
+     artifacts are in section 61).
+  3. Open decisions carried from 61: countdown or plain line, monthly
+     amounts, original photographs, sticky bar only if she asks.
+  4. Before 1 November: the early rate copy, every place listed above.
+  5. Carried: the phone width check in the suite, then the audits of
+     A Sounding, Greece, The Letters, Contact and The Questions.
