@@ -46,7 +46,7 @@
 
   var EYEBROW = 'Booking open &middot; 13&ndash;18 April 2027';
   var TITLE   = 'Wide Open is <em>finally here.</em>';
-  var BODY    = 'Five days in a private house in the Smoky Mountains, with Cydnie and Kayla. Fifteen women, every meal and both workshops included, and $500 holds your room.';
+  var BODY    = 'Five days in a private house in the Smoky Mountains, with Cydnie and Kayla. Every meal and both workshops are included, and $500 holds your room.';
   var NOTE    = 'Early rate through 31 October, from $1,490.';
   var CTA     = 'See Gatlinburg and register';
   var DISMISS = 'Maybe later';

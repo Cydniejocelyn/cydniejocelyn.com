@@ -7016,3 +7016,13 @@ it's finally here." Taken as the go for the section 50 launch.
      that day (the countdown and strip remove themselves).
   4. Still open from 61: monthly amounts, original photos, the phone-width
      check in the suite, the remaining page audits.
+
+**Addendum to 62, same day.** Cydnie: "Remove the 15 women ... on the popup.
+and the cap 15 guests on the hero of the retreats page." Both removed and
+pushed. "Fifteen" still appears elsewhere and was NOT touched, because she
+named only those two: the Gatlinburg hero fact "Group: Fifteen women", the
+rooms lead and the booking band lead on that page; on /retreats/ the
+"Fifteen." section and its ring, "Bring your own fifteen.", the closing
+"Fifteen seats" heading, the FAQ answer and the og/twitter titles; and the
+home page's retreat schema description. Ask her whether the cap should go
+from those too.
