@@ -54,6 +54,15 @@
   }
   if (seen()) return;
 
+  /* ONE POPUP A VISIT, 16 September 2026. gatlinburg-popup.js marks the
+     session when it opens; this one stands down for the rest of that visit,
+     and marks the session itself when it is the one that opens. */
+  var SESSION_KEY = 'cj_pop_shown';
+  function sessionTaken() {
+    try { return !!window.sessionStorage.getItem(SESSION_KEY); } catch (e) { return false; }
+  }
+  if (sessionTaken()) return;
+
   /* The token names this file shipped with came from the wireframe's
      placeholder palette, where --held-lift was a near-white paper colour.
      On this site --held-lift is #CE908A, the hover state for the warm note,
@@ -120,6 +129,8 @@
     }
 
     function open() {
+      if (sessionTaken() || document.querySelector('.gb-pop:not([hidden])')) return;
+      try { window.sessionStorage.setItem(SESSION_KEY, 'sounding'); } catch (e) {}
       lastFocus = document.activeElement;
       pop.hidden = false;
       document.body.style.overflow = 'hidden';

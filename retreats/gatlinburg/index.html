@@ -28,8 +28,6 @@
        - replace the og:image
        - swap the Retreats index April card for a Gatlinburg card
      ============================================================ -->
-<meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="googlebot" content="noindex, nofollow">
 
 <title>Wide Open: The Gatlinburg Edition | Tennessee, April 2027</title>
 <meta name="description" content="Wide Open: five days in Gatlinburg, Tennessee, 13 to 18 April 2027. Lodging, every meal, daily movement, two workshops and two outings included. With Cydnie Jocelyn and Kayla Freeman.">
@@ -38,9 +36,7 @@
 <meta name="geo.region" content="US-TN">
 <meta name="geo.placename" content="Gatlinburg, Tennessee">
 
-<!-- AT LAUNCH: uncomment the canonical.
 <link rel="canonical" href="https://www.cydniejocelyn.com/retreats/gatlinburg/">
--->
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cydnie Jocelyn">
@@ -70,102 +66,231 @@
      stylesheet provides is invisible, silent, and looks correct. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/site.css?v=ebc11534">
+<link rel="stylesheet" href="../../assets/css/site.css?v=3d6f7268">
 <script>document.documentElement.className += " js-motion";</script>
 
-<!-- AT LAUNCH: uncomment, then validate before pushing.
-
-     Every figure in here is also in the visible page and in HoneyBook.
-     If one changes, all three change in the same commit. Both rates
-     carry BOTH ends of their window, which is what the Search Console
-     warning on the Greece offers was about: an offer with a start and
-     no end, or an end and no start, is missing `validFrom` or
-     `validThrough`. The early rate opens 31 August 2026, which is the
-     day this page was built and the earliest date the rate is known to
-     have been published anywhere.
-
-     AT LAUNCH: wrap this JSON in a script element of type
-     application/ld+json. It is unwritten here on purpose, and so is that
-     tag name: build.py splits on script regions before it strips comments,
-     because a `<!--` inside a script is JavaScript rather than a comment.
-     So a commented-out script SHIPS to production, and so does a comment
-     that merely mentions one in angle brackets, which swallowed twenty two
-     other comments the first time this was fixed. Every other page on this
-     site serves zero HTML comments and so must this one.
-
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Event",
-  "@id": "https://www.cydniejocelyn.com/retreats/gatlinburg/#event",
-  "name": "Wide Open: The Gatlinburg Edition",
-  "startDate": "2027-04-13",
-  "endDate": "2027-04-18",
-  "eventStatus": "https://schema.org/EventScheduled",
-  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/",
-  "image": "https://www.cydniejocelyn.com/assets/img/gatlinburg/house-dusk-1200.webp",
-  "description": "Five days in Gatlinburg, Tennessee. Lodging, every meal, daily movement, two workshops and two planned outings included.",
-  "location": {
-    "@type": "Place",
-    "name": "Gatlinburg, Tennessee",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Gatlinburg",
-      "addressRegion": "TN",
-      "addressCountry": "US"
-    }
-  },
-  "organizer": {
-    "@type": "Organization",
-    "name": "Cydnie Jocelyn LLC",
-    "url": "https://www.cydniejocelyn.com/"
-  },
-  "performer": [
-    { "@type": "Person", "name": "Cydnie Jocelyn Brown" },
-    { "@type": "Person", "name": "Kayla Freeman" }
-  ],
-  "offers": [
+  "@graph": [
     {
-      "@type": "Offer",
-      "name": "Private king suite, early rate",
-      "price": "2790",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2026-08-31",
-      "validThrough": "2026-10-31",
-      "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/#rooms"
+      "@type": [
+        "ProfessionalService",
+        "LocalBusiness"
+      ],
+      "@id": "https://www.cydniejocelyn.com/#organization",
+      "name": "Cydnie Jocelyn LLC",
+      "alternateName": "the resurfacing business",
+      "url": "https://www.cydniejocelyn.com/",
+      "founder": {
+        "@id": "https://www.cydniejocelyn.com/#cydnie"
+      },
+      "email": "hello@cydniejocelyn.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Forest Lake",
+        "addressRegion": "MN",
+        "postalCode": "55025",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 45.2791,
+        "longitude": -92.9852
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Forest Lake",
+          "containedInPlace": {
+            "@type": "State",
+            "name": "Minnesota"
+          }
+        },
+        {
+          "@type": "City",
+          "name": "Blaine"
+        },
+        {
+          "@type": "City",
+          "name": "Anoka"
+        },
+        {
+          "@type": "City",
+          "name": "Ramsey"
+        },
+        {
+          "@type": "City",
+          "name": "East Bethel"
+        },
+        {
+          "@type": "City",
+          "name": "Lino Lakes"
+        },
+        {
+          "@type": "City",
+          "name": "Hugo"
+        },
+        {
+          "@type": "City",
+          "name": "Shoreview"
+        },
+        {
+          "@type": "City",
+          "name": "White Bear Lake"
+        },
+        {
+          "@type": "City",
+          "name": "Cambridge"
+        },
+        {
+          "@type": "City",
+          "name": "Isanti"
+        },
+        {
+          "@type": "City",
+          "name": "North Branch"
+        },
+        {
+          "@type": "City",
+          "name": "Crosslake"
+        },
+        {
+          "@type": "City",
+          "name": "Minneapolis"
+        },
+        {
+          "@type": "City",
+          "name": "Saint Paul"
+        },
+        {
+          "@type": "City",
+          "name": "Stillwater"
+        },
+        {
+          "@type": "City",
+          "name": "Woodbury"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Twin Cities metropolitan area"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Anoka County"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Isanti County"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Washington County"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Chisago County"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Minnesota"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        }
+      ],
+      "knowsAbout": [
+        "brand strategy",
+        "brand positioning",
+        "messaging architecture",
+        "visual identity",
+        "brand guides",
+        "leadership retreats",
+        "retreat facilitation",
+        "women's retreats",
+        "business operations",
+        "business development"
+      ]
     },
     {
-      "@type": "Offer",
-      "name": "Private king suite",
-      "price": "2900",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2026-11-01",
-      "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/#rooms"
-    },
-    {
-      "@type": "Offer",
-      "name": "Shared room, early rate",
-      "price": "1490",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2026-08-31",
-      "validThrough": "2026-10-31",
-      "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/#rooms"
-    },
-    {
-      "@type": "Offer",
-      "name": "Shared room",
-      "price": "1600",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2026-11-01",
-      "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/#rooms"
+      "@type": "Event",
+      "@id": "https://www.cydniejocelyn.com/retreats/gatlinburg/#event",
+      "name": "Wide Open: The Gatlinburg Edition",
+      "startDate": "2027-04-13",
+      "endDate": "2027-04-18",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/",
+      "image": "https://www.cydniejocelyn.com/assets/img/gatlinburg/house-dusk-1200.webp",
+      "description": "Five days in Gatlinburg, Tennessee. Lodging, every meal, daily movement, two workshops and two planned outings included.",
+      "location": {
+        "@type": "Place",
+        "name": "Gatlinburg, Tennessee",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Gatlinburg",
+          "addressRegion": "TN",
+          "addressCountry": "US"
+        }
+      },
+      "organizer": {
+        "@id": "https://www.cydniejocelyn.com/#organization"
+      },
+      "performer": [
+        {
+          "@type": "Person",
+          "name": "Cydnie Jocelyn Brown"
+        },
+        {
+          "@type": "Person",
+          "name": "Kayla Freeman"
+        }
+      ],
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Private king suite, early rate",
+          "price": "2790",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "validFrom": "2026-08-31",
+          "validThrough": "2026-10-31",
+          "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/#rooms"
+        },
+        {
+          "@type": "Offer",
+          "name": "Private king suite",
+          "price": "2900",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "validFrom": "2026-11-01",
+          "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/#rooms"
+        },
+        {
+          "@type": "Offer",
+          "name": "Shared room, early rate",
+          "price": "1490",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "validFrom": "2026-08-31",
+          "validThrough": "2026-10-31",
+          "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/#rooms"
+        },
+        {
+          "@type": "Offer",
+          "name": "Shared room",
+          "price": "1600",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "validFrom": "2026-11-01",
+          "url": "https://www.cydniejocelyn.com/retreats/gatlinburg/#rooms"
+        }
+      ]
     }
   ]
 }
--->
+</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE. `gtag.js` is injected by
      assets/js/consent.js and only after a reader accepts. Before that
@@ -963,8 +1088,8 @@
   </div>
 </footer>
 
-<script src="../../assets/js/site.js?v=ebc11534" defer></script>
-<script src="../../assets/js/analytics.js?v=ebc11534" defer></script>
-<script src="../../assets/js/consent.js?v=ebc11534" defer></script>
+<script src="../../assets/js/site.js?v=3d6f7268" defer></script>
+<script src="../../assets/js/analytics.js?v=3d6f7268" defer></script>
+<script src="../../assets/js/consent.js?v=3d6f7268" defer></script>
 </body>
 </html>

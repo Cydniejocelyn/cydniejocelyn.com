@@ -1,8 +1,8 @@
 # Working on this site
 
 This file is a pointer, not a second source of truth. **`HANDOFF.md` section
-61 is the current state of the site**, and it carries the launch runbook for
-/retreats/gatlinburg/. Read it before doing anything. Where
+62 is the current state of the site**: /retreats/gatlinburg/ launched on
+16 September 2026. Read it before doing anything. Where
 this file and HANDOFF disagree, HANDOFF is right and this file is stale: fix
 it rather than working around it.
 
@@ -19,11 +19,11 @@ every path, and **that page contains zero HTML comments**, so the usual
 "comments == 0 means the build shipped" check passes on it. Use `vercel ls`
 for status, then read one page in a real browser. Do not poll.
 
-**/retreats/gatlinburg/ is live and deliberately unfindable.** It is
-`noindex` in two places, absent from the sitemap, and linked from nowhere.
-That is a prelaunch Cydnie is running by sending the URL to specific
-people. All four are load bearing and three of them are invisible. Section
-50 has the runbook for undoing them, in order, when she says go.
+**/retreats/gatlinburg/ launched on 16 September 2026.** It is indexed, in
+the sitemap, linked from home and Retreats, and announced by
+`gatlinburg-popup.js`, which shares a one-popup-a-visit key with
+`sounding-popup.js`. The early rate ends 31 October; section 62 lists every
+place that says so.
 
 **HoneyBook and Flodesk are the CRM.** Every form on the site goes to one
 of them, including the Flodesk popup on /the-letters/, and that is settled.

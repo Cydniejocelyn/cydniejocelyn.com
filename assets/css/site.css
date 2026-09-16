@@ -6612,6 +6612,11 @@ main > * { position: relative; z-index: 1; }
   body, .ftr, .z-light, .z-silt, .z-deep, .z-deepwater, .z-breath { background: #fff; color: #000; }
 }
 
+/* Phase 5: the one scarcity line under the Gatlinburg facts, and Greece as
+   a single line beneath the buttons. */
+.retreat-rise { margin: var(--s-4) 0 0; font-size: .9375rem; color: var(--ink); }
+.retreat-also { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--rule); color: var(--muted); max-width: 34rem; }
+
 /* ---------- ONE PAGE GRID, 12 September ---------------------------------
    Cydnie: "double check the pages alignment and the text alignment
    throughout." Measured at 1440 on nine pages. Every heading already sat on

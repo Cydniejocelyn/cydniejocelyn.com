@@ -6956,3 +6956,63 @@ at 0 bytes, check the server first.
 `_test.html` changed twice, both deliberately: the parallax cap is now each
 target's own `data-max` (12px when none is declared), and "opens a short form"
 counts as an off-site link that says so.
+
+## 62. START HERE. Launch day, 16 September 2026. GATLINBURG IS PUBLIC.
+
+Cydnie: "Its september 16th and we need to link gatlinburg to the retreats
+page. I also want to do a popup that invites people to go register since
+it's finally here." Taken as the go for the section 50 launch.
+
+### What changed
+  * `tools/launch_gatlinburg.py` RUN. Gatlinburg: robots meta gone, canonical
+    live, Event + LocalBusiness JSON-LD live; vercel.json X-Robots-Tag gone;
+    sitemap lists it (lastmod 2026-09-16); home section 6 is Gatlinburg
+    ("Booking open · April 2027", Greece one line under it); the Retreats
+    April card is Gatlinburg with the house photo (the US map is gone from
+    the page); Retreats schema, FAQ price answer, meta descriptions, closing
+    CTA ("Choose your Gatlinburg room") and llms.txt all name it. The script
+    now refuses to run again ("Already launched").
+  * Retreats: title now "Retreats for Women | Gatlinburg and Crete 2027 |
+    Cydnie Jocelyn"; the card button is solid, "See Gatlinburg and book".
+  * **`gatlinburg-popup.js`, new, at the root.** A launch dialog: house
+    photograph, "Wide Open is finally here.", fifteen women, $500 holds a
+    room, early rate line, one button to /retreats/gatlinburg/, "Maybe later".
+      - Pages: home, /retreats/, /retreats/greece/, /the-letters/ (ONLY_PATHS),
+        with the rest excluded by name as well (SKIP_PATHS).
+      - Opens after 12s of VISIBLE time, or at 35% of the page read after 4s.
+      - Dismissal remembered 14 days (`gb_pop_dismissed`); stops itself on
+        13 April 2027.
+      - ONE POPUP A VISIT: it writes `cj_pop_shown` to sessionStorage, and
+        `sounding-popup.js` now reads and writes the same key, so a reader
+        never gets both. On home, Retreats and Letters, Gatlinburg fires first.
+      - Skipped inside a same-origin frame whose parent path starts with `/_`
+        (the suite and shot harnesses), so tests are unaffected; a
+        cross-origin frame still shows it. `gbPopPreview()` in the console
+        opens it (it is only defined if the script did not return early:
+        clear `gb_pop_dismissed` and reload first).
+      - Brand guide conflict (it forbids modals) named to her; her call.
+  * Local preview in this session: `.claude/launch.json` config `gb-launch`
+    serves `$SP/preview` on 8830 with a scratchpad copy of serve.py (the
+    pane cannot run files from ~/Desktop).
+
+### Checks before push
+    build clean, seams 0, 0 comments in the three launched pages
+    suite 540 pass / 0 fail (retreats 65 -> 61: the map assertions no
+    longer apply now the card carries a photograph)
+    390px wide: home, /retreats/, /retreats/gatlinburg/
+    popup verified in the browser: opens on scroll, focus lands on the
+    button, Escape closes it and restores scroll, dismissal stored, the
+    Sounding popup stands down in the same session
+
+### After the push (do these)
+  1. `vercel ls` Ready, then read /retreats/gatlinburg/ in a browser: no
+     robots meta, canonical present.
+  2. Search Console: URL Inspection on the Gatlinburg URL, Request Indexing;
+     resubmit sitemap.xml. Rich Results Test on the URL (Event).
+  3. 31 October: early rate ends. Room cards, booking band line, rate strip,
+     popup NOTE, home card, Retreats card and FAQ answer all say it; after 1
+     November the prices are $2,900 and $1,600 and the popup NOTE, the
+     `data-daysleft` strip and the countdown all need changing or removing
+     that day (the countdown and strip remove themselves).
+  4. Still open from 61: monthly amounts, original photos, the phone-width
+     check in the suite, the remaining page audits.
