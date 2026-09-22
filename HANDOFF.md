@@ -7104,3 +7104,91 @@ for the arizona page when I am ready."
   * Requesting indexing in Search Console is hers to do; it needs her Google
     login. She was given the three steps. IndexNow for Bing was offered and
     not taken up.
+
+### End of session, 22 September 2026. Everything pushed, tree clean.
+
+    6e93dd8  the May card, between Gatlinburg and Greece
+    2a1be87  the May card names Clarissa Castillo Ramsey
+    retreats 65 / 0, seams 0, both deploys Ready and read on www
+    review artifact (all three dates) MASoVTQzVpTZz8tVJHudYR, Version 3
+
+**A trap that cost her a message:** the review artifact was a version behind
+after the Clarissa edit, so she was reading old copy while the site was
+right. **Republish the artifact in the same breath as the push**, every time.
+
+### THE NEXT SESSION IS THE AUDIT SESSION. Read this before starting.
+
+She is moving to a separate chat "for auditing the remainder of pages we have
+to audit and fix". This is what that session needs.
+
+**Pages still to audit, in this order.** Home, /the-build/, /about/,
+/retreats/ and /retreats/gatlinburg/ are DONE; do not re-audit them.
+
+| # | Page | Now | Why this order |
+|---|---|---|---|
+| 1 | **/a-sounding/** | 9 sections, ~1,109 words | The $300 offer nearly every button on the site points at, and the only conversion page never audited. |
+| 2 | **/retreats/greece/** | 16 sections, ~2,436 words | Heaviest page on the site. Full, waitlist only: the job is the waitlist and the trust, not selling seats. |
+| 3 | **/the-letters/** | 6 sections, ~320 words | Short already. Check the Flodesk popup and the one ask. |
+| 4 | **/contact/** | 1 section, ~97 words | Quick. It skips from the H1 to the footer's H3s. |
+| 5 | **/thequestions/** | 6 sections, ~309 words, noindex | Decide: keep, fold into other pages, or remove. Nothing links it now. |
+| - | /privacy-policy/ | legal | Not a conversion page. Skip unless she asks. |
+
+**Her method, which she has now used on four pages:** audit first (sections,
+words, screens at 1440 and 390, where the buttons fall, what repeats), give
+recommendations and name the decisions that are hers, wait for her answers,
+build, publish a review artifact, push only on her word. Keep copy light
+without losing her story; say plainly when copy is compressed rather than
+verbatim; alternate photo sides and never two pictures in a row; lead with
+her face and her proof.
+
+**Settled. Do not reopen any of these:**
+  * HoneyBook and Flodesk are the CRM. Prices and the $500 deposit are right.
+  * The Gatlinburg countdown STAYS. Monthly payment amounts are NOT to be added.
+  * The Sounding popup is a modal and it stays; so does the Gatlinburg popup.
+    "Brand guide isn't always right" (14 September).
+  * "Fifteen" stays everywhere except the two places she named on 16 September.
+  * A sticky booking bar has been declined twice. Only if she asks for it.
+  * Retreats are women only; the rest of the site speaks to founders and leaders.
+
+**Two popups now fire on the pages being audited.** `sounding-popup.js` (45s)
+and `gatlinburg-popup.js` (12s visible, or 35% scrolled) share the session key
+`cj_pop_shown`, so a reader sees one a visit. Both skip a same-origin frame
+whose parent path starts with `/_`, which is how the suite and the shot
+harness stay clean. If a page's path changes, update SKIP_PATHS and ONLY_PATHS
+in both files.
+
+**The tooling, as it actually works now:**
+
+    SP=<this session's scratchpad>
+    SP=$SP sh tools/preview/sync.sh            # re-run after EVERY edit
+    cp tools/preview/serve.py $SP/serve.py     # the pane cannot run files from ~/Desktop
+    python3 $SP/serve.py $SP/preview 8830 &    # threaded since 14 Sept; a single
+                                               # threaded server hung the suite
+    sh tools/preview/runsuite.sh "$SP" 8830    # all ten pages, ~6 minutes
+    sh tools/preview/runsuite.sh "$SP" 8830 /a-sounding/
+    sh tools/shot.sh 8830 /a-sounding/ out.png 1440 900 <#anchor|y>
+
+  * Run the suite from a copy nothing else syncs into. Syncing mid-run
+    spoiled two runs on 14 September.
+  * shot.sh in pairs at most; four at once returns blank frames.
+  * Phone width is NOT in the suite yet (it runs at 1280). Check by hand:
+    `documentElement.scrollWidth` at a 390 viewport, every page touched.
+  * Hero contrast: never from a screenshot. Copy `tools/hero_composite.js`
+    into the served root as `_hc.js`, open the page in the browser pane,
+    `resize_window`, then
+    `await eval(await (await fetch('/_hc.js')).text())`. The "SPAN" row it
+    reports is a solid button's own label on its Breath fill, not text on a
+    photograph; ignore it.
+  * In zsh, `set -- $spec` does not word-split. Wrap loops in `bash -c`.
+
+**Carried, not started:**
+  1. The phone width check in the suite.
+  2. Search Console indexing for Gatlinburg (hers; needs her Google login).
+     IndexNow for Bing was offered and not taken up.
+  3. **Before 1 November**: the early rate ends 31 October. Section 62 lists
+     every place that says so.
+  4. The Arizona page, in its own chat. Section 63 above has the material.
+  5. llms.txt line 18 still frames the audience as women; home and Gatlinburg
+     meta descriptions run over 160 characters.
+  6. `build.py` warns about 18 unreferenced files in assets/img/ (about
+     1.7MB), all of them pre-existing.
