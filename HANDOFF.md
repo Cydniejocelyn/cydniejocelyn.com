@@ -7061,9 +7061,8 @@ for the arizona page when I am ready."
   * "In the works &middot; 5&ndash;9 May 2027 &middot; Location named later",
     "A third date is coming.", five days in the United States, co-hosted
     "with someone whose work I have wanted to put in a room with mine".
-  * NOT named: Arizona, the house, Clarissa Castillo Ramsey, any price.
-    **She never answered whether the card may name Clarissa, so it does not.
-    Ask before adding her.**
+  * NOT named: Arizona, the house, any price. Clarissa Castillo Ramsey IS
+    named in the copy, on her word of 22 September ("It can name Clarissa").
   * The figure is the US map with no pin (`tools/us_map.py`), which the
     Gatlinburg card used to carry. Alternation is photo / map / photo.
   * The button is the pre-registration inquiry form
