@@ -7192,3 +7192,104 @@ in both files.
      meta descriptions run over 160 characters.
   6. `build.py` warns about 18 unreferenced files in assets/img/ (about
      1.7MB), all of them pre-existing.
+
+## 64. START HERE. 22 September 2026. The A Sounding audit, built and NOT PUSHED.
+
+Audit first (9 sections, 1,113 words, no photograph, two buttons seven
+screens apart, and the page contradicting itself on the $300). Her answers:
+"300 comes off the build. photoes move forward in picking. Cut the repeats.
+Utilize the quotes we have. All of my clients have gone through the sounding."
+
+### What changed on /a-sounding/ (986 words now)
+  * **The $300 comes off a Build.** The price block and the FAQ said it did
+    not; home, The Build and the last FAQ answer said it did. Hers is final.
+  * Her face, three shoot frames alternating right, left, right: head -18
+    (`cydnie-stand`), written page -19 holding a sheet (`cydnie-page`),
+    "you don't need me" -36 close up (`cydnie-close`). -104 was dropped: it
+    is the About head (-54) again. Table `SOUNDING` in tools/retreat_images.py.
+  * A Book button under the price.
+  * "Nothing to prepare" and "Nothing to organise" merged; the written page
+    panel removed (it repeated the paragraph) and that copy compressed.
+  * Proof is every consulting quote in the About carousel: Tamara, Spencer,
+    Angela twice. Retreat guests left out: they never bought a Sounding.
+  * FAQ 8 -> 4 (preparing, in person, what happens after, what actually
+    happens all repeated the page); schema mirrors it.
+
+### Checks
+    build clean, seams 0, 0 comments in dist, 390px wide, no overflow
+    suite 545 pass / 0 fail, ten pages (sounding tests rewritten for the
+    new layout: 4 FAQs, 4 client quotes, photos RLR, no contradiction)
+    review artifact https://claude.ai/artifact/VfYodvwcU8DCPWVLHsMB3x
+
+### Next
+  1. Her review of the artifact; push only on her word.
+  2. Then audits: Greece, The Letters, Contact, The Questions.
+  3. Carried: phone-width check in the suite (it still runs at 1280 only).
+
+**Addendum to 64, second pass, same day. NOT PUSHED.** Cydnie on the first
+build: "the page doesn't flow with the verbiage and the images. Make this page
+flow smoother, have luxury aesthetics of layout with movement, different
+sections and utilize all brand colors/highlights/animations." Rebuilt as ten
+differently shaped sections: hero (portrait in an offset hairline frame that
+slides out), the statement lit word by word (`data-wordlight`) with "felt /
+found" cards, a full bleed parallax band (frame -108, black and white, at
+work), the four steps as the pinned `.cond` step-through, the page drawn as a
+tilted sheet whose three lines rule in order, **the price on a Breath band**
+($300 counts up; first z-breath band on the site, a conflict with "Breath is
+accent only" that her ask overrides), the honest answer with the Held rule,
+the carousel under a large Held quotation mark, the FAQ with a sticky heading,
+and the booking centred on Deepwater. Frame -36 swapped for -20 (-36 was
+motion blurred). Grounds: Fathom, Fathom, band, Surface, Silt, Breath, Fathom,
+Silt, Surface, Deepwater. Suite 556 / 0 (sounding 58), seams 0. Same review
+artifact URL, version 2. Old `.sd-panel`, `.sd-offer`, `.sd-price`, `.sd-quote`
+CSS is now unused on the page; left for a cleanup pass.
+
+**Second audit of the page, same day, and the three fixes. STILL NOT PUSHED.**
+Cydnie: "Final audit of this page before we push live. Does it convert?" then
+"make all changes". Measured, not guessed: the reader who did not click in the
+hero met nothing to click for SEVEN screens, because the band and the pinned
+steps put three screens between the hero and the price, and the proof sat
+BELOW the price band, so the strongest thing on the page arrived after the
+decision. Three changes:
+  1. A quiet booking link in the pinned `.cond` head (`.cond-door`), on
+     screen for the whole step-through. A link, not a third button.
+  2. The quotes moved above the price: proof now precedes the ask. That
+     section is Surface now, not Silt, and three seams moved with it.
+  3. `--cond-run` 46svh -> 32svh on this page only (`.sd` scope), so four
+     short steps cost two screens instead of three.
+Asks now fall at 0.8, 3.8, 8.2 and 10.3 screens (was 0.8, 7.9, 10.9), and
+$300 is still above the fold in the hero on a phone. Suite 556 / 0, seams 0,
+390px clean. She confirmed the scheduler link, which is the one already on
+the page: clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6.
+
+STILL UNANSWERED, and both are hers: whether the page should say how soon a
+slot is available (the strongest honest nudge left, and only she knows the
+real answer), and whether it should say anything about a refund. It says
+nothing today, on purpose: section 7's note says that is handled in the
+conversation.
+
+**Her answer on the two open questions, same day: "no refund verbiage and
+make the other change."** So the refund stays unmentioned and that question
+is CLOSED: do not raise it again. The page carries no refund wording; the
+only mention is the code comment beside section 06 saying the clause is
+handled in the conversation, and comments are stripped from dist.
+
+The availability line is the change she asked for and it is NOT BUILT, because
+it needs a fact only she has and an invented lead time is exactly the kind of
+number this site refuses. Her HoneyBook scheduler renders nothing readable in
+the preview browser, so it could not be taken from there either. Waiting on
+one of: a typical lead time ("most Soundings happen within two weeks"), a
+dated next opening (strongest, goes stale, needs changing as it fills), or a
+real monthly cap. It would sit beside the price on the Breath band.
+
+**The availability line, built. Her words: "super fast they just have to look
+at the booking link. Probably within two to three weeks."** On the Breath band
+directly above the button: "Usually booked two to three weeks out &middot;
+open times are on the booking page" (`.sd-when`). A typical wait, NOT a dated
+opening: a date is the stronger nudge and goes stale the week it fills, and
+the scheduler holds the live times, so the line cannot contradict it. Below
+34rem it splits to two lines and the separator is hidden, because it wrapped
+with the middot orphaned at the head of the second line. Suite 557 / 0
+(sounding 59, one new assertion: the band says how soon, without a date),
+seams 0, 0 comments in dist, 390px clean, asks at 0.8 / 3.8 / 8.2 / 10.3.
+The page is finished and waiting on her word to push.

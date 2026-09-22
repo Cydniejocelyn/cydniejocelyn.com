@@ -125,6 +125,26 @@ CYDNIE = {
     "cydnie-greece": ("Minnesota Wedding Photographer-93.jpg", [600, 1000]),
 }
 
+# A Sounding, 22 September 2026. The page had no photograph at all, and it is
+# the page every main button on the site points at ("I am the brand. I must
+# be sold."). Three frames, sides alternating down the page: standing in the
+# head, holding a sheet of paper beside the written page, looking straight
+# out beside "you don't need me", and the full bleed band of her at work. Frame -104 was the first pick for the head and was dropped:
+# it is the same pose, jacket and laptop as -54, which is the About head.
+SOUNDING = {
+    "cydnie-stand": ("Minnesota Wedding Photographer-18.jpg", [700, 1000, 1400]),
+    "cydnie-page":  ("Minnesota Wedding Photographer-19.jpg", [600, 1000]),
+    # -20, not -36: the close up was the first pick and is motion blurred at
+    # the size the page shows it. -20 is sharp and looks straight at her.
+    "cydnie-direct": ("Minnesota Wedding Photographer-20.jpg", [600, 1000]),
+    # The full bleed band under the statement: black and white, on the floor
+    # with the notebook, laptop and mug. The work, not the pose. Cropped to
+    # 1.75:1 from the top of the frame: at 2:1 centred the band's parallax
+    # overhang took the top of her head off.
+    "cydnie-work":  ("Minnesota Wedding Photographer-108.jpg", [900, 1400, 2048],
+                     {"ratio": 1.75, "center": (0.5, 0.0)}),
+}
+
 
 def index(root):
     """Case-insensitive filename index. The Costa Rica library has the same
@@ -228,6 +248,8 @@ if __name__ == "__main__":
     run(COSTA_RICA, COSTA, "retreats")
     print("Branding:")
     run(CYDNIE, BRANDING, "retreats")
+    print("A Sounding:")
+    run(SOUNDING, BRANDING, "")
     print("Arizona:")
     run(ARIZONA, ARIZONA_SRC, "arizona")
 

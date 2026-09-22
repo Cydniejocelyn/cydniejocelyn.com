@@ -344,20 +344,38 @@ f.addEventListener('load', function(){
           var ld = d.querySelector('script[type="application/ld+json"]').textContent;
           var inMarkup = d.querySelectorAll('.faq details').length;
           var inSchema = (ld.match(/"@type": "Question"/g)||[]).length;
-          var moved = ['What actually happens, and when?',
+          // 22 September: eight became four when the repeats came out.
+          var moved = ['Does the $300 apply toward a larger engagement?',
                        'What if I am not ready to spend $300?'];
           var text = d.body.innerText;
-          return inMarkup === inSchema && inMarkup === 8 &&
+          return inMarkup === inSchema && inMarkup === 4 &&
                  moved.every(function(q){ return text.indexOf(q) > -1 && ld.indexOf(q) > -1; });
         })());
      ok('sounding: the A Sounding popup is NOT on this page',
         !d.querySelector('script[src*="sounding-popup"]') && !w.sdPopPreview);
-     var q=d.querySelector('.sd-quote');
-     ok('sounding: the quote is not indented by the figure default',
-        !!q && w.getComputedStyle(q).marginLeft==='0px');
-     var pn=d.querySelector('.sd-panel');
-     ok('sounding: the panel is a step off its ground, not the same colour',
-        !!pn && w.getComputedStyle(pn).backgroundColor !== w.getComputedStyle(pn.closest('section')).backgroundColor);
+     // 22 September: every consulting client, none of the retreat guests,
+     // because every client started with a Sounding and no guest did.
+     var qs=d.querySelectorAll('[data-quotes] .quote');
+     ok('sounding: four client quotes in the carousel, no retreat guest',
+        qs.length===4 && !!d.querySelector('.q-view') &&
+        [].every.call(qs,function(f){return f.querySelector('figcaption').textContent.indexOf('Retreat')<0;}));
+     // Her face, three times, sides alternating: right, left, right.
+     var ph=[].map.call(d.querySelectorAll('.sd-photo'),function(f){
+       var r=f.getBoundingClientRect(); return r.left+r.width/2 > d.documentElement.clientWidth/2 ? 'R' : 'L';});
+     ok('sounding: three photographs, alternating sides  '+ph.join(''), ph.join('')==='RLR');
+     // The $300 comes off a Build (Cydnie, 22 September), and the page says
+     // nothing that contradicts it.
+     ok('sounding: the $300 comes off a Build, and nothing says otherwise',
+        /comes off (it|a Build)/i.test(d.body.textContent) && !/roll into anything|not a deposit/i.test(d.body.textContent));
+     // The second pass: Breath carries the price, and the figure is 300.
+     var cost=d.querySelector('.sd-cost');
+     ok('sounding: the price sits on Breath, with a Book button',
+        !!cost && cost.classList.contains('z-breath') && !!cost.querySelector('a.btn[href*="6a185c26693e14802690e9f6"]') &&
+        (cost.querySelector('[data-count]')||{}).getAttribute('data-count')==='300');
+     // How soon, her words, and no dated opening for anyone to maintain.
+     ok('sounding: the price band says how soon, without a date',
+        !!d.querySelector('.sd-when') &&
+        /two to three weeks/.test((d.querySelector('.sd-when')||{}).textContent||''));
    }
    // ---- The Letters ----
    var lt = d.querySelector('.lt-head');

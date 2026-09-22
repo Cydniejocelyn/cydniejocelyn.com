@@ -70,7 +70,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=3d6f7268">
+<link rel="stylesheet" href="../assets/css/site.css?v=cb4b8e2f">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -300,18 +300,10 @@
         },
         {
           "@type": "Question",
-          "name": "Do I need to prepare anything?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. There is no intake form and no pre-work. If you can describe your last two weeks, you have everything you need."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "Does the $300 apply toward a larger engagement?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. A Sounding is the first paid step and it is complete on its own. It is not a deposit. If you continue into a build, that is a separate decision made after the written page is in your hands."
+            "text": "Yes. If you go on to a Build, the $300 comes off it. A Sounding is still complete on its own: the page is yours either way, and whether to continue is a decision you make after it is in your hands."
           }
         },
         {
@@ -324,34 +316,10 @@
         },
         {
           "@type": "Question",
-          "name": "Is it in person or remote?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Remote by default. In person is available in the Twin Cities metro and around Forest Lake by arrangement."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What happens after?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Two days later the page arrives by email. Nothing else is scheduled and there is no follow up sequence. If you want to keep working together, you say so."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What actually happens, and when?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We talk once, for ninety minutes, and I ask a lot of questions because the useful information is not in the pitch deck. Two days later the written analysis arrives. It is yours to keep either way."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "What if I am not ready to spend $300?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Worth knowing first: if you go on to a Build, the $300 comes off it, so it is not money spent twice. If that is still not the right moment, ask me a question or start with the letters. They are free, they arrive once a week, and they are written the week they go out. Read the letters."
+            "text": "Then ask me a question or start with the letters. They are free, they arrive once a week, and they are written the week they go out. Read the letters."
           }
         }
       ]
@@ -431,289 +399,329 @@
   </div>
 </header>
 
-<main id="main">
+<main id="main" class="sd">
 
-<!-- 01 / HERO.
-     The price and the two refusals are above the fold, ahead of everything
-     else. The reader arriving here is deciding whether this is another
-     discovery call, and that question gets answered before she scrolls or
-     it does not get answered at all. -->
-<section class="section sd-head z-deep" data-zone aria-labelledby="sd-h">
+<!-- THE SECOND PASS, 22 September 2026. Cydnie on the first: "the page
+     doesn't flow with the verbiage and the images. Make this page flow
+     smoother, have luxury aesthetics of layout with movement, different
+     sections and utilize all brand colors/highlights/animations."
+
+     So every section is a different shape now, and the page reads as one
+     journey: the condition, the statement, the work, the four steps, the
+     page she leaves with, the price, the honest answer, the proof, the
+     questions, the booking. Grounds: Fathom, Fathom, the band, Surface,
+     Silt, Breath, Fathom, Silt, Surface, Deepwater. Breath as a whole band
+     is new to the site and it is on the price, on her word that the brand
+     guide is not absolute. Held, the warm note, appears once per section at
+     most. Every motion here is one the site already runs somewhere: split
+     headings, drawn rules, the word light, parallax, the pinned steps, the
+     count, the carousel. Photographs alternate right, full, left, right, and
+     no two sit in a row. -->
+
+<!-- 01 / HERO. Copy left, portrait right. The price and the two refusals
+     stay above the fold; on a phone the portrait follows the button. -->
+<section class="section sd-head sd-head--face z-deep" data-zone aria-labelledby="sd-h">
   <div class="wrap">
     <nav class="bd-cross r-fade" aria-label="Practice areas">
       <span class="here" aria-current="page">Resurface <b>A Sounding</b></span>
       <a href="/retreats/">Reclaim <b>Retreats</b></a>
       <a href="/the-build/">Build <b>Consulting</b></a>
     </nav>
-    <h1 class="carved c-1 split" id="sd-h">Ninety minutes on the whole business.</h1>
-    <span class="wl-rule" aria-hidden="true"></span>
-    <!-- THE NOUN GOES HERE. This page is the door to every consulting
-         engagement and it ran 978 words without once naming the discipline:
-         it gave the length, the price, the turnaround, and ten things it is
-         not. Its own title tag already says "A $300 Business Diagnostic", so
-         the page itself was the last place to find out what it was. -->
-    <p class="lead r-up" style="--d:60ms">A business diagnostic, across brand, operations and business development. A written page follows two days later. You do not need to arrive with it organised, and you do not need to know yet what the problem is.</p>
-    <p class="sd-terms r-up" style="--d:120ms"><b>$300 flat.</b> No intake form. No pitch at the end.</p>
-    <div class="actions r-up" style="--d:180ms">
-      <a class="btn btn--solid" href="#book">
-        <span>Book a Sounding</span>
-        <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- 02 / THE THESIS.
-     Second, not first. The hero sells the mechanics because that is what a
-     cold visitor needs; this block does the recognition work for the
-     visitor who arrived from social and already speaks the language.
-
-     The examples are concrete on purpose. Generic pain copy is the coaching
-     category's signature, and naming late bookkeeping and a bottlenecked
-     owner says you have seen a real business rather than a persona. -->
-<section class="section z-deep" data-zone style="--from:var(--fathom)" aria-labelledby="sd-thesis">
-  <div class="wrap">
-    <div class="grid-12">
-      <div class="col-d">
-        <p class="eyebrow r-fade">Why this exists</p>
-        <h2 class="head h-2 split" id="sd-thesis">You are not lacking anything. You are under something.</h2>
-        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-      </div>
-      <div class="col-e">
-        <div class="body stack r-up" style="--d:60ms">
-          <p>Most of the people who book a Sounding can list what they have built. Revenue. A client roster. A team, or the beginning of one. A reputation that brings work in without being asked. What they cannot do is find the thing that makes all of it heavier every month.</p>
-          <p>That thing is almost always structural. It is rarely a mindset and it is almost never located where it is felt. The bookkeeping is late because the pricing is wrong. The work is exhausting because you are still the only person who can do the part that matters.</p>
-          <p>Ninety minutes with someone outside the business is usually enough to find it.</p>
+    <div class="sd-head-grid">
+      <div class="sd-head-copy">
+        <h1 class="carved c-1 split" id="sd-h">Ninety minutes on the <em>whole</em> business.</h1>
+        <span class="wl-rule" aria-hidden="true"></span>
+        <p class="lead r-up" style="--d:60ms">A business diagnostic across brand, operations and business development, with a written page two days later. You do not need to arrive organised, or know yet what the problem is.</p>
+        <p class="sd-terms r-up" style="--d:120ms"><b>$300 flat</b><span>No intake form</span><span>No pitch at the end</span></p>
+        <div class="actions r-up" style="--d:180ms">
+          <a class="btn btn--solid" href="#book">
+            <span>Book a Sounding</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+          </a>
         </div>
       </div>
+      <figure class="sd-photo sd-photo--head r-img">
+        <img src="../assets/img/cydnie-stand-1000.webp"
+             srcset="../assets/img/cydnie-stand-700.webp 700w, ../assets/img/cydnie-stand-1000.webp 1000w, ../assets/img/cydnie-stand-1400.webp 1400w"
+             sizes="(min-width: 56rem) 34vw, 88vw" width="1000" height="1408"
+             fetchpriority="high" decoding="async"
+             alt="Cydnie Jocelyn standing in a white shirt beside an olive tree, one hand on her hip, smiling at the camera.">
+        <figcaption>Cydnie Jocelyn <span aria-hidden="true">&middot;</span> Forest Lake, Minnesota</figcaption>
+      </figure>
     </div>
   </div>
 </section>
 
-<!-- 03 / THE NINETY MINUTES.
-     "Nothing to prepare" leads the list because it is brand-wide and
-     because it is the one differentiator a reader can check at booking:
-     every other diagnostic in this category opens with a questionnaire.
-
-     Forest Lake and the Twin Cities appear inside a line a human would
-     actually read, which is what the local schema needs corroborating it. -->
-<section class="section z-deep" data-zone style="--from:var(--fathom)" aria-labelledby="sd-what">
+<!-- 02 / THE STATEMENT. One sentence, centred, lit word by word as she
+     scrolls (data-wordlight). Under it, the two examples as felt and found:
+     the thesis that pressure lands somewhere other than where it starts,
+     shown instead of argued. Her copy, compressed. -->
+<section class="section sd-say z-deep" data-zone style="--from:var(--fathom)" aria-labelledby="sd-thesis">
   <div class="wrap">
-    <p class="eyebrow r-fade">The ninety minutes</p>
-    <h2 class="head h-2 split" id="sd-what">One conversation, across the whole business</h2>
-    <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-    <div class="body stack r-up" style="--d:60ms; margin-top:var(--s-6)">
-      <p>You talk. I ask questions and take notes. We move across the whole business rather than one department of it, because pressure travels and the place it lands is rarely the place it starts.</p>
-      <p>Ninety minutes is the length, not an estimate. A conversation with no end does not produce a decision.</p>
-    </div>
-    <dl class="refuse r-up" style="--d:120ms; margin-top:clamp(var(--s-6), 6vw, var(--s-8))">
-      <div>
-        <dt>Nothing to prepare</dt>
-        <dd>There is no intake form and no pre-work. If you can describe your last two weeks, you have everything you need.</dd>
+    <p class="eyebrow eyebrow--plain gb-center r-fade">Why this exists</p>
+    <h2 class="gb-say" id="sd-thesis" data-wordlight>You are not lacking anything. <em>You are under something.</em></h2>
+    <p class="lead gb-center r-up" style="--d:60ms">Most people who book a Sounding can list what they have built. What they cannot find is the thing making all of it heavier every month. It is almost always structural, and almost never where it is felt.</p>
+    <dl class="sd-felt" data-stagger="60">
+      <div class="r-up">
+        <dt>Felt</dt><dd>The bookkeeping is late</dd>
+        <dt>Found</dt><dd><em>because the pricing is wrong.</em></dd>
       </div>
-      <div>
-        <dt>Nothing to organise</dt>
-        <dd>You bring the tangle in whatever order it comes out. Sorting it is the work, not the prerequisite.</dd>
-      </div>
-      <div>
-        <dt>Remote or in person</dt>
-        <dd>Remote by default. In person around the Twin Cities metro and Forest Lake, Minnesota, by arrangement.</dd>
-      </div>
-      <div>
-        <dt>Nothing waiting at the end</dt>
-        <dd>No second session is scheduled after it. If you want to keep working together, you say so.</dd>
+      <div class="r-up">
+        <dt>Felt</dt><dd>The work is exhausting</dd>
+        <dt>Found</dt><dd><em>because you are still the only one who can do the part that matters.</em></dd>
       </div>
     </dl>
   </div>
 </section>
 
-<!-- 04 / THE WRITTEN PAGE.
-     This is the block that separates a Sounding from a coaching call: she
-     leaves with an artifact. It is also what justifies the spend to someone
-     else in her household, which is a real objection the site answered
-     nowhere before this page existed. -->
-<section class="section z-light" data-zone style="--from:var(--fathom)" aria-labelledby="sd-page">
+<!-- 03 / THE WORK, full bleed. No data-zone: a figure band on Fathom, the
+     same construction as the Gatlinburg deck band, with more parallax travel
+     than the site's 12px default. -->
+<section class="section--tight sd-band z-deep" aria-label="Cydnie at work">
+  <figure class="layer-band layer-band--par sd-band-fig">
+    <img class="par" data-speed="0.25" data-max="36"
+         src="../assets/img/cydnie-work-1400.webp"
+         srcset="../assets/img/cydnie-work-900.webp 900w, ../assets/img/cydnie-work-1400.webp 1400w, ../assets/img/cydnie-work-2048.webp 2048w"
+         sizes="100vw" width="2048" height="1170"
+         loading="lazy" decoding="async"
+         alt="Black and white: Cydnie seated on the floor writing in a notebook, a laptop, a microphone and a mug of coffee beside her.">
+  </figure>
+  <div class="wrap"><p class="sd-band-line r-up">You talk. <em>I ask questions and take notes.</em></p></div>
+</section>
+
+<!-- 04 / THE FOUR STEPS. `.cond`, the site's pinned step-through: the
+     sections that were "the ninety minutes" and "two days later" as one
+     journey, booking to the page in her hands. -->
+<section class="section cond z-light" data-zone style="--from:var(--fathom)" id="how" aria-labelledby="sd-what">
+  <div class="cond-track">
+   <div class="cond-stage">
+    <div class="wrap cond-in">
+      <div class="cond-head">
+        <p class="eyebrow r-fade">How it works</p>
+        <h2 class="head h-2 split" id="sd-what">One conversation, across the <em>whole</em> business.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
+        <ol class="cond-ticks" aria-label="Four steps">
+          <li><button type="button" data-step="0" aria-label="One, book"><span>01</span></button></li>
+          <li><button type="button" data-step="1" aria-label="Two, the ninety minutes"><span>02</span></button></li>
+          <li><button type="button" data-step="2" aria-label="Three, the page"><span>03</span></button></li>
+          <li><button type="button" data-step="3" aria-label="Four, what happens next"><span>04</span></button></li>
+        </ol>
+        <div class="cond-gauge" aria-hidden="true"><span></span></div>
+        <!-- THE ASK INSIDE THE PIN, 22 September, second audit. Measured:
+             a reader who does not click in the hero met nothing to click
+             for seven screens, because this section and the band put three
+             screens between the hero and the price. This head is pinned for
+             the whole step-through, so one quiet line here is an open door
+             for two screens rather than a third button. A link, not a
+             button: the page asks twice and offers once. -->
+        <p class="cond-door r-fade"><a class="link" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">Book a Sounding, $300<span class="vh"> (opens my scheduling page)</span></a> <span>90 minutes &middot; a written page two days later</span></p>
+      </div>
+      <ol class="cond-slots" role="list">
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">01</span>
+          <p><strong>Pick a time and name your business.</strong> That is the whole booking form. No intake, no pre-work: if you can describe your last two weeks, you have everything you need.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">02</span>
+          <p><strong>Ninety minutes, across all of it.</strong> Brand, operations, business development, because pressure travels and where it lands is rarely where it starts. Remote, or in person around the Twin Cities.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">03</span>
+          <p><strong>Two days later, one written page.</strong> What I heard, what is load bearing, and what I would do first.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">04</span>
+          <p><strong>Nothing waiting at the end.</strong> No second session, no follow up sequence. If you want to keep working together, you say so.</p>
+        </li>
+      </ol>
+    </div>
+   </div>
+  </div>
+</section>
+
+<!-- 05 / THE PAGE. Her holding a sheet on the left; on the right the page
+     itself, drawn as a sheet of paper whose three lines arrive in order.
+     The three lines are the real contents of every Sounding page, not a
+     mock-up of anyone's. -->
+<section class="section sd-page z-silt" data-zone style="--from:var(--surface)" aria-labelledby="sd-page">
   <div class="wrap">
-    <div class="grid-12">
-      <div class="col-d">
+    <div class="sd-pair sd-pair--photo-left">
+      <figure class="sd-photo sd-photo--framed r-img">
+        <img src="../assets/img/cydnie-page-1000.webp"
+             srcset="../assets/img/cydnie-page-600.webp 600w, ../assets/img/cydnie-page-1000.webp 1000w"
+             sizes="(min-width: 56rem) 34vw, 88vw" width="1000" height="1500"
+             loading="lazy" decoding="async"
+             alt="Cydnie seated on a stool, holding a large sheet of paper open and smiling.">
+      </figure>
+      <div>
         <p class="eyebrow r-fade">Two days later</p>
-        <h2 class="head h-2 split" id="sd-page">You leave with a page you can act on</h2>
-        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-        <div class="body stack r-up" style="--d:60ms; margin-top:var(--s-6)">
-          <p>Two days after we talk, you get one written page by email. It says what I heard, what is load bearing, and what I would do first.</p>
-          <p>It is written to be used. You can act on every line of it without me, and you can hand it to a partner or a spouse to explain what you just spent money on.</p>
-          <p>It is yours whether or not we ever work together again.</p>
+        <h2 class="head h-2 split" id="sd-page">You leave with a page you can act on.</h2>
+        <div class="sd-sheet r-up" style="--d:60ms">
+          <p class="sd-sheet-top"><span>A Sounding</span><span>One page</span></p>
+          <ol data-stagger="60">
+            <li class="r-up"><span>01</span>What I heard</li>
+            <li class="r-up"><span>02</span>What is load bearing</li>
+            <li class="r-up"><span>03</span>What I would do first</li>
+          </ol>
         </div>
-      </div>
-      <div class="col-e">
-        <!-- PRODUCTION NOTE, from the wireframe: the natural home for a
-             photograph of a real printed page, cropped so the text is
-             illegible. Paper, Fathom ink, no laptop, no coffee cup, no
-             hands. Until that image exists this ships as type, which is
-             what the wireframe asked for. -->
-        <div class="sd-panel r-up" style="--d:120ms">
-          <!-- Was "What the page is not", the fourth consecutive block on
-               this page to define the thing by what it is not. Same length,
-               same facts, stated forwards. -->
-          <p class="eyebrow eyebrow--plain">What the page is</p>
-          <p class="small">One page: what I heard, what is load bearing, and what I would do first, in that order. A page because a page gets read and a deck gets saved for later.</p>
-        </div>
+        <p class="sd-page-note r-up" style="--d:120ms">A page, because a page gets read and a deck gets saved for later. Act on every line without me, or hand it to a partner to explain what you just spent money on. It is yours either way.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 05 / PRICE.
-     This resolves the credit question and closes it. Silence invites the
-     question at the exact moment she is deciding, and a credit would turn a
-     finished deliverable into a deposit and undo the position on the rest
-     of the site. The Build page block 04 carries the same figure and the
-     same framing. If one moves, both move, and HoneyBook moves with them. -->
-<section class="section z-silt" data-zone style="--from:var(--surface)" aria-labelledby="sd-price">
+<!-- 06 / PROOF, AND IT COMES BEFORE THE PRICE. Second audit, 22 September:
+     the quotes were below the price band, so the strongest thing on the page
+     was arriving after the decision. Ground is Surface here, not Silt: it
+     now sits between Silt and Breath. "Utilize the quotes we have. All of my clients have gone
+     through the sounding." Every consulting client quoted on the site, in
+     the site's carousel; retreat guests are left out because they bought a
+     retreat. The client names sit under the heading as a line of proof. -->
+<section class="section sd-words z-light" data-zone style="--from:#DCE4E1" aria-labelledby="sd-words">
   <div class="wrap">
-    <p class="eyebrow r-fade">What it costs</p>
-    <div class="sd-offer r-up" style="--d:60ms">
-      <h2 class="head h-2" id="sd-price">A Sounding</h2>
-      <p class="sd-price"><em>Flat</em>$300</p>
-      <div class="body stack">
-        <p>Ninety minutes, and a written page two days later.</p>
-        <p>It is the first paid step and it is complete on its own. It is not a deposit, and it does not roll into anything else. If you decide to keep working together, that is a separate decision made after the page is already in your hands.</p>
-        <p>Every engagement I have run started here. Some clients continue into a build. Some do not. Both of those are a finished outcome.</p>
+    <div class="sd-words-head">
+      <p class="eyebrow r-fade">Every client started here</p>
+      <h2 class="head h-2 split" id="sd-words">In their words.</h2>
+      <p class="sd-clients r-fade">Mane Alchemist Salon <span aria-hidden="true">&middot;</span> SRS Performance <span aria-hidden="true">&middot;</span> SolyRey</p>
+    </div>
+    <div class="quotes r-up" data-quotes>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;She listens with intention, quickly understands your vision&rdquo;</p>
+        <blockquote>Working with Cydnie has been an absolute pleasure. She listens with intention, quickly understands your vision, and brings it to life with ease. As a new business owner, she has lifted so much off my plate, allowing me to focus on what matters most. She is truly an invaluable asset to any business.</blockquote>
+        <figcaption><b>Tamara</b> <span>Mane Alchemist Salon &middot; A Sounding, then a brand build</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;She helped redesign how I operate&rdquo;</p>
+        <blockquote>Cydnie is very knowledgeable and incredibly dedicated. She helped redesign how I operate!</blockquote>
+        <figcaption><b>Spencer Scott</b> <span>SRS Performance &middot; A Sounding, then brand and operations</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;Her words land right where you need them&rdquo;</p>
+        <blockquote>I&rsquo;m so grateful our paths crossed. Her words have a way of landing right where you need them, and her online presence reflects the warmth and wisdom she brings to every interaction.</blockquote>
+        <figcaption><b>Angela</b> <span>Consulting client</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;She&rsquo;s truly a breath of fresh air&rdquo;</p>
+        <blockquote>She&rsquo;s truly a breath of fresh air.</blockquote>
+        <figcaption><b>Angela</b> <span>Consulting client</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 07 / PRICE, ON BREATH. The one Breath band on the site. The figure
+     counts up once when it arrives (data-count). THE $300 COMES OFF A BUILD:
+     Cydnie, 22 September 2026, and home and The Build say the same. The
+     button is here because this is where she decides. -->
+<section class="section sd-cost z-breath" data-zone style="--from:var(--surface)" aria-labelledby="sd-price">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--plain gb-center r-fade">What it costs</p>
+    <h2 class="vh" id="sd-price">A Sounding, $300 flat</h2>
+    <p class="sd-figure r-up" aria-hidden="true"><sup>$</sup><span data-count="300">300</span></p>
+    <ul class="sd-terms3" data-stagger="60">
+      <li class="r-up"><b>Ninety minutes</b><span>on the whole business</span></li>
+      <li class="r-up"><b>One written page</b><span>two days later</span></li>
+      <li class="r-up"><b>Comes off a Build</b><span>if you go on to one</span></li>
+    </ul>
+    <p class="sd-cost-line r-up">It is complete on its own, and it is never money spent twice. Every client I have worked with started here.</p>
+    <!-- HOW SOON, 22 September, her words: "super fast they just have to look
+         at the booking link. Probably within two to three weeks." A typical
+         wait, not a dated opening: a date is the stronger nudge and it goes
+         stale the week it fills, and nothing on this site carries a number
+         nobody is maintaining. The live times are on the scheduler, which is
+         where the sentence sends her, so this line cannot contradict it. -->
+    <p class="sd-when r-fade"><span>Usually booked two to three weeks out</span><i aria-hidden="true">&middot;</i><span>open times are on the booking page</span></p>
+    <div class="actions gb-center r-up">
+      <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
+        <span>Book a Sounding, $300</span>
+        <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+      <span class="vh"> (opens my scheduling page)</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 08 / THE HONEST ANSWER. The return to depth, and the Held note: the
+     rule under the heading is warm, and so is the line it all comes to.
+     Held is the rule; the line under it is the ink. Her face on the right;
+     the page above had her on the left. No invented
+     numbers here, and the refund clause is handled in the conversation. -->
+<section class="section sd-honest z-deep" data-zone style="--from:var(--breath)" aria-labelledby="sd-refusal">
+  <div class="wrap">
+    <div class="sd-pair">
+      <div>
+        <p class="eyebrow r-fade">The part most people leave out</p>
+        <h2 class="head h-2 split" id="sd-refusal">Sometimes the answer is that you don&rsquo;t need me.</h2>
+        <span class="wl-rule wl-rule--held" aria-hidden="true" style="max-width:9rem"></span>
+        <p class="body r-up" style="--d:60ms; margin-top:var(--s-5)">Sometimes the page says the move is a hire. Sometimes a price change, a contract already sitting unsigned, or nothing at all for a quarter while something else settles. None of that is work I would bill you for, and I will tell you when it is the answer.</p>
+        <p class="sd-held-line r-up" style="--d:120ms">Hearing it in week one is worth more than $300. The alternative is a year spent solving the wrong problem.</p>
       </div>
+      <figure class="sd-photo sd-photo--framed r-img">
+        <img src="../assets/img/cydnie-direct-1000.webp"
+             srcset="../assets/img/cydnie-direct-600.webp 600w, ../assets/img/cydnie-direct-1000.webp 1000w"
+             sizes="(min-width: 56rem) 34vw, 88vw" width="1000" height="1500"
+             loading="lazy" decoding="async"
+             alt="Cydnie standing in a sleeveless top with a denim jacket slipping off one shoulder, smiling at the camera.">
+      </figure>
     </div>
   </div>
 </section>
 
-<!-- 06 / THE REFUSAL.
-     No invented numbers here. The temptation is to add "this has only
-     happened twice"; do not, unless it is true and you would say the number
-     out loud. The refund clause is handled in the conversation, not
-     published on the page. -->
-<section class="section z-deep" data-zone style="--from:#DCE4E1" aria-labelledby="sd-refusal">
+
+
+<!-- 09 / FAQ. Heading on the left, questions on the right. Four, all
+     mirrored in the FAQPage schema in the head: the rest repeated the page.
+     The credit answer is yes, on Cydnie's word of 22 September. -->
+<section class="section sd-faq z-light" data-zone style="--from:var(--fathom)" aria-labelledby="sd-faq-h" id="faq">
   <div class="wrap">
-    <p class="eyebrow r-fade">The part most people leave out</p>
-    <h2 class="head h-2 split" id="sd-refusal">Sometimes the answer is that you don&rsquo;t need me.</h2>
-    <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-    <div class="body stack r-up" style="--d:60ms; margin-top:var(--s-6)">
-      <p>Sometimes the page says the move is a hire. Sometimes it says the move is a price change, or a contract you already have sitting unsigned, or nothing at all for a quarter while something else settles. None of that is work I would bill you for.</p>
-      <p>I will tell you when that is the answer. Hearing it in week one is worth more than $300, because the alternative is a year spent solving the wrong problem.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 07 / PROOF.
-     One quote, not a wall. A row of three would argue against a page whose
-     position is restraint.
-
-     PERMISSION OUTSTANDING: this is an excerpt of Angela's review, which
-     runs in full on the home page. The full text opens "From our very first
-     coaching call", and this page's whole thesis is that a Sounding is not
-     coaching, so the excerpt starts after that clause. Confirm with Angela
-     that she is comfortable appearing here and that the business name
-     stands. Replace this with a review of an actual Sounding as soon as
-     one exists; that is the direct evidence this block wants. -->
-<section class="section z-deep" data-zone style="--from:var(--fathom)" aria-label="Proof">
-  <div class="wrap">
-    <!-- TAMARA, NOT ANGELA, AND THE SWAP IS THE POINT. Angela's words are
-         real and they stay on the home page, but they are the only proof a
-         reader met at the moment of deciding and they describe a different
-         product: "held space", "feel seen, guided, and empowered", "our very
-         first coaching call". This page spends its whole length saying it is
-         not coaching, and then closed with a coaching testimonial.
-
-         Tamara went through a Sounding and then a full brand build, so she
-         is the one person quoted on this site who bought exactly what this
-         page sells, and her words are about judgement and delivery. The
-         source line now says which engagement she bought, because "Mane
-         Alchemist Salon" alone does not tell a reader that. -->
-    <p class="eyebrow r-fade">From someone who has sat in one</p>
-    <figure class="quote sd-quote r-up" style="--d:60ms">
-      <p class="q-pull" aria-hidden="true">&ldquo;She listens with intention, quickly understands your vision&rdquo;</p>
-      <blockquote>Working with Cydnie has been an absolute pleasure. She listens with intention, quickly understands your vision, and brings it to life with ease. As a new business owner, she has lifted so much off my plate, allowing me to focus on what matters most. She is truly an invaluable asset to any business.</blockquote>
-      <figcaption><b>Tamara</b> <span>Mane Alchemist Salon &middot; A Sounding, then a brand build</span></figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- 08 / FAQ.
-     Six entries, all mirrored in the FAQPage schema in the head. Three of
-     them are objections rather than questions: the coaching one, the credit
-     one, and the one about not knowing the problem. Those are the three
-     doing the work. "What happens after" doubles as the anti-funnel signal,
-     and it is checkable, which makes the rest of the page more believable. -->
-<section class="section z-light" data-zone style="--from:var(--fathom)" aria-labelledby="sd-faq-h" id="faq">
-  <div class="wrap">
-    <p class="eyebrow r-fade">Before you book</p>
-    <h2 class="head h-2 split" id="sd-faq-h">Questions people ask first</h2>
-    <div class="faq r-up" style="--d:60ms; margin-top:clamp(var(--s-6), 6vw, var(--s-7))">
+    <div class="sd-faq-grid">
+      <div class="sd-faq-head">
+        <p class="eyebrow r-fade">Before you book</p>
+        <h2 class="head h-2 split" id="sd-faq-h">Questions people ask first.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
+      </div>
+      <div class="faq r-up" style="--d:60ms">
       <details>
         <summary>Is this a coaching call? <span class="sign" aria-hidden="true"></span></summary>
         <div class="answer"><p>No. There is no goal setting and nothing to work on between sessions. It is a diagnostic. You describe how the business currently runs, and you leave with the pressure located and a page naming what to address first.</p></div>
       </details>
       <details>
-        <summary>Do I need to prepare anything? <span class="sign" aria-hidden="true"></span></summary>
-        <div class="answer"><p>No. There is no intake form and no pre-work. If you can describe your last two weeks, you have everything you need.</p></div>
-      </details>
-      <details>
         <summary>Does the $300 apply toward a larger engagement? <span class="sign" aria-hidden="true"></span></summary>
-        <div class="answer"><p>No. A Sounding is the first paid step and it is complete on its own. It is not a deposit. If you continue into a build, that is a separate decision made after the written page is in your hands.</p></div>
+        <div class="answer"><p>Yes. If you go on to a Build, the $300 comes off it. A Sounding is still complete on its own: the page is yours either way, and whether to continue is a decision you make after it is in your hands.</p></div>
       </details>
       <details>
         <summary>What if I do not know what my problem is? <span class="sign" aria-hidden="true"></span></summary>
         <div class="answer"><p>That is the usual starting point. Locating it is the work of the ninety minutes, and it is the reason the conversation covers the whole business rather than the part you think is broken.</p></div>
       </details>
       <details>
-        <summary>Is it in person or remote? <span class="sign" aria-hidden="true"></span></summary>
-        <div class="answer"><p>Remote by default. In person is available in the Twin Cities metro and around Forest Lake by arrangement.</p></div>
-      </details>
-      <details>
-        <summary>What happens after? <span class="sign" aria-hidden="true"></span></summary>
-        <div class="answer"><p>Two days later the page arrives by email. Nothing else is scheduled and there is no follow up sequence. If you want to keep working together, you say so.</p></div>
-      </details>
-      <details>
-        <summary>What actually happens, and when? <span class="sign" aria-hidden="true"></span></summary>
-        <div class="answer"><p>We talk once, for ninety minutes, and I ask a lot of questions because the useful information is not in the pitch deck. Two days later the written analysis arrives. It is yours to keep either way.</p></div>
-      </details>
-      <details>
         <summary>What if I am not ready to spend $300? <span class="sign" aria-hidden="true"></span></summary>
-        <div class="answer"><p>Worth knowing first: if you go on to a Build, the $300 comes off it, so it is not money spent twice. If that is still not the right moment, ask me a question or start with the letters. They are free, they arrive once a week, and they are written the week they go out. <a class="link" href="/the-letters/">Read the letters</a>.</p></div>
+        <div class="answer"><p>Then ask me a question or start with the letters. They are free, they arrive once a week, and they are written the week they go out. <a class="link" href="/the-letters/">Read the letters</a>.</p></div>
       </details>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 09 / BOOK.
-     One destination, no alternative. A contact form beside it would be a
-     place to stall.
-
-     The scheduler ID is 6a185c26693e14802690e9f6, the 1:1 Session, which is
-     A Sounding. It is not the branding session and it is not the generic
-     "book a call". Those are two different offers with two different IDs.
-
-     BOOKING FORM: name, email, business name, time. Any field beyond that
-     contradicts the no-preparation claim made twice above. Worth checking
-     in HoneyBook, because nothing here can verify it. -->
-<!-- THE BAND MARKS THE ACTION. One Deepwater band per page, on the
-     thing the page is asking for. It used to alternate as decoration: across
-     the eight content pages the band landed on a thesis, a testimonial, a
-     pricing tier or a "who this is not for", and on no page at all did it
-     sit on the booking. Three pages carried two or three of them. -->
-<section class="section z-deepwater" data-zone style="--from:var(--surface)" id="book" aria-labelledby="sd-book">
+<!-- 10 / BOOK. One destination, no alternative, and the one Deepwater band
+     on the page, on the thing the page is asking for. The scheduler ID is
+     6a185c26693e14802690e9f6, the 1:1 Session, which is A Sounding. The
+     booking form should be name, email, business name and time: any field
+     beyond that contradicts "no intake form". Worth checking in HoneyBook. -->
+<section class="section sd-book z-deepwater" data-zone style="--from:var(--surface)" id="book" aria-labelledby="sd-book">
   <div class="wrap">
-    <p class="eyebrow r-fade">Resurface</p>
-    <h2 class="carved c-1 split" id="sd-book">Book a Sounding</h2>
-    <span class="wl-rule" aria-hidden="true"></span>
-    <p class="lead r-up" style="--d:60ms; margin-top:var(--s-5)">Ninety minutes, a written page two days later, $300. Pick a time and tell me the name of your business. That is the whole booking form.</p>
-    <p class="tiny r-up" style="--d:60ms; margin-top:var(--s-3)">Based in Forest Lake, Minnesota. In person around the Twin Cities, remote everywhere else.</p>
-    <div class="section-cta r-up" style="--d:120ms">
+    <p class="eyebrow eyebrow--plain gb-center r-fade">Resurface</p>
+    <h2 class="carved c-1 split gb-center" id="sd-book">Book a Sounding</h2>
+    <span class="wl-rule sd-book-rule" aria-hidden="true"></span>
+    <p class="lead gb-center r-up" style="--d:60ms">Ninety minutes, a written page two days later, $300. Pick a time and tell me the name of your business.</p>
+    <div class="actions gb-center r-up" style="--d:120ms">
       <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6">
         <span>Book a Sounding, $300</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
       <span class="vh"> (opens my scheduling page)</span></a>
     </div>
-    <!-- A signpost, not a second call to action: body text and a link, never
-         a button. Same rule The Build page's close follows. -->
-    <p class="small r-up" style="--d:180ms; margin-top:clamp(var(--s-6), 6vw, var(--s-7)); padding-top:var(--s-4); border-top:1px solid var(--rule); max-width:40rem">Not ready to book? <a class="link" href="/the-letters/">The Letters</a> are free and arrive weekly.</p>
+    <p class="tiny gb-center r-up" style="--d:120ms; margin-top:var(--s-5)">Based in Forest Lake, Minnesota. In person around the Twin Cities, remote everywhere else.</p>
+    <!-- A signpost, not a second call to action: text and a link, never a
+         button. Same rule The Build page's close follows. -->
+    <p class="small gb-center sd-book-alt r-up" style="--d:180ms">Not ready to book? <a class="link" href="/the-letters/">The Letters</a> are free and arrive weekly.</p>
   </div>
 </section>
 
@@ -806,13 +814,13 @@
   </div>
 </footer>
 
-<script src="../assets/js/site.js?v=3d6f7268" defer></script>
+<script src="../assets/js/site.js?v=cb4b8e2f" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../assets/js/analytics.js?v=3d6f7268" defer></script>
-<script src="../assets/js/consent.js?v=3d6f7268" defer></script>
+<script src="../assets/js/analytics.js?v=cb4b8e2f" defer></script>
+<script src="../assets/js/consent.js?v=cb4b8e2f" defer></script>
 <!-- The A Sounding modal is deliberately NOT on this page. It exists to push
      a reader here, and here it would push her to where she already is. -->
 </body>
