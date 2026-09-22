@@ -7293,3 +7293,21 @@ with the middot orphaned at the head of the second line. Suite 557 / 0
 (sounding 59, one new assertion: the band says how soon, without a date),
 seams 0, 0 comments in dist, 390px clean, asks at 0.8 / 3.8 / 8.2 / 10.3.
 The page is finished and waiting on her word to push.
+
+### PUSHED, 22 September 2026. /a-sounding/ IS LIVE.
+
+    4fcedc4  A Sounding, rebuilt: her face, the $300 credit, proof before
+             the price
+
+Verified on www in a real browser, not by curl: the availability line, the
+Breath price band, the quotes ahead of the price, four questions, the booking
+link in the pinned head, 0 HTML comments, and all four photographs loading
+(cydnie-stand, cydnie-work, cydnie-page, cydnie-direct). No text anywhere on
+the page now contradicts the credit. Review artifact republished as version 4,
+so the link matches what shipped:
+https://claude.ai/artifact/VfYodvwcU8DCPWVLHsMB3x
+
+**Next session:** the remaining audits, in order: /retreats/greece/,
+/the-letters/, /contact/, /thequestions/. Still carried: the phone width
+check in the suite (it runs at 1280 only), and the unused CSS left behind by
+this rebuild (`.sd-panel`, `.sd-offer`, `.sd-price`, `.sd-quote`).
