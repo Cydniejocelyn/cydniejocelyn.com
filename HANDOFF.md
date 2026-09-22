@@ -7045,3 +7045,63 @@ great." The other fifteens STAY. Do not remove them.
   4. Before 1 November: the early rate copy, every place listed above.
   5. Carried: the phone width check in the suite, then the audits of
      A Sounding, Greece, The Letters, Contact and The Questions.
+
+## 63. START HERE. 21 to 22 September 2026. The May 2027 date, announced as a mystery.
+
+Cydnie: "I need to build out another coming soon prelaunch retreat May 5-9,
+2027 ... in partnership with Clarissa Castillo Ramsey", then: "Arizona is not
+named yet, make it hidden and a mystery like we had for Gatlinburg. I just
+want on the retreat page that something is coming. I will start a new chat
+for the arizona page when I am ready."
+
+**So there is no May page yet, and that is deliberate.** Only a card on
+/retreats/, between Gatlinburg and Greece (her order: Greece is sold out).
+
+### What the card says, and what it does not
+  * "In the works &middot; 5&ndash;9 May 2027 &middot; Location named later",
+    "A third date is coming.", five days in the United States, co-hosted
+    "with someone whose work I have wanted to put in a room with mine".
+  * NOT named: Arizona, the house, Clarissa Castillo Ramsey, any price.
+    **She never answered whether the card may name Clarissa, so it does not.
+    Ask before adding her.**
+  * The figure is the US map with no pin (`tools/us_map.py`), which the
+    Gatlinburg card used to carry. Alternation is photo / map / photo.
+  * The button is the pre-registration inquiry form
+    `cf_id/69fa3c69e63a7a4c9bb354f1`, on her instruction of 22 September.
+    That is ALSO the Gatlinburg "not ready to decide" list, so one HoneyBook
+    record now carries two retreats' interest. She knows; a separate form
+    would be the fix if she ever wants them apart.
+  * Section heading "Two dates." -> "Three dates."; the hero fact and the
+    line under the heading follow it.
+
+### The Arizona material, ready for that new chat
+  * Working name, HER words: **Wild Canvas: The Arizona Edition**, "a
+    creative artistic retreat". Dates 5 to 9 May 2027. Partner: Clarissa
+    Castillo Ramsey. Location Arizona, kept secret for now.
+  * Source photographs: `May Retreat Arizona May 5th - 9th/` (copied from
+    ~/Desktop/Clarissa Retreat, nine listing screenshots of a house of
+    hand-painted desert murals). Gitignored, in .vercelignore, in build.py
+    EXCLUDE_DIRS and in tools/preview/sync.sh, exactly like the Gatlinburg
+    folder. The filenames had U+202F before AM/PM and were renamed to plain
+    spaces so the table can name them.
+  * `tools/retreat_images.py` carries an ARIZONA table for eight of the nine.
+    Run it and they land in assets/img/arizona/. **They are not committed
+    yet**, because a page has to reference them or build.py warns.
+  * TWO FRAMES ARE EXCLUDED ON PURPOSE: the pool at dusk, whose mural paints
+    the property's name across the wall, and the street elevation of the
+    house. Both give the location away. Offered her a crop of the pool shot;
+    no answer yet.
+  * Still needed before that page can be written: Clarissa's own bio and a
+    photograph, what "creative and artistic" means across the five days, the
+    shape of the week, prices, and a HoneyBook record of its own.
+
+### Checks
+    retreats 65 / 0, seams 0, build clean, 0 comments in dist
+    review artifact https://claude.ai/artifact/MASoVTQzVpTZz8tVJHudYR
+
+### Also this session
+  * She confirmed: Gatlinburg and /the-build/ are fine as they are, the
+    countdown stays, and monthly payment amounts are NOT to be added.
+  * Requesting indexing in Search Console is hers to do; it needs her Google
+    login. She was given the three steps. IndexNow for Bing was offered and
+    not taken up.

@@ -200,6 +200,27 @@ def run(table, source_root, out_name):
                      os.path.getsize(out) / 1024.0))
 
 
+# WILD CANVAS: THE ARIZONA EDITION, May 2027, added 21 September 2026.
+# Nine listing screenshots, 1636 to 1944px wide, so every width below is
+# capped at the source the same way Gatlinburg's are. TWO FRAMES ARE
+# DELIBERATELY NOT HERE: the pool at dusk, because the mural on that wall
+# paints the property's name across it, and the street elevation, because it
+# is a house on a named street with a number on it. Cydnie is keeping the
+# location quiet ("I want to keep the location a secret right now"), and a
+# photograph gives an address away as surely as a sentence does.
+ARIZONA_SRC = os.path.join(ROOT, "May Retreat Arizona May 5th - 9th")
+ARIZONA = {
+    "great-room":  ("Screenshot 2026-09-03 at 6.13.02 AM.png", [600, 1000, 1600]),
+    "kitchen":     ("Screenshot 2026-09-03 at 6.12.56 AM.png", [600, 1000, 1600]),
+    "patio":       ("Screenshot 2026-09-03 at 6.13.16 AM.png", [600, 1000, 1600]),
+    "room-saguaro":("Screenshot 2026-09-03 at 6.13.40 AM.png", [600, 1000]),
+    "room-palms":  ("Screenshot 2026-09-03 at 6.13.47 AM.png", [600, 1000]),
+    "room-dusk":   ("Screenshot 2026-09-03 at 6.13.55 AM.png", [600, 1000]),
+    "bath":        ("Screenshot 2026-09-03 at 6.14.21 AM.png", [600, 1000]),
+    "lounge":      ("Screenshot 2026-09-03 at 6.14.49 AM.png", [600, 1000, 1600]),
+}
+
+
 if __name__ == "__main__":
     print("Greece / Armonia:")
     run(GREECE, ARMONIA, "greece")
@@ -207,6 +228,8 @@ if __name__ == "__main__":
     run(COSTA_RICA, COSTA, "retreats")
     print("Branding:")
     run(CYDNIE, BRANDING, "retreats")
+    print("Arizona:")
+    run(ARIZONA, ARIZONA_SRC, "arizona")
 
 
 # Considered, not shipped. Paths are relative to `Costa Rica copy/` unless

@@ -41,6 +41,12 @@ dist/
 # build.py, .vercelignore and tools/preview/sync.sh all depend on it too.
 April Retreat Gatlinburg April 13th - 18th\ /
 
+# THE ARIZONA SOURCE FOLDER, 21 September 2026. Nine listing screenshots for
+# Wild Canvas: The Arizona Edition, 24MB. Same rule as Gatlinburg above: the
+# frames the page uses are converted to WebP in assets/img/arizona/ and are
+# tracked; the source is not.
+May Retreat Arizona May 5th - 9th/
+
 # THE BACKEND SECRETS. .env.local holds three database passwords and the IP
 # hashing salt. There is no recovering from committing it: the history is
 # public the moment the repo is, and the credentials would have to be rotated
