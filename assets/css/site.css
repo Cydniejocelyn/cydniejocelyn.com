@@ -4404,6 +4404,12 @@ main > * { position: relative; z-index: 1; }
   font-size: clamp(1.71rem, 3.33vw, 2.42rem); line-height: 1; color: var(--ink);
 }
 .stats b small { font-size: .46em; letter-spacing: .02em; }
+/* The counted figure is a <span> inside the <b>, and `.stats span` below is
+   the LABEL: mono, .625rem, uppercase, its own line. So wrapping the number
+   to count it turned every figure into a tiny label with the unit left
+   behind at full size. Caught by looking at the page, not by testing the
+   counter, which worked perfectly the whole time it looked broken. */
+.stats b span { display: inline; margin: 0; font: inherit; letter-spacing: inherit; text-transform: none; color: inherit; }
 .stats span {
   display: block; margin-top: var(--s-2);
   font-family: var(--utility); font-size: .625rem;
@@ -6580,6 +6586,113 @@ main > * { position: relative; z-index: 1; }
 .gb-w { transition: opacity 450ms var(--ease-out); }
 .gb-say.is-dim .gb-w { opacity: .2; }
 .gb-say.is-dim .gb-w.is-lit { opacity: 1; }
+
+/* The same word light, off the Gatlinburg statement and onto any heading
+   that asks for it. /retreats/greece/ uses it on its thesis, which is a two
+   column block rather than a centred statement, so only the lighting is
+   shared and none of the type is. */
+.lit .gb-w { transition: opacity 450ms var(--ease-out); }
+.lit.is-dim .gb-w { opacity: .25; }
+.lit.is-dim .gb-w.is-lit { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .lit.is-dim .gb-w { opacity: 1; } }
+
+/* The pinned week costs this page three and a half screens for five short
+   steps. Shorter travel per step, the same dial A Sounding turns. */
+.gr .cond.is-stepped .cond-track { --cond-run: 26svh; }
+
+/* The hosts as a pair rather than two full width rows. */
+.gr .rt-person img { aspect-ratio: 1 / 1; }
+@media (min-width: 62rem) {
+  .gr-hosts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(var(--s-6), 5vw, var(--s-8)); }
+  .gr-hosts .rt-person, .gr-hosts .rt-person--flip { grid-template-columns: minmax(0, 1fr); }
+  .gr-hosts .rt-person--flip > figure { order: 0; }
+  .gr-hosts .rt-person + .rt-person { margin-top: 0; padding-top: 0; border-top: 0; }
+}
+
+/* THE RHYTHM, 23 September 2026. Cydnie: "This page is still long and each
+   section looks the same after another with left alignment." Measured, and
+   she was exactly right: THIRTEEN headings on this page all began at x=130,
+   and six sections were the same `.grid-12`. Nothing here changes a word.
+   Sections now alternate left, centre and right down the page, and the
+   blocks that repeated a shape were given their own.
+
+   Right alignment is a desktop device only. Below 56rem everything returns
+   to the left, because ragged-left body copy on a phone column is a
+   readability problem, not a rhythm. */
+.gr-c { text-align: center; }
+.gr-c .wrap > *, .gr-c .lead, .gr-c .body, .gr-c .small, .gr-c .tiny { margin-inline: auto; }
+.gr-c .lead, .gr-c .body { max-width: 40rem; }
+/* `.eyebrow` is a flex row with a rule drawn before it, so text-align does
+   nothing to it: it needs justify-content, and the rule comes off. */
+.gr-c .eyebrow { justify-content: center; }
+.gr-c .eyebrow::before { display: none; }
+.gr-c .wl-rule { margin-inline: auto; transform-origin: center; }
+.gr-c .actions { justify-content: center; }
+
+@media (min-width: 56rem) {
+  .gr-r { text-align: right; }
+  .gr-r .lead, .gr-r .body, .gr-r .small, .gr-r .refuse-plain { margin-left: auto; margin-right: 0; }
+  .gr-r .wl-rule { margin-left: auto; transform-origin: right; }
+  .gr-r .actions { justify-content: flex-end; }
+  /* A right aligned section is its HEAD and its prose. Components keep their
+     own alignment: a stat cell, a gallery, a disclosure row and a table of
+     facts all read from the left whatever the copy above them does, and
+     dragging them right is what made this section stop making sense. */
+  .gr-r .stats, .gr-r .gal, .gr-r .drop, .gr-r .rt-rows, .gr-r .faq,
+  .gr-r .quotes, .gr-r .rt-incl, .gr-r .trip { text-align: left; }
+  .gr-r .eyebrow { justify-content: flex-end; display: flex; align-items: center; gap: var(--s-3); }
+  .gr-r .eyebrow::before { order: 2; }
+  /* The head sits to the right of its own section while the figure work
+     below it stays full width. */
+  .gr-head-r { margin-left: auto; max-width: 44rem; }
+  /* A right aligned section is ONE right edge. Left as a 12 column grid,
+     the heading aligned to the right edge of the left column and the body
+     to the right edge of the page, which is two ragged edges and reads as a
+     mistake rather than a decision. */
+  .gr-r .grid-12 { display: block; }
+  .gr-r .grid-12 > .col-d, .gr-r .grid-12 > .col-e { max-width: 46rem; margin-left: auto; }
+  .gr-r .grid-12 > .col-e { margin-top: clamp(var(--s-5), 4vw, var(--s-6)); }
+}
+
+/* The thesis, as a centred statement rather than a two column block: the
+   sentence the whole page rests on, lit word by word. */
+.gr-say {
+  font-family: var(--carved); font-weight: 400;
+  font-size: clamp(1.9rem, 4.6vw, 3.5rem); line-height: 1.08; letter-spacing: .005em;
+  max-width: 20ch; margin-inline: auto; color: var(--ink);
+}
+.gr-say-sec .body { margin-top: clamp(var(--s-5), 4vw, var(--s-6)); color: var(--muted); }
+.gr-note {
+  margin-top: clamp(var(--s-5), 4vw, var(--s-6));
+  font-family: var(--utility); font-size: .6875rem;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--label);
+}
+
+/* The village figures, as a band across the section rather than a row
+   tucked under a column. */
+.gr-band-stats { border-block: 1px solid var(--rule); padding-block: clamp(var(--s-5), 4vw, var(--s-6)); }
+
+/* What the price covers: the list in two columns under a centred head,
+   so it is not a third left aligned column of text in a row of them. */
+@media (min-width: 48rem) {
+  .gr-incl-2 { columns: 2; column-gap: clamp(var(--s-6), 6vw, var(--s-8)); }
+  .gr-incl-2 li { break-inside: avoid; }
+}
+/* Same rule in the other direction: inside a centred section the components
+   stay left, but they are centred AS BLOCKS. The list was left anchored
+   under a centred heading, which reads as a mistake rather than a layout. */
+.gr-c .rt-incl, .gr-c .reversal, .gr-c .ready-lede, .gr-c .rt-rates,
+.gr-c .faq, .gr-c .quotes { text-align: left; margin-inline: auto; }
+.gr-c .rt-incl { max-width: 46rem; }
+.gr-c .reversal, .gr-c .ready-lede { max-width: 48rem; }
+.gr-c .rt-rates { max-width: 26rem; }
+
+/* The questions: the heading holds while the answers pass it. */
+@media (min-width: 56rem) {
+  .gr-faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(var(--s-6), 5vw, var(--s-8)); align-items: start; }
+  .gr-faq-head { position: sticky; top: 7rem; }
+}
+.gr-faq-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-6), 5vw, var(--s-7)); }
 
 .gb-band { padding-top: 0; }
 

@@ -7311,3 +7311,138 @@ https://claude.ai/artifact/VfYodvwcU8DCPWVLHsMB3x
 /the-letters/, /contact/, /thequestions/. Still carried: the phone width
 check in the suite (it runs at 1280 only), and the unused CSS left behind by
 this rebuild (`.sd-panel`, `.sd-offer`, `.sd-price`, `.sd-quote`).
+
+## 65. /retreats/greece/, the sold-out pass. 22 September 2026. NOT PUSHED.
+
+Cydnie: "Lets do the greece page now or do we lesve it since it's sold out",
+then "make the changes". The audit said keep it and repurpose it rather than
+rebuild it: it is the heaviest page on the site, it ranks for Crete searches,
+and it is evidence the retreats are real. Three things were wrong and only one
+was length.
+
+  * **It was a dead end.** The page never named Gatlinburg in visible copy,
+    only in the popup script. A reader convinced by it could join a list for
+    a week eleven months out and nothing else. Gatlinburg is now named twice,
+    as a sentence with links in it and never a button: the waitlist is still
+    this page's ask, and the suite asserts the ask block holds exactly one
+    button and that exactly three plain waitlist links reach the form.
+  * **It had no proof on it.** Zero quotes; it sent the reader to /retreats/
+    to read them. Four Costa Rica guest quotes are now on the page, in the
+    site carousel, directly ABOVE the booking block, labelled "Costa Rica,
+    April 2026" because nobody has been to Crete yet.
+  * **"See both dates" was stale.** There are three. It says so now.
+
+Cuts, all of them things the page said twice: the rooms and meals drops in
+the Armonia block (the booking block and the FAQ both carry them), the
+"Are there still seats?" question that sat under a heading saying they are
+gone, the airfare question that repeated the inclusions block, and the
+"Getting in" drop. **The whole "Fly into Chania" section is gone**: five
+stops of flight and transfer detail for a reader who cannot buy a seat, and
+whoever holds one gets the pre-travel guide. What a deciding reader needs is
+one FAQ answer now, "Which airport, and how do I get to the house?", which is
+also where the schema answer lived. `.trip` no longer exists on the site and
+the suite's "journey: five stops" passes on its absence clause.
+
+**The honest number: 2,460 -> 2,382 words.** The audit floated 1,700. It did
+not get there and it should not have been promised: the additions (quotes and
+the route) are 190 words, the cuts were 270, and what is left is dense copy
+rather than padding. Getting to 1,700 means cutting real content -- the week,
+the hosts, "who this is not for" -- and that is hers to decide, named, not a
+trim to slip in.
+
+    suite 557 / 0, seams 0 (the FAQ seam moved to Deepwater when the travel
+    section went), 390px clean, build clean
+    review artifact https://claude.ai/artifact/39ngPSRHkN6hzfyLHRhaSG
+
+Still unanswered by her, asked twice: whether the May 2027 date should be
+named here (it is linked, not described), and whether Greece seats genuinely
+open or the waitlist is really the list for the next retreat. Her existing
+"Seats do open" line was left exactly as it stands.
+
+**Motion on Greece, same day.** Cydnie: "are there any movements/animations to
+make it not be a long read?" Measured first: the length was never the copy.
+At 1440 the page ran 20.3 screens, and the week alone was 3.51 of them for 223
+words, the three photo bands 2.3, the booking block 2.23. The page also
+carried none of the site's motion: zero parallax, zero counting figures, zero
+word light.
+
+  * The pinned week's travel cut to 30svh a step (`.gr` scope, the dial A
+    Sounding turns): 3.51 -> 2.64 screens.
+  * The two full bleed bands travel now (`layer-band--par`, speed .22, max
+    32). They were the last stills of their size on the site.
+  * Five figures count up: 40 houses, 100m, 15min, 33km, 17 women. 4,000m2
+    is deliberately NOT counted -- the counter writes plain integers and
+    would drop the comma out of the typography.
+  * The thesis is lit word by word (`data-wordlight` + a new generic `.lit`,
+    which is the Gatlinburg statement's lighting lifted off `.gb-say` so any
+    heading can use it). The two column layout did not move.
+
+20.3 -> 19.5 screens, and three new assertions pin all of it. Suite 562 / 0.
+
+**What is left, and it is hers:** the hosts block (1.73 screens) and the
+inclusions block (1.65) are the next candidates, and both mean collapsing
+real copy behind a control rather than adding motion. Artifact republished.
+
+**The rhythm pass, 23 September 2026.** Cydnie: "This page is still long and
+each section looks the same after another with left alignment." Measured, and
+she was exactly right: THIRTEEN headings all began at x=130 and six sections
+were the same `.grid-12`. (The first attempt at this measurement read element
+boxes and reported centred sections that were not centred -- a block heading's
+box is its column's width whatever the text does. Measure the glyph run.)
+
+  * Sections alternate now: left, CENTRE, left, RIGHT, left, RIGHT, left,
+    CENTRE, left, CENTRE, left, RIGHT, CENTRE. New `.gr-c` and `.gr-r`, and
+    right alignment is desktop only -- ragged-left body copy in a phone
+    column is a readability problem, not a rhythm.
+  * The thesis is a centred statement (`.gr-say`) rather than a two column
+    block, still lit word by word. Her words unchanged.
+  * A right aligned section is ONE right edge: `.gr-r .grid-12` goes to
+    block, or the heading aligns to the left column's right edge and the
+    body to the page's, which reads as a mistake.
+  * The hosts are a pair side by side from 62rem (`.gr-hosts`), square
+    portraits: 1.73 -> 1.49 screens, and it stops being two full width rows.
+  * The triptych of table, kitchen and pergola is GONE: a third block of
+    house photographs on a page with a sixteen frame gallery and two bands.
+  * The pinned week is down to 26svh a step.
+
+    20.3 -> 18.7 screens at 1440, 24.6 -> 22.9 at 390. Words 2,382 -> 2,333.
+    suite 566 / 0 (greece 92), seams 0, no overflow at 390
+    artifact v3: https://claude.ai/artifact/39ngPSRHkN6hzfyLHRhaSG
+
+Three new assertions pin it: the headings do not all share a left edge
+(counted off glyph runs), the hosts are a pair, the bands travel.
+
+**Still the biggest blocks, and each means cutting content she has approved
+before: on a phone the booking block is 2.9 screens, the village 2.65, the
+hosts 2.48, the week 2.42. Hers to decide, not a trim to slip in.**
+
+**The aesthetic audit of the rhythm pass, 24 September 2026.** Cydnie: "Audit
+the change here and if it's aesthetically pleasing... These sections don't
+make sense anymore." She was right, and one of the three faults was mine from
+the day before:
+
+  1. **THE STATS WERE DESTROYED, on this page and by me.** `.stats span` is
+     the LABEL rule -- mono, .625rem, uppercase, its own line -- so wrapping
+     each figure in a `<span data-count>` to make it count turned every
+     number into a tiny label and left its unit behind at full size: a
+     4mm "0" above a large "m". Eight figures, both blocks, and the counter
+     worked perfectly the entire time it looked broken. **Testing the
+     behaviour is not looking at the page.** Fixed with `.stats b span`
+     inheriting its parent's type.
+  2. **A right aligned section dragged its components right with it.** Stat
+     cells, gallery, disclosure rows: those read from the left whatever the
+     prose above them does. `.gr-r` now right-aligns the head and the prose
+     only.
+  3. **The centred sections mixed alignments.** The inclusions list was left
+     anchored under a centred heading, and `.eyebrow` is a flex row with a
+     rule drawn before it, so `text-align` never touched it: it needed
+     `justify-content: center`. Components inside `.gr-c` are now left set
+     but centred AS BLOCKS.
+
+    19.1 screens at 1440, 22.9 at 390, words 2,333, suite 566 / 0, seams 0
+    artifact v4: https://claude.ai/artifact/39ngPSRHkN6hzfyLHRhaSG
+
+Pattern down the page at 1440, measured off glyph runs: L C L R L R L C L C
+L R C. (The same measurement run against element boxes reports six false
+mismatches on this page: a flex eyebrow's box is its column's width. Glyph
+runs, always.)

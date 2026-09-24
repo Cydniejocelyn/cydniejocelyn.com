@@ -67,7 +67,7 @@
      on the critical path to render nothing. -->
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/site.css?v=cb4b8e2f">
+<link rel="stylesheet" href="../../assets/css/site.css?v=89940e1e">
 <script>document.documentElement.className += " js-motion";</script>
 
 <!-- ANALYTICS IS NOT LOADED HERE ANY MORE, AND THAT IS THE POINT.
@@ -465,7 +465,7 @@
   </div>
 </header>
 
-<main id="main">
+<main id="main" class="gr">
 
 <!-- 01 / HERO.
      Every photograph on this page is Armonia's own or was taken at the
@@ -534,28 +534,19 @@
      No outcome is promised. Describe the arrangement she is living in and
      she supplies the feeling herself, which she will trust more than
      anything handed to her. -->
-<section class="section z-silt" data-zone style="--from:var(--fathom)" aria-labelledby="why-h">
+<section class="section gr-c gr-say-sec z-silt" data-zone style="--from:var(--fathom)" aria-labelledby="why-h">
   <div class="wrap">
-    <div class="grid-12">
-      <div class="col-d">
-        <p class="eyebrow r-fade">Why this exists</p>
-        <h2 class="head h-2 split" id="why-h">You are not tired because something is wrong with you.</h2>
-        <span class="wl-rule" aria-hidden="true" style="max-width:11rem"></span>
-      </div>
-      <div class="col-e">
-        <div class="body stack r-up" style="--d:60ms">
-          <p>You are the one everything runs through. It works because you are holding it, and holding it is the part nobody sees.</p>
-          <p>Eight days will not fix that. What it does is put you somewhere the weight is not yours for a week, with women in the same position, and let you find out what you think when nothing is asking for you.</p>
-          <p><strong>You do not need to prepare.</strong> That is true of everything I run.</p>
-        </div>
-      </div>
+    <p class="eyebrow eyebrow--plain r-fade">Why this exists</p>
+    <!-- Centred, and lit word by word against the scroll (data-wordlight).
+         It was a two column block with its heading at x=130 like every other
+         heading on the page; it is the sentence the page rests on and it now
+         reads as one. Her words, unchanged. -->
+    <h2 class="gr-say split lit" id="why-h" data-wordlight>You are not tired because something is wrong with you.</h2>
+    <div class="body stack r-up" style="--d:60ms">
+      <p>You are the one everything runs through. It works because you are holding it, and holding it is the part nobody sees.</p>
+      <p>Eight days will not fix that. What it does is put you somewhere the weight is not yours for a week, with women in the same position, and let you find out what you think when nothing is asking for you.</p>
     </div>
-
-    <div class="rt-count" data-stagger="60">
-      <div class="r-up"><b>8</b><span>Days, 13 to 20 August</span></div>
-      <div class="r-up"><b>15</b><span>Guest seats, capped</span></div>
-      <div class="r-up"><b>0</b><span>Preparation required</span></div>
-    </div>
+    <p class="gr-note r-fade">You do not need to prepare &middot; that is true of everything I run</p>
   </div>
 </section>
 
@@ -564,8 +555,8 @@
      --from: a photograph edge to edge is its own transition and a seam
      drawn over the top of one reads as a smear. -->
 <section class="section--tight z-silt" aria-label="Douliana">
-  <figure class="layer-band layer-band--wide" style="margin-bottom:0">
-    <img src="../../assets/img/greece/drive-1200.webp"
+  <figure class="layer-band layer-band--wide layer-band--par" style="margin-bottom:0">
+    <img class="par" data-speed="0.22" data-max="32" src="../../assets/img/greece/drive-1200.webp"
          srcset="../../assets/img/greece/drive-600.webp 600w, ../../assets/img/greece/drive-900.webp 900w, ../../assets/img/greece/drive-1200.webp 1200w, ../../assets/img/greece/drive-1800.webp 1800w"
          sizes="100vw" width="1800" height="1200"
          loading="lazy" decoding="async"
@@ -657,7 +648,7 @@
 </section>
 
 <!-- 05 / WHO THIS IS NOT FOR. -->
-<section class="section z-deep" data-zone style="--from:var(--surface)" aria-labelledby="not-h">
+<section class="section gr-r z-deep" data-zone style="--from:var(--surface)" aria-labelledby="not-h">
   <div class="wrap">
     <div class="grid-12">
       <div class="col-d">
@@ -701,11 +692,11 @@
       </div>
     </div>
 
-    <div class="stats r-up" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))" data-stagger="60">
-      <div><b>40</b><span>Houses in the village</span></div>
-      <div><b>100<small>m</small></b><span>Above the sea</span></div>
-      <div><b>15<small>min</small></b><span>To the nearest water</span></div>
-      <div><b>33<small>km</small></b><span>From Chania airport</span></div>
+    <div class="stats gr-band-stats r-up" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))" data-stagger="60">
+      <div><b><span data-count="40">40</span></b><span>Houses in the village</span></div>
+      <div><b><span data-count="100">100</span><small>m</small></b><span>Above the sea</span></div>
+      <div><b><span data-count="15">15</span><small>min</small></b><span>To the nearest water</span></div>
+      <div><b><span data-count="33">33</span><small>km</small></b><span>From Chania airport</span></div>
     </div>
 
     <div class="drop r-up" style="margin-top:clamp(var(--s-5),5vw,var(--s-6))">
@@ -720,10 +711,6 @@
       <details>
         <summary><span class="k">Chania</span> The old town and the Venetian harbour</summary>
         <div class="a"><p>Half an hour away and on the schedule at least once, with the villages in between on the way back.</p></div>
-      </details>
-      <details>
-        <summary><span class="k">Getting in</span> Chania International, and we collect you</summary>
-        <div class="a"><p>CHQ is about 33 km from the house. Group transport to the property is included in both directions and the timings are further down this page.</p></div>
       </details>
     </div>
 
@@ -758,9 +745,11 @@
      and a keyboard both work before site.js does anything; the arrows and
      the pointer drag are added on top. It does not auto-advance -- see the
      note in site.js. Every tile opens in the lightbox. -->
-<section class="section z-silt" data-zone style="--from:var(--surface)" id="property" aria-labelledby="prop-h">
+<section class="section gr-r z-silt" data-zone style="--from:var(--surface)" id="property" aria-labelledby="prop-h">
   <div class="wrap">
-    <div class="grid-12">
+    <!-- The head is right of its own section; the gallery under it is not,
+         because a rail reads from the left whatever the copy does. -->
+    <div class="grid-12 gr-head-r">
       <div class="col-d">
         <p class="eyebrow r-fade">Where you stay</p>
         <h2 class="head h-2 split" id="prop-h">Armonia Retreat Center.</h2>
@@ -774,7 +763,7 @@
 
     <div class="stats r-up" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))" data-stagger="60">
       <div><b>4,000<small>m²</small></b><span>Of grounds</span></div>
-      <div><b>17</b><span>Women on the property</span></div>
+      <div><b><span data-count="17">17</span></b><span>Women on the property</span></div>
       <div><b>1</b><span>Room type, one price</span></div>
       <div><b>7</b><span>Nights, all yours</span></div>
     </div>
@@ -899,20 +888,12 @@
 
     <div class="drop r-up" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
       <details>
-        <summary><span class="k">Rooms</span> Shared, twin beds, en-suite, and no single option</summary>
-        <div class="a"><p>Every room is shared, two to a room, twin beds, each with its own bathroom, air conditioning, linens and towels. There is no single room and no supplement to buy one: one room type, one price. If you are travelling with someone, say so when you book and you will be roomed together.</p></div>
-      </details>
-      <details>
         <summary><span class="k">On site</span> Pool, sauna, gym, studio, and a kitchen that stays open</summary>
         <div class="a"><p>A pool and a deck, a sauna indoors and a barrel sauna out in the olive grove, a gym, an indoor studio for the morning it rains, a lounge, a full kitchen, and outdoor dining under vine.</p></div>
       </details>
       <details>
         <summary><span class="k">Grounds</span> Four thousand square metres, in the middle of the village</summary>
         <div class="a"><p>Olive, palm and stone paths, a lawn with an old stone oven on it, and the circular deck the mornings happen on. You are not in a compound outside a town; the village is on the other side of the wall.</p></div>
-      </details>
-      <details>
-        <summary><span class="k">Meals</span> Breakfast, lunch and dinner, cooked here</summary>
-        <div class="a"><p>Every day, with Cretan ingredients, in the house. List anything you cannot eat when you book and it reaches the kitchen well before you land.</p></div>
       </details>
     </div>
 
@@ -936,6 +917,11 @@
     <h2 class="head h-2 split" id="hosts-h">Two of us, and neither of us is a guru.</h2>
     <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
 
+    <!-- The two of them sit side by side from 62rem up (`.gr-hosts`). Stacked,
+         they were two full width rows and 1.73 screens of a page whose length
+         is the complaint. Square portraits rather than 4:5, for the same
+         reason. -->
+    <div class="gr-hosts">
     <div class="rt-person r-up" style="margin-top:clamp(var(--s-6),6vw,var(--s-8))">
       <figure>
         <img src="../../assets/img/retreats/cydnie-greece-600.webp"
@@ -972,23 +958,23 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 </section>
 
 <!-- 08 / INCLUDED.
      One list, not two columns: split them and a reader takes in the left
      one and misses the right, and the right one is the airfare. -->
-<section class="section z-silt" data-zone style="--from:var(--surface)" id="included" aria-labelledby="inc-h">
+<section class="section gr-c z-silt" data-zone style="--from:var(--surface)" id="included" aria-labelledby="inc-h">
   <div class="wrap">
-    <div class="grid-12">
-      <div class="col-d">
-        <p class="eyebrow r-fade">What the price covers</p>
+    <div>
+      <div>
+        <p class="eyebrow eyebrow--plain r-fade">What the price covers</p>
         <h2 class="head h-2 split" id="inc-h">Everything once you land.</h2>
-        <p class="body r-up" style="--d:60ms; margin-top:var(--s-5)">Your flight is the only thing you book yourself. If you want help finding the right one, ask once you have a seat and I will sit down with the routes with you.</p>
-        <p class="small muted r-up" style="--d:120ms; margin-top:var(--s-4)">Airfare is the number to plan for. Airlines have not opened August 2027 schedules yet. When they do, budget $1,000 to $2,000 round trip from Minneapolis depending on routing and how early you book. Better you hear it here than find it in a second tab.</p>
+        <p class="body r-up" style="--d:60ms; margin-top:var(--s-5)">Your flight is the only thing you book yourself, and I will sit down with the routes with you once you have a seat. Airlines have not opened August 2027 schedules yet; when they do, budget $1,000 to $2,000 round trip from Minneapolis. Better you hear it here than find it in a second tab.</p>
       </div>
-      <div class="col-e">
-        <ul class="rt-incl r-up" style="--d:60ms" role="list">
+      <div>
+        <ul class="rt-incl gr-incl-2 r-up" style="--d:60ms; margin-top:clamp(var(--s-6),5vw,var(--s-7))" role="list">
           <li>Seven nights at Armonia, shared room, en-suite</li>
           <li>Breakfast, lunch and dinner, every day</li>
           <li>Daily movement sessions with Kris</li>
@@ -1002,32 +988,11 @@
       </div>
     </div>
 
-    <div class="triptych" style="margin-top:clamp(var(--s-6),6vw,var(--s-7))">
-      <figure class="layer-fig r-img">
-        <img src="../../assets/img/greece/table-600.webp"
-             srcset="../../assets/img/greece/table-600.webp 600w, ../../assets/img/greece/table-736.webp 736w"
-             sizes="(min-width: 42rem) 30vw, 100vw" width="736" height="1000"
-             loading="lazy" decoding="async"
-             alt="A bowl of peaches, plums and grapes on the wooden dining table at Armonia.">
-        <figcaption>11 &nbsp; Local and seasonal</figcaption>
-      </figure>
-      <figure class="layer-fig r-img">
-        <img src="../../assets/img/greece/kitchen-600.webp"
-             srcset="../../assets/img/greece/kitchen-600.webp 600w, ../../assets/img/greece/kitchen-1000.webp 1000w"
-             sizes="(min-width: 42rem) 30vw, 100vw" width="1000" height="667"
-             loading="lazy" decoding="async"
-             alt="The kitchen at Armonia, a run of timber and stone with stools along the counter.">
-        <figcaption>12 &nbsp; Cooked on site</figcaption>
-      </figure>
-      <figure class="layer-fig r-img">
-        <img src="../../assets/img/greece/pergola-600.webp"
-             srcset="../../assets/img/greece/pergola-600.webp 600w, ../../assets/img/greece/pergola-1000.webp 1000w"
-             sizes="(min-width: 42rem) 30vw, 100vw" width="1000" height="667"
-             loading="lazy" decoding="async"
-             alt="The lit entrance to the house at night, a table under the vine pergola beside the door.">
-        <figcaption>13 &nbsp; The door, most evenings</figcaption>
-      </figure>
-    </div>
+    <!-- THE TRIPTYCH WAS HERE and came out on 23 September 2026. Three more
+         photographs of the table, the kitchen and the pergola, on a page that
+         already has a sixteen frame gallery of the same house and two full
+         bleed bands. It cost a screen on a phone to show the reader what she
+         had already seen. -->
   </div>
 </section>
 
@@ -1041,7 +1006,41 @@
      full; that is a fact and it is stated as one. -->
 <!-- THE BAND MARKS THE ACTION. One Deepwater band per page, on the
      thing the page is asking for, rather than alternating as decoration. -->
-<section class="section z-deepwater" data-zone style="--from:#DCE4E1" id="booking" aria-labelledby="book-h">
+<!-- PROOF, ADDED 22 September 2026. The page had none: it sent the reader
+     to /retreats/ to read what the women said, which is asking her to leave
+     the page that is doing the persuading. These are Costa Rica guests and
+     the label says so; nobody has been to Crete yet, and a quote implying
+     otherwise would be a lie. Same carousel as About and home. -->
+<section class="section z-light" data-zone style="--from:#DCE4E1" aria-labelledby="gr-words">
+  <div class="wrap">
+    <p class="eyebrow r-fade">Costa Rica, April 2026</p>
+    <h2 class="head h-2 split" id="gr-words">What the last group said.</h2>
+    <div class="quotes r-up" data-quotes style="margin-top:clamp(var(--s-6), 5vw, var(--s-7))">
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;I left being able to breathe&rdquo;</p>
+        <blockquote>I walked in carrying fear that the experience would take more from me than I had to give. I left being able to breathe, with old and new friends who cared about me.</blockquote>
+        <figcaption><b>BJB</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;The fact that you&rsquo;re even considering it&rdquo;</p>
+        <blockquote>The fact that you&rsquo;re even considering it should tell you that you should go. You&rsquo;ll come out the other end with new people in your life.</blockquote>
+        <figcaption><b>Kristi</b> <span>Retreat guest &middot; asked what she would say to someone afraid to come alone</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;Take a chance on an experience that will not disappoint you&rdquo;</p>
+        <blockquote>If you are weary from life and want to reset and refresh yourself, take a chance on an experience that will not disappoint you if you attend with open hands and heart.</blockquote>
+        <figcaption><b>Carol</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;My only regret was that I did not pack more swim suits&rdquo;</p>
+        <blockquote>It greatly surpassed all my expectations. My only regret was that I did not pack more swim suits.</blockquote>
+        <figcaption><b>Alice</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section gr-c z-deepwater" data-zone style="--from:var(--surface)" id="booking" aria-labelledby="book-h">
   <div class="wrap">
     <!-- The four things that actually stop a woman booking this, answered
          one at a time rather than buried in a list of nine at the bottom of
@@ -1054,7 +1053,7 @@
     <!-- With no JS this is a list of four questions and four answers, so the
          lede does not tell anyone to pick anything. `buildReversal` swaps in
          the data-lede line once there is something to pick. -->
-    <p class="ready-lede small muted r-up" style="margin:var(--s-4) 0 var(--s-6); max-width:34rem">Four things women say to me before they book. All four are reasonable.</p>
+    <p class="ready-lede small muted r-up" style="margin:var(--s-4) auto var(--s-6); max-width:34rem">Four things women say to me before they book. All four are reasonable.</p>
     <div class="reversal r-up" data-reversal data-label="What is actually stopping you"
          data-lede="Pick the one that is true. The other three are not your problem."
          style="margin-bottom:clamp(var(--s-8),8vw,var(--s-10))">
@@ -1083,6 +1082,16 @@
       <p>The price is below anyway, because you should be able to see what a thing costs before you decide whether to wait for it. Shared room, twin beds, private bathroom. One room type, one price, and no single occupancy option.</p>
       <p>Choose how you would pay and you go on the list. When a seat opens I call the list in order.</p>
     </div>
+
+    <!-- THE ROUTE OUT, 22 September 2026. Until now a reader convinced by
+         this page could do one thing: join a list for a week eleven months
+         away that may never open a seat. Gatlinburg is open and selling. A
+         sentence with links in it, never a button: the waitlist is still
+         this page's ask and a second button would compete with it, and the
+         suite asserts the ask block holds exactly one. No price here on
+         purpose, so the 31 October early rate has one fewer place to be
+         changed. -->
+    <p class="small r-up" style="--d:120ms; margin-top:var(--s-5); max-width:34rem">Not willing to wait on a seat? <a class="link" href="/retreats/gatlinburg/">Gatlinburg is open</a>: five days in the Smokies, 13 to 18 April 2027, booking now. A third date follows in <a class="link" href="/retreats/">May 2027</a>.</p>
 
     <dl class="rt-rates r-up" style="--d:120ms; grid-template-columns:1fr; max-width:26rem">
       <div class="rt-rate">
@@ -1124,54 +1133,11 @@
   </div>
 </section>
 
-<!-- 10 / GETTING THERE.
-     Was five rows of a definition list, which is a table of facts about a
-     thing that is actually a sequence, in order, with dates on it. It is
-     drawn as the sequence now: five stops on one rule, and the last one is
-     the only filled dot because it is the only end. The two things people
-     get wrong -- the arrival time and the buffer night -- are stops two and
-     one, not a note underneath. -->
-<section class="section z-silt" data-zone style="--from:var(--deepwater)" id="getting-there" aria-labelledby="fly-h">
-  <div class="wrap">
-    <div class="grid-12">
-      <div class="col-d">
-        <p class="eyebrow r-fade">Getting there</p>
-        <h2 class="head h-2 split" id="fly-h">Fly into Chania.</h2>
-      </div>
-      <div class="col-e">
-        <p class="small muted r-up" style="--d:60ms">Your flight is the only thing you book yourself. Everything from the terminal onward is arranged, in both directions.</p>
-      </div>
-    </div>
-
-    <ol class="trip r-up" data-stagger="60" role="list">
-      <li>
-        <span class="n">Book</span>
-        <h3>Outbound 12 August</h3>
-        <p>A day early, on purpose. International travel takes a day and arriving with the buffer is worth more than the night of hotel it costs you.</p>
-      </li>
-      <li>
-        <span class="n">Land</span>
-        <h3>Chania International, CHQ</h3>
-        <p>Most cities connect through Athens. It is the closest airport and it is about 33 km from the house.</p>
-      </li>
-      <li>
-        <span class="n">Be there by</span>
-        <h3>3:00 PM, 13 August</h3>
-        <p>That is the group transfer. It is the one time on the whole week that matters, which is why it is here and not in a footnote.</p>
-      </li>
-      <li>
-        <span class="n">Then</span>
-        <h3>We drive you in</h3>
-        <p>Ground transport is included both ways. Once you hold a seat you get the full pre-travel guide: what to pack, what August does, and what to expect on arrival.</p>
-      </li>
-      <li>
-        <span class="n">Home</span>
-        <h3>20 August</h3>
-        <p>Return transfer to CHQ. Book your flight out for any time that day and tell me which one.</p>
-      </li>
-    </ol>
-  </div>
-</section>
+<!-- THE TRAVEL SECTION WAS HERE, and it was removed on 22 September 2026.
+     Five stops of flight and transfer detail on a page whose seats are gone:
+     it is written for a woman who holds one, and she gets the full pre-travel
+     guide the day she does. The airport and the transfers are a question in
+     the FAQ below, where the schema answer already lived. -->
 
 <!-- 11 / QUESTIONS.
      Nine of these in one stack was a second scroll at the point the page
@@ -1180,15 +1146,18 @@
      The four that are not questions but objections have been lifted out
      entirely: they are the picker above the price, where they can do
      something. What is left here is genuinely practical. -->
-<section class="section z-light" data-zone style="--from:#DCE4E1" id="faq" aria-labelledby="q-h">
+<section class="section z-light" data-zone style="--from:var(--deepwater)" id="faq" aria-labelledby="q-h">
   <div class="wrap">
-    <p class="eyebrow r-fade">Before you ask</p>
-    <h2 class="head h-2 split" id="q-h">The practical answers.</h2>
-    <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
-    <div class="faq faq--two r-up" style="margin-top:clamp(var(--s-5),5vw,var(--s-6))">
+    <div class="gr-faq-grid">
+      <div class="gr-faq-head">
+        <p class="eyebrow r-fade">Before you ask</p>
+        <h2 class="head h-2 split" id="q-h">The practical answers.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
+      </div>
+    <div class="faq r-up">
       <details>
-        <summary>Are there still seats? <span class="sign" aria-hidden="true"></span></summary>
-        <div class="answer"><p>No. All fifteen are taken. The list is open and I call it in order when a seat opens, which does happen.</p></div>
+        <summary>Which airport, and how do I get to the house? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Chania International, CHQ, about 33 km away; most cities connect through Athens. Fly in on 12 August, a day early on purpose, and be at the airport by 3:00 PM on the 13th for the group transfer. Ground transport is included both ways, and everyone holding a seat gets the full pre-travel guide.</p></div>
       </details>
       <details>
         <summary>Is there a single room? <span class="sign" aria-hidden="true"></span></summary>
@@ -1203,10 +1172,6 @@
         <div class="answer"><p>Yes. List anything when you book and it gets to the kitchen well before you land. Meals are cooked on site with Cretan ingredients, so most things are straightforward.</p></div>
       </details>
       <details>
-        <summary>How much is the flight? <span class="sign" aria-hidden="true"></span></summary>
-        <div class="answer"><p>Airlines have not opened August 2027 schedules yet. When they do, budget $1,000 to $2,000 round trip from Minneapolis depending on routing and how early you book. Airfare is not included, and I would rather you heard that here than found it in a second tab.</p></div>
-      </details>
-      <details>
         <summary>Do I need travel insurance? <span class="sign" aria-hidden="true"></span></summary>
         <div class="answer"><p>It is not required and I would buy it anyway, on the day you book. The deposit is non-refundable and your flight will be booked months out. Insurance is the only thing covering either of those.</p></div>
       </details>
@@ -1218,6 +1183,7 @@
         <summary>Anything else? <span class="sign" aria-hidden="true"></span></summary>
         <div class="answer"><p>Email me at <a class="link" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a>. A question you are sitting on for three weeks is worth two minutes of my time to answer.</p></div>
       </details>
+    </div>
     </div>
   </div>
 </section>
@@ -1241,7 +1207,7 @@
      Silt, so it separates from the light FAQ above it without going to
      depth, and the full-bleed photograph under it is its own transition,
      which is why the section after this one still declares no --from. -->
-<section class="section z-silt" data-zone style="--from:var(--surface)" id="ask" aria-labelledby="ask-h">
+<section class="section gr-r z-silt" data-zone style="--from:var(--surface)" id="ask" aria-labelledby="ask-h">
   <div class="wrap">
     <div class="grid-12">
       <div class="col-d">
@@ -1283,8 +1249,8 @@
      drawn badly. Same ground as the block above it now: nothing changes
      colour until the photograph does. -->
 <section class="section--tight z-silt" aria-label="The grounds at Armonia">
-  <figure class="layer-band layer-band--wide" style="margin-bottom:0">
-    <img src="../../assets/img/greece/pool-view-1200.webp"
+  <figure class="layer-band layer-band--wide layer-band--par" style="margin-bottom:0">
+    <img class="par" data-speed="0.22" data-max="32" src="../../assets/img/greece/pool-view-1200.webp"
          srcset="../../assets/img/greece/pool-view-600.webp 600w, ../../assets/img/greece/pool-view-900.webp 900w, ../../assets/img/greece/pool-view-1200.webp 1200w, ../../assets/img/greece/pool-view-1800.webp 1800w"
          sizes="100vw" width="1800" height="1197"
          loading="lazy" decoding="async"
@@ -1294,7 +1260,7 @@
 </section>
 
 <!-- 14 / CLOSE. `--from` follows the ground above it, which is Silt now. -->
-<section class="section z-deep" data-zone style="--from:#DCE4E1" aria-label="Close">
+<section class="section gr-c z-deep" data-zone style="--from:#DCE4E1" aria-label="Close">
   <div class="wrap">
     <p class="eyebrow r-fade">13 to 20 August 2027</p>
     <h2 class="head h-2 split">Fifteen seats in Crete.</h2>
@@ -1305,9 +1271,9 @@
         <span>Join the waitlist</span>
         <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
       <span class="vh"> (opens my scheduling page)</span></a>
-      <a class="link" href="/retreats/">See both dates</a>
+      <a class="link" href="/retreats/">See all three dates</a>
     </div>
-    <p class="small r-up" style="--d:180ms; margin-top:var(--s-6); padding-top:var(--s-4); border-top:1px solid var(--rule); max-width:40rem">Costa Rica ran in April 2026. What the women said about it, and Melissa saying it on camera, is on the <a class="link" href="/retreats/#costa-rica">retreats page</a>.</p>
+    <p class="small r-up" style="--d:180ms; margin-top:var(--s-6); padding-top:var(--s-4); border-top:1px solid var(--rule); max-width:40rem">If waiting is not the answer, <a class="link" href="/retreats/gatlinburg/">Gatlinburg</a> is open: 13 to 18 April 2027, in the Smokies. Costa Rica ran in April 2026, and Melissa saying it on camera is on the <a class="link" href="/retreats/#costa-rica">retreats page</a>.</p>
   </div>
 </section>
 
@@ -1401,13 +1367,13 @@
   </div>
 </footer>
 
-<script src="../../assets/js/site.js?v=cb4b8e2f" defer></script>
+<script src="../../assets/js/site.js?v=89940e1e" defer></script>
 <!-- GA4 event tracking. Separate from site.js on purpose: site.js is
      the site working, this is the site being watched, and a measurement
      change should never be the reason a carousel stopped moving. Every
      event it sends is documented in tools/analytics-reference.html. -->
-<script src="../../assets/js/analytics.js?v=cb4b8e2f" defer></script>
-<script src="../../assets/js/consent.js?v=cb4b8e2f" defer></script>
+<script src="../../assets/js/analytics.js?v=89940e1e" defer></script>
+<script src="../../assets/js/consent.js?v=89940e1e" defer></script>
 <script src="/gatlinburg-popup.js" defer></script>
 </body>
 </html>

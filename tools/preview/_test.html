@@ -575,6 +575,41 @@ f.addEventListener('load', function(){
      var plain = [].slice.call(d.querySelectorAll('a[href$="6a21d07b6dcfbe3d85c663b6"]'));
      ok('greece: three plain waitlist links, hero, ask and close, all reaching the form',
         plain.length === 3);
+     /* 22 September: the page carried none of the site's motion. It has the
+        two travelling bands, the counting figures and the word light now,
+        and the pinned week costs a screen less than it did. */
+     ok('greece: the two full bleed bands travel',
+        d.querySelectorAll('.layer-band--par .par').length === 2);
+     /* NOT a comparison of the text against data-count: the counter is
+        probably mid-animation when the DOM is dumped, which made this
+        assertion fail on a page that was working. What is pinned is that
+        every counted figure is a real positive integer sitting in a stat
+        cell, which is the part a bad edit breaks. */
+     ok('greece: five figures count, all of them real numbers',
+        d.querySelectorAll('.stats [data-count]').length === 5 &&
+        [].every.call(d.querySelectorAll('[data-count]'), function (e) {
+          return /^[1-9][0-9]*$/.test(e.getAttribute('data-count') || ''); }));
+     /* 23 September: "each section looks the same after another with left
+        alignment". Thirteen headings all began at x=130. Measured off the
+        GLYPH RUN, not the element box: a block level heading's box is the
+        width of its column whatever the text inside it does, which is how
+        the first pass of this measurement reported centred sections that
+        were not. Three distinct starts is the floor, not the target. */
+     ok('greece: the headings do not all start at the same left edge',
+        (function () {
+          var seen = {}, n = 0;
+          [].forEach.call(d.querySelectorAll('main > section h1, main > section h2'), function (h) {
+            var r = d.createRange(); r.selectNodeContents(h);
+            var k = Math.round(r.getBoundingClientRect().left / 20) * 20;
+            if (!seen[k]) { seen[k] = 1; n++; }
+          });
+          return n >= 3;
+        })());
+     ok('greece: the two hosts are a pair, not two full width rows',
+        !!d.querySelector('.gr-hosts') &&
+        d.querySelectorAll('.gr-hosts .rt-person').length === 2);
+     ok('greece: the thesis is lit word by word',
+        !!d.querySelector('.lit[data-wordlight]'));
      ok('greece: no waitlist control is a dead scroll anchor',
         [].slice.call(d.querySelectorAll('a')).filter(function (a) {
           return /waitlist/i.test(a.textContent) && a.getAttribute('href') === '#booking';
