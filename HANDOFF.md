@@ -7446,3 +7446,25 @@ Pattern down the page at 1440, measured off glyph runs: L C L R L R L C L C
 L R C. (The same measurement run against element boxes reports six false
 mismatches on this page: a flex eyebrow's box is its column's width. Glyph
 runs, always.)
+
+### PUSHED, 24 September 2026. /retreats/greece/ IS LIVE.
+
+    aa3e09f  Greece, the sold-out pass: a way out, proof on the page,
+             and a rhythm
+
+Verified on www in a real browser: the four quotes sit above the price, both
+Gatlinburg links are there, "all three dates", the travel section is gone, the
+eight figures read correctly (40, 100m, 15min, 33km, 4,000m2, 17, 1, 7 --
+this is the one that was broken), both bands travel, the hosts are a pair,
+the alignment pattern is L C L R L R L C L C L R C, 0 HTML comments.
+
+`assets/img/greece/table-736.webp` is now unreferenced, orphaned by the
+triptych removal. Left in place; it belongs in the `assets/_unused/` sweep
+with the eighteen already listed there.
+
+**Next session:** the audits still to do, in order: /the-letters/, /contact/,
+/thequestions/. Carried: the phone width check in the suite, the unused CSS
+from the Sounding rebuild (`.sd-panel`, `.sd-offer`, `.sd-price`,
+`.sd-quote`), and the unused images. Open with her: whether Greece seats
+genuinely open or the waitlist is really the list for the next retreat, and
+whether the May 2027 date should be described on Greece rather than linked.
