@@ -7900,3 +7900,77 @@ The audits of /the-letters/, /contact/ and /thequestions/. The phone width
 check in the suite. The site-wide eyebrow offset: every page except Wild
 Canvas still sets its section labels 64px right of their headings, one class
 each (`eyebrow--hang`).
+
+## 68. START HERE FOR ARIZONA. 25 September 2026. LIVE, UNLINKED, WAITING ON HER "LAUNCH".
+
+Cydnie is moving to other work and will come back to Wild Canvas "when we
+are ready to fully launch it on the retreat page". This is the whole state
+in one place; section 67 above has the reasoning behind each piece.
+
+### What is live now (commit cfd6c66, verified in a browser on www)
+  * https://www.cydniejocelyn.com/retreats/arizona/ works for anyone with
+    the link. All three HoneyBook links are wired (hold $500
+    `public/6ab58825015882f2ae403595`, pay in full
+    `public/6ab588362524c9043b35b461`, the list `cf_id/69fa3c69e63a7a4c9bb354f1`).
+  * **Hidden four ways, on purpose:** two robots meta tags, the X-Robots-Tag
+    header in vercel.json, absent from sitemap.xml, linked from nowhere.
+    /retreats/ still shows the unnamed "A third date is coming" card.
+  * The pre-launch band is already gone (removed for the landing page).
+  * Review artifact v12: https://claude.ai/artifact/VRu6FxaxYCGvNGejiXnXxK
+    (matches what is live).
+
+### The page, top to bottom
+Hero: the long table at dusk (`table-set`, phone crop `table-set-portrait`).
+Why this exists / Clarissa and her line (brushstroke, watercolour wash) /
+the five days (pinned) / Costa Rica voices and Melissa (NO booking bands
+around them, on her word) / the house: nine places, the room band with the
+dusk mural bedroom (`room-moon`), the five-frame rail, mini golf and bowling
+plus one sentence / what the price covers, closing on "$335 a day" and the
+two booking buttons / where you are / hosts / FAQ and the list / book.
+
+### When she says "launch it on the retreats page"
+  1. `python3 tools/launch_arizona.py --check` (should say it would apply),
+     then `python3 tools/launch_arizona.py`. It removes both robots tags,
+     uncomments the canonical, wraps the parked Event JSON-LD, adds the page
+     to sitemap.xml, drops the vercel.json noindex header, and swaps the
+     /retreats/ mystery card for a real Wild Canvas card.
+  2. **Decide first, with her:** the card it writes uses the GREAT ROOM
+     photo (`great-room-600/1000/1450`), not the new dusk-table hero. Ask
+     whether it should match the hero (`table-set-600/1000/1702`). Also read
+     the card's words aloud to her before pushing; they were written before
+     the movement pass.
+  3. Does she want it on the home page too? Her instruction on 24 September
+     was that the home page is untouched; ask, do not assume.
+  4. `python3 tools/build.py`, `python3 tools/seams.py` (0),
+     `sh tools/preview/runsuite.sh "$SP" <port>` (642 / 0 on eleven pages),
+     `grep -c '<!--' dist/retreats/arizona/index.html` (0), check 390px.
+  5. Rebuild and republish the artifact (`python3 tools/build_artifact.py
+     arizona`, then the same URL) and one for /retreats/ if she wants to see
+     the card first. Push only on her word.
+  6. After the push: `vercel ls`, read both pages on www in a browser (curl
+     gives a false pass), then Search Console: request indexing for
+     /retreats/arizona/, resubmit the sitemap, Rich Results on the Event.
+
+### Dates that will change the page
+  * **1 December 2026:** $1,675 becomes $1,800. Change every "$1,675",
+    "through 30 November" and "early rate" line: the hero facts, the room
+    band and its rate strip, "$335 a day" (becomes $360), the closing band,
+    the parked Event JSON-LD, and the /retreats/ card if launched by then.
+    The `data-daysleft` counter hides itself on its own.
+  * The Gatlinburg early rate ends 31 October (section 62), separately.
+
+### Still open with her (none block the launch)
+  * A voice from one of Clarissa's own programmes: all the proof on the page
+    is about rest, none about making.
+  * The bowling sign shows faintly behind the hero button on desktop;
+    cropping it out costs sharpness (the frame drops to ~1089px wide).
+  * Gatlinburg's host portraits are still hard edged; Arizona's fade.
+  * Never use the frames showing the LUXE AURA wall (2.46.57, 2.47.01,
+    2.47.10 uncropped) or the street view: they name the house.
+
+### Housekeeping
+  * `tools/cydnie-jocelyn-arizona.html` (the 6MB review build) is untracked
+    and deliberately NOT committed. It could go in .gitignore.
+  * `assets/img/arizona/` carries ~70 files, some no longer on the page
+    (kitchen, lounge, bath, the old teal room, sauna-gym, bar-dusk, games).
+    Harmless; prune only if asked.
