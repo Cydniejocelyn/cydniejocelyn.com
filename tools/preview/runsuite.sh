@@ -54,6 +54,7 @@ if [ -n "$ONE" ]; then
 else
   one greece   /retreats/greece/
   one gatlinburg /retreats/gatlinburg/
+  one arizona  /retreats/arizona/
   one retreats /retreats/
   one sounding /a-sounding/
   one letters  /the-letters/

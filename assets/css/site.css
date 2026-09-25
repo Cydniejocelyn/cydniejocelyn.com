@@ -5486,7 +5486,8 @@ main > * { position: relative; z-index: 1; }
    on the figure, or it fades the caption text along with the picture. */
 #depth, .ab-portrait, .rt-date-fig:not(.rt-date-fig--map),
 .story-fig img, .retreat-fig img, .layer-fig img, .rt-person figure img,
-.rt-play img {
+.rt-play img,
+.az-artist-fig img, .az-extra img, .az .gb-host figure img {
   --e-t: 7%; --e-b: 88%; --e-x: 8%; --e-xr: 92%;
   -webkit-mask-image: linear-gradient(180deg,
       rgb(0 0 0 / 0.00) 0%,
@@ -6932,6 +6933,263 @@ main > * { position: relative; z-index: 1; }
   .js-motion .bd-not-list li.r-up s::after { transform: scaleX(1); transition: none; }
   .bd-areas li, .bd-areas p { transition: none; }
 }
+
+/* ---- WILD CANVAS: THE ARIZONA EDITION, 24 September 2026 -------
+   The page carries `gb az` on <main>, so every component the Gatlinburg
+   rebuild introduced applies to it unchanged and nothing is duplicated
+   here. This block is only what genuinely differs: one room type instead of
+   two, the artist's quote, the statement's two paragraphs, and the TODO
+   markers that stand in for the facts Cydnie has still to send. The TODO
+   styling exists to be ugly. It is deleted, not restyled, at launch. */
+
+/* The hero photograph is an interior, not a ridge at dusk, so its scrim is
+   its own. Measured with tools/hero_composite.js; see HANDOFF 66. */
+.az .az-hero .hero-scrim {
+  background:
+    linear-gradient(90deg,
+      rgba(7,26,31,.88) 0%, rgba(7,26,31,.78) 38%,
+      rgba(7,26,31,.44) 64%, rgba(7,26,31,.22) 86%, rgba(7,26,31,.16) 100%),
+    linear-gradient(180deg,
+      rgba(7,26,31,.66) 0%, rgba(7,26,31,.36) 10%, rgba(7,26,31,.26) 24%,
+      rgba(7,26,31,.34) 60%, rgba(7,26,31,.80) 90%, var(--fathom) 100%);
+}
+@media (max-width: 47.99rem) {
+  /* Lighter since the dusk table became the hero, 24 September: the old
+     weight was set for the great room and left this frame almost black on
+     a phone. Measured after, with tools/hero_composite.js at 390. */
+  .az .az-hero .hero-scrim {
+    background:
+      linear-gradient(90deg,
+        rgba(7,26,31,.66) 0%, rgba(7,26,31,.56) 40%,
+        rgba(7,26,31,.42) 70%, rgba(7,26,31,.34) 100%),
+      linear-gradient(180deg,
+        rgba(7,26,31,.62) 0%, rgba(7,26,31,.30) 14%, rgba(7,26,31,.34) 32%,
+        rgba(7,26,31,.40) 60%, rgba(7,26,31,.80) 90%, var(--fathom) 100%);
+  }
+  /* The Gatlinburg phone rule pins 24% 34% for its own frame; this one
+     wants the lights and the palm, which sit right of centre. */
+  .gb.az .hero-water img { object-position: 58% 40% !important; }
+}
+
+/* The statement's two paragraphs, centred under it the way the lead is. */
+.az-why { max-width: 42rem; margin-inline: auto; text-align: center; color: var(--muted); }
+.az-why > p { margin-top: clamp(var(--s-5), 4vw, var(--s-6)); font-size: clamp(1.0625rem, 1.3vw, 1.125rem); line-height: 1.62; }
+
+/* THE ARTIST, IN ONE LINE. Her sentence, set as the page's one piece of
+   liturgy, on its own ground. No quotation marks drawn in CSS: the mark is
+   in the markup, where a screen reader can find it. */
+.az-artist-sec { padding-block: clamp(4rem, 9vw, 7rem); }
+
+/* THE PRE-LAUNCH BAND sits at the top of the flow and the header is fixed
+   over it, so it needs the header's own height of clearance. */
+.az .prelaunch { padding-top: clamp(4.75rem, 9vw, 6rem); }
+
+/* ONE ROOM TYPE, AS A BAND. Cydnie did not like the single card: a shape
+   built for a pair reads as a missing second card. The photograph holds the
+   left, the decision holds the right, and the whole thing is the width of
+   the page, so it is the heaviest object in the section rather than a tile
+   floating in it. */
+.az-stay {
+  display: grid; grid-template-columns: minmax(0, 1fr);
+  margin-top: clamp(var(--s-6), 5vw, var(--s-7));
+  background: var(--field); border: 1px solid var(--rule);
+  transition: translate 420ms var(--ease-out), box-shadow 420ms var(--ease-out), border-color 420ms var(--ease-out);
+}
+@media (min-width: 56rem) { .az-stay { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } }
+.az-stay-fig { margin: 0; overflow: hidden; }
+.az-stay-fig img { width: 100%; height: 100%; min-height: 15rem; object-fit: cover; display: block; transition: scale 900ms var(--ease-out); }
+/* THE SEAM, NOT THE PLATE. Cydnie, 24 September: the photographs "should
+   match the rest of the entire website where the edges are faded". This one
+   sits inside a bordered band, so its outer edges are the band's own edges
+   and fading them would leave a soft picture inside a hard line. It fades
+   only where it meets the decision, which is what `.gb-room-fig img` does on
+   Gatlinburg: the bottom when the band stacks, the right when it sits beside
+   it. On the FIGURE, because the image scales on hover and a mask on the
+   image would scale out past the clip with it. */
+.az-stay-fig {
+  -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 84%, transparent 100%);
+}
+@media (min-width: 56rem) {
+  .az-stay-fig {
+    -webkit-mask-image: linear-gradient(to right, #000 80%, transparent 100%);
+            mask-image: linear-gradient(to right, #000 80%, transparent 100%);
+  }
+}
+.az-stay-body { padding: clamp(var(--s-5), 3vw, var(--s-7)); display: flex; flex-direction: column; }
+.az-stay-body .gb-price { margin-top: var(--s-3); }
+
+/* ONE LEFT EDGE INSIDE THE BAND. Cydnie, 24 September: "The verbiage isn't
+   all aligned and some words are offset from others." Two things were doing
+   it. The rate strip is a bordered box, so its own padding set its text a
+   gutter in from the heading and the price; it is a plain line here. And
+   `.rt-incl` lays a 1.5rem marker column, which pushed every bullet's text
+   in by that much; the plus signs hang in the body's padding now and the
+   text starts where the price does. */
+.az-stay-body .gb-rate-strip {
+  margin-top: var(--s-4); padding: 0; border: 0; background: none;
+}
+.az-stay-body .rt-incl li { position: relative; grid-template-columns: minmax(0, 1fr); }
+.az-stay-body .rt-incl li::before { position: absolute; left: -1.5rem; top: var(--s-3); }
+.az-stay-body .rt-incl { margin: clamp(var(--s-5), 3vw, var(--s-6)) 0 var(--s-5); }
+.az-stay-body .actions { margin-top: auto; }
+@media (hover: hover) {
+  .az-stay:hover {
+    translate: 0 -6px; border-color: var(--breath);
+    box-shadow: 0 0 0 1px var(--breath), 0 1.5rem 3rem -1.25rem rgba(12, 40, 48, .35), 0 0 2.5rem .25rem rgba(159, 204, 198, .45);
+  }
+  .az-stay:hover .az-stay-fig img { scale: 1.04; }
+}
+.az-stay:focus-within { border-color: var(--breath); box-shadow: 0 0 0 1px var(--breath), 0 0 2.5rem .25rem rgba(159, 204, 198, .45); }
+@media (prefers-reduced-motion: reduce) { .az-stay, .az-stay-fig img { transition: none; } }
+
+/* MORE PLACES TO BOOK. Cydnie, 24 September: "make more areas for them to
+   book." Three bands between the sections that give a reader a reason, each
+   carrying the real pair of booking links rather than a jump back up the
+   page. A rule above and below, the line on the left, the pair on the right,
+   and they stack on a phone. No ground of their own: they take the ground of
+   the section above, so no seam moves. */
+.az-cta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--s-4) var(--s-6);
+  padding-block: clamp(var(--s-5), 3vw, var(--s-6));
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+.az-cta-line {
+  margin: 0; max-width: 34rem;
+  font-family: var(--carved); font-size: clamp(1.18rem, 1.9vw, 1.5rem);
+  line-height: 1.3; letter-spacing: .01em; color: var(--ink);
+}
+.az-cta .actions { flex: none; }
+@media (max-width: 47.99rem) { .az-cta .actions { width: 100%; } .az-cta .btn { flex: 1 1 auto; justify-content: center; } }
+
+/* ---------- WILD CANVAS, THE MOVEMENT PASS, 24 September evening ---------
+   Cydnie: the booking bands between sections "feel out of place. Make the
+   page immersive and flow with different movement, animations and
+   conversion tactics." Two bands are gone. What replaces them is movement
+   that belongs to an art retreat and asks for nothing: a brushstroke that
+   paints itself under three headings, nine places drawn in one at a time,
+   a wash of colour behind the artist's line, and the price as a day. Every
+   one resolves once and stays; nothing loops. Reduced motion, no script
+   and no-motion builds all get the finished state. */
+
+/* The price as a day, closing the section that makes the price argument. */
+.az-cta--sum { margin-top: clamp(var(--s-6), 5vw, var(--s-7)); }
+.az-per { display: inline-flex; align-items: baseline; gap: .35em; margin-right: .3em; white-space: nowrap; }
+.az-per b { font-weight: 400; font-size: 1.9em; line-height: 1; color: var(--ink); }
+.az-per b::before { content: "$"; font-size: .55em; vertical-align: .6em; margin-right: .04em; }
+.az-per span { font-family: var(--utility); font-size: .6875rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+
+/* THE BRUSHSTROKE. Two passes of a loaded brush, the second thinner and a
+   beat behind, drawn left to right when the heading arrives. Held, the warm
+   note, because these are the three sections that carry no other. */
+.az-stroke { display: block; width: min(15rem, 62%); height: .9rem; margin-top: var(--s-3); overflow: visible; }
+.az-stroke--center { margin-inline: auto; }
+.az-stroke path { fill: none; stroke: var(--held); stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.az-stroke path:first-child { stroke-width: 5; opacity: .85; }
+.az-stroke path:last-child  { stroke-width: 2; opacity: .5; }
+.js-motion .az-stroke.r-fade { opacity: 1; }
+.js-motion .az-stroke path { stroke-dashoffset: 1; transition: stroke-dashoffset 1100ms cubic-bezier(.6, .05, .25, 1) 350ms; }
+.js-motion .az-stroke path:last-child { transition-delay: 700ms; transition-duration: 900ms; }
+.js-motion .az-stroke.is-in path { stroke-dashoffset: 0; }
+
+/* NINE PLACES. Nine rings that fill in sequence, then the sentence. */
+.az-seats { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); margin-top: var(--s-5); }
+.az-seat-row { display: inline-flex; gap: .5rem; }
+.az-seat-row i { width: .85rem; height: .85rem; border-radius: 50%; border: 1px solid var(--held); background: var(--held); }
+.az-seat-note { font-family: var(--utility); font-size: .6875rem; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.js-motion .az-seats.r-fade { opacity: 1; }
+.js-motion .az-seat-row i { background: transparent; transform: scale(.4); opacity: 0;
+  transition: transform 520ms var(--ease-out), opacity 520ms var(--ease-out), background-color 520ms var(--ease-out);
+  transition-delay: calc(250ms + var(--i) * 110ms); }
+.js-motion .az-seats.is-in .az-seat-row i { transform: none; opacity: 1; background: var(--held); }
+.js-motion .az-seat-note { opacity: 0; transition: opacity 700ms var(--ease-out) 1300ms; }
+.js-motion .az-seats.is-in .az-seat-note { opacity: 1; }
+
+/* A WASH BEHIND THE ARTIST'S LINE, like water dropped on paper and left to
+   spread. It blooms once as the quote arrives and settles at a tint. */
+.az-quote { position: relative; isolation: isolate; }
+/* The wash spills past the quote on purpose, and past the page edge at
+   1024: the section clips it rather than the page growing a sideways scroll. */
+.az-artist-sec { overflow-x: clip; }
+.az-quote::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  inset: -22% -12% -22% -18%;
+  background:
+    radial-gradient(42% 58% at 30% 45%, rgba(159, 204, 198, .6), transparent 70%),
+    radial-gradient(34% 46% at 72% 62%, rgba(206, 144, 138, .34), transparent 72%);
+  filter: blur(6px); border-radius: 50%;
+}
+.js-motion .az-quote::before { opacity: 0; transform: scale(.55); transition: opacity 1600ms var(--ease-out) 200ms, transform 2200ms var(--ease-out) 200ms; }
+.js-motion .az-quote.is-in::before { opacity: 1; transform: none; }
+
+/* The rest of the house lifts under a pointer, the way the room band does. */
+.az-extra { overflow: hidden; }
+.az-extra img { transition: scale 900ms var(--ease-out); }
+@media (hover: hover) { .az-extra:hover img { scale: 1.05; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion .az-stroke path { stroke-dashoffset: 0; transition: none; }
+  .js-motion .az-seat-row i, .js-motion .az-seat-note { opacity: 1; transform: none; background: var(--held); transition: none; }
+  .js-motion .az-quote::before { opacity: 1; transform: none; transition: none; }
+  .az-extra img { transition: none; }
+}
+
+/* THE REST OF THE HOUSE. Six frames of what a woman does in the hours
+   between sessions, captioned as what they are. Three across on a desktop,
+   two on a tablet, one on a phone; the heading spans the row. */
+.az-extras {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4);
+  margin-top: clamp(var(--s-7), 7vw, var(--s-8));
+}
+@media (min-width: 40rem) { .az-extras { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); } }
+/* Two frames since 24 September evening (the games room came out on her
+   word), so the two share the width rather than leaving a third column empty. */
+.az-extras-h {
+  grid-column: 1 / -1; margin: 0;
+  font-family: var(--carved); font-size: clamp(1.33rem, 2vw, 1.72rem);
+  line-height: 1.24; letter-spacing: .02em; color: var(--ink);
+}
+.az-extra { margin: 0; }
+.az-extra img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+.az-extras-line { grid-column: 1 / -1; margin: var(--s-3) 0 0; color: var(--muted); max-width: 46rem; }
+.az-extra figcaption {
+  margin-top: var(--s-3);
+  font-family: var(--utility); font-size: .6875rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* THE ARTIST. Her photograph on the left, who she is and then her sentence
+   on the right, so the quote arrives from a person the reader has just met
+   rather than from a stranger two sections later. */
+.az-artist { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(var(--s-6), 5vw, var(--s-8)); align-items: center; }
+@media (min-width: 56rem) { .az-artist { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } }
+.az-artist-fig { margin: 0; overflow: hidden; }
+.az-artist-fig img { width: 100%; height: auto; display: block; }
+.az-artist-copy .lead { margin-top: var(--s-5); color: var(--muted); }
+
+/* Her line, set as the page's one piece of liturgy. Left set: the statement
+   above it is centred, and two centred blocks in a row is a page with no
+   rhythm. The mark is in the markup, where a screen reader finds it. */
+.az-quote { margin: clamp(var(--s-6), 4vw, var(--s-7)) 0 0; max-width: 40rem; text-align: left; padding-left: var(--s-5); border-left: 1px solid var(--rule); }
+.az-quote blockquote { margin: 0; font-family: var(--carved); font-weight: 400; font-size: clamp(1.33rem, 2.3vw, 1.86rem); line-height: 1.24; letter-spacing: .01em; color: var(--ink); text-indent: -.38em; }
+.az-quote figcaption { margin-top: var(--s-4); font-family: var(--utility); font-size: .6875rem; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+@media (min-width: 52rem) { .az-rooms { grid-template-columns: minmax(0, 1fr); } }
+.az-was { color: var(--muted); text-decoration-thickness: 1px; font-size: 1.125rem; margin-left: .4em; }
+
+/* THE TODO MARKERS. Deliberately loud, and deliberately not brand colours:
+   every one is a fact that is still missing, and the page cannot launch with
+   any of them on it. tools/launch_arizona.py refuses to run while one is
+   left in the file. */
+.az-todo {
+  display: inline-block; background: #FFE8B0; color: #6B4A00;
+  border: 1px dashed #A67C00; border-radius: 2px;
+  padding: .12em .5em; margin: .1em 0;
+  font-family: var(--utility); font-size: .78rem; letter-spacing: .06em;
+}
+.az-todo--block { display: block; margin-top: var(--s-5); text-align: center; }
+.az-todo-li { list-style: none; }
+.az-todo-tile { background: #FFF6DF; }
 
 /* ---------- 23. PRINT --------------------------------------- */
 @media print {

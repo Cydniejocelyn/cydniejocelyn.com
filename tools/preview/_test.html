@@ -199,7 +199,12 @@ f.addEventListener('load', function(){
    if(gal){
      var rail = gal.querySelector('.gal-rail');
      var tiles = gal.querySelectorAll('.gal-item');
-     ok('rail: '+tiles.length+' tiles, and it overflows', tiles.length>6 && rail.scrollWidth > rail.clientWidth+50);
+     /* `tiles.length > 6` was "however many Greece had the day this was
+        written", and it went red the moment Wild Canvas cut its rail from
+        thirteen frames to five on Cydnie's instruction. The thing worth
+        asserting is that the rail is a rail: more than a couple of tiles,
+        and wider than its own box so there is something to drag. */
+     ok('rail: '+tiles.length+' tiles, and it overflows', tiles.length>=3 && rail.scrollWidth > rail.clientWidth+50);
      ok('rail: marked live only after the arrows exist',
         gal.classList.contains('is-live') && !!gal.querySelector('.gal-nav'));
      ok('rail: every tile opens', tiles.length===gal.querySelectorAll('.gal-item button').length);

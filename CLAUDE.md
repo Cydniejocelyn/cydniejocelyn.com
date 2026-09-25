@@ -1,8 +1,10 @@
 # Working on this site
 
 This file is a pointer, not a second source of truth. **`HANDOFF.md` section
-62 is the current state of the site**: /retreats/gatlinburg/ launched on
-16 September 2026. Read it before doing anything. Where
+67 is the current state of the site**: /retreats/gatlinburg/ launched on
+16 September 2026, and /retreats/arizona/ went live on 24 September as an
+unlinked, noindex landing page (not on /retreats/, not in the sitemap, on
+her word). Read it before doing anything. Where
 this file and HANDOFF disagree, HANDOFF is right and this file is stale: fix
 it rather than working around it.
 

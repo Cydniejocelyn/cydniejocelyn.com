@@ -75,6 +75,9 @@ PAGES = (
     # correctness check, not a search one, and the page has fourteen
     # of them. Its absence from sitemap.xml is the deliberate part.
     "retreats/gatlinburg/index.html",
+    # Pre-launch and noindex, same as Gatlinburg was. Its absence from
+    # sitemap.xml is the deliberate part, not its absence from here.
+    "retreats/arizona/index.html",
 )
 
 

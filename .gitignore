@@ -45,7 +45,7 @@ April Retreat Gatlinburg April 13th - 18th\ /
 # Wild Canvas: The Arizona Edition, 24MB. Same rule as Gatlinburg above: the
 # frames the page uses are converted to WebP in assets/img/arizona/ and are
 # tracked; the source is not.
-May Retreat Arizona May 5th - 9th/
+Wild Canva The Arizona Edition May 5-9/
 
 # THE BACKEND SECRETS. .env.local holds three database passwords and the IP
 # hashing salt. There is no recovering from committing it: the history is

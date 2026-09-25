@@ -28,7 +28,7 @@ next pass does not have to sift 296 photographs again.
 """
 
 import os
-from PIL import Image, ImageEnhance, ImageOps
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BRANDING = os.path.join(ROOT, "CydnieJocelyn-Site", "Branding copy")
@@ -156,8 +156,19 @@ def index(root):
     return found
 
 
-def emit(src, out_dir, slug, widths, grade=None):
+def emit(src, out_dir, slug, widths, grade=None, crisp=False):
     im = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
+
+    # A box, where the frame was cut by hand: (left, top, right, bottom) as
+    # fractions of the source. Applied before anything else, so a `ratio`
+    # after it trims the box rather than the whole frame. It exists so the
+    # hand cuts live in the table and can be made again, instead of being
+    # lost with the session that made them (which happened to four of
+    # Arizona's, and they had to be recovered by matching pixels).
+    if grade and grade.get("box"):
+        x0, y0, x1, y1 = grade["box"]
+        w0, h0 = im.size
+        im = im.crop((round(x0 * w0), round(y0 * h0), round(x1 * w0), round(y1 * h0)))
 
     # A grade, where one frame needs calming rather than replacing. Only
     # cr-dusk uses it. That photograph is the one unguarded thing on the
@@ -198,12 +209,23 @@ def emit(src, out_dir, slug, widths, grade=None):
         # Quality falls with size. These pages carry twenty photographs
         # each; at q82 the wide variants alone ran over 4MB.
         q = 82 if w <= 700 else 76 if w <= 1200 else 70
-        im.resize((w, h), Image.LANCZOS).save(out, "WEBP", quality=q, method=6)
+        out_im = im.resize((w, h), Image.LANCZOS)
+        if crisp:
+            # CRISP, for sources that arrive soft. Arizona's are listing
+            # screenshots, already resized once by the listing site, and
+            # Cydnie read them as blurry on 24 September. A light unsharp
+            # mask after the resize restores edge contrast without halos
+            # (radius under a pixel, threshold 3 so flat walls and sky stay
+            # smooth), and the quality floor rises so the edges it restores
+            # are not smeared straight back out by the encoder.
+            out_im = out_im.filter(ImageFilter.UnsharpMask(radius=0.8, percent=70, threshold=3))
+            q = max(q, 84 if w <= 700 else 82 if w <= 1200 else 78)
+        out_im.save(out, "WEBP", quality=q, method=6)
         made.append((out, w, h))
     return made
 
 
-def run(table, source_root, out_name):
+def run(table, source_root, out_name, crisp=False):
     out_dir = os.path.join(ROOT, "assets", "img", out_name)
     os.makedirs(out_dir, exist_ok=True)
     files = index(source_root)
@@ -214,7 +236,7 @@ def run(table, source_root, out_name):
         if not src:
             print("  MISSING %-12s %s" % (slug, name))
             continue
-        for out, w, h in emit(src, out_dir, slug, widths, grade):
+        for out, w, h in emit(src, out_dir, slug, widths, grade, crisp):
             print("  %-34s %5d x %-5d %6.0f KB"
                   % (os.path.relpath(out, ROOT), w, h,
                      os.path.getsize(out) / 1024.0))
@@ -228,7 +250,7 @@ def run(table, source_root, out_name):
 # is a house on a named street with a number on it. Cydnie is keeping the
 # location quiet ("I want to keep the location a secret right now"), and a
 # photograph gives an address away as surely as a sentence does.
-ARIZONA_SRC = os.path.join(ROOT, "May Retreat Arizona May 5th - 9th")
+ARIZONA_SRC = os.path.join(ROOT, "Wild Canva The Arizona Edition May 5-9")
 ARIZONA = {
     "great-room":  ("Screenshot 2026-09-03 at 6.13.02 AM.png", [600, 1000, 1600]),
     "kitchen":     ("Screenshot 2026-09-03 at 6.12.56 AM.png", [600, 1000, 1600]),
@@ -238,6 +260,55 @@ ARIZONA = {
     "room-dusk":   ("Screenshot 2026-09-03 at 6.13.55 AM.png", [600, 1000]),
     "bath":        ("Screenshot 2026-09-03 at 6.14.21 AM.png", [600, 1000]),
     "lounge":      ("Screenshot 2026-09-03 at 6.14.49 AM.png", [600, 1000, 1600]),
+
+    # A second set arrived 24 September, and it is the half of the house the
+    # first set did not show: what a guest does between sessions. Cydnie:
+    # "Highlight that there will be mini golf, bowling onsite as well as a
+    # 2 person sauna, small gym, tons of creative games."
+    "patio-dusk":  ("Screenshot 2026-09-24 at 2.46.09 PM.png", [600, 1000, 1702]),
+    "bar-dusk":    ("Screenshot 2026-09-24 at 2.46.37 PM.png", [600, 1000, 1702]),
+    "minigolf":    ("Screenshot 2026-09-24 at 2.46.32 PM.png", [600, 1000, 1702]),
+    "bowling":     ("Screenshot 2026-09-24 at 2.47.22 PM.png", [600, 1000, 1702]),
+    "sauna-gym":   ("Screenshot 2026-09-24 at 2.46.43 PM.png", [600, 1000, 1702]),
+    "games":       ("Screenshot 2026-09-24 at 2.47.51 PM.png", [600, 1000, 1702]),
+    "arcade":      ("Screenshot 2026-09-24 at 2.47.41 PM.png", [600, 1000]),
+    # THE HERO since 24 September evening: the long table set for dinner at
+    # dusk. Cydnie asked for a different hero; the great room went back to
+    # being a rail frame. The portrait is the phone hero, 3:4 on the table.
+    "table-set":   ("Screenshot 2026-09-24 at 2.44.37 PM.png", [600, 1000, 1702]),
+    "table-set-portrait": ("Screenshot 2026-09-24 at 2.44.37 PM.png", [600, 1000],
+                    {"box": (0.40, 0.0, 0.8977, 1.0), "ratio": 0.75}),
+    "bath-white":  ("Screenshot 2026-09-24 at 2.45.51 PM.png", [600, 1000]),
+    "room-arizona":("Screenshot 2026-09-24 at 2.45.09 PM.png", [600, 1000, 1702]),
+    "room-teal":   ("Screenshot 2026-09-24 at 2.45.02 PM.png", [600, 1000, 1702]),
+    "room-sports": ("Screenshot 2026-09-24 at 2.45.29 PM.png", [600, 1000]),
+    # Added 24 September evening, when Cydnie asked for the frames that
+    # "stand out": the dusk mural bedroom replaces the teal one in the room
+    # band, and the bonsai on the set table replaces the bar at dusk in the
+    # rail. The games room already here replaces the garage (sauna and gym).
+    "room-moon":   ("Screenshot 2026-09-24 at 2.45.20 PM.png", [600, 1000, 1702]),
+    "table-bonsai":("Screenshot 2026-09-24 at 2.46.21 PM.png", [600, 1000, 1702]),
+    # THE POOL IS CUT BY BOX. The property's name is painted on the wall
+    # behind it, high and left of centre, and no ratio crop clears it. The
+    # box is 919 x 746 source pixels, so that is the largest this frame can
+    # honestly be: the old pool-1000 was an upscale.
+    "pool":        ("Screenshot 2026-09-24 at 2.47.10 PM.png", [600, 1000],
+                    {"box": (0.46, 0.34, 1.0, 1.0)}),
+
+    # THE HAND CUTS, recovered 24 September by matching the shipped files
+    # back against these sources, and written down so they stop being lost.
+    # The phone hero: the great room at 3:4, 744 source pixels wide. The old
+    # file was 834, an upscale, on the first thing a phone reader sees.
+    "great-room-portrait": ("Screenshot 2026-09-03 at 6.13.02 AM.png", [600, 1000],
+                    {"box": (0.3007, 0.0, 0.8138, 1.0), "ratio": 0.75}),
+    # Clarissa at the table, 4:5 from a 2401 x 3600 original. It was capped
+    # at 1000, which is under what a Retina screen asks of the host pair.
+    "clarissa":    ("unnamed.jpg", [600, 1000, 1400],
+                    {"box": (0.0, 0.0633, 1.0, 0.8967), "ratio": 0.8}),
+    # Holding her painting, the whole 1800 x 1201 frame.
+    "clarissa-piece": ("unnamed-3.jpg", [600, 1000, 1450]),
+    # NOT HERE: clarissa-face-72/144, a hand cut from unnamed-2.jpg at
+    # (0.26, 0.031, 0.80, 0.391). Small, sharp already, and left alone.
 }
 
 
@@ -251,7 +322,7 @@ if __name__ == "__main__":
     print("A Sounding:")
     run(SOUNDING, BRANDING, "")
     print("Arizona:")
-    run(ARIZONA, ARIZONA_SRC, "arizona")
+    run(ARIZONA, ARIZONA_SRC, "arizona", crisp=True)
 
 
 # Considered, not shipped. Paths are relative to `Costa Rica copy/` unless

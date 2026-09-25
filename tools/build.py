@@ -52,7 +52,7 @@ EXCLUDE_DIRS = {
     # real, it is on disk, and dropping it here makes the drift check below
     # fail with two names that look identical in a terminal.
     "April Retreat Gatlinburg April 13th - 18th ",
-    "May Retreat Arizona May 5th - 9th",
+    "Wild Canva The Arizona Edition May 5-9",
 
     # THE BACKEND. Landed 10 September 2026, and every one of these is here
     # because the first build after they were written copied all of them

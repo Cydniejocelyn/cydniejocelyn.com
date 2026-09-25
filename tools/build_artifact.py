@@ -25,6 +25,8 @@ PAGES = {
                  "Rise Into Her: The Greece Edition"),
     "gatlinburg": ("retreats/gatlinburg/index.html", "cydnie-jocelyn-gatlinburg.html",
                  "Wide Open: The Gatlinburg Edition"),
+    "arizona":  ("retreats/arizona/index.html", "cydnie-jocelyn-arizona.html",
+                 "Wild Canvas: The Arizona Edition"),
     "sounding": ("a-sounding/index.html", "cydnie-jocelyn-sounding.html", "A Sounding"),
     "letters":  ("the-letters/index.html", "cydnie-jocelyn-letters.html", "The Letters"),
 }
@@ -179,6 +181,40 @@ PICK = {
     # Gatlinburg. Ten photographs of the house plus Kayla; Cydnie reuses the
     # standing retreat portrait the Greece page already folds.
     "gatlinburg/house-dusk":  "gatlinburg/house-dusk-1632.webp",
+    # Wild Canvas, 24 September. The hero is the great room; the portrait
+    # crop shares its stem, so it is named first and more specifically.
+    "arizona/great-room-portrait": "arizona/great-room-portrait-744.webp",
+    "arizona/great-room":     "arizona/great-room-1450.webp",
+    "arizona/kitchen":        "arizona/kitchen-1000.webp",
+    "arizona/patio":          "arizona/patio-1000.webp",
+    "arizona/lounge":         "arizona/lounge-1000.webp",
+    "arizona/room-saguaro":   "arizona/room-saguaro-1000.webp",
+    "arizona/room-palms":     "arizona/room-palms-1000.webp",
+    "arizona/room-dusk":      "arizona/room-dusk-1000.webp",
+    "arizona/bath":           "arizona/bath-1000.webp",
+    "arizona/clarissa-face":  "arizona/clarissa-face-144.webp",
+    "arizona/clarissa-piece": "arizona/clarissa-piece-1450.webp",
+    "arizona/clarissa-":      "arizona/clarissa-1400.webp",
+    # the second set, 24 September: the rest of the house. Every frame the
+    # page shows is inlined at its largest size: she reviews from the
+    # artifact, and a 600px tile stretched across a Retina screen is exactly
+    # the blur she flagged on 24 September.
+    "arizona/minigolf":       "arizona/minigolf-1702.webp",
+    "arizona/bowling":        "arizona/bowling-1702.webp",
+    "arizona/sauna-gym":      "arizona/sauna-gym-1702.webp",
+    "arizona/games":          "arizona/games-1702.webp",
+    "arizona/room-moon":      "arizona/room-moon-1702.webp",
+    "arizona/table-bonsai":   "arizona/table-bonsai-1702.webp",
+    "arizona/arcade":         "arizona/arcade-600.webp",
+    "arizona/pool":           "arizona/pool-919.webp",
+    "arizona/patio-dusk":     "arizona/patio-dusk-1702.webp",
+    "arizona/bar-dusk":       "arizona/bar-dusk-1702.webp",
+    "arizona/table-set-portrait": "arizona/table-set-portrait-848.webp",
+    "arizona/table-set":      "arizona/table-set-1702.webp",
+    "arizona/bath-white":     "arizona/bath-white-600.webp",
+    "arizona/room-arizona":   "arizona/room-arizona-1702.webp",
+    "arizona/room-teal":      "arizona/room-teal-1702.webp",
+    "arizona/room-sports":    "arizona/room-sports-600.webp",
     "gatlinburg/deck-view":   "gatlinburg/deck-view-1654.webp",
     "gatlinburg/porch-swing": "gatlinburg/porch-swing-600.webp",
     "gatlinburg/porch-":      "gatlinburg/porch-600.webp",

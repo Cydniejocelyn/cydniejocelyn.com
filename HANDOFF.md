@@ -7468,3 +7468,435 @@ from the Sounding rebuild (`.sd-panel`, `.sd-offer`, `.sd-price`,
 `.sd-quote`), and the unused images. Open with her: whether Greece seats
 genuinely open or the waitlist is really the list for the next retreat, and
 whether the May 2027 date should be described on Greece rather than linked.
+
+## 66. Wild Canvas: The Arizona Edition, built from her brief. 24 September 2026. NOT PUSHED.
+
+Cydnie sent a written build brief for a Gatlinburg-style landing page, then
+three instructions on top of it: hidden for now, dates in the site's own
+format, and **do not claim every retreat is capped at fifteen** (Wild Canvas
+is nine).
+
+Review artifact: https://claude.ai/artifact/VRu6FxaxYCGvNGejiXnXxK
+
+### The page
+`retreats/arizona/index.html`, eleven sections, `<main class="gb az">`. The
+`gb` class is deliberate: every component the Gatlinburg rebuild introduced
+applies unchanged (room card, checklist, host pair, booking band, rate strip,
+button hover, the pinned five days, the quote carousel, the gallery rail), so
+this page adds no second design system. `az` carries only the differences:
+its own hero scrim, one room type instead of two, the artist's quote, the
+statement's two paragraphs, and the TODO markers.
+
+Order and grounds: hero (deep) / why this exists, the word-light statement
+(deep) / Clarissa's quote (light) / the five days `.cond` (silt) / Costa Rica
+voices and Melissa (light) / rooms and the house rail (silt) / what the price
+covers (light) / where you are (deep) / the hosts (light) / FAQ with the
+"not ready" box (silt) / book (deepwater). Seams check clean.
+
+**Hidden four ways, exactly as Gatlinburg was:** two robots tags, an
+X-Robots-Tag on `/retreats/arizona/` in vercel.json, absent from sitemap.xml
+(with a comment saying so), and linked from nowhere. The Retreats index still
+carries the unnamed "A third date is coming" card.
+
+**`tools/launch_arizona.py` does the whole launch in one run** and REFUSES TO
+RUN while a TODO marker or a parked `#tk-` link is left on the page. It lifts
+the four locks, wraps the parked Event JSON-LD in its script tag (reusing the
+LocalBusiness node from Greece so the organiser is one entity), and swaps the
+mystery card on /retreats/ for the real one. Tested: it stops on ten TODOs.
+
+### Her three instructions
+  * **Hidden**, so nothing links it and the May card stays a mystery.
+  * **Dates in the site's format.** The brief asked for "5 to 9 May 2027";
+    the site writes "13&ndash;18 April 2027", so this page writes
+    "5&ndash;9 May 2027". Prose keeps "5 May" and "9 May".
+  * **The fifteen claim is gone.** /retreats/ now reads "No retreat goes over
+    fifteen women, and some are smaller than that"; llms.txt matches. NOT
+    changed, and worth raising: the "Fifteen." section heading, its ring of
+    fifteen circles and the caption "Alone in a group of fifteen", the
+    og:description "Capped at fifteen", and the home page's retreat schema.
+
+### Still TODO on the page, all of them hers (ten markers)
+  1. `HOLD_URL`, 2. `PAYFULL_URL`, 3. `LIST_URL` (both room buttons, the
+  booking band buttons and both "join the list" links are parked at `#tk-`).
+  4. The bathroom setup. 5. Art supplies, if included. 6. What else is not
+  included. 7. Departure timing on 9 May. 8. The add-on workshops.
+  9. Supply details in the FAQ. 10. Optional: a voice from one of Clarissa's
+  own programmes. Also optional: a golden-hour hero frame, which would
+  replace the great room.
+
+### Photographs
+Her folder `Wild Canva The Arizona Edition May 5-9/` is the source of record
+(gitignored, in .vercelignore, in build.py EXCLUDE_DIRS and sync.sh). Nine
+listing screenshots plus four of Clarissa. `tools/retreat_images.py` carries
+the ARIZONA table; the Clarissa crops were cut by hand in the same session:
+`clarissa-600/1000` (the host portrait, her at the table with a blue
+abstract), `clarissa-face-72/144` (the hero facts row), `clarissa-piece-*`
+(holding one of her small paintings, under the statement), and
+`great-room-portrait-600/834` (the phone hero).
+
+**Two frames are deliberately unused and must stay unused while the house is
+unnamed:** the pool at dusk, whose mural paints the property's name across
+the wall, and the street elevation with the house number on it.
+
+### Checks
+    suite 642 / 0 on ELEVEN pages (arizona 78), seams 0, build clean,
+    0 HTML comments in dist/retreats/arizona/index.html
+    390px wide, no overflow
+    hero contrast passes at 1440 and 390 (h1 7.99 and 7.46 against 3;
+    sub 11.21 and 8.37 against 4.5)
+    zero em dashes in the new files, per her brief
+    tools/stamp.py PAGES now includes the page, or build.py fails stale
+
+### Second pass, same day, on her notes
+
+Cydnie: "We need to change the layouts slightly and align it better like
+Gatlinburg. Keeping conversion top of mind ... The layout of the room
+options/nine women one house, I do not like."
+
+  * **The room is a band now, not a card.** `.az-stay`: the photograph holds
+    columns 1 to 5, the decision holds 6 to 12, and it runs the width of the
+    page. A single card in a grid built for a pair reads as a missing second
+    card, which is what she was looking at. Order inside it is the order she
+    decides in: room, price with $1,800 struck through, the early rate strip
+    with the days left, what the room is, then the two ways to pay. It lifts
+    and glows under a pointer like the Gatlinburg pair.
+  * **The artist's quote is left set now.** It sat centred directly under the
+    centred statement, so the page had two centred blocks in a row. The
+    rhythm down the page is now hero L, statement C, quote L, the five days
+    L, voices L, the room L, what it covers C, where you are L, hosts L, FAQ
+    L, book L, which is Gatlinburg's own pattern.
+  * Workshops: "One or two more workshops, co-led by Cydnie and Clarissa.
+    Still in the works. Registered guests hear about them first."
+  * Art supplies ARE included: a line in what the price covers, a bullet on
+    the room band, and the FAQ answer now says so. Not included is two
+    things: the flight into Phoenix and travel insurance.
+  * Getting home: depart any time after 10 am on 9 May.
+
+    15.4 screens at 1440, 18.4 at 390. First booking button at 9.1 screens
+    (8.9 on a phone), which is Gatlinburg's 8.5. Suite 642 / 0 again, seams 0.
+
+### Five TODO markers left, and the launch script still refuses to run
+  1. `HOLD_URL` and 2. `PAYFULL_URL` (one marker, both room buttons and both
+  booking band buttons). 3. `LIST_URL` (the two "join the list" links).
+  4. The bathroom setup. 5. Optional: a voice from one of Clarissa's
+  programmes. Optional and unmarked: a golden hour hero frame.
+  **She said on 24 September that the bedroom links are not ready yet.**
+
+### Third pass, same day: alignment, the new photographs, the rest of the house
+
+Cydnie: "We need to fix this layout. The verbiage isn't all aligned and some
+words are offset from others. We have updated images in the folder as well.
+Highlight that there will be mini golf, bowling onsite as well as a 2 person
+sauna, small gym, tons of creative games to gather around and play."
+
+**The alignment, measured rather than eyeballed** (`_align2.html` in the
+scratchpad prints every block's first glyph run):
+  * Inside the room band, three things sat on three different left edges:
+    the heading and price at 665, the rate strip at 689 because it was a
+    bordered box with its own padding, and every bullet at 689 because
+    `.rt-incl` lays a 1.5rem marker column. The strip is a plain line now and
+    the plus signs hang in the body's padding. **Everything in the band
+    starts at 665.**
+  * Every section eyebrow sat 64px right of the heading it labels, because
+    `.eyebrow` draws a rule and a gap before its text. All seven now carry
+    `--hang`, which puts the rule in the margin: **delta 0 at every left set
+    section.** The two centred sections are centred on purpose.
+  * The site-wide version of this is still open (HANDOFF 50, item 4): every
+    other page's eyebrows still sit 64px in. One class each when she wants it.
+
+**Twenty two new photographs** landed in her folder and they are the half of
+the house the first set did not show. Added to the ARIZONA table: the patio
+at dusk, the bar at dusk, mini golf, the bowling lane, the sauna and gym, the
+games room, the arcade, the set table, a white bathroom, and three more
+bedrooms (the Arizona mural, the pool mural, the sports mural).
+**The pool frame is cut by hand, not by the table**: the property's name is
+painted on the wall behind it, so the crop is (0.46w, 0.34h) to the bottom
+right corner. The two frames that name the house are still out.
+
+**`.az-extras`**, a six tile band inside the rooms section, headed "And the
+rest of the house, for the hours between": mini golf, the bowling lane, the
+sauna and gym, pool and four in a row, foosball and the arcade, the pool and
+hot tub. Inside the existing section on purpose, so no new seam.
+
+The rail is now thirteen tiles rather than seven.
+
+    suite 642 / 0, seams 0, build clean, 5 TODO markers, launch still refuses
+
+### Fourth pass: the artist, and the order of the page
+
+Cydnie: "the quote in the beginning section to the picture of clarissa and
+then her quote about the retreat, doesn't make sense. Realign the sections."
+
+She was right and the fault was mine: a photograph of a woman the reader had
+never met sat under Cydnie's own statement, and that woman's sentence arrived
+in a section of its own two screens later, unattached to anything.
+
+Section 03 is now **the artist**: her photograph left, and on the right her
+name, what she leads ("guiding every session across the five days"), then her
+line, set against a hairline rule and attributed "Clarissa, on what Wild
+Canvas is for". The statement in section 02 stands alone, which is what the
+Gatlinburg premise does. Her fuller bio stays at section 09 with the host
+pair, where the second photograph is the one of her at the table.
+
+    15.8 screens at 1440, 20.9 at 390. Buttons at 0.8 / 8.6 / 14.6 (desktop),
+    0.8 / 9.1 / 19.2 (phone). suite 642 / 0, seams 0.
+
+### Fifth pass, 24 September: every link wired, and far fewer photographs
+
+  * **All three HoneyBook links are in and all three return 200.** Hold my
+    room, $500 -> `public/6ab58825015882f2ae403595` (the five month plan,
+    which starts with the deposit). Pay in full ->
+    `public/6ab588362524c9043b35b461`. Join the Wild Canvas list ->
+    `cf_id/69fa3c69e63a7a4c9bb354f1`, which is the same pre-registration
+    record Gatlinburg's "not ready to decide" box and the May card use, so
+    one inbox now carries three retreats' interest. She chose that.
+  * The bathroom line is gone, on her word.
+  * **"less photos of the property, the better. we want this to scream
+    creative and luxury."** The rail went from thirteen frames to five: the
+    painted great room, the Arizona mural room, the patio at dusk, the bar at
+    dusk and the water. The rest of the house went from six frames to three
+    (mini golf, bowling, the sauna and gym) plus one sentence naming the pool
+    table, foosball, arcade, four in a row and table tennis.
+  * The room band shows the teal pool mural room, not the dark saguaro one.
+  * Cydnie's portrait here is `cydnie-writing`, not `cydnie-window`: she
+    asked for a different photograph of herself, and the writing frame is the
+    one that matches a retreat about making something.
+  * **THE PAGE HAS NO TODO MARKERS LEFT** and `tools/launch_arizona.py
+    --check` now says it would apply. It is still hidden; it launches on her
+    word and not before.
+
+**`_test.html` changed:** the rail assertion was `tiles.length > 6`, which
+was Greece's tile count the day it was written, and it failed the moment this
+page cut its rail to five. It asserts what it meant: at least three tiles and
+a rail wider than its own box.
+
+    suite 642 / 0 on eleven pages, seams 0, build clean, 0 comments in dist
+    artifact v6 https://claude.ai/artifact/VRu6FxaxYCGvNGejiXnXxK
+
+**Open with her, carried:** whether the page says you keep what you make,
+whether to publish the cancellation terms, a mid-page booking line for
+phones, and a voice from one of Clarissa's programmes.
+
+### Sixth pass, 24 September: what they keep, and five places to book
+
+  * **"they do keep what they make."** Said three times now: in the week
+    ("What you make is yours, and it comes home with you"), in what the price
+    covers ("Everything you make, to take home"), and in the closing band.
+  * **"make more areas for them to book."** Three `.az-cta` bands, each
+    carrying the real pair of HoneyBook links rather than a jump back up the
+    page: after the five days, after the Costa Rica voices, and after what
+    the price covers. `section--tight` with NO `data-zone`, so each takes the
+    ground of the section above it and no seam moves.
+  * **Cancellation stays as it is**, on her word: "cancellation is in their
+    contract."
+
+Booking touchpoints, measured at 1440: 0.8 (hero, to the rooms), 6.6, 8.0
+(the room band), 9.1, 11.4, 15.2 (the close). On a phone: 0.8, 6.2, 8.2, 9.7,
+13.2, 19.5. Before this pass a phone reader met one buyable button in the
+first nine screens; now it is three.
+
+    16.3 screens at 1440, 21.1 at 390, suite 642 / 0, seams 0, 390 clean
+    hero contrast passes at 390, 768 and 1440
+    37 image files, all WebP, largest 99KB, 872KB of first-choice images,
+    every one with dimensions and alt text, 14 of 19 lazy
+    launch_arizona.py --check: would apply
+    artifact v8 https://claude.ai/artifact/VRu6FxaxYCGvNGejiXnXxK
+
+## 67. START HERE. 24 September 2026. WILD CANVAS IS LIVE AS A LANDING PAGE.
+
+**PUSHED on her word, late 24 September:** "We can push. Do not link it on
+the retreats page though. It should just be a landing page we can utilize
+right now." So:
+  * LIVE at https://www.cydniejocelyn.com/retreats/arizona/ for anyone with
+    the link. The pre-launch band is gone (launch_arizona.py now tolerates
+    that).
+  * STILL noindex (both robots tags and the vercel.json header), still out of
+    the sitemap, still linked from nowhere, and /retreats/ still shows the
+    unnamed "A third date is coming" card. Lifting noindex or naming it on
+    /retreats/ is `tools/launch_arizona.py`, and needs her word again.
+  * The same push shipped the three small fixes below (popup skip, the
+    fifteen cap wording on /retreats/ and llms.txt, the stamps).
+
+The notes below were written before the push and are otherwise current.
+
+
+The Arizona page is finished, tested and sitting in the working tree. **The
+tree is dirty on purpose: nothing about Wild Canvas has been committed.** A
+push would put the page live at its URL (hidden from search, linked from
+nowhere, which is how Gatlinburg ran its prelaunch) and would also ship the
+three small fixes to other files listed below. Her call.
+
+### What is in the working tree, 31 entries
+
+    NEW  retreats/arizona/index.html        the page, 14 sections
+    NEW  tools/launch_arizona.py            the launch, one run, with a gate
+    NEW  assets/img/arizona/                58 files, 3.4MB, all WebP
+    NEW  tools/cydnie-jocelyn-arizona.html  the review build (gitignored)
+    MOD  assets/css/site.css                the `az-` block
+    MOD  tools/{seams,stamp,build,build_artifact,retreat_images}.py
+         tools/preview/{runsuite.sh,sync.sh,_test.html}
+                                            the new page added to every list
+    MOD  gatlinburg-popup.js                does not fire on /retreats/arizona/
+    MOD  vercel.json, sitemap.xml           the noindex header, the absence note
+    MOD  .gitignore, .vercelignore          her source folder excluded
+    MOD  retreats/index.html, llms.txt      the fifteen cap claim softened
+    MOD  every other page                   cache stamp only (tools/stamp.py)
+
+### The page, as it stands
+Review artifact, v8: https://claude.ai/artifact/VRu6FxaxYCGvNGejiXnXxK
+
+    16.3 screens at 1440, 21.1 at 390
+    booking touchpoints at 0.8, 6.6, 8.0, 9.1, 11.4, 15.2 (desktop)
+                          0.8, 6.2, 8.2, 9.7, 13.2, 19.5 (phone)
+    suite 642 / 0 on eleven pages, seams 0, 390px clean, 0 comments in dist
+    hero contrast passes at 390, 768, 1440 (h1 7.46 / 5.87 / 7.99)
+    37 images, all WebP, largest 99KB, 872KB of first-choice images,
+      every one dimensioned and alt texted, 14 of 19 lazy
+    python3 tools/launch_arizona.py --check  ->  would apply
+
+Order: hero / the statement / the artist and her line / the five days /
+a booking band / Costa Rica voices / a booking band / the house, the room
+band and the rest of the house / what the price covers / a booking band /
+where you are / the hosts / the questions and the list / book.
+
+### Everything she decided, so nobody asks twice
+  * Hidden prelaunch, like Gatlinburg. Name: Wild Canvas: The Arizona
+    Edition. Peoria named; the house is not, and never the two frames that
+    give it away (the pool mural with the property name, the street view).
+  * Dates in the site's format: 5&ndash;9 May 2027.
+  * "don't have the retreat everyone is capped at fifteen" -> /retreats/ and
+    llms.txt now say no retreat goes over fifteen and some are smaller.
+  * Nine women. Shared rooms only, $1,675 early, $1,800 from 1 December,
+    $500 holds a room, five monthly payments after.
+  * Art supplies included. Not included: the flight and travel insurance.
+  * Depart after 10 am on 9 May. One or two more workshops, co-led, in the
+    works. Guests keep everything they make.
+  * Cancellation stays "in your contract". Monthly amounts stay off the page.
+  * Three HoneyBook links wired and verified 200: hold
+    `public/6ab58825015882f2ae403595`, pay in full
+    `public/6ab588362524c9043b35b461`, the list
+    `cf_id/69fa3c69e63a7a4c9bb354f1` (shared with Gatlinburg and the May card).
+  * Fewer property photographs, "creative and luxury": five in the rail,
+    three for the games, one sentence for the rest.
+
+### When she says go
+  1. `python3 tools/launch_arizona.py` (it refuses while any TODO marker or
+     `#tk-` link is left; there are none now).
+  2. `python3 tools/build.py`, `python3 tools/seams.py`, the suite,
+     `grep -c '<!--' dist/retreats/arizona/index.html` = 0.
+  3. Push, `vercel ls`, read the page on www in a real browser.
+  4. Search Console: request indexing, resubmit the sitemap. Rich Results on
+     the Event schema.
+  5. The launch swaps the Retreats card from "A third date is coming" to
+     Wild Canvas. The home page is untouched by her instruction.
+
+### Still open with her
+  * A voice from one of Clarissa's own programmes: all the proof on the page
+    is about rest, none of it about making.
+  * A golden hour hero frame, if one is ever shot. The hero is the great room.
+  * Whether the cancellation terms should be summarised on the page. She has
+    said no twice; do not raise it a third time unless she does.
+  * 1 December: the price becomes $1,800. Every place that says 30 November
+    or $1,675 changes that day (room band, rate strip, the three booking
+    bands, the closing band, the schema, the Retreats card at launch).
+
+### Seventh pass, 24 September evening: sharper photographs, faded edges
+
+Cydnie: "make sure the images are not blurry and they should also match the
+rest of the entire website where the edges are faded."
+
+**Why they were soft, measured in a browser at 2x:** the sources are listing
+screenshots 1450 to 1702px wide, but most frames shipped at 600/1000 only,
+the room band asked for 42vw while `object-fit: cover` draws it about 1000px
+wide, and two files were UPSCALES: `pool-1000` (the box is 919px of real
+picture) and `great-room-portrait-834` (744px real), which is the phone hero.
+The review artifact also inlined 600px tiles.
+
+  * `tools/retreat_images.py`: `box` crops (so hand cuts are reproducible;
+    the four old ones were lost and recovered by pixel matching against the
+    sources) and `crisp=True` for Arizona: UnsharpMask 0.8/70/3 after the
+    resize, quality 84/82/78. The pool, the phone hero and both Clarissa
+    frames are table entries now.
+  * Every frame the page shows goes to its full source width: `-1702` for the
+    room, rail and games tiles, `pool-919`, `great-room-portrait-744`,
+    `clarissa-1400`. Lightbox `data-full` points at the full frame. Removed:
+    pool-1000, great-room-portrait-834, patio-dusk-1450, bar-dusk-1450.
+    width/height attributes now match the files.
+  * `build_artifact.py` inlines the largest file of each Arizona frame
+    (artifact 5.9MB).
+  * **Fades:** `.az-artist-fig img`, `.az-extra img` and `.az .gb-host figure
+    img` joined the site's feathered plate rule (the same mask as About,
+    Retreats and Greece). The room band fades only its seam, like
+    `.gb-room-fig`: right edge beside the booking side, bottom when stacked.
+    NOT faded, on purpose and matching Gatlinburg: the hero (it has its own
+    scrim) and the gallery rail (`.gal-item` is excluded site wide, see the
+    note above the plate rule). Gatlinburg's own host portraits are still
+    hard edged; one selector if she wants them to match.
+
+    suite 642 / 0, seams 0, 390 clean, hero p99 under the text moved 2 to 5
+    levels (margins were 2x), artifact v9 at the same URL. STILL NOT PUSHED.
+
+### Eighth pass, 24 September evening: the movement pass, and new photographs
+
+Cydnie: "The two spots for book my room that are random between in her
+words section, doesn't make sense. Those CTAs feel out of place. Make the
+page immersive and flow with different movement, animations and conversion
+tactics." Then: remove the garage image, a different bedroom, "make sure
+the images are the ones that will stand out."
+
+  * **Both bands around In their words are gone.** The third (after what the
+    price covers) is no longer a band of its own: it is the end of that
+    section, as `.az-cta--sum`, leading with the price as a day, $335
+    (1,675 / 5), counted up with the existing `data-count`.
+  * **Nine places** (`.az-seats`) under "Nine women, one house": nine rings
+    fill in sequence, then "Nine places. That is the whole retreat." It shows
+    the size of the retreat and NEVER a count of places taken.
+  * **The brushstroke** (`.az-stroke`, inline SVG, two passes, Held) paints
+    itself under the artist's name, "You land. We handle the rest." and the
+    closing heading.
+  * **A watercolour wash** blooms once behind Clarissa's line (`.az-quote
+    ::before`); `.az-artist-sec` clips it (it made a 9px sideways scroll at
+    1024, which the suite caught).
+  * The three games tiles zoom slightly under a pointer, like the room band.
+  * All of it resolves once, nothing loops, reduced motion and no script get
+    the finished state. The nav button stays Contact (the 29 August decision
+    and a suite assertion); no sticky bar, no countdown.
+  * **Photographs:** room band = `room-moon` (the dusk mural bedroom, 2.45.20),
+    the garage (`sauna-gym`) is replaced by `games` (the 8-ball wall), the rail
+    swaps `bar-dusk` for `table-bonsai` (2.46.21). The sauna and gym moved
+    into the sentence under the tiles. Still out: every frame showing the
+    LUXE AURA wall (2.46.57, 2.47.01, 2.47.10 uncropped) and the street view.
+
+    Hold buttons (phone): hero to rooms 0.8, room band 9.0, the price as a
+    day 12.6, the close 18.8. 20.5 screens at 390, down from 21.1.
+    suite 642 / 0, seams 0, 390 clean, artifact v10. STILL NOT PUSHED.
+
+**Same evening, on her word:** the games room tile came out; mini golf and
+bowling stay, two across (`.az-extras` no longer goes to three columns), and
+the pool table under the painted wall is back in the sentence. She was asked
+whether the fun rooms downplay the retreat and chose to keep these two.
+
+**Same evening: a new hero, and the house copy grown up.**
+  * Hero = `table-set` (2.44.37, the long table at dusk), `-1702` wide and
+    `table-set-portrait` (box 0.40 to 0.8977, 3:4) for phones. og:image and
+    the Event schema image follow it. The great room stays first in the rail.
+  * The Arizona scrims were lightened for this frame (desktop right side and
+    top; the whole phone scrim) and `.gb.az .hero-water img` overrides the
+    Gatlinburg phone position. tools/hero_composite.js after: 1024 h1 4.73 /
+    sub 8.52; 390 h1 7.13 / sub 5.76 (the one FAIL row it prints is the
+    solid button label, which sits on its own fill, not on the photo).
+  * KNOWN: the bowling lane sign is faintly visible behind the hero button
+    under the darkest scrim. Cropping it out drops the frame to ~1089px wide.
+  * Copy: heading "For the hours between sessions."; captions "A putting
+    green under the desert sky" and "A lawn bowling lane, lit at dusk"; the
+    sentence names the billiards room, the sauna for two, the gym, the pool,
+    the hot tub and the long table. Foosball, arcade and table tennis are off
+    the page ("not childish").
+
+    suite 642 / 0, seams 0, 390 clean, artifact v12. STILL NOT PUSHED.
+
+### Carried from before
+The audits of /the-letters/, /contact/ and /thequestions/. The phone width
+check in the suite. The site-wide eyebrow offset: every page except Wild
+Canvas still sets its section labels 64px right of their headings, one class
+each (`eyebrow--hang`).

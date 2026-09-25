@@ -38,8 +38,8 @@
   var SCROLL_SHARE  = 0.35;    /* or this much of the page read, after 4s */
   var ENDS          = Date.parse('2027-04-13T00:00:00-05:00');
   var ONLY_PATHS    = ['/', '/retreats', '/retreats/greece', '/the-letters'];
-  var SKIP_PATHS    = ['/retreats/gatlinburg', '/about', '/a-sounding', '/the-build',
-                       '/contact', '/privacy-policy', '/thequestions'];
+  var SKIP_PATHS    = ['/retreats/gatlinburg', '/retreats/arizona', '/about', '/a-sounding',
+                       '/the-build', '/contact', '/privacy-policy', '/thequestions'];
   var REMEMBER_DAYS = 14;
   var MEMORY_KEY    = 'gb_pop_dismissed';
   var SESSION_KEY   = 'cj_pop_shown';     /* shared with sounding-popup.js */

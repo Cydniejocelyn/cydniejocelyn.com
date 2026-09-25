@@ -62,4 +62,7 @@
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
+  <!-- /retreats/arizona/ is deliberately absent, the way /retreats/gatlinburg/
+       was until 16 September. It is pre-launch and noindex in three other
+       places; tools/launch_arizona.py adds it here when Cydnie says go. -->
 </urlset>

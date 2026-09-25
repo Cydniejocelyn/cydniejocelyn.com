@@ -99,7 +99,8 @@ All dates are listed at https://www.cydniejocelyn.com/retreats/
   price is a function of location and length, so it is the one thing on this site that is not
   published in advance.
 - Retreat terms, published in full at https://www.cydniejocelyn.com/privacy-policy/#terms : every
-  retreat is capped at fifteen guests and requires a minimum of eight confirmed guests to run.
+  retreat is capped at fifteen guests, some are smaller, and a retreat requires a minimum of
+  eight confirmed guests to run.
   A $500 non-refundable deposit reserves a space, and a space is reserved only when the deposit
   is received and a booking confirmation is issued; an inquiry form does not hold one. All
   retreat payments are non-refundable, including the deposit, for any reason. If Cydnie Jocelyn

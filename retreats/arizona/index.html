@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- ============================================================
+     PRE-LAUNCH. THIS PAGE MUST NOT BE INDEXED UNTIL BOOKING OPENS.
+     The same four locks Gatlinburg ran behind, and three of them are
+     invisible from this file:
+       1. The two robots tags below.
+       2. An `X-Robots-Tag` header in vercel.json, scoped to
+          /retreats/arizona/, which survives someone editing this head.
+       3. Absence from sitemap.xml.
+       4. Nothing on the site links here. The Retreats index still shows
+          the unnamed "A third date is coming" card.
+     AT LAUNCH, and not before: `python3 tools/launch_arizona.py`, which
+     does every one of those in a single commit, plus the pre-launch band
+     at the top of <main>, the canonical below and the JSON-LD.
+     ============================================================ -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+
+<title>Wild Canvas: The Arizona Edition | Peoria, May 2027</title>
+<meta name="description" content="Wild Canvas: a creative retreat for women in Peoria, Arizona, 5 to 9 May 2027. Lodging, every meal, guided creative sessions with artist Dr. Clarissa Castillo-Ramsey and airport shuttles included. No art experience needed.">
+<meta name="author" content="Cydnie Jocelyn Brown">
+<meta name="theme-color" content="#071A1F">
+<meta name="geo.region" content="US-AZ">
+<meta name="geo.placename" content="Peoria, Arizona">
+
+<!-- AT LAUNCH: uncomment the canonical.
+<link rel="canonical" href="https://www.cydniejocelyn.com/retreats/arizona/">
+-->
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cydnie Jocelyn">
+<meta property="og:url" content="https://www.cydniejocelyn.com/retreats/arizona/">
+<meta property="og:title" content="Wild Canvas: The Arizona Edition | Peoria, May 2027">
+<meta property="og:description" content="Five days in the Sonoran desert, making something of your own. 5 to 9 May 2027. Nine women. No art experience needed.">
+<!-- TK. The og image is the great room and its painted wall, a real
+     photograph of the real house. Replace with a purpose-built 1200x630
+     before launch if one is made. -->
+<meta property="og:image" content="https://www.cydniejocelyn.com/assets/img/arizona/table-set-1000.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wild Canvas: The Arizona Edition | Peoria, May 2027">
+<meta name="twitter:description" content="Five days in the Sonoran desert, making something of your own. 5 to 9 May 2027. Nine women. No art experience needed.">
+
+<link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+
+<!-- THE FONTS ARE SELF HOSTED, and this page must not reintroduce a
+     third party on the critical path. The wireframe this page was
+     ported from carried two preconnects and a render blocking link to
+     fonts.googleapis.com for Bodoni Moda, plus an `IvyPresto Display`
+     first in its display stack. Both are out.
+
+     `--carved` is Instrument Serif and IvyPresto has never been served
+     on this site; see the long note above `--carved` in site.css for
+     the eight sessions that cost. Naming a face here that no
+     stylesheet provides is invisible, silent, and looks correct. -->
+<link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/site.css?v=10a251c9">
+<script>document.documentElement.className += " js-motion";</script>
+
+<!-- AT LAUNCH: uncomment, then validate before pushing. tools/launch_arizona.py
+     does this for you, and wraps it in a script element of type
+     application/ld+json. It is unwritten here on purpose, and so is that tag
+     name: build.py splits on script regions before it strips comments, so a
+     commented-out script SHIPS to production. Every other page on this site
+     serves zero HTML comments and so must this one.
+
+     Every figure in here is also in the visible page and in HoneyBook. If one
+     changes, all three change in the same commit. The offer carries BOTH ends
+     of its window: an offer with a start and no end is what the Search Console
+     warning on the Greece offers was about.
+
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "@id": "https://www.cydniejocelyn.com/retreats/arizona/#event",
+  "name": "Wild Canvas: The Arizona Edition",
+  "startDate": "2027-05-05",
+  "endDate": "2027-05-09",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "url": "https://www.cydniejocelyn.com/retreats/arizona/",
+  "image": "https://www.cydniejocelyn.com/assets/img/arizona/table-set-1000.webp",
+  "description": "A creative retreat for women in Peoria, Arizona. Lodging, every meal, guided creative sessions with Dr. Clarissa Castillo-Ramsey and airport shuttles included.",
+  "location": {
+    "@type": "Place",
+    "name": "Peoria, Arizona",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Peoria",
+      "addressRegion": "AZ",
+      "addressCountry": "US"
+    }
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Cydnie Jocelyn LLC",
+    "url": "https://www.cydniejocelyn.com/"
+  },
+  "performer": [
+    { "@type": "Person", "name": "Clarissa Castillo-Ramsey" },
+    { "@type": "Person", "name": "Cydnie Jocelyn Brown" }
+  ],
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Shared room, early rate",
+      "price": "1675",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-09-24",
+      "validThrough": "2026-11-30",
+      "url": "https://www.cydniejocelyn.com/retreats/arizona/#rooms"
+    },
+    {
+      "@type": "Offer",
+      "name": "Shared room",
+      "price": "1800",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-12-01",
+      "url": "https://www.cydniejocelyn.com/retreats/arizona/#rooms"
+    }
+  ]
+}
+-->
+
+
+<!-- ANALYTICS IS NOT LOADED HERE. `gtag.js` is injected by
+     assets/js/consent.js and only after a reader accepts. Before that
+     there is no gtag, no dataLayer, and no request to any Google
+     domain. See the note at the top of consent.js. -->
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="gauge" aria-hidden="true">
+  <span class="gauge-label">Resurfacing</span>
+  <div class="gauge-track">
+    <div class="gauge-fill"></div>
+    <div class="gauge-dot"></div>
+  </div>
+  <span class="gauge-read">40m</span>
+</div>
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <!-- THE FACE. This is a solo practice and she is the product, so the
+         header carries her rather than only the wordmark. It sits OUTSIDE
+         the brand anchor on purpose: `.brand` paints the ink wordmark as a
+         background-image once the reader has surfaced, and anything placed
+         inside it would sit on top of that swap. -->
+    <div class="hdr-id">
+      <img class="hdr-face" src="../../assets/img/cydnie-face-72.webp"
+           srcset="../../assets/img/cydnie-face-72.webp 72w, ../../assets/img/cydnie-face-144.webp 144w"
+           sizes="36px" width="72" height="72" decoding="async"
+           alt="Cydnie Jocelyn">
+      <a class="brand" href="/" aria-label="Cydnie Jocelyn, the resurfacing business. Home">
+      <img class="brand-mark brand-mark--light" src="../../assets/img/mark-horiz-light-800.webp"
+           srcset="../../assets/img/mark-horiz-light-500.webp 500w, ../../assets/img/mark-horiz-light-800.webp 800w, ../../assets/img/mark-horiz-light-1200.webp 1200w"
+           sizes="(min-width: 56rem) 240px, 180px" width="2198" height="410" decoding="async"
+           alt="Cydnie Jocelyn, the resurfacing business">
+      </a>
+    </div>
+    <nav class="nav" aria-label="Primary">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+        <span class="vh">Menu</span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+      <ul class="nav-links" role="list">
+        <li><a href="/the-build/">The Build<span class="nav-desc">, brand and website work</span></a></li>
+        <li><a href="/retreats/" aria-current="true">Retreats</a></li>
+        <li><a href="/the-letters/">The Letters<span class="nav-desc">, free weekly</span></a></li>
+        <li><a href="/about/">About</a></li>
+      </ul>
+      <a class="btn" href="/contact/">
+        <span>Contact</span>
+        <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+      </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="gb az">
+
+<!-- WILD CANVAS: THE ARIZONA EDITION, built 24 September 2026 from Cydnie's
+     written brief. It is the Gatlinburg page's construction, not a new one:
+     `main` carries `gb` so every component that page introduced applies
+     unchanged, and `az` carries only what genuinely differs (one room type
+     instead of two, its own hero scrim, the artist's quote).
+
+     PRE-LAUNCH. Hidden exactly the way Gatlinburg was: noindex in the head,
+     an X-Robots-Tag on the route in vercel.json, absent from sitemap.xml,
+     linked from nowhere. The Retreats index still carries the unnamed "third
+     date is coming" card until she says go.
+
+     THE HOUSE IS NOT NAMED AND ITS STREET IS NOT SHOWN. Peoria is named,
+     because Cydnie named it in the brief. Two of the nine listing frames are
+     deliberately not on this page: the pool at dusk, whose mural paints the
+     property's name across the wall, and the street elevation, which shows
+     the number on the house. See tools/retreat_images.py.
+
+     Every TODO below is one of Cydnie's own [square brackets] from the brief
+     and is listed in the band at the top of the page. -->
+
+<!-- 01 / HERO. The long table set for dinner under the patio at dusk.
+     Cydnie asked for a different hero on 24 September; the great room is
+     still the first frame of the rail. The left of the frame is pillar and
+     sky, which is where the words sit. -->
+<section class="hero hero--lit gb-push az-hero z-deep" data-zone aria-labelledby="az-h">
+
+  <div class="hero-water" aria-hidden="true">
+    <picture>
+    <source media="(max-width: 46rem)"
+            srcset="../../assets/img/arizona/table-set-portrait-600.webp 600w, ../../assets/img/arizona/table-set-portrait-848.webp 848w"
+            sizes="100vw" width="848" height="1130">
+    <img src="../../assets/img/arizona/table-set-1000.webp"
+         srcset="../../assets/img/arizona/table-set-600.webp 600w, ../../assets/img/arizona/table-set-1000.webp 1000w, ../../assets/img/arizona/table-set-1702.webp 1702w"
+         sizes="100vw" width="1702" height="1130"
+         style="object-position: 96% 60%"
+         fetchpriority="high" decoding="async"
+         alt="A long table set for dinner under a covered patio at dusk, small bonsai trees down the middle and the sky still blue beyond the pillars.">
+    </picture>
+  </div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="eyebrow eyebrow--plain r-fade">Wild Canvas &middot; The Arizona Edition</p>
+      <h1 class="hero-line split" id="az-h">Five days in the desert, <em>making something of your own.</em></h1>
+      <p class="hero-sub r-up" style="--d:120ms">A small creative retreat for women, led by abstract artist Dr. Clarissa Castillo-Ramsey. You land in Phoenix and somebody is already waiting on you. Everything after that is handled. No art experience needed.</p>
+
+      <div class="hero-acts r-up" style="--d:180ms">
+        <a class="btn btn--solid" href="#rooms">
+          <span>Hold your room for $500</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+        </a>
+        <a class="hero-go" href="#week">
+          <span>What the week holds</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+        </a>
+      </div>
+
+      <dl class="rt-facts gb-facts r-up" style="--d:240ms">
+        <div><dt>Dates</dt><dd><time datetime="2027-05-05">5</time>&ndash;<time datetime="2027-05-09">9 May 2027</time></dd></div>
+        <div><dt>Where</dt><dd>Peoria, Arizona</dd></div>
+        <div><dt>Group</dt><dd>Nine women</dd></div>
+        <div><dt>With</dt><dd class="gb-with"><span class="gb-faces" aria-hidden="true"><img src="../../assets/img/arizona/clarissa-face-72.webp" srcset="../../assets/img/arizona/clarissa-face-72.webp 72w, ../../assets/img/arizona/clarissa-face-144.webp 144w" sizes="32px" width="144" height="144" decoding="async" alt=""><img src="../../assets/img/cydnie-face-72.webp" srcset="../../assets/img/cydnie-face-72.webp 72w, ../../assets/img/cydnie-face-144.webp 144w" sizes="32px" width="72" height="72" decoding="async" alt=""></span>Clarissa and Cydnie</dd></div>
+        <div><dt>From</dt><dd>$1,675</dd></div>
+        <div><dt>To hold a room</dt><dd>$500</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- 02 / WHY THIS EXISTS. The statement treatment the Gatlinburg premise
+     uses: the words brighten as she scrolls through them. -->
+<section class="section gb-say-sec z-deep" data-zone style="--from:var(--fathom)" aria-labelledby="why-h">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--plain gb-center r-fade">Why this exists</p>
+    <h2 class="gb-say" id="why-h" data-wordlight>You did not stop being creative. <em>You stopped having room for it.</em></h2>
+    <div class="az-why r-up" style="--d:80ms">
+      <p>We spend most of our lives thinking, planning, producing and responding. Five days will not change that. It gets you far enough from it to pick up a brush, or a pen, and find out what has been waiting underneath.</p>
+      <p>This is not a sip and paint. Nobody copies the same picture, and nobody is grading what you make.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 / THE ARTIST WHO LEADS IT. Cydnie, 24 September: the photograph of
+     Clarissa under Cydnie's statement, and then Clarissa's quote in a
+     section of its own, "doesn't make sense". It did not: a stranger's face
+     arrived under someone else's sentence, and her words arrived after we
+     had already moved on. Photograph, name, what she leads, then her line.
+     One block, and the first time the reader meets her. -->
+<section class="section az-artist-sec z-light" data-zone style="--from:var(--fathom)" aria-labelledby="artist-h">
+  <div class="wrap">
+    <div class="az-artist">
+      <figure class="az-artist-fig r-img">
+        <img src="../../assets/img/arizona/clarissa-piece-1000.webp"
+             srcset="../../assets/img/arizona/clarissa-piece-600.webp 600w, ../../assets/img/arizona/clarissa-piece-1000.webp 1000w, ../../assets/img/arizona/clarissa-piece-1450.webp 1450w"
+             sizes="(min-width: 56rem) 44vw, 100vw" width="1450" height="967"
+             loading="lazy" decoding="async"
+             alt="Clarissa holding one of her small paintings in front of her face. It reads: be happy, be bright, be you.">
+      </figure>
+      <div class="az-artist-copy">
+        <p class="eyebrow eyebrow--hang r-fade">Who leads the making</p>
+        <h2 class="head h-2 split" id="artist-h">Dr. Clarissa Castillo-Ramsey.</h2>
+        <svg class="az-stroke r-fade" viewBox="0 0 320 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 14 C 40 6, 86 5, 130 9 S 214 18, 256 11 S 304 6, 317 9"/><path pathLength="1" d="M22 18 C 90 12, 170 15, 236 16 S 290 14, 306 13"/></svg>
+        <p class="lead r-up" style="--d:60ms">An internationally collected abstract artist, and the one guiding every session across the five days. Watercolor, ink, words and intuitive mark-making, built so anyone can begin.</p>
+        <figure class="az-quote r-up" style="--d:120ms">
+          <blockquote>Wild does not have to mean loud. It can mean a little less edited. A little more curious. More willing to follow what wants to emerge than to worry about doing it right.</blockquote>
+          <figcaption>Clarissa, on what Wild Canvas is for</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 / THE FIVE DAYS. `.cond`, the site's pinned step-through, the same
+     component Gatlinburg walks its week with. -->
+<section class="section cond z-silt" data-zone style="--from:var(--surface)" id="week" aria-labelledby="week-h">
+  <div class="cond-track">
+   <div class="cond-stage">
+    <div class="wrap cond-in">
+      <div class="cond-head">
+        <p class="eyebrow eyebrow--hang r-fade">The five days</p>
+        <h2 class="head h-2 split" id="week-h">Room to make. Room to breathe.</h2>
+        <span class="wl-rule" aria-hidden="true" style="max-width:9rem"></span>
+        <ol class="cond-ticks" aria-label="Five things the week holds">
+          <li><button type="button" data-step="0" aria-label="One, the sessions"><span>01</span></button></li>
+          <li><button type="button" data-step="1" aria-label="Two, nothing to get right"><span>02</span></button></li>
+          <li><button type="button" data-step="2" aria-label="Three, the desert"><span>03</span></button></li>
+          <li><button type="button" data-step="3" aria-label="Four, the meals"><span>04</span></button></li>
+          <li><button type="button" data-step="4" aria-label="Five, the workshops in the works"><span>05</span></button></li>
+        </ol>
+        <div class="cond-gauge" aria-hidden="true"><span></span></div>
+      </div>
+
+      <ol class="cond-slots" role="list">
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">01</span>
+          <p><strong>Guided creative sessions with Clarissa.</strong> Watercolor, ink, words and intuitive mark-making, built so anyone can begin.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">02</span>
+          <p><strong>Nothing to get right.</strong> The point is the process of making, noticing and saying something you could not put into words. What you make is yours, and it comes home with you.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">03</span>
+          <p><strong>The desert is part of the material.</strong> Color, texture and light from the landscape find their way onto the page.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">04</span>
+          <p><strong>Every meal is included and eaten together.</strong> Homemade, and nobody has to plan it.</p>
+        </li>
+        <li class="cond-item">
+          <span class="cond-num" aria-hidden="true">05</span>
+          <p><strong>One or two more workshops, co-led by Cydnie and Clarissa.</strong> Still in the works. Registered guests hear about them first.</p>
+        </li>
+      </ol>
+    </div>
+   </div>
+  </div>
+</section>
+
+<!-- 05 / IN THEIR WORDS. The same three guest quotes and the same Melissa
+     video the Gatlinburg page carries, labelled Costa Rica, because that is
+     where they were said. Nobody has been to Arizona yet. -->
+<section class="section z-light" data-zone style="--from:#DCE4E1" id="words" aria-labelledby="words-h">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--hang r-fade">The last retreat, Costa Rica</p>
+    <h2 class="head h-2 split" id="words-h">In their words.</h2>
+    <div class="ab-proof">
+      <div class="ab-proof-quotes">
+    <div class="quotes r-up" data-quotes>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;The fact that you&rsquo;re even considering it&rdquo;</p>
+        <blockquote>The fact that you&rsquo;re even considering it should tell you that you should go. You&rsquo;ll come out the other end with new people in your life.</blockquote>
+        <figcaption><b>Kristi</b> <span>Retreat guest &middot; asked what she would say to someone afraid to come alone</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;I left being able to breathe&rdquo;</p>
+        <blockquote>I walked in carrying fear that the experience would take more from me than I had to give. I left being able to breathe, with old and new friends who cared about me.</blockquote>
+        <figcaption><b>BJB</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <p class="q-pull" aria-hidden="true">&ldquo;No waiting, no rushing&rdquo;</p>
+        <blockquote>Intimate group size, and leaders able to make us think, laugh and cry without judgement. No waiting, no rushing.</blockquote>
+        <figcaption><b>Carol</b> <span>Retreat guest &middot; Costa Rica</span></figcaption>
+      </figure>
+    </div>
+      </div>
+      <figure class="ab-melissa r-up">
+      <a class="rt-play melissa-play" data-cursor="Play" data-video="DrrP4hdw0lo" data-src="../../assets/video/melissa.mp4" data-start="3"
+         data-title="Melissa on the Costa Rica retreat"
+         href="../../assets/video/melissa.mp4#t=3">
+        <img src="../../assets/img/retreats/melissa-poster-405.webp"
+             srcset="../../assets/img/retreats/melissa-poster-300.webp 300w, ../../assets/img/retreats/melissa-poster-405.webp 405w"
+             sizes="(min-width: 48rem) 24rem, 74vw" width="405" height="720"
+             loading="lazy" decoding="async"
+             alt="Melissa, speaking to her phone camera in her car on the way home from the retreat.">
+        <span class="rt-play-btn" aria-hidden="true">
+          <svg width="18" height="20" viewBox="0 0 18 20" fill="currentColor"><path d="M0 0l18 10L0 20z"/></svg>
+        </span>
+        <span class="vh">Play Melissa&rsquo;s video about the Costa Rica retreat</span></a>
+        <figcaption><b>&ldquo;I learned that I matter too.&rdquo;</b> Melissa, on the drive home from Costa Rica. Three minutes, filmed on her phone.</figcaption>
+      </figure>
+    </div>
+    <!-- OPTIONAL, and offered twice: one voice from Clarissa's own
+         programmes would give this page proof about the making, not only
+         about the rest. Not a launch blocker. -->
+  </div>
+</section>
+
+<!-- 06 / WHERE YOU STAY, and where the booking happens. One room type, so
+     one card, at the width the pair used to share. -->
+<section class="section z-silt" data-zone style="--from:var(--surface)" id="rooms" aria-labelledby="house-h">
+  <div class="wrap">
+    <div class="gb-house-head">
+      <p class="eyebrow eyebrow--hang r-fade">Where you stay</p>
+      <h2 class="head h-1 split" id="house-h">Nine women, one house.</h2>
+      <p class="lead r-up" style="--d:60ms">You sleep, eat and make here. The house is painted top to bottom by hand, which is either a coincidence or the reason we booked it.</p>
+      <!-- NINE PLACES, drawn in one at a time as the section arrives. It
+           shows the size of the retreat, which is true, and never a count of
+           places taken, which nobody here knows. Resolves once, no loop. -->
+      <div class="az-seats r-fade" aria-hidden="true"><span class="az-seat-row"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i></span><span class="az-seat-note">Nine places. That is the whole retreat.</span></div>
+    </div>
+
+    <!-- ONE ROOM TYPE, SO NOT A CARD IN AN EMPTY ROW. Cydnie, 24 September:
+         "The layout of the room options/nine women one house, I do not like."
+         The pair of cards is Gatlinburg's shape because Gatlinburg sells two
+         rooms; this sells one, so it is a band the width of the page:
+         photograph on the left, and everything a woman decides with on the
+         right, in the order she decides in. Price, then what the early rate
+         means, then what the room is, then the two ways to pay. -->
+    <article class="az-stay r-up" aria-labelledby="room-shared">
+      <figure class="az-stay-fig">
+        <img src="../../assets/img/arizona/room-moon-1000.webp"
+             srcset="../../assets/img/arizona/room-moon-600.webp 600w, ../../assets/img/arizona/room-moon-1000.webp 1000w, ../../assets/img/arizona/room-moon-1702.webp 1702w"
+             sizes="(min-width: 56rem) 66vw, 100vw" width="1702" height="1130"
+             loading="lazy" decoding="async"
+             alt="A bedroom with two beds under a hand painted mural of purple mountains, saguaros and a full moon at dusk.">
+      </figure>
+      <div class="az-stay-body">
+        <h3 class="head h-3" id="room-shared">Shared room</h3>
+        <p class="gb-price"><span class="gb-now">$1,675</span> <s class="az-was">$1,800</s></p>
+        <p class="gb-rate-strip"><span>Early rate through 30 November</span> <b data-daysleft="2026-12-01T00:00:00-07:00" hidden></b></p>
+        <ul class="rt-incl" role="list">
+          <li>Two women to a room, with a king or queen bed</li>
+          <li>The natural fit if you are coming with a friend</li>
+          <li>Every art supply, every meal and both airport shuttles included</li>
+        </ul>
+        <div class="actions gb-room-acts">
+          <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/public/6ab58825015882f2ae403595" rel="noopener">
+            <span>Hold my room, $500</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+          <span class="vh"> (opens my booking page)</span></a>
+          <a class="btn btn--quiet" href="https://clients.cydniejocelyn.com/public/6ab588362524c9043b35b461" rel="noopener">
+            <span>Pay in full</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+          <span class="vh"> (opens my booking page)</span></a>
+                  </div>
+        <p class="gb-hold-note">$500 today holds it. The balance is five monthly payments, starting the month after.</p>
+      </div>
+    </article>
+
+    <!-- FIVE FRAMES, NOT THIRTEEN. Cydnie, 24 September: "less photos of the
+         property, the better. we want this to scream creative and luxury."
+         The rail keeps the five that read as designed rooms; everything else
+         the house has is a sentence now, not a photograph. Still the site's
+         own gallery: drag it or use the arrows, each tile opens full size,
+         and with no JavaScript it is a plain horizontal scroller. -->
+    <div class="gal r-up" data-rail data-gallery data-loop style="margin-top:clamp(var(--s-6),5vw,var(--s-7))">
+      <div class="gal-rail" tabindex="0" role="group" aria-label="Photographs of the house, scrollable">
+      <figure class="gal-item" data-full="../../assets/img/arizona/great-room-1450.webp">
+        <img src="../../assets/img/arizona/great-room-600.webp"
+             srcset="../../assets/img/arizona/great-room-600.webp 600w, ../../assets/img/arizona/great-room-1000.webp 1000w, ../../assets/img/arizona/great-room-1450.webp 1450w"
+             sizes="(min-width: 40rem) 26rem, 76vw" width="1450" height="992"
+             loading="lazy" decoding="async" alt="The great room, with a painted desert sunset across the far wall and seating in front of it.">
+        <figcaption>Where we make things</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/arizona/room-arizona-1702.webp">
+        <img src="../../assets/img/arizona/room-arizona-600.webp"
+             srcset="../../assets/img/arizona/room-arizona-600.webp 600w, ../../assets/img/arizona/room-arizona-1000.webp 1000w, ../../assets/img/arizona/room-arizona-1702.webp 1702w"
+             sizes="(min-width: 40rem) 26rem, 76vw" width="1702" height="1130"
+             loading="lazy" decoding="async" alt="A bedroom with one bed against a painted mural of Arizona landmarks and hot air balloons.">
+        <figcaption>Every room is painted by hand</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/arizona/patio-dusk-1702.webp">
+        <img src="../../assets/img/arizona/patio-dusk-600.webp"
+             srcset="../../assets/img/arizona/patio-dusk-600.webp 600w, ../../assets/img/arizona/patio-dusk-1000.webp 1000w, ../../assets/img/arizona/patio-dusk-1702.webp 1702w"
+             sizes="(min-width: 40rem) 26rem, 76vw" width="1702" height="1130"
+             loading="lazy" decoding="async" alt="A covered patio at dusk, a built in grill at one end and a long table down the middle.">
+        <figcaption>The patio, once the sun drops</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/arizona/table-bonsai-1702.webp">
+        <img src="../../assets/img/arizona/table-bonsai-600.webp"
+             srcset="../../assets/img/arizona/table-bonsai-600.webp 600w, ../../assets/img/arizona/table-bonsai-1000.webp 1000w, ../../assets/img/arizona/table-bonsai-1702.webp 1702w"
+             sizes="(min-width: 40rem) 26rem, 76vw" width="1702" height="1130"
+             loading="lazy" decoding="async" alt="A bonsai in a black bowl at the head of a long table set for dinner under the covered patio.">
+        <figcaption>The table, set before you sit</figcaption>
+      </figure>
+      <figure class="gal-item" data-full="../../assets/img/arizona/pool-919.webp">
+        <img src="../../assets/img/arizona/pool-600.webp"
+             srcset="../../assets/img/arizona/pool-600.webp 600w, ../../assets/img/arizona/pool-919.webp 919w"
+             sizes="(min-width: 40rem) 26rem, 76vw" width="919" height="746"
+             loading="lazy" decoding="async" alt="A swimming pool with a rock waterfall running into it and a hot tub set beside it.">
+        <figcaption>The water, and the hot tub</figcaption>
+      </figure>
+      </div>
+    </div>
+
+    <!-- THE REST OF THE HOUSE: three frames and a sentence. She asked for
+         these to be highlighted and then asked for fewer photographs, so the
+         three that are hard to believe without a picture stay pictures and
+         the rest is one line. -->
+    <div class="az-extras" data-stagger="60">
+      <p class="az-extras-h">For the hours between sessions.</p>
+      <figure class="az-extra r-up">
+        <img src="../../assets/img/arizona/minigolf-600.webp"
+             srcset="../../assets/img/arizona/minigolf-600.webp 600w, ../../assets/img/arizona/minigolf-1000.webp 1000w, ../../assets/img/arizona/minigolf-1702.webp 1702w"
+             sizes="(min-width: 40rem) 46vw, 90vw" width="1702" height="1130"
+             loading="lazy" decoding="async" alt="A putting green on artificial turf with three flags, against a painted desert wall.">
+        <figcaption>A putting green under the desert sky</figcaption>
+      </figure>
+      <figure class="az-extra r-up">
+        <img src="../../assets/img/arizona/bowling-600.webp"
+             srcset="../../assets/img/arizona/bowling-600.webp 600w, ../../assets/img/arizona/bowling-1000.webp 1000w, ../../assets/img/arizona/bowling-1702.webp 1702w"
+             sizes="(min-width: 40rem) 46vw, 90vw" width="1702" height="1130"
+             loading="lazy" decoding="async" alt="A bowling lane laid on turf beside the garden wall at dusk, pins set and string lights above.">
+        <figcaption>A lawn bowling lane, lit at dusk</figcaption>
+      </figure>
+      <p class="az-extras-line">Inside, a billiards room painted wall to wall, a wooden sauna for two and a small gym. The evenings belong to the pool, the hot tub and a long table under the string lights.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 / WHAT THE PRICE COVERS. The checklist whose ticks draw themselves
+     in, then what is not included as one quiet line. -->
+<section class="section z-light" data-zone style="--from:#DCE4E1" id="included" aria-labelledby="inc-h">
+  <div class="wrap">
+    <div class="gb-inc-head">
+      <p class="eyebrow eyebrow--plain gb-center r-fade">What the price covers</p>
+      <h2 class="head h-1 gb-center split" id="inc-h">You land. We handle the rest.</h2>
+      <svg class="az-stroke az-stroke--center r-fade" viewBox="0 0 320 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 14 C 40 6, 86 5, 130 9 S 214 18, 256 11 S 304 6, 317 9"/><path pathLength="1" d="M22 18 C 90 12, 170 15, 236 16 S 290 14, 306 13"/></svg>
+    </div>
+    <ul class="gb-checks" role="list" data-stagger="60">
+      <li class="r-up"><svg class="gb-tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Four nights in a shared room</span></li>
+      <li class="r-up"><svg class="gb-tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Every meal, arrival to departure</span></li>
+      <li class="r-up"><svg class="gb-tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Guided creative sessions with Clarissa</span></li>
+      <li class="r-up"><svg class="gb-tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Airport shuttles to and from PHX</span></li>
+      <li class="r-up"><svg class="gb-tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Every art supply you will need</span></li>
+      <li class="r-up"><svg class="gb-tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Everything you make, to take home</span></li>
+    </ul>
+    <p class="gb-not small r-up"><b>Not included:</b> your flight into Phoenix (usually $200 to $500, depending on where you fly from) and travel insurance.</p>
+
+    <!-- THE PRICE, AS A DAY. Cydnie, 24 September evening: the booking bands
+         between sections "feel out of place". This one stays because it is
+         the end of the price argument, not a break in the story, so it lives
+         inside the section that makes the argument. $1,675 over five days is
+         $335, which is arithmetic, not a claim. -->
+    <div class="az-cta az-cta--sum r-up">
+      <p class="az-cta-line"><span class="az-per"><b data-count="335">335</b><span>a day</span></span> with the room, every meal, every supply and both shuttles already in it. $500 holds your room today.</p>
+    <div class="actions">
+        <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/public/6ab58825015882f2ae403595" rel="noopener">
+          <span>Hold my room, $500</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+        <span class="vh"> (opens my booking page)</span></a>
+        <a class="btn btn--quiet" href="https://clients.cydniejocelyn.com/public/6ab588362524c9043b35b461" rel="noopener">
+          <span>Pay in full</span>
+          <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+        <span class="vh"> (opens my booking page)</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 / WHERE YOU ARE. Three panels: getting there, getting home, and the
+     weather, which is the one a woman packs from. -->
+<section class="section z-deep" data-zone style="--from:var(--surface)" id="place" aria-labelledby="place-h">
+  <div class="wrap">
+    <div class="gb-place-head">
+      <p class="eyebrow eyebrow--hang r-fade">Where you are</p>
+      <h2 class="head h-1 split" id="place-h">Peoria, on the edge of the <em>Sonoran desert.</em></h2>
+    </div>
+    <dl class="gb-legs" data-stagger="60">
+      <div class="r-up"><dt>Getting there</dt><dd>Fly into Phoenix Sky Harbor (PHX) on 5 May and land by 3 pm, so the shuttles can be grouped. You will know who is on your flight before you board.</dd></div>
+      <div class="r-up"><dt>Getting home</dt><dd>Depart any time after 10 am on 9 May. Book the return flight with that in mind, and the shuttles are grouped the same way they were on the way in.</dd></div>
+      <div class="r-up"><dt>May weather</dt><dd>Warm, dry and sunny. Days in the high 80s to low 90s, evenings in the 60s, and almost never rain. Pack light layers for the evenings, a hat, sunscreen and a water bottle.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- 09 / WHO YOU ARE WITH. The Gatlinburg host pair: portraits that unveil
+     upward, the second set lower so they step down the page. -->
+<section class="section z-light" data-zone style="--from:var(--fathom)" id="with" aria-labelledby="hosts-h">
+  <div class="wrap">
+    <p class="eyebrow eyebrow--hang r-fade">Who you are with</p>
+    <h2 class="head h-2 split" id="hosts-h">The artist, and the one holding the details.</h2>
+
+    <div class="gb-hosts">
+      <article class="gb-host">
+        <figure class="r-img">
+          <img src="../../assets/img/arizona/clarissa-600.webp"
+               srcset="../../assets/img/arizona/clarissa-600.webp 600w, ../../assets/img/arizona/clarissa-1000.webp 1000w, ../../assets/img/arizona/clarissa-1400.webp 1400w"
+               sizes="(min-width: 48rem) 40vw, 100vw" width="1400" height="1750"
+               loading="lazy" decoding="async"
+               alt="Clarissa Castillo-Ramsey at a table, pencil in hand, a blue abstract painting drying in front of her.">
+        </figure>
+        <div class="r-up">
+          <h3 class="head h-3">Dr. Clarissa Castillo-Ramsey</h3>
+          <p class="rt-role">Artist and guide &middot; Painting Your Path&trade;</p>
+          <p class="gb-host-copy">Clarissa&rsquo;s turning point came through spasmodic dysphonia, a condition that challenged her ability to speak just as she was building her creativity and coaching business. She turned it into a catalyst, and found art and wellness as tools for healing and self-expression.</p>
+          <p class="gb-host-copy">She is an international best-selling author, an award-winning transformational coach and an internationally collected abstract artist. Her programs, including The Creative Care Summit, Painting Your Path to Self-Expression and The Art of Becoming, have helped more than 5,000 creatives and professionals get their art into the world. Through her podcast, Painting Your Path&trade;, she helps women in midlife and beyond move past imposter syndrome, perfectionism and self-doubt, and back to their creativity.</p>
+        </div>
+      </article>
+
+      <article class="gb-host">
+        <figure class="r-img" style="--d:80ms">
+          <img src="../../assets/img/cydnie-writing-600.webp"
+               srcset="../../assets/img/cydnie-writing-600.webp 600w, ../../assets/img/cydnie-writing-1000.webp 1000w"
+               sizes="(min-width: 48rem) 40vw, 100vw" width="1000" height="1500"
+               style="object-position: 50% 38%" loading="lazy" decoding="async"
+               alt="Cydnie Jocelyn sitting with an open notebook on her lap, writing.">
+        </figure>
+        <div class="r-up" style="--d:80ms">
+          <h3 class="head h-3">Cydnie Jocelyn</h3>
+          <p class="rt-role">Host &middot; Forest Lake, Minnesota</p>
+          <p class="gb-host-copy">I went on a retreat before I ever ran one, and came home with my head clear for the first time in a long stretch. I&rsquo;m a wife and a mom, and a rare genetic mutation runs through my husband and both of my kids, so I know how fast a woman ends up last on her own list. These five days are for making something that is only yours. <a class="link" href="/about/">The longer version is on the About page.</a></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 10 / BEFORE YOU BOOK. Seven questions, the held heading beside them,
+     and the not-yet door underneath. No FAQPage node: the Gatlinburg page
+     carries none either, and a node whose questions are not on the page
+     word for word is the mistake in section 48. -->
+<section class="section z-silt" data-zone style="--from:var(--surface)" id="faq" aria-labelledby="q-h">
+  <div class="wrap">
+    <div class="grid-12 grid-12--hold">
+      <div class="col-d">
+        <p class="eyebrow eyebrow--hang r-fade">Before you book</p>
+        <h2 class="head h-2 split" id="q-h">The practical answers.</h2>
+        <p class="small muted r-up" style="--d:60ms; margin-top:var(--s-5)">Still sitting on something? <a class="link" href="/contact/">Ask me</a> or email <a class="link" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a>. I would rather you booked knowing than booked hoping.</p>
+        <div class="gb-list r-up" style="--d:120ms">
+          <p class="gb-list-h">Not ready to decide?</p>
+          <p class="small">Join the Wild Canvas list. No payment, and nothing is held against you if you never book.</p>
+          <a class="btn btn--quiet" href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa3c69e63a7a4c9bb354f1" rel="noopener">
+            <span>Join the list</span>
+            <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+          <span class="vh"> (opens a short form)</span></a>
+        </div>
+      </div>
+      <div class="col-e">
+    <div class="faq r-up">
+      <details>
+        <summary>Do I need any art experience? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>None. Every session is built so anyone can begin. If you have never called yourself an artist, you are exactly who this is for.</p></div>
+      </details>
+      <details>
+        <summary>Do I need to know anyone going? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>No. Most women come on their own. That is the normal way to arrive at one of these.</p></div>
+      </details>
+      <details>
+        <summary>Can I come with a friend? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>Yes. Every room is shared by two, so coming as a pair is easy. You each book separately.</p></div>
+      </details>
+      <details>
+        <summary>When should I land? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>By 3 pm on 5 May, so the shuttles can be grouped. Book your flight into PHX with that in mind.</p></div>
+      </details>
+      <details>
+        <summary>Do I bring my own supplies? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>No. Every art supply you need is included and waiting for you. Bring yourself.</p></div>
+      </details>
+      <details>
+        <summary>What happens after I book? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>$500 holds your room, or you pay in full. Your invoice, payment terms and contract arrive by email, and from there Cydnie handles the details until you land in Phoenix.</p></div>
+      </details>
+      <details>
+        <summary>What is the cancellation policy? <span class="sign" aria-hidden="true"></span></summary>
+        <div class="answer"><p>It is in your contract, and you see it before you pay anything.</p></div>
+      </details>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 / BOOK. The one Deepwater band, on the action, and the page ends
+     here rather than on a link back up itself. -->
+<section class="section z-deepwater" data-zone style="--from:#DCE4E1" id="booking" aria-labelledby="book-h">
+  <div class="wrap">
+    <div class="gb-book">
+      <div class="gb-book-copy">
+        <p class="eyebrow eyebrow--hang r-fade">5&ndash;9 May 2027 &middot; Peoria</p>
+        <h2 class="head h-1 split" id="book-h">Come make something in the desert.</h2>
+        <svg class="az-stroke r-fade" viewBox="0 0 320 22" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 14 C 40 6, 86 5, 130 9 S 214 18, 256 11 S 304 6, 317 9"/><path pathLength="1" d="M22 18 C 90 12, 170 15, 236 16 S 290 14, 306 13"/></svg>
+        <p class="lead r-up" style="--d:60ms">Nine women, five days, and everything you make comes home with you. $500 holds your room today, and the balance is five monthly payments starting the month after. Or pay in full.</p>
+        <p class="gb-rate-line small r-up">The early rate holds through 30 November 2026. From 1 December the room is $1,800.</p>
+      </div>
+
+      <div class="gb-book-rooms" data-stagger="60">
+        <div class="gb-pick r-up">
+          <p class="gb-pick-name">Shared room</p>
+          <p class="gb-pick-price">$1,675</p>
+          <div class="actions">
+            <a class="btn btn--solid" href="https://clients.cydniejocelyn.com/public/6ab58825015882f2ae403595" rel="noopener">
+              <span>Hold my room, $500</span>
+              <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span class="vh"> (opens my booking page)</span></a>
+            <a class="btn btn--quiet" href="https://clients.cydniejocelyn.com/public/6ab588362524c9043b35b461" rel="noopener">
+              <span>Pay in full, $1,675</span>
+              <svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span class="vh"> (opens my booking page)</span></a>
+          </div>
+        </div>
+        <p class="note-under small">Your invoice, payment terms and contract come straight to your inbox.</p>
+      </div>
+    </div>
+    <p class="gb-later r-up">Not ready to decide? <a class="link" href="https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa3c69e63a7a4c9bb354f1" rel="noopener">Join the Wild Canvas list<span class="vh"> (opens a short form)</span></a>. No payment.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+<p class="ftr-top-link"><a class="more" href="#main"><span>Back to the top</span>
+<svg class="arw arw--up" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a></p>
+    <div class="ftr-top">
+      <div class="ftr-brand">
+        <img class="ftr-mark" src="../../assets/img/mark-horiz-light-800.webp"
+             srcset="../../assets/img/mark-horiz-light-500.webp 500w, ../../assets/img/mark-horiz-light-800.webp 800w"
+             sizes="240px" width="2198" height="410" loading="lazy" decoding="async"
+             alt="Cydnie Jocelyn, the resurfacing business">
+        <p class="small muted" style="max-width:26rem">Brand, operations and business development for founders and leaders. Forest Lake, Minnesota.</p>
+        <p class="small" style="margin-top:var(--s-4)"><a class="link" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a></p>
+        <p class="ftr-area tiny" style="margin-top:var(--s-3); max-width:26rem">In person around Forest Lake, Minneapolis, Saint Paul, Stillwater, Woodbury and White Bear Lake, and remotely anywhere.</p>
+      </div>
+      <div class="ftr-nav">
+        <div>
+          <h3>The work</h3>
+          <ul role="list">
+            <li><a href="/a-sounding/">A Sounding</a></li>
+            <li><a href="/retreats/">Retreats</a></li>
+            <li><a href="/the-build/">The Build, brand and website work</a></li>
+            <li><a href="/the-build/#work">Client work</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>More</h3>
+          <ul role="list">
+            <li><a href="/about/">About Cydnie</a></li>
+            <li><a href="/the-letters/">The Letters, free weekly</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+        <div class="ftr-social">
+          <h3>Elsewhere</h3>
+          <ul class="social" role="list">
+            <li><a href="https://www.instagram.com/cydniejocelyn/" rel="me noopener" aria-label="Instagram, opens in a new tab" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="fill" cx="17.4" cy="6.6" r="1.1"/></svg></a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61575458834389" rel="me noopener" aria-label="Facebook, opens in a new tab" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.6 8.2V6.8c0-.7.5-1.3 1.2-1.3h1.5V2.4h-2.4c-2.3 0-3.6 1.6-3.6 3.9v1.9H9v3.1h2.3V21h3.3v-9.7h2.4l.4-3.1z"/></svg></a></li>
+            <li><a href="https://www.pinterest.com/Cydniejocelyn/" rel="me noopener" aria-label="Pinterest, opens in a new tab" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10.4 17.6l1.3-5.1M9.9 10.3c0-1.4 1-2.4 2.3-2.4 1.2 0 2 .8 2 1.9 0 1.4-.8 3.1-2.1 3.1-.7 0-1.2-.5-1.1-1.2"/></svg></a></li>
+            <li><a href="https://www.youtube.com/@Cydniejocelyn" rel="me noopener" aria-label="YouTube, opens in a new tab" target="_blank">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.4" y="5.6" width="19.2" height="12.8" rx="3.6"/><path class="fill" d="M10.2 9.3v5.4l4.6-2.7z"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="ftr-btm">
+      <p>&copy; <span data-year>2026</span> Cydnie Jocelyn LLC. Forest Lake, Minnesota.</p>
+      <p class="ftr-legal"><a href="/privacy-policy/">Privacy policy</a><a href="/privacy-policy/#terms">Terms of use</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="../../assets/js/site.js?v=10a251c9" defer></script>
+<script src="../../assets/js/analytics.js?v=10a251c9" defer></script>
+<script src="../../assets/js/consent.js?v=10a251c9" defer></script>
+</body>
+</html>
