@@ -8391,14 +8391,23 @@ site, untouched. `git switch site-2026` before any rebuild work.
   | /retreats/gatlinburg/ | tools/gen_gatlinburg.py | Uq7dwHkKDjc5SLFcEKriG2 |
   | /retreats/greece/ | tools/gen_greece.py | Ddv5rt41aiaKNLWyMX1Yi1 |
   | /retreats/arizona/ (HIDDEN) | tools/gen_arizona.py | CqN4Yqjfi4PTPWcMTQVrv8 |
+  | /the-letters/ (26 Sep) | tools/gen_the_letters.py | 3F2dBTGNjwk4mFqVKo8Mca |
   Artifact links are claude.ai/artifact/<id>. Generators run from tools/
   (`cd tools && python3 gen_x.py`), except gen_work_with_me.py (repo root).
   After any lux.css edit: `python3 tools/stamp.py`.
 
 ### Pages left to rebuild before launch (tomorrow)
-  1. /the-letters/  The Letters. Carries the ONLY Flodesk popup (form
-     6a8f553c...); the list itself is HoneyBook cf_id/6a19d46a.... Decide
-     with her whether the page gets an inline sign-up (needs an embed).
+  1. DONE 26 Sep: /the-letters/. Her answers: keep the HoneyBook sign-up
+     (cf_id/6a19d46a...); the sample is now her LATEST REAL letter (in
+     full, verbatim from her two screenshots, signed "Cydnie Jocelyn"; replaced No. 07 the same
+     day). "It's a letter for all": the page is NOT narrowed to founders and
+     leaders. Her email template's layout is changing too. Weekly is the
+     goal, Flodesk popup stays (re-added by the generator after the shared
+     scripts), photo my pick (cydnie-writing in the arch, cydnie-journal
+     beside "What you get"). Close goes to the free call. Awaiting her review.
+     Note: on this page the Flodesk popup and the Gatlinburg popup can both
+     open in one visit (Flodesk does not share the one-popup key); it was
+     the same on the old page.
   2. /contact/  Contact. HoneyBook contact form cf_id/69fa372c.... Should
      now lead with the free call as well as the question form.
   3. /privacy-policy/  Privacy policy and terms (retreat terms at #terms).

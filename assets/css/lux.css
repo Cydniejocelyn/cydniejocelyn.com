@@ -937,3 +937,32 @@
 @media (min-width: 60rem) { .az-play { grid-template-columns: 1fr 1fr 1fr; gap: 2rem; } }
 .az-day { margin-top: 1.5rem; font-size: .9375rem; color: var(--ink-2); }
 .az-day b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2.5rem, 4vw, 3.25rem); line-height: 1; color: var(--ink); }
+
+/* ==========================================================
+   THE LETTERS (/the-letters/), 26 September 2026. lt- prefix.
+   The sample letter is a real page (the Sounding's .sd-doc paper,
+   upright and readable), the photo a wide crop beside two items.
+   ========================================================== */
+.lt-for .hv-lede { margin-top: 0; }
+.lt-for-copy p + p { margin-top: 1.25rem; color: var(--ink-2); }
+.lt-read { background: var(--porcelain); }
+.lt-read .ww-head { text-align: center; }
+.lt-read .ww-head .hv-label { justify-content: center; }
+.lt-letter { position: relative; max-width: 38rem; margin: clamp(2.5rem, 5vw, 3.5rem) auto 0; padding: clamp(2rem, 5vw, 3.5rem); background: #fff; box-shadow: .7rem .7rem 0 -1px #fff, .7rem .7rem 0 0 var(--line-2), 1.4rem 1.4rem 0 0 var(--blue), 0 50px 80px -40px rgba(12,40,48,.35); }
+.lt-letter-mark { display: block; width: 9rem; color: var(--ink); }
+.lt-letter-no { margin: 1.5rem 0 1.75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line-2); font-family: var(--serif); font-size: clamp(1.625rem, 3vw, 2rem); line-height: 1.05; }
+.lt-letter-no span { display: block; margin-top: .5rem; font-family: var(--sans); font-size: .625rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-3); }
+.lt-letter p { color: var(--ink-2); }
+.lt-letter p + p { margin-top: 1.1rem; }
+.lt-letter .lt-letter-q { margin: 1.5rem 0; padding-left: 1.25rem; border-left: 2px solid var(--blue); font-family: var(--serif); font-size: clamp(1.375rem, 2.4vw, 1.625rem); line-height: 1.25; color: var(--ink); }
+.lt-letter .lt-letter-sign { margin-top: 1.75rem; font-family: var(--serif); font-style: italic; font-size: 2rem; line-height: 1; color: var(--ink); }
+.lt-letter .lt-letter-more { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-size: .9375rem; }
+@media (max-width: 40rem) { .lt-letter { margin-right: 1.4rem; } }
+.lt-photo { margin: 0; }
+.lt-photo img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+@media (min-width: 60rem) { .lt-photo { align-self: center; } }
+.lt-get { margin: 1.75rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line-2); counter-reset: g; }
+.lt-get li { counter-increment: g; padding: 1.5rem 0 1.5rem 3rem; border-bottom: 1px solid var(--line); position: relative; }
+.lt-get li::before { content: "0" counter(g); position: absolute; left: 0; top: 1.85rem; font-size: .625rem; font-weight: 600; letter-spacing: .24em; color: var(--ink-3); }
+.lt-get h3 { margin: 0 0 .4rem; font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.1; }
+.lt-get p { margin: 0; color: var(--ink-2); }
