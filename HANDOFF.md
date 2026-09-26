@@ -8396,6 +8396,15 @@ site, untouched. `git switch site-2026` before any rebuild work.
   | /privacy-policy/ (26 Sep) | tools/gen_privacy_policy.py (+ privacy_body.html) | Q6A5i8zhaB8wQ1ABhWyBKf |
   | /thequestions/ (26 Sep, noindex) | tools/gen_thequestions.py | TvVACshSZnVCK8u5ixFhDR |
   | popups + cookie card (26 Sep) | sounding-popup.js, gatlinburg-popup.js, lux.css .hv2 .cc | FeLyYMnFsKJhtrdNZcBt35 |
+  LAUNCH AUDIT (26 Sep): claude.ai/artifact/5WHLiNN7xc9Lmac1Rz6Hy3
+  (tools/cydnie-jocelyn-launch-audit.html). Verdict: ready after (1) phone
+  header shows no booking button (hidden under 'Menu'), so Home has no book
+  action on the first phone screen; recommend a small 'Book a call' in the
+  phone header, all pages; (2) terms Sounding-credit sentence (hers);
+  (3) Home FAQ 'Most partnerships begin with a $300 Sounding' -> free call
+  first; (4) 9/12 meta descriptions >160 chars, Sounding title 78 chars,
+  sitemap lastmod still mid-Sep (set to launch day). All 15 HoneyBook links
+  200, no sideways scroll at 390, no console errors, 40-310 KB first load.
   FINAL REVIEW HUB (26 Sep): claude.ai/artifact/Nvqk6ShtgGacZH5vPRyEt7
   (tools/cydnie-jocelyn-final-review.html) links every page above, the footer
   check (13 pages identical, 9 site links resolve, 4 socials load 200) and
