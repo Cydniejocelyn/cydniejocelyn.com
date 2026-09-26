@@ -27,7 +27,7 @@ PAGES = {
                  "Wide Open: The Gatlinburg Edition"),
     "arizona":  ("retreats/arizona/index.html", "cydnie-jocelyn-arizona.html",
                  "Wild Canvas: The Arizona Edition"),
-    "sounding": ("a-sounding/index.html", "cydnie-jocelyn-sounding.html", "A Sounding"),
+    "sounding": ("a-sounding/index.html", "cydnie-jocelyn-sounding.html", "The Sounding"),
     "letters":  ("the-letters/index.html", "cydnie-jocelyn-letters.html", "The Letters"),
 }
 if PAGE not in PAGES:
@@ -129,6 +129,7 @@ PICK = {
     "home/retreat-together": "home/retreat-together-1000.webp",
     "cj-mark-mist":          "cj-mark-mist-800.webp",
     "wwm/hero-door":         "wwm/hero-door-1500.webp",
+    "sounding/hero":         "sounding/hero-1500.webp",
     "home/band-door":        "home/band-door-1600.webp",
     "home/band-garden":      "home/band-garden-1600.webp",
     "mane-alchemist-desktop":  "work/mane-alchemist-desktop-1400.webp",
@@ -346,7 +347,7 @@ ARTIFACT = {
     "retreats": None,
     "greece":   None,
     # Neither new page has been published as an artifact yet either.
-    "sounding": None,
+    "sounding": "https://claude.ai/artifact/DssHAcZhyTcejNQUjtQSJi",
     "letters":  None,
 }
 BUILD_HREF = ARTIFACT["build"] or (SITE + "/the-build/")

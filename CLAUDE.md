@@ -1,9 +1,9 @@
 # Working on this site
 
-This file is a pointer, not a second source of truth. **`HANDOFF.md` section
-71 is the current state of the site**: the 2026 rebuild, paused with home and
-Work with me done, uncommitted on main, launching all pages at once (69-70
-have the detail; 68 is Arizona) (67 has the Arizona reasoning): /retreats/gatlinburg/ launched on
+This file is a pointer, not a second source of truth. **`HANDOFF.md` sections
+71-72 are the current state of the site**: the 2026 rebuild, on branch
+`site-2026` (main = the live site), launching all pages at once (69-70 have
+the detail; 68 is Arizona) (67 has the Arizona reasoning): /retreats/gatlinburg/ launched on
 16 September 2026, and /retreats/arizona/ went live on 24 September as an
 unlinked, noindex landing page (not on /retreats/, not in the sitemap, on
 her word). Read it before doing anything. Where

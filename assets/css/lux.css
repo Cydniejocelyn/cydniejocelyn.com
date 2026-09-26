@@ -580,3 +580,58 @@
 .ww-page .ww-path { padding-bottom: clamp(2rem, 4vw, 3rem); }
 .ww-cases-2 { margin-top: clamp(3.5rem, 6vw, 5rem); }
 .ww-cases-2 .ww-decision { margin-top: 1rem; padding-left: 1.1rem; border-left: 1px solid var(--blue); font-family: var(--serif); font-style: italic; font-size: 1.3125rem; line-height: 1.25; color: var(--ink); }
+
+/* ==========================================================
+   THE SOUNDING (/a-sounding/), 25 September 2026. sd- prefix.
+   Reuses the ww- hero, head, steps and standards.
+   ========================================================== */
+/* felt / found: two columns that read across, like a ledger */
+.sd-ff { margin-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid var(--line-2); }
+.sd-ff-row { display: grid; gap: .75rem; padding: 1.75rem 0; border-bottom: 1px solid var(--line); }
+.sd-ff-row p { font-family: var(--serif); font-size: clamp(1.625rem, 3vw, 2.5rem); line-height: 1.1; }
+.sd-ff-row p em { color: var(--blue-deep); }
+.sd-ff-row span { display: block; margin-bottom: .6rem; font-family: var(--sans); font-size: .625rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-3); }
+@media (min-width: 60rem) { .sd-ff-row { grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: end; } }
+
+/* the one page, drawn */
+.sd-leave { background: var(--porcelain); }
+.sd-leave-grid { display: grid; gap: 3.5rem; align-items: center; }
+/* the blue sheet behind is a shadow, not a pseudo-element: a transformed
+   element is its own stacking context, so a z-index:-1 child paints over
+   its background (that is how the first draft came out inside out). */
+.sd-doc { position: relative; max-width: 26rem; width: 100%; justify-self: center; aspect-ratio: 8.5 / 11; padding: 2.5rem 2.25rem; background: #fff; box-shadow: 1.1rem 1.1rem 0 0 var(--blue), 0 40px 70px -40px rgba(12,40,48,.45); transform: rotate(-2deg); }
+.sd-doc-mark { width: 9rem; color: var(--ink); }
+.sd-doc-title { margin-top: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line-2); font-family: var(--serif); font-size: 1.75rem; line-height: 1; }
+.sd-doc-title span { display: block; margin-top: .45rem; font-family: var(--sans); font-size: .5625rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-3); }
+.sd-doc ol { margin: 1.25rem 0 0; padding: 0; list-style: none; counter-reset: d; display: grid; gap: 1.25rem; }
+.sd-doc li { counter-increment: d; }
+.sd-doc li b { display: block; margin-bottom: .6rem; font-size: .625rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+.sd-doc li b::before { content: "0" counter(d) "  "; color: var(--blue-deep); white-space: pre; }
+.sd-doc li i { display: block; height: .4rem; margin-top: .45rem; background: var(--mist); }
+.sd-doc li i.short { width: 62%; }
+.sd-list { margin: 1.75rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line-2); counter-reset: l; }
+.sd-list li { counter-increment: l; padding: 1rem 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.5rem; line-height: 1.1; }
+.sd-list li::before { content: "0" counter(l); display: inline-block; width: 3rem; font-family: var(--sans); font-size: .625rem; font-weight: 600; letter-spacing: .24em; color: var(--ink-3); vertical-align: middle; }
+@media (min-width: 60rem) { .sd-leave-grid { grid-template-columns: 1fr 1.1fr; gap: 6rem; } }
+
+/* the honest answer, on ink */
+.sd-truth-copy { margin-top: 1.75rem; max-width: 44rem; color: #b7cfca; font-size: clamp(1.0625rem, 1.4vw, 1.1875rem); }
+.sd-truth-close { margin-top: 1.5rem; padding-top: 1.5rem; max-width: 44rem; border-top: 1px solid rgba(255,255,255,.16); font-family: var(--serif); font-style: italic; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.2; color: #fff; }
+
+/* two quotes, not three */
+@media (min-width: 60rem) { .sd-quotes { grid-template-columns: 1fr 1fr; } }
+.sd-quotes { border-top: 0; padding-top: 0; margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.sd-quotes .hv-q { padding-top: 2rem; border-top: 1px solid var(--line-2); }
+
+/* the ticket */
+.sd-buy { background: var(--blue-wash); }
+.sd-buy-grid { display: grid; gap: 3rem; align-items: center; }
+.sd-ticket { padding: clamp(2rem, 4vw, 3rem); background: #fff; box-shadow: 0 40px 70px -45px rgba(12,40,48,.45); }
+.sd-ticket-price { font-family: var(--serif); font-size: clamp(4rem, 7vw, 5.5rem); line-height: .9; }
+.sd-ticket-price span { display: block; margin-bottom: .6rem; font-family: var(--sans); font-size: .625rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-3); }
+.sd-ticket ul { margin: 1.75rem 0 2rem; padding: 0; list-style: none; border-top: 1px solid var(--line-2); }
+.sd-ticket li { padding: .85rem 0; border-bottom: 1px solid var(--line); color: var(--ink-2); }
+.sd-ticket li::before { content: ""; display: inline-block; width: .35rem; height: .35rem; margin-right: .75rem; transform: rotate(45deg) translateY(-2px); background: var(--blue); }
+.sd-ticket .hv-btn { width: 100%; }
+.sd-ticket-note { margin-top: 1.1rem; font-size: .875rem; color: var(--ink-2); text-align: center; }
+@media (min-width: 60rem) { .sd-buy-grid { grid-template-columns: 1fr 1fr; gap: 6rem; } }
