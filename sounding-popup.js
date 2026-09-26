@@ -25,17 +25,19 @@
 
 (function () {
   /* ---------------- CONFIG ---------------- */
-  var LINK          = 'https://clients.cydniejocelyn.com/schedule/6a185c26693e14802690e9f6';
+  var LINK          = 'https://clients.cydniejocelyn.com/schedule/69f9f2a095c611cc2401eec7';
   var DELAY_MS      = 45000;   /* how long before it fires */
-  var SKIP_PATHS    = ['/a-sounding', '/about', '/retreats/greece', '/privacy-policy', '/thequestions'];
+  var SKIP_PATHS    = ['/a-sounding', '/about', '/retreats/greece', '/privacy-policy', '/thequestions', '/contact'];
   var REMEMBER_DAYS = 30;      /* how long a dismissal is honoured */
   var MEMORY_KEY    = 'sd_pop_dismissed';
 
-  var EYEBROW = 'Ninety minutes  /  $300';
-  var TITLE   = 'A Sounding';
-  var BODY    = 'One conversation about what is actually happening in your business, and a written roadmap two days later, with my recommendations. Nothing to prepare beforehand.';
-  var CTA     = 'Book a Sounding';
+  var EYEBROW = 'Free &middot; 30 minutes';
+  var TITLE   = 'Let&rsquo;s <em>talk.</em>';
+  var BODY    = 'A free 30-minute call about your business and where you want it to go. You will leave knowing whether a partnership makes sense.';
+  var CTA     = 'Book a free 30-min call';
   var DISMISS = 'Not now';
+  /* 26 Sep 2026: the free call replaced the $300 Sounding here, on her word;
+     the free call is the front door now. */
   /* ---------------------------------------- */
 
   var path = window.location.pathname.replace(/\/$/, '') || '/';
@@ -71,27 +73,26 @@
      --surface is the light ground, --fathom the ink, --meniscus the rules,
      --carved/--level/--utility the three faces. Literal hex stays as the
      fallback so the modal survives the stylesheet failing to load. */
+  /* RESTYLED 26 September 2026 for the rebuilt site: white card, ink type,
+     one aqua hairline, the Instrument faces, the site's rectangular ink
+     button. Literal values, so it survives the stylesheet failing to load. */
   var CSS = [
     '.sd-pop{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}',
     '.sd-pop[hidden]{display:none}',
-    '.sd-scrim{position:absolute;inset:0;background:rgba(7,26,31,.72)}',
-    '.sd-card{position:relative;background:var(--surface,#E7ECE8);border:1px solid var(--meniscus,#2F5A61);border-radius:0;max-width:430px;width:100%;max-height:calc(100dvh - 40px);overflow-y:auto;padding:44px 38px 34px;color:var(--fathom,#071A1F)}',
-    '.sd-x{position:absolute;top:6px;right:8px;background:none;border:0;cursor:pointer;font-size:22px;line-height:1;color:#5B6B6E;width:44px;height:44px;display:flex;align-items:center;justify-content:center}',
-    '.sd-eyebrow{font-family:var(--utility,"IBM Plex Mono",ui-monospace,monospace);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#5B6B6E;margin:0 0 16px}',
-    '.sd-title{font-family:var(--carved,"ivyjournal","Instrument Serif",Georgia,serif);font-weight:400;font-size:38px;line-height:1.05;letter-spacing:.03em;margin:0 0 14px}',
-    '.sd-body{font-family:var(--level,"Instrument Sans",-apple-system,Helvetica,sans-serif);font-size:16px;line-height:1.55;color:#123240;margin:0 0 26px}',
-    '.sd-btn{display:inline-flex;align-items:center;min-height:44px;font-family:var(--level,"Instrument Sans",-apple-system,Helvetica,sans-serif);font-size:12px;letter-spacing:.11em;text-transform:uppercase;padding:14px 26px;background:var(--fathom,#071A1F);color:var(--surface,#E7ECE8);text-decoration:none;border:1px solid var(--fathom,#071A1F)}',
-    '.sd-btn:hover{background:var(--deepwater,#0C2830);border-color:var(--deepwater,#0C2830)}',
-    /* its own visually-hidden rule rather than site.css's .vh, because this
-       whole file is written to still work if the stylesheet never arrives */
+    '.sd-scrim{position:absolute;inset:0;background:rgba(12,40,48,.45);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}',
+    '.sd-card{position:relative;background:#fff;border-top:2px solid #9fccc6;max-width:440px;width:100%;max-height:calc(100dvh - 40px);overflow-y:auto;padding:48px 40px 34px;color:#0c2830;box-shadow:0 40px 80px -40px rgba(12,40,48,.5)}',
+    '.sd-x{position:absolute;top:8px;right:8px;background:none;border:0;cursor:pointer;font-size:24px;line-height:1;color:#6f878b;width:44px;height:44px;display:flex;align-items:center;justify-content:center}',
+    '.sd-eyebrow{font-family:"Instrument Sans",-apple-system,Helvetica,sans-serif;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#415e64;margin:0 0 18px}',
+    '.sd-title{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:46px;line-height:1;letter-spacing:-.01em;margin:0 0 16px}',
+    '.sd-title em{font-style:italic;color:#2f5a61}',
+    '.sd-body{font-family:"Instrument Sans",-apple-system,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#415e64;margin:0 0 28px}',
+    '.sd-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;font-family:"Instrument Sans",-apple-system,Helvetica,sans-serif;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:14px 28px;background:#0c2830;color:#fff;text-decoration:none;border:0;transition:background .3s}',
+    '.sd-btn:hover{background:#2f5a61}',
     '.sd-vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}',
-    '.sd-dismiss{display:inline-flex;align-items:center;min-height:44px;margin-top:12px;background:none;border:0;padding:0;cursor:pointer;font-family:var(--utility,"IBM Plex Mono",ui-monospace,monospace);font-size:12px;color:#5B6B6E;text-decoration:underline;text-underline-offset:4px}',
-    '.sd-btn:focus-visible,.sd-x:focus-visible,.sd-dismiss:focus-visible{outline:2px solid var(--meniscus,#2F5A61);outline-offset:3px}',
-    /* 480px was too late. At 375px the 38px title and 38px of side padding
-       left roughly 260px of measure, and "A Sounding" set solid nearly
-       touched both edges. */
-    '@media(max-width:560px){.sd-pop{padding:14px}.sd-card{padding:34px 22px 26px}.sd-title{font-size:30px}.sd-body{font-size:15px;margin-bottom:22px}.sd-btn{width:100%;justify-content:center;padding:14px 18px}}'
-  ].join('');
+    '.sd-dismiss{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;background:none;border:0;padding:0;cursor:pointer;font-family:"Instrument Sans",-apple-system,Helvetica,sans-serif;font-size:13px;color:#6f878b;text-decoration:underline;text-decoration-color:#9fccc6;text-underline-offset:4px}',
+    '.sd-btn:focus-visible,.sd-x:focus-visible,.sd-dismiss:focus-visible{outline:2px solid #2f5a61;outline-offset:3px}',
+    '@media(max-width:560px){.sd-pop{padding:14px;align-items:flex-end}.sd-card{padding:40px 24px 24px}.sd-title{font-size:38px}.sd-body{font-size:15px;margin-bottom:22px}.sd-btn{width:100%}}'
+].join('');
 
   function build() {
     var style = document.createElement('style');

@@ -29,6 +29,9 @@ PAGES = {
                  "Wild Canvas: The Arizona Edition"),
     "sounding": ("a-sounding/index.html", "cydnie-jocelyn-sounding.html", "The Sounding"),
     "letters":  ("the-letters/index.html", "cydnie-jocelyn-letters.html", "The Letters"),
+    "contact":  ("contact/index.html", "cydnie-jocelyn-contact.html", "Contact"),
+    "privacy":  ("privacy-policy/index.html", "cydnie-jocelyn-privacy.html", "Privacy Policy and Terms"),
+    "questions": ("thequestions/index.html", "cydnie-jocelyn-questions.html", "The Questions"),
 }
 if PAGE not in PAGES:
     raise SystemExit("unknown page %r, expected one of %s" % (PAGE, ", ".join(PAGES)))

@@ -966,3 +966,86 @@
 .lt-get li::before { content: "0" counter(g); position: absolute; left: 0; top: 1.85rem; font-size: .625rem; font-weight: 600; letter-spacing: .24em; color: var(--ink-3); }
 .lt-get h3 { margin: 0 0 .4rem; font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.1; }
 .lt-get p { margin: 0; color: var(--ink-2); }
+
+/* ==========================================================
+   CONTACT (/contact/), 26 September 2026. ct- prefix.
+   The HoneyBook form sits in a white card beside her note.
+   ========================================================== */
+.ct-ask { background: var(--porcelain); }
+.ct-side .hv-lede { margin-top: 1rem; }
+.ct-quote { margin: 2rem 0 0; padding-left: 1.25rem; border-left: 2px solid var(--blue); }
+.ct-quote p { font-family: var(--serif); font-style: italic; font-size: clamp(1.375rem, 2.4vw, 1.75rem); line-height: 1.2; color: var(--ink); }
+.ct-quote cite { display: block; margin-top: .75rem; font-style: normal; font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.ct-more { margin: 2rem 0 0; border-top: 1px solid var(--line-2); }
+.ct-more div { display: grid; grid-template-columns: 6rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.ct-more dt { font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); padding-top: .2rem; }
+.ct-more dd { margin: 0; color: var(--ink-2); }
+.ct-embed { min-height: 520px; padding: clamp(1.25rem, 3vw, 2.5rem); background: #fff; box-shadow: 0 40px 70px -50px rgba(12,40,48,.4); }
+@media (min-width: 60rem) { .ct-ask .au-row { grid-template-columns: 5fr 7fr; } }
+
+/* ==========================================================
+   PRIVACY POLICY AND TERMS (/privacy-policy/), 26 September 2026.
+   lg- prefix. A reading page: contents held on the left at desktop,
+   one measured column of text, hairlines between the two parts.
+   ========================================================== */
+.lg-head { padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(2.5rem, 5vw, 4rem); background: linear-gradient(180deg, #fff 0%, var(--blue-wash) 100%); border-bottom: 1px solid var(--line); }
+.lg-head h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.75rem, 6vw, 5rem); line-height: 1; letter-spacing: -.02em; margin: 1.25rem 0 0; max-width: 16ch; }
+.lg-head h1 em { display: block; font-style: italic; color: var(--blue-deep); }
+.lg-head .hv-lede { max-width: 40rem; margin-top: 1.5rem; }
+.lg-stamp { margin-top: 1.75rem; font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); }
+.lg-stamp b { color: var(--ink); }
+.lg-sec { padding: clamp(3rem, 7vw, 6rem) 0 clamp(4rem, 8vw, 7rem); }
+.lg-doc { display: grid; gap: 2.5rem; }
+@media (min-width: 60rem) { .lg-doc { grid-template-columns: 15rem minmax(0, 42rem); gap: 5rem; justify-content: center; } }
+.lg-toc { align-self: start; padding: 1.5rem 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line); }
+@media (min-width: 60rem) { .lg-toc { position: sticky; top: 6.5rem; } }
+.lg-toc h2 { margin: 0 0 .75rem; font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.lg-toc h2 + ol { margin: 0 0 1.5rem; }
+.lg-toc ol { padding: 0; list-style: none; display: grid; gap: .5rem; }
+.lg-toc ol:last-child { margin-bottom: 0; }
+.lg-toc a { font-family: var(--serif); font-size: 1.125rem; line-height: 1.2; color: var(--ink); text-decoration: none; }
+.lg-toc a:hover { color: var(--blue-deep); text-decoration: underline; text-decoration-color: var(--blue); text-underline-offset: 4px; }
+.lg-body { color: var(--ink-2); font-size: 1rem; line-height: 1.7; }
+.lg-body .lg-part { margin: 0 0 1.5rem; font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3.6vw, 2.75rem); line-height: 1.05; color: var(--ink); scroll-margin-top: 6rem; }
+.lg-body .lg-part ~ .lg-part { margin-top: clamp(3.5rem, 7vw, 5rem); padding-top: clamp(2.5rem, 5vw, 3.5rem); border-top: 1px solid var(--line-2); }
+.lg-body h3 { margin: 2.5rem 0 .75rem; font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.15; color: var(--ink); scroll-margin-top: 6rem; }
+.lg-body p { margin: 0; }
+.lg-body p + p, .lg-body ul + p, .lg-body p + ul { margin-top: 1rem; }
+.lg-body b { color: var(--ink); font-weight: 600; }
+.lg-body ul { margin: .75rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.lg-body li { padding: .6rem 0; border-bottom: 1px solid var(--line); }
+.lg-body .cc-reopen { font: inherit; font-size: .6875rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; padding: .85rem 1.25rem; border: 1px solid var(--ink); background: #fff; color: var(--ink); cursor: pointer; }
+.lg-body .cc-reopen:hover { background: var(--ink); color: #fff; }
+
+/* ==========================================================
+   THE QUESTIONS (/thequestions/), 26 September 2026. tq- prefix.
+   Twelve rows numbered to match the cards; two columns at desktop,
+   reading down 01-06 then 07-12 so a card number is easy to find.
+   ========================================================== */
+.tq-sec { background: var(--porcelain); }
+.tq-why .hv-lede { max-width: 40rem; margin-top: 1.25rem; }
+.tq-list { margin: clamp(2.5rem, 5vw, 3.5rem) 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line-2); }
+@media (min-width: 60rem) { .tq-list { columns: 2; column-gap: 4rem; } }
+.tq-list li { break-inside: avoid; display: grid; grid-template-columns: 3rem 1fr; align-items: baseline; padding: 1.35rem 0; border-bottom: 1px solid var(--line); }
+.tq-list span { font-size: .625rem; font-weight: 600; letter-spacing: .24em; color: var(--blue-deep); }
+.tq-list p { margin: 0; font-family: var(--serif); font-size: clamp(1.375rem, 2.2vw, 1.75rem); line-height: 1.2; color: var(--ink); }
+.tq-who p + p { margin-top: 1.1rem; color: var(--ink-2); }
+.tq-who .hv-lede { margin-top: 0; }
+
+/* ==========================================================
+   COOKIE BANNER (.cc, drawn by consent.js), 26 September 2026.
+   The old Fathom bar restyled for the rebuilt pages only (body.hv2):
+   a small white card, bottom left at desktop, full width on a phone.
+   Behaviour is untouched: nothing loads until a choice, and Decline is
+   the same size and one tap, like Accept.
+   ========================================================== */
+.hv2 .cc { left: auto; right: auto; left: clamp(1rem, 2.5vw, 2rem); bottom: clamp(1rem, 2.5vw, 2rem); max-width: 27rem; padding: 1.5rem 1.5rem 1.35rem; background: #fff; color: var(--ink); border: 1px solid var(--line); border-top: 2px solid var(--blue); box-shadow: 0 30px 60px -30px rgba(12,40,48,.35); --focus: var(--blue-deep); }
+.hv2 .cc-in { display: block; max-width: none; }
+.hv2 .cc-title { margin: 0 0 .5rem; font-family: var(--sans); font-size: .625rem; font-weight: 600; letter-spacing: .24em; color: var(--ink-2); }
+.hv2 .cc-body { font-family: var(--sans); font-size: .875rem; line-height: 1.55; color: var(--ink-2); }
+.hv2 .cc-acts { display: flex; gap: .6rem; margin-top: 1.1rem; }
+.hv2 .cc-btn { flex: 1 1 0; min-height: 44px; padding: .75rem 1rem; font-family: var(--sans); font-size: .6875rem; font-weight: 600; letter-spacing: .2em; background: #fff; color: var(--ink); border: 1px solid var(--ink); }
+.hv2 .cc-btn:hover { background: var(--porcelain); border-color: var(--ink); }
+.hv2 .cc-btn--yes { background: var(--ink); color: #fff; border-color: var(--ink); }
+.hv2 .cc-btn--yes:hover { background: var(--blue-deep); border-color: var(--blue-deep); }
+@media (max-width: 47.99rem) { .hv2 .cc { left: .75rem; right: .75rem; bottom: .75rem; max-width: none; padding: 1.1rem 1.1rem 1rem; } }

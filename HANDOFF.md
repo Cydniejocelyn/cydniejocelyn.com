@@ -8392,6 +8392,10 @@ site, untouched. `git switch site-2026` before any rebuild work.
   | /retreats/greece/ | tools/gen_greece.py | Ddv5rt41aiaKNLWyMX1Yi1 |
   | /retreats/arizona/ (HIDDEN) | tools/gen_arizona.py | CqN4Yqjfi4PTPWcMTQVrv8 |
   | /the-letters/ (26 Sep) | tools/gen_the_letters.py | 3F2dBTGNjwk4mFqVKo8Mca |
+  | /contact/ (26 Sep) | tools/gen_contact.py | 311SwvKLX8b6gMUnz4oZy5 |
+  | /privacy-policy/ (26 Sep) | tools/gen_privacy_policy.py (+ privacy_body.html) | Q6A5i8zhaB8wQ1ABhWyBKf |
+  | /thequestions/ (26 Sep, noindex) | tools/gen_thequestions.py | TvVACshSZnVCK8u5ixFhDR |
+  | popups + cookie card (26 Sep) | sounding-popup.js, gatlinburg-popup.js, lux.css .hv2 .cc | FeLyYMnFsKJhtrdNZcBt35 |
   Artifact links are claude.ai/artifact/<id>. Generators run from tools/
   (`cd tools && python3 gen_x.py`), except gen_work_with_me.py (repo root).
   After any lux.css edit: `python3 tools/stamp.py`.
@@ -8408,16 +8412,21 @@ site, untouched. `git switch site-2026` before any rebuild work.
      Note: on this page the Flodesk popup and the Gatlinburg popup can both
      open in one visit (Flodesk does not share the one-popup key); it was
      the same on the old page.
-  2. /contact/  Contact. HoneyBook contact form cf_id/69fa372c.... Should
-     now lead with the free call as well as the question form.
-  3. /privacy-policy/  Privacy policy and terms (retreat terms at #terms).
-     Restyle only; the legal wording does not change without her.
-  4. /thequestions/  The Questions (not in the sitemap; check with her what
-     it is for now, and whether it stays).
-  Also restyle to the new look before launch: the two popups
-  (sounding-popup.js, gatlinburg-popup.js; the Sounding one still sells the
-  $300 Sounding first, the free call is now the front door) and the cookie
-  banner (consent.js + site.css, still the old dark style).
+  2-4 DONE 26 Sep, awaiting her review (artifacts above). Her answers:
+     privacy fixes OK (Adobe Fonts paragraph and list line removed, the
+     site self-hosts its type now; Letters sign-ups "in HoneyBook or
+     Flodesk, depending on the form you used"); legal text otherwise
+     verbatim, diff-checked. The Questions kept and restyled (noindex, the
+     twelve verbatim, Letters first then the free call). Sounding popup now
+     sells the FREE CALL (her word), skips /contact too; Gatlinburg popup
+     look only; cookie banner restyled for body.hv2 pages in lux.css.
+     Contact, Privacy and The Questions strip both popup tags.
+  OPEN, needs her: the terms at #engagements say the Sounding fee "does
+     not apply as credit toward any other engagement unless I agree to that
+     in writing", but the site now says the $300 comes off a Build. Legal
+     wording, so unchanged until she decides.
+  AT LAUNCH: set UPDATED in tools/gen_privacy_policy.py to the launch
+     month, in the launch commit.
 
 ### Still owed by her (none block tomorrow's pages)
   * A starting price for the Monthly Partnership (reads "Scoped with you").
