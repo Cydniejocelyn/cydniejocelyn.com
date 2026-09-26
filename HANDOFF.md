@@ -8516,3 +8516,46 @@ site, untouched. `git switch site-2026` before any rebuild work.
      water photos, mark-horiz-*), with her OK.
   7. Republish every artifact; push only on her word; verify with
      `vercel ls` and a real browser (plain curl gives a false pass).
+
+## 78. 26 September 2026. THE SITE DATABASE, SWITCHED ON (branch neon-db).
+
+Her word: "I want it pushed to neon for the database", then "all" of:
+(1) Letters sign-ups saved in Neon AND sent to Flodesk, (2) the Contact
+question as an on-site form saved in Neon AND emailed to hello@ via Resend,
+(3) her own consent-gated page views and button clicks in Neon, with a
+privacy paragraph she sees first, (4) a read-only inbox in Ops.
+
+### What was built
+  * db/migrations/002_switch_on.sql (APPLIED to Neon main and check):
+    subscribers.flodesk_status/_checked_at, submissions.notified, and
+    page_events (kind, path, cta, referrer_host, device, salted ip_hash for
+    rate limiting only). db/grants.sql: site_api may INSERT page_events and
+    record Flodesk status; still cannot read anything back.
+    db/ops_grants.sql + setup_role.py: `ops_reader`, SELECT on the three
+    tables, nothing else; SITE_OPS_READ_URL in both .env.local files.
+    db/check.py: 53 pass / 0 fail.
+  * api/_lib/outbound.py: Flodesk (FLODESK_API_KEY, optional
+    FLODESK_SEGMENT_ID) and Resend (RESEND_API_KEY, optional RESEND_FROM,
+    NOTIFY_TO). Missing key -> row saved as 'not_configured'; bad key or
+    outage -> 'failed'; never loses the row. api/event.py: consent-gated
+    views/clicks, 120 per IP-hash per 10 min, silently dropped beyond.
+    api/_lib/http.py: a Vercel preview accepts posts from its own host.
+  * assets/js/site-data.js (every page): forms with data-api post JSON;
+    views/clicks only after consent.js fires "cj:consented".
+  * Forms: Letters page closing band (#join) and every footer; Contact card
+    is now the question form (HoneyBook form kept as the no-JS fallback).
+  * Privacy: "Forms on this site", the site's own count, Letters stored in
+    the database and Flodesk, Neon and Resend in the tools list.
+  * cydnie-ops: `npm run inbox` -> out/website-inbox.html (commit 113d3c6).
+    A page, not a screen: Ops has no UI on main until Phase 2.
+  * .vercelignore: `api/` line removed on neon-db. That is the switch.
+
+### What she has to do (keys are hers, pasted into Vercel, never by me)
+  Vercel > cydniejocelyn-v2 > Settings > Environment Variables, Production
+  and Preview: FLODESK_API_KEY (Flodesk > Account settings > Integrations >
+  API), RESEND_API_KEY (resend.com > API Keys; sign up with hello@ so the
+  default sender delivers, or verify cydniejocelyn.com in Resend and set
+  RESEND_FROM). Optional FLODESK_SEGMENT_ID for the Letters segment.
+
+### To go live
+  Her review of the preview, the keys set, then merge neon-db into main.
