@@ -8396,6 +8396,19 @@ site, untouched. `git switch site-2026` before any rebuild work.
   | /privacy-policy/ (26 Sep) | tools/gen_privacy_policy.py (+ privacy_body.html) | Q6A5i8zhaB8wQ1ABhWyBKf |
   | /thequestions/ (26 Sep, noindex) | tools/gen_thequestions.py | TvVACshSZnVCK8u5ixFhDR |
   | popups + cookie card (26 Sep) | sounding-popup.js, gatlinburg-popup.js, lux.css .hv2 .cc | FeLyYMnFsKJhtrdNZcBt35 |
+  LAUNCHED 26 Sep 2026 on her word "push it fully live": site-2026
+  fast-forwarded onto main (main had no commits of its own). Pre-push:
+  build clean, seams 0, no comments in dist, 12 pages x 6 widths no
+  sideways scroll, GA consent-gated and firing, every booking link opened
+  in a browser and matched to its HoneyBook record by title (free call =
+  "Branding Consultation", Sounding = "A Sounding", 4 Gatlinburg rooms,
+  2 Greece waitlists, 2 Arizona). Housekeeping for her in HoneyBook: the
+  Arizona pay-in-full record 6ab58836... is still titled "PYMT in Full |
+  Shared Room Gatlinburg (1)" (its content is Arizona), and the HoneyBook
+  contact forms' share description still says "I work with women whose
+  businesses..." (the site now speaks to founders and leaders). Not done:
+  the old preview suite rewrite (replaced by the manual checks above);
+  Search Console sitemap resubmit (her account). Arizona stays hidden.
   MOBILE PASS (26 Sep, her note "make the flow a bit better ... footer on
   mobile ... where the verbiage lands in the hero" + "socials without a
   box"): Home hero on phones has a smaller portrait so headline, lede and
