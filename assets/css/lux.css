@@ -980,7 +980,14 @@
 .ct-more div { display: grid; grid-template-columns: 6rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
 .ct-more dt { font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); padding-top: .2rem; }
 .ct-more dd { margin: 0; color: var(--ink-2); }
-.ct-embed { min-height: 520px; padding: clamp(1.25rem, 3vw, 2.5rem); background: #fff; box-shadow: 0 40px 70px -50px rgba(12,40,48,.4); }
+.ct-card { align-self: center; padding: clamp(2rem, 4vw, 3.25rem); background: #fff; border-top: 2px solid var(--blue); box-shadow: 0 40px 70px -50px rgba(12,40,48,.4); }
+.ct-card-lab { font-size: .625rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-2); }
+.ct-card-h { margin-top: 1rem; font-family: var(--serif); font-size: clamp(2rem, 3.6vw, 2.75rem); line-height: 1.05; color: var(--ink); }
+.ct-card-h em { font-style: italic; color: var(--blue-deep); }
+.ct-card p + p:not(.ct-card-h) { margin-top: 1rem; color: var(--ink-2); }
+.ct-card .hv-btn { margin-top: 1.75rem; }
+.ct-card .ct-card-or { margin-top: 1.25rem; font-size: .9375rem; }
+@media (max-width: 40rem) { .ct-card .hv-btn { width: 100%; } }
 @media (min-width: 60rem) { .ct-ask .au-row { grid-template-columns: 5fr 7fr; } }
 
 /* ==========================================================

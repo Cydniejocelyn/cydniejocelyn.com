@@ -8421,6 +8421,9 @@ site, untouched. `git switch site-2026` before any rebuild work.
      sells the FREE CALL (her word), skips /contact too; Gatlinburg popup
      look only; cookie banner restyled for body.hv2 pages in lux.css.
      Contact, Privacy and The Questions strip both popup tags.
+     Contact, second pass (her word, 26 Sep): the embedded HoneyBook form
+     did not work, so it is now a button card to the direct question form
+     (cf_id/69fa372c..., the one Greece uses); no embed, no HB script.
   OPEN, needs her: the terms at #engagements say the Sounding fee "does
      not apply as credit toward any other engagement unless I agree to that
      in writing", but the site now says the $300 comes off a Build. Legal

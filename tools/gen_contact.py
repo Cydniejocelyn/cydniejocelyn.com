@@ -1,8 +1,9 @@
 """Contact (/contact/), rebuilt 26 September 2026 on the luxury system.
 
 Her answers (26 September): lead with the free call as well as the question
-form. The HoneyBook placement (69f9f2a0...) is unchanged: the div, the
-pixel and the controller script, re-added after the shared scripts. The
+form. Second pass, same day, her word: the embedded HoneyBook placement
+(69f9f2a0...) "doesn't work", so the form is a button to the direct link of
+the same question form Greece uses (cf_id/69fa372c...); no embed script. The
 Sounding line is gone (the free call is the front door); "No sequence, no
 list, no follow up you did not ask for" is cut (an exit); the location line
 matches the rest of the site (nationwide). No popups on this page, as
@@ -15,19 +16,9 @@ import lux_page as L
 
 URL = L.SITE + "/contact/"
 CALL, ARW = L.CALL, L.ARW
-PID = "69f9f2a0db6ae2c455d04434"
+QUESTION = "https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/69fa372ccd31fefc073c5d28"
 I = "../assets/img/"
 
-HB = """<!-- The HoneyBook controller for placement %s. The div it looks for is
-     already in the document by this point; build.py hashes this for the CSP. -->
-<script>
-  (function(h,b,s,n,i,p,e,t) {
-    h._HB_ = h._HB_ || {};h._HB_.pid = i;;;;
-    t=b.createElement(s);t.type="text/javascript";t.async=!0;t.src=n;
-    e=b.getElementsByTagName(s)[0];e.parentNode.insertBefore(t,e);
-})(window,document,"script","https://widget.honeybook.com/assets_users_production/websiteplacements/placement-controller.min.js","%s");
-</script>
-""" % (PID, PID)
 
 MAIN = """<main id="main">
 
@@ -39,7 +30,7 @@ MAIN = """<main id="main">
       <p class="hv-lede">Book a free 30-minute call, or send me a question below. Either way, you hear back from me.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="%(CALL)s" data-cta="free-call-contact">Book a free 30-min call %(ARW)s</a>
-        <a class="hv-btn hv-btn--line" href="#ask">Ask a question</a>
+        <a class="hv-btn hv-btn--line" href="%(QUESTION)s" rel="noopener" data-cta="question-contact-hero">Ask a question</a>
       </div>
       <ul class="ww-trust" role="list"><li>Forest Lake, Minnesota</li><li>Partnering nationwide</li><li>Answered within a day</li></ul>
     </div>
@@ -49,9 +40,8 @@ MAIN = """<main id="main">
   </div>
 </section>
 
-<!-- THE QUESTION FORM. HoneyBook placement %(PID)s. The div and the pixel
-     stay together; min-height holds the space until the form lands, and the
-     noscript is the only way to reach her with JavaScript off. -->
+<!-- THE QUESTION FORM. A button to the HoneyBook form's own page, which
+     works everywhere; the embed did not. -->
 <section class="hv-sec ct-ask" id="ask" aria-labelledby="ct-ask">
   <div class="hv-wrap au-row">
     <div class="ct-side">
@@ -64,16 +54,18 @@ MAIN = """<main id="main">
         <div><dt>Retreats</dt><dd>Dates, prices and answers are on <a class="hv-inline" href="/retreats/">each retreat&rsquo;s page</a>.</dd></div>
       </dl>
     </div>
-    <div class="ct-embed">
-      <div class="hb-p-%(PID)s-2"></div>
-      <img height="1" width="1" style="display:none" src="https://www.honeybook.com/p.png?pid=%(PID)s" alt="">
-      <noscript><p>The form needs JavaScript. Write to <a class="hv-inline" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a> instead and it reaches the same inbox.</p></noscript>
+    <div class="ct-card">
+      <p class="ct-card-lab">The question form</p>
+      <p class="ct-card-h">Tell me what&rsquo;s on <em>your mind.</em></p>
+      <p>Send it through my question form. It comes straight to me, and I answer it myself.</p>
+      <a class="hv-btn hv-btn--ink" href="%(QUESTION)s" rel="noopener" data-cta="question-contact">Ask a question %(ARW)s</a>
+      <p class="ct-card-or">Or book a <a class="hv-inline" href="%(CALL)s" data-cta="free-call-contact-card">free 30-min call</a> instead.</p>
     </div>
   </div>
 </section>
 
 </main>
-""" % {"CALL": CALL, "ARW": ARW, "I": I, "PID": PID}
+""" % {"CALL": CALL, "ARW": ARW, "I": I, "QUESTION": QUESTION}
 
 about = {n["@id"]: n for n in L.old_graph("about/index.html") if "@id" in n}
 graph = [about.get(n.get("@id"), n) if n.get("@type") != "ContactPage" else n
@@ -99,7 +91,5 @@ s = open(p, encoding="utf-8").read()
 for tag in ('<script src="/sounding-popup.js" defer></script>\n', '<script src="/gatlinburg-popup.js" defer></script>\n'):
     assert s.count(tag) == 1, tag
     s = s.replace(tag, "")
-assert s.count("</body>") == 1
-s = s.replace("</body>", HB + "</body>", 1)
 open(p, "w", encoding="utf-8").write(s)
 print("written", len(s))
