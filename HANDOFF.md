@@ -8396,6 +8396,15 @@ site, untouched. `git switch site-2026` before any rebuild work.
   | /privacy-policy/ (26 Sep) | tools/gen_privacy_policy.py (+ privacy_body.html) | Q6A5i8zhaB8wQ1ABhWyBKf |
   | /thequestions/ (26 Sep, noindex) | tools/gen_thequestions.py | TvVACshSZnVCK8u5ixFhDR |
   | popups + cookie card (26 Sep) | sounding-popup.js, gatlinburg-popup.js, lux.css .hv2 .cc | FeLyYMnFsKJhtrdNZcBt35 |
+  MOBILE PASS (26 Sep, her note "make the flow a bit better ... footer on
+  mobile ... where the verbiage lands in the hero" + "socials without a
+  box"): Home hero on phones has a smaller portrait so headline, lede and
+  button land on screen one (390x844: button at 705px); 48-70rem gets a
+  two-column hero (it put the H1 at 830px on 1024x768). Footer: booking
+  button (.hv-ftr-cta, index.html) on every page, two-column links on
+  phones, 777px tall (was ~1000). Social icons have no box. Phones: tighter
+  section spacing; client cases and quote rows swipe sideways. Home on a
+  phone 15,974 -> 14,115px. All in lux.css, dated blocks at the end.
   AUDIT FIXES DONE (26 Sep, her word "make all fixes"): phone header
   'Book a call' (.hv-hdr-call in index.html header, lux.css, all pages);
   terms #engagements now credit the Sounding fee toward a Build/project;

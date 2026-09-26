@@ -1085,3 +1085,84 @@
 /* Retreat galleries, 768-1024px: the rail bled by the difference between
    site.css's --gutter and this system's --gut. Match the wrap it sits in. */
 .hv2 .gal-rail { margin-inline: calc(var(--gut) * -1); padding-inline: var(--gut); scroll-padding-inline: var(--gut); }
+
+/* ==========================================================
+   PHONE AND TABLET FLOW, 26 September 2026. Her note: "for mobile, can
+   we make the flow a bit better ... the layout of the footer on mobile
+   ... fix where the verbiage lands in the hero". Desktop (70rem and up)
+   is untouched.
+   ========================================================== */
+
+/* HOME HERO, TABLET AND SMALL LAPTOP (48-70rem). The stacked phone layout
+   stretched here and put the headline 830px down on a 1024x768 screen.
+   Words and buttons on the left, her in the arch on the right. */
+@media (min-width: 48rem) and (max-width: 69.99rem) {
+  .hv-hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 21rem); grid-template-rows: auto auto; column-gap: 2.5rem; row-gap: 1.75rem; align-items: end; padding-bottom: 0; margin-top: 1.5rem; }
+  .hv-portrait { grid-column: 2; grid-row: 1 / span 2; width: 100%; margin: 0; align-self: end; }
+  .hv-sun { left: calc(100% - 10.5rem); width: 18rem; top: 3rem; bottom: 0; height: auto; }
+  .hv-copy { grid-column: 1; grid-row: 1; margin: 0; padding: 0; background: none; align-self: end; }
+  .hv-act { grid-column: 1; grid-row: 2; max-width: 24rem; padding-bottom: 3.5rem; }
+  .hv-copy .hv-h1 { font-size: clamp(2.35rem, 4.4vw, 3rem); }
+}
+
+/* HOME HERO, PHONES. A smaller portrait so the headline, the line under it
+   and the button land on the first screen instead of below it. */
+@media (max-width: 47.99rem) {
+  .hv-hero-stage { padding-top: 1.25rem; }
+  .hv-dateline { margin-top: .75rem; }
+  .hv-portrait { width: min(62vw, 17rem); margin-top: .25rem; }
+  .hv-sun { width: min(54vw, 15rem); top: 2.5rem; height: min(76vw, 21rem); }
+  .hv-copy { margin-top: -3.5rem; padding-top: 2rem; }
+  .hv-copy .hv-h1 { font-size: clamp(2.1rem, 9vw, 2.5rem); margin-top: .75rem; }
+  .hv-copy p { margin-top: .8rem; font-size: .9375rem; }
+  .hv-hero-grid { gap: 1.25rem; padding-bottom: 2.75rem; }
+}
+
+/* SECTION RHYTHM, PHONES. Desktop spacing carried to a phone made Home
+   about nineteen screens long; this keeps the same order and content with
+   less empty scrolling between sections. */
+@media (max-width: 47.99rem) {
+  .hv-sec, .ww-page .hv-sec { padding: 3.25rem 0; }
+  .hv-close { padding: 4rem 0; }
+  .hv-letters-in { padding-top: 3rem; padding-bottom: 3rem; }
+  .ww-hero { padding: 1.75rem 0 2.75rem; }
+  .hv-feature, .ww-menu, .gt-gal, .az-play { margin-top: 2.25rem; }
+  .ww-cases-2 { margin-top: 2.5rem; }
+  .lg-head { padding: 2rem 0 2rem; }
+  .lg-sec { padding: 2.25rem 0 3.5rem; }
+}
+
+/* FOOTER. A booking button at the top of every footer, and on phones the
+   two link lists side by side instead of one long column. */
+.hv-ftr-cta { margin-top: 1.5rem; }
+.hv-ftr .hv-ftr-cta a { display: inline-flex; align-items: center; min-height: 3rem; padding: .8rem 1.4rem; background: var(--blue); color: var(--ink); font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; }
+.hv-ftr .hv-ftr-cta a:hover { background: #fff; color: var(--ink); text-decoration: none; }
+@media (max-width: 59.99rem) {
+  .hv-ftr { padding: 3.25rem 0 1.75rem; }
+  .hv-ftr .hv-ftr-mark { margin-bottom: 2.25rem; }
+  .hv-ftr-top { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; padding-top: 2rem; }
+  .hv-ftr-brand, .hv-ftr-top > div:last-child { grid-column: 1 / -1; }
+  .hv-ftr-cta a { width: 100%; justify-content: center; }
+  .hv-ftr-btm { margin-top: 2.25rem; flex-direction: column; gap: .75rem; }
+}
+
+/* SOCIAL ICONS, 26 September 2026. Her ask: "just be the icons without a
+   box around them". The 44px tap area stays; only the outline goes, and
+   the row is pulled left so the first icon lines up with the text above. */
+.hv-social { gap: .25rem; margin-left: -.7rem; }
+.hv-social a { box-shadow: none; color: #dbe9e6; transition: color .3s ease; }
+.hv-social a:hover { background: none; color: var(--blue); }
+.hv-social svg { width: 1.3rem; height: 1.3rem; }
+
+/* CLIENT WORK AND QUOTES ON PHONES. Stacked, the work section alone was
+   over three screens on a phone. The two smaller cases and the quotes
+   become rows you swipe, with the next card peeking in so it reads as
+   more; nothing is cut, and tablets and desktops keep their grid. */
+@media (max-width: 47.99rem) {
+  .hv-cases, .hv-quotes { display: grid; grid-auto-flow: column; grid-auto-columns: 82%; grid-template-columns: none; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; scrollbar-width: none; margin-inline: calc(var(--gut) * -1); padding-inline: var(--gut); scroll-padding-inline: var(--gut); }
+  .hv-cases::-webkit-scrollbar, .hv-quotes::-webkit-scrollbar { display: none; }
+  .hv-cases > li, .hv-quotes > li { scroll-snap-align: start; }
+  .hv-cases { margin-top: 2.75rem; }
+  .hv-quotes { margin-top: 2.75rem; padding-top: 2rem; padding-bottom: .25rem; }
+  .hv-case .hv-browser { margin-bottom: 1.25rem; }
+}
