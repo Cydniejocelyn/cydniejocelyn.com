@@ -16,9 +16,9 @@ SRC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # page. Asset paths there are ../assets, so they are normalised on the way in.
 PAGE = (sys.argv[1] if len(sys.argv) > 1 else "home").lower()
 PAGES = {
-    "home":  ("index.html",       "cydnie-jocelyn.html",       "The Resurfacing Business"),
+    "home":  ("index.html",       "cydnie-jocelyn.html",       "Cydnie Jocelyn"),
     "about": ("about/index.html", "cydnie-jocelyn-about.html", "About Cydnie Jocelyn"),
-    "build": ("the-build/index.html", "cydnie-jocelyn-build.html", "The Build"),
+    "build": ("the-build/index.html", "cydnie-jocelyn-build.html", "Work With Me"),
     "retreats": ("retreats/index.html", "cydnie-jocelyn-retreats.html", "Retreats"),
     # two levels down, so its asset paths are ../../assets rather than ../assets
     "greece":   ("retreats/greece/index.html", "cydnie-jocelyn-greece.html",
@@ -40,9 +40,21 @@ html = open(os.path.join(SRC, SRCFILE), encoding="utf-8").read()
 # ../ in front of every path it just rewrote.
 html = html.replace("../../assets/", "assets/").replace("../assets/", "assets/")
 css  = open(os.path.join(SRC, "assets/css/site.css"), encoding="utf-8").read()
+# The rebuilt pages also load the shared luxury stylesheet.
+if "css/lux.css" in html:
+    css += "\n" + open(os.path.join(SRC, "assets/css/lux.css"), encoding="utf-8").read()
 js   = open(os.path.join(SRC, "assets/js/site.js"), encoding="utf-8").read()
 
-body   = html[html.index("<body>") + 6:html.index("</body>")]
+# A PAGE MAY CARRY A BODY CLASS AND ITS OWN <style>. The home page rebuilt
+# on 25 September 2026 does both: every rule is scoped to `.hv2` and lives in
+# a head <style>, not in site.css. So the body class is kept on a wrapper div
+# and the page's own style blocks are folded in after the stylesheet.
+_bm = re.search(r"<body([^>]*)>", html)
+_bclass = re.search(r'class="([^"]*)"', _bm.group(1)) if _bm else None
+body   = html[_bm.end():html.index("</body>")]
+if _bclass:
+    body = '<div class="%s">' % _bclass.group(1) + body + "</div>"
+pagecss = "\n".join(re.findall(r"<style>(.*?)</style>", html[:html.index("</head>")], re.S))
 # A PAGE MAY LEGITIMATELY HAVE NO JSON-LD, and this used to die on one.
 # Same shape as the Google Fonts crash written up below: `.group(0)` on a
 # regex that matched nothing. /retreats/gatlinburg/ is pre-launch, so its
@@ -106,6 +118,22 @@ css = re.sub(r"url\(\.\./img/([^)]+)\)", inline_css_img, css)
 # Every image the page actually renders. Keys are matched as substrings of the
 # src path, so they have to stay distinct from one another.
 PICK = {
+    # Home, rebuilt 25 September 2026. Full stems, so `logo-ink` cannot claim
+    # `logo-teal` and the cutout cannot claim anything else.
+    "home/cydnie-cutout":    "home/cydnie-cutout-1300.webp",
+    "home/logo-ink":         "home/logo-ink-600.webp",
+    "home/logo-teal":        "home/logo-teal-1200.webp",
+    "home/logo-mist":        "home/logo-mist-600.webp",
+    "home/cydnie-book":      "home/cydnie-book-1000.webp",
+    "home/retreat-walk":     "home/retreat-walk-1000.webp",
+    "home/retreat-together": "home/retreat-together-1000.webp",
+    "cj-mark-mist":          "cj-mark-mist-800.webp",
+    "wwm/hero-door":         "wwm/hero-door-1500.webp",
+    "home/band-door":        "home/band-door-1600.webp",
+    "home/band-garden":      "home/band-garden-1600.webp",
+    "mane-alchemist-desktop":  "work/mane-alchemist-desktop-1400.webp",
+    "srs-performance-desktop": "work/srs-performance-desktop-1400.webp",
+    "solyrey-desktop":         "work/solyrey-desktop-1400.webp",
     "reaching-shadow":    "reaching-shadow-632.webp",
     "cydnie-reading":     "cydnie-reading-1000.webp",
     # The hero plate changed in session twenty-seven: hero-line was retired
@@ -307,12 +335,12 @@ SITE = "https://www.cydniejocelyn.com"
 # stopped being a site you could walk. On the real build these stay `/about/`
 # and `/`; only the artifact is rewritten.
 ARTIFACT = {
-    "home":  "https://claude.ai/code/artifact/df17491f-9b21-42bd-bb29-60f3d77f8cb5",
+    "home":  "https://claude.ai/artifact/LudmMGuNGvWvzyvBQLN7o8",
     "about": "https://claude.ai/code/artifact/edb8e6b0-19ba-4048-801b-ffc570b75551",
     # The Build has not been published as an artifact yet. Until it is, a link
     # to it resolves to the canonical URL, which at least says where it goes.
     # Put the artifact URL here the first time it is published.
-    "build": None,
+    "build": "https://claude.ai/artifact/5wqFeCj6sFUxfKttPZf9th",
     # Neither retreat page has been published as an artifact yet. Put the URL
     # here the first time one is.
     "retreats": None,
@@ -374,7 +402,7 @@ def fold(t):
     return "".join(c for c in t if ord(c) < 128)
 
 body, schema = entities(body), entities(schema)
-css, js = fold(css), fold(js)
+css, js = fold(css) + "\n" + fold(pagecss), fold(js)
 
 out = (
     "<title>" + TITLE + "</title>\n"

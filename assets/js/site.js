@@ -1,5 +1,5 @@
 /* ============================================================
-   Cydnie Jocelyn, the resurfacing business
+   Cydnie Jocelyn
 
    Every motion here is the same waterline doing something. Transforms and
    opacity only: no filters, no blend modes, no libraries.

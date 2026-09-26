@@ -19,7 +19,7 @@ def h(rel):
 # Every file under /assets/css/ or /assets/js/, which vercel.json marks
 # immutable for a year. Adding a file there and forgetting to add it here is
 # how a reader gets pinned to a stale copy forever.
-STAMPED = ("assets/css/site.css", "assets/js/site.js",
+STAMPED = ("assets/css/site.css", "assets/css/lux.css", "assets/js/site.js",
            "assets/js/analytics.js", "assets/js/consent.js")
 
 def version():
@@ -55,6 +55,8 @@ for page, pre in PAGES:
     s = io.open(p, encoding="utf-8").read()
     s = re.sub(r'href="' + re.escape(pre) + r'css/site\.css(\?v=[0-9a-f]+)?"',
                'href="' + pre + 'css/site.css?v=' + V + '"', s)
+    s = re.sub(r'href="' + re.escape(pre) + r'css/lux\.css(\?v=[0-9a-f]+)?"',
+               'href="' + pre + 'css/lux.css?v=' + V + '"', s)
     s = re.sub(r'src="' + re.escape(pre) + r'js/site\.js(\?v=[0-9a-f]+)?"',
                'src="' + pre + 'js/site.js?v=' + V + '"', s)
     s = re.sub(r'src="' + re.escape(pre) + r'js/analytics\.js(\?v=[0-9a-f]+)?"',

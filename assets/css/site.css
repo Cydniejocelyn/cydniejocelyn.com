@@ -1,5 +1,5 @@
 /* ============================================================
-   Cydnie Jocelyn, the resurfacing business
+   Cydnie Jocelyn
    Built from Brand Board 2026 and, above it, Brand-Foundation.md.
 
    The Foundation sets the shape of the page:
@@ -750,9 +750,9 @@ button { font: inherit; color: inherit; }
    everything current takes the last one and picks by density. */
 .brand { background-repeat: no-repeat; background-position: left center; background-size: contain; }
 .hdr.is-surfaced .brand {
-  background-image: url(../img/mark-horiz-ink-500.webp);
-  background-image: -webkit-image-set(url(../img/mark-horiz-ink-500.webp) 1x, url(../img/mark-horiz-ink-800.webp) 2x);
-  background-image: image-set(url(../img/mark-horiz-ink-500.webp) 1x, url(../img/mark-horiz-ink-800.webp) 2x);
+  background-image: url(../img/cj-mark-ink-500.webp);
+  background-image: -webkit-image-set(url(../img/cj-mark-ink-500.webp) 1x, url(../img/cj-mark-ink-800.webp) 2x);
+  background-image: image-set(url(../img/cj-mark-ink-500.webp) 1x, url(../img/cj-mark-ink-800.webp) 2x);
 }
 .hdr.is-surfaced .brand-mark--light { opacity: 0; }
 

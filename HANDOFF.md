@@ -7974,3 +7974,218 @@ two booking buttons / where you are / hosts / FAQ and the list / book.
   * `assets/img/arizona/` carries ~70 files, some no longer on the page
     (kitchen, lounge, bath, the old teal room, sauna-gym, bar-dusk, games).
     Harmless; prune only if asked.
+
+## 69. START HERE. 25 September 2026. THE HOME PAGE, REBUILT BRIGHT. NOT PUSHED.
+
+Cydnie set the brand guide aside for the home page ("disregard the brand
+guide") and asked for a modern personal brand: Cydnie Jocelyn, uplifting,
+bright, airy, breezy, and **no resurfacing language anywhere on the site**.
+Goal in her words: SEO/GEO/AIO and clients. Build partnerships first (large
+contracts), then clients into retreat guests.
+
+### Her answers (all settled)
+  * Hero: Jenna Kutcher layout. Name huge, her cutout in front. Photo and
+    tagline were delegated to me: IMG_7303 (Updated photos), cut out
+    on-device with Apple Vision; H1 "A brand and business partner who
+    builds it with you." The name is the logo image; the H1 is the words.
+  * Palette: new logos (NEW LOGOS 2026 PROPER LOGOS, Artboards 5-8: mist
+    #e7ece8, ink #0c2830, teal #2f5a61, aqua #9fccc6) plus coral #f4796b.
+  * Reach: nationwide, remote first. Minnesota is secondary.
+  * Front door: a FREE 30-minute call, then the paid Sounding. Wired to
+    HoneyBook `69f9f2a095c611cc2401eec7` ("Branding Consultation, 30
+    minutes"). **Confirmed by her 25 September: good to go.** Section 12's
+    one-door rule is superseded.
+  * Results: no numbers, quotes only. Ideal client: anyone who wants a
+    partnership and accepts the price. Group photos (the two women) are
+    cleared for retreats.
+
+### What changed
+  * `index.html` rewritten. Styles are inline in the head, scoped to
+    `.hv2` / `hv-` classes; site.css still loads for fonts, consent and the
+    popups. New images in `assets/img/home/`, new OG `assets/og/home-2026.png`.
+  * Every page: the old wordmark image had THE RESURFACING BUSINESS baked
+    in. Replaced by `cj-mark-mist-*` / `cj-mark-ink-*` (new names because
+    /assets/img is immutable-cached). Alt, aria-label, alternateName, the
+    gauge label (now "Depth") and About's og:title cleaned. "Resurface" as a
+    stage label became "Clarify" on About, The Build and A Sounding.
+  * llms.txt positioning and offers rewritten; the Sounding now credits to a
+    Build there too (it said it did not; the pages say it does).
+  * `tools/build_artifact.py` keeps a body class and folds head <style>.
+  * Build passes, seams 0, dist comments 0. **The suite has NOT been run and
+    its home-page tests target the old page; rewrite them before a push.**
+  * Review artifact: https://claude.ai/artifact/LudmMGuNGvWvzyvBQLN7o8
+
+### Open
+  * The Build page still says "Everything starts with a Sounding"; the
+    Sounding popup still sells the $300 first. Both conflict with the free
+    call now. Ask her.
+  * Old logo and water images are unreferenced; prune on her word.
+  * Other pages keep the dark water look until she reaches them.
+
+### Motion pass, same day
+  * Her ask: "add some movement". The hero now plays in order: the name
+    wipes in, the arch rises, she follows, then the words and buttons. The
+    sky drifts slowly, and a band of light crosses the arch every nine
+    seconds. A dark services ribbon scrolls under the client strip (it
+    pauses on hover). Sections fade up as they reach the screen; photos
+    unmask. Cards lift on hover. All of it is off under reduced motion, and
+    nothing is hidden without JS.
+  * The coral circle became an ARCH, echoing the arched doors in her shoot,
+    the About photo and "Wide Open". Coral at the top, warming to peach.
+
+### Luxury editorial pass, same day (review artifact v3)
+  * Her direction: "Think one of a kind. Luxury. Tiffany and Co. Modern and
+    Editorial/Trending." Then "Build" on four audit items: a featured case
+    study, fewer boxes, an on-page Letters sign-up, and polish.
+  * System now: white and ink, hairline rules, spaced small capitals, big
+    serif, square corners everywhere except the arch. Her logo aqua #9fccc6
+    is the one signature colour (the arch, the retreat card, the Letters
+    band). Coral is reduced to almost nothing; say so if she misses it.
+  * Header: links either side of a centred logo. Hero: arch now signature
+    blue with a hairline inner border; a small caption line under the name.
+  * New sections: an editorial "Not a deliverable" statement with four line
+    icons instead of cards; a full-width two-photo band ("When you win, I
+    win.") from IMG_7301 and IMG_7293; the offering as an open list with a
+    price on every line (adds the $1,500 strategy day and the $6,000 season
+    from /the-build/); Mane Alchemist as a featured case study in browser
+    and phone mockups, SRS and SolyRey beside it. Desktop captures of all
+    three live sites taken 25 September, in assets/img/work/*-desktop-*.
+  * Polish: feathered cutout edge, paper grain over the page, larger even
+    client marks (grey until hovered), a signature "Cydnie" under About.
+  * NOT DONE: the on-page Letters form. The list is HoneyBook
+    (cf_id/6a19d46a...) and Flodesk is deliberately scoped to /the-letters/.
+    An inline form needs either a Flodesk INLINE form ID or HoneyBook's
+    embed code from her. Until then the blue band links out.
+
+### Retreats tightened, logo made vector (review artifact v4)
+  * Her note: "step away with me is too long, a lot of white space before
+    any images and the Gatlinburg box". The heading and intro now run across
+    the top like the offering; the two photos stand beside the Gatlinburg
+    card at exactly its height (photos cover-cropped to fit); Melissa's line
+    and the Greece waitlist sit on one hairline row below. 1,160px tall at
+    1440, down from about 1,600.
+  * "Make sure the logos and images are not blurry": the home page wordmark
+    is now VECTOR. Artboard 5-8 SVGs are live text in IvyPresto (not on this
+    Mac, so they cannot render); Artboard 2 is the only file with outlined
+    letters, drawn as two halves at a waterline. Both halves are filled one
+    colour, the waterline polygon dropped, and a .35 stroke seals the seam.
+    It is one <symbol id="cj-wordmark"> used three times (header, hero,
+    footer). GOTCHA: the outer <svg> must use viewBox "0 0 504.2 54.4", the
+    symbol's own box sits at 23.4 71; matching them shifted the mark off the
+    top and hid the hero name.
+  * The logo-teal/ink/mist rasters are deleted. Band photos gained a 1600w
+    file for retina; the review artifact now carries the largest file of
+    each image (3.5MB), since it can only hold one.
+  * Other pages still use the raster cj-mark-* in their headers (1200w in
+    the srcset, fine at 240px). The vector could replace them sitewide.
+
+## 70. START HERE. 25 September 2026. WORK WITH ME (/the-build/), REBUILT. NOT PUSHED.
+
+Same luxury system as the home page. The shared rules moved out of the home
+page head into `assets/css/lux.css`, which is now STAMPED like site.css
+(stamp.py and build.py's stale-stamp check both know it; run stamp.py after
+any edit). The review tool folds lux.css in when a page links it.
+
+  * Review artifacts: Work with me https://claude.ai/artifact/5wqFeCj6sFUxfKttPZf9th
+    (v3), home https://claude.ai/artifact/LudmMGuNGvWvzyvBQLN7o8 (v6). The two
+    link to each other (ARTIFACT table in build_artifact.py).
+  * The page is GENERATED: `python3 tools/gen_work_with_me.py` rewrites
+    the-build/index.html from the home page's header, footer, icon sprite and
+    scripts, plus its own template. The FAQ is one Python list that feeds
+    both the visible answers and the FAQPage JSON-LD. Edit the generator, not
+    the output, or the next run undoes the edit.
+  * Her answers: offer a Monthly Partnership (no price given, so it reads
+    "Scoped with you": ASK HER FOR A STARTING FIGURE); page name is whatever
+    converts ("Work with me", The Build kept as the name of the core work);
+    keep the won't-do list in a luxury tone ("My standards"); lead with the
+    fourteen years (hero trust row, FAQ, and now the home About too).
+  * Her second note: explain the business, fix mismatched words and
+    misalignment, change "Who this is for", shorten. Done: hero states the
+    fix; one problem/fix section (her four lines vs brand/operations/
+    business development); Who this is for = three profiles (launching,
+    growing past yourself, leading with your name), each with a best-fit
+    offer; every section intro one left-aligned stack; Why me cut (the 14
+    years lives in the hero). 12,232px -> 10,493px at 1440, 1,052 -> 980 words.
+  * ONE SET OF OFFER NAMES, both pages: Free Call, The Sounding (a 90-minute
+    strategy session), Strategy Day $1,500, Season Partnership from $6,000,
+    Full Brand Launch from $15,000 (Signature), Monthly Partnership (scoped),
+    Website from $4,000, Social & Content $3,600/quarter, Site Care from $95.
+    "The Build" = the core work (Strategy Day, Season, Full Brand Launch).
+  * The standards line on retainers changed with her answer: every project
+    has a finish line, monthly partnership only if the client wants it.
+  * A Sounding page (/a-sounding/) still says it is the only way in and uses
+    the old look; the Sounding popup still pushes $300 first.
+
+## 71. START HERE. 25 September 2026, end of day. THE 2026 REBUILD: PAUSED, NOTHING PUSHED.
+
+Cydnie's plan, in her words: "We will be rebuilding all pages. Once all
+pages are completed, we will launch the new site and override the old one."
+So the rebuild ships as ONE launch. Do not push any rebuilt page on its own.
+Sections 69 and 70 have the detail behind everything below.
+
+### DANGER FIRST: where the work lives
+  * All of it is UNCOMMITTED in the working tree of `main` (last commit
+    efa4a2c). A push to main is a live deploy, so this must never be swept
+    into an unrelated commit (`git add -A`, `git commit -a`).
+  * The live site still needs fixes before launch (the Gatlinburg early
+    rate ends 31 October, section 62; Arizona's 1 December rise, section
+    68). Do those WITHOUT the rebuild: stash or move the rebuild first.
+  * Recommended at the start of the next session (ask her first): create
+    branch `site-2026`, commit the rebuild there, and keep `main` = the live
+    site. A pushed non-main branch gets a Vercel PREVIEW, not production.
+
+### Status by page
+  | Page | State |
+  |---|---|
+  | / (home) | REBUILT, approved ("This is perfect"). Artifact LudmMGuNGvWvzyvBQLN7o8 v6 |
+  | /the-build/ (Work with me) | REBUILT, approved. Artifact 5wqFeCj6sFUxfKttPZf9th v3. Generated by tools/gen_work_with_me.py |
+  | /a-sounding/ | OLD look. Next up: it still says it is the only way in; the free call is now first |
+  | /about/ | OLD look. "Resurface" label renamed "Clarify" only |
+  | /retreats/, /gatlinburg/, /greece/, /arizona/ | OLD look. Arizona is live-but-unlinked (68) |
+  | /the-letters/ | OLD look. Flodesk popup lives here only |
+  | /contact/, /privacy-policy/, /thequestions/ | OLD look |
+  Every page already has the new wordmark (raster cj-mark-*) and no
+  "resurfacing" text; that sweep is in the uncommitted changes too.
+
+### The system every rebuilt page uses (reuse it, do not reinvent)
+  * `assets/css/lux.css`, all rules scoped to `.hv2` / `hv-` (shared) and
+    `ww-` (Work with me). Stamped: run `python3 tools/stamp.py` after edits.
+  * White and ink, hairlines, spaced small capitals, Instrument Serif large;
+    her logo aqua #9fccc6 is the ONE signature colour, used sparingly;
+    coral is nearly gone; square corners except the arch (her motif: the
+    arched doors in her shoot). Her direction: "One of a kind. Luxury.
+    Tiffany and Co. Modern and editorial."
+  * Vector wordmark: `<symbol id="cj-wordmark">` in the icon sprite; outer
+    svg viewBox MUST be "0 0 504.2 54.4" (section 69 gotcha).
+  * Header (logo centred), footer, sprite and scripts: copy from index.html;
+    the generator shows how (paths gain ../ one level down).
+  * Motion: hero choreography, scroll reveals via .hv-rv (added by script,
+    so nothing hides without JS), all off under reduced motion.
+  * One set of offer names sitewide (section 70). Front door = free 30-min
+    call, HoneyBook `69f9f2a095c611cc2401eec7`; then The Sounding $300,
+    credited to the project.
+  * How she reviews: audit and questions, her answers, build, artifact via
+    `python3 tools/build_artifact.py <page>` (add new images to PICK; the
+    ARTIFACT table cross-links pages), then her notes. She checks alignment
+    and copy consistency closely, and wants problem and solution fast.
+
+### Still open with her
+  1. A starting price for the Monthly Partnership (reads "Scoped with you").
+  2. The on-page Letters sign-up needs a Flodesk INLINE form ID or
+     HoneyBook embed code; until then the blue band links out.
+  3. The Sounding popup and /a-sounding/ still push the $300 Sounding first.
+  4. Old water images and old logo files are unreferenced; prune at launch.
+  5. A directed photoshoot and a 60-second intro video were recommended
+     (the biggest remaining lift); she has not answered.
+  6. The other pages could use the vector wordmark too.
+
+### Launch checklist (when every page is done)
+  1. `python3 tools/stamp.py`, `python3 tools/build.py`, `python3 tools/seams.py` (0).
+  2. The suite (`sh tools/preview/runsuite.sh "$SP" <port>`) was NOT run
+     during the rebuild and its tests target the old pages. Rewrite them
+     for the new markup before trusting it.
+  3. Check every page at 390px and 1440px; `grep -c '<!--' dist/**/index.html` = 0.
+  4. Sitemap, canonical, OG images (home-2026.png exists; other pages
+     still point at the old og/home.png), llms.txt, Search Console resubmit.
+  5. Republish every artifact, then push ONLY on her word. Verify with
+     `vercel ls` and a real browser (plain curl gives a false pass).
