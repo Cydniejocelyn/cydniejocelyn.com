@@ -8586,3 +8586,16 @@ privacy paragraph she sees first, (4) a read-only inbox in Ops.
   5. Open item from earlier: HoneyBook housekeeping (rename the Arizona
      pay-in-full record; update the contact form description), Search Console
      sitemap resubmit, Gatlinburg early rate ends 31 Oct.
+
+### Favicon question (26 Sep, after the notes above)
+  She asked "why is favicon not updated". Live is correct, checked: /favicon.ico
+  on www returns 200, 4001 bytes (= the new aqua CJ file in main and local),
+  max-age=0 must-revalidate; cj-icon-32/16 and cj-apple-180 all 200 and linked
+  on every page. Told her it is her browser's favicon cache (private window,
+  quit Chrome, or delete ~/Library/Safari/Favicon Cache), claude.ai review
+  links show the artifact's own icon, and Google results refresh in days to
+  weeks. Waiting to hear if a private window still shows the old one. Nothing
+  to change in the site unless she says it does.
+
+  Untracked tools/cydnie-jocelyn-*.html are built review artifacts (from
+  build_artifact.py), not source; leave them uncommitted.
