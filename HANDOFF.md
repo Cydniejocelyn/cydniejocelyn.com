@@ -8396,6 +8396,10 @@ site, untouched. `git switch site-2026` before any rebuild work.
   | /privacy-policy/ (26 Sep) | tools/gen_privacy_policy.py (+ privacy_body.html) | Q6A5i8zhaB8wQ1ABhWyBKf |
   | /thequestions/ (26 Sep, noindex) | tools/gen_thequestions.py | TvVACshSZnVCK8u5ixFhDR |
   | popups + cookie card (26 Sep) | sounding-popup.js, gatlinburg-popup.js, lux.css .hv2 .cc | FeLyYMnFsKJhtrdNZcBt35 |
+  FINAL REVIEW HUB (26 Sep): claude.ai/artifact/Nvqk6ShtgGacZH5vPRyEt7
+  (tools/cydnie-jocelyn-final-review.html) links every page above, the footer
+  check (13 pages identical, 9 site links resolve, 4 socials load 200) and
+  the four open questions. Update it if a link or decision changes.
   Artifact links are claude.ai/artifact/<id>. Generators run from tools/
   (`cd tools && python3 gen_x.py`), except gen_work_with_me.py (repo root).
   After any lux.css edit: `python3 tools/stamp.py`.
