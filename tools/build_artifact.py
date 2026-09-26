@@ -377,6 +377,36 @@ def fold(t):
     return "".join(c for c in t if ord(c) < 128)
 
 body, schema = entities(body), entities(schema)
+# SECTION LINKS INSIDE THE VIEWER, 26 September 2026. A review copy runs in
+# the artifact viewer's frame: a link from another page arrives with its
+# #section only after the page has drawn, and a same-page #link click is
+# caught by the viewer, so neither scrolled (her report: "the footers don't
+# scroll properly to the sections"). This does the scroll itself, clearing
+# the sticky header. Review copies only; the real site uses the browser's
+# own fragment scroll with scroll-padding-top.
+js += r"""
+;(function () {
+  function offset() { var h = document.querySelector('.hv-hdr'); return h ? h.getBoundingClientRect().height + 16 : 88; }
+  function go(id, smooth) {
+    if (!id) return false;
+    var el = document.getElementById(decodeURIComponent(id));
+    if (!el) return false;
+    window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - offset()), behavior: smooth ? 'smooth' : 'instant' });
+    return true;
+  }
+  document.addEventListener('click', function (e) {
+    if (e.defaultPrevented) return;
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (id === '' || id === 'main') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    if (go(id, true)) e.preventDefault();
+  });
+  function fromHash() { go((location.hash || '').slice(1), false); }
+  window.addEventListener('load', function () { fromHash(); setTimeout(fromHash, 500); });
+  window.addEventListener('hashchange', fromHash);
+})();
+"""
 css, js = fold(css) + "\n" + fold(pagecss), fold(js)
 
 out = (
