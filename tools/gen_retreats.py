@@ -38,6 +38,10 @@ FAQ = [
      "Yes. Each retreat says so on its own page. The consulting is for founders and leaders of any gender."),
 ]
 
+S = lambda quote, who, where: (
+    '<figure class="hv-slide" data-slide><blockquote><p>&ldquo;%s&rdquo;</p></blockquote>'
+    '<figcaption>%s &middot; %s</figcaption></figure>' % (quote, who, where))
+
 Q = lambda quote, body, who, where: (
     '<li><figure class="hv-q"><blockquote><p>&ldquo;%s&rdquo;</p><p>%s</p></blockquote>'
     '<figcaption>%s &middot; %s</figcaption></figure></li>' % (quote, body, who, where))
@@ -179,12 +183,21 @@ MAIN = """<main id="main">
           <span class="hv-vh">Play Melissa&rsquo;s video about the Costa Rica retreat</span></a>
         <figcaption><b>&ldquo;I learned that I matter too.&rdquo;</b> Melissa recorded this on her phone on the drive home. Three minutes, not edited.</figcaption>
       </figure>
-      <ul class="hv-quotes rx-quotes" role="list">
-        %(Q1)s
-        %(Q2)s
-        %(Q3)s
-        %(Q4)s
-      </ul>
+      <div class="hv-slides" data-slides aria-roledescription="carousel" aria-label="What guests said">
+        <div class="hv-slides-track" aria-live="off">
+          %(S1)s
+          %(S2)s
+          %(S3)s
+          %(S4)s
+          %(S5)s
+          %(S6)s
+        </div>
+        <div class="hv-slides-nav" hidden>
+          <button type="button" class="hv-slides-prev" aria-label="Previous review"><svg viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M5 1L1 5l4 4M1 5h15" stroke="currentColor" stroke-width="1.2"/></svg></button>
+          <div class="hv-slides-dots" role="group" aria-label="Choose a review"></div>
+          <button type="button" class="hv-slides-next" aria-label="Next review"><svg viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M11 1l4 4-4 4M15 5H0" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </div>
     </div>
     <div class="rx-proof-cta"><a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-proof-rooms">Choose your Gatlinburg room %(ARW)s</a><span>Early rate through 31 October</span></div>
   </div>
@@ -233,10 +246,12 @@ MAIN = """<main id="main">
 </main>
 """ % {
     "ARW": ARW, "GREECE_WAIT": GREECE_WAIT, "MAY_LIST": MAY_LIST, "PRIVATE": PRIVATE, "FAQ": L.faq_html(FAQ),
-    "Q1": Q("I always felt behind.", "I was burnt out and struggling to figure out why. My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.", "Kristi", "Rise &amp; Reground, Costa Rica"),
-    "Q2": Q("No waiting, no rushing.", "Intimate group size, and leaders able to make us think, laugh and cry without judgement.", "Carol", "Rise &amp; Reground, Costa Rica"),
-    "Q3": Q("I left being able to breathe.", "I walked in carrying fear that the experience would take more from me than I had to give.", "BJB", "Rise &amp; Reground, Costa Rica"),
-    "Q4": Q("My only regret was that I did not pack more swim suits.", "It greatly surpassed all my expectations.", "Alice", "Rise &amp; Reground, Costa Rica"),
+    "S1": S('I was burnt out and struggling to figure out why I always felt behind. My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.', 'Kristi', 'Rise &amp; Reground, Costa Rica'),
+    "S2": S('Intimate group size, and leaders able to make us think, laugh and cry without judgement. No waiting, no rushing.', 'Carol', 'Rise &amp; Reground, Costa Rica'),
+    "S3": S('I walked in carrying fear that the experience would take more from me than I had to give. I left being able to breathe, with old and new friends who cared about me.', 'BJB', 'Rise &amp; Reground, Costa Rica'),
+    "S4": S('It greatly surpassed all my expectations. My only regret was that I did not pack more swim suits.', 'Alice', 'Rise &amp; Reground, Costa Rica'),
+    "S5": S('If you are weary from life and want to reset and refresh yourself, take a chance on an experience that will not disappoint you if you attend with open hands and heart.', 'Carol', 'Rise &amp; Reground, Costa Rica'),
+    "S6": S('The friends you meet will be there for you if you are willing to reach out and share yourself. Costa Rica will remain in my heart forever.', 'BJB', 'Rise &amp; Reground, Costa Rica'),
 }
 
 graph = L.old_graph("retreats/index.html")
@@ -256,7 +271,7 @@ n = L.render(
     og_title="Retreats for Women | Cydnie Jocelyn",
     og_description="A week where you are not the one holding it together. Fifteen women at most. Gatlinburg April 2027, booking now.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
-    reveal=(".ww-head", ".rx-date", ".au-row > div", ".rx-quotes > li", ".rx-proof-cta"),
+    reveal=(".ww-head", ".rx-date", ".au-row > div", ".hv-slides", ".rx-proof-cta"),
     reveal_imgs=(".rx-wide", ".rx-vid"),
 )
 print("written", n)

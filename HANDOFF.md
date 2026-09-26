@@ -8310,3 +8310,13 @@ Sections 69 and 70 have the detail behind everything below.
     are cut; a room button follows the guests' words; FAQ gained "What is
     included?" (Gatlinburg facts from llms.txt). The map SVG has % signs:
     escape them as %% inside the generator's % template.
+  * Reviews, her pick of three layouts: ONE BIG QUOTE AT A TIME beside
+    Melissa's video. Shared component: markup `.hv-slides[data-slides]` >
+    `.hv-slides-track` > `figure.hv-slide[data-slide]`, plus a hidden
+    `.hv-slides-nav`; script lives in index.html's inline block, so every
+    lux_page-generated page gets it. Without JS all quotes list; with JS one
+    at a time, arrows and diamond dots, a turn every 7s that stops on hover,
+    focus or any click, none under reduced motion; announced politely only
+    after a manual move. Six Costa Rica quotes, all VERBATIM (checked
+    against the old About page after catching three that had been trimmed
+    and one reordered). Rule: never edit a guest's words, only choose them.

@@ -31,8 +31,8 @@
 <link rel="preload" as="image" href="../assets/img/retreats/cr-floor-1000.webp" imagesrcset="../assets/img/retreats/cr-floor-600.webp 600w, ../assets/img/retreats/cr-floor-1000.webp 1000w" imagesizes="(min-width: 64rem) 30rem, 90vw" type="image/webp" fetchpriority="high">
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=d9677aeb">
-<link rel="stylesheet" href="../assets/css/lux.css?v=d9677aeb">
+<link rel="stylesheet" href="../assets/css/site.css?v=0801329d">
+<link rel="stylesheet" href="../assets/css/lux.css?v=0801329d">
 <script>document.documentElement.className += " js-motion";</script>
 <script type="application/ld+json">
 {
@@ -488,12 +488,21 @@
           <span class="hv-vh">Play Melissa&rsquo;s video about the Costa Rica retreat</span></a>
         <figcaption><b>&ldquo;I learned that I matter too.&rdquo;</b> Melissa recorded this on her phone on the drive home. Three minutes, not edited.</figcaption>
       </figure>
-      <ul class="hv-quotes rx-quotes" role="list">
-        <li><figure class="hv-q"><blockquote><p>&ldquo;I always felt behind.&rdquo;</p><p>I was burnt out and struggling to figure out why. My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.</p></blockquote><figcaption>Kristi &middot; Rise &amp; Reground, Costa Rica</figcaption></figure></li>
-        <li><figure class="hv-q"><blockquote><p>&ldquo;No waiting, no rushing.&rdquo;</p><p>Intimate group size, and leaders able to make us think, laugh and cry without judgement.</p></blockquote><figcaption>Carol &middot; Rise &amp; Reground, Costa Rica</figcaption></figure></li>
-        <li><figure class="hv-q"><blockquote><p>&ldquo;I left being able to breathe.&rdquo;</p><p>I walked in carrying fear that the experience would take more from me than I had to give.</p></blockquote><figcaption>BJB &middot; Rise &amp; Reground, Costa Rica</figcaption></figure></li>
-        <li><figure class="hv-q"><blockquote><p>&ldquo;My only regret was that I did not pack more swim suits.&rdquo;</p><p>It greatly surpassed all my expectations.</p></blockquote><figcaption>Alice &middot; Rise &amp; Reground, Costa Rica</figcaption></figure></li>
-      </ul>
+      <div class="hv-slides" data-slides aria-roledescription="carousel" aria-label="What guests said">
+        <div class="hv-slides-track" aria-live="off">
+          <figure class="hv-slide" data-slide><blockquote><p>&ldquo;I was burnt out and struggling to figure out why I always felt behind. My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.&rdquo;</p></blockquote><figcaption>Kristi &middot; Rise &amp; Reground, Costa Rica</figcaption></figure>
+          <figure class="hv-slide" data-slide><blockquote><p>&ldquo;Intimate group size, and leaders able to make us think, laugh and cry without judgement. No waiting, no rushing.&rdquo;</p></blockquote><figcaption>Carol &middot; Rise &amp; Reground, Costa Rica</figcaption></figure>
+          <figure class="hv-slide" data-slide><blockquote><p>&ldquo;I walked in carrying fear that the experience would take more from me than I had to give. I left being able to breathe, with old and new friends who cared about me.&rdquo;</p></blockquote><figcaption>BJB &middot; Rise &amp; Reground, Costa Rica</figcaption></figure>
+          <figure class="hv-slide" data-slide><blockquote><p>&ldquo;It greatly surpassed all my expectations. My only regret was that I did not pack more swim suits.&rdquo;</p></blockquote><figcaption>Alice &middot; Rise &amp; Reground, Costa Rica</figcaption></figure>
+          <figure class="hv-slide" data-slide><blockquote><p>&ldquo;If you are weary from life and want to reset and refresh yourself, take a chance on an experience that will not disappoint you if you attend with open hands and heart.&rdquo;</p></blockquote><figcaption>Carol &middot; Rise &amp; Reground, Costa Rica</figcaption></figure>
+          <figure class="hv-slide" data-slide><blockquote><p>&ldquo;The friends you meet will be there for you if you are willing to reach out and share yourself. Costa Rica will remain in my heart forever.&rdquo;</p></blockquote><figcaption>BJB &middot; Rise &amp; Reground, Costa Rica</figcaption></figure>
+        </div>
+        <div class="hv-slides-nav" hidden>
+          <button type="button" class="hv-slides-prev" aria-label="Previous review"><svg viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M5 1L1 5l4 4M1 5h15" stroke="currentColor" stroke-width="1.2"/></svg></button>
+          <div class="hv-slides-dots" role="group" aria-label="Choose a review"></div>
+          <button type="button" class="hv-slides-next" aria-label="Next review"><svg viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M11 1l4 4-4 4M15 5H0" stroke="currentColor" stroke-width="1.2"/></svg></button>
+        </div>
+      </div>
     </div>
     <div class="rx-proof-cta"><a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-proof-rooms">Choose your Gatlinburg room <svg viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M11 1l4 4-4 4M15 5H0" stroke="currentColor" stroke-width="1.2"/></svg></a><span>Early rate through 31 October</span></div>
   </div>
@@ -604,7 +613,7 @@
 (function () {
   if (!("IntersectionObserver" in window)) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var groups = [".ww-head", ".rx-date", ".au-row > div", ".rx-quotes > li", ".rx-proof-cta", ".hv-head", ".hv-diff-top > div", ".hv-principles > li", ".hv-band-plate", ".hv-offer-head > *",
+  var groups = [".ww-head", ".rx-date", ".au-row > div", ".hv-slides", ".rx-proof-cta", ".hv-head", ".hv-diff-top > div", ".hv-principles > li", ".hv-band-plate", ".hv-offer-head > *",
     ".hv-list details", ".hv-offer-foot", ".hv-steps > li", ".hv-start-cta", ".hv-feature > div", ".hv-cases > li",
     ".hv-quotes > li", ".hv-about > div:last-child", ".hv-rt .hv-offer-head > *", ".hv-rt-card", ".hv-rt-foot > *", ".hv-letters-in > div",
     ".hv-faq > div", ".hv-close .hv-wrap > *"];
@@ -628,10 +637,56 @@
   groups.forEach(function (s) { arm(s); });
   imgs.forEach(function (s) { arm(s, "hv-rv-img"); });
 })();
+/* REVIEWS, ONE AT A TIME (25 September, her pick). Markup lists every quote,
+   so without this script they all show. With it: one at a time, arrows and
+   dots, a gentle turn every seven seconds that stops on hover or focus and
+   never runs under reduced motion. Announced politely only when the reader
+   moves it, never while it turns on its own. */
+(function () {
+  document.querySelectorAll("[data-slides]").forEach(function (root) {
+    var slides = Array.prototype.slice.call(root.querySelectorAll("[data-slide]"));
+    var nav = root.querySelector(".hv-slides-nav"), dots = root.querySelector(".hv-slides-dots");
+    var track = root.querySelector(".hv-slides-track");
+    if (slides.length < 2 || !nav || !dots || !track) return;
+    var i = 0, timer = null;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    root.classList.add("is-ready");
+    nav.hidden = false;
+    var bs = slides.map(function (sl, n) {
+      sl.setAttribute("role", "group");
+      sl.setAttribute("aria-roledescription", "slide");
+      sl.setAttribute("aria-label", (n + 1) + " of " + slides.length);
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "hv-dot";
+      b.setAttribute("aria-label", "Show review " + (n + 1));
+      b.addEventListener("click", function () { manual(n); });
+      dots.appendChild(b);
+      return b;
+    });
+    function go(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach(function (sl, k) {
+        var on = k === i;
+        sl.classList.toggle("is-active", on);
+        sl.setAttribute("aria-hidden", on ? "false" : "true");
+      });
+      bs.forEach(function (b, k) { b.setAttribute("aria-current", k === i ? "true" : "false"); });
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() { if (reduce || timer) return; timer = setInterval(function () { go(i + 1); }, 7000); }
+    function manual(n) { stop(); track.setAttribute("aria-live", "polite"); go(n); }
+    root.querySelector(".hv-slides-prev").addEventListener("click", function () { manual(i - 1); });
+    root.querySelector(".hv-slides-next").addEventListener("click", function () { manual(i + 1); });
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("mouseleave", function () { if (track.getAttribute("aria-live") !== "polite") start(); });
+    go(0); start();
+  });
+})();
 </script>
-<script src="../assets/js/site.js?v=d9677aeb" defer></script>
-<script src="../assets/js/analytics.js?v=d9677aeb" defer></script>
-<script src="../assets/js/consent.js?v=d9677aeb" defer></script>
+<script src="../assets/js/site.js?v=0801329d" defer></script>
+<script src="../assets/js/analytics.js?v=0801329d" defer></script>
+<script src="../assets/js/consent.js?v=0801329d" defer></script>
 <script src="/sounding-popup.js" defer></script>
 <script src="/gatlinburg-popup.js" defer></script>
 </body>

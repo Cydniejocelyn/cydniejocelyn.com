@@ -784,3 +784,25 @@
 .rx-proof-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
 .rx-proof-cta span { font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); }
 .rx-date .hv-btns .hv-link { align-self: center; }
+
+/* REVIEWS, ONE AT A TIME (shared). Slides stack in one grid cell so the
+   block keeps the height of the longest quote and nothing below jumps. */
+.hv-slides { position: relative; }
+.hv-slides-track { display: grid; }
+.hv-slide { margin: 0; padding-top: 2rem; border-top: 1px solid var(--line-2); }
+.hv-slide + .hv-slide { margin-top: 2rem; }
+.hv-slide blockquote { margin: 0; }
+.hv-slide blockquote p { font-family: var(--serif); font-size: clamp(1.75rem, 3.2vw, 2.75rem); line-height: 1.12; letter-spacing: -.01em; color: var(--ink); text-wrap: pretty; }
+.hv-slide figcaption { margin-top: 1.5rem; font-size: .625rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-2); }
+.hv-slides.is-ready .hv-slide { grid-area: 1 / 1; margin: 0; opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity .7s var(--ease), transform .9s var(--ease), visibility 0s linear .7s; }
+.hv-slides.is-ready .hv-slide.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .7s var(--ease), transform .9s var(--ease), visibility 0s; }
+.hv-slides-nav { display: flex; align-items: center; gap: 1.25rem; margin-top: 2rem; }
+.hv-slides-nav[hidden] { display: none; }
+.hv-slides-prev, .hv-slides-next { display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); cursor: pointer; transition: background-color .3s ease, color .3s ease; }
+.hv-slides-prev:hover, .hv-slides-next:hover { background: var(--ink); color: #fff; }
+.hv-slides-prev svg, .hv-slides-next svg { width: 1rem; height: .7rem; }
+.hv-slides-dots { display: flex; gap: .5rem; }
+.hv-dot { width: .55rem; height: .55rem; padding: 0; border: 0; transform: rotate(45deg); background: var(--line-2); cursor: pointer; transition: background-color .3s ease, transform .3s ease; }
+.hv-dot[aria-current="true"] { background: var(--blue-deep); transform: rotate(45deg) scale(1.25); }
+@media (prefers-reduced-motion: reduce) { .hv-slides.is-ready .hv-slide { transform: none; transition: none; } }
+.rx-proof .hv-slides { align-self: center; }

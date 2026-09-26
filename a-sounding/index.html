@@ -31,8 +31,8 @@
 <link rel="preload" as="image" href="../assets/img/sounding/hero-1100.webp" imagesrcset="../assets/img/sounding/hero-700.webp 700w, ../assets/img/sounding/hero-1100.webp 1100w, ../assets/img/sounding/hero-1500.webp 1500w" imagesizes="(min-width: 64rem) 30rem, 90vw" type="image/webp" fetchpriority="high">
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=d9677aeb">
-<link rel="stylesheet" href="../assets/css/lux.css?v=d9677aeb">
+<link rel="stylesheet" href="../assets/css/site.css?v=0801329d">
+<link rel="stylesheet" href="../assets/css/lux.css?v=0801329d">
 <script>document.documentElement.className += " js-motion";</script>
 <script type="application/ld+json">
 {
@@ -566,10 +566,56 @@
   groups.forEach(function (s) { arm(s); });
   imgs.forEach(function (s) { arm(s, "hv-rv-img"); });
 })();
+/* REVIEWS, ONE AT A TIME (25 September, her pick). Markup lists every quote,
+   so without this script they all show. With it: one at a time, arrows and
+   dots, a gentle turn every seven seconds that stops on hover or focus and
+   never runs under reduced motion. Announced politely only when the reader
+   moves it, never while it turns on its own. */
+(function () {
+  document.querySelectorAll("[data-slides]").forEach(function (root) {
+    var slides = Array.prototype.slice.call(root.querySelectorAll("[data-slide]"));
+    var nav = root.querySelector(".hv-slides-nav"), dots = root.querySelector(".hv-slides-dots");
+    var track = root.querySelector(".hv-slides-track");
+    if (slides.length < 2 || !nav || !dots || !track) return;
+    var i = 0, timer = null;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    root.classList.add("is-ready");
+    nav.hidden = false;
+    var bs = slides.map(function (sl, n) {
+      sl.setAttribute("role", "group");
+      sl.setAttribute("aria-roledescription", "slide");
+      sl.setAttribute("aria-label", (n + 1) + " of " + slides.length);
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "hv-dot";
+      b.setAttribute("aria-label", "Show review " + (n + 1));
+      b.addEventListener("click", function () { manual(n); });
+      dots.appendChild(b);
+      return b;
+    });
+    function go(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach(function (sl, k) {
+        var on = k === i;
+        sl.classList.toggle("is-active", on);
+        sl.setAttribute("aria-hidden", on ? "false" : "true");
+      });
+      bs.forEach(function (b, k) { b.setAttribute("aria-current", k === i ? "true" : "false"); });
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function start() { if (reduce || timer) return; timer = setInterval(function () { go(i + 1); }, 7000); }
+    function manual(n) { stop(); track.setAttribute("aria-live", "polite"); go(n); }
+    root.querySelector(".hv-slides-prev").addEventListener("click", function () { manual(i - 1); });
+    root.querySelector(".hv-slides-next").addEventListener("click", function () { manual(i + 1); });
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("mouseleave", function () { if (track.getAttribute("aria-live") !== "polite") start(); });
+    go(0); start();
+  });
+})();
 </script>
-<script src="../assets/js/site.js?v=d9677aeb" defer></script>
-<script src="../assets/js/analytics.js?v=d9677aeb" defer></script>
-<script src="../assets/js/consent.js?v=d9677aeb" defer></script>
+<script src="../assets/js/site.js?v=0801329d" defer></script>
+<script src="../assets/js/analytics.js?v=0801329d" defer></script>
+<script src="../assets/js/consent.js?v=0801329d" defer></script>
 <script src="/sounding-popup.js" defer></script>
 <script src="/gatlinburg-popup.js" defer></script>
 </body>
