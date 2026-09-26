@@ -8299,3 +8299,14 @@ Sections 69 and 70 have the detail behind everything below.
   * build_artifact PICK matches by substring: "gatlinburg/house-dusk" was
     swallowing house-dusk-portrait. An exact portrait stem now wins (longest
     first). Check PICK whenever a page uses a -portrait variant.
+  * Conversion pass, her ask "Analyze the conversion on this page. Make
+    proper changes. Should the map be in for the third date?": YES, the
+    map is back on the May card (the old tools/us_map.py SVG, restyled ink
+    on blue; site.css still animates the line when the card reveals). The
+    first screen now carries the next date, the price and the REAL early-
+    rate deadline; the hero button goes straight to Gatlinburg #rooms; one
+    proof strip (Kristi, Melissa) sits under the hero; format and "who it
+    is for" merged into one section; the sunset band and "What it isn't"
+    are cut; a room button follows the guests' words; FAQ gained "What is
+    included?" (Gatlinburg facts from llms.txt). The map SVG has % signs:
+    escape them as %% inside the generator's % template.

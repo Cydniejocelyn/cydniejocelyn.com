@@ -28,6 +28,8 @@ FAQ = [
      "None in particular. Movement is led every day and shaped around who is in the room, not around who is fittest. If stairs and trails are a real concern, tell me before you book and I will be straight with you."),
     ("Can you accommodate how I eat?",
      "Yes. List anything when you book and it reaches the kitchen well before you land."),
+    ("What is included?",
+     "In Gatlinburg: lodging, every meal, daily movement, two workshops and two outings. Airfare is not included; fly into Knoxville and from the airport forward the logistics are ours. Each retreat lists exactly what is included on its own page."),
     ("What does it cost and how do I hold a seat?",
      "Gatlinburg is $1,490 for a shared room and $2,790 for the private king suite at the early rate, through 31 October 2026, and $500 holds your room. Greece is $3,450, with a $500 non-refundable deposit. Every figure is published on the retreat&rsquo;s own page."),
     ("Do I need travel insurance?",
@@ -49,15 +51,24 @@ MAIN = """<main id="main">
       <h1 id="rx-h">A week where you are not the one <em>holding it together.</em></h1>
       <p class="hv-lede">Small-group retreats for women who are the reason everything works. Lodging, every meal and the plans are handled. You don&rsquo;t need to own a business to come.</p>
       <div class="hv-btns">
-        <a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/" data-cta="retreats-hero-gatlinburg">See Gatlinburg, booking now %(ARW)s</a>
-        <a class="hv-btn hv-btn--line" href="#dates">All dates</a>
+        <a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-hero-rooms">Choose your Gatlinburg room %(ARW)s</a>
+        <a class="hv-btn hv-btn--line" href="#dates">See all dates</a>
       </div>
-      <ul class="ww-trust" role="list"><li>Fifteen women at most</li><li>Nothing to prepare</li><li>Most come alone</li></ul>
+      <div class="rx-next"><span>Next retreat</span><p><b>Gatlinburg, Tennessee &middot; 13&ndash;18 April 2027</b>From $1,490. The early rate ends 31 October, and $500 holds your room.</p></div>
     </div>
     <figure class="ww-arch">
       <img src="../assets/img/retreats/cr-floor-1000.webp" srcset="../assets/img/retreats/cr-floor-600.webp 600w, ../assets/img/retreats/cr-floor-1000.webp 1000w" sizes="(min-width: 64rem) 30rem, 90vw" width="1000" height="1613" alt="Women sitting together in a circle on the floor of an open-air pavilion in Costa Rica" fetchpriority="high">
       <figcaption><span>Costa Rica, day three</span><b>Nine in the morning</b></figcaption>
     </figure>
+  </div>
+</section>
+
+<!-- PROOF, straight under the hero. -->
+<section class="hv-proof rx-proofstrip" aria-label="What guests said">
+  <div class="hv-wrap rx-proofstrip-in">
+    <span class="hv-label">Costa Rica &middot; April 2026</span>
+    <blockquote>&ldquo;The fact that you&rsquo;re even considering it should tell you that you should go.&rdquo;<cite>Kristi, retreat guest</cite></blockquote>
+    <blockquote>&ldquo;I learned that I matter too.&rdquo;<cite>Melissa, retreat guest</cite></blockquote>
   </div>
 </section>
 
@@ -77,12 +88,37 @@ MAIN = """<main id="main">
           <h3>Wide Open: The Gatlinburg Edition</h3>
           <p>Five days in a private house at the edge of the Smoky Mountains, with Kayla Freeman leading the morning movement. Lodging, every meal, two workshops and two outings are included.</p>
           <dl><div><dt>Shared room</dt><dd>$1,490</dd></div><div><dt>Private king suite</dt><dd>$2,790</dd></div></dl>
-          <p class="rx-note">Early rate through 31 October. $500 holds your room.</p>
-          <a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/" data-cta="retreats-card-gatlinburg">See Gatlinburg and book %(ARW)s</a>
+          <p class="rx-note">Early rate through 31 October. $500 holds your room. Fly into Knoxville; from the airport forward, the logistics are ours.</p>
+          <div class="hv-btns"><a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-card-rooms">Choose your room %(ARW)s</a><a class="hv-link" href="/retreats/gatlinburg/">See the week</a></div>
         </div>
       </li>
       <li class="rx-date rx-date--soon">
-        <div class="rx-soon" aria-hidden="true"><span>May</span><b>2027</b></div>
+        <figure class="rx-soon"><!-- The US map from tools/us_map.py (via the old page): the country, and an open ring where the pin would go. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 633"
+               role="img" aria-labelledby="usmap-t" class="usmap" preserveAspectRatio="xMidYMid meet">
+            <title id="usmap-t">A map of the United States with no location marked on it</title>
+            <defs>
+              <!-- The country fades at its edges rather than stopping on a hard line,
+                   which is the same seam construction the page's own sections use. -->
+              <radialGradient id="usmap-veil" cx="50%%" cy="46%%" r="62%%">
+                <stop offset="0%%"   stop-color="#fff" stop-opacity="1"/>
+                <stop offset="62%%"  stop-color="#fff" stop-opacity="1"/>
+                <stop offset="100%%" stop-color="#fff" stop-opacity="0"/>
+              </radialGradient>
+              <mask id="usmap-mask">
+                <rect width="1000" height="633" fill="url(#usmap-veil)"/>
+              </mask>
+            </defs>
+            <g mask="url(#usmap-mask)">
+              <path class="usmap-fill" fill-rule="evenodd" d="M65.0 18.1L93.9 12.0L185.8 36.9L294.0 58.0L386.7 69.3L450.1 73.5L493.5 74.8L526.1 65.8L554.6 83.4L568.3 89.4L594.8 94.1L614.8 95.2L638.7 112.4L683.3 118.7L701.9 122.4L698.6 138.4L735.8 145.2L749.5 185.0L746.4 201.0L732.5 232.8L774.5 220.4L793.6 202.7L804.0 192.4L802.0 183.7L842.0 167.9L844.5 155.2L858.6 141.1L865.6 128.3L917.8 114.9L922.4 106.5L930.0 82.1L938.3 51.1L958.2 48.7L968.7 70.3L988.0 90.1L977.6 109.7L947.4 138.7L942.7 159.7L958.5 176.0L934.8 199.8L903.8 225.4L901.6 255.7L893.7 272.1L894.0 293.8L886.3 319.0L900.0 340.8L904.0 356.3L887.9 374.9L863.8 398.0L832.7 430.4L815.9 450.6L809.1 483.8L826.1 517.2L837.1 534.7L854.8 575.5L853.0 611.3L825.4 598.8L790.4 554.3L782.4 525.2L742.1 517.3L726.5 508.4L676.8 507.5L650.5 513.2L658.2 538.9L635.5 536.9L555.3 530.9L525.3 549.2L483.1 576.6L487.8 621.1L445.9 609.3L420.3 557.8L408.9 535.7L367.1 537.7L333.1 520.4L301.9 469.7L267.3 465.4L265.9 476.0L208.5 467.3L142.5 421.3L94.8 415.3L79.7 382.7L42.1 355.0L40.4 330.0L29.6 298.7L26.5 268.3L13.1 235.8L12.0 198.7L23.5 163.8L32.9 134.6L47.6 107.1L59.8 69.9L62.9 52.2ZM696.5 138.6L676.2 158.8L678.2 184.8L682.1 212.9L672.6 239.9L660.4 241.1L652.2 208.7L658.3 173.7L661.2 159.2L673.3 147.3Z"/>
+              <path class="usmap-line" d="M65.0 18.1L93.9 12.0L185.8 36.9L294.0 58.0L386.7 69.3L450.1 73.5L493.5 74.8L526.1 65.8L554.6 83.4L568.3 89.4L594.8 94.1L614.8 95.2L638.7 112.4L683.3 118.7L701.9 122.4L698.6 138.4L735.8 145.2L749.5 185.0L746.4 201.0L732.5 232.8L774.5 220.4L793.6 202.7L804.0 192.4L802.0 183.7L842.0 167.9L844.5 155.2L858.6 141.1L865.6 128.3L917.8 114.9L922.4 106.5L930.0 82.1L938.3 51.1L958.2 48.7L968.7 70.3L988.0 90.1L977.6 109.7L947.4 138.7L942.7 159.7L958.5 176.0L934.8 199.8L903.8 225.4L901.6 255.7L893.7 272.1L894.0 293.8L886.3 319.0L900.0 340.8L904.0 356.3L887.9 374.9L863.8 398.0L832.7 430.4L815.9 450.6L809.1 483.8L826.1 517.2L837.1 534.7L854.8 575.5L853.0 611.3L825.4 598.8L790.4 554.3L782.4 525.2L742.1 517.3L726.5 508.4L676.8 507.5L650.5 513.2L658.2 538.9L635.5 536.9L555.3 530.9L525.3 549.2L483.1 576.6L487.8 621.1L445.9 609.3L420.3 557.8L408.9 535.7L367.1 537.7L333.1 520.4L301.9 469.7L267.3 465.4L265.9 476.0L208.5 467.3L142.5 421.3L94.8 415.3L79.7 382.7L42.1 355.0L40.4 330.0L29.6 298.7L26.5 268.3L13.1 235.8L12.0 198.7L23.5 163.8L32.9 134.6L47.6 107.1L59.8 69.9L62.9 52.2ZM696.5 138.6L676.2 158.8L678.2 184.8L682.1 212.9L672.6 239.9L660.4 241.1L652.2 208.7L658.3 173.7L661.2 159.2L673.3 147.3Z" pathLength="1"/>
+            </g>
+            <g class="usmap-pin" transform="translate(530.7 276.1)">
+              <circle class="usmap-ring" r="21"/>
+              <circle class="usmap-ring usmap-ring--out" r="38"/>
+            </g>
+          </svg>
+          <figcaption><span>May</span><b>2027 &middot; Somewhere in the United States</b></figcaption></figure>
         <div class="rx-date-body">
           <span class="hv-pill rx-pill rx-pill--line">In the works</span>
           <p class="rx-when">5&ndash;9 May 2027 &middot; Location named later</p>
@@ -107,19 +143,20 @@ MAIN = """<main id="main">
   </div>
 </section>
 
-<!-- THE FORMAT: fifteen. -->
+<!-- THE FORMAT, and who it is for, in one section. "What it isn't" is
+     folded into the format list; the sunset band is cut for length. -->
 <section class="hv-sec rx-format" aria-labelledby="rx-fifteen">
   <div class="hv-wrap au-row">
     <figure class="rx-wide"><img src="../assets/img/retreats/cr-room-1200.webp" srcset="../assets/img/retreats/cr-room-600.webp 600w, ../assets/img/retreats/cr-room-1200.webp 1200w, ../assets/img/retreats/cr-room-1800.webp 1800w" sizes="(min-width: 60rem) 30rem, 92vw" width="1200" height="675" alt="Women stretching on mats on a wooden deck beside a pool in Costa Rica" loading="lazy"><figcaption>The middle of the week, on the floor.</figcaption></figure>
     <div>
-      <span class="hv-label">The format</span>
-      <h2 class="hv-h2" id="rx-fifteen">Alone in a group <em>of fifteen.</em></h2>
-      <p class="hv-lede">No retreat goes over fifteen women, and some are smaller, because that is how many people can actually be known in a week.</p>
+      <span class="hv-label">Who it is for</span>
+      <h2 class="hv-h2" id="rx-fifteen">For the woman <em>everyone depends on.</em></h2>
       <ul class="au-facts rx-days" role="list">
-        <li>Rest, movement, and food somebody else made.</li>
-        <li>Long stretches of unscheduled time.</li>
-        <li>No workbook, no intention circle, nothing to prepare.</li>
+        <li>You are the one everybody depends on, at work, at home, or both.</li>
+        <li>You want a stretch of days where that is not the arrangement.</li>
+        <li>You want to come home knowing fourteen women well enough to text them.</li>
       </ul>
+      <p class="rx-format-copy">No retreat goes over fifteen women, because that is how many people can actually be known in a week. Rest, movement, food somebody else made, and long stretches of unscheduled time. No workbook, no pitch, nothing to prepare.</p>
       <p class="au-why">Nobody will need anything from you. <em>Nobody will leave you either.</em></p>
     </div>
   </div>
@@ -149,40 +186,7 @@ MAIN = """<main id="main">
         %(Q4)s
       </ul>
     </div>
-  </div>
-</section>
-
-<!-- A PAUSE: the low tide, her caption. -->
-<figure class="rx-band">
-  <img src="../assets/img/retreats/cr-dusk-1200.webp" srcset="../assets/img/retreats/cr-dusk-600.webp 600w, ../assets/img/retreats/cr-dusk-1200.webp 1200w, ../assets/img/retreats/cr-dusk-1536.webp 1536w" sizes="100vw" width="1536" height="2048" alt="The sunset sky reflected in wet sand at low tide in Costa Rica" loading="lazy">
-  <figcaption><span class="hv-label">Costa Rica &middot; the last evening</span><p>Low tide, and the whole sky in the sand. <em>Nobody organised this part.</em></p></figcaption>
-</figure>
-
-<!-- WHO IT IS FOR. "Not for you if" softened to "What it isn't". -->
-<section class="hv-sec ww-pf" aria-labelledby="rx-who">
-  <div class="hv-wrap">
-    <div class="ww-head">
-      <span class="hv-label">Who this is for</span>
-      <h2 class="hv-h2" id="rx-who">For the woman <em>everyone depends on.</em></h2>
-    </div>
-    <div class="ww-pf-grid">
-      <div class="ww-fix rx-for">
-        <h3>It is for you if</h3>
-        <ul role="list">
-          <li>You are the one everybody depends on, at work, at home, or both.</li>
-          <li>You want a stretch of days where that is not the arrangement.</li>
-          <li>You want to come home knowing fourteen women well enough to text them.</li>
-        </ul>
-      </div>
-      <div class="ww-problem rx-isnt">
-        <h3>What it isn&rsquo;t</h3>
-        <ul role="list">
-          <li>A mastermind. Nobody is going to pitch you.</li>
-          <li>A curriculum with a binder to take home.</li>
-          <li>A programme you need a measurable outcome from before the cost feels justified.</li>
-        </ul>
-      </div>
-    </div>
+    <div class="rx-proof-cta"><a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-proof-rooms">Choose your Gatlinburg room %(ARW)s</a><span>Early rate through 31 October</span></div>
   </div>
 </section>
 
@@ -229,7 +233,7 @@ MAIN = """<main id="main">
 </main>
 """ % {
     "ARW": ARW, "GREECE_WAIT": GREECE_WAIT, "MAY_LIST": MAY_LIST, "PRIVATE": PRIVATE, "FAQ": L.faq_html(FAQ),
-    "Q1": Q("The fact that you&rsquo;re even considering it should tell you that you should go.", "You&rsquo;ll come out the other end with new people in your life.", "Kristi", "asked what she would say to someone afraid to come alone"),
+    "Q1": Q("I always felt behind.", "I was burnt out and struggling to figure out why. My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.", "Kristi", "Rise &amp; Reground, Costa Rica"),
     "Q2": Q("No waiting, no rushing.", "Intimate group size, and leaders able to make us think, laugh and cry without judgement.", "Carol", "Rise &amp; Reground, Costa Rica"),
     "Q3": Q("I left being able to breathe.", "I walked in carrying fear that the experience would take more from me than I had to give.", "BJB", "Rise &amp; Reground, Costa Rica"),
     "Q4": Q("My only regret was that I did not pack more swim suits.", "It greatly surpassed all my expectations.", "Alice", "Rise &amp; Reground, Costa Rica"),
@@ -252,7 +256,7 @@ n = L.render(
     og_title="Retreats for Women | Cydnie Jocelyn",
     og_description="A week where you are not the one holding it together. Fifteen women at most. Gatlinburg April 2027, booking now.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
-    reveal=(".ww-head", ".rx-date", ".au-row > div", ".rx-quotes > li", ".ww-pf-grid > div"),
+    reveal=(".ww-head", ".rx-date", ".au-row > div", ".rx-quotes > li", ".rx-proof-cta"),
     reveal_imgs=(".rx-wide", ".rx-vid"),
 )
 print("written", n)
