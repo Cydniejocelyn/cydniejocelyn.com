@@ -1,7 +1,7 @@
 # Working on this site
 
-This file is a pointer, not a second source of truth. **`HANDOFF.md` sections
-71-72 are the current state of the site**: the 2026 rebuild, on branch
+This file is a pointer, not a second source of truth. **`HANDOFF.md` section
+77 is the current state of the site** (sections 69-76 have the detail): the 2026 rebuild, on branch
 `site-2026` (main = the live site), launching all pages at once (69-70 have
 the detail; 68 is Arizona) (67 has the Arizona reasoning): /retreats/gatlinburg/ launched on
 16 September 2026, and /retreats/arizona/ went live on 24 September as an

@@ -8372,3 +8372,75 @@ Sections 69 and 70 have the detail behind everything below.
   * lux_page.render gained robots_html, canonical_html and head_extra.
   * Class clashes caught against site.css: gr-note -> gr-aside, az-quote ->
     az-say. Always grep site.css before naming a class.
+
+## 77. START HERE. End of 25 September 2026. THE REBUILD, PAUSED FOR THE NIGHT.
+
+Cydnie: "make note of where we are at to end for the evening and pick up
+tomorrow. Plus what final pages to finalize before we push live."
+Everything is on branch `site-2026` (local, not pushed). `main` = the live
+site, untouched. `git switch site-2026` before any rebuild work.
+
+### Done (rebuilt, reviewed or awaiting her review)
+  | Page | Generator | Review artifact |
+  |---|---|---|
+  | / | hand-edited index.html (it is the source every generator copies) | LudmMGuNGvWvzyvBQLN7o8 |
+  | /the-build/ (Work with me) | tools/gen_work_with_me.py (standalone) | 5wqFeCj6sFUxfKttPZf9th |
+  | /a-sounding/ | tools/gen_a_sounding.py | DssHAcZhyTcejNQUjtQSJi |
+  | /about/ | tools/gen_about.py | U5FeRQ8KubcNP9v9wy8qQU |
+  | /retreats/ | tools/gen_retreats.py | HcXyuAjSzWWDLmSyyGdxvc |
+  | /retreats/gatlinburg/ | tools/gen_gatlinburg.py | Uq7dwHkKDjc5SLFcEKriG2 |
+  | /retreats/greece/ | tools/gen_greece.py | Ddv5rt41aiaKNLWyMX1Yi1 |
+  | /retreats/arizona/ (HIDDEN) | tools/gen_arizona.py | CqN4Yqjfi4PTPWcMTQVrv8 |
+  Artifact links are claude.ai/artifact/<id>. Generators run from tools/
+  (`cd tools && python3 gen_x.py`), except gen_work_with_me.py (repo root).
+  After any lux.css edit: `python3 tools/stamp.py`.
+
+### Pages left to rebuild before launch (tomorrow)
+  1. /the-letters/  The Letters. Carries the ONLY Flodesk popup (form
+     6a8f553c...); the list itself is HoneyBook cf_id/6a19d46a.... Decide
+     with her whether the page gets an inline sign-up (needs an embed).
+  2. /contact/  Contact. HoneyBook contact form cf_id/69fa372c.... Should
+     now lead with the free call as well as the question form.
+  3. /privacy-policy/  Privacy policy and terms (retreat terms at #terms).
+     Restyle only; the legal wording does not change without her.
+  4. /thequestions/  The Questions (not in the sitemap; check with her what
+     it is for now, and whether it stays).
+  Also restyle to the new look before launch: the two popups
+  (sounding-popup.js, gatlinburg-popup.js; the Sounding one still sells the
+  $300 Sounding first, the free call is now the front door) and the cookie
+  banner (consent.js + site.css, still the old dark style).
+
+### Still owed by her (none block tomorrow's pages)
+  * A starting price for the Monthly Partnership (reads "Scoped with you").
+  * Is "two days later" still right for the Sounding's written roadmap?
+  * The Letters inline form: a Flodesk INLINE form ID or HoneyBook embed.
+  * About: keep, reword or cut the one bridge line that is mine ("That is
+    why I build businesses that don't need their owner in the middle of
+    everything. I know what it costs.").
+  * A directed photoshoot and a 60-second intro video (recommended, open).
+  * Arizona: the word "launch" (then HANDOFF 68 steps, via the updated
+    launch_arizona.py, tested end to end in section 76).
+
+### Dates that bite before or at launch
+  * 31 OCTOBER: Gatlinburg early rate ends. The LIVE site (main) needs its
+    copy changed by 1 November (section 62). If the rebuild launches after
+    that, update tools/gen_gatlinburg.py too ($2,900 / $1,600, the early-rate
+    lines, the hero caption) and gen_retreats.py / index.html mentions.
+  * 1 DECEMBER: Arizona $1,675 -> $1,800 and "$335 a day" -> $360 (68).
+
+### Launch checklist (only when every page above is done and she says go)
+  1. `git switch site-2026`; merge or rebase onto any live fixes made on
+     main since (the Gatlinburg date change above will be one).
+  2. `python3 tools/stamp.py`, `python3 tools/build.py`, `python3
+     tools/seams.py` (0), and `grep -c '<!--' dist/**/index.html` = 0.
+  3. REWRITE the preview suite (tools/preview/runsuite.sh): its tests
+     target the old pages and were never run during the rebuild.
+  4. Every page at 390px and 1440px; every booking link clicked once to
+     the right HoneyBook record; the countdown, days-left tags, galleries,
+     lightbox, video and review slider working.
+  5. Search: sitemap URLs are unchanged (no new pages); llms.txt already
+     updated; resubmit the sitemap in Search Console after the push.
+  6. Housekeeping: prune the unreferenced old images build.py lists (old
+     water photos, mark-horiz-*), with her OK.
+  7. Republish every artifact; push only on her word; verify with
+     `vercel ls` and a real browser (plain curl gives a false pass).
