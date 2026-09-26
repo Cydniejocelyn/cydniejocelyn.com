@@ -33,7 +33,7 @@
 
   var EYEBROW = 'Ninety minutes  /  $300';
   var TITLE   = 'A Sounding';
-  var BODY    = 'One conversation about what is actually happening in your business, and my full take in writing two days later, with recommendations. Nothing to prepare beforehand.';
+  var BODY    = 'One conversation about what is actually happening in your business, and a written roadmap two days later, with my recommendations. Nothing to prepare beforehand.';
   var CTA     = 'Book a Sounding';
   var DISMISS = 'Not now';
   /* ---------------------------------------- */

@@ -30,7 +30,7 @@ ARW = '<svg viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M11 1l4 
 
 FAQ = [
  ("Do you publish your pricing?", "Yes. Every service on this page has a published price or a starting price, and the full figure for your scope is in writing before you sign anything. Retreat pricing is on each retreat page."),
- ("How do I start working with you?", "Book a free 30-minute call. If we are a fit, the next step is the Sounding, a 90-minute strategy session with a written report of findings and recommendations two days later. The $300 comes off your project."),
+ ("How do I start working with you?", "Book a free 30-minute call. If we are a fit, the next step is the Sounding, a 90-minute strategy session with a written roadmap of findings and recommendations two days later. The $300 comes off your project."),
  ("Can we keep working together after the project?", "Yes. Once your first project is finished, you can stay on with a Monthly Partnership: strategy every month, and hands-on help with content, operations and business development. It is scoped with you at the end of that project."),
  ("How long does a Season Partnership take?", "It is scoped in a written proposal before either of us commits. The length depends on how much operations work is in play."),
  ("Can I edit the website myself?", "No, and that is on purpose. The site is written in code, so no theme limits it and no plugin update breaks it. Content changes come through me on the Complete care plan."),

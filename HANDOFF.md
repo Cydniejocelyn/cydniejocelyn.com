@@ -8234,3 +8234,13 @@ Sections 69 and 70 have the detail behind everything below.
     spells out the result before the price. The report drawing is a stack
     of sheets. Items 3 and 4 use her earlier copy ("a straight answer on
     whether you need anything further"; "where it can go").
+  * Third pass, her note: "My full take, in writing ... seems like they
+    shouldn't work with me." The deliverable is now YOUR ROADMAP, framed as
+    the plan a Build is scoped from ("the $300 comes off your Build"), on
+    every page and in llms.txt and the popup. Removed every line that sent
+    readers away: "act on it without me", "yours either way", "complete on
+    its own", "nothing waiting at the end", "some fixes you can make
+    yourself", and "you don't need me" in the hero. The honest section is
+    now "Advice you can trust": honesty as the reason to build from the
+    roadmap, not as an exit. Lesson: her honesty lines must earn trust in
+    HER, never read as permission to leave.
