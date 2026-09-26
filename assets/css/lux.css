@@ -635,3 +635,12 @@
 .sd-ticket .hv-btn { width: 100%; }
 .sd-ticket-note { margin-top: 1.1rem; font-size: .875rem; color: var(--ink-2); text-align: center; }
 @media (min-width: 60rem) { .sd-buy-grid { grid-template-columns: 1fr 1fr; gap: 6rem; } }
+
+/* The Sounding, second pass: the deliverable is a full written report (her
+   note, 25 September: "bigger than a page... my full take and
+   recommendations or no recommendations"). The drawing becomes a stack. */
+.sd-doc { box-shadow: .7rem .7rem 0 -1px #fff, .7rem .7rem 0 0 var(--line-2), 1.4rem 1.4rem 0 -1px #fff, 1.4rem 1.4rem 0 0 var(--line-2), 2.1rem 2.1rem 0 0 var(--blue), 0 50px 80px -40px rgba(12,40,48,.45); }
+.sd-know-list { counter-reset: k; }
+.sd-know-list li::before { counter-increment: k; content: "0" counter(k); display: block; margin-bottom: 1.1rem; font-size: .625rem; font-weight: 600; letter-spacing: .24em; color: var(--ink-3); }
+@media (min-width: 60rem) { .sd-know-list { grid-template-columns: repeat(4, 1fr); column-gap: 2.5rem; } }
+@media (max-width: 40rem) { .sd-doc { width: calc(100% - 2.75rem); justify-self: start; } }

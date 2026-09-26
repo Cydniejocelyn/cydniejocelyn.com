@@ -20,11 +20,13 @@ FAQ = [
     ("Do I need the free call first?",
      "It is the recommended first step: thirty minutes to make sure the Sounding is right for you. If you already know it is, book the Sounding directly."),
     ("Is this a coaching call?",
-     "No. There is no goal setting and nothing to work on between sessions. It is a strategy session: you describe how the business currently runs, and you leave with the pressure located and a page naming what to address first."),
+     "No. There is no goal setting and nothing to work on between sessions. It is a strategy session: you describe how the business currently runs, and you leave with the pressure located and a written report of what to address first."),
     ("Does the $300 count toward a larger project?",
-     "Yes. If you go on to a Build, the $300 comes off it. The Sounding is still complete on its own: the page is yours either way, and whether to continue is a decision you make after it is in your hands."),
+     "Yes. If you go on to a Build, the $300 comes off it. The Sounding is still complete on its own: the report is yours either way, and whether to continue is a decision you make after it is in your hands."),
     ("What if I do not know what my problem is?",
      "That is the usual starting point. Finding it is the work of the ninety minutes, and it is why the conversation covers the whole business rather than the part you think is broken."),
+    ("What is in the written report?",
+     "My full take on the business: what I heard, what is load bearing, and my recommendations in the order I would take them. If the honest answer is that you do not need outside help, the report says so and explains why."),
     ("How soon can I book?",
      "Usually two to three weeks out. Open times are on the booking page, remote or in person around the Twin Cities."),
 ]
@@ -36,17 +38,17 @@ MAIN = """<main id="main">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
       <span class="hv-label">The Sounding</span>
-      <h1 id="sd-h">Ninety minutes on <em>the whole business.</em></h1>
-      <p class="hv-lede">A 90-minute strategy session across brand, operations and business development, then a written plan two days later with your first move. You don&rsquo;t need to arrive organised, or know yet what the problem is.</p>
+      <h1 id="sd-h">Know exactly what to <em>fix first.</em></h1>
+      <p class="hv-lede">The Sounding is a 90-minute strategy session across brand, operations and business development. Two days later you get my full take in writing: what is really going on, and what I recommend, in order. Or, if it is the honest answer, that you don&rsquo;t need me.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="%(SOUND)s" data-cta="sounding-hero">Book the Sounding, $300 %(ARW)s</a>
         <a class="hv-btn hv-btn--line" href="%(CALL)s" data-cta="free-call-sounding">Not sure? Free call first</a>
       </div>
-      <ul class="ww-trust" role="list"><li>$300 flat</li><li>No intake form</li><li>Credited to your project</li></ul>
+      <ul class="ww-trust" role="list"><li>$300 flat</li><li>Credited to your project</li><li>Nothing to prepare</li></ul>
     </div>
     <figure class="ww-arch">
       <img src="../assets/img/sounding/hero-1100.webp" srcset="../assets/img/sounding/hero-700.webp 700w, ../assets/img/sounding/hero-1100.webp 1100w, ../assets/img/sounding/hero-1500.webp 1500w" sizes="(min-width: 64rem) 30rem, 90vw" width="1100" height="1467" alt="Cydnie Jocelyn in a garden, one hand in her hair, smiling thoughtfully" fetchpriority="high">
-      <figcaption><span>Your plan, in writing</span><b>Two days later</b></figcaption>
+      <figcaption><span>Your written report</span><b>Two days later</b></figcaption>
     </figure>
   </div>
 </section>
@@ -67,6 +69,22 @@ MAIN = """<main id="main">
   </div>
 </section>
 
+<!-- WHAT YOU WILL KNOW: the outcome, spelled out before the price. -->
+<section class="hv-sec ww-who sd-know" aria-labelledby="sd-know">
+  <div class="hv-wrap">
+    <div class="ww-head">
+      <span class="hv-label">After your Sounding</span>
+      <h2 class="hv-h2" id="sd-know">You will know <em>four things.</em></h2>
+    </div>
+    <ul class="ww-profiles sd-know-list" role="list">
+      <li><h3>What is really going on</h3><p>The structural reason the business feels heavier, not just the symptom you came in with.</p></li>
+      <li><h3>What to fix first</h3><p>My recommendations, in the order I would take them, so you are not guessing where to start.</p></li>
+      <li><h3>Whether you need help</h3><p>Some fixes you can make yourself. I will say which, and whether you need me for any of the rest.</p></li>
+      <li><h3>Where it can go</h3><p>Where the brand and the business can go from here, once the thing holding them is dealt with.</p></li>
+    </ul>
+  </div>
+</section>
+
 <!-- HOW IT WORKS: her four steps, shorter. -->
 <section class="hv-sec ww-path" aria-labelledby="sd-how">
   <div class="hv-wrap">
@@ -77,7 +95,7 @@ MAIN = """<main id="main">
     <ol class="ww-steps" role="list">
       <li><h3>Book a time</h3><p>Pick a time and name your business. That is the whole form: no intake, no pre-work.</p></li>
       <li><h3>Ninety minutes</h3><p>Brand, operations and business development, because where pressure lands is rarely where it starts. You talk; I ask and take notes.</p></li>
-      <li><h3>Your page</h3><p>Two days later, one written page: what I heard, what is load bearing, and what I would do first.</p></li>
+      <li><h3>Your report</h3><p>Two days later, my full take in writing: what I heard, what is load bearing, and what I recommend, in order.</p></li>
       <li><h3>Your call</h3><p>Nothing waiting at the end. If you want to keep working together, you say so, and the $300 comes off your Build.</p></li>
     </ol>
   </div>
@@ -88,18 +106,18 @@ MAIN = """<main id="main">
   <div class="hv-wrap sd-leave-grid">
     <div class="sd-doc" aria-hidden="true">
       <svg class="hv-wm sd-doc-mark" viewBox="0 0 504.2 54.4"><use href="#cj-wordmark"/></svg>
-      <p class="sd-doc-title">The Sounding <span>One page</span></p>
+      <p class="sd-doc-title">The Sounding <span>Your written report</span></p>
       <ol>
-        <li><b>What I heard</b><i></i><i></i><i class="short"></i></li>
+        <li><b>What I heard</b><i></i><i class="short"></i></li>
         <li><b>What is load bearing</b><i></i><i></i><i class="short"></i></li>
-        <li><b>What I would do first</b><i></i><i class="short"></i></li>
+        <li><b>My recommendations, in order</b><i></i><i></i><i></i><i></i><i class="short"></i></li>
       </ol>
     </div>
     <div>
       <span class="hv-label">What you leave with</span>
-      <h2 class="hv-h2" id="sd-page">A page you can <em>act on.</em></h2>
-      <p class="hv-lede">A page, because a page gets read and a deck gets saved for later. Act on every line without me, or hand it to a partner to explain what you just spent money on. It is yours either way.</p>
-      <ul class="sd-list" role="list"><li>What I heard</li><li>What is load bearing</li><li>What I would do first</li></ul>
+      <h2 class="hv-h2" id="sd-page">My full take, <em>in writing.</em></h2>
+      <p class="hv-lede">Not a call you have to remember. A written report of everything I saw and what I recommend, in the order I would do it. Act on it without me, or hand it to a partner. It is yours either way.</p>
+      <ul class="sd-list" role="list"><li>What I heard</li><li>What is load bearing</li><li>My recommendations, in order</li><li>Or, honestly, that you don&rsquo;t need me</li></ul>
     </div>
   </div>
 </section>
@@ -109,7 +127,7 @@ MAIN = """<main id="main">
   <div class="hv-wrap">
     <span class="hv-label">The part most people leave out</span>
     <h2 class="hv-h2" id="sd-truth">Sometimes the answer is that <em>you don&rsquo;t need me.</em></h2>
-    <p class="sd-truth-copy">Sometimes the page says the move is a hire. Sometimes a price change, a contract already sitting unsigned, or nothing at all for a quarter while something else settles. None of that is work I would bill you for, and I will tell you when it is the answer.</p>
+    <p class="sd-truth-copy">Sometimes my recommendation is a hire. Sometimes a price change, a contract already sitting unsigned, or nothing at all for a quarter while something else settles. None of that is work I would bill you for, and I will tell you when it is the answer.</p>
     <p class="sd-truth-close">Hearing it in week one is worth more than $300. The alternative is a year spent solving the wrong problem.</p>
   </div>
 </section>
@@ -138,7 +156,7 @@ MAIN = """<main id="main">
     </div>
     <div class="sd-ticket">
       <p class="sd-ticket-price"><span>Flat</span>$300</p>
-      <ul role="list"><li>A 90-minute strategy session on the whole business</li><li>One written page, two days later</li><li>Credited to your Build if you continue</li><li>Remote, or in person around the Twin Cities</li></ul>
+      <ul role="list"><li>A 90-minute strategy session on the whole business</li><li>My full take and recommendations, in writing, two days later</li><li>Credited to your Build if you continue</li><li>Remote, or in person around the Twin Cities</li></ul>
       <a class="hv-btn hv-btn--ink" href="%(SOUND)s" data-cta="sounding-book">Book the Sounding %(ARW)s</a>
       <p class="sd-ticket-note">Usually booked two to three weeks out. <a class="hv-inline" href="%(CALL)s">Or start with a free call.</a></p>
     </div>
@@ -174,7 +192,7 @@ for n in graph:
         n["name"] = "The Sounding"
         n["serviceType"] = "Business strategy session"
         n["description"] = ("A 90-minute strategy session across brand, operations and business development, "
-                            "with a written plan two days later. $300, credited to a Build.")
+                            "with a written report of findings and recommendations two days later. $300, credited to a Build.")
     if t == "FAQPage":
         n.update(L.faq_node(URL, FAQ))
     if isinstance(t, list) and "ProfessionalService" in t:
@@ -188,13 +206,13 @@ PRELOAD = ('<link rel="preload" as="image" href="../assets/img/sounding/hero-110
 
 n = L.render(
     out="a-sounding/index.html", depth=1, active="/the-build/",
-    title="The Sounding | A 90-Minute Business Strategy Session, $300",
-    description="The Sounding: a 90-minute strategy session across brand, operations and business development, with a written plan two days later. $300 flat, credited to your project. Remote or in person.",
+    title="The Sounding | 90-Minute Business Strategy Session & Written Report, $300",
+    description="The Sounding: a 90-minute strategy session across brand, operations and business development, then a written report of findings and recommendations two days later. $300, credited to your project.",
     canonical=URL,
     og_title="The Sounding | A 90-minute strategy session with Cydnie Jocelyn",
-    og_description="Ninety minutes on the whole business, and a written plan two days later. $300, credited to your project.",
+    og_description="Know exactly what to fix first: 90 minutes on the whole business, then my full take and recommendations in writing. $300, credited to your project.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
-    reveal=(".ww-head", ".sd-ff-row", ".ww-steps > li", ".sd-leave-grid > div:last-child", ".sd-truth .hv-wrap > *",
+    reveal=(".ww-head", ".sd-ff-row", ".sd-know-list > li", ".ww-steps > li", ".sd-leave-grid > div:last-child", ".sd-truth .hv-wrap > *",
             ".hv-quotes > li", ".sd-buy-grid > *"),
     reveal_imgs=(".sd-doc",),
 )

@@ -8219,3 +8219,18 @@ Sections 69 and 70 have the detail behind everything below.
     DssHAcZhyTcejNQUjtQSJi (v2).
   * Next pages, in the order they sell: About, Retreats (+ Gatlinburg,
     Greece, Arizona), The Letters, Contact, Privacy, The Questions.
+
+### The Sounding, second pass (artifact v3)
+  * Her note: "the sounding is going to be bigger than a page because it will
+    be my full take and recommendations or no recommendations". The
+    deliverable is now a WRITTEN REPORT everywhere: the Sounding page, home
+    (step and FAQ), Work with me (menu, steps, FAQ), llms.txt, the Sounding
+    popup, and the old About / Letters / Questions pages still awaiting
+    their rebuild. "Two days later" is unchanged: CONFIRM with her that a
+    full report still arrives in two days.
+  * Conversion pass: the H1 is now the outcome ("Know exactly what to fix
+    first"), and a new "You will know four things" section (what is really
+    going on, what to fix first, whether you need help, where it can go)
+    spells out the result before the price. The report drawing is a stack
+    of sheets. Items 3 and 4 use her earlier copy ("a straight answer on
+    whether you need anything further"; "where it can go").
