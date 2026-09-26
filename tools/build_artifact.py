@@ -334,69 +334,39 @@ body = re.sub(r'<script src="assets/js/site\.js[^"]*" defer></script>', "", body
 # swallowed the click silently; absolute URLs at least say where they go.
 SITE = "https://www.cydniejocelyn.com"
 
-# The two pages are published as two artifacts, so a cross page link inside
-# one of them is pointed at the other one's artifact. Without this, About in
-# the nav sent the reader to a domain that is not live yet, and the preview
-# stopped being a site you could walk. On the real build these stay `/about/`
-# and `/`; only the artifact is rewritten.
+# EVERY PAGE IS ITS OWN ARTIFACT, and a link from one page to another is
+# pointed at the other page's artifact, so the review copies are a site you
+# can walk: open Home and the real menu, buttons and footer take you
+# everywhere. A link to the page you are on becomes an anchor. On the real
+# build these stay root relative; only the artifact is rewritten.
+# 26 September 2026: all twelve pages mapped (was five, the rest dead).
 ARTIFACT = {
-    "home":  "https://claude.ai/artifact/LudmMGuNGvWvzyvBQLN7o8",
-    "about": "https://claude.ai/artifact/U5FeRQ8KubcNP9v9wy8qQU",
-    # The Build has not been published as an artifact yet. Until it is, a link
-    # to it resolves to the canonical URL, which at least says where it goes.
-    # Put the artifact URL here the first time it is published.
-    "build": "https://claude.ai/artifact/5wqFeCj6sFUxfKttPZf9th",
-    # Neither retreat page has been published as an artifact yet. Put the URL
-    # here the first time one is.
-    "retreats": "https://claude.ai/artifact/HcXyuAjSzWWDLmSyyGdxvc",
-    "greece":   None,
-    # Neither new page has been published as an artifact yet either.
-    "sounding": "https://claude.ai/artifact/DssHAcZhyTcejNQUjtQSJi",
-    "letters":  None,
+    "/":                     "https://claude.ai/artifact/LudmMGuNGvWvzyvBQLN7o8",
+    "/about/":               "https://claude.ai/artifact/U5FeRQ8KubcNP9v9wy8qQU",
+    "/the-build/":           "https://claude.ai/artifact/5wqFeCj6sFUxfKttPZf9th",
+    "/a-sounding/":          "https://claude.ai/artifact/DssHAcZhyTcejNQUjtQSJi",
+    "/retreats/":            "https://claude.ai/artifact/HcXyuAjSzWWDLmSyyGdxvc",
+    "/retreats/gatlinburg/": "https://claude.ai/artifact/Uq7dwHkKDjc5SLFcEKriG2",
+    "/retreats/greece/":     "https://claude.ai/artifact/Ddv5rt41aiaKNLWyMX1Yi1",
+    "/retreats/arizona/":    "https://claude.ai/artifact/CqN4Yqjfi4PTPWcMTQVrv8",
+    "/the-letters/":         "https://claude.ai/artifact/3F2dBTGNjwk4mFqVKo8Mca",
+    "/contact/":             "https://claude.ai/artifact/311SwvKLX8b6gMUnz4oZy5",
+    "/privacy-policy/":      "https://claude.ai/artifact/Q6A5i8zhaB8wQ1ABhWyBKf",
+    "/thequestions/":        "https://claude.ai/artifact/TvVACshSZnVCK8u5ixFhDR",
 }
-BUILD_HREF = ARTIFACT["build"] or (SITE + "/the-build/")
-body = body.replace('href="/the-build/#',
-                    'href="#' if PAGE == "build" else 'href="%s#' % BUILD_HREF)
-body = body.replace('href="/the-build/"',
-                    'href="#main"' if PAGE == "build" else 'href="%s"' % BUILD_HREF)
-# a link to the page you are already on is an anchor, not a trip out
-body = body.replace('href="/about/"',
-                    'href="#main"' if PAGE == "about" else 'href="%s"' % ARTIFACT["about"])
-# a root anchor is a section of the home page: an anchor when you are on it,
-# a trip to the home artifact when you are not
-body = body.replace('href="/#', 'href="#' if PAGE == "home" else 'href="%s#' % ARTIFACT["home"])
-body = body.replace('href="/"',
-                    'href="#main"' if PAGE == "home" else 'href="%s"' % ARTIFACT["home"])
+HERE = "/" + os.path.dirname(SRCFILE) + "/" if os.path.dirname(SRCFILE) else "/"
 
-# The retreats pages, same rule as The Build: an anchor when you are already
-# on that page, the other artifact when there is one, the canonical URL when
-# there is not.
-RETREATS_HREF = ARTIFACT["retreats"] or (SITE + "/retreats/")
-GREECE_HREF   = ARTIFACT["greece"]   or (SITE + "/retreats/greece/")
-body = body.replace('href="/retreats/greece/"',
-                    'href="#main"' if PAGE == "greece" else 'href="%s"' % GREECE_HREF)
-body = body.replace('href="/retreats/#',
-                    'href="#' if PAGE == "retreats" else 'href="%s#' % RETREATS_HREF)
-body = body.replace('href="/retreats/"',
-                    'href="#main"' if PAGE == "retreats" else 'href="%s"' % RETREATS_HREF)
-
-# A Sounding and The Letters, same rule again. Both are in the nav and the
-# footer of every page now, so without this an export carries two root
-# relative hrefs that resolve to nothing inside an artifact.
-SOUNDING_HREF = ARTIFACT["sounding"] or (SITE + "/a-sounding/")
-LETTERS_HREF  = ARTIFACT["letters"]  or (SITE + "/the-letters/")
-body = body.replace('href="/a-sounding/#',
-                    'href="#' if PAGE == "sounding" else 'href="%s#' % SOUNDING_HREF)
-body = body.replace('href="/a-sounding/"',
-                    'href="#main"' if PAGE == "sounding" else 'href="%s"' % SOUNDING_HREF)
-body = body.replace('href="/the-letters/"',
-                    'href="#main"' if PAGE == "letters" else 'href="%s"' % LETTERS_HREF)
-
-# pages that do not exist yet resolve to the on-page CTA. About is not one of
-# them: it exists, it is in the nav, and it was only ever in this list because
-# the replace above had already consumed it.
-for dead in ('href="/contact/"', 'href="/legal/privacy/"', 'href="/legal/terms/"'):
-    body = body.replace(dead, 'href="#start"')
+def _relink(m):
+    path, frag = m.group(1), m.group(2) or ""
+    if path not in ARTIFACT:
+        return m.group(0)
+    if path == HERE:
+        return 'href="%s"' % (frag or "#main")
+    return 'href="%s%s"' % (ARTIFACT[path], frag)
+body = re.sub(r'href="(/[^"#]*)(#[^"]*)?"', _relink, body)
+left = sorted(set(re.findall(r'href="(/(?!assets/)[^"]*)"', body)))
+if left:
+    print("unmapped internal links:", ", ".join(left))
 
 entities = lambda t: "".join(c if ord(c) < 128 else "&#%d;" % ord(c) for c in t)
 FOLD = {"—": "--", "–": "-", "’": "'", "‘": "'",
