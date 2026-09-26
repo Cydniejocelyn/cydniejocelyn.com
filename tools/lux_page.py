@@ -99,11 +99,11 @@ def render(out, depth, active, title, description, canonical, og_title, og_descr
 <meta property="og:url" content="%(canonical)s">
 <meta property="og:title" content="%(og_title)s">
 <meta property="og:description" content="%(og_description)s">
-<meta property="og:image" content="%(site)s/assets/og/%(og_image)s">
+<meta property="og:image" content="%(og_image)s">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="%(og_title)s">
 <meta name="twitter:description" content="%(og_description)s">
-<meta name="twitter:image" content="%(site)s/assets/og/%(og_image)s">
+<meta name="twitter:image" content="%(og_image)s">
 
 <link rel="icon" href="%(pre)sassets/img/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="%(pre)sassets/img/apple-touch-icon.png">
@@ -134,7 +134,7 @@ def render(out, depth, active, title, description, canonical, og_title, og_descr
         "gen": "gen_" + os.path.basename(os.path.dirname(out)).replace("-", "_") + ".py",
         "title": esc(title), "description": esc(description), "canonical": canonical,
         "og_title": esc(og_title), "og_description": esc(og_description), "site": SITE,
-        "og_image": og_image, "pre": pre, "preload": preload, "stamp": sh["stamp"],
+        "og_image": og_image if og_image.startswith("http") else SITE + "/assets/og/" + og_image, "pre": pre, "preload": preload, "stamp": sh["stamp"],
         "jsonld": json.dumps({"@context": "https://schema.org", "@graph": graph}, indent=2, ensure_ascii=False),
         "body_class": (" " + body_class) if body_class else "",
         "sprite": sh["sprite"], "header": sh["header"], "main": main.strip("\n"),
