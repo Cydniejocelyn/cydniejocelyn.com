@@ -37,7 +37,14 @@ grant select (ip_hash, created_at) on submissions to site_api;
 revoke all on subscribers from site_api;
 grant insert on subscribers to site_api;
 grant select (id, email, status, confirm_token, unsubscribe_token) on subscribers to site_api;
-grant update (status, consent_at, unsubscribed_at) on subscribers to site_api;
+grant update (status, consent_at, unsubscribed_at, flodesk_status, flodesk_checked_at) on subscribers to site_api;
+
+-- page_events (002, 26 September 2026): INSERT, plus the same two columns
+-- for rate limiting that submissions allows. It cannot read which pages
+-- anyone visited back out.
+revoke all on page_events from site_api;
+grant insert on page_events to site_api;
+grant select (ip_hash, created_at) on page_events to site_api;
 
 -- schema_migrations is none of its business.
 revoke all on schema_migrations from site_api;

@@ -63,6 +63,7 @@ def main():
 
     owner = connect("CHECK_DATABASE_URL")
     site = connect("SITE_CHECK_DATABASE_URL")
+    ops = connect("SITE_OPS_READ_CHECK_URL")
 
     # ---- shape -----------------------------------------------------------
     print("Shape")
@@ -70,7 +71,7 @@ def main():
         cur.execute("select table_name from information_schema.tables "
                     "where table_schema='public' order by 1")
         tables = [r[0] for r in cur.fetchall()]
-    ok("the three tables exist", tables == ["schema_migrations", "submissions", "subscribers"])
+    ok("the four tables exist", tables == ["page_events", "schema_migrations", "submissions", "subscribers"])
 
     # ---- submissions constraints ----------------------------------------
     print("\nSubmissions")
@@ -127,6 +128,33 @@ def main():
         after = cur.fetchone()[0]
     ok("accepted: updated_at moves on its own", after > before)
 
+    # ---- 002: delivery records and page_events --------------------------
+    print("\nDelivery records (002)")
+    accepted(owner, "a question recorded as emailed",
+             "insert into submissions (kind,email,notified) values ('inquiry','n@b.co','sent')")
+    refused(owner, "a notified value outside the three",
+            "insert into submissions (kind,email,notified) values ('inquiry','n@b.co','maybe')")
+    accepted(owner, "a subscriber recorded as synced to Flodesk",
+             "insert into subscribers (email,unsubscribe_token,flodesk_status) values ('f@b.co','tf','synced')")
+    refused(owner, "a flodesk_status outside the three",
+            "insert into subscribers (email,unsubscribe_token,flodesk_status) values ('g@b.co','tg','done')")
+
+    print("\nPage events (002)")
+    accepted(owner, "a page view",
+             "insert into page_events (kind,path,device) values ('view','/about/','phone')")
+    accepted(owner, "a click that names its button",
+             "insert into page_events (kind,path,cta) values ('click','/','free-call-hero')")
+    refused(owner, "a click that does not name a button",
+            "insert into page_events (kind,path) values ('click','/')")
+    refused(owner, "a path that is not a path",
+            "insert into page_events (kind,path) values ('view','https://evil.example/')")
+    refused(owner, "a kind outside view and click",
+            "insert into page_events (kind,path) values ('scroll','/')")
+    refused(owner, "a button name with spaces or capitals",
+            "insert into page_events (kind,path,cta) values ('click','/','Book Now')")
+    refused(owner, "a device outside the three",
+            "insert into page_events (kind,path,device) values ('view','/','watch')")
+
     # ---- the grants, which are the point --------------------------------
     print("\nWhat the website may and may not do")
     accepted(site, "the site can file a submission",
@@ -154,8 +182,34 @@ def main():
             "select * from schema_migrations")
     refused(site, "the site cannot create a table",
             "create table sneaky (id int)")
+    accepted(site, "the site can record a page view",
+             "insert into page_events (kind,path,device) values ('view','/contact/','desktop')")
+    refused(site, "the site cannot read page views back",
+            "select path from page_events limit 1")
+    accepted(site, "the site can count page events by ip_hash, for rate limiting",
+             "select count(*) from page_events where ip_hash is null")
+    accepted(site, "the site can record whether Flodesk took a sign-up",
+             "update subscribers set flodesk_status='synced', flodesk_checked_at=now() where email='new@b.co'")
 
-    owner.close(); site.close()
+    print("\nWhat Ops may and may not do")
+    accepted(ops, "Ops can read the questions",
+             "select email, message, notified from submissions limit 5")
+    accepted(ops, "Ops can read the sign-ups",
+             "select email, status, flodesk_status from subscribers limit 5")
+    accepted(ops, "Ops can read the page views",
+             "select path, cta from page_events limit 5")
+    refused(ops, "Ops cannot add a question",
+            "insert into submissions (kind,email) values ('inquiry','o@b.co')")
+    refused(ops, "Ops cannot change a sign-up",
+            "update subscribers set status='unsubscribed', unsubscribed_at=now() where true")
+    refused(ops, "Ops cannot delete page views",
+            "delete from page_events where true")
+    refused(ops, "Ops cannot read the migration history",
+            "select * from schema_migrations")
+    refused(ops, "Ops cannot create a table",
+            "create table sneaky2 (id int)")
+
+    owner.close(); site.close(); ops.close()
 
     print("\n%d pass / %d fail" % (len(PASS), len(FAIL)))
     return 1 if FAIL else 0

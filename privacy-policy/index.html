@@ -33,8 +33,8 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css?v=c30ad23b">
-<link rel="stylesheet" href="../assets/css/lux.css?v=c30ad23b">
+<link rel="stylesheet" href="../assets/css/site.css?v=1a0eb679">
+<link rel="stylesheet" href="../assets/css/lux.css?v=1a0eb679">
 <script>document.documentElement.className += " js-motion";</script>
 <script type="application/ld+json">
 {
@@ -334,8 +334,9 @@
 
         <h3 id="collect">What I collect</h3>
         <p><b>Information you provide.</b> You give me information when you book A Sounding, inquire about The Build, express interest in a retreat, or subscribe to The Letters. That typically includes your name, email address, phone number, and details about your business or your reason for reaching out. I use it to respond to you and to deliver what you asked for. Nothing else.</p>
+        <p><b>Forms on this site.</b> When you use the Letters sign-up or the question form on the Contact page, what you enter is saved in this website&rsquo;s own database, hosted by Neon. A question is also emailed to me so I can answer it. The site stores a one-way scrambled code made from your IP address, only to stop automated abuse; it cannot be turned back into your address, and your address itself is never stored.</p>
         <p><b>Payment information.</b> Payments are processed through HoneyBook. I do not store your card details. HoneyBook handles that data under its own privacy practices, which you can review at honeybook.com/privacy.</p>
-        <p><b>Information collected automatically, and only if you allow it.</b> If you accept cookies, Google Analytics collects general location, device type, browser, pages visited, and time on page. This data is aggregated and does not identify you personally. I use it to understand what is working on the site. If you decline, none of it is collected and the analytics code never loads.</p>
+        <p><b>Information collected automatically, and only if you allow it.</b> If you accept cookies, Google Analytics collects general location, device type, browser, pages visited, and time on page. This data is aggregated and does not identify you personally. I use it to understand what is working on the site. If you accept, the site also keeps its own simple count in its database: which page was viewed, which button was clicked, whether the screen was a phone, tablet or desktop, and which website sent you. It records no name, email or IP address, sets no cookie, and cannot tell one of your visits from the next. If you decline, none of it is collected: the analytics code never loads and the site&rsquo;s own count sends nothing.</p>
         <p><b>Health information, retreats only.</b> If you register for a retreat, you may be asked to disclose health conditions, dietary restrictions, physical limitations, or other information relevant to your safety and comfort. This is voluntary. It is held in confidence, shared only with facilitators or vendors directly involved in your care during that retreat, and used for no other purpose.</p>
         <p>No health information is collected for A Sounding or for a Build engagement.</p>
 
@@ -353,7 +354,7 @@
         <p>If you accept, the only cookies set are Google Analytics: <b>_ga</b> and <b>_ga_KDB3GWPNHC</b>. They tell one visit apart from another and expire two years after your last one. There are no advertising cookies here, nothing is shared with an ad network, and nothing on this site follows you onto another one.</p>
 
         <h3>Email</h3>
-        <p>If you subscribe to The Letters, your name and email address are stored and managed in HoneyBook or Flodesk, depending on the form you used. I use them to send what you signed up for. You can unsubscribe using the link at the bottom of any email. Your information is never sold, rented, or shared with third parties for their marketing.</p>
+        <p>If you subscribe to The Letters, your name and email address are stored in this website&rsquo;s own database and in Flodesk, which sends the Letters (or in HoneyBook, if you signed up through a HoneyBook form). I use them to send what you signed up for. You can unsubscribe using the link at the bottom of any email. Your information is never sold, rented, or shared with third parties for their marketing.</p>
 
         <!-- FLAG from the copy deck, resolved for now and worth keeping in
              view: this section is written for MakeWellness only, because
@@ -369,6 +370,8 @@
           <li><b>Vercel</b>, website hosting</li>
           <li><b>HoneyBook</b>, booking, contracts, invoicing, and sign-ups for The Letters</li>
           <li><b>Flodesk</b>, email and sign-ups for The Letters</li>
+          <li><b>Neon</b>, the website&rsquo;s database</li>
+          <li><b>Resend</b>, delivery of contact-form emails</li>
           <li><b>Google Analytics</b>, site analytics</li>
           <li><b>Google Workspace</b>, email and file storage</li>
         </ul>
@@ -488,6 +491,16 @@
         <p>Brand and business strategy partner for founders and leaders. Based in Forest Lake, Minnesota, partnering nationwide.</p>
         <p><a href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a></p>
         <p class="hv-ftr-cta"><a href="https://clients.cydniejocelyn.com/schedule/69f9f2a095c611cc2401eec7" data-cta="free-call-footer">Book a free 30-min call</a></p>
+        <form class="cj-form cj-form--ftr" data-api="subscribe" aria-label="Get the Letters">
+          <p class="cj-form-lab">The Letters &middot; free, every week</p>
+          <div class="cj-row">
+            <label class="cj-vh" for="ftr-email">Email address</label>
+            <input id="ftr-email" name="email" type="email" required autocomplete="email" placeholder="Your email">
+            <input class="cj-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" data-cta="letters-footer">Sign up</button>
+          </div>
+          <p class="cj-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
       <div>
         <h3>Work with me</h3>
@@ -608,8 +621,9 @@
   });
 })();
 </script>
-<script src="../assets/js/site.js?v=c30ad23b" defer></script>
-<script src="../assets/js/analytics.js?v=c30ad23b" defer></script>
-<script src="../assets/js/consent.js?v=c30ad23b" defer></script>
+<script src="../assets/js/site.js?v=1a0eb679" defer></script>
+<script src="../assets/js/analytics.js?v=1a0eb679" defer></script>
+<script src="../assets/js/site-data.js?v=c30ad23b" defer></script>
+<script src="../assets/js/consent.js?v=1a0eb679" defer></script>
 </body>
 </html>

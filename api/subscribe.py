@@ -16,6 +16,7 @@ import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from _lib import http as H
 from _lib.handler import JsonPost
+from _lib.outbound import flodesk_subscribe
 
 
 class handler(JsonPost):
@@ -23,6 +24,12 @@ class handler(JsonPost):
         email = H.email_field(data)
         name = H.field(data, "name", max_len=200)
         source = H.field(data, "source_path", max_len=400) or "/the-letters/"
+
+        # FLODESK FIRST, THEN THE ROW (26 September 2026). She sends the
+        # Letters from Flodesk, so a sign-up that only reached this table
+        # would never get a letter. The outcome is written on the row; the
+        # row is written whatever Flodesk said. See _lib/outbound.py.
+        flodesk = flodesk_subscribe(email, name)
 
         with conn.cursor() as cur:
             # A second signup from the same address is not an error and must
@@ -34,14 +41,17 @@ class handler(JsonPost):
             cur.execute(
                 """insert into subscribers
                      (email, name, status, confirm_token, unsubscribe_token,
-                      consent_at, consent_source, consent_ip_hash)
-                   values (%s, %s, 'confirmed', %s, %s, now(), %s, %s)
+                      consent_at, consent_source, consent_ip_hash,
+                      flodesk_status, flodesk_checked_at)
+                   values (%s, %s, 'confirmed', %s, %s, now(), %s, %s, %s, now())
                    on conflict (email) do update
                      set status = 'confirmed',
                          consent_at = now(),
-                         unsubscribed_at = null
+                         unsubscribed_at = null,
+                         flodesk_status = %s,
+                         flodesk_checked_at = now()
                    """,
-                (email, name, H.token(), H.token(), source, ip_hash))
+                (email, name, H.token(), H.token(), source, ip_hash, flodesk, flodesk))
 
         # THE ANSWER IS THE SAME WHETHER SHE WAS ALREADY ON THE LIST OR NOT,
         # and that is on purpose twice over.
@@ -56,4 +66,4 @@ class handler(JsonPost):
         # refused the whole statement. The restriction caught a query that was
         # reaching past what this endpoint is allowed to know. That is the
         # grants working, not a problem with them.
-        return {"ok": True, "message": "You are on the list."}
+        return {"ok": True, "message": "You are on the list. The next letter comes to your inbox."}

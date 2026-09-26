@@ -23,6 +23,12 @@ ALLOWED_HOSTS = {
     "localhost",
     "127.0.0.1",
 }
+# A Vercel preview is its own host (<deployment>.vercel.app). Vercel sets
+# these two per deployment, so a preview accepts posts from itself and from
+# nothing else; production does not need them. 26 September 2026.
+for _name in ("VERCEL_URL", "VERCEL_BRANCH_URL"):
+    if os.environ.get(_name):
+        ALLOWED_HOSTS.add(os.environ[_name].split(":")[0].lower())
 
 # A body larger than this is not a contact form.
 MAX_BODY = 16 * 1024

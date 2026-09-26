@@ -23,26 +23,27 @@ from _lib.db import connect, _load_env_local  # noqa: E402
 from psycopg import sql  # noqa: E402
 
 ROLE = "site_api"
+OPS_ROLE = "ops_reader"
 ENV = ROOT / ".env.local"
 
 
-def existing_password():
-    """The password already in .env.local, or None."""
+def existing_password(key="SITE_DATABASE_URL"):
+    """The password already in .env.local for `key`, or None."""
     if not ENV.exists():
         return None
     for line in ENV.read_text(encoding="utf-8").splitlines():
-        if line.startswith("SITE_DATABASE_URL="):
+        if line.startswith(key + "="):
             netloc = urllib.parse.urlsplit(line.split("=", 1)[1]).netloc
             if ":" in netloc and "@" in netloc:
                 return urllib.parse.unquote(netloc.split(":", 1)[1].split("@", 1)[0])
     return None
 
 
-def apply(env_name, label, password):
-    grants = (ROOT / "db" / "grants.sql").read_text(encoding="utf-8")
+def apply(env_name, label, password, role=ROLE, grants_file="grants.sql"):
+    grants = (ROOT / "db" / grants_file).read_text(encoding="utf-8")
     with connect(env_name) as conn:
         with conn.cursor() as cur:
-            cur.execute("select 1 from pg_roles where rolname = %s", (ROLE,))
+            cur.execute("select 1 from pg_roles where rolname = %s", (role,))
             exists = cur.fetchone() is not None
             # Composed with Identifier and Literal rather than string
             # formatting. This is the one statement in the project that
@@ -50,18 +51,18 @@ def apply(env_name, label, password):
             # concatenates it into SQL.
             cur.execute(sql.SQL("{} {} LOGIN PASSWORD {}").format(
                 sql.SQL("ALTER ROLE" if exists else "CREATE ROLE"),
-                sql.Identifier(ROLE),
+                sql.Identifier(role),
                 sql.Literal(password)))
             cur.execute(grants)
         conn.commit()
     return exists
 
 
-def url_for(env_name, password):
+def url_for(env_name, password, role=ROLE):
     import os
     _load_env_local()
     parts = urllib.parse.urlsplit(os.environ[env_name])
-    netloc = "%s:%s@%s" % (ROLE, urllib.parse.quote(password, safe=""), parts.hostname)
+    netloc = "%s:%s@%s" % (role, urllib.parse.quote(password, safe=""), parts.hostname)
     return urllib.parse.urlunsplit((parts.scheme, netloc, parts.path, parts.query, parts.fragment))
 
 
@@ -92,6 +93,19 @@ def main():
     write_env([("SITE_DATABASE_URL", url_for("DATABASE_URL", password)),
                ("SITE_CHECK_DATABASE_URL", url_for("CHECK_DATABASE_URL", password))])
     print("  password %s, .env.local updated" % why)
+
+    # OPS_READER (26 September 2026): the read-only role Cydnie Ops uses for
+    # the website inbox. Its own password, reused the same way; --rotate
+    # rotates both. See db/ops_grants.sql.
+    ops_pw = None if rotate else existing_password("SITE_OPS_READ_URL")
+    ops_why = "reused" if ops_pw else ("rotated" if rotate else "issued")
+    ops_pw = ops_pw or secrets.token_urlsafe(32)
+    for env_name, label in (("DATABASE_URL", "main"), ("CHECK_DATABASE_URL", "check")):
+        existed = apply(env_name, label, ops_pw, role=OPS_ROLE, grants_file="ops_grants.sql")
+        print("  %-6s role %s %s, grants applied" % (label, OPS_ROLE, "updated" if existed else "created"))
+    write_env([("SITE_OPS_READ_URL", url_for("DATABASE_URL", ops_pw, role=OPS_ROLE)),
+               ("SITE_OPS_READ_CHECK_URL", url_for("CHECK_DATABASE_URL", ops_pw, role=OPS_ROLE))])
+    print("  ops_reader password %s, .env.local updated" % ops_why)
 
 
 if __name__ == "__main__":

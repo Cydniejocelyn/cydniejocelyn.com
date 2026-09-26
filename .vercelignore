@@ -105,19 +105,12 @@ assets/_unused/
 .venv/
 __pycache__/
 
-# `api/` IS LISTED, AND THAT IS THE SWITCH.
+# `api/` WAS LISTED HERE UNTIL 26 SEPTEMBER 2026, AND THAT WAS THE SWITCH.
 #
-# Vercel turns every file in api/ into a live serverless function the moment
-# it is uploaded. On this repo a push is a deploy, so committing api/ without
-# this line would put four public write endpoints on cydniejocelyn.com the
-# same minute, and nothing on the site calls them. An endpoint nobody uses is
-# still an endpoint somebody can find: spam, rows, and a bill, for no benefit.
+# Her word: "I want it pushed to neon for the database". The line is gone,
+# so the endpoints deploy: /api/subscribe (Letters sign-ups, saved and sent to
+# Flodesk), /api/inquiry (Contact questions, saved and emailed to her),
+# /api/event (her own page-view count, after cookie consent only) and
+# /api/unsubscribe. Each has a page that calls it. HANDOFF section 78.
 #
-# The database and the code are kept because they are wanted later. They are
-# kept SWITCHED OFF because "later" is not today.
-#
-# DELETING THE NEXT LINE IS WHAT MAKES THEM LIVE. Before doing it: confirm
-# SITE_DATABASE_URL and IP_SALT are set in the Vercel project, and have a
-# page that actually calls an endpoint, or you have opened a door onto an
-# empty room. See HANDOFF section 51.
-api/
+# Putting `api/` back on its own line switches all of them off again.

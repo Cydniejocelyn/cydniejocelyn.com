@@ -60,7 +60,7 @@ MAIN = """<main id="main">
       <h1 id="lt-h">A weekly letter on building something <em>you believe in.</em></h1>
       <p class="hv-lede">One letter a week from me, honest about what I am learning in leadership, business, growth and people, written the week it goes out.</p>
       <div class="hv-btns">
-        <a class="hv-btn hv-btn--ink" href="%(SIGNUP)s" rel="noopener" data-cta="letters-hero">Get the letters %(ARW)s</a>
+        <a class="hv-btn hv-btn--ink" href="#join" data-cta="letters-hero">Get the letters %(ARW)s</a>
         <a class="hv-btn hv-btn--line" href="#letter">Read a recent one</a>
       </div>
       <ul class="ww-trust" role="list"><li>Free</li><li>Written by me</li><li>First word on retreats</li></ul>
@@ -108,7 +108,7 @@ MAIN = """<main id="main">
       <p>Not what sounds good. Not what you think the answer should be. What is underneath all of it?</p>
       <p>I&rsquo;m still figuring out my answer too.</p>
       <p class="lt-letter-sign">Cydnie Jocelyn</p>
-      <p class="lt-letter-more"><a class="hv-inline" href="%(SIGNUP)s" rel="noopener" data-cta="letters-next">Get the next one in your inbox</a></p>
+      <p class="lt-letter-more"><a class="hv-inline" href="#join" data-cta="letters-next">Get the next one in your inbox</a></p>
     </article>
   </div>
 </section>
@@ -129,14 +129,26 @@ MAIN = """<main id="main">
   </div>
 </section>
 
-<section class="hv-close" aria-labelledby="close-h">
+<section class="hv-close" id="join" aria-labelledby="close-h">
   <div class="hv-wrap">
     <span class="hv-label hv-label--c">Free, every week</span>
     <h2 class="hv-h2" id="close-h">Get <em>the letters.</em></h2>
     <p class="hv-lede">One letter a week from me, and the first word on every retreat and new way to work together.</p>
-    <div class="hv-btns">
-      <a class="hv-btn hv-btn--ink" href="%(SIGNUP)s" rel="noopener" data-cta="letters-close">Get the letters %(ARW)s</a>
-    </div>
+    <!-- THE SIGN-UP FORM (26 September 2026, her word "pushed to neon"):
+         saved to her Neon database and sent to Flodesk by /api/subscribe.
+         The HoneyBook form stays as the no-JavaScript fallback. -->
+    <form class="cj-form cj-form--big" data-api="subscribe" aria-label="Get the Letters">
+      <div class="cj-row">
+        <label class="cj-vh" for="lt-name">First name</label>
+        <input id="lt-name" name="name" type="text" autocomplete="given-name" placeholder="First name">
+        <label class="cj-vh" for="lt-email">Email address</label>
+        <input id="lt-email" name="email" type="email" required autocomplete="email" placeholder="Your email">
+        <input class="cj-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="hv-btn hv-btn--ink" type="submit" data-cta="letters-close">Get the letters %(ARW)s</button>
+      </div>
+      <p class="cj-status" role="status" aria-live="polite"></p>
+      <noscript><p><a class="hv-inline" href="%(SIGNUP)s" rel="noopener">Sign up here instead</a></p></noscript>
+    </form>
     <p class="au-also">Rather talk now? <a class="hv-inline" href="%(CALL)s" data-cta="free-call-letters">Book a free 30-min call</a>.</p>
   </div>
 </section>

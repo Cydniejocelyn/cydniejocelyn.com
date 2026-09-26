@@ -1166,3 +1166,41 @@
   .hv-quotes { margin-top: 2.75rem; padding-top: 2rem; padding-bottom: .25rem; }
   .hv-case .hv-browser { margin-bottom: 1.25rem; }
 }
+
+/* ==========================================================
+   SITE FORMS, 26 September 2026 (her word: "pushed to neon").
+   Letters sign-up (page and footer) and the Contact question form, run by
+   assets/js/site-data.js against /api/. Hairline fields, ink button.
+   ========================================================== */
+.cj-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.cj-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cj-form input:not(.cj-hp), .cj-form textarea { width: 100%; min-height: 3.25rem; padding: .85rem 1rem; border: 1px solid var(--line-2); border-radius: 0; background: #fff; color: var(--ink); font: inherit; font-size: 1rem; }
+.cj-form textarea { min-height: 8rem; resize: vertical; line-height: 1.5; }
+.cj-form input:focus, .cj-form textarea:focus { outline: 2px solid var(--blue-deep); outline-offset: 1px; border-color: var(--blue-deep); }
+.cj-form ::placeholder { color: var(--ink-3); }
+.cj-f { display: block; margin-top: 1rem; }
+.cj-f span { display: block; margin-bottom: .4rem; font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); }
+.cj-form .hv-btn { margin-top: 1.25rem; }
+.cj-form button[disabled] { opacity: .6; cursor: wait; }
+.cj-status { min-height: 1.25rem; margin-top: .9rem; font-size: .9375rem; color: var(--ink-2); }
+.cj-status.is-ok { color: var(--blue-deep); font-weight: 600; }
+.cj-status.is-err { color: #9a3b2e; }
+.cj-row { display: grid; gap: .75rem; }
+/* The Letters page, in the closing band. */
+.cj-form--big { max-width: 40rem; margin: 2.25rem auto 0; text-align: left; }
+.cj-form--big .hv-btn { margin-top: 0; }
+@media (min-width: 48rem) { .cj-form--big .cj-row { grid-template-columns: 1fr 1.4fr auto; align-items: stretch; } }
+/* The footer: one line, on the dark ground. */
+.cj-form--ftr { margin-top: 1.75rem; max-width: 26rem; }
+.cj-form--ftr .cj-form-lab { margin: 0 0 .6rem; font-size: .625rem; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--blue); }
+.cj-form--ftr .cj-row { grid-template-columns: 1fr auto; gap: 0; }
+.cj-form--ftr input:not(.cj-hp) { min-height: 3rem; background: transparent; border-color: rgba(255,255,255,.3); color: #fff; }
+.cj-form--ftr input::placeholder { color: #9fbab5; }
+.cj-form--ftr button { min-height: 3rem; padding: 0 1.1rem; border: 1px solid var(--blue); background: transparent; color: var(--blue); font: inherit; font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
+.cj-form--ftr button:hover { background: var(--blue); color: var(--ink); }
+.cj-form--ftr .cj-status { color: #b7cfca; }
+.cj-form--ftr .cj-status.is-ok { color: var(--blue); }
+.cj-form--ftr .cj-status.is-err { color: #f0b0a6; }
+/* Contact: the card is now the form. */
+.ct-card.cj-form .hv-btn { margin-top: 1.5rem; }
+@media (max-width: 40rem) { .ct-card.cj-form .hv-btn { width: 100%; } }

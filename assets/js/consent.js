@@ -94,6 +94,11 @@
 
     w.gtag("js", new Date());
     w.gtag("config", MEASUREMENT_ID);
+
+    /* HER OWN COUNT, SAME GATE (26 September 2026). assets/js/site-data.js
+       waits for this and sends nothing to /api/event until it fires. */
+    w.cjConsented = true;
+    try { d.dispatchEvent(new Event("cj:consented")); } catch (e) {}
   }
 
   /* ---------- the banner ---------- */

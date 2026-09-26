@@ -30,7 +30,7 @@ MAIN = """<main id="main">
       <p class="hv-lede">Book a free 30-minute call, or send me a question below. Either way, you hear back from me.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="%(CALL)s" data-cta="free-call-contact">Book a free 30-min call %(ARW)s</a>
-        <a class="hv-btn hv-btn--line" href="%(QUESTION)s" rel="noopener" data-cta="question-contact-hero">Ask a question</a>
+        <a class="hv-btn hv-btn--line" href="#ask" data-cta="question-contact-hero">Ask a question</a>
       </div>
       <ul class="ww-trust" role="list"><li>Forest Lake, Minnesota</li><li>Partnering nationwide</li><li>Answered within a day</li></ul>
     </div>
@@ -54,13 +54,22 @@ MAIN = """<main id="main">
         <div><dt>Retreats</dt><dd>Dates, prices and answers are on <a class="hv-inline" href="/retreats/">each retreat&rsquo;s page</a>.</dd></div>
       </dl>
     </div>
-    <div class="ct-card">
+    <!-- THE QUESTION FORM (26 September 2026, her word "pushed to neon"):
+         /api/inquiry saves it to her Neon database and emails it to
+         hello@cydniejocelyn.com. Replaces the button to the HoneyBook form,
+         which stays as the no-JavaScript fallback. -->
+    <form class="ct-card cj-form" data-api="inquiry" aria-labelledby="ct-form-h">
       <p class="ct-card-lab">The question form</p>
-      <p class="ct-card-h">Tell me what&rsquo;s on <em>your mind.</em></p>
-      <p>Send it through my question form. It comes straight to me, and I answer it myself.</p>
-      <a class="hv-btn hv-btn--ink" href="%(QUESTION)s" rel="noopener" data-cta="question-contact">Ask a question %(ARW)s</a>
+      <p class="ct-card-h" id="ct-form-h">Tell me what&rsquo;s on <em>your mind.</em></p>
+      <label class="cj-f"><span>Your name</span><input name="name" type="text" autocomplete="name"></label>
+      <label class="cj-f"><span>Email</span><input name="email" type="email" required autocomplete="email"></label>
+      <label class="cj-f"><span>Your question</span><textarea name="message" rows="5" required maxlength="5000"></textarea></label>
+      <input class="cj-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="hv-btn hv-btn--ink" type="submit" data-cta="question-contact">Send my question %(ARW)s</button>
+      <p class="cj-status" role="status" aria-live="polite"></p>
       <p class="ct-card-or">Or book a <a class="hv-inline" href="%(CALL)s" data-cta="free-call-contact-card">free 30-min call</a> instead.</p>
-    </div>
+      <noscript><p><a class="hv-inline" href="%(QUESTION)s" rel="noopener">Use this form instead</a></p></noscript>
+    </form>
   </div>
 </section>
 
