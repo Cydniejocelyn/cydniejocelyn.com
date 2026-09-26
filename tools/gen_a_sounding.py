@@ -206,8 +206,8 @@ PRELOAD = ('<link rel="preload" as="image" href="../assets/img/sounding/hero-110
 
 n = L.render(
     out="a-sounding/index.html", depth=1, active="/the-build/",
-    title="The Sounding | 90-Minute Business Strategy Session & Written Roadmap, $300",
-    description="The Sounding: a 90-minute strategy session across brand, operations and business development, then a written roadmap of findings and recommendations two days later. $300, credited to your project.",
+    title="The Sounding | 90-Minute Strategy Session, $300 | Cydnie Jocelyn",
+    description="A 90-minute strategy session on brand, operations and business development, with a written roadmap two days later. $300, credited to your project.",
     canonical=URL,
     og_title="The Sounding | A 90-minute strategy session with Cydnie Jocelyn",
     og_description="Know exactly what to fix first: 90 minutes on the whole business, then my full take and recommendations in writing. $300, credited to your project.",

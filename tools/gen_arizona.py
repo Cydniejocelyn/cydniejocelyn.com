@@ -305,7 +305,7 @@ PRELOAD = ('<link rel="preload" as="image" href="%stable-set-portrait-848.webp" 
 n = L.render(
     out="retreats/arizona/index.html", depth=2, active="/retreats/",
     title="Wild Canvas: The Arizona Edition | Peoria, May 2027",
-    description="Wild Canvas: a creative retreat for women in Peoria, Arizona, 5 to 9 May 2027. Lodging, every meal, guided creative sessions with Dr. Clarissa Castillo-Ramsey and airport shuttles included. No art experience needed.",
+    description="Wild Canvas: a small creative retreat for women in Peoria, Arizona, 5 to 9 May 2027. Lodging and meals included. No art experience needed.",
     canonical=URL,
     og_title="Wild Canvas: The Arizona Edition | May 2027",
     og_description="Five days in the desert making something of your own, for nine women, with artist Dr. Clarissa Castillo-Ramsey. From $1,675.",

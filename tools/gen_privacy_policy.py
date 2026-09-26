@@ -9,6 +9,9 @@ approved edits of 26 September, and nothing else:
   * Letters sign-ups are stored "in HoneyBook or Flodesk, depending on the
     form you used" (the page's form is HoneyBook, the popup is Flodesk),
     and both tool lines say so.
+  * (26 September, her word "make all fixes") #engagements: the Sounding fee
+    is credited in full toward a Build or other project, once, no cash value,
+    matching every sales page; UPDATED set to September 2026.
 Every anchor is kept (#terms, #retreats and the rest are linked from the
 retreat pages). No popups here, as before.
 
@@ -21,7 +24,7 @@ import os
 import lux_page as L
 
 URL = L.SITE + "/privacy-policy/"
-UPDATED = "August 2026"
+UPDATED = "September 2026"
 raw = open(os.path.join(L.ROOT, "tools", "privacy_body.html"), encoding="utf-8").read()
 TOC, BODY = raw.split("\n<!--BODY-->\n")
 

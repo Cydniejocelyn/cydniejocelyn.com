@@ -287,7 +287,7 @@ PRELOAD = ('<link rel="preload" as="image" href="../assets/img/retreats/cr-floor
 n = L.render(
     out="retreats/index.html", depth=1, active="/retreats/",
     title="Retreats for Women | Gatlinburg and Crete 2027 | Cydnie Jocelyn",
-    description="Small-group retreats for women, fifteen at most. Gatlinburg, Tennessee in April 2027, booking now; Crete in August 2027, waitlist open; a third date in May 2027.",
+    description="Small-group retreats for women, fifteen at most. Gatlinburg, Tennessee in April 2027, booking now; Crete in August 2027, waitlist open.",
     canonical=URL,
     og_title="Retreats for Women | Cydnie Jocelyn",
     og_description="A week where you are not the one holding it together. Fifteen women at most. Gatlinburg April 2027, booking now.",

@@ -118,7 +118,7 @@ page = '''<!DOCTYPE html>
      a luxury tone; lead with the fourteen years. The free call is the front
      door now, then the Sounding. The old page is in git at cfd6c66. -->
 <title>Work With Me | Brand &amp; Business Strategy Partner, Published Pricing</title>
-<meta name="description" content="Work with Cydnie Jocelyn: a brand, website, operations and business development partner for founders and leaders. Every price published, from a $1,500 strategy day to a $15,000 full brand engagement. Free first call.">
+<meta name="description" content="A brand, website, operations and business development partner for founders and leaders. Every price published, from a $1,500 strategy day. Free first call.">
 <link rel="canonical" href="https://www.cydniejocelyn.com/the-build/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="author" content="Cydnie Jocelyn Brown">

@@ -188,7 +188,7 @@ PRELOAD = ('<link rel="preload" as="image" href="../assets/img/cydnie-hero-1000.
 n = L.render(
     out="about/index.html", depth=1, active="/about/",
     title="About Cydnie Jocelyn | Brand & Business Strategist, Minnesota",
-    description="Cydnie Jocelyn is a brand and business strategist with fourteen years in corporate marketing: business development, relationship building and bringing ideas to life. Forest Lake, Minnesota, partnering nationwide.",
+    description="Cydnie Jocelyn is a brand and business strategist with fourteen years in corporate marketing. Forest Lake, Minnesota, partnering with founders nationwide.",
     canonical=URL,
     og_title="About Cydnie Jocelyn | Brand & Business Strategist, Minnesota",
     og_description="Fourteen years in corporate marketing, one partner for your brand and your business. Her story, her faith, and why she does this work.",

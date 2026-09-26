@@ -8396,6 +8396,16 @@ site, untouched. `git switch site-2026` before any rebuild work.
   | /privacy-policy/ (26 Sep) | tools/gen_privacy_policy.py (+ privacy_body.html) | Q6A5i8zhaB8wQ1ABhWyBKf |
   | /thequestions/ (26 Sep, noindex) | tools/gen_thequestions.py | TvVACshSZnVCK8u5ixFhDR |
   | popups + cookie card (26 Sep) | sounding-popup.js, gatlinburg-popup.js, lux.css .hv2 .cc | FeLyYMnFsKJhtrdNZcBt35 |
+  AUDIT FIXES DONE (26 Sep, her word "make all fixes"): phone header
+  'Book a call' (.hv-hdr-call in index.html header, lux.css, all pages);
+  terms #engagements now credit the Sounding fee toward a Build/project;
+  privacy UPDATED = September 2026; Home FAQ leads with the free call;
+  descriptions <=157 chars, Sounding title shortened; sitemap lastmod
+  2026-09-26 (bump again if launch slips). Also fixed: Home band plate
+  off-centre (reveal transform wiped translateX; now `translate`), and
+  sideways scroll at 320 (Home logos, Contact email) and 768-1024 (retreat
+  gallery rails). Verified: 12 pages x 6 widths no overflow; GA loads
+  G-KDB3GWPNHC only after Accept; only Arizona carries X-Robots-Tag.
   LAUNCH AUDIT (26 Sep): claude.ai/artifact/5WHLiNN7xc9Lmac1Rz6Hy3
   (tools/cydnie-jocelyn-launch-audit.html). Verdict: ready after (1) phone
   header shows no booking button (hidden under 'Menu'), so Home has no book

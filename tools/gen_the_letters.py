@@ -163,7 +163,7 @@ OUT = "the-letters/index.html"
 L.render(
     out=OUT, depth=1, active="/the-letters/",
     title="The Letters | A Free Weekly Letter from Cydnie Jocelyn",
-    description="One letter a week from Cydnie Jocelyn on leadership, business, growth, people and building something you believe in. Free, for everyone. Retreats and new work open here first.",
+    description="A free weekly letter from Cydnie Jocelyn on leadership, business, growth and building something you believe in. Retreats and new work open here first.",
     canonical=URL,
     og_title="The Letters | A Free Weekly Letter from Cydnie Jocelyn",
     og_description="One honest letter a week on building something you believe in. Free, for everyone, and the first word on every retreat.",

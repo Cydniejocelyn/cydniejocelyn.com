@@ -79,7 +79,7 @@ OUT = "contact/index.html"
 L.render(
     out=OUT, depth=1, active="/contact/",
     title="Contact Cydnie Jocelyn | Book a Free Call or Ask a Question",
-    description="Book a free 30-minute call with Cydnie Jocelyn, brand and business strategist, or send a question and she will answer it herself. Forest Lake, Minnesota, partnering nationwide.",
+    description="Book a free 30-minute call with Cydnie Jocelyn, brand and business strategist, or send a question she answers herself. Partnering nationwide.",
     canonical=URL,
     og_title="Contact Cydnie Jocelyn | Book a Free Call or Ask a Question",
     og_description="A free 30-minute call, or a question she answers herself, usually within a day.",

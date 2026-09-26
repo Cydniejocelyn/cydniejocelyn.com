@@ -306,7 +306,7 @@ PRELOAD = ('<link rel="preload" as="image" href="%shouse-dusk-portrait-834.webp"
 n = L.render(
     out="retreats/gatlinburg/index.html", depth=2, active="/retreats/",
     title="Wide Open: The Gatlinburg Edition | Tennessee, April 2027",
-    description="Wide Open: five days in Gatlinburg, Tennessee, 13 to 18 April 2027. Lodging, every meal, daily movement, two workshops and two outings included. With Cydnie Jocelyn and Kayla Freeman.",
+    description="Wide Open: five days in Gatlinburg, Tennessee, 13 to 18 April 2027. Lodging, every meal, daily movement, two workshops and two outings included.",
     canonical=URL,
     og_title="Wide Open: The Gatlinburg Edition | April 2027",
     og_description="Five days in a private house in the Smokies, for fifteen women. From $1,490; $500 holds your room.",

@@ -96,16 +96,28 @@
   .hv-nav a:not(.hv-btn):hover::after { transform: scaleX(1); }
   .hv-nav .hv-btn { min-height: 2.75rem; padding: .7rem 1.25rem; font-size: .6875rem; }
   .hv-menu-btn { display: none; }
+  /* PHONE HEADER BOOKING BUTTON, 26 September 2026 (launch audit fix 1).
+     Below 64rem the nav collapses behind Menu and its "Book a free call"
+     went with it, so on a phone no page could book from the first screen.
+     This is the same header's main button kept visible, not a new bar. */
+  .hv-hdr-call { display: none; }
   @media (max-width: 64rem) {
-    .hv-hdr-in { grid-template-columns: 1fr auto; height: 4rem; }
+    .hv-hdr-in { grid-template-columns: 1fr auto auto; height: 4rem; gap: .9rem; }
+    .hv-hdr-call { display: inline-flex; align-items: center; grid-column: 2; min-height: 2.5rem; padding: .55rem .9rem; background: var(--ink); color: #fff; font-size: .625rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+    .hv-hdr-call:hover { background: var(--blue-deep); }
     .hv-logo { grid-column: 1; }
-    .hv-menu-btn { display: inline-flex; align-items: center; gap: .6rem; grid-column: 2; min-height: 2.75rem; padding: .5rem 0; border: 0; background: none; color: var(--ink); font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
+    .hv-menu-btn { display: inline-flex; align-items: center; gap: .6rem; grid-column: 3; min-height: 2.75rem; padding: .5rem 0; border: 0; background: none; color: var(--ink); font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
     .hv-menu-btn i { display: block; width: 1.4rem; height: 1px; background: currentColor; box-shadow: 0 -5px 0 currentColor, 0 5px 0 currentColor; }
     .hv-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; padding: 1rem var(--gut) 2rem; background: #fff; border-bottom: 1px solid var(--line); }
     .hv-hdr.is-open .hv-nav { display: flex; }
     .hv-nav ul, .hv-nav-r { flex-direction: column; align-items: stretch; gap: 0; }
     .hv-nav a:not(.hv-btn) { display: block; padding: 1.1rem 0; border-bottom: 1px solid var(--line); font-size: .8125rem; }
     .hv-nav .hv-btn { margin-top: 1.25rem; min-height: 3.5rem; }
+  }
+  @media (max-width: 30rem) {
+    .hv-logo .hv-wm { width: 8.75rem; }
+    .hv-menu-btn span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .hv-menu-btn { min-width: 2.75rem; justify-content: center; }
   }
 
   /* ---------- hero ---------- */
@@ -188,6 +200,9 @@
   .hv-band img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 5; transition: transform 1.6s var(--ease); }
   .hv-band figure:hover img { transform: scale(1.03); }
   .hv-band figure:nth-child(2) { display: none; }
+  /* Centred with the `translate` property, not `transform`: the reveal sets
+     transform on .hv-rv and was wiping translateX(-50%), leaving the plate
+     half a width right of centre (launch audit, 26 September 2026). */
   .hv-band-plate { position: relative; margin: -4rem var(--gut) 0; padding: 2.5rem 2rem; background: #fff; text-align: center; z-index: 2; }
   .hv-band-plate p { font-family: var(--serif); font-size: clamp(2.25rem, 4.4vw, 3.75rem); line-height: 1; letter-spacing: -.01em; margin: 1rem 0 0; }
   .hv-band-plate p em { font-style: italic; color: var(--blue-deep); }
@@ -195,7 +210,7 @@
   @media (min-width: 48rem) {
     .hv-band { grid-template-columns: 1fr 1fr; }
     .hv-band figure:nth-child(2) { display: block; }
-    .hv-band-plate { position: absolute; left: 50%; bottom: 3.5rem; transform: translateX(-50%); width: min(34rem, 80%); margin: 0; padding: 2.75rem 3rem; }
+    .hv-band-plate { position: absolute; left: 50%; bottom: 3.5rem; translate: -50% 0; width: min(34rem, 80%); margin: 0; padding: 2.75rem 3rem; }
   }
 
   /* ---------- the offering: an open list ---------- */
@@ -1056,3 +1071,17 @@
 .hv2 .cc-btn--yes { background: var(--ink); color: #fff; border-color: var(--ink); }
 .hv2 .cc-btn--yes:hover { background: var(--blue-deep); border-color: var(--blue-deep); }
 @media (max-width: 47.99rem) { .hv2 .cc { left: .75rem; right: .75rem; bottom: .75rem; max-width: none; padding: 1.1rem 1.1rem 1rem; } }
+
+/* ==========================================================
+   NARROW-SCREEN OVERFLOW FIXES, 26 September 2026 (launch audit).
+   Each of these let one page scroll sideways at one width.
+   ========================================================== */
+/* Home, 320px: the three client logos could not shrink below 364px. */
+.hv-proof ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.hv-proof ul img { max-width: 100%; height: auto; }
+/* Contact, 320px: the email address would not wrap. */
+.au-row > * { min-width: 0; }
+.ct-more dd { overflow-wrap: anywhere; }
+/* Retreat galleries, 768-1024px: the rail bled by the difference between
+   site.css's --gutter and this system's --gut. Match the wrap it sits in. */
+.hv2 .gal-rail { margin-inline: calc(var(--gut) * -1); padding-inline: var(--gut); scroll-padding-inline: var(--gut); }
