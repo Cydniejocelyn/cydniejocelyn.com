@@ -137,8 +137,11 @@ page = '''<!DOCTYPE html>
 <meta name="twitter:description" content="Brand, website, operations and growth, in one partnership. Every price published, and the first call is free.">
 <meta name="twitter:image" content="https://www.cydniejocelyn.com/assets/og/home-2026.png">
 
-<link rel="icon" href="../assets/img/favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/cj-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/img/cj-icon-16.png">
+<link rel="apple-touch-icon" href="../assets/img/cj-apple-180.png">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preload" as="image" href="../assets/img/wwm/hero-door-1100.webp" imagesrcset="../assets/img/wwm/hero-door-700.webp 700w, ../assets/img/wwm/hero-door-1100.webp 1100w, ../assets/img/wwm/hero-door-1500.webp 1500w" imagesizes="(min-width: 64rem) 30rem, 90vw" type="image/webp" fetchpriority="high">
 <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>

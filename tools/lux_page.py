@@ -110,8 +110,11 @@ def render(out, depth, active, title, description, canonical, og_title, og_descr
 <meta name="twitter:description" content="%(og_description)s">
 <meta name="twitter:image" content="%(og_image)s">
 
-<link rel="icon" href="%(pre)sassets/img/favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="%(pre)sassets/img/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="%(pre)sassets/img/cj-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="%(pre)sassets/img/cj-icon-16.png">
+<link rel="apple-touch-icon" href="%(pre)sassets/img/cj-apple-180.png">
+<link rel="manifest" href="/site.webmanifest">
 %(preload)s<link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="%(pre)sassets/css/site.css?v=%(stamp)s">
