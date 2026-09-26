@@ -145,10 +145,10 @@ PICK = {
     "cydnie-veil":        "cydnie-veil-1100.webp",
     "cydnie-hero":        "cydnie-hero-1000.webp",
     # About, 12 September: the rest of me and what held, from the shoot.
-    "cydnie-sing":        "cydnie-sing-600.webp",
+    "cydnie-sing":        "cydnie-sing-1000.webp",
     "cydnie-mug":         "cydnie-mug-600.webp",
     "cydnie-journal":     "cydnie-journal-600.webp",
-    "cydnie-window":      "cydnie-window-600.webp",
+    "cydnie-window":      "cydnie-window-1000.webp",
     "cydnie-writing":     "cydnie-writing-600.webp",
     # A Sounding, 22 September.
     "cydnie-stand":       "cydnie-stand-1000.webp",
@@ -337,7 +337,7 @@ SITE = "https://www.cydniejocelyn.com"
 # and `/`; only the artifact is rewritten.
 ARTIFACT = {
     "home":  "https://claude.ai/artifact/LudmMGuNGvWvzyvBQLN7o8",
-    "about": "https://claude.ai/code/artifact/edb8e6b0-19ba-4048-801b-ffc570b75551",
+    "about": "https://claude.ai/artifact/U5FeRQ8KubcNP9v9wy8qQU",
     # The Build has not been published as an artifact yet. Until it is, a link
     # to it resolves to the canonical URL, which at least says where it goes.
     # Put the artifact URL here the first time it is published.

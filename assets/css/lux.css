@@ -644,3 +644,74 @@
 .sd-know-list li::before { counter-increment: k; content: "0" counter(k); display: block; margin-bottom: 1.1rem; font-size: .625rem; font-weight: 600; letter-spacing: .24em; color: var(--ink-3); }
 @media (min-width: 60rem) { .sd-know-list { grid-template-columns: repeat(4, 1fr); column-gap: 2.5rem; } }
 @media (max-width: 40rem) { .sd-doc { width: calc(100% - 2.75rem); justify-self: start; } }
+
+/* ==========================================================
+   ABOUT (/about/), 25 September 2026. au- prefix (site.css still styles
+   the old page's ab- names). Reuses the ww- hero, head and profiles.
+   ========================================================== */
+.au-gifts { display: grid; gap: 0; margin: clamp(2.5rem, 5vw, 3.5rem) 0 0; padding: 0; list-style: none; }
+.au-gifts li { padding: 2rem 0; border-top: 1px solid var(--line-2); }
+.au-gifts svg { width: 1.75rem; height: 1.75rem; stroke: var(--blue-deep); fill: none; stroke-width: 1.1; }
+.au-gifts h3 { font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.1; margin: 1.25rem 0 .6rem; }
+.au-gifts p { color: var(--ink-2); margin: 0; }
+@media (min-width: 60rem) { .au-gifts { grid-template-columns: repeat(4, 1fr); column-gap: 2.5rem; } }
+
+.au-story { background: var(--porcelain); }
+.au-story-grid { display: grid; gap: 3rem; }
+.au-story-img { margin: 2.5rem 0 0; max-width: 24rem; }
+.au-story-img img { width: 100%; height: auto; border-radius: 999px 999px 0 0; }
+.au-moments { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-2); }
+.au-moments li { display: grid; gap: .6rem; padding: 1.75rem 0; border-bottom: 1px solid var(--line); }
+.au-moments span { font-size: .625rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--blue-deep); }
+.au-moments p { font-size: clamp(1.0625rem, 1.3vw, 1.1875rem); color: var(--ink); }
+.au-why { margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-top: 2rem; border-top: 1px solid var(--line-2); max-width: 52rem; font-family: var(--serif); font-size: clamp(1.75rem, 3.2vw, 2.75rem); line-height: 1.12; }
+.au-why em { color: var(--blue-deep); }
+@media (min-width: 60rem) {
+  .au-story-grid { grid-template-columns: 1fr 1.25fr; gap: 5rem; align-items: start; }
+  .au-story-head { position: sticky; top: 7rem; }
+  .au-moments li { grid-template-columns: 9rem 1fr; gap: 2rem; }
+}
+
+.au-faith-grid { display: grid; gap: 2.5rem; }
+.au-faith-copy p { color: #b7cfca; font-size: clamp(1.0625rem, 1.3vw, 1.1875rem); }
+.au-faith-copy p + p { margin-top: 1rem; }
+.au-faith-copy .au-meet { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.16); font-family: var(--serif); font-style: italic; font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.2; color: #fff; }
+.au-verses { display: grid; gap: 0; margin: clamp(3rem, 6vw, 4.5rem) 0 0; padding: 0; list-style: none; }
+.au-verses li { padding: 2rem 0; border-top: 1px solid rgba(255,255,255,.16); }
+.au-verses b { display: block; font-size: .625rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--blue); }
+.au-verses span { display: block; margin-top: .75rem; font-family: var(--serif); font-size: 1.625rem; line-height: 1.15; color: #fff; }
+.au-verses p { margin-top: .75rem; color: #b7cfca; font-size: .9688rem; }
+@media (min-width: 60rem) {
+  .au-faith-grid { grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .au-verses { grid-template-columns: repeat(3, 1fr); column-gap: 3rem; }
+}
+
+.au-words-grid { display: grid; gap: 3rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); align-items: start; }
+.au-quotes { margin: 0; padding: 0; border-top: 0; gap: 0; }
+.au-quotes .hv-q { padding: 1.75rem 0; border-top: 1px solid var(--line-2); }
+.au-quotes .hv-q blockquote p:first-child { font-size: clamp(1.5rem, 2.2vw, 1.875rem); }
+@media (min-width: 48rem) { .au-quotes { grid-template-columns: 1fr 1fr; column-gap: 3rem; } }
+.au-vid { margin: 0; max-width: 20rem; }
+.au-vid a { position: relative; display: block; overflow: hidden; border-radius: 999px 999px 0 0; }
+.au-vid img { width: 100%; height: auto; display: block; transition: transform 1.2s var(--ease); }
+.au-vid a:hover img { transform: scale(1.03); }
+.au-play { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 4.5rem; height: 4.5rem; margin: -2.25rem 0 0 -2.25rem; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--ink); box-shadow: 0 10px 30px -10px rgba(0,0,0,.4); transition: transform .4s var(--ease); }
+.au-play svg { margin-left: 4px; }
+.au-vid a:hover .au-play { transform: scale(1.08); }
+.au-vid figcaption { margin-top: 1rem; font-size: .9375rem; color: var(--ink-2); }
+.au-vid figcaption b { display: block; font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 1.5rem; line-height: 1.2; color: var(--ink); }
+@media (min-width: 64rem) { .au-words-grid { grid-template-columns: 1fr 20rem; gap: 4rem; } }
+
+.au-rest { background: var(--blue-wash); }
+.au-rest-grid { display: grid; gap: 3rem; align-items: center; }
+.au-rest-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.au-rest-imgs img { width: 100%; height: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
+.au-rest-imgs img:first-child { border-radius: 999px 999px 0 0; }
+.au-rest-imgs img:last-child { margin-top: 3rem; }
+.au-facts { margin: 2rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line-2); }
+.au-facts li { padding: 1.1rem 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: clamp(1.375rem, 2vw, 1.625rem); line-height: 1.2; }
+@media (min-width: 60rem) { .au-rest-grid { grid-template-columns: 1fr 1.1fr; gap: 5rem; } }
+
+.au-doors li { display: flex; flex-direction: column; }
+.au-doors .hv-link { margin-top: auto; padding-top: 1.25rem; align-self: flex-start; }
+.hv-close .hv-sign { margin-top: 2rem; }
