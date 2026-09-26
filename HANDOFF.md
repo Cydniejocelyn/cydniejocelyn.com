@@ -8143,7 +8143,8 @@ Sections 69 and 70 have the detail behind everything below.
   | /about/ | REBUILT, awaiting her review. Artifact U5FeRQ8KubcNP9v9wy8qQU. tools/gen_about.py (section 73) |
   | /retreats/ | REBUILT, awaiting review. Artifact HcXyuAjSzWWDLmSyyGdxvc. tools/gen_retreats.py (74) |
   | /retreats/gatlinburg/ | REBUILT, awaiting review. Artifact Uq7dwHkKDjc5SLFcEKriG2. tools/gen_gatlinburg.py (75) |
-  | /greece/, /arizona/ | OLD look. Arizona is live-but-unlinked (68) |
+  | /retreats/greece/ | REBUILT, awaiting review. Artifact Ddv5rt41aiaKNLWyMX1Yi1. tools/gen_greece.py (76) |
+  | /retreats/arizona/ | REBUILT, still HIDDEN. Artifact CqN4Yqjfi4PTPWcMTQVrv8 (replaces VRu6Fxax... v12). tools/gen_arizona.py (76) |
   | /the-letters/ | OLD look. Flodesk popup lives here only |
   | /contact/, /privacy-policy/, /thequestions/ | OLD look |
   Every page already has the new wordmark (raster cj-mark-*) and no
@@ -8344,3 +8345,30 @@ Sections 69 and 70 have the detail behind everything below.
     Smokies"). The Event JSON-LD is carried over unchanged.
   * The review artifact is 6.45MB (the gallery is inlined). Not in the
     ARTIFACT cross-link table: other review pages link to the live URL.
+
+## 76. 25 September 2026, night. GREECE AND ARIZONA REBUILT.
+
+  * GREECE (tools/gen_greece.py): sold out, so the page fills the waitlist
+    and hands anyone who will not wait to Gatlinburg. $3,450, the $500
+    deposit, both waitlist records (6a21d07b.../1-Contact_Information pay in
+    full; 6a21d63a.../1-Contact_Information six month plan), the question
+    form (cf_id/69fa372c...), the 16-photo gallery verbatim
+    (tools/greece_gallery.html). Her four objections kept; "Who this is not
+    for" and "Still not answered" cut; the Event and FAQ JSON-LD carried.
+  * ARIZONA (tools/gen_arizona.py): STILL HIDDEN. The generator writes the
+    exact noindex pair, commented canonical and parked Event block
+    (verbatim in tools/arizona_parked_jsonld.html) that launch_arizona.py
+    matches, and reads the page first: once launched it writes the launched
+    head and keeps the Event, so a re-run cannot re-hide or strip it.
+    $1,675 / $1,800 from 1 December, $500 hold, 6ab58825... / 6ab58836...,
+    list cf_id/69fa3c69, 5-photo gallery verbatim, days-left counter.
+  * LAUNCH SCRIPT UPDATED: step 5 no longer string-edits retreats/index.html
+    (now generated); gen_retreats.py names Wild Canvas by itself when the
+    Arizona noindex tag is gone, and the launch script re-runs gen_retreats
+    and gen_arizona after writing. TESTED END TO END on a throwaway copy:
+    noindex gone, canonical live, JSON-LD [LocalBusiness, Event, WebPage],
+    Wild Canvas card on /retreats/ with no map, sitemap entry, vercel header
+    removed, build passes. The real tree was not launched.
+  * lux_page.render gained robots_html, canonical_html and head_extra.
+  * Class clashes caught against site.css: gr-note -> gr-aside, az-quote ->
+    az-say. Always grep site.css before naming a class.

@@ -11,7 +11,13 @@ Retreats stay women only (HANDOFF 53).
 
     cd tools && python3 gen_retreats.py
 """
+import os
 import lux_page as L
+
+# Arizona is named here only once tools/launch_arizona.py has run (its
+# noindex tag gone). Until then the card stays the unnamed third date.
+AZ_LAUNCHED = '<meta name="robots" content="noindex, nofollow, noarchive">' not in open(
+    os.path.join(L.ROOT, "retreats", "arizona", "index.html"), encoding="utf-8").read()
 
 URL = L.SITE + "/retreats/"
 ARW = L.ARW
@@ -45,6 +51,55 @@ S = lambda quote, who, where: (
 Q = lambda quote, body, who, where: (
     '<li><figure class="hv-q"><blockquote><p>&ldquo;%s&rdquo;</p><p>%s</p></blockquote>'
     '<figcaption>%s &middot; %s</figcaption></figure></li>' % (quote, body, who, where))
+
+MAY_MYSTERY = """      <li class="rx-date rx-date--soon">
+        <figure class="rx-soon"><!-- The US map from tools/us_map.py (via the old page): the country, and an open ring where the pin would go. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 633"
+               role="img" aria-labelledby="usmap-t" class="usmap" preserveAspectRatio="xMidYMid meet">
+            <title id="usmap-t">A map of the United States with no location marked on it</title>
+            <defs>
+              <!-- The country fades at its edges rather than stopping on a hard line,
+                   which is the same seam construction the page's own sections use. -->
+              <radialGradient id="usmap-veil" cx="50%%" cy="46%%" r="62%%">
+                <stop offset="0%%"   stop-color="#fff" stop-opacity="1"/>
+                <stop offset="62%%"  stop-color="#fff" stop-opacity="1"/>
+                <stop offset="100%%" stop-color="#fff" stop-opacity="0"/>
+              </radialGradient>
+              <mask id="usmap-mask">
+                <rect width="1000" height="633" fill="url(#usmap-veil)"/>
+              </mask>
+            </defs>
+            <g mask="url(#usmap-mask)">
+              <path class="usmap-fill" fill-rule="evenodd" d="M65.0 18.1L93.9 12.0L185.8 36.9L294.0 58.0L386.7 69.3L450.1 73.5L493.5 74.8L526.1 65.8L554.6 83.4L568.3 89.4L594.8 94.1L614.8 95.2L638.7 112.4L683.3 118.7L701.9 122.4L698.6 138.4L735.8 145.2L749.5 185.0L746.4 201.0L732.5 232.8L774.5 220.4L793.6 202.7L804.0 192.4L802.0 183.7L842.0 167.9L844.5 155.2L858.6 141.1L865.6 128.3L917.8 114.9L922.4 106.5L930.0 82.1L938.3 51.1L958.2 48.7L968.7 70.3L988.0 90.1L977.6 109.7L947.4 138.7L942.7 159.7L958.5 176.0L934.8 199.8L903.8 225.4L901.6 255.7L893.7 272.1L894.0 293.8L886.3 319.0L900.0 340.8L904.0 356.3L887.9 374.9L863.8 398.0L832.7 430.4L815.9 450.6L809.1 483.8L826.1 517.2L837.1 534.7L854.8 575.5L853.0 611.3L825.4 598.8L790.4 554.3L782.4 525.2L742.1 517.3L726.5 508.4L676.8 507.5L650.5 513.2L658.2 538.9L635.5 536.9L555.3 530.9L525.3 549.2L483.1 576.6L487.8 621.1L445.9 609.3L420.3 557.8L408.9 535.7L367.1 537.7L333.1 520.4L301.9 469.7L267.3 465.4L265.9 476.0L208.5 467.3L142.5 421.3L94.8 415.3L79.7 382.7L42.1 355.0L40.4 330.0L29.6 298.7L26.5 268.3L13.1 235.8L12.0 198.7L23.5 163.8L32.9 134.6L47.6 107.1L59.8 69.9L62.9 52.2ZM696.5 138.6L676.2 158.8L678.2 184.8L682.1 212.9L672.6 239.9L660.4 241.1L652.2 208.7L658.3 173.7L661.2 159.2L673.3 147.3Z"/>
+              <path class="usmap-line" d="M65.0 18.1L93.9 12.0L185.8 36.9L294.0 58.0L386.7 69.3L450.1 73.5L493.5 74.8L526.1 65.8L554.6 83.4L568.3 89.4L594.8 94.1L614.8 95.2L638.7 112.4L683.3 118.7L701.9 122.4L698.6 138.4L735.8 145.2L749.5 185.0L746.4 201.0L732.5 232.8L774.5 220.4L793.6 202.7L804.0 192.4L802.0 183.7L842.0 167.9L844.5 155.2L858.6 141.1L865.6 128.3L917.8 114.9L922.4 106.5L930.0 82.1L938.3 51.1L958.2 48.7L968.7 70.3L988.0 90.1L977.6 109.7L947.4 138.7L942.7 159.7L958.5 176.0L934.8 199.8L903.8 225.4L901.6 255.7L893.7 272.1L894.0 293.8L886.3 319.0L900.0 340.8L904.0 356.3L887.9 374.9L863.8 398.0L832.7 430.4L815.9 450.6L809.1 483.8L826.1 517.2L837.1 534.7L854.8 575.5L853.0 611.3L825.4 598.8L790.4 554.3L782.4 525.2L742.1 517.3L726.5 508.4L676.8 507.5L650.5 513.2L658.2 538.9L635.5 536.9L555.3 530.9L525.3 549.2L483.1 576.6L487.8 621.1L445.9 609.3L420.3 557.8L408.9 535.7L367.1 537.7L333.1 520.4L301.9 469.7L267.3 465.4L265.9 476.0L208.5 467.3L142.5 421.3L94.8 415.3L79.7 382.7L42.1 355.0L40.4 330.0L29.6 298.7L26.5 268.3L13.1 235.8L12.0 198.7L23.5 163.8L32.9 134.6L47.6 107.1L59.8 69.9L62.9 52.2ZM696.5 138.6L676.2 158.8L678.2 184.8L682.1 212.9L672.6 239.9L660.4 241.1L652.2 208.7L658.3 173.7L661.2 159.2L673.3 147.3Z" pathLength="1"/>
+            </g>
+            <g class="usmap-pin" transform="translate(530.7 276.1)">
+              <circle class="usmap-ring" r="21"/>
+              <circle class="usmap-ring usmap-ring--out" r="38"/>
+            </g>
+          </svg>
+          <figcaption><span>May</span><b>2027 &middot; Somewhere in the United States</b></figcaption></figure>
+        <div class="rx-date-body">
+          <span class="hv-pill rx-pill rx-pill--line">In the works</span>
+          <p class="rx-when">5&ndash;9 May 2027 &middot; Location named later</p>
+          <h3>A third date is coming.</h3>
+          <p>Five days in the United States, co-hosted with Clarissa Castillo Ramsey, whose work I have wanted to put in a room with mine for a long time. The list hears the place, the price and the shape of the week before anyone else.</p>
+          <a class="hv-btn hv-btn--line" href="%(MAY_LIST)s" data-cta="retreats-card-may">Hear about May first</a>
+          <p class="rx-note">No payment. You hear the place, the price and the dates first.</p>
+        </div>
+      </li>"""
+MAY_WILD = """      <li class="rx-date">
+        <figure><img src="../assets/img/arizona/table-set-portrait-848.webp" srcset="../assets/img/arizona/table-set-portrait-600.webp 600w, ../assets/img/arizona/table-set-portrait-848.webp 848w" sizes="(min-width: 60rem) 24rem, 92vw" width="848" height="1130" alt="A long table set for dinner under a covered patio at dusk, small bonsai trees down the middle." loading="lazy"></figure>
+        <div class="rx-date-body">
+          <span class="rx-pill">Booking open</span>
+          <p class="rx-when">5&ndash;9 May 2027 &middot; Peoria, Arizona</p>
+          <h3>Wild Canvas: The Arizona Edition</h3>
+          <p>Five days in a painted house on the edge of the Sonoran desert, with guided creative sessions led by abstract artist Dr. Clarissa Castillo-Ramsey. Lodging, every meal and the airport shuttles are included. No art experience needed.</p>
+          <dl><div><dt>Shared room</dt><dd>$1,675</dd></div></dl>
+          <p class="rx-note">Early rate through 30 November. $500 holds your room.</p>
+          <div class="hv-btns"><a class="hv-btn hv-btn--ink" href="/retreats/arizona/#rooms" data-cta="retreats-card-arizona">Hold your room %(ARW)s</a><a class="hv-link" href="/retreats/arizona/">See the week</a></div>
+        </div>
+      </li>"""
 
 MAIN = """<main id="main">
 
@@ -96,42 +151,7 @@ MAIN = """<main id="main">
           <div class="hv-btns"><a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-card-rooms">Choose your room %(ARW)s</a><a class="hv-link" href="/retreats/gatlinburg/">See the week</a></div>
         </div>
       </li>
-      <li class="rx-date rx-date--soon">
-        <figure class="rx-soon"><!-- The US map from tools/us_map.py (via the old page): the country, and an open ring where the pin would go. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 633"
-               role="img" aria-labelledby="usmap-t" class="usmap" preserveAspectRatio="xMidYMid meet">
-            <title id="usmap-t">A map of the United States with no location marked on it</title>
-            <defs>
-              <!-- The country fades at its edges rather than stopping on a hard line,
-                   which is the same seam construction the page's own sections use. -->
-              <radialGradient id="usmap-veil" cx="50%%" cy="46%%" r="62%%">
-                <stop offset="0%%"   stop-color="#fff" stop-opacity="1"/>
-                <stop offset="62%%"  stop-color="#fff" stop-opacity="1"/>
-                <stop offset="100%%" stop-color="#fff" stop-opacity="0"/>
-              </radialGradient>
-              <mask id="usmap-mask">
-                <rect width="1000" height="633" fill="url(#usmap-veil)"/>
-              </mask>
-            </defs>
-            <g mask="url(#usmap-mask)">
-              <path class="usmap-fill" fill-rule="evenodd" d="M65.0 18.1L93.9 12.0L185.8 36.9L294.0 58.0L386.7 69.3L450.1 73.5L493.5 74.8L526.1 65.8L554.6 83.4L568.3 89.4L594.8 94.1L614.8 95.2L638.7 112.4L683.3 118.7L701.9 122.4L698.6 138.4L735.8 145.2L749.5 185.0L746.4 201.0L732.5 232.8L774.5 220.4L793.6 202.7L804.0 192.4L802.0 183.7L842.0 167.9L844.5 155.2L858.6 141.1L865.6 128.3L917.8 114.9L922.4 106.5L930.0 82.1L938.3 51.1L958.2 48.7L968.7 70.3L988.0 90.1L977.6 109.7L947.4 138.7L942.7 159.7L958.5 176.0L934.8 199.8L903.8 225.4L901.6 255.7L893.7 272.1L894.0 293.8L886.3 319.0L900.0 340.8L904.0 356.3L887.9 374.9L863.8 398.0L832.7 430.4L815.9 450.6L809.1 483.8L826.1 517.2L837.1 534.7L854.8 575.5L853.0 611.3L825.4 598.8L790.4 554.3L782.4 525.2L742.1 517.3L726.5 508.4L676.8 507.5L650.5 513.2L658.2 538.9L635.5 536.9L555.3 530.9L525.3 549.2L483.1 576.6L487.8 621.1L445.9 609.3L420.3 557.8L408.9 535.7L367.1 537.7L333.1 520.4L301.9 469.7L267.3 465.4L265.9 476.0L208.5 467.3L142.5 421.3L94.8 415.3L79.7 382.7L42.1 355.0L40.4 330.0L29.6 298.7L26.5 268.3L13.1 235.8L12.0 198.7L23.5 163.8L32.9 134.6L47.6 107.1L59.8 69.9L62.9 52.2ZM696.5 138.6L676.2 158.8L678.2 184.8L682.1 212.9L672.6 239.9L660.4 241.1L652.2 208.7L658.3 173.7L661.2 159.2L673.3 147.3Z"/>
-              <path class="usmap-line" d="M65.0 18.1L93.9 12.0L185.8 36.9L294.0 58.0L386.7 69.3L450.1 73.5L493.5 74.8L526.1 65.8L554.6 83.4L568.3 89.4L594.8 94.1L614.8 95.2L638.7 112.4L683.3 118.7L701.9 122.4L698.6 138.4L735.8 145.2L749.5 185.0L746.4 201.0L732.5 232.8L774.5 220.4L793.6 202.7L804.0 192.4L802.0 183.7L842.0 167.9L844.5 155.2L858.6 141.1L865.6 128.3L917.8 114.9L922.4 106.5L930.0 82.1L938.3 51.1L958.2 48.7L968.7 70.3L988.0 90.1L977.6 109.7L947.4 138.7L942.7 159.7L958.5 176.0L934.8 199.8L903.8 225.4L901.6 255.7L893.7 272.1L894.0 293.8L886.3 319.0L900.0 340.8L904.0 356.3L887.9 374.9L863.8 398.0L832.7 430.4L815.9 450.6L809.1 483.8L826.1 517.2L837.1 534.7L854.8 575.5L853.0 611.3L825.4 598.8L790.4 554.3L782.4 525.2L742.1 517.3L726.5 508.4L676.8 507.5L650.5 513.2L658.2 538.9L635.5 536.9L555.3 530.9L525.3 549.2L483.1 576.6L487.8 621.1L445.9 609.3L420.3 557.8L408.9 535.7L367.1 537.7L333.1 520.4L301.9 469.7L267.3 465.4L265.9 476.0L208.5 467.3L142.5 421.3L94.8 415.3L79.7 382.7L42.1 355.0L40.4 330.0L29.6 298.7L26.5 268.3L13.1 235.8L12.0 198.7L23.5 163.8L32.9 134.6L47.6 107.1L59.8 69.9L62.9 52.2ZM696.5 138.6L676.2 158.8L678.2 184.8L682.1 212.9L672.6 239.9L660.4 241.1L652.2 208.7L658.3 173.7L661.2 159.2L673.3 147.3Z" pathLength="1"/>
-            </g>
-            <g class="usmap-pin" transform="translate(530.7 276.1)">
-              <circle class="usmap-ring" r="21"/>
-              <circle class="usmap-ring usmap-ring--out" r="38"/>
-            </g>
-          </svg>
-          <figcaption><span>May</span><b>2027 &middot; Somewhere in the United States</b></figcaption></figure>
-        <div class="rx-date-body">
-          <span class="hv-pill rx-pill rx-pill--line">In the works</span>
-          <p class="rx-when">5&ndash;9 May 2027 &middot; Location named later</p>
-          <h3>A third date is coming.</h3>
-          <p>Five days in the United States, co-hosted with Clarissa Castillo Ramsey, whose work I have wanted to put in a room with mine for a long time. The list hears the place, the price and the shape of the week before anyone else.</p>
-          <a class="hv-btn hv-btn--line" href="%(MAY_LIST)s" data-cta="retreats-card-may">Hear about May first</a>
-          <p class="rx-note">No payment. You hear the place, the price and the dates first.</p>
-        </div>
-      </li>
+%(MAY_CARD)s
       <li class="rx-date">
         <figure><img src="../assets/img/greece/dinner-1200.webp" srcset="../assets/img/greece/dinner-600.webp 600w, ../assets/img/greece/dinner-900.webp 900w, ../assets/img/greece/dinner-1200.webp 1200w" sizes="(min-width: 60rem) 24rem, 92vw" width="1200" height="1200" alt="An outdoor dining table under a lantern-lit pergola at dusk at Armonia Retreat Center in Crete" loading="lazy"></figure>
         <div class="rx-date-body">
@@ -245,6 +265,7 @@ MAIN = """<main id="main">
 
 </main>
 """ % {
+    "MAY_CARD": (MAY_WILD if AZ_LAUNCHED else MAY_MYSTERY) % {"ARW": ARW, "MAY_LIST": MAY_LIST},
     "ARW": ARW, "GREECE_WAIT": GREECE_WAIT, "MAY_LIST": MAY_LIST, "PRIVATE": PRIVATE, "FAQ": L.faq_html(FAQ),
     "S1": S('I was burnt out and struggling to figure out why I always felt behind. My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.', 'Kristi', 'Rise &amp; Reground, Costa Rica'),
     "S2": S('Intimate group size, and leaders able to make us think, laugh and cry without judgement. No waiting, no rushing.', 'Carol', 'Rise &amp; Reground, Costa Rica'),

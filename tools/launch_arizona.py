@@ -144,45 +144,22 @@ edits["sitemap.xml"] = s[:m.start()] + '''  <url>
 
 # ---------------------------------------------- 5. the Retreats index card
 #
-# The "A third date is coming" card becomes the real one. Everything the
-# mystery card withheld is named here: the retreat, the place, the price and
-# the artist. The map figure goes with it, because there is a photograph now.
-R = "retreats/index.html"
-s = load(R)
-start = s.index('      <!-- THE THIRD DATE')
-end = s.index('      </article>\n', start) + len('      </article>\n')
-ARROW = ('<svg class="arw" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">'
-         '<path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.2"/></svg>')
-edits[R] = s[:start] + '''      <!-- WILD CANVAS, launched. This card replaced the unnamed "A third
-           date is coming" one, which carried the US map with no pin on it
-           while the location was a secret. -->
-      <article class="rt-date rt-date--flip r-up" id="may" aria-labelledby="may-h">
-        <figure class="rt-date-fig">
-          <img src="../assets/img/arizona/great-room-1000.webp"
-               srcset="../assets/img/arizona/great-room-600.webp 600w, ../assets/img/arizona/great-room-1000.webp 1000w, ../assets/img/arizona/great-room-1450.webp 1450w"
-               sizes="(min-width: 56rem) 45vw, 100vw" width="1450" height="992"
-               loading="lazy" decoding="async"
-               alt="A long open room with a hand painted desert sunset covering the far wall, a stone island with stools, and deep green sofas.">
-        </figure>
-        <div>
-          <p class="rt-status">Booking open</p>
-          <p class="rt-date-when">5&ndash;9 May 2027 &middot; Peoria, Arizona</p>
-          <h3 class="head h-3" id="may-h">Wild Canvas: The Arizona Edition</h3>
-          <p>Five days in a painted house on the edge of the Sonoran desert, with guided creative sessions led by abstract artist Dr. Clarissa Castillo-Ramsey. Lodging, every meal and the airport shuttles are included. No art experience needed.</p>
-          <p>A shared room is $1,675 at the early rate. $500 holds your room.</p>
-          <div class="actions">
-            <a class="btn btn--solid" href="/retreats/arizona/"><span>See Wild Canvas and book</span>
-              %s</a>
-            <span class="note-under">The early rate holds through 30 November. Prices rise on 1 December.</span>
-          </div>
-        </div>
-      </article>
-''' % ARROW + s[end:]
+# Since 25 September 2026 /retreats/ is GENERATED (tools/gen_retreats.py), and
+# the generator names Wild Canvas on its own as soon as this page has lost its
+# noindex tag. So this step no longer edits retreats/index.html by string: it
+# re-runs the generator after the writes below. The card it produces carries
+# the dusk table photograph, $1,675, the 30 November early rate, and links
+# to #rooms and the page.
 
 # ---------------------------------------------- 6. write, only now
 for path, text in edits.items():
     io.open(os.path.join(ROOT, path), "w", encoding="utf-8").write(text)
     print("wrote", path)
+
+import subprocess
+subprocess.run([sys.executable, "gen_retreats.py"], cwd=os.path.join(ROOT, "tools"), check=True)
+subprocess.run([sys.executable, "gen_arizona.py"], cwd=os.path.join(ROOT, "tools"), check=True)
+print("regenerated retreats/index.html (Wild Canvas card) and retreats/arizona/index.html (launched head)")
 
 print("\nLaunch applied. Build, run seams and the suite, check the HoneyBook "
       "records, and read the page in a real browser before any push.")

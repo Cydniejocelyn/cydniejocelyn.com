@@ -1,0 +1,66 @@
+<!-- AT LAUNCH: uncomment, then validate before pushing. tools/launch_arizona.py
+     does this for you, and wraps it in a script element of type
+     application/ld+json. It is unwritten here on purpose, and so is that tag
+     name: build.py splits on script regions before it strips comments, so a
+     commented-out script SHIPS to production. Every other page on this site
+     serves zero HTML comments and so must this one.
+
+     Every figure in here is also in the visible page and in HoneyBook. If one
+     changes, all three change in the same commit. The offer carries BOTH ends
+     of its window: an offer with a start and no end is what the Search Console
+     warning on the Greece offers was about.
+
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "@id": "https://www.cydniejocelyn.com/retreats/arizona/#event",
+  "name": "Wild Canvas: The Arizona Edition",
+  "startDate": "2027-05-05",
+  "endDate": "2027-05-09",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "url": "https://www.cydniejocelyn.com/retreats/arizona/",
+  "image": "https://www.cydniejocelyn.com/assets/img/arizona/table-set-1000.webp",
+  "description": "A creative retreat for women in Peoria, Arizona. Lodging, every meal, guided creative sessions with Dr. Clarissa Castillo-Ramsey and airport shuttles included.",
+  "location": {
+    "@type": "Place",
+    "name": "Peoria, Arizona",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Peoria",
+      "addressRegion": "AZ",
+      "addressCountry": "US"
+    }
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Cydnie Jocelyn LLC",
+    "url": "https://www.cydniejocelyn.com/"
+  },
+  "performer": [
+    { "@type": "Person", "name": "Clarissa Castillo-Ramsey" },
+    { "@type": "Person", "name": "Cydnie Jocelyn Brown" }
+  ],
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Shared room, early rate",
+      "price": "1675",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-09-24",
+      "validThrough": "2026-11-30",
+      "url": "https://www.cydniejocelyn.com/retreats/arizona/#rooms"
+    },
+    {
+      "@type": "Offer",
+      "name": "Shared room",
+      "price": "1800",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2026-12-01",
+      "url": "https://www.cydniejocelyn.com/retreats/arizona/#rooms"
+    }
+  ]
+}
+-->

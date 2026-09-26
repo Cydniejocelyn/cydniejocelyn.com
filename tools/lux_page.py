@@ -68,7 +68,12 @@ def faq_node(page_url, faq):
 
 
 def render(out, depth, active, title, description, canonical, og_title, og_description,
-           graph, main, reveal=(), reveal_imgs=(), preload="", body_class="", og_image="home-2026.png"):
+           graph, main, reveal=(), reveal_imgs=(), preload="", body_class="", og_image="home-2026.png",
+           robots_html=None, canonical_html=None, head_extra=""):
+    """robots_html / canonical_html replace the default robots meta and
+    canonical link (a hidden page such as Arizona before launch passes its
+    noindex pair and a commented canonical). head_extra goes after the
+    JSON-LD, e.g. a parked block the launch script turns on."""
     sh = shared(depth, active)
     pre = sh["pre"]
     scripts = sh["scripts"]
@@ -87,8 +92,8 @@ def render(out, depth, active, title, description, canonical, og_title, og_descr
      generator, not this file. -->
 <title>%(title)s</title>
 <meta name="description" content="%(description)s">
-<link rel="canonical" href="%(canonical)s">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+%(robots_html)s
+%(canonical_html)s
 <meta name="author" content="Cydnie Jocelyn Brown">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="geo.region" content="US-MN">
@@ -115,7 +120,7 @@ def render(out, depth, active, title, description, canonical, og_title, og_descr
 <script type="application/ld+json">
 %(jsonld)s
 </script>
-</head>
+%(head_extra)s</head>
 
 <body class="hv2%(body_class)s">
 <a class="skip" href="#main">Skip to content</a>
@@ -137,6 +142,9 @@ def render(out, depth, active, title, description, canonical, og_title, og_descr
         "og_image": og_image if og_image.startswith("http") else SITE + "/assets/og/" + og_image, "pre": pre, "preload": preload, "stamp": sh["stamp"],
         "jsonld": json.dumps({"@context": "https://schema.org", "@graph": graph}, indent=2, ensure_ascii=False),
         "body_class": (" " + body_class) if body_class else "",
+        "robots_html": robots_html or '<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">',
+        "canonical_html": canonical_html if canonical_html is not None else '<link rel="canonical" href="%s">' % canonical,
+        "head_extra": head_extra,
         "sprite": sh["sprite"], "header": sh["header"], "main": main.strip("\n"),
         "footer": sh["footer"], "scripts": scripts,
     }

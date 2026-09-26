@@ -890,3 +890,50 @@
 .gt-list p { color: var(--ink-2); margin-bottom: 1rem; }
 .gt-list b { color: var(--ink); }
 @media (max-width: 40rem) { .gt-count-cells span { min-width: 0; flex: 1; } }
+
+/* ==========================================================
+   GREECE (/retreats/greece/), 25 September 2026. gr- prefix, reusing
+   the gt- retreat pieces. Full: the page fills the waitlist and hands
+   anyone who will not wait to Gatlinburg.
+   ========================================================== */
+.gr-aside { margin-top: 2rem; font-size: .875rem; color: var(--ink-2); }
+@media (min-width: 60rem) { .gr-nums { grid-template-columns: repeat(4, 1fr); } }
+.gr-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 2rem; margin: 2.5rem 0 0; border-top: 1px solid var(--line-2); }
+.gr-stats > div { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+.gr-stats dt { order: 2; font-size: .5625rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.gr-stats dd { margin: 0 0 .4rem; font-family: var(--serif); font-size: clamp(2.25rem, 4vw, 3.25rem); line-height: 1; }
+.gr-stats > div { display: flex; flex-direction: column-reverse; }
+@media (min-width: 60rem) { .gr-stats { grid-template-columns: repeat(4, 1fr); } }
+.gr-onsite { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.gr-onsite > div { border-top-color: var(--line-2); }
+.gr-onsite dt { color: var(--blue-deep); }
+.gr-onsite dd { color: var(--ink-2); }
+@media (min-width: 60rem) { .gr-onsite { grid-template-columns: 1fr 1fr; } }
+.gr-credit { margin-top: 1.5rem; font-size: .625rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); }
+.gr-objs h3 { font-style: italic; }
+@media (min-width: 60rem) { .gr-objs { grid-template-columns: repeat(2, 1fr); column-gap: 4rem; } }
+.gr-terms { margin-top: 2rem; }
+@media (min-width: 60rem) { .gr-terms { grid-template-columns: 1fr; } }
+.gr-pick-cta { flex-direction: column; align-items: stretch; }
+.gr-alt { padding: 1.5rem 0 0; border-top: 1px solid rgba(255,255,255,.16); }
+.gr-alt p { color: #dbe9e6; margin-bottom: .9rem; }
+.gr-alt b { color: #fff; }
+
+/* ==========================================================
+   ARIZONA / WILD CANVAS (/retreats/arizona/), 25 September 2026.
+   az- prefix, reusing the gt- retreat pieces. Hidden until launch.
+   ========================================================== */
+.az-say { margin: 0; align-self: center; padding-left: 1.5rem; border-left: 1px solid var(--blue); }
+.az-say p { font-family: var(--serif); font-style: italic; font-size: clamp(1.625rem, 2.8vw, 2.25rem); line-height: 1.2; color: #fff; }
+.az-say cite { display: block; margin-top: 1rem; font-style: normal; font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--blue); }
+.az-room { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+@media (min-width: 60rem) { .az-room { grid-template-columns: 1.2fr 1fr; } }
+.gt-room-price s { margin-left: .5rem; font-size: .5em; color: var(--ink-3); }
+.az-play { display: grid; gap: 1.5rem; margin-top: clamp(3rem, 6vw, 4.5rem); align-items: end; }
+.az-play figure { margin: 0; }
+.az-play img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.az-play figcaption { margin-top: .75rem; font-size: .625rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); }
+.az-play p { margin-top: 1rem; color: var(--ink-2); }
+@media (min-width: 60rem) { .az-play { grid-template-columns: 1fr 1fr 1fr; gap: 2rem; } }
+.az-day { margin-top: 1.5rem; font-size: .9375rem; color: var(--ink-2); }
+.az-day b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2.5rem, 4vw, 3.25rem); line-height: 1; color: var(--ink); }
