@@ -8557,5 +8557,32 @@ privacy paragraph she sees first, (4) a read-only inbox in Ops.
   default sender delivers, or verify cydniejocelyn.com in Resend and set
   RESEND_FROM). Optional FLODESK_SEGMENT_ID for the Letters segment.
 
-### To go live
-  Her review of the preview, the keys set, then merge neon-db into main.
+### WHERE IT STOPPED (26 Sep, end of the chat; she moved to a new chat)
+  * Branch `neon-db` is pushed and is where this work lives. `git switch
+    neon-db` first. `main` is the live site and does NOT have any of section
+    78 (live = 2026 rebuild + mobile pass + new favicon, commit 846e883).
+  * Neon main and check already have migration 002 and the ops_reader role
+    (additive; the live site does not use them yet).
+  * Preview deploy of neon-db is READY but UNTESTED:
+    https://cydniejocelyn-v2-go3txwmm5-cydnie-jocelyn.vercel.app
+    (Vercel may ask her to log in; previews use the Neon `check` branch).
+  * Keys NOT set yet in Vercel (FLODESK_API_KEY, RESEND_API_KEY). Until then
+    sign-ups/questions save with status 'not_configured'.
+  * Privacy wording drafted in tools/privacy_body.html; she has NOT approved
+    it yet (she was promised to see it first).
+
+### NEXT, IN ORDER
+  1. Test the preview in a browser: /api/* respond (Python functions and the
+     _lib imports bundle), Letters form, footer form, Contact form, visits
+     after Accept; check rows on the Neon check branch (db/check.py wipes that
+     branch, so test after running it, not before).
+  2. Walk her through adding the two keys in Vercel (Production + Preview);
+     she pastes them, never me. Re-test: Flodesk gets the sign-up, the email
+     arrives at hello@.
+  3. Show her the privacy wording and the forms (republish review artifacts
+     or send the preview link); get her OK.
+  4. Merge neon-db into main (live deploy), verify with vercel ls and a real
+     browser, run `npm run inbox` in ~/Projects/cydnie-ops.
+  5. Open item from earlier: HoneyBook housekeeping (rename the Arizona
+     pay-in-full record; update the contact form description), Search Console
+     sitemap resubmit, Gatlinburg early rate ends 31 Oct.
