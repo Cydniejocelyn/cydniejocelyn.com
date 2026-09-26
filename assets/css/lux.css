@@ -689,3 +689,71 @@
 .au-facts li { padding: 1.1rem 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: clamp(1.375rem, 2vw, 1.625rem); line-height: 1.2; }
 .au-also { margin-top: 1.5rem; color: var(--ink-2); }
 .au-faith + .hv-sec { border-top: 1px solid var(--line); }
+
+/* ==========================================================
+   RETREATS HUB (/retreats/), 25 September 2026. rx- prefix.
+   ========================================================== */
+.rx-dates { display: grid; gap: 1.5rem; margin: clamp(2.5rem, 5vw, 3.5rem) 0 0; padding: 0; list-style: none; }
+.rx-date { display: grid; background: var(--porcelain); }
+.rx-date figure { margin: 0; overflow: hidden; }
+.rx-date figure img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 1.6s var(--ease); }
+.rx-date:hover figure img { transform: scale(1.03); }
+.rx-date-body { display: flex; flex-direction: column; align-items: flex-start; gap: .9rem; padding: clamp(1.75rem, 3.5vw, 2.75rem); }
+.rx-date-body h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.875rem, 3vw, 2.5rem); line-height: 1.05; margin: 0; }
+.rx-date-body > p { color: var(--ink-2); margin: 0; max-width: 40rem; }
+.rx-when { font-size: .6875rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink) !important; }
+.rx-note { font-size: .875rem; }
+.rx-date dl { display: flex; gap: 2.5rem; margin: .25rem 0; }
+.rx-date dt { font-size: .5625rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.rx-date dd { margin: .2rem 0 0; font-family: var(--serif); font-size: 1.75rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.rx-date .hv-btn, .rx-date .hv-btns { margin-top: .5rem; }
+.rx-date .hv-btns { align-items: center; gap: 1.5rem; }
+.rx-pill { display: inline-block; padding: .4rem .75rem; font-size: .5625rem; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; line-height: 1.2; background: var(--blue); color: var(--ink); }
+.rx-pill--line { background: transparent; box-shadow: inset 0 0 0 1px var(--ink); }
+.rx-pill--ink { background: var(--ink); color: #fff; }
+.rx-soon { display: grid; place-content: center; text-align: center; min-height: 14rem; background: var(--blue); }
+.rx-soon span { font-family: var(--serif); font-style: italic; font-size: clamp(3.5rem, 6vw, 5rem); line-height: .9; color: var(--ink); }
+.rx-soon b { font-size: .6875rem; font-weight: 600; letter-spacing: .3em; color: var(--ink); margin-top: .75rem; }
+@media (min-width: 60rem) {
+  .rx-date { grid-template-columns: 24rem 1fr; }
+  .rx-date figure img { aspect-ratio: auto; min-height: 100%; }
+}
+
+.rx-format { background: var(--porcelain); }
+.rx-wide { margin: 0; }
+.rx-wide img { width: 100%; height: auto; }
+.rx-wide figcaption { margin-top: .75rem; font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.rx-days { margin-top: 1.5rem; }
+
+.rx-proof { display: grid; gap: 3rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); align-items: start; }
+.rx-quotes { margin: 0; padding: 0; border-top: 0; gap: 0; }
+.rx-quotes .hv-q { margin: 0; padding: 1.5rem 0; border-top: 1px solid var(--line-2); }
+.rx-quotes .hv-q blockquote p:first-child { font-size: clamp(1.375rem, 2vw, 1.75rem); }
+@media (min-width: 48rem) { .rx-quotes { grid-template-columns: 1fr 1fr; column-gap: 3rem; } }
+@media (min-width: 64rem) { .rx-proof { grid-template-columns: 20rem 1fr; gap: 4rem; } }
+
+.rx-band { position: relative; margin: 0; height: clamp(26rem, 70vh, 44rem); overflow: hidden; }
+.rx-band img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.rx-band figcaption { position: absolute; left: var(--gut); bottom: clamp(1.5rem, 5vw, 3.5rem); max-width: 34rem; padding: 2rem 2.25rem; background: #fff; }
+.rx-band figcaption p { margin-top: .9rem; font-family: var(--serif); font-size: clamp(1.625rem, 2.8vw, 2.25rem); line-height: 1.12; }
+.rx-band figcaption em { color: var(--blue-deep); }
+
+.rx-for ul, .rx-isnt ul { margin: 0; padding: 0; list-style: none; }
+.rx-for li { position: relative; padding: 1rem 0 1rem 1.75rem; border-top: 1px solid rgba(12,40,48,.22); font-family: var(--serif); font-size: clamp(1.375rem, 2vw, 1.625rem); line-height: 1.2; }
+.rx-for li::before { content: ""; position: absolute; left: 0; top: 1.55rem; width: .9rem; height: 1px; background: var(--ink); }
+
+.rx-btn-light { background: var(--blue); color: var(--ink); }
+.rx-btn-light::before { background: #fff; }
+.rx-wide img { aspect-ratio: 4 / 5; object-fit: cover; }
+
+/* Shared video tile (Melissa): arch-framed poster, a round play button,
+   the quote under it. Used on Retreats; site.js builds the player on click. */
+.au-vid { margin: 0; max-width: 20rem; }
+.au-vid a { position: relative; display: block; overflow: hidden; border-radius: 999px 999px 0 0; }
+.au-vid img, .au-vid video { width: 100%; height: auto; display: block; transition: transform 1.2s var(--ease); }
+.au-vid a:hover img { transform: scale(1.03); }
+.au-play { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 4.5rem; height: 4.5rem; margin: -2.25rem 0 0 -2.25rem; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--ink); box-shadow: 0 10px 30px -10px rgba(0,0,0,.4); transition: transform .4s var(--ease); }
+.au-play svg { margin-left: 4px; }
+.au-vid a:hover .au-play { transform: scale(1.08); }
+.au-vid figcaption { margin-top: 1rem; font-size: .9375rem; color: var(--ink-2); }
+.au-vid figcaption b { display: block; font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 1.5rem; line-height: 1.2; color: var(--ink); }

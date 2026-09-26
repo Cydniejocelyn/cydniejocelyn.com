@@ -180,9 +180,9 @@ PICK = {
     # nothing needs, which is how 3.5MB of dead assets accumulated once.
     "retreat-steps":      "retreat-steps-1200.webp",
     "retreats/cr-horizon": "retreats/cr-horizon-600.webp",
-    "retreats/cr-dusk":    "retreats/cr-dusk-600.webp",
-    "retreats/cr-room":    "retreats/cr-room-600.webp",
-    "retreats/cr-floor":   "retreats/cr-floor-600.webp",
+    "retreats/cr-dusk":    "retreats/cr-dusk-1536.webp",
+    "retreats/cr-room":    "retreats/cr-room-1200.webp",
+    "retreats/cr-floor":   "retreats/cr-floor-1000.webp",
     "retreats/cr-surf":    "retreats/cr-surf-600.webp",
     "retreats/kris":       "retreats/kris-600.webp",
     "cydnie-greece":       "retreats/cydnie-greece-600.webp",
@@ -203,13 +203,14 @@ PICK = {
     "greece/lawn":        "greece/lawn-600.webp",
     "greece/pool-view":   "greece/pool-view-600.webp",
     "greece/pool-":       "greece/pool-600.webp",
-    "greece/dinner":      "greece/dinner-600.webp",
+    "greece/dinner":      "greece/dinner-1200.webp",
     "greece/table":       "greece/table-600.webp",
     "greece/kitchen":     "greece/kitchen-600.webp",
     "greece/pergola":     "greece/pergola-600.webp",
     # Gatlinburg. Ten photographs of the house plus Kayla; Cydnie reuses the
     # standing retreat portrait the Greece page already folds.
     "gatlinburg/house-dusk":  "gatlinburg/house-dusk-1632.webp",
+    "gatlinburg/house-dusk-portrait": "gatlinburg/house-dusk-portrait-834.webp",
     # Wild Canvas, 24 September. The hero is the great room; the portrait
     # crop shares its stem, so it is named first and more specifically.
     "arizona/great-room-portrait": "arizona/great-room-portrait-744.webp",
@@ -344,7 +345,7 @@ ARTIFACT = {
     "build": "https://claude.ai/artifact/5wqFeCj6sFUxfKttPZf9th",
     # Neither retreat page has been published as an artifact yet. Put the URL
     # here the first time one is.
-    "retreats": None,
+    "retreats": "https://claude.ai/artifact/HcXyuAjSzWWDLmSyyGdxvc",
     "greece":   None,
     # Neither new page has been published as an artifact yet either.
     "sounding": "https://claude.ai/artifact/DssHAcZhyTcejNQUjtQSJi",
