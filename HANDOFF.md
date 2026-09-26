@@ -8268,3 +8268,16 @@ Sections 69 and 70 have the detail behind everything below.
     are the only photos of her working. Class prefix au- (site.css still
     has the old page's ab- names). The shared footer now says "The Sounding".
   * Artifact table: about -> U5FeRQ8KubcNP9v9wy8qQU; all four cross-linked.
+  * Second pass, her note: "the layouts don't align properly and are
+    overloaded ... impactful, SEO driven and converting". Now 6 sections,
+    612 words (was 936): hero with H1 "I'm Cydnie Jocelyn" under the label
+    "Brand & business strategist" (name + role for search and AI answers);
+    "What I bring" beside an AT A GLANCE definition list (experience,
+    strengths, who, what we build, based, also) that AI answers can quote;
+    story (four moments beside one photo); faith (testimony, "I meet you
+    where you are", the three verses as one-liners, reflections cut);
+    three client quotes; the rest of me; one close with retreats and
+    Letters as inline links. Every two-column section uses .au-row (5fr /
+    7fr, top-aligned); no sticky or offset images. Retreat quotes and
+    Melissa's video moved off About: use them on the Retreats rebuild.
+    AboutPage.mainEntity -> Person; Person gained knowsAbout, image.
