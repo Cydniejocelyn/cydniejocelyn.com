@@ -8396,6 +8396,12 @@ site, untouched. `git switch site-2026` before any rebuild work.
   | /privacy-policy/ (26 Sep) | tools/gen_privacy_policy.py (+ privacy_body.html) | Q6A5i8zhaB8wQ1ABhWyBKf |
   | /thequestions/ (26 Sep, noindex) | tools/gen_thequestions.py | TvVACshSZnVCK8u5ixFhDR |
   | popups + cookie card (26 Sep) | sounding-popup.js, gatlinburg-popup.js, lux.css .hv2 .cc | FeLyYMnFsKJhtrdNZcBt35 |
+  FAVICON (26 Sep, live): tools/make_favicons.py builds every icon from
+  the 2026 Monogram.png (ink CJ on aqua #9fccc6; hairline dropped and its
+  crossing filled in tools/cj-monogram-mask.png). /favicon.ico at the root,
+  assets/img/cj-icon-16/32, cj-apple-180, cj-icon-192/512, /site.webmanifest.
+  New names on purpose: /assets/img is cached immutable for a year. Neon
+  untouched: the site DB is off and holds nothing the site uses.
   LAUNCHED 26 Sep 2026 on her word "push it fully live": site-2026
   fast-forwarded onto main (main had no commits of its own). Pre-push:
   build clean, seams 0, no comments in dist, 12 pages x 6 widths no
