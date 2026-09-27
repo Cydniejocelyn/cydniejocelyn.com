@@ -78,7 +78,7 @@ MAIN = """<main id="main">
       <dl class="gt-facts">
         <div><dt>Dates</dt><dd>13&ndash;18 April 2027</dd></div>
         <div><dt>Where</dt><dd>Gatlinburg, Tennessee</dd></div>
-        <div><dt>Group</dt><dd>Fifteen women</dd></div>
+        <div><dt>Group</dt><dd>Sixteen women</dd></div>
         <div><dt>With</dt><dd>Cydnie and Kayla</dd></div>
         <div><dt>From</dt><dd>$1,490</dd></div>
         <div><dt>To hold a room</dt><dd>$500</dd></div>
@@ -135,7 +135,7 @@ MAIN = """<main id="main">
     <div class="ww-head">
       <span class="hv-label">Where you stay</span>
       <h2 class="hv-h2" id="gt-house">A private house, and <em>all of it is ours.</em></h2>
-      <p class="hv-lede">Fifteen women, one house. You sleep, eat, move and do both workshops here, with two hot tubs that belong to the house and a deck facing the mountains.</p>
+      <p class="hv-lede">Sixteen women, one house. You sleep, eat, move and do both workshops here, with two hot tubs that belong to the house and a deck facing the mountains.</p>
       <p class="gt-rate"><span>Early rate through 31 October</span> <b data-daysleft="2026-11-01T00:00:00-05:00" hidden></b></p>
     </div>
     <div class="gt-rooms">
@@ -249,7 +249,7 @@ MAIN = """<main id="main">
     <div>
       <span class="hv-label">13 to 18 April 2027 &middot; Gatlinburg</span>
       <h2 class="hv-h2" id="gt-book">Five days to <em>breathe in the Smokies.</em></h2>
-      <p class="sd-truth-copy">Fifteen women. $500 holds your room today, and the balance is five monthly payments starting the month after. Or pay in full.</p>
+      <p class="sd-truth-copy">Sixteen women. $500 holds your room today, and the balance is five monthly payments starting the month after. Or pay in full.</p>
       <div class="gt-count" data-countdown="2026-11-01T00:00:00-05:00" hidden>
         <p class="gt-count-label">The early rate ends in</p>
         <div class="gt-count-cells" role="timer" aria-live="off">
@@ -309,7 +309,7 @@ n = L.render(
     description="Wide Open: five days in Gatlinburg, Tennessee, 13 to 18 April 2027. Lodging, every meal, daily movement, two workshops and two outings included.",
     canonical=URL,
     og_title="Wide Open: The Gatlinburg Edition | April 2027",
-    og_description="Five days in a private house in the Smokies, for fifteen women. From $1,490; $500 holds your room.",
+    og_description="Five days in a private house in the Smokies, for sixteen women. From $1,490; $500 holds your room.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
     og_image=L.SITE + "/assets/img/gatlinburg/house-dusk-1200.webp",
     reveal=(".ww-head", ".au-row > div", ".gt-days > li", ".gt-room", ".gt-inc", ".gt-nums > div", ".gt-legs > div",
