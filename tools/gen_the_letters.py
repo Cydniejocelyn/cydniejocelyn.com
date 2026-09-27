@@ -123,7 +123,7 @@ MAIN = """<main id="main">
       <h2 class="hv-h2" id="lt-get">Two things, <em>every week.</em></h2>
       <ol class="lt-get" role="list">
         <li><h3>The letter</h3><p>Written by me, the week it goes out. Honest about what I am building and learning, in business and in life.</p></li>
-        <li><h3>First access</h3><p>When a retreat or new work opens, it opens here first. Retreats cap at fifteen, so first matters.</p></li>
+        <li><h3>First access</h3><p>When a retreat or new work opens, it opens here first. Retreats stay small, so first matters.</p></li>
       </ol>
     </div>
   </div>

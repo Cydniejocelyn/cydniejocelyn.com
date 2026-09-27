@@ -28,7 +28,7 @@ GALLERY = open(os.path.join(L.ROOT, "tools", "greece_gallery.html"), encoding="u
 
 FAQ = [
     ("Which airport, and how do I get to the house?", "Chania International, CHQ, about 33 km away; most cities connect through Athens. Fly in on 12 August, a day early on purpose, and be at the airport by 3:00 PM on the 13th for the group transfer. Ground transport is included both ways, and everyone holding a seat gets the full pre-travel guide."),
-    ("Is there a single room?", "No. Every room is shared, two to a room, twin beds, each with its own bathroom. There is no single room and no supplement to buy one, so the price on this page is the price whoever you come with."),
+    ("Is there a single room?", "No. Every room is shared, twin beds, each with its own bathroom. There is no single room and no supplement to buy one, so the price on this page is the price whoever you come with."),
     ("Can I come with a friend?", "Yes, and you will be roomed together. Say so when you book. It does not change the price either way."),
     ("Can you accommodate how I eat?", "Yes. List anything when you book and it gets to the kitchen well before you land. Meals are cooked on site with Cretan ingredients, so most things are straightforward."),
     ("Do I need travel insurance?", "It is not required and I would buy it anyway, on the day you book. The deposit is non-refundable and your flight will be booked months out. Insurance is the only thing covering either of those."),
@@ -45,7 +45,7 @@ MAIN = """<main id="main">
     <div class="ww-hero-copy">
       <span class="hv-label">Rise Into Her &middot; The Greece Edition</span>
       <h1 id="gr-h">Eight days <em>in Crete.</em></h1>
-      <p class="hv-lede">A small-group retreat for women in Douliana, a hillside village in western Crete with about forty houses in it. Fifteen seats, one property, and eight days that ask nothing of you.</p>
+      <p class="hv-lede">A small-group retreat for women in Douliana, a hillside village in western Crete with about forty houses in it. One property, and eight days that ask nothing of you.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="#seat" data-cta="greece-hero-wait">Join the waitlist %(ARW)s</a>
         <a class="hv-btn hv-btn--line" href="/retreats/gatlinburg/" data-cta="greece-hero-gatlinburg">Gatlinburg is open</a>
@@ -53,7 +53,7 @@ MAIN = """<main id="main">
       <dl class="gt-facts">
         <div><dt>Dates</dt><dd>13&ndash;20 August 2027</dd></div>
         <div><dt>Where</dt><dd>Douliana, Crete</dd></div>
-        <div><dt>Seats</dt><dd>Fifteen, all taken</dd></div>
+        <div><dt>Seats</dt><dd>All taken</dd></div>
         <div><dt>With</dt><dd>Cydnie and Kris</dd></div>
         <div><dt>Price</dt><dd>$3,450</dd></div>
         <div><dt>Waitlist</dt><dd>Open, no payment</dd></div>
@@ -61,7 +61,7 @@ MAIN = """<main id="main">
     </div>
     <figure class="ww-arch">
       <img src="%(G)shouse-1200.webp" srcset="%(G)shouse-600.webp 600w, %(G)shouse-900.webp 900w, %(G)shouse-1200.webp 1200w" sizes="(min-width: 64rem) 30rem, 90vw" width="1200" height="1200" alt="The stone house at Armonia Retreat Center at dusk, a vine pergola across its front." fetchpriority="high">
-      <figcaption><span>All fifteen seats taken</span><b>Waitlist open</b></figcaption>
+      <figcaption><span>Every seat taken</span><b>Waitlist open</b></figcaption>
     </figure>
   </div>
 </section>
@@ -127,7 +127,7 @@ MAIN = """<main id="main">
     <div class="ww-head">
       <span class="hv-label">Where you stay</span>
       <h2 class="hv-h2" id="gr-stay">Armonia <em>Retreat Center.</em></h2>
-      <p class="hv-lede">One house, in the middle of the village, and for eight days it is only ours. Fifteen guests, two to a room, twin beds, and every room has its own bathroom. Kris and I are in the house too.</p>
+      <p class="hv-lede">One house, in the middle of the village, and for eight days it is only ours. Shared rooms, twin beds, and every room has its own bathroom. Kris and I are in the house too.</p>
     </div>
     <dl class="gr-stats">
       <div><dt>Of grounds</dt><dd>4,000 m&sup2;</dd></div>
@@ -195,7 +195,7 @@ MAIN = """<main id="main">
     </div>
     <ul class="ww-profiles gr-objs" role="list">
       <li><h3>&ldquo;I cannot be away that long.&rdquo;</h3><p>Eight days once, against the fifty-one weeks you spend being the one everything runs through. The week is built so that nothing needs you in it.</p></li>
-      <li><h3>&ldquo;I would not know anyone.&rdquo;</h3><p>Most women come alone. That is the normal way to do this, and fifteen is small enough that by the second day you are not on the edge of anything.</p></li>
+      <li><h3>&ldquo;I would not know anyone.&rdquo;</h3><p>Most women come alone. That is the normal way to do this, and the group is small enough that by the second day you are not on the edge of anything.</p></li>
       <li><h3>&ldquo;I am not fit enough for it.&rdquo;</h3><p>There is nothing to be fit enough for. Kris designs the movement around who is in the room. If stairs and hills are a real concern, tell me before you book.</p></li>
       <li><h3>&ldquo;It is a lot of money.&rdquo;</h3><p>It is, and the figure is below rather than after a call. What you are actually buying is eight days in which nobody needs anything from you.</p></li>
     </ul>
@@ -239,7 +239,7 @@ MAIN = """<main id="main">
   <div class="hv-wrap gt-book-grid">
     <div>
       <span class="hv-label">Full &middot; Waitlist open</span>
-      <h2 class="hv-h2" id="gr-seat">All fifteen seats <em>are taken.</em></h2>
+      <h2 class="hv-h2" id="gr-seat">Every seat <em>is taken.</em></h2>
       <p class="sd-truth-copy">The price is here anyway, because you should be able to see what a thing costs before you decide whether to wait for it. Choose how you would pay and you go on the list. When a seat opens I call the list in order.</p>
       <dl class="gt-legs gr-terms">
         <div><dt>Deposit</dt><dd>$500 holds your seat. It comes off the total, and it is not refundable.</dd></div>
@@ -287,6 +287,15 @@ graph = L.old_graph("retreats/greece/index.html")
 for n in graph:
     if n.get("@type") == "FAQPage":
         n.update(L.faq_node(URL, FAQ))
+    # No group-size numbers anywhere on the site (Cydnie, 27 Sep 2026).
+    # Idempotent: the graph is read back from the page this script writes.
+    if n.get("@type") == "Event":
+        d = n["description"]
+        for old in ("Fifteen guest seats. ", "Seventeen guest seats. "):
+            d = d.replace(old, "")
+        assert "guest seats" not in d, d
+        n["description"] = d
+        n.pop("maximumAttendeeCapacity", None)
 
 PRELOAD = ('<link rel="preload" as="image" href="%shouse-1200.webp" imagesrcset="%shouse-600.webp 600w, '
            '%shouse-900.webp 900w, %shouse-1200.webp 1200w" imagesizes="(min-width: 64rem) 30rem, 90vw" '
@@ -295,10 +304,10 @@ PRELOAD = ('<link rel="preload" as="image" href="%shouse-1200.webp" imagesrcset=
 n = L.render(
     out="retreats/greece/index.html", depth=2, active="/retreats/",
     title="Rise Into Her: The Greece Edition | Crete, August 2027",
-    description="Rise Into Her: eight days at Armonia Retreat Center, Douliana, Crete, 13 to 20 August 2027. Fifteen women, all seats taken, waitlist open.",
+    description="Rise Into Her: eight days at Armonia Retreat Center, Douliana, Crete, 13 to 20 August 2027. All seats taken, waitlist open.",
     canonical=URL,
     og_title="Rise Into Her: The Greece Edition | Crete, August 2027",
-    og_description="Eight days in a hillside village in western Crete, for fifteen women. All seats taken; the waitlist is open.",
+    og_description="Eight days in a hillside village in western Crete. All seats taken; the waitlist is open.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
     og_image=L.SITE + "/assets/img/greece/house-1200.webp",
     reveal=(".ww-head", ".au-row > div", ".gt-days > li", ".gt-nums > div", ".gt-legs > div", ".gr-stats > div",

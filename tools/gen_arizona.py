@@ -60,7 +60,7 @@ MAIN = """<main id="main">
       <dl class="gt-facts">
         <div><dt>Dates</dt><dd>5&ndash;9 May 2027</dd></div>
         <div><dt>Where</dt><dd>Peoria, Arizona</dd></div>
-        <div><dt>Group</dt><dd>Nine women</dd></div>
+        <div><dt>Group</dt><dd>A small group of women</dd></div>
         <div><dt>With</dt><dd>Clarissa and Cydnie</dd></div>
         <div><dt>From</dt><dd>$1,675</dd></div>
         <div><dt>To hold a room</dt><dd>$500</dd></div>
@@ -125,8 +125,8 @@ MAIN = """<main id="main">
   <div class="hv-wrap">
     <div class="ww-head">
       <span class="hv-label">Where you stay</span>
-      <h2 class="hv-h2" id="az-house">Nine women, <em>one house.</em></h2>
-      <p class="hv-lede">You sleep, eat and make here. The house is painted top to bottom by hand, which is either a coincidence or the reason we booked it. Nine places. That is the whole retreat.</p>
+      <h2 class="hv-h2" id="az-house">One house, <em>all of it ours.</em></h2>
+      <p class="hv-lede">You sleep, eat and make here. The house is painted top to bottom by hand, which is either a coincidence or the reason we booked it.</p>
       <p class="gt-rate"><span>Early rate through 30 November</span> <b data-daysleft="2026-12-01T00:00:00-07:00" hidden></b></p>
     </div>
     <article class="gt-room az-room">
@@ -239,7 +239,7 @@ MAIN = """<main id="main">
     <div>
       <span class="hv-label">5&ndash;9 May 2027 &middot; Peoria</span>
       <h2 class="hv-h2" id="az-book">Come make something <em>in the desert.</em></h2>
-      <p class="sd-truth-copy">Nine women, five days, and everything you make comes home with you. $500 holds your room today, and the balance is five monthly payments starting the month after. Or pay in full.</p>
+      <p class="sd-truth-copy">Five days, and everything you make comes home with you. $500 holds your room today, and the balance is five monthly payments starting the month after. Or pay in full.</p>
       <p class="gt-rate-line">The early rate holds through 30 November 2026. From 1 December the room is $1,800.</p>
     </div>
     <div class="gt-picks">
@@ -308,7 +308,7 @@ n = L.render(
     description="Wild Canvas: a small creative retreat for women in Peoria, Arizona, 5 to 9 May 2027. Lodging and meals included. No art experience needed.",
     canonical=URL,
     og_title="Wild Canvas: The Arizona Edition | May 2027",
-    og_description="Five days in the desert making something of your own, for nine women, with artist Dr. Clarissa Castillo-Ramsey. From $1,675.",
+    og_description="Five days in the desert making something of your own, in a small group, with artist Dr. Clarissa Castillo-Ramsey. From $1,675.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
     og_image=L.SITE + "/assets/img/arizona/table-set-1000.webp",
     robots_html=robots, canonical_html=canonical, head_extra=extra,

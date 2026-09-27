@@ -2,7 +2,9 @@
 
 Kept, because it was right: the headline, the three dates and every fact on
 them, "Alone in a group of fifteen", the Costa Rica voices and Melissa's
-video (moved here from About), "Bring your own fifteen", the FAQ. Fixed:
+video (moved here from About), "Bring your own fifteen", the FAQ. (27 Sep
+2026: no group-size numbers anywhere on the site, her decision; every
+"fifteen" and the Greece count are gone.) Fixed:
 "Twice a year" beside three dates; "A Sounding / The Build" -> the site's
 names; "Carol Poedel" -> "Carol" as everywhere else; "Not for you if" ->
 "What it isn't" (qualifies without pushing away). Arizona stays unnamed on
@@ -29,7 +31,7 @@ FAQ = [
     ("Do I have to own a business to come?",
      "No. Some women who come run companies and some do not, and it has never once mattered in the room. The consulting is separate: <a class=\"hv-inline\" href=\"/the-build/\">Work with me</a>."),
     ("Do I have to come with someone?",
-     "Most women come alone. That is the normal way to do this, not the brave version of it. Fifteen is small enough that by the second day you are not on the edge of anything."),
+     "Most women come alone. That is the normal way to do this, not the brave version of it. The groups are small enough that by the second day you are not on the edge of anything."),
     ("What fitness level does this require?",
      "None in particular. Movement is led every day and shaped around who is in the room, not around who is fittest. If stairs and trails are a real concern, tell me before you book and I will be straight with you."),
     ("Can you accommodate how I eat?",
@@ -159,7 +161,7 @@ MAIN = """<main id="main">
           <p class="rx-when">13&ndash;20 August 2027 &middot; Douliana, Crete</p>
           <h3>Rise Into Her: The Greece Edition</h3>
           <p>Eight days at Armonia Retreat Center in a hillside village of about forty houses. Water, food cooked on site, long walks, and enough quiet to hear what you actually think. Movement led by Kris Krause.</p>
-          <p class="rx-note">All fifteen seats are spoken for. The list is how they get filled when one opens.</p>
+          <p class="rx-note">Every seat is spoken for. The list is how they get filled when one opens.</p>
           <div class="hv-btns"><a class="hv-btn hv-btn--ink" href="%(GREECE_WAIT)s" data-cta="retreats-card-greece-wait">Join the waitlist</a><a class="hv-link" href="/retreats/greece/">Everything about Greece</a></div>
         </div>
       </li>
@@ -178,9 +180,9 @@ MAIN = """<main id="main">
       <ul class="au-facts rx-days" role="list">
         <li>You are the one everybody depends on, at work, at home, or both.</li>
         <li>You want a stretch of days where that is not the arrangement.</li>
-        <li>You want to come home knowing fourteen women well enough to text them.</li>
+        <li>You want to come home knowing the other women well enough to text them.</li>
       </ul>
-      <p class="rx-format-copy">No retreat goes over fifteen women, because that is how many people can actually be known in a week. Rest, movement, food somebody else made, and long stretches of unscheduled time. No workbook, no pitch, nothing to prepare.</p>
+      <p class="rx-format-copy">Each group is kept small, so everyone in it can actually be known in a week. Rest, movement, food somebody else made, and long stretches of unscheduled time. No workbook, no pitch, nothing to prepare.</p>
       <p class="au-why">Nobody will need anything from you. <em>Nobody will leave you either.</em></p>
     </div>
   </div>
@@ -228,7 +230,7 @@ MAIN = """<main id="main">
   <div class="hv-wrap au-row">
     <div>
       <span class="hv-label">By inquiry</span>
-      <h2 class="hv-h2" id="rx-private">Bring your <em>own fifteen.</em></h2>
+      <h2 class="hv-h2" id="rx-private">Bring your <em>own group.</em></h2>
     </div>
     <div>
       <p class="sd-truth-copy">If you already have the women, I will build the week: your group, your dates, your location. Teams and communities use it too. The price depends on where and how long, so it starts with a conversation.</p>
@@ -252,9 +254,9 @@ MAIN = """<main id="main">
 
 <section class="hv-close" aria-labelledby="close-h">
   <div class="hv-wrap">
-    <span class="hv-label hv-label--c">Fifteen seats</span>
-    <h2 class="hv-h2" id="close-h">When they go, <em>the date closes.</em></h2>
-    <p class="hv-lede">That is the number, not a tactic. Gatlinburg is booking now, and the early rate holds through 31 October.</p>
+    <span class="hv-label hv-label--c">A small group</span>
+    <h2 class="hv-h2" id="close-h">When the places go, <em>the date closes.</em></h2>
+    <p class="hv-lede">Each retreat has a set number of places. Gatlinburg is booking now, and the early rate holds through 31 October.</p>
     <div class="hv-btns">
       <a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-close-rooms">Choose your Gatlinburg room %(ARW)s</a>
       <a class="hv-btn hv-btn--line" href="%(GREECE_WAIT)s">Greece waitlist</a>
@@ -287,10 +289,10 @@ PRELOAD = ('<link rel="preload" as="image" href="../assets/img/retreats/cr-floor
 n = L.render(
     out="retreats/index.html", depth=1, active="/retreats/",
     title="Retreats for Women | Gatlinburg and Crete 2027 | Cydnie Jocelyn",
-    description="Small-group retreats for women, fifteen at most. Gatlinburg, Tennessee in April 2027, booking now; Crete in August 2027, waitlist open.",
+    description="Small-group retreats for women. Gatlinburg, Tennessee in April 2027, booking now; Crete in August 2027, waitlist open.",
     canonical=URL,
     og_title="Retreats for Women | Cydnie Jocelyn",
-    og_description="A week where you are not the one holding it together. Fifteen women at most. Gatlinburg April 2027, booking now.",
+    og_description="A week where you are not the one holding it together, in a small group. Gatlinburg April 2027, booking now.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
     reveal=(".ww-head", ".rx-date", ".au-row > div", ".hv-slides", ".rx-proof-cta"),
     reveal_imgs=(".rx-wide", ".rx-vid"),
