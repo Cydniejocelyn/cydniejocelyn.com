@@ -8516,3 +8516,13 @@ site, untouched. `git switch site-2026` before any rebuild work.
      water photos, mark-horiz-*), with her OK.
   7. Republish every artifact; push only on her word; verify with
      `vercel ls` and a real browser (plain curl gives a false pass).
+
+### 28 September: Clarissa's guest quotes on /retreats/arizona/ (NOT PUSHED)
+Three quotes Clarissa supplied from her own events, added to the dark
+"Who leads the making" section under her line (`.az-voices` in
+tools/gen_arizona.py and lux.css), labelled "From Clarissa's retreats",
+never as Wild Canvas. Verbatim; Sylvia Lopez's starts at her second
+sentence. Closes the open item "a voice from one of Clarissa's own
+programmes". Review: claude.ai/artifact/CqN4Yqjfi4PTPWcMTQVrv8 (v6).
+Built, 390 clean, still noindex. Waiting on Cydnie to look and say push,
+and on Clarissa's OK to print Sylvia Lopez's full name.

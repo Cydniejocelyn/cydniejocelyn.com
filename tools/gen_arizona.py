@@ -103,6 +103,20 @@ MAIN = """<main id="main">
     </div>
     <blockquote class="az-say"><p>&ldquo;Wild does not have to mean loud. It can mean a little less edited. A little more curious. More willing to follow what wants to emerge than to worry about doing it right.&rdquo;</p><cite>Clarissa, on what Wild Canvas is for</cite></blockquote>
   </div>
+  <!-- FROM CLARISSA'S OWN RETREATS, added 28 September on Cydnie's word.
+       The only proof on the page about MAKING; everything else is Costa
+       Rica and about rest. Labelled as her past events, never as Wild
+       Canvas, which nobody has attended yet. Words verbatim as Clarissa
+       supplied them, "reset, relax" included; Sylvia's starts at her second
+       sentence, nothing cut inside it. -->
+  <div class="hv-wrap az-voices">
+    <span class="hv-label">From Clarissa&rsquo;s retreats</span>
+    <div class="az-voices-row">
+      <blockquote><p>&ldquo;It was such a lovely afternoon filled with creativity, conversation, reflection and sisterhood. Deeply grateful to have been a part of it.&rdquo;</p><cite>Guest &middot; Spring Reset Women&rsquo;s Retreat, Pasadena, CA</cite></blockquote>
+      <blockquote><p>&ldquo;I was able to reset, relax. A wonderful weekend shared with women in an intimate and friendly setting.&rdquo;</p><cite>Guest &middot; Spring Reset Women&rsquo;s Retreat, Pasadena, CA</cite></blockquote>
+      <blockquote><p>&ldquo;It was a day where relaxation intertwined with profound self-reflection and hands-on vision boarding&hellip; Through this experience, I walked away empowered, feeling an intense fulfillment that sprouted from the seeds of inspiration sown during a truly transformative day.&rdquo;</p><cite>Sylvia Lopez, Toluca Lake, CA &middot; Bloom Boldly Into Your Vision</cite></blockquote>
+    </div>
+  </div>
 </section>
 
 <section class="hv-sec ww-path gt-week" id="week" aria-labelledby="az-week">
