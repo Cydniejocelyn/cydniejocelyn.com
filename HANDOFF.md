@@ -8524,5 +8524,5 @@ tools/gen_arizona.py and lux.css), labelled "From Clarissa's retreats",
 never as Wild Canvas. Verbatim; Sylvia Lopez's starts at her second
 sentence. Closes the open item "a voice from one of Clarissa's own
 programmes". Review: claude.ai/artifact/CqN4Yqjfi4PTPWcMTQVrv8 (v6).
-Built, 390 clean, still noindex. Waiting on Cydnie to look and say push,
-and on Clarissa's OK to print Sylvia Lopez's full name.
+PUSHED 28 Sep on her word (e11d9a0), verified on www. Still noindex.
+Sylvia Lopez is named in full; if Clarissa says otherwise, shorten it.
