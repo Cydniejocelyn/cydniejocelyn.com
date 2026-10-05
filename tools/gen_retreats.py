@@ -29,7 +29,7 @@ PRIVATE = "https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_
 
 FAQ = [
     ("Do I have to own a business to come?",
-     "No. Some women who come run companies and some do not, and it has never once mattered in the room. The consulting is separate: <a class=\"hv-inline\" href=\"/the-build/\">Work with me</a>."),
+     "No. Some women who come run companies and some do not, and it has never once mattered in the room. The consulting is separate: <a class=\"hv-inline\" href=\"/brand-strategy/\">Work with me</a>."),
     ("Do I have to come with someone?",
      "Most women come alone. That is the normal way to do this, not the brave version of it. The groups are small enough that by the second day you are not on the edge of anything."),
     ("What fitness level does this require?",
@@ -261,7 +261,7 @@ MAIN = """<main id="main">
       <a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-close-rooms">Choose your Gatlinburg room %(ARW)s</a>
       <a class="hv-btn hv-btn--line" href="%(GREECE_WAIT)s">Greece waitlist</a>
     </div>
-    <p class="au-also">Looking for the consulting instead? <a class="hv-inline" href="/the-build/">Work with me</a>, with every price published.</p>
+    <p class="au-also">Looking for the consulting instead? <a class="hv-inline" href="/brand-strategy/">Work with me</a>, with every price published.</p>
   </div>
 </section>
 

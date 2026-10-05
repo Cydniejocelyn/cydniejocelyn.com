@@ -89,7 +89,7 @@ f.addEventListener('load', function(){
    var crs=d.querySelector('.crs');
    /* initCursor() returns early on a page with no [data-cursor] targets, which
       is every page that is not a gallery. Asserting the companion exists there
-      reports a site bug that is the site working. Found running /a-sounding/. */
+      reports a site bug that is the site working. Found running /brand-strategy/strategy-session/. */
    if (!d.querySelector('[data-cursor]')) {
      ok('cursor: correctly NOT built, this page declares no targets', !crs);
    } else if (w.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -124,7 +124,7 @@ f.addEventListener('load', function(){
      ok('video: starts where asked', !!vid && /#t=3$/.test(vid.getAttribute('src')||''));
    }
    // ---- faq ----
-   /* Guarded on the count. Not every page has questions: /the-letters/ has
+   /* Guarded on the count. Not every page has questions: /newsletter/ has
       none, and indexing det[0] there threw and took the whole run down before
       any of that page's own assertions ran. Both `open` writes stay one per
       tick, which is trap 4 in the README. */
@@ -405,7 +405,7 @@ f.addEventListener('load', function(){
      ok('letters: the A Sounding popup IS on this page',
         !!d.querySelector('script[src*="sounding-popup"]'));
      ok('letters: nav marks this page current',
-        !!d.querySelector('.nav-links a[href="/the-letters/"][aria-current="page"]'));
+        !!d.querySelector('.nav-links a[href="/newsletter/"][aria-current="page"]'));
    }
    /* ---- the home FAQ, and the thing that had no assertion ----
       On 31 August 2026 the home page's FAQPage declared SEVEN questions and
@@ -413,7 +413,7 @@ f.addEventListener('load', function(){
       four a reader could open were different questions on different
       subjects. Google requires FAQ content to be visible, so that is a
       policy problem rather than an untidiness, and it survived because
-      /retreats/ and /a-sounding/ had an assertion like this one and the home
+      /retreats/ and /brand-strategy/strategy-session/ had an assertion like this one and the home
       page did not.
 
       This asserts more than the retreats version. Counting alone would have
@@ -634,8 +634,8 @@ f.addEventListener('load', function(){
       and the socials on the home page only. This is the list, in order. Move
       it here and on all seven pages in the same commit or this fails. */
    var FOOTER = [
-     '/a-sounding/', '/retreats/', '/the-build/', '/the-build/#work',
-     '/about/', '/the-letters/',
+     '/brand-strategy/strategy-session/', '/retreats/', '/brand-strategy/', '/brand-strategy/#work',
+     '/about/', '/newsletter/',
      '/contact/',
      'https://www.instagram.com/cydniejocelyn/',
      'https://www.facebook.com/profile.php?id=61575458834389',

@@ -38,13 +38,13 @@ V = version()
 PAGES = (
     ("index.html",                  "assets/"),
     ("about/index.html",            "../assets/"),
-    ("the-build/index.html",        "../assets/"),
+    ("brand-strategy/index.html",        "../assets/"),
     ("retreats/index.html",         "../assets/"),
     ("retreats/greece/index.html",  "../../assets/"),   # two levels down
     ("retreats/gatlinburg/index.html", "../../assets/"),  # two levels down
     ("retreats/arizona/index.html",    "../../assets/"),  # two levels down
-    ("a-sounding/index.html",       "../assets/"),
-    ("the-letters/index.html",      "../assets/"),
+    ("brand-strategy/strategy-session/index.html", "../../assets/"),  # two levels down
+    ("newsletter/index.html",      "../assets/"),
     ("privacy-policy/index.html",   "../assets/"),
     ("thequestions/index.html",     "../assets/"),
     ("contact/index.html",          "../assets/"),

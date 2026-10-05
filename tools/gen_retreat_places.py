@@ -196,7 +196,7 @@ def main_html(p):
   <div class="hv-wrap">
     <span class="hv-label hv-label--c">Your week away</span>
     <h2 class="hv-h2" id="close-h">%(close_h2)s</h2>
-    <p class="hv-lede">Not ready to choose? <a class="hv-inline" href="/the-letters/">The Letters</a> hear about every new retreat first.</p>
+    <p class="hv-lede">Not ready to choose? <a class="hv-inline" href="/newsletter/">The Letters</a> hear about every new retreat first.</p>
     <div class="hv-btns">%(close_btn)s</div>
   </div>
 </section>

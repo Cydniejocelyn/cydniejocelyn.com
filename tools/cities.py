@@ -185,7 +185,7 @@ CITIES = [
     "proof": "quotes",
     "proof_label": "Client work",
     "proof_h2": "Positioning first, <em>then the look.</em>",
-    "proof_lede": "Mane Alchemist Salon faced the question many downtown businesses do: how to look and feel as premium as the experience inside. It was positioned toward deliberate luxury first, and the identity followed. <a class=\"hv-inline\" href=\"/the-build/#work\">See the work.</a>",
+    "proof_lede": "Mane Alchemist Salon faced the question many downtown businesses do: how to look and feel as premium as the experience inside. It was positioned toward deliberate luxury first, and the identity followed. <a class=\"hv-inline\" href=\"/brand-strategy/#work\">See the work.</a>",
     "faq": [
       ("Do you meet in person in Stillwater or White Bear Lake?",
        "Yes. Both are a short drive from my base in Forest Lake, so a Strategy Day can be in person or remote, depending on your preference."),

@@ -1591,7 +1591,7 @@ button { font: inherit; color: inherit; }
 
 /* ---------- 11d. START HERE, THE OFFER AS A DECISION ----------------
    `.decide` and `.offer-cost`, NOT `.offer` and `.offer-price`: those two
-   names already belonged to /the-build/ price cards further down this file,
+   names already belonged to /brand-strategy/ price cards further down this file,
    and sharing them put a grid template on every card on that page.
 
    Fourth layout. The centred stack before it was the only section on the
@@ -1909,7 +1909,7 @@ button { font: inherit; color: inherit; }
 
 /* ---- THE CLIENT WORK SHOWCASE, Phase 3.1 -------------------------
    Three in a row on a wide screen, stacked on a phone. Each stage is a Silt
-   panel carrying the same mark and phone pair /the-build/ draws, from the
+   panel carrying the same mark and phone pair /brand-strategy/ draws, from the
    same components, so the two pages cannot drift. The multipliers that
    level the three wordmarks (--mark-x) are on the items; only the base and
    the device width are scaled down here for a third of the row.
@@ -1949,7 +1949,7 @@ button { font: inherit; color: inherit; }
 .ws-more { margin: var(--s-6) 0 0; }
 .ws-link { align-self: flex-start; margin-top: auto; padding-top: var(--s-4); font-size: .875rem; }
 
-/* /the-build/ carries the same scope line and live link under each case. */
+/* /brand-strategy/ carries the same scope line and live link under each case. */
 .case-scope { color: var(--muted); max-width: 34rem; margin: var(--s-4) 0 0; }
 .case-live { margin: var(--s-4) 0 0; font-size: .875rem; }
 
@@ -6264,7 +6264,7 @@ main > * { position: relative; z-index: 1; }
    So the list scrolls inside a fixed window. The section is about one
    screen whatever the count, and an eleventh question costs nothing.
 
-   HOME ONLY. `.faq` is the same component on /retreats/ and /the-build/,
+   HOME ONLY. `.faq` is the same component on /retreats/ and /brand-strategy/,
    where the lists are shorter and sit inside their own layouts. The
    modifier keeps this off both.
 

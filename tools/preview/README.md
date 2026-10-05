@@ -52,7 +52,7 @@ portraits matching, overflow and image decoding.
 ### Run it headless. The pane lies before it dies.
 
     sh tools/preview/runsuite.sh "$SP" 8814            # all four covered pages
-    sh tools/preview/runsuite.sh "$SP" 8814 /a-sounding/
+    sh tools/preview/runsuite.sh "$SP" 8814 /brand-strategy/strategy-session/
 
 The preview pane degraded again in session four, and the important part is that
 **it returned wrong answers before it returned errors.** Greece reported

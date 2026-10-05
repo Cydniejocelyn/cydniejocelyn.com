@@ -48,11 +48,11 @@ if [ -n "$ONE" ]; then
 else
   one home      /
   one about     /about/
-  one build     /the-build/
+  one build     /brand-strategy/
   one retreats  /retreats/
   one greece    /retreats/greece/
-  one sounding  /a-sounding/
-  one letters   /the-letters/
+  one sounding  /brand-strategy/strategy-session/
+  one letters   /newsletter/
   one privacy   /privacy-policy/
   one questions /thequestions/
 fi

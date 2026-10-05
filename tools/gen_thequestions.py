@@ -92,7 +92,7 @@ MAIN = """<main id="main">
     <h2 class="hv-h2" id="close-h">One letter, <em>every week.</em></h2>
     <p class="hv-lede">If these questions landed, the letters will too. Free, written by me, and the first word on every retreat.</p>
     <div class="hv-btns">
-      <a class="hv-btn hv-btn--ink" href="/the-letters/" data-cta="questions-letters">Get the letters %(ARW)s</a>
+      <a class="hv-btn hv-btn--ink" href="/newsletter/" data-cta="questions-letters">Get the letters %(ARW)s</a>
     </div>
     <p class="au-also">Rather talk now? <a class="hv-inline" href="%(CALL)s" data-cta="free-call-questions">Book a free 30-min call</a>.</p>
   </div>

@@ -1,6 +1,6 @@
 """POST /api/subscribe  -  The Letters.
 
-Replaces the Flodesk form on /the-letters/.
+Replaces the Flodesk form on /newsletter/.
 
 SINGLE OPT IN, DELIBERATELY, FOR NOW. The row is written straight to
 `confirmed` with consent_at set, because the form itself is the act of
@@ -22,7 +22,7 @@ class handler(JsonPost):
     def act(self, data, conn, ip_hash):
         email = H.email_field(data)
         name = H.field(data, "name", max_len=200)
-        source = H.field(data, "source_path", max_len=400) or "/the-letters/"
+        source = H.field(data, "source_path", max_len=400) or "/newsletter/"
 
         with conn.cursor() as cur:
             # A second signup from the same address is not an error and must

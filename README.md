@@ -154,7 +154,7 @@ cannot be verified is the kind of claim that gets rich results suppressed.
 2. **The email form.** `action="#"` on the twelve-questions form is a placeholder. Point it at
    the Flodesk endpoint and keep the hidden `tag` field. **If it becomes a real cross-origin
    POST, add its host to `form-action` in the CSP** or the submission is blocked; the live
-   Flodesk form on `/the-letters/` is already listed there.
+   Flodesk form on `/newsletter/` is already listed there.
 
 ### Security headers
 

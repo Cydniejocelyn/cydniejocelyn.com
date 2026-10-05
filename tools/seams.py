@@ -63,9 +63,9 @@ ALIAS = {
 PAGES = (
     "index.html",
     "about/index.html",
-    "a-sounding/index.html",
-    "the-build/index.html",
-    "the-letters/index.html",
+    "brand-strategy/strategy-session/index.html",
+    "brand-strategy/index.html",
+    "newsletter/index.html",
     "thequestions/index.html",
     "privacy-policy/index.html",
     "contact/index.html",

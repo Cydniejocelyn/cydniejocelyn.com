@@ -3,7 +3,7 @@ import os, re, json, html as H
 # made a run from a worktree overwrite the main checkout (5 Oct 2026).
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 home = open(ROOT + "/index.html").read()
-old = open(ROOT + "/the-build/index.html").read()
+old = open(ROOT + "/brand-strategy/index.html").read()
 
 def between(s, a, b, incl=True):
     i = s.index(a); j = s.index(b, i) + (len(b) if incl else 0)
@@ -18,7 +18,7 @@ stamp = re.search(r'lux\.css\?v=([0-9a-f]+)', home).group(1)
 def up(s):
     return s.replace('src="assets/', 'src="../assets/').replace('href="assets/', 'href="../assets/').replace(' assets/img', ' ../assets/img')
 
-header = up(header).replace('<li><a href="/the-build/">Work with me</a></li>', '<li><a href="/the-build/" aria-current="page">Work with me</a></li>')
+header = up(header).replace('<li><a href="/brand-strategy/">Work with me</a></li>', '<li><a href="/brand-strategy/" aria-current="page">Work with me</a></li>')
 assert 'aria-current="page"' in header
 footer = up(footer)
 scripts = up(scripts).replace('src="/sounding-popup.js"', 'src="/sounding-popup.js"')
@@ -93,7 +93,8 @@ for n in g["@graph"]:
         n["description"] = "Brand, website, operations and business development partnership for founders and leaders, with every price published. Based in Forest Lake, Minnesota, working with clients across the United States."
     if t == "WebPage":
         n["name"] = "Work with me: brand and business strategy partnership"
-        n["breadcrumb"]["itemListElement"][1]["name"] = "Work with me"
+        # Lives at /brand-strategy/ since 5 Oct 2026, the parent of the city pages.
+        n["breadcrumb"]["itemListElement"][1]["name"] = "Brand Strategy"
     if t == "Service":
         cat = n["hasOfferCatalog"]["itemListElement"]
         names = [o.get("name") for o in cat]
@@ -121,7 +122,7 @@ page = '''<!DOCTYPE html>
      door now, then the Sounding. The old page is in git at cfd6c66. -->
 <title>Work With Me | Brand &amp; Business Strategy Partner, Published Pricing</title>
 <meta name="description" content="A brand, website, operations and business development partner for founders and leaders. Every price published, from a $1,500 strategy day. Free first call.">
-<link rel="canonical" href="https://www.cydniejocelyn.com/the-build/">
+<link rel="canonical" href="https://www.cydniejocelyn.com/brand-strategy/">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="author" content="Cydnie Jocelyn Brown">
 <meta name="theme-color" content="#FFFFFF">
@@ -130,7 +131,7 @@ page = '''<!DOCTYPE html>
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cydnie Jocelyn">
-<meta property="og:url" content="https://www.cydniejocelyn.com/the-build/">
+<meta property="og:url" content="https://www.cydniejocelyn.com/brand-strategy/">
 <meta property="og:title" content="Work with Cydnie Jocelyn | Brand &amp; Business Strategy Partner">
 <meta property="og:description" content="Brand, website, operations and growth, in one partnership. Every price published, and the first call is free.">
 <meta property="og:image" content="https://www.cydniejocelyn.com/assets/og/home-2026.png">
@@ -378,5 +379,5 @@ page = '''<!DOCTYPE html>
 for k, v in [("JSONLD", jsonld), ("SPRITE", sprite), ("HEADER", header), ("FOOTER", footer), ("SCRIPTS", scripts),
              ("MENU", menu), ("FAQ", faq_html), ("STAMP", stamp), ("CALL", CALL), ("SOUND", SOUND), ("ARW", ARW)]:
     page = page.replace("@@%s@@" % k, v)
-open(ROOT + "/the-build/index.html", "w").write(page)
+open(ROOT + "/brand-strategy/index.html", "w").write(page)
 print("written", len(page))

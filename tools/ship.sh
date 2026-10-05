@@ -88,7 +88,7 @@ echo "==> deploying dist/"
 # On 28 August 2026 that shipped a production CSP whose script-src contained
 # the literal placeholder. A browser drops an unrecognised source expression
 # and enforces the rest, so every inline script on the site was blocked:
-# analytics, the js-motion flip, and the Flodesk signup on /the-letters/.
+# analytics, the js-motion flip, and the Flodesk signup on /newsletter/.
 # The HTML and the CSS were correct. Only the header was wrong, and nothing
 # in the build or the suite could see it, because neither one deploys.
 #

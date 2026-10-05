@@ -8704,3 +8704,29 @@ marketing chat; the brief was given to her in chat on 5 October.
     copy, the blog session owns LudmMG...) LCXrgkWVmc2mUQPbqXXpaV; retreats
     HcXyuAjSzWWDLmSyyGdxvc, Gatlinburg Uq7dwHkKDjc5SLFcEKriG2, Arizona
     CqN4Yqjfi4PTPWcMTQVrv8. Push on her word.
+
+## 82. URL moves, 5 October 2026. /the-build/ /a-sounding/ /the-letters/ RENAMED.
+
+Cydnie's call, from the URL review in section 80:
+
+    /the-build/    ->  /brand-strategy/                   (services and pricing)
+    /a-sounding/   ->  /brand-strategy/strategy-session/  (the Sounding)
+    /the-letters/  ->  /newsletter/                       (The Letters)
+
+The folders were moved with git mv. Every internal link, canonical, og:url, schema @id,
+sitemap loc, llms.txt line, popup path list, stamp/seams/artifact page list and suite
+path was rewritten. A crawl of dist/ finds 0 broken internal links and 0 internal links
+that go through a redirect. vercel.json 301s each old path (with and without the slash),
+points every older redirect straight at the new address (no chains), and drops the
+/newsletter -> /the-letters/ rule, which would now loop. The Sounding is two levels
+down, so gen_a_sounding.py uses ../../assets/ and depth=2.
+
+Breadcrumbs: services is "Home > Brand Strategy". The Sounding and every city page are
+"Home > Brand Strategy > ...", now that /brand-strategy/ exists (it was a 404 under the
+city pages until this). Every sitemap lastmod is 2026-10-05.
+
+**For the blog branch (another session, mid-merge when this landed):** posts and the
+blog home link to /the-build/, /a-sounding/ and /the-letters/. The 301s catch them, but
+after merging main, run the same replacements over tools/posts.py and gen_blog.py and
+regenerate, so no internal link goes through a redirect. The Sounding's name is still
+open; its URL no longer depends on it.
