@@ -8692,6 +8692,9 @@ marketing chat; the brief was given to her in chat on 5 October.
   * Checked: build, seams 0, no comments, every image and internal link
     200 on ten pages, no sideways scroll at 390, footer 4 columns desktop
     and paired on phones.
+  * HOME "Find your retreat" (her word: subtle, not a block like the
+    cities): one hairline row under the retreats section, small label and
+    five serif links (.hv-rt-find), replacing the sentence of links.
   * MERGE NOTE: index.html footer changed here; the `blog` branch (mid-merge
     in the main checkout) adds a Blog link to the same footer. Whoever
     merges second resolves the footer by hand.

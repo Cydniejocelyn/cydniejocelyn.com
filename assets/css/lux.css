@@ -1234,4 +1234,10 @@
 .hv-rt-next h3 a { color: inherit; text-decoration: none; }
 .hv-rt-next p { margin-top: .6rem; color: var(--ink-2); font-size: .9375rem; }
 .hv-rt-next .hv-link { margin-top: .9rem; }
-.hv-rt-guides { margin-top: 1rem; color: var(--ink-2); }
+/* "Find your retreat": one quiet row under the retreats section, on her
+   word that it be subtle, not a block like the cities. */
+.hv-rt-find { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem 1.5rem; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.hv-rt-find ul { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; margin: 0; padding: 0; list-style: none; }
+.hv-rt-find a { font-family: var(--serif); font-size: 1.125rem; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-2); transition: color .25s ease, border-color .25s ease; }
+.hv-rt-find a:hover { color: var(--blue-deep); border-color: var(--blue-deep); }
+.hv-rt-find a:focus-visible { outline: 2px solid var(--blue-deep); outline-offset: 3px; }
