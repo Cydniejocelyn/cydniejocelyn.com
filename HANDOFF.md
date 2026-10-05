@@ -8597,6 +8597,10 @@ Alchemist Salon is in Chisago. She approved the five cities and added Chisago.
   * URL (her word, 5 Oct): /blog/<post-slug>/, generated the same way
     (gen_blog.py reading a posts list), with Article + BreadcrumbList
     schema and the city page as `about`/`mentions`.
+  * BEFORE THE BLOG SHIPS: vercel.json (commit 6764b1f, Showit redirects)
+    sends /blog, /blog/ and /blog/:slug* to /the-letters/. Delete those
+    three redirects in the same commit that adds the first post, or every
+    post 301s to the Letters.
   * The /brand-strategy/<slug>/ URLs are the contract the blog links to;
     renaming a slug needs a redirect in vercel.json.
 
