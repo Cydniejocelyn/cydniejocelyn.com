@@ -50,8 +50,8 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="az-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">Wild Canvas &middot; The Arizona Edition</span>
-      <h1 id="az-h">Five days in the desert, <em>making something of your own.</em></h1>
+      <h1 class="hv-label" id="az-h">Wild Canvas &middot; a women&rsquo;s creative retreat in Peoria, Arizona</h1>
+      <p class="ww-display">Five days in the desert, <em>making something of your own.</em></p>
       <p class="hv-lede">A small creative retreat for women, led by abstract artist Dr. Clarissa Castillo-Ramsey. You land in Phoenix and somebody is already waiting on you. Everything after that is handled. No art experience needed.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="#rooms" data-cta="arizona-hero-rooms">Hold your room for $500 %(ARW)s</a>
@@ -316,9 +316,15 @@ PRELOAD = ('<link rel="preload" as="image" href="%stable-set-portrait-848.webp" 
            '%stable-set-portrait-848.webp 848w" imagesizes="(min-width: 64rem) 30rem, 90vw" type="image/webp" '
            'fetchpriority="high">\n') % (A, A, A)
 
+# The retreat guides (tools/gen_retreat_places.py), just above the FAQ.
+from gen_retreat_places import guides_html
+_FAQ = '<section class="hv-sec" id="faq" aria-labelledby="faq-h">'
+assert MAIN.count(_FAQ) == 1
+MAIN = MAIN.replace(_FAQ, guides_html(exclude='arizona') + "\n" + _FAQ, 1)
+
 n = L.render(
     out="retreats/arizona/index.html", depth=2, active="/retreats/",
-    title="Wild Canvas: The Arizona Edition | Peoria, May 2027",
+    title="Women's Creative Retreat in Arizona | Wild Canvas, May 2027",
     description="Wild Canvas: a small creative retreat for women in Peoria, Arizona, 5 to 9 May 2027. Lodging and meals included. No art experience needed.",
     canonical=URL,
     og_title="Wild Canvas: The Arizona Edition | May 2027",

@@ -104,7 +104,7 @@ def network(c):
     <div class="ww-head">
       <span class="hv-label">Also in person</span>
       <h2 class="hv-h2" id="ct-net">Around <em>Minnesota.</em></h2>
-      <p class="hv-lede">Based in Forest Lake, working in person across the north metro and the Twin Cities, and remotely anywhere in the United States.</p>
+      <p class="hv-lede">Based in Forest Lake, working in person across the north metro and the Twin Cities, and remotely anywhere in the United States. Taking a team away? See <a class="hv-inline" href="/womens-retreats/leadership/">leadership retreats</a>.</p>
     </div>
     <ul class="ct-net" role="list">
 %s

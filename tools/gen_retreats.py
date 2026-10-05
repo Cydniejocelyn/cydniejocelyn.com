@@ -286,13 +286,19 @@ PRELOAD = ('<link rel="preload" as="image" href="../assets/img/retreats/cr-floor
            'imagesrcset="../assets/img/retreats/cr-floor-600.webp 600w, ../assets/img/retreats/cr-floor-1000.webp 1000w" '
            'imagesizes="(min-width: 64rem) 30rem, 90vw" type="image/webp" fetchpriority="high">\n')
 
+# The retreat guides (tools/gen_retreat_places.py), just above the FAQ.
+from gen_retreat_places import guides_html
+_FAQ = '<section class="hv-sec" id="faq" aria-labelledby="faq-h">'
+assert MAIN.count(_FAQ) == 1
+MAIN = MAIN.replace(_FAQ, guides_html(exclude=None) + "\n" + _FAQ, 1)
+
 n = L.render(
     out="retreats/index.html", depth=1, active="/retreats/",
-    title="Retreats for Women | Gatlinburg and Crete 2027 | Cydnie Jocelyn",
-    description="Small-group retreats for women. Gatlinburg, Tennessee in April 2027, booking now; Crete in August 2027, waitlist open.",
+    title="Women's Retreats 2027 | Smokies, Arizona & Crete",
+    description="Small-group wellness retreats for women: Gatlinburg, Tennessee in April 2027 and Arizona in May, booking now; Crete in August, waitlist open.",
     canonical=URL,
     og_title="Retreats for Women | Cydnie Jocelyn",
-    og_description="A week where you are not the one holding it together, in a small group. Gatlinburg April 2027, booking now.",
+    og_description="A week where you are not the one holding it together, in a small group. Gatlinburg in April and Arizona in May 2027, booking now.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
     reveal=(".ww-head", ".rx-date", ".au-row > div", ".hv-slides", ".rx-proof-cta"),
     reveal_imgs=(".rx-wide", ".rx-vid"),

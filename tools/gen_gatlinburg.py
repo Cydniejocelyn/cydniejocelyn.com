@@ -324,9 +324,15 @@ PRELOAD = ('<link rel="preload" as="image" href="%shouse-dusk-portrait-834.webp"
            'imagesrcset="%shouse-dusk-portrait-600.webp 600w, %shouse-dusk-portrait-834.webp 834w" '
            'imagesizes="(min-width: 64rem) 30rem, 90vw" type="image/webp" fetchpriority="high">\n') % (IMG, IMG, IMG)
 
+# The retreat guides (tools/gen_retreat_places.py), just above the FAQ.
+from gen_retreat_places import guides_html
+_FAQ = '<section class="hv-sec" id="faq" aria-labelledby="faq-h">'
+assert MAIN.count(_FAQ) == 1
+MAIN = MAIN.replace(_FAQ, guides_html(exclude='smoky-mountains') + "\n" + _FAQ, 1)
+
 n = L.render(
     out="retreats/gatlinburg/index.html", depth=2, active="/retreats/",
-    title="Wide Open: The Gatlinburg Edition | Tennessee, April 2027",
+    title="Women's Retreat in Gatlinburg, TN | Smoky Mountains, April 2027",
     description="Wide Open: five days in Gatlinburg, Tennessee, 13 to 18 April 2027. Lodging, every meal, daily movement, two workshops and two outings included.",
     canonical=URL,
     og_title="Wide Open: The Gatlinburg Edition | April 2027",

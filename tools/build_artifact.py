@@ -41,6 +41,11 @@ import html as _h
 for _c in _CITIES:
     PAGES[_c["slug"]] = ("brand-strategy/%s/index.html" % _c["slug"], "cydnie-jocelyn-%s.html" % _c["slug"],
                          "Brand Strategy in " + _h.unescape(_c["label"]))
+# The five retreat guides (tools/gen_retreat_places.py, 5 October 2026).
+from retreat_places import PLACES as _PLACES
+for _p in _PLACES:
+    PAGES["wr-" + _p["slug"]] = ("womens-retreats/%s/index.html" % _p["slug"], "cydnie-jocelyn-wr-%s.html" % _p["slug"],
+                                 _h.unescape(_p["label"]).replace("’", "'"))
 if PAGE not in PAGES:
     raise SystemExit("unknown page %r, expected one of %s" % (PAGE, ", ".join(PAGES)))
 SRCFILE, OUTFILE, TITLE = PAGES[PAGE]
@@ -368,6 +373,12 @@ ARTIFACT = {
     "/brand-strategy/stillwater/":   "https://claude.ai/artifact/QZQxLnoy2qf8pb7zB7ssTM",
     "/brand-strategy/blaine/":       "https://claude.ai/artifact/TmYV7cQjMDKNggZhjAJvgF",
     "/brand-strategy/chisago-city/": "https://claude.ai/artifact/TAg8aD9S4HsYVAooMtYEN8",
+    # the five retreat guides, 5 October 2026
+    "/womens-retreats/minnesota/":       "https://claude.ai/artifact/LJVzGJ3EppMCC4kpUqCZLR",
+    "/womens-retreats/smoky-mountains/": "https://claude.ai/artifact/9ag18eQioLbbHV57oyCx61",
+    "/womens-retreats/arizona/":         "https://claude.ai/artifact/7TEFoHsYXCahJSKNygeKfg",
+    "/womens-retreats/wellness/":        "https://claude.ai/artifact/TqTAXLCRuCLdgpMdSc8R6b",
+    "/womens-retreats/leadership/":      "https://claude.ai/artifact/4xvVxdw49s13TesCfw6ok2",
 }
 HERE = "/" + os.path.dirname(SRCFILE) + "/" if os.path.dirname(SRCFILE) else "/"
 

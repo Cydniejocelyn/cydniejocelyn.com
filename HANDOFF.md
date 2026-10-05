@@ -8665,3 +8665,39 @@ Gatlinburg title to "Women's Retreat in Gatlinburg, TN | Smoky Mountains,
 April 2027", a retreats link in the footer, Arizona on the home page.
 Google Business Profile events, Metricool and Pinterest run from her
 marketing chat; the brief was given to her in chat on 5 October.
+
+### 5 October 2026, later: her yes to all three. BUILT, BRANCH retreat-guides, NOT PUSHED
+  * Five guides, /womens-retreats/{minnesota,smoky-mountains,arizona,
+    wellness,leadership}/. Copy in tools/retreat_places.py, frame in
+    tools/gen_retreat_places.py (`cd tools && python3 gen_retreat_places.py`).
+    Each: label as H1, why this place, the retreat cards that fit (the
+    leadership page has the private-retreat steps and the PRIVATE inquiry
+    form instead), what every retreat includes, guest reviews (Costa Rica
+    quotes, never a score), local FAQ + FAQPage, the other guides, close.
+    Leadership FAQ says strategy sessions CAN be built into a private
+    week: confirm with her.
+  * LINKS IN: footer gains a Retreats column (Gatlinburg, Arizona,
+    Wellness, Leadership, All retreats) on every page, and Follow along
+    moves under the booking button. Home retreats section: an Arizona
+    block under the Gatlinburg card, and a "Find your retreat" line to all
+    five. /retreats/, /retreats/gatlinburg/ and /retreats/arizona/ get the
+    guides row above the FAQ (guides_html() imported by those three
+    generators). City pages: "Taking a team away? See leadership retreats."
+  * TITLES: Gatlinburg "Women's Retreat in Gatlinburg, TN | Smoky
+    Mountains, April 2027"; Arizona "Women's Creative Retreat in Arizona |
+    Wild Canvas, May 2027" and its H1 is now the label (big line kept as
+    .ww-display); /retreats/ "Women's Retreats 2027 | Smokies, Arizona &
+    Crete" with Arizona in the description.
+  * sitemap (five URLs), llms.txt (Arizona retreat + guides list).
+  * Checked: build, seams 0, no comments, every image and internal link
+    200 on ten pages, no sideways scroll at 390, footer 4 columns desktop
+    and paired on phones.
+  * MERGE NOTE: index.html footer changed here; the `blog` branch (mid-merge
+    in the main checkout) adds a Blog link to the same footer. Whoever
+    merges second resolves the footer by hand.
+  * Review: guides Minnesota LJVzGJ3EppMCC4kpUqCZLR, Smoky Mountains
+    9ag18eQioLbbHV57oyCx61, Arizona 7TEFoHsYXCahJSKNygeKfg, Wellness
+    TqTAXLCRuCLdgpMdSc8R6b, Leadership 4xvVxdw49s13TesCfw6ok2; home (separate
+    copy, the blog session owns LudmMG...) LCXrgkWVmc2mUQPbqXXpaV; retreats
+    HcXyuAjSzWWDLmSyyGdxvc, Gatlinburg Uq7dwHkKDjc5SLFcEKriG2, Arizona
+    CqN4Yqjfi4PTPWcMTQVrv8. Push on her word.

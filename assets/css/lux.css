@@ -1209,3 +1209,29 @@
 .nf-links a:hover, .nf-links a:focus-visible { padding-left: .75rem; }
 .nf-links b { font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.05; }
 .nf-links span { font-size: .9375rem; color: var(--ink-2); }
+
+/* ---------- RETREAT GUIDES, FOOTER RETREATS COLUMN, HOME ARIZONA, 5 October 2026 ----------
+   Five pages under /womens-retreats/ (tools/gen_retreat_places.py) reuse the
+   city page classes; only the retreat cards are new. The footer gains a
+   Retreats column and Follow along moves under the booking button, so the
+   grid keeps its four desktop columns. */
+.wr-cards { display: grid; gap: 1.5rem; margin: clamp(2.5rem, 5vw, 3.5rem) 0 0; padding: 0; list-style: none; }
+@media (min-width: 60rem) { .wr-cards { grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr)); gap: 2rem; } }
+.wr-card { display: flex; flex-direction: column; padding: clamp(1.75rem, 3.5vw, 2.5rem); background: #fff; box-shadow: 0 30px 60px -45px rgba(12,40,48,.45); }
+.wr-when { margin-top: .9rem; font-size: .6875rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); }
+.wr-card h3 { margin: .6rem 0 0; font-family: var(--serif); font-weight: 400; font-size: clamp(1.75rem, 2.6vw, 2.25rem); line-height: 1.08; }
+.wr-card h3 a { color: inherit; text-decoration: none; }
+.wr-card h3 a:hover { color: var(--blue-deep); }
+.wr-card > p:not(.wr-when) { margin-top: 1rem; color: var(--ink-2); }
+.wr-card .wr-price { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--line); font-family: var(--serif); font-size: 1.375rem; color: var(--ink); }
+.wr-card .wr-note { margin-top: .4rem; font-size: .875rem; }
+.wr-card .hv-btns { margin-top: auto; padding-top: 1.75rem; }
+.wr-inc { counter-reset: none; }
+@media (min-width: 60rem) { .wr-inc { grid-template-columns: repeat(4, 1fr); } }
+.hv-ftr .hv-ftr-follow { margin: 1.75rem 0 .5rem; }
+.hv-rt-next { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.hv-rt-next h3 { margin: .5rem 0 0; font-family: var(--serif); font-weight: 400; font-size: 1.5rem; line-height: 1.1; }
+.hv-rt-next h3 a { color: inherit; text-decoration: none; }
+.hv-rt-next p { margin-top: .6rem; color: var(--ink-2); font-size: .9375rem; }
+.hv-rt-next .hv-link { margin-top: .9rem; }
+.hv-rt-guides { margin-top: 1rem; color: var(--ink-2); }
