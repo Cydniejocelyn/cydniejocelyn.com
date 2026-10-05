@@ -1201,3 +1201,4 @@
 @media (min-width: 48rem) { .ct-net { grid-template-columns: 1fr 1fr; column-gap: 3rem; } }
 @media (min-width: 64rem) { .ct-net { grid-template-columns: repeat(3, 1fr); } }
 .hv-cities { border-top: 1px solid var(--line); }
+.ct-other { margin-top: 2rem; max-width: 40rem; color: var(--ink-2); }

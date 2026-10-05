@@ -8574,27 +8574,28 @@ Alchemist Salon is in Chisago. She approved the five cities and added Chisago.
     QZQxLnoy2qf8pb7zB7ssTM, Blaine TmYV7cQjMDKNggZhjAJvgF, Chisago
     TAg8aD9S4HsYVAooMtYEN8 (all mapped in build_artifact.py ARTIFACT).
 
-### Open, needs her before push
-  1. Does the $1,500 Strategy Day credit toward a website or launch? The
-     pages say only that the day's decisions "become the brief". Not
-     claimed.
-  2. The Sounding page says every client starts with a Sounding; these
-     pages lead with the free call into the Strategy Day and offer the
-     Sounding as optional. Confirm that path.
-  3. In-person Strategy Days in all six areas ("In person in ___, or
-     remote"). Confirm she travels to each.
-  4. Mane Alchemist is written as "in Chisago" (town not named). Confirm
-     Chisago City vs. Lindstrom etc. before the page says more.
-  5. Local details are general and checkable (Grand Avenue, Lowertown,
-     West Seventh; Stillwater on the St. Croix; Highway 8). No statistics.
+### Her answers (5 October), applied
+  1. The $1,500 comes off the FULL BUILD (Full Brand Launch), not a
+     website; a website alone is a separate package. Said in the ticket,
+     the "Then build it" lede, both menu items and every price FAQ.
+  2. "The Sounding" name is unclear to her; she asked for name ideas
+     (given in chat, none chosen). Until she picks, city pages describe it
+     plainly ("90 minutes and a written roadmap for $300").
+  3. In person or remote by the client's preference and location.
+  4. Mane Alchemist Salon is in Chisago City.
+  5. Local details fit.
+  Also: Minneapolis heading is now "In a city full of options, be the
+  clear one." Home #cities gained "Don't see your city? Write to me at
+  hello@cydniejocelyn.com" (.ct-other).
+  STILL OPEN: the Sounding's new name, then push on her word.
 
 ### The blog network (planned, NOT built)
   * Each city in cities.py carries `blog`: three post ideas written for
     that place. Every post links to its city page in the first third and
-    once in the close; the city page later gains a "From the journal" row
+    once in the close; the city page later gains a "From the blog" row
     linking back (two-way, so the cluster reads as one topic to Google).
-  * Proposed URL: /journal/<post-slug>/, generated the same way
-    (gen_journal.py reading a posts list), with Article + BreadcrumbList
+  * URL (her word, 5 Oct): /blog/<post-slug>/, generated the same way
+    (gen_blog.py reading a posts list), with Article + BreadcrumbList
     schema and the city page as `about`/`mentions`.
   * The /brand-strategy/<slug>/ URLs are the contract the blog links to;
     renaming a slug needs a redirect in vercel.json.

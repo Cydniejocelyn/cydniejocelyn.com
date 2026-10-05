@@ -28,7 +28,7 @@ STEPS = [
 ]
 
 QUOTES = """    <ul class="hv-quotes sd-quotes" role="list">
-      <li><figure class="hv-q"><blockquote><p>&ldquo;She listens with intention, quickly understands your vision, and brings it to life with ease.&rdquo;</p><p>As a new business owner, she has lifted so much off my plate.</p></blockquote><figcaption>Tamara &middot; Mane Alchemist Salon, Chisago</figcaption></figure></li>
+      <li><figure class="hv-q"><blockquote><p>&ldquo;She listens with intention, quickly understands your vision, and brings it to life with ease.&rdquo;</p><p>As a new business owner, she has lifted so much off my plate.</p></blockquote><figcaption>Tamara &middot; Mane Alchemist Salon, Chisago City</figcaption></figure></li>
       <li><figure class="hv-q"><blockquote><p>&ldquo;She helped redesign how I operate.&rdquo;</p><p>Cydnie is very knowledgeable and incredibly dedicated.</p></blockquote><figcaption>Spencer Scott &middot; SRS Performance, Minneapolis</figcaption></figure></li>
     </ul>"""
 
@@ -43,8 +43,8 @@ CASE = {
         quote=("She helped redesign how I operate.", "Spencer Scott, SRS Performance"),
         href="https://srsperform.com"),
     "mane": dict(
-        label="Client work in Chisago", h2="A decision <em>before a design.</em>",
-        lede="A new salon in Chisago, before opening day, with a clear vision and no brand yet. The decision came first: away from the wellness salon default and toward deliberate luxury.",
+        label="Client work in Chisago City", h2="A decision <em>before a design.</em>",
+        lede="A new salon in Chisago City, before opening day, with a clear vision and no brand yet. The decision came first: away from the wellness salon default and toward deliberate luxury.",
         img="mane-alchemist", alt="Mane Alchemist Salon website home page, dark green with a gold art deco wordmark",
         tag="Full Brand Launch", name="Mane Alchemist Salon",
         story=[("The decision", "Positioned away from the wellness salon default and toward deliberate luxury."),
@@ -186,9 +186,9 @@ def main_html(c):
     </div>
     <div class="sd-ticket">
       <p class="sd-ticket-price"><span>Strategy Day</span>$1,500</p>
-      <ul role="list"><li>A full day on your brand and business</li><li>Audit, discovery, positioning and message</li><li>Your positioning and message in writing</li><li>In person in %(place)s, or remote</li></ul>
+      <ul role="list"><li>A full day on your brand and business</li><li>Audit, discovery, positioning and message</li><li>Your positioning and message in writing</li><li>In person or remote, your choice</li><li>$1,500 comes off a Full Brand Launch</li></ul>
       <a class="hv-btn hv-btn--ink" href="%(CALL)s" data-cta="free-call-city-book-%(slug)s">Book a free call to plan it %(ARW)s</a>
-      <p class="sd-ticket-note">Want my take first? <a class="hv-inline" href="/a-sounding/">The Sounding</a> is $300, and the $300 comes off your Build.</p>
+      <p class="sd-ticket-note">Not ready for a full day? <a class="hv-inline" href="/a-sounding/">The Sounding</a> is 90 minutes and a written roadmap for $300.</p>
     </div>
   </div>
 </section>
@@ -199,12 +199,12 @@ def main_html(c):
     <div class="ww-head">
       <span class="hv-label">After the day</span>
       <h2 class="hv-h2" id="ct-next">Then <em>build it.</em></h2>
-      <p class="hv-lede">%(next_lede)s The decisions from your Strategy Day become the brief, so the build starts from answers instead of guesses.</p>
+      <p class="hv-lede">%(next_lede)s The decisions from your Strategy Day become the brief, and if you choose the Full Brand Launch, the $1,500 comes off it.</p>
     </div>
     <div class="ww-menu">
       <div class="ww-group">
-        <div class="ww-item"><h4>Website</h4><p>Built in code and yours outright. No theme, no plugins, no platform to rent. Five to eight pages, with the copy and the search foundations done properly.</p><ul role="list"><li>Five to eight pages</li><li>Copy</li><li>SEO</li></ul><span class="hv-price">From<b>$4,000</b></span></div>
-        <div class="ww-item ww-item--sig"><h4>Full Brand Launch <span class="hv-tag">Signature</span></h4><p>Logo, brand guide and voice, a website, then the social strategy and launch plan that puts it in front of the right people. The complete partnership.</p><ul role="list"><li>Identity &amp; logo</li><li>Website</li><li>Launch plan</li></ul><span class="hv-price">From<b>$15,000</b></span></div>
+        <div class="ww-item"><h4>Website</h4><p>A separate package when it is not part of a Full Brand Launch. Built in code and yours outright. No theme, no plugins, no platform to rent. Five to eight pages, with the copy and the search foundations done properly.</p><ul role="list"><li>Five to eight pages</li><li>Copy</li><li>SEO</li></ul><span class="hv-price">From<b>$4,000</b></span></div>
+        <div class="ww-item ww-item--sig"><h4>Full Brand Launch <span class="hv-tag">Signature</span></h4><p>Logo, brand guide and voice, a website, then the social strategy and launch plan that puts it in front of the right people. The complete partnership, and your $1,500 Strategy Day comes off it.</p><ul role="list"><li>Identity &amp; logo</li><li>Website</li><li>Launch plan</li></ul><span class="hv-price">From<b>$15,000</b></span></div>
       </div>
     </div>
     <p class="ww-menu-note"><a class="hv-link" href="/the-build/">Every service and price</a></p>
@@ -266,7 +266,7 @@ def graph(c):
         {"@type": "Service", "@id": u + "#service", "name": "Strategy Day: brand strategy in " + plain(c["label"]),
          "serviceType": "Brand strategy", "provider": {"@id": ORG_ID}, "areaServed": area, "url": u,
          "description": "One day on audit, discovery, positioning and message, delivered in writing. "
-                        "In person in " + plain(c["place"]) + " or remote. Leads into a website or a Full Brand Launch.",
+                        "In person or remote, by preference and location. The $1,500 comes off a Full Brand Launch; a website is a separate package.",
          "offers": [
              {"@type": "Offer", "name": "Strategy Day", "price": 1500, "priceCurrency": "USD"},
              {"@type": "AggregateOffer", "name": "Website", "lowPrice": 4000, "priceCurrency": "USD"},
