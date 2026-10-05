@@ -37,7 +37,7 @@ MAIN = """<main id="main">
       <p class="hv-lede">I partner with founders and leaders on brand, website, operations and business development. Fourteen years in corporate marketing taught me to see a vision before it is built, and then build it with you, start to finish.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="%(CALL)s" data-cta="free-call-about">Book a free 30-min call %(ARW)s</a>
-        <a class="hv-btn hv-btn--line" href="/the-build/">Work with me</a>
+        <a class="hv-btn hv-btn--line" href="/brand-strategy/">Work with me</a>
       </div>
       <ul class="ww-trust" role="list"><li>14 years in corporate marketing</li><li>Forest Lake, Minnesota</li><li>Partnering nationwide</li></ul>
     </div>
@@ -150,7 +150,7 @@ MAIN = """<main id="main">
     <div class="hv-btns">
       <a class="hv-btn hv-btn--ink" href="%(CALL)s" data-cta="free-call-about-close">Book a free 30-min call %(ARW)s</a>
     </div>
-    <p class="au-also">Or <a class="hv-inline" href="/retreats/">come on a retreat</a>, or <a class="hv-inline" href="/the-letters/">read the Letters</a>.</p>
+    <p class="au-also">Or <a class="hv-inline" href="/retreats/">come on a retreat</a>, or <a class="hv-inline" href="/newsletter/">read the Letters</a>.</p>
   </div>
 </section>
 

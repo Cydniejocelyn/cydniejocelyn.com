@@ -10,7 +10,7 @@
    SKIP_PATHS below so the exclusion survives someone pasting the tag onto
    a page later:
 
-     /a-sounding      it exists to push a reader to that page
+     /brand-strategy/strategy-session  it exists to push a reader to that page
      /about           a first-person account of postpartum depression, a
                       child's diagnosis and a husband's stroke. Nothing
                       interrupts that to sell a $300 call.
@@ -27,7 +27,7 @@
   /* ---------------- CONFIG ---------------- */
   var LINK          = 'https://clients.cydniejocelyn.com/schedule/69f9f2a095c611cc2401eec7';
   var DELAY_MS      = 45000;   /* how long before it fires */
-  var SKIP_PATHS    = ['/a-sounding', '/about', '/retreats/greece', '/privacy-policy', '/thequestions', '/contact'];
+  var SKIP_PATHS    = ['/brand-strategy/strategy-session', '/about', '/retreats/greece', '/privacy-policy', '/thequestions', '/contact'];
   var REMEMBER_DAYS = 30;      /* how long a dismissal is honoured */
   var MEMORY_KEY    = 'sd_pop_dismissed';
 

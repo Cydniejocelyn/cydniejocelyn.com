@@ -30,13 +30,13 @@ the sitemap, linked from home and Retreats, and announced by
 place that says so.
 
 **HoneyBook and Flodesk are the CRM.** Every form on the site goes to one
-of them, including the Flodesk popup on /the-letters/, and that is settled.
+of them, including the Flodesk popup on /newsletter/, and that is settled.
 Replacing them is out of scope unless Cydnie reopens it.
 
 **There is a database, and it is switched off.** `api/` is in
 `.vercelignore`, so the four endpoints do not deploy and nothing on the site
 calls them. Deleting that line is what makes them live. Every form still goes
-to HoneyBook, and the Flodesk popup on /the-letters/ stays. Section 51.
+to HoneyBook, and the Flodesk popup on /newsletter/ stays. Section 51.
 
 **The build refuses to ship a secret.** `.env.local` was copied into `dist/`
 once, which a push would have published. If `check_no_secrets()` ever fires,

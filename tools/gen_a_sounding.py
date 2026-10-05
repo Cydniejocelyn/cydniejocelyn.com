@@ -1,4 +1,4 @@
-"""The Sounding (/a-sounding/), rebuilt 25 September 2026 on the luxury system.
+"""The Sounding (/brand-strategy/strategy-session/), rebuilt 25 September 2026 on the luxury system.
 
 Her answers: the free call comes first and every client then does the
 Sounding before any Build ("every client starts here" stays true); keep the
@@ -13,7 +13,7 @@ water language ("You are not lacking anything. You are under something"),
 """
 import lux_page as L
 
-URL = L.SITE + "/a-sounding/"
+URL = L.SITE + "/brand-strategy/strategy-session/"
 CALL, SOUND, ARW = L.CALL, L.SOUND, L.ARW
 
 FAQ = [
@@ -47,7 +47,7 @@ MAIN = """<main id="main">
       <ul class="ww-trust" role="list"><li>$300 flat</li><li>Credited to your project</li><li>Nothing to prepare</li></ul>
     </div>
     <figure class="ww-arch">
-      <img src="../assets/img/sounding/hero-1100.webp" srcset="../assets/img/sounding/hero-700.webp 700w, ../assets/img/sounding/hero-1100.webp 1100w, ../assets/img/sounding/hero-1500.webp 1500w" sizes="(min-width: 64rem) 30rem, 90vw" width="1100" height="1467" alt="Cydnie Jocelyn in a garden, one hand in her hair, smiling thoughtfully" fetchpriority="high">
+      <img src="../../assets/img/sounding/hero-1100.webp" srcset="../../assets/img/sounding/hero-700.webp 700w, ../../assets/img/sounding/hero-1100.webp 1100w, ../../assets/img/sounding/hero-1500.webp 1500w" sizes="(min-width: 64rem) 30rem, 90vw" width="1100" height="1467" alt="Cydnie Jocelyn in a garden, one hand in her hair, smiling thoughtfully" fetchpriority="high">
       <figcaption><span>Your written report</span><b>Two days later</b></figcaption>
     </figure>
   </div>
@@ -168,7 +168,7 @@ MAIN = """<main id="main">
     <div>
       <span class="hv-label">Questions</span>
       <h2 class="hv-h2" id="faq-h">Before you <em>book.</em></h2>
-      <p class="hv-lede">Not ready to spend $300? <a class="hv-inline" href="/contact/">Ask me a question</a>, or start with <a class="hv-inline" href="/the-letters/">the Letters</a>. They are free and arrive weekly.</p>
+      <p class="hv-lede">Not ready to spend $300? <a class="hv-inline" href="/contact/">Ask me a question</a>, or start with <a class="hv-inline" href="/newsletter/">the Letters</a>. They are free and arrive weekly.</p>
     </div>
     <div class="hv-faq-list">
 %(FAQ)s
@@ -180,14 +180,16 @@ MAIN = """<main id="main">
 """ % {"CALL": CALL, "SOUND": SOUND, "ARW": ARW, "FAQ": L.faq_html(FAQ)}
 
 # ---------- structured data: the old graph, updated ----------
-graph = L.old_graph("a-sounding/index.html")
+graph = L.old_graph("brand-strategy/strategy-session/index.html")
 for n in graph:
     t = n.get("@type")
     if t == "WebPage":
         n["name"] = "The Sounding: a 90-minute strategy session"
-        for it in n.get("breadcrumb", {}).get("itemListElement", []):
-            if it.get("position") == 2:
-                it["name"] = "The Sounding"
+        # Home > Brand Strategy > The Sounding: it lives under /brand-strategy/ since 5 Oct 2026.
+        n["breadcrumb"] = {"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": L.SITE + "/"},
+            {"@type": "ListItem", "position": 2, "name": "Brand Strategy", "item": L.SITE + "/brand-strategy/"},
+            {"@type": "ListItem", "position": 3, "name": "The Sounding", "item": URL}]}
     if t == "Service":
         n["name"] = "The Sounding"
         n["serviceType"] = "Business strategy session"
@@ -199,13 +201,13 @@ for n in graph:
         n["description"] = ("Brand, website, operations and business development partnership for founders and leaders, "
                             "with every price published. Based in Forest Lake, Minnesota, working with clients across the United States.")
 
-PRELOAD = ('<link rel="preload" as="image" href="../assets/img/sounding/hero-1100.webp" '
-           'imagesrcset="../assets/img/sounding/hero-700.webp 700w, ../assets/img/sounding/hero-1100.webp 1100w, '
-           '../assets/img/sounding/hero-1500.webp 1500w" imagesizes="(min-width: 64rem) 30rem, 90vw" '
+PRELOAD = ('<link rel="preload" as="image" href="../../assets/img/sounding/hero-1100.webp" '
+           'imagesrcset="../../assets/img/sounding/hero-700.webp 700w, ../../assets/img/sounding/hero-1100.webp 1100w, '
+           '../../assets/img/sounding/hero-1500.webp 1500w" imagesizes="(min-width: 64rem) 30rem, 90vw" '
            'type="image/webp" fetchpriority="high">\n')
 
 n = L.render(
-    out="a-sounding/index.html", depth=1, active="/the-build/",
+    out="brand-strategy/strategy-session/index.html", depth=2, active="/brand-strategy/",
     title="The Sounding | 90-Minute Strategy Session, $300 | Cydnie Jocelyn",
     description="A 90-minute strategy session on brand, operations and business development, with a written roadmap two days later. $300, credited to your project.",
     canonical=URL,

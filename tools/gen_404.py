@@ -19,10 +19,10 @@ CALL, ARW = L.CALL, L.ARW
 I = "/assets/img/"
 
 LINKS = (
-    ("/the-build/", "Work with me", "Services and every price"),
-    ("/a-sounding/", "The Sounding", "A 90-minute strategy session"),
+    ("/brand-strategy/", "Work with me", "Services and every price"),
+    ("/brand-strategy/strategy-session/", "The Sounding", "A 90-minute strategy session"),
     ("/retreats/", "Retreats", "Small-group retreats for women"),
-    ("/the-letters/", "The Letters", "A free weekly newsletter"),
+    ("/newsletter/", "The Letters", "A free weekly newsletter"),
     ("/about/", "About", "Who I am and how I work"),
     ("/contact/", "Contact", "A free call or a question"),
 )

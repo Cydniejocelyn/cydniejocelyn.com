@@ -1,4 +1,4 @@
-"""The Letters (/the-letters/), rebuilt 26 September 2026 on the luxury system.
+"""The Letters (/newsletter/), rebuilt 26 September 2026 on the luxury system.
 
 Her answers (26 September): keep the form that works (the HoneyBook
 sign-up, cf_id/6a19d46a...), her latest real letter as the sample (it replaced No. 07 the same day; "it's a letter for all", so the page does not narrow to founders), weekly
@@ -19,7 +19,7 @@ Lines that are mine, not hers, are marked BRIDGE.
 import os
 import lux_page as L
 
-URL = L.SITE + "/the-letters/"
+URL = L.SITE + "/newsletter/"
 CALL, ARW = L.CALL, L.ARW
 SIGNUP = "https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_id/6a19d46a5cb4c5d7f86446a9"
 I = "../assets/img/"
@@ -147,7 +147,7 @@ MAIN = """<main id="main">
 # Person and organisation as About now states them; the page's own nodes kept.
 about = {n["@id"]: n for n in L.old_graph("about/index.html") if "@id" in n}
 graph = []
-for n in L.old_graph("the-letters/index.html"):
+for n in L.old_graph("newsletter/index.html"):
     if n.get("@id") in about and n.get("@type") != "WebPage":
         n = about[n["@id"]]
     if n.get("@type") in ("Newsletter", "CreativeWorkSeries"):
@@ -161,9 +161,9 @@ PRELOAD = ('<link rel="preload" as="image" href="%scydnie-writing-1000.webp" '
            'imagesrcset="%scydnie-writing-600.webp 600w, %scydnie-writing-1000.webp 1000w" '
            'imagesizes="(min-width: 64rem) 30rem, 90vw" type="image/webp" fetchpriority="high">\n' % (I, I, I))
 
-OUT = "the-letters/index.html"
+OUT = "newsletter/index.html"
 L.render(
-    out=OUT, depth=1, active="/the-letters/",
+    out=OUT, depth=1, active="/newsletter/",
     title="The Letters | A Free Weekly Letter from Cydnie Jocelyn",
     description="A free weekly newsletter from Cydnie Jocelyn on leadership, business, growth and building something you believe in. Retreats and new work open here first.",
     canonical=URL,

@@ -188,7 +188,7 @@ def main_html(c):
       <p class="sd-ticket-price"><span>Strategy Day</span>$1,500</p>
       <ul role="list"><li>A full day on your brand and business</li><li>Audit, discovery, positioning and message</li><li>Your positioning and message in writing</li><li>In person or remote, your choice</li><li>$1,500 comes off a Full Brand Launch</li></ul>
       <a class="hv-btn hv-btn--ink" href="%(CALL)s" data-cta="free-call-city-book-%(slug)s">Book a free call to plan it %(ARW)s</a>
-      <p class="sd-ticket-note">Not ready for a full day? <a class="hv-inline" href="/a-sounding/">The Sounding</a> is 90 minutes and a written roadmap for $300.</p>
+      <p class="sd-ticket-note">Not ready for a full day? <a class="hv-inline" href="/brand-strategy/strategy-session/">The Sounding</a> is 90 minutes and a written roadmap for $300.</p>
     </div>
   </div>
 </section>
@@ -207,7 +207,7 @@ def main_html(c):
         <div class="ww-item ww-item--sig"><h4>Full Brand Launch <span class="hv-tag">Signature</span></h4><p>Logo, brand guide and voice, a website, then the social strategy and launch plan that puts it in front of the right people. The complete partnership, and your $1,500 Strategy Day comes off it.</p><ul role="list"><li>Identity &amp; logo</li><li>Website</li><li>Launch plan</li></ul><span class="hv-price">From<b>$15,000</b></span></div>
       </div>
     </div>
-    <p class="ww-menu-note"><a class="hv-link" href="/the-build/">Every service and price</a></p>
+    <p class="ww-menu-note"><a class="hv-link" href="/brand-strategy/">Every service and price</a></p>
   </div>
 </section>
 
@@ -262,7 +262,8 @@ def graph(c):
          "description": c["description"], "isPartOf": {"@id": L.SITE + "/#website"}, "about": {"@id": ORG_ID},
          "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [
              {"@type": "ListItem", "position": 1, "name": "Home", "item": L.SITE + "/"},
-             {"@type": "ListItem", "position": 2, "name": "Brand strategy in " + plain(c["label"]), "item": u}]}},
+             {"@type": "ListItem", "position": 2, "name": "Brand Strategy", "item": L.SITE + "/brand-strategy/"},
+             {"@type": "ListItem", "position": 3, "name": "Brand strategy in " + plain(c["label"]), "item": u}]}},
         {"@type": "Service", "@id": u + "#service", "name": "Strategy Day: brand strategy in " + plain(c["label"]),
          "serviceType": "Brand strategy", "provider": {"@id": ORG_ID}, "areaServed": area, "url": u,
          "description": "One day on audit, discovery, positioning and message, delivered in writing. "

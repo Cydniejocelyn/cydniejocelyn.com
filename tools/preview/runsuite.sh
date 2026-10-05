@@ -1,7 +1,7 @@
 #!/bin/sh
 # Run _test.html in headless Chrome and print the PASS/FAIL tally.
 #
-#   sh tools/preview/runsuite.sh "$SP" 8814 /a-sounding/
+#   sh tools/preview/runsuite.sh "$SP" 8814 /brand-strategy/strategy-session/
 #   sh tools/preview/runsuite.sh "$SP" 8814          # all six covered pages
 #
 # WHY THIS EXISTS. The Claude preview pane degraded again in session four, the
@@ -56,8 +56,8 @@ else
   one gatlinburg /retreats/gatlinburg/
   one arizona  /retreats/arizona/
   one retreats /retreats/
-  one sounding /a-sounding/
-  one letters  /the-letters/
+  one sounding /brand-strategy/strategy-session/
+  one letters  /newsletter/
   # Added 28 August 2026, after The Build page's ten questions became the
   # objection picker and the suite that went green on the deploy had never
   # once loaded the page that changed. Six of nine pages was not a suite,
@@ -65,7 +65,7 @@ else
   # were green the first time they were run, so this costs nothing and the
   # picker assertions now cover all three pages that carry one.
   one home     /
-  one build    /the-build/
+  one build    /brand-strategy/
   one about    /about/
   # Built 28 August. Static pages, but they carry two assertions each that
   # run nowhere else: the relative privacy and terms links in the footer,

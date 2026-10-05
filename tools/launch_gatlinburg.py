@@ -202,7 +202,7 @@ OLD_PRICE_Q = "Greece is $3,450, with a $500 non-refundable deposit. April 2027 
 NEW_PRICE_Q = "Gatlinburg is $1,490 for a shared room and $2,790 for the private king suite at the early rate, through 31 October 2026, and $500 holds your room. Greece is $3,450, with a $500 non-refundable deposit. Every figure is published on the retreat’s own page."
 sub(R, OLD_PRICE_Q, NEW_PRICE_Q)
 s = load(R)
-m = re.search(r'<p>Greece is \$3,450, with a \$500 non-refundable deposit\. April 2027 is not priced yet; when it is, <a class="link" href="/the-letters/">the letters</a> hear first\.(.*?)</p>', s, re.S)
+m = re.search(r'<p>Greece is \$3,450, with a \$500 non-refundable deposit\. April 2027 is not priced yet; when it is, <a class="link" href="/newsletter/">the letters</a> hear first\.(.*?)</p>', s, re.S)
 if not m:
     raise SystemExit("STOP: the visible pricing answer on /retreats/ was not found. Nothing written.")
 edits[R] = s[:m.start()] + "<p>" + NEW_PRICE_Q.replace("’", "&rsquo;") + "</p>" + s[m.end():]

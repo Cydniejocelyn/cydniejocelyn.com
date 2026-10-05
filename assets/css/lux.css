@@ -414,7 +414,7 @@
   @keyframes hv-marquee { to { transform: translateX(-50%); } }
 
 /* ==========================================================
-   WORK WITH ME (/the-build/), rebuilt 25 September 2026 on the same
+   WORK WITH ME (/brand-strategy/), rebuilt 25 September 2026 on the same
    system. Page-specific rules carry a ww- prefix.
    ========================================================== */
 .hv-nav a[aria-current="page"]::after { transform: scaleX(1); }
@@ -597,7 +597,7 @@
 .ww-cases-2 .ww-decision { margin-top: 1rem; padding-left: 1.1rem; border-left: 1px solid var(--blue); font-family: var(--serif); font-style: italic; font-size: 1.3125rem; line-height: 1.25; color: var(--ink); }
 
 /* ==========================================================
-   THE SOUNDING (/a-sounding/), 25 September 2026. sd- prefix.
+   THE SOUNDING (/brand-strategy/strategy-session/), 25 September 2026. sd- prefix.
    Reuses the ww- hero, head, steps and standards.
    ========================================================== */
 /* felt / found: two columns that read across, like a ledger */
@@ -954,7 +954,7 @@
 .az-day b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2.5rem, 4vw, 3.25rem); line-height: 1; color: var(--ink); }
 
 /* ==========================================================
-   THE LETTERS (/the-letters/), 26 September 2026. lt- prefix.
+   THE LETTERS (/newsletter/), 26 September 2026. lt- prefix.
    The sample letter is a real page (the Sounding's .sd-doc paper,
    upright and readable), the photo a wide crop beside two items.
    ========================================================== */
