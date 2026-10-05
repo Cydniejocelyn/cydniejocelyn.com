@@ -69,7 +69,7 @@ def faq_node(page_url, faq):
 
 def render(out, depth, active, title, description, canonical, og_title, og_description,
            graph, main, reveal=(), reveal_imgs=(), preload="", body_class="", og_image="home-2026.png",
-           robots_html=None, canonical_html=None, head_extra=""):
+           robots_html=None, canonical_html=None, head_extra="", gen=None):
     """robots_html / canonical_html replace the default robots meta and
     canonical link (a hidden page such as Arizona before launch passes its
     noindex pair and a commented canonical). head_extra goes after the
@@ -139,7 +139,7 @@ def render(out, depth, active, title, description, canonical, og_title, og_descr
 %(scripts)s</body>
 </html>
 """ % {
-        "gen": "gen_" + os.path.basename(os.path.dirname(out)).replace("-", "_") + ".py",
+        "gen": gen or "gen_" + os.path.basename(os.path.dirname(out)).replace("-", "_") + ".py",
         "title": esc(title), "description": esc(description), "canonical": canonical,
         "og_title": esc(og_title), "og_description": esc(og_description), "site": SITE,
         "og_image": og_image if og_image.startswith("http") else SITE + "/assets/og/" + og_image, "pre": pre, "preload": preload, "stamp": sh["stamp"],

@@ -8526,3 +8526,79 @@ sentence. Closes the open item "a voice from one of Clarissa's own
 programmes". Review: claude.ai/artifact/CqN4Yqjfi4PTPWcMTQVrv8 (v6).
 PUSHED 28 Sep on her word (e11d9a0), verified on www. Still noindex.
 Sylvia Lopez is named in full; if Clarissa says otherwise, shorten it.
+
+---
+
+## 79. START HERE FOR CITY PAGES. 5 October 2026. SIX LOCAL PAGES, BRANCH city-pages, NOT PUSHED.
+
+Her brief: location pages optimised for search, the **Strategy Day ($1,500)
+as the focus**, leading into a website or the full package; linked from the
+home page, **never from the navigation**; plan (do not build) a blog network
+that links back to them. Her facts: SRS Performance is in Minneapolis, Mane
+Alchemist Salon is in Chisago. She approved the five cities and added Chisago.
+
+### What exists
+  | URL | Case on the page |
+  |---|---|
+  | /brand-strategy/forest-lake/ | quotes, points up Highway 8 to Chisago |
+  | /brand-strategy/minneapolis/ | SRS Performance (feature block) |
+  | /brand-strategy/saint-paul/ | quotes |
+  | /brand-strategy/stillwater/ (+ White Bear Lake) | quotes, Mane as the "premium downtown" example |
+  | /brand-strategy/blaine/ (+ Anoka County) | quotes, SRS as the growth example |
+  | /brand-strategy/chisago-city/ (+ Chisago County) | Mane Alchemist Salon (feature block) |
+
+  * COPY: tools/cities.py, one dict per city, the single source. Each page
+    has its own hero, local section (two paragraphs, three local problems,
+    a "nearby" line), FAQ (4, mirrored in FAQPage), close heading and
+    title/description. Shared on purpose: the Strategy Day steps, the
+    $1,500 ticket, the Website / Full Brand Launch lead-in. That keeps them
+    clear of the doorway-page pattern in section 28; do not add a city by
+    copying another's text with the name swapped.
+  * FRAME: tools/gen_cities.py over lux_page.py (render() gained `gen=`).
+    `cd tools && python3 gen_cities.py`. Styles: lux.css block "CITY PAGES
+    AND THE HOME CITIES BLOCK" (.ct-*), the rest reuses ww-/sd-/hv- classes.
+  * HOME: section #cities between About and Retreats, six links, written
+    from cities.py at the time; if a city is added or renamed, edit that
+    block in index.html by hand too.
+  * SCHEMA per page: the home LocalBusiness node verbatim, WebPage with a
+    two-step breadcrumb, Service (areaServed = the city/county, offers
+    1,500 / from 4,000 / from 15,000), FAQPage.
+  * sitemap.xml (six URLs, lastmod 2026-10-05) and llms.txt "## Local pages".
+  * Booking: every button is the FREE CALL (there is no Strategy Day
+    booking link in HoneyBook); the ticket footnote offers the Sounding.
+  * Checked: build clean, seams 0, no comments in dist, all images and
+    internal links 200, no sideways scroll at 390 on all six and home.
+  * Review: Home claude.ai/artifact/LudmMGuNGvWvzyvBQLN7o8 (v16, cities
+    block), Forest Lake RNqDeWiq4fXQ41sSqRx22D, Minneapolis
+    NDUkK5eDgZFmH2qfRjzb3r, Saint Paul Pzm4QFCWQc9sVEu8SAFdDF, Stillwater
+    QZQxLnoy2qf8pb7zB7ssTM, Blaine TmYV7cQjMDKNggZhjAJvgF, Chisago
+    TAg8aD9S4HsYVAooMtYEN8 (all mapped in build_artifact.py ARTIFACT).
+
+### Open, needs her before push
+  1. Does the $1,500 Strategy Day credit toward a website or launch? The
+     pages say only that the day's decisions "become the brief". Not
+     claimed.
+  2. The Sounding page says every client starts with a Sounding; these
+     pages lead with the free call into the Strategy Day and offer the
+     Sounding as optional. Confirm that path.
+  3. In-person Strategy Days in all six areas ("In person in ___, or
+     remote"). Confirm she travels to each.
+  4. Mane Alchemist is written as "in Chisago" (town not named). Confirm
+     Chisago City vs. Lindstrom etc. before the page says more.
+  5. Local details are general and checkable (Grand Avenue, Lowertown,
+     West Seventh; Stillwater on the St. Croix; Highway 8). No statistics.
+
+### The blog network (planned, NOT built)
+  * Each city in cities.py carries `blog`: three post ideas written for
+    that place. Every post links to its city page in the first third and
+    once in the close; the city page later gains a "From the journal" row
+    linking back (two-way, so the cluster reads as one topic to Google).
+  * Proposed URL: /journal/<post-slug>/, generated the same way
+    (gen_journal.py reading a posts list), with Article + BreadcrumbList
+    schema and the city page as `about`/`mentions`.
+  * The /brand-strategy/<slug>/ URLs are the contract the blog links to;
+    renaming a slug needs a redirect in vercel.json.
+
+### After push
+  Resubmit the sitemap in Search Console (her account), and add the six
+  service areas to her Google Business Profile if she has one.

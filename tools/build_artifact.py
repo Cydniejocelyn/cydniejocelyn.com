@@ -33,6 +33,13 @@ PAGES = {
     "privacy":  ("privacy-policy/index.html", "cydnie-jocelyn-privacy.html", "Privacy Policy and Terms"),
     "questions": ("thequestions/index.html", "cydnie-jocelyn-questions.html", "The Questions"),
 }
+# The six city pages (tools/gen_cities.py, 5 October 2026), two levels down.
+import sys as _sys; _sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cities import CITIES as _CITIES
+import html as _h
+for _c in _CITIES:
+    PAGES[_c["slug"]] = ("brand-strategy/%s/index.html" % _c["slug"], "cydnie-jocelyn-%s.html" % _c["slug"],
+                         "Brand Strategy in " + _h.unescape(_c["label"]))
 if PAGE not in PAGES:
     raise SystemExit("unknown page %r, expected one of %s" % (PAGE, ", ".join(PAGES)))
 SRCFILE, OUTFILE, TITLE = PAGES[PAGE]
@@ -353,6 +360,13 @@ ARTIFACT = {
     "/contact/":             "https://claude.ai/artifact/311SwvKLX8b6gMUnz4oZy5",
     "/privacy-policy/":      "https://claude.ai/artifact/Q6A5i8zhaB8wQ1ABhWyBKf",
     "/thequestions/":        "https://claude.ai/artifact/TvVACshSZnVCK8u5ixFhDR",
+    # the six city pages, 5 October 2026
+    "/brand-strategy/forest-lake/":  "https://claude.ai/artifact/RNqDeWiq4fXQ41sSqRx22D",
+    "/brand-strategy/minneapolis/":  "https://claude.ai/artifact/NDUkK5eDgZFmH2qfRjzb3r",
+    "/brand-strategy/saint-paul/":   "https://claude.ai/artifact/Pzm4QFCWQc9sVEu8SAFdDF",
+    "/brand-strategy/stillwater/":   "https://claude.ai/artifact/QZQxLnoy2qf8pb7zB7ssTM",
+    "/brand-strategy/blaine/":       "https://claude.ai/artifact/TmYV7cQjMDKNggZhjAJvgF",
+    "/brand-strategy/chisago-city/": "https://claude.ai/artifact/TAg8aD9S4HsYVAooMtYEN8",
 }
 HERE = "/" + os.path.dirname(SRCFILE) + "/" if os.path.dirname(SRCFILE) else "/"
 

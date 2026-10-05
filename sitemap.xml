@@ -62,6 +62,43 @@
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
+  <!-- The six city pages (tools/gen_cities.py), 5 October 2026. -->
+  <url>
+    <loc>https://www.cydniejocelyn.com/brand-strategy/forest-lake/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cydniejocelyn.com/brand-strategy/minneapolis/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cydniejocelyn.com/brand-strategy/saint-paul/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cydniejocelyn.com/brand-strategy/stillwater/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cydniejocelyn.com/brand-strategy/blaine/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.cydniejocelyn.com/brand-strategy/chisago-city/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <!-- /retreats/arizona/ is deliberately absent, the way /retreats/gatlinburg/
        was until 16 September. It is pre-launch and noindex in three other
        places; tools/launch_arizona.py adds it here when Cydnie says go. -->
