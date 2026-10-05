@@ -841,8 +841,8 @@ f.addEventListener('load', function(){
    ok('type: --carved names Instrument Serif first, and no kit family',
       /^\s*"?Instrument Serif"?\s*,/.test(carvedStack) &&
       !/ivyjournal|ivypresto/i.test(carvedStack));
-   var carvedH1 = d.querySelector('h1');
-   ok('type: the h1 actually resolves to Instrument Serif',
+   var carvedH1 = d.querySelector('.ww-display, .hv-h1, h1:not(.hv-label)');
+   ok('type: the display headline actually resolves to Instrument Serif',
       !!carvedH1 && /Instrument Serif/.test(w.getComputedStyle(carvedH1).fontFamily.split(',')[0]));
    /* It draws the first screen again, so it is preloaded again. */
    ok('type: Instrument Serif is preloaded, because it draws the headline',

@@ -224,7 +224,7 @@
   .hv-list summary:hover { padding-left: .75rem; }
   .hv-list svg.ic { width: 1.75rem; height: 1.75rem; stroke: var(--blue-deep); fill: none; stroke-width: 1.1; }
   .hv-list h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.05; margin: 0; }
-  .hv-list h3 small { display: block; margin-top: .45rem; font-family: var(--sans); font-size: .9375rem; line-height: 1.5; color: var(--ink-2); letter-spacing: 0; }
+  .hv-list .hv-svc > small { display: block; margin-top: .45rem; font-family: var(--sans); font-size: .9375rem; line-height: 1.5; color: var(--ink-2); letter-spacing: 0; }
   .hv-list .hv-tag, .ww-item .hv-tag { display: inline-block; margin-left: .75rem; vertical-align: middle; font-family: var(--sans); font-size: .5625rem; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; padding: .35rem .6rem; background: var(--blue); color: var(--ink); }
   .hv-price { text-align: right; font-size: .6875rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
   .hv-price b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 2.4vw, 2rem); letter-spacing: 0; text-transform: none; color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -370,7 +370,7 @@
   .hv-ftr-top { display: grid; gap: 2.5rem; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,.14); }
   .hv-ftr-brand p { max-width: 24rem; color: #b7cfca; }
   .hv-ftr-brand p + p { margin-top: 1rem; }
-  .hv-ftr h3 { font-family: var(--sans); font-size: .625rem; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--blue); margin: 0 0 1rem; }
+  .hv-ftr .hv-ftr-h { font-family: var(--sans); font-size: .625rem; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: var(--blue); margin: 0 0 1rem; }
   .hv-ftr ul { margin: 0; padding: 0; list-style: none; }
   .hv-ftr li + li { margin-top: .55rem; }
   .hv-ftr a { text-decoration: none; }
@@ -424,8 +424,8 @@
     radial-gradient(50rem 26rem at 90% 0%, rgba(159, 204, 198, .35), transparent 70%),
     linear-gradient(180deg, #fff 0%, var(--blue-wash) 100%); }
 .ww-hero-grid { display: grid; gap: 3rem; align-items: center; }
-.ww-hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(3rem, 6.4vw, 5.75rem); line-height: .98; letter-spacing: -.02em; margin: 1.25rem 0 0; text-wrap: balance; }
-.ww-hero h1 em { font-style: italic; color: var(--blue-deep); }
+.ww-hero h1:not(.hv-label), .ww-hero .ww-display { font-family: var(--serif); font-weight: 400; font-size: clamp(3rem, 6.4vw, 5.75rem); line-height: .98; letter-spacing: -.02em; margin: 1.25rem 0 0; text-wrap: balance; }
+.ww-hero h1:not(.hv-label) em, .ww-hero .ww-display em { font-style: italic; color: var(--blue-deep); }
 .ww-hero .hv-lede { max-width: 34rem; }
 .ww-hero .hv-btns { margin-top: 2.25rem; }
 .ww-trust { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: .75rem 2rem; margin: 2.5rem 0 0; padding: 1.5rem 0 0; list-style: none; border-top: 1px solid var(--line); }
@@ -1021,8 +1021,8 @@
 @media (min-width: 60rem) { .lg-doc { grid-template-columns: 15rem minmax(0, 42rem); gap: 5rem; justify-content: center; } }
 .lg-toc { align-self: start; padding: 1.5rem 0; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line); }
 @media (min-width: 60rem) { .lg-toc { position: sticky; top: 6.5rem; } }
-.lg-toc h2 { margin: 0 0 .75rem; font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
-.lg-toc h2 + ol { margin: 0 0 1.5rem; }
+.lg-toc .lg-toc-h { margin: 0 0 .75rem; font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
+.lg-toc .lg-toc-h + ol { margin: 0 0 1.5rem; }
 .lg-toc ol { padding: 0; list-style: none; display: grid; gap: .5rem; }
 .lg-toc ol:last-child { margin-bottom: 0; }
 .lg-toc a { font-family: var(--serif); font-size: 1.125rem; line-height: 1.2; color: var(--ink); text-decoration: none; }
@@ -1202,3 +1202,10 @@
 @media (min-width: 64rem) { .ct-net { grid-template-columns: repeat(3, 1fr); } }
 .hv-cities { border-top: 1px solid var(--line); }
 .ct-other { margin-top: 2rem; max-width: 40rem; color: var(--ink-2); }
+
+/* 404 (tools/gen_404.py, 5 Oct 2026): where things live now. */
+.nf-links { list-style: none; padding: 0; margin: clamp(2rem, 4vw, 3rem) 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); border-top: 1px solid var(--line-2); }
+.nf-links a { display: grid; gap: .35rem; padding: 1.5rem 0; border-bottom: 1px solid var(--line-2); color: var(--ink); text-decoration: none; transition: padding .5s var(--ease); }
+.nf-links a:hover, .nf-links a:focus-visible { padding-left: .75rem; }
+.nf-links b { font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.05; }
+.nf-links span { font-size: .9375rem; color: var(--ink-2); }

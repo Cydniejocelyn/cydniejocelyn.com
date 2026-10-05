@@ -25,8 +25,8 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="ct-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">Contact</span>
-      <h1 id="ct-h">Let&rsquo;s <em>talk.</em></h1>
+      <h1 class="hv-label" id="ct-h">Contact Cydnie Jocelyn</h1>
+      <p class="ww-display">Let&rsquo;s <em>talk.</em></p>
       <p class="hv-lede">Book a free 30-minute call, or send me a question below. Either way, you hear back from me.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="%(CALL)s" data-cta="free-call-contact">Book a free 30-min call %(ARW)s</a>

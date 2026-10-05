@@ -32,6 +32,7 @@ PAGES = {
     "contact":  ("contact/index.html", "cydnie-jocelyn-contact.html", "Contact"),
     "privacy":  ("privacy-policy/index.html", "cydnie-jocelyn-privacy.html", "Privacy Policy and Terms"),
     "questions": ("thequestions/index.html", "cydnie-jocelyn-questions.html", "The Questions"),
+    "404": ("404.html", "cydnie-jocelyn-404.html", "Page Not Found"),
 }
 # The six city pages (tools/gen_cities.py, 5 October 2026), two levels down.
 import sys as _sys; _sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -48,7 +49,7 @@ OUT = os.path.join(SRC, "tools", OUTFILE)
 html = open(os.path.join(SRC, SRCFILE), encoding="utf-8").read()
 # ../../ first: replacing ../assets/ on the Greece page would leave a stray
 # ../ in front of every path it just rewrote.
-html = html.replace("../../assets/", "assets/").replace("../assets/", "assets/")
+html = html.replace("../../assets/", "assets/").replace("../assets/", "assets/").replace('"/assets/', '"assets/').replace(" /assets/img", " assets/img")
 css  = open(os.path.join(SRC, "assets/css/site.css"), encoding="utf-8").read()
 # The rebuilt pages also load the shared luxury stylesheet.
 if "css/lux.css" in html:

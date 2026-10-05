@@ -57,9 +57,9 @@
 <!-- site.css still loads: it carries the @font-face rules, the consent
      banner and the popups. Everything this page draws is below, scoped to
      body.hv2 with hv- class names, so none of the old zone rules apply. -->
-<link rel="stylesheet" href="assets/css/site.css?v=7e5133b4">
+<link rel="stylesheet" href="assets/css/site.css?v=f2119a79">
 
-<link rel="stylesheet" href="assets/css/lux.css?v=7e5133b4">
+<link rel="stylesheet" href="assets/css/lux.css?v=f2119a79">
 
 <script>document.documentElement.className += " js-motion";</script>
 
@@ -83,10 +83,110 @@
       "address": {"@type": "PostalAddress", "addressLocality": "Forest Lake", "addressRegion": "MN", "postalCode": "55025", "addressCountry": "US"},
       "geo": {"@type": "GeoCoordinates", "latitude": 45.2791, "longitude": -92.9852},
       "areaServed": [
-        {"@type": "Country", "name": "United States"},
-        {"@type": "State", "name": "Minnesota"},
-        {"@type": "City", "name": "Minneapolis"},
-        {"@type": "City", "name": "Saint Paul"}
+       {
+        "@type": "City",
+        "name": "Forest Lake",
+        "containedInPlace": {
+         "@type": "State",
+         "name": "Minnesota"
+        }
+       },
+       {
+        "@type": "City",
+        "name": "Blaine"
+       },
+       {
+        "@type": "City",
+        "name": "Anoka"
+       },
+       {
+        "@type": "City",
+        "name": "Ramsey"
+       },
+       {
+        "@type": "City",
+        "name": "East Bethel"
+       },
+       {
+        "@type": "City",
+        "name": "Lino Lakes"
+       },
+       {
+        "@type": "City",
+        "name": "Hugo"
+       },
+       {
+        "@type": "City",
+        "name": "Shoreview"
+       },
+       {
+        "@type": "City",
+        "name": "White Bear Lake"
+       },
+       {
+        "@type": "City",
+        "name": "Cambridge"
+       },
+       {
+        "@type": "City",
+        "name": "Isanti"
+       },
+       {
+        "@type": "City",
+        "name": "North Branch"
+       },
+       {
+        "@type": "City",
+        "name": "Chisago City"
+       },
+       {
+        "@type": "City",
+        "name": "Crosslake"
+       },
+       {
+        "@type": "City",
+        "name": "Minneapolis"
+       },
+       {
+        "@type": "City",
+        "name": "Saint Paul"
+       },
+       {
+        "@type": "City",
+        "name": "Stillwater"
+       },
+       {
+        "@type": "City",
+        "name": "Woodbury"
+       },
+       {
+        "@type": "AdministrativeArea",
+        "name": "Twin Cities metropolitan area"
+       },
+       {
+        "@type": "AdministrativeArea",
+        "name": "Anoka County"
+       },
+       {
+        "@type": "AdministrativeArea",
+        "name": "Isanti County"
+       },
+       {
+        "@type": "AdministrativeArea",
+        "name": "Washington County"
+       },
+       {
+        "@type": "AdministrativeArea",
+        "name": "Chisago County"
+       },
+       {
+        "@type": "AdministrativeArea",
+        "name": "Minnesota"
+       },
+       {
+        "@type": "Country",
+        "name": "United States"
+       }
       ],
       "knowsAbout": ["brand strategy", "brand identity", "website design", "business operations", "business development", "social media strategy", "women's retreats"],
       "sameAs": [
@@ -234,8 +334,8 @@
         <img src="assets/img/home/cydnie-cutout-900.webp" srcset="assets/img/home/cydnie-cutout-600.webp 600w, assets/img/home/cydnie-cutout-900.webp 900w, assets/img/home/cydnie-cutout-1300.webp 1300w" sizes="(min-width: 70rem) 30rem, 82vw" width="1300" height="1709" alt="Cydnie Jocelyn, brand and business strategist, smiling with her hands in her pockets" fetchpriority="high">
       </div>
       <div class="hv-copy">
-        <span class="hv-label">Brand &amp; business strategist</span>
-        <h1 class="hv-h1" id="hero-h">A brand and business partner who builds it <em>with</em> you.</h1>
+        <h1 class="hv-label" id="hero-h">Brand &amp; business strategist in Minnesota</h1>
+        <p class="hv-h1">A brand and business partner who builds it <em>with</em> you.</p>
         <p>Brand, website, operations and growth for founders and leaders. Boots on the ground until it works, because when you win, I win.</p>
       </div>
       <div class="hv-act">
@@ -312,23 +412,23 @@
     </div>
     <div class="hv-list">
       <details open>
-        <summary><svg class="ic" aria-hidden="true"><use href="#i-facet"/></svg><h3>Full Brand Launch <span class="hv-tag">Signature</span><small>Identity, website and the launch that puts it in front of the right people.</small></h3><span class="hv-price">From<b>$15,000</b></span></summary>
+        <summary><svg class="ic" aria-hidden="true"><use href="#i-facet"/></svg><div class="hv-svc"><h3>Full Brand Launch <span class="hv-tag">Signature</span></h3><small>Identity, website and the launch that puts it in front of the right people.</small></div><span class="hv-price">From<b>$15,000</b></span></summary>
         <div class="hv-list-body"><p>Logo, brand guide and voice, a website of five to eight pages, then the social strategy and launch plan. The complete partnership.</p><ul role="list"><li>Brand identity</li><li>Brand guide &amp; voice</li><li>Website</li><li>Launch plan</li></ul></div>
       </details>
       <details>
-        <summary><svg class="ic" aria-hidden="true"><use href="#i-loop"/></svg><h3>Season Partnership<small>Positioning, operations and growth direction, side by side.</small></h3><span class="hv-price">From<b>$6,000</b></span></summary>
+        <summary><svg class="ic" aria-hidden="true"><use href="#i-loop"/></svg><div class="hv-svc"><h3>Season Partnership</h3><small>Positioning, operations and growth direction, side by side.</small></div><span class="hv-price">From<b>$6,000</b></span></summary>
         <div class="hv-list-body"><p>We fix how work moves, intake to handoff, sharpen the positioning and message, then build a lead database and a 90-day plan for where your next client comes from.</p><ul role="list"><li>Audit &amp; discovery</li><li>Positioning</li><li>Operations</li><li>Growth plan</li></ul></div>
       </details>
       <details>
-        <summary><svg class="ic" aria-hidden="true"><use href="#i-frame"/></svg><h3>Website<small>Built in code, yours outright, written to turn visitors into enquiries.</small></h3><span class="hv-price">From<b>$4,000</b></span></summary>
+        <summary><svg class="ic" aria-hidden="true"><use href="#i-frame"/></svg><div class="hv-svc"><h3>Website</h3><small>Built in code, yours outright, written to turn visitors into enquiries.</small></div><span class="hv-price">From<b>$4,000</b></span></summary>
         <div class="hv-list-body"><p>No theme, no plugins, no platform to rent. A site built on a clear brand, with the copy and search foundations done properly.</p><ul role="list"><li>Five to eight pages</li><li>Copy</li><li>SEO</li><li>Care plans from $95 a month</li></ul></div>
       </details>
       <details>
-        <summary><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg><h3>Social &amp; Content<small>Strategy, calendar and the writing, for one defined quarter.</small></h3><span class="hv-price">Per quarter<b>$3,600</b></span></summary>
+        <summary><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg><div class="hv-svc"><h3>Social &amp; Content</h3><small>Strategy, calendar and the writing, for one defined quarter.</small></div><span class="hv-price">Per quarter<b>$3,600</b></span></summary>
         <div class="hv-list-body"><p>Two reels and one static a week, with captions, hashtags, posting and analytics handled.</p><ul role="list"><li>Strategy</li><li>Calendar</li><li>Posting</li><li>Analytics</li></ul></div>
       </details>
       <details>
-        <summary><svg class="ic" aria-hidden="true"><use href="#i-rise"/></svg><h3>Strategy Day<small>One day to decide: audit, discovery, positioning and message.</small></h3><span class="hv-price">Flat<b>$1,500</b></span></summary>
+        <summary><svg class="ic" aria-hidden="true"><use href="#i-rise"/></svg><div class="hv-svc"><h3>Strategy Day</h3><small>One day to decide: audit, discovery, positioning and message.</small></div><span class="hv-price">Flat<b>$1,500</b></span></summary>
         <div class="hv-list-body"><p>For the business that needs a decision more than a build. One focused day, and you leave with the positioning and the message in writing.</p><ul role="list"><li>Audit</li><li>Discovery</li><li>Positioning</li><li>Message</li></ul></div>
       </details>
     </div>
@@ -570,7 +670,7 @@
         <p class="hv-ftr-cta"><a href="https://clients.cydniejocelyn.com/schedule/69f9f2a095c611cc2401eec7" data-cta="free-call-footer">Book a free 30-min call</a></p>
       </div>
       <div>
-        <h3>Work with me</h3>
+        <p class="hv-ftr-h">Work with me</p>
         <ul role="list">
           <li><a href="/the-build/">Services &amp; pricing</a></li>
           <li><a href="/a-sounding/">The Sounding</a></li>
@@ -578,7 +678,7 @@
         </ul>
       </div>
       <div>
-        <h3>More</h3>
+        <p class="hv-ftr-h">More</p>
         <ul role="list">
           <li><a href="/retreats/">Retreats</a></li>
           <li><a href="/the-letters/">The Letters</a></li>
@@ -587,7 +687,7 @@
         </ul>
       </div>
       <div>
-        <h3>Follow along</h3>
+        <p class="hv-ftr-h">Follow along</p>
         <ul class="hv-social" role="list">
           <li><a href="https://www.instagram.com/cydniejocelyn/" rel="me noopener" aria-label="Instagram, opens in a new tab" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="fill" cx="17.4" cy="6.6" r="1.1"/></svg></a></li>
           <li><a href="https://www.facebook.com/profile.php?id=61575458834389" rel="me noopener" aria-label="Facebook, opens in a new tab" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="fill" d="M14.6 8.2V6.8c0-.7.5-1.3 1.2-1.3h1.5V2.4h-2.4c-2.3 0-3.6 1.6-3.6 3.9v1.9H9v3.1h2.3V21h3.3v-9.7h2.4l.4-3.1z"/></svg></a></li>
@@ -688,9 +788,9 @@
   });
 })();
 </script>
-<script src="assets/js/site.js?v=7e5133b4" defer></script>
-<script src="assets/js/analytics.js?v=7e5133b4" defer></script>
-<script src="assets/js/consent.js?v=7e5133b4" defer></script>
+<script src="assets/js/site.js?v=f2119a79" defer></script>
+<script src="assets/js/analytics.js?v=f2119a79" defer></script>
+<script src="assets/js/consent.js?v=f2119a79" defer></script>
 <script src="/sounding-popup.js" defer></script>
 <script src="/gatlinburg-popup.js" defer></script>
 </body>

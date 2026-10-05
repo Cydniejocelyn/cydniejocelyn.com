@@ -43,8 +43,8 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="gr-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">Rise Into Her &middot; The Greece Edition</span>
-      <h1 id="gr-h">Eight days <em>in Crete.</em></h1>
+      <h1 class="hv-label" id="gr-h">Rise Into Her &middot; a women&rsquo;s retreat in Crete, Greece</h1>
+      <p class="ww-display">Eight days <em>in Crete.</em></p>
       <p class="hv-lede">A small-group retreat for women in Douliana, a hillside village in western Crete with about forty houses in it. One property, and eight days that ask nothing of you.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="#seat" data-cta="greece-hero-wait">Join the waitlist %(ARW)s</a>

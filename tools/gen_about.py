@@ -32,8 +32,8 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="au-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">Brand &amp; business strategist</span>
-      <h1 id="au-h">I&rsquo;m <em>Cydnie Jocelyn.</em></h1>
+      <h1 class="hv-label" id="au-h">Brand &amp; business strategist &middot; Forest Lake, MN</h1>
+      <p class="ww-display">I&rsquo;m <em>Cydnie Jocelyn.</em></p>
       <p class="hv-lede">I partner with founders and leaders on brand, website, operations and business development. Fourteen years in corporate marketing taught me to see a vision before it is built, and then build it with you, start to finish.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="%(CALL)s" data-cta="free-call-about">Book a free 30-min call %(ARW)s</a>

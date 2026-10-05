@@ -68,8 +68,8 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="gt-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">Wide Open &middot; The Gatlinburg Edition</span>
-      <h1 id="gt-h">Five days in <em>the Smokies.</em></h1>
+      <h1 class="hv-label" id="gt-h">Wide Open &middot; a women&rsquo;s retreat in Gatlinburg, Tennessee</h1>
+      <p class="ww-display">Five days in <em>the Smokies.</em></p>
       <p class="hv-lede">A small-group retreat for women, in a private house at the edge of the national park. You land in Knoxville and somebody is already waiting on you. Everything after that is handled.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="#rooms" data-cta="gatlinburg-hero-rooms">Choose your room %(ARW)s</a>
@@ -298,6 +298,27 @@ MAIN = """<main id="main">
 }
 
 graph = L.old_graph("retreats/gatlinburg/index.html")
+
+# SEO audit, 5 Oct 2026: the live booking page was the only main page without
+# WebPage, breadcrumb and FAQPage nodes, and it named Cydnie inline instead of
+# pointing at her Person node. Idempotent: the graph is read back from this page.
+SITE = "https://www.cydniejocelyn.com/"
+graph = [n for n in graph if n.get("@id") not in (URL + "#webpage", URL + "#faq")]
+for n in graph:
+    if n.get("@type") == "Event":
+        n["performer"] = [{"@id": SITE + "#cydnie"} if p.get("name") == "Cydnie Jocelyn Brown" else p
+                          for p in n.get("performer", [])]
+graph.append({
+    "@type": "WebPage", "@id": URL + "#webpage", "url": URL,
+    "name": "Wide Open: The Gatlinburg Edition",
+    "isPartOf": {"@id": SITE + "#website"}, "inLanguage": "en-US",
+    "mainEntity": {"@id": URL + "#event"},
+    "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE},
+        {"@type": "ListItem", "position": 2, "name": "Retreats", "item": SITE + "retreats/"},
+        {"@type": "ListItem", "position": 3, "name": "Gatlinburg", "item": URL}]},
+})
+graph.append(L.faq_node(URL, FAQ))
 
 PRELOAD = ('<link rel="preload" as="image" href="%shouse-dusk-portrait-834.webp" '
            'imagesrcset="%shouse-dusk-portrait-600.webp 600w, %shouse-dusk-portrait-834.webp 834w" '

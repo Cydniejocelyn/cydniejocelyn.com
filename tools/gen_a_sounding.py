@@ -37,8 +37,8 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="sd-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">The Sounding</span>
-      <h1 id="sd-h">Know exactly what to <em>fix first.</em></h1>
+      <h1 class="hv-label" id="sd-h">The Sounding &middot; a 90-minute business strategy session</h1>
+      <p class="ww-display">Know exactly what to <em>fix first.</em></p>
       <p class="hv-lede">The Sounding is a 90-minute strategy session across brand, operations and business development. Two days later you get my full take in writing: what is really going on, and what I recommend, in order. It becomes the roadmap for everything we build next.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="%(SOUND)s" data-cta="sounding-hero">Book the Sounding, $300 %(ARW)s</a>

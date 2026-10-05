@@ -189,7 +189,7 @@ def check_stamps():
     for dirpath, dirnames, filenames in os.walk(ROOT):
         dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIRS]
         for f in filenames:
-            if f != "index.html":
+            if f not in ("index.html", "404.html"):
                 continue
             p = os.path.join(dirpath, f)
             s = io.open(p, encoding="utf-8").read()

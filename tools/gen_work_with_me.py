@@ -1,5 +1,7 @@
-import re, json, html as H
-ROOT = "/Users/cydniebrown/Desktop/cydniejocelyn-v2"
+import os, re, json, html as H
+# The repo this script sits in, not a fixed path: a hard-coded Desktop path
+# made a run from a worktree overwrite the main checkout (5 Oct 2026).
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 home = open(ROOT + "/index.html").read()
 old = open(ROOT + "/the-build/index.html").read()
 
@@ -168,8 +170,8 @@ page = '''<!DOCTYPE html>
 <section class="ww-hero" aria-labelledby="ww-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">Work with me</span>
-      <h1 id="ww-h">One partner for your brand <em>and your business.</em></h1>
+      <h1 class="hv-label" id="ww-h">Brand, website &amp; business strategy services</h1>
+      <p class="ww-display">One partner for your brand <em>and your business.</em></p>
       <p class="hv-lede">I help founders and leaders build the brand, the website, the systems and the client pipeline behind a business that grows without running through them. Every price is on this page, and the first call is free.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="@@CALL@@" data-cta="free-call-hero">Book a free 30-min call @@ARW@@</a>

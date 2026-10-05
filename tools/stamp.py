@@ -48,6 +48,7 @@ PAGES = (
     ("privacy-policy/index.html",   "../assets/"),
     ("thequestions/index.html",     "../assets/"),
     ("contact/index.html",          "../assets/"),
+    ("404.html",                    "/assets/"),   # absolute: served at any path
 )
 
 for page, pre in PAGES:

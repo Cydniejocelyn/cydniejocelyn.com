@@ -108,8 +108,8 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="rx-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">Retreats for women</span>
-      <h1 id="rx-h">A week where you are not the one <em>holding it together.</em></h1>
+      <h1 class="hv-label" id="rx-h">Small-group women&rsquo;s retreats &middot; 2027</h1>
+      <p class="ww-display">A week where you are not the one <em>holding it together.</em></p>
       <p class="hv-lede">Small-group retreats for women who are the reason everything works. Lodging, every meal and the plans are handled. You don&rsquo;t need to own a business to come.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-hero-rooms">Choose your Gatlinburg room %(ARW)s</a>

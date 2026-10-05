@@ -56,8 +56,8 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="lt-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">The Letters &middot; Free, every week</span>
-      <h1 id="lt-h">A weekly letter on building something <em>you believe in.</em></h1>
+      <h1 class="hv-label" id="lt-h">The Letters &middot; a free weekly newsletter</h1>
+      <p class="ww-display">A weekly letter on building something <em>you believe in.</em></p>
       <p class="hv-lede">One letter a week from me, honest about what I am learning in leadership, business, growth and people, written the week it goes out.</p>
       <div class="hv-btns">
         <a class="hv-btn hv-btn--ink" href="%(SIGNUP)s" rel="noopener" data-cta="letters-hero">Get the letters %(ARW)s</a>
@@ -150,7 +150,9 @@ graph = []
 for n in L.old_graph("the-letters/index.html"):
     if n.get("@id") in about and n.get("@type") != "WebPage":
         n = about[n["@id"]]
-    if n.get("@type") == "Newsletter":
+    if n.get("@type") in ("Newsletter", "CreativeWorkSeries"):
+        # schema.org has no Newsletter type; CreativeWorkSeries is the valid one (SEO audit, 5 Oct 2026).
+        n["@type"] = "CreativeWorkSeries"
         n["description"] = ("A free weekly letter from Cydnie Jocelyn on leadership, business, growth and people, and building "
                             "something you believe in. Written for everyone. Retreats and new work open to this list first.")
     graph.append(n)
@@ -163,7 +165,7 @@ OUT = "the-letters/index.html"
 L.render(
     out=OUT, depth=1, active="/the-letters/",
     title="The Letters | A Free Weekly Letter from Cydnie Jocelyn",
-    description="A free weekly letter from Cydnie Jocelyn on leadership, business, growth and building something you believe in. Retreats and new work open here first.",
+    description="A free weekly newsletter from Cydnie Jocelyn on leadership, business, growth and building something you believe in. Retreats and new work open here first.",
     canonical=URL,
     og_title="The Letters | A Free Weekly Letter from Cydnie Jocelyn",
     og_description="One honest letter a week on building something you believe in. Free, for everyone, and the first word on every retreat.",
