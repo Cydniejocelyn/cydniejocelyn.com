@@ -8652,3 +8652,16 @@ Robots tags and the X-Robots-Tag header gone, canonical and Event JSON-LD
 on, in sitemap.xml, Wild Canvas card on /retreats/ (dusk table photo, the
 card words as written in gen_retreats.py). NOT on the home page: she has not
 said yes to that. Next for retreats: section 81 (retreat SEO plan).
+
+## 81. 5 October 2026. RETREAT SEO PLAN (proposed, nothing built)
+Her answers: Arizona launched (above); "wellness" is fine on retreat pages;
+the podcast is off the table (do not suggest it); guest reviews on every
+retreat page (already on Gatlinburg, Arizona and /retreats/; add them to any
+new retreat page; never an average score or star rating).
+Proposed, awaiting her pick: five pages under /womens-retreats/<place>/
+(Minnesota, Smoky Mountains/Tennessee, Arizona/Phoenix, Twin Cities
+leadership = private retreats, women's wellness retreats). Pending her yes:
+Gatlinburg title to "Women's Retreat in Gatlinburg, TN | Smoky Mountains,
+April 2027", a retreats link in the footer, Arizona on the home page.
+Google Business Profile events, Metricool and Pinterest run from her
+marketing chat; the brief was given to her in chat on 5 October.
