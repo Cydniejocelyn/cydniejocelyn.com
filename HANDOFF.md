@@ -8704,6 +8704,11 @@ marketing chat; the brief was given to her in chat on 5 October.
     copy, the blog session owns LudmMG...) LCXrgkWVmc2mUQPbqXXpaV; retreats
     HcXyuAjSzWWDLmSyyGdxvc, Gatlinburg Uq7dwHkKDjc5SLFcEKriG2, Arizona
     CqN4Yqjfi4PTPWcMTQVrv8. Push on her word.
+  * PUSHED 5 October on her word "push it" (d5cc7cc, merged over the
+    section 82 URL moves; the Letters link is /newsletter/). Verified on
+    www: guides, home Find-your-retreat row and Arizona block, footer
+    Retreats column, Gatlinburg title. The blog branch must merge main and
+    keep the footer Retreats column when it adds its Blog link.
 
 ## 82. URL moves, 5 October 2026. /the-build/ /a-sounding/ /the-letters/ RENAMED.
 
