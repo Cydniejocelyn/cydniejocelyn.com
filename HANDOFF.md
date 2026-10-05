@@ -8607,3 +8607,40 @@ Alchemist Salon is in Chisago. She approved the five cities and added Chisago.
 ### After push
   Resubmit the sitemap in Search Console (her account), and add the six
   service areas to her Google Business Profile if she has one.
+
+## 80. SEO audit, 5 October 2026. REDIRECTS, H1 LABELS, NEWSLETTER, SCHEMA, 404. PUSHED.
+
+Audit: https://claude.ai/artifact/FjAfp8sNF92W9pBVs1r469
+
+**Redirects.** `vercel.json` has 301s (`statusCode: 301`) for every old Showit URL
+Google still indexed (privacy-policy-terms, terms-and-agreements-contract-for-all-
+retreat-guests, the-name-behind-it-all, greece-retreat, riseandregroundcostarica2026,
+thecollectiveretreats, collective, work-with-me-1, journal and every journal post),
+plus guesses and vanity paths. Each old path is matched with and without the slash;
+Vercel's trailingSlash 308 runs first, then the 301. Post catch-alls are
+`/journal/:path(.*)` and `/blog/:path(.*)`: `:slug*` did not match a trailing slash.
+The /blog rules must go when the real blog ships.
+
+**H1s.** Cydnie: the label alone is the H1 (label plus big line was too long). On
+nine pages the small label is `<h1 class="hv-label">` with search wording she
+approved, and the big line is `<p class="ww-display">` (home: `<p class="hv-h1">`),
+visually unchanged. `.ww-hero h1:not(.hv-label)` keeps the old style for Arizona and
+The Questions, which kept their H1. City pages are not converted. Footer column
+titles are `<p class="hv-ftr-h">`, the Privacy contents titles `<p class="lg-toc-h">`,
+and the home service cards wrap `h3 + small` in `.hv-svc` so the H3 holds the name.
+
+**The Letters.** "a free weekly newsletter" in the label, the meta description and
+llms.txt (which had said "not a newsletter and carries no offers"). Schema type
+`CreativeWorkSeries`; `Newsletter` is not a schema.org type.
+
+**Schema.** Gatlinburg gained WebPage, breadcrumb and FAQPage, and its performer links
+`#cydnie`. Home's areaServed is the long list from About, plus Chisago City (also added
+to About, so every page and the city pages agree).
+
+**404.** `tools/gen_404.py` writes `/404.html`: noindex, absolute asset paths (asserted),
+no popups. It is in stamp.py's page list and build.py's stamp check.
+
+**Traps found.** `gen_work_with_me.py` had ROOT hard-coded to the Desktop path, so a
+run from a worktree wrote into the main checkout. It is relative now. The suite has
+about 10 stale failures per page (old `.ftr` footer selectors) on main as well:
+compare against a baseline run.
