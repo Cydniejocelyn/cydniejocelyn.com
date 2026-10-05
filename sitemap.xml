@@ -99,7 +99,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- /retreats/arizona/ is deliberately absent, the way /retreats/gatlinburg/
-       was until 16 September. It is pre-launch and noindex in three other
-       places; tools/launch_arizona.py adds it here when Cydnie says go. -->
+  <url>
+    <loc>https://www.cydniejocelyn.com/retreats/arizona/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>

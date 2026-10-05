@@ -8644,3 +8644,11 @@ no popups. It is in stamp.py's page list and build.py's stamp check.
 run from a worktree wrote into the main checkout. It is relative now. The suite has
 about 10 stale failures per page (old `.ftr` footer selectors) on main as well:
 compare against a baseline run.
+
+### 5 October 2026: ARIZONA LAUNCHED (her word "Yes launch Arizona")
+`LAUNCH_DATE=2026-10-05 python3 tools/launch_arizona.py`, run from a
+separate worktree because the main checkout was mid-merge on branch `blog`.
+Robots tags and the X-Robots-Tag header gone, canonical and Event JSON-LD
+on, in sitemap.xml, Wild Canvas card on /retreats/ (dusk table photo, the
+card words as written in gen_retreats.py). NOT on the home page: she has not
+said yes to that. Next for retreats: section 81 (retreat SEO plan).
