@@ -1,6 +1,7 @@
 """The Questions (/thequestions/), restyled 26 September 2026.
 
-The QR destination from the GATHER table (The Journey, Minneapolis). Her
+The QR destination from the GATHER table (Erickson Farmstead, Isanti, MN;
+was The Journey, Minneapolis until 21 October 2026). Her
 answer of 26 September: restyle it, keep it. It stays noindex and out of
 the sitemap, because it only makes sense to someone holding a card.
 
@@ -41,7 +42,7 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="tq-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <span class="hv-label">GATHER &middot; The Journey &middot; Minneapolis</span>
+      <span class="hv-label">GATHER &middot; Erickson Farmstead &middot; Isanti, MN</span>
       <h1 id="tq-h">You picked <em>one.</em></h1>
       <p class="hv-lede">There were twelve on the table. Here are the other eleven. Take them with you and use them on someone this week.</p>
       <div class="hv-btns">
