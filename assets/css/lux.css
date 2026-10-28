@@ -79,7 +79,14 @@
 
   /* ---------- header: logo centred between the links ---------- */
   .hv-hdr { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.86); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border-bottom: 1px solid var(--line); }
-  .hv-hdr-in { max-width: 88rem; margin: 0 auto; padding: 0 var(--gut); height: 4.5rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; }
+  /* PHONE HEADER GAP, 28 October 2026. Every page sets viewport-fit=cover,
+     which lets iPhone Safari draw the page under the status bar, but the
+     header never claimed that strip: page content scrolled through it above
+     the menu, so the bar looked as if it stopped short of the top. The
+     safe-area padding fills the strip (0 on desktop and older iPhones), and
+     the side insets keep the logo and Menu clear of the notch in landscape. */
+  .hv-hdr { padding-top: env(safe-area-inset-top, 0px); }
+  .hv-hdr-in { max-width: 88rem; margin: 0 auto; padding: 0 max(var(--gut), env(safe-area-inset-right, 0px)) 0 max(var(--gut), env(safe-area-inset-left, 0px)); height: 4.5rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem; }
   .hv-logo { grid-column: 2; }
   /* THE WORDMARK IS VECTOR: Artboard 2 is the only logo file with outlined
      letters. Both halves are filled one colour, the waterline dropped, and
@@ -102,6 +109,10 @@
      This is the same header's main button kept visible, not a new bar. */
   .hv-hdr-call { display: none; }
   @media (max-width: 64rem) {
+    /* Solid on phones: Safari 26 tints the status bar from a header pinned
+       at the top only when its background is opaque. At 86% it shows the
+       page scrolling behind the clock instead. */
+    .hv-hdr { background: #fff; }
     .hv-hdr-in { grid-template-columns: 1fr auto auto; height: 4rem; gap: .9rem; }
     .hv-hdr-call { display: inline-flex; align-items: center; grid-column: 2; min-height: 2.5rem; padding: .55rem .9rem; background: var(--ink); color: #fff; font-size: .625rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
     .hv-hdr-call:hover { background: var(--blue-deep); }
