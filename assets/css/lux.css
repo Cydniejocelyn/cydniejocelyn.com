@@ -847,6 +847,43 @@
 .gt-days { counter-reset: s; }
 @media (min-width: 60rem) { .gt-days { grid-template-columns: repeat(5, 1fr); column-gap: 2rem; } }
 
+/* the week, day by day (2 Nov 2026), Option A from her review: one photo
+   holds still (sticky) while the six days scroll beside it; site.js 21
+   moves the photo and the teal rule to the day at mid-screen. Below 60rem
+   the stage hides and each day shows its own photo. Teal #2F8F8B, mid teal
+   #6FB6B3 and tan #CFB48F are from the 14 October palette. */
+.gt-itin { background: #EFE9DF; }
+.gt-itin-grid { display: grid; gap: 2rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.gt-itin-stage { position: relative; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden; border-radius: 4px; box-shadow: 0 50px 80px -50px rgba(47,90,97,.55); }
+.gt-itin-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.1); transition: opacity 1s var(--ease), transform 6s var(--ease); }
+.gt-itin-stage img.is-on { opacity: 1; transform: none; }
+.gt-itin-badge { position: absolute; left: 1rem; bottom: 1rem; z-index: 2; display: grid; padding: .8rem 1.1rem; background: #fff; color: var(--blue-deep); }
+.gt-itin-badge span { font-size: .625rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #2F8F8B; }
+.gt-itin-badge b { font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1; }
+.gt-itin-days { margin: 0; padding: 0; list-style: none; border-bottom: 1px solid var(--line-2); }
+.gt-itin-day { position: relative; display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: 0 1.25rem; padding: 1.75rem 0 1.75rem 1.25rem; border-top: 1px solid var(--line-2); }
+.gt-itin-day::before { content: ""; position: absolute; left: 0; top: 1.75rem; bottom: 1.75rem; width: 3px; background: #2F8F8B; transform: scaleY(0); transform-origin: top; transition: transform .6s var(--ease); }
+.gt-itin-day.is-on::before { transform: scaleY(1); }
+.gt-itin-n { font-family: var(--serif); font-style: italic; font-size: 2.75rem; line-height: .9; color: #6FB6B3; transition: color .4s, transform .6s var(--ease); }
+.gt-itin-day.is-on .gt-itin-n { color: #2F8F8B; transform: translateX(4px); }
+.gt-itin-when { display: block; margin-bottom: .4rem; font-size: .625rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--blue-deep); }
+.gt-itin-day h3 { font-family: var(--serif); font-weight: 400; font-size: 1.75rem; line-height: 1.1; margin: 0; }
+.gt-itin-day p { margin: .5rem 0 0; color: var(--ink-2); max-width: 32rem; }
+.gt-itin-day figure { grid-column: 1 / -1; margin: 1.1rem 0 0; overflow: hidden; border-radius: 4px; }
+.gt-itin-day figure img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.gt-every { margin-top: clamp(2.5rem, 5vw, 3.5rem); padding: clamp(1.5rem, 3vw, 2.25rem); background: var(--blue); color: var(--blue-deep); }
+.gt-every ul { display: grid; gap: .6rem 2rem; margin: 1rem 0 0; padding: 0; list-style: none; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+.gt-every li { font-family: var(--serif); font-size: 1.25rem; line-height: 1.25; }
+@media (min-width: 60rem) {
+  .gt-itin-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 5rem; align-items: start; }
+  .gt-itin-stage { position: sticky; top: 7rem; }
+  .gt-itin-day { padding-block: 2.6rem; }
+  .gt-itin-day::before { top: 2.6rem; bottom: 2.6rem; }
+  .gt-itin-day figure { display: none; }
+}
+@media (max-width: 59.99rem) { .gt-itin-stage { display: none; } }
+@media (prefers-reduced-motion: reduce) { .gt-itin-stage img, .gt-itin-day::before, .gt-itin-n { transition: none; } }
+
 .gt-house { background: var(--porcelain); }
 .gt-rate { display: inline-flex; flex-wrap: wrap; gap: .5rem 1rem; margin-top: 1.25rem; padding: .55rem .9rem; background: var(--blue); font-size: .625rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
 .gt-rate b:not([hidden]) { font-weight: 700; }

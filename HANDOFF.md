@@ -8771,3 +8771,53 @@ predate the rebuilt footer. Fix the suite, not the site.
 **Build gotcha:** after editing lux.css or site.css, `stamp.py` does not stamp
 the city or guide pages; run `gen_cities.py` and `gen_retreat_places.py` too,
 or the build refuses with STALE STAMPS and leaves dist/ untouched.
+
+## 84. 2 November 2026. GATLINBURG: "THE WEEK, DAY BY DAY". BUILT, NOT PUSHED.
+
+Cydnie asked for a section like Revamp's Portugal and Spain pages that shows
+what the week looks like, without changing the page's outline. New section
+`#days` (.gt-itin, white) sits between "The five days" (#week) and the house
+(#rooms), so the two porcelain sections are no longer back to back. Six day
+rows (label / copy / house photo), then a "Running through every day" panel.
+
+Her facts (2 Nov): a hike and a wellness day are the two outings; workshops
+not set, "most likely" goal setting and being okay in the present moment;
+movement is strength training with Kayla; welcome dinner, closing dinner,
+welcome gifts, optional evening restorative yoga with Cydnie, optional
+coaching with Cydnie; dinners catered, breakfast and lunch provided around
+allergies; no times yet.
+
+**Proposed, for her to confirm:** which day each item lands on (hike Thu,
+wellness Fri, workshops Wed and Sat, closing dinner Sat). The wellness day
+promises no massage or treatments: she is still pricing them. Coaching is
+written as part of the week (not an add-on); confirm. "What the price covers"
+is unchanged and does not yet list welcome gifts, yoga or coaching.
+
+Review: https://claude.ai/artifact/71TgSRC8KfBM1kJBFigpRy (version 3).
+Checked: build, seams 0, 1280 render, 375 width (one column, no overflow).
+The suite was not run: per section 83 it fails the same stale footer checks
+on every page. tools/shot.sh renders blank at 390 for every section, not just
+this one.
+
+**Later on 2 Nov:** Cydnie: every meal is at the house and included; Friday is
+not a night out. Fixed in gen_gatlinburg.py: "The five days" meal line, the
+included list ("Every meal, all week") and "Not included" (the dinner out is
+gone). **The live page still says Friday dinner is out until this is pushed.**
+She also asked for layout options for the week: no arches, two or three
+sentences a day, Kayla leads movement every morning and a journaling,
+reflection and goal-setting workshop; the wellness day is meant to be
+massages (venue not found yet, written as "we are arranging"). Options page:
+https://claude.ai/artifact/L8t6TRYVBoxhMU6ZYX6eRX (A sticky photo, B rail,
+C day picker). Built from a scratchpad template, not in the repo; the chosen
+one still has to be built into gen_gatlinburg.py over the #days draft.
+
+**Pushed, 2 Nov:** she chose between A and B ("I like a or b"); A is built.
+`#days` in gen_gatlinburg.py (WEEK list, day()), lux.css `.gt-itin*` (sticky
+stage at 60rem and up, a photo per day below it), site.js section 21
+`initItin` ([data-itin]). Saturday now includes the walk to the trolley and
+the SkyPark; tickets are left unsaid until she knows if they are included.
+Every meal is at the house (the Friday dinner out is gone). Checked: build,
+seams 0, desktop in a browser (photo and teal rule follow the day at
+mid-screen), 375 width (no overflow). tools/shot.sh shows the day text
+blank on this section because the reveal does not fire on an anchor jump;
+a real scroll reveals it.

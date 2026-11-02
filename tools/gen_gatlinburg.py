@@ -63,6 +63,40 @@ SHARED = room("Shared room", "$1,600", "Lodging, every meal, both workshops and 
               SHARED_HOLD, SHARED_FULL, "bunk-room",
               "A bunk room with white metal bunk beds made up in white and grey linen, under a pine ceiling.", 1000, 680)
 
+def day(i, word, when, name, copy, img, alt):
+    return """<li class="gt-itin-day%(on)s" data-word="%(word)s">
+        <span class="gt-itin-n" aria-hidden="true">%(i)d</span>
+        <div><span class="gt-itin-when">Day %(word)s &middot; %(when)s</span><h3>%(name)s</h3><p>%(copy)s</p></div>
+        <figure><img src="%(img)s-600.webp" srcset="%(img)s-600.webp 600w, %(img)s-1000.webp 1000w" sizes="92vw" width="1000" height="667" alt="%(alt)s" loading="lazy"></figure>
+      </li>""" % dict(i=i, on=" is-on" if i == 1 else "", word=word, when=when, name=name, copy=copy, img=IMG + img, alt=alt)
+
+# Her week (2 November 2026). Which day each item lands on is the order she
+# reviewed; massages are being arranged, not booked; SkyPark tickets are left
+# unsaid until she knows whether they are included.
+WEEK = [
+    ("one", "Tuesday 13 April", "You land.",
+     "The shuttle is waiting at Knoxville, and an hour later you are on the porch with the mountains in front of you. Your welcome gift is on your bed. The first night is the welcome dinner, everyone at one long table, meeting the women you will spend the week with.",
+     "house-dusk", "The house on its wooded slope at dusk, windows lit, the ridgeline behind it."),
+    ("two", "Wednesday 14 April", "Where you are going.",
+     "The morning opens with movement with Kayla: strength training built for real bodies and real lives. Then Kayla leads the first workshop: journaling, reflection and goal setting, a quiet stretch to get honest about what you want next. The afternoon is yours, and the day ends with restorative yoga with Cydnie for anyone who wants it.",
+     "great-room", "The great room, sofas and armchairs around a stone fireplace under a timber ceiling."),
+    ("three", "Thursday 15 April", "Into the park.",
+     "Movement with Kayla first, then we drive into the Great Smoky Mountains for the hike, at a pace the whole group can hold, with the April wildflowers coming up along the trail. Back at the house the hot tubs are waiting, and dinner is catered, so nobody is cooking.",
+     "ridge", "A long covered deck with log rails, the blue line of the Smoky Mountains beyond it."),
+    ("four", "Friday 16 April", "A day for you.",
+     "Movement with Kayla to start, then the wellness day. We are arranging massages for the group, and the rest of the day is rest and care: the hot tubs, the porch swing, a nap if that is what your body is asking for. The day ends the way every day does here, with dinner together at the house.",
+     "hot-tub-stone", "A hot tub set against a stone wall on an open deck."),
+    ("five", "Saturday 17 April", "Where you are now.",
+     "After movement with Kayla, the second workshop is about being okay in the present moment, not only in the one you are planning for. In the afternoon we walk down to the Gatlinburg trolley and ride into town for the SkyPark and its bridge over the valley. Then back to the house for the closing dinner on the deck as the sun goes down behind the ridge.",
+     "sunset", "A high bar table along a deck rail, looking west to the ridge under a sunset sky."),
+    ("six", "Sunday 18 April", "Home, lighter.",
+     "Movement with Kayla one last time, then breakfast together and a last coffee on the porch. Then the shuttle takes you back to Knoxville, with the goals you wrote on Wednesday and the women you met on Tuesday.",
+     "porch-swing", "A porch swing hanging on chains at the end of a covered deck, the valley beyond the rail."),
+]
+DAYS_HTML = "\n      ".join(day(k + 1, *w) for k, w in enumerate(WEEK))
+STAGE = "".join('<img class="%s" src="%s%s-1000.webp" width="1000" height="667" alt="" loading="lazy">'
+                % ("is-on" if k == 0 else "", IMG, w[4]) for k, w in enumerate(WEEK))
+
 MAIN = """<main id="main">
 
 <section class="ww-hero" aria-labelledby="gt-h">
@@ -123,8 +157,38 @@ MAIN = """<main id="main">
       <li><h3>Two workshops</h3><p>In the house, led by Cydnie and Kayla together. Goal setting is one of them. Nothing to prepare.</p></li>
       <li><h3>Two outings</h3><p>Twice in the week you leave the property. Getting there and back is arranged and inside the price.</p></li>
       <li><h3>Open time</h3><p>Long stretches with nothing on them. On purpose. The porch, the town, or sleep.</p></li>
-      <li><h3>Every meal</h3><p>Included and eaten together. Except Friday dinner, which is out and on your own.</p></li>
+      <li><h3>Every meal</h3><p>Every meal is included and eaten together at the house, all week.</p></li>
     </ol>
+  </div>
+</section>
+
+<!-- THE WEEK, DAY BY DAY (2 November 2026): Option A of three she was
+     shown. The stage photo is decorative (each day carries its own photo
+     with alt text for phones), so it is aria-hidden. site.js 21. -->
+<section class="hv-sec gt-itin" id="days" aria-labelledby="gt-itin" data-itin>
+  <div class="hv-wrap">
+    <div class="ww-head">
+      <span class="hv-label">What the week looks like</span>
+      <h2 class="hv-h2" id="gt-itin">The week, <em>day by day.</em></h2>
+      <p class="hv-lede">Mornings start with movement, evenings end at the table, and what sits between them changes day to day.</p>
+    </div>
+    <div class="gt-itin-grid">
+      <div class="gt-itin-stage" aria-hidden="true">%(STAGE)s<div class="gt-itin-badge"><span>Day</span><b class="gt-itin-num">one</b></div></div>
+      <ol class="gt-itin-days" role="list">
+      %(DAYS)s
+      </ol>
+    </div>
+    <div class="gt-every">
+      <h3 class="hv-label">Every day, included</h3>
+      <ul role="list">
+        <li>Movement with Kayla, every morning</li>
+        <li>Evening yoga with Cydnie</li>
+        <li>Coaching with Cydnie, if you want it</li>
+        <li>Every meal, at the house</li>
+        <li>Catered dinners, made around allergies</li>
+        <li>Airport shuttles both ways</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -151,11 +215,11 @@ MAIN = """<main id="main">
     <div>
       <span class="hv-label">What the price covers</span>
       <h2 class="hv-h2" id="gt-inc">You land. <em>We handle the rest.</em></h2>
-      <p class="gt-not"><b>Not included:</b> your flight into Knoxville (running $400 to $600 right now), the one dinner out, alcohol, travel insurance, and anything you buy in town.</p>
+      <p class="gt-not"><b>Not included:</b> your flight into Knoxville (running $400 to $600 right now), alcohol, travel insurance, and anything you buy in town.</p>
     </div>
     <ul class="au-facts gt-inc" role="list">
       <li>Five nights in the room you choose</li>
-      <li>Every meal but one dinner</li>
+      <li>Every meal, all week</li>
       <li>Movement every morning</li>
       <li>Both workshops</li>
       <li>Two outings, with the transport</li>
@@ -280,6 +344,7 @@ MAIN = """<main id="main">
     "ARW": ARW, "IMG": IMG, "KING": KING, "SHARED": SHARED, "GALLERY": GALLERY.strip(), "LIST": LIST,
     "KING_HOLD": KING_HOLD, "KING_FULL": KING_FULL, "SHARED_HOLD": SHARED_HOLD, "SHARED_FULL": SHARED_FULL,
     "FAQ": L.faq_html(FAQ),
+    "STAGE": STAGE, "DAYS": DAYS_HTML,
     "S1": S("I was burnt out and struggling to figure out why I always felt behind. My need to be perfect and always reliable had become the reason I failed to show up for myself when I needed it the most.", "Kristi", "Retreat guest, Costa Rica"),
     "S2": S("Intimate group size, and leaders able to make us think, laugh and cry without judgement. No waiting, no rushing.", "Carol", "Retreat guest, Costa Rica"),
     "S3": S("If you are weary from life and want to reset and refresh yourself, take a chance on an experience that will not disappoint you if you attend with open hands and heart.", "Carol", "Retreat guest, Costa Rica"),
@@ -332,7 +397,7 @@ n = L.render(
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
     og_image=L.SITE + "/assets/img/gatlinburg/house-dusk-1200.webp",
     reveal=(".ww-head", ".au-row > div", ".gt-days > li", ".gt-room", ".gt-inc", ".gt-nums > div", ".gt-legs > div",
-            ".gt-host", ".hv-slides", ".gt-book-grid > div"),
+            ".gt-host", ".hv-slides", ".gt-book-grid > div", ".gt-itin-day", ".gt-every"),
     reveal_imgs=(".gt-deck",),
 )
 print("written", n)

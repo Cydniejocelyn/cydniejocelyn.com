@@ -1938,6 +1938,31 @@
     });
   }
 
+  /* ---------- 21. Gatlinburg's week, day by day, 2 November 2026 ------
+     [data-itin]: one photo holds still beside the six days, and whichever
+     day crosses the middle of the screen owns it. The band at -45%/-45% is
+     a line, so exactly one day is ever "on". Fails open: the first day and
+     its photo are marked on in the markup, and below 60rem the stage is
+     hidden and every day carries its own photo, so nothing here is needed
+     to read the week. */
+  function initItin() {
+    Array.prototype.slice.call(document.querySelectorAll("[data-itin]")).forEach(function (host) {
+      var days = Array.prototype.slice.call(host.querySelectorAll(".gt-itin-day"));
+      var photos = Array.prototype.slice.call(host.querySelectorAll(".gt-itin-stage img"));
+      var num = host.querySelector(".gt-itin-num");
+      if (!days.length || !("IntersectionObserver" in window)) return;
+      function set(i) {
+        days.forEach(function (d, k) { d.classList.toggle("is-on", k === i); });
+        photos.forEach(function (ph, k) { ph.classList.toggle("is-on", k === i); });
+        if (num) num.textContent = days[i].getAttribute("data-word");
+      }
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) set(days.indexOf(e.target)); });
+      }, { rootMargin: "-45% 0px -45% 0px" });
+      days.forEach(function (d) { io.observe(d); });
+    });
+  }
+
   function boot() {
     initTweenProbe();
     document.querySelectorAll(".split").forEach(splitWords);
@@ -1965,6 +1990,7 @@
     initCountdown();
     initDaysLeft();
     initYear();
+    initItin();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
