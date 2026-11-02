@@ -8755,8 +8755,13 @@ index.html by hand, llms.txt, gatlinburg-popup.js NOTE. Reviewed by her from
 https://claude.ai/artifact/71TgSRC8KfBM1kJBFigpRy. Arizona's early rate
 (30 November) is untouched and is the next one due.
 
+**Gatlinburg payment plan (2 Nov):** Cydnie: "the payment plan is 4 monthly
+payments after 500 down deposit." Gatlinburg only (her answer); Arizona stays
+five, Greece six. Three strings in gen_gatlinburg.py.
+
 **HoneyBook is hers:** if the four Gatlinburg HoneyBook links still charge
 $2,790 / $1,490, she changes them there.
+The same goes for the plan length: four payments in HoneyBook.
 
 **The suite is stale, not broken by this.** Every page fails the same nine
 footer checks and the off-site-link check, identically before and after both

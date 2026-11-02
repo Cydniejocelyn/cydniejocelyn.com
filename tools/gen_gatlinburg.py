@@ -3,7 +3,7 @@ September 2026 on the luxury system. THIS PAGE IS LIVE AND TAKING BOOKINGS.
 
 Nothing a guest pays against has changed: both room prices, the early rate
 and its deadline (31 October 2026; $2,900 / $1,600 from 1 November), the
-$500 hold, the five monthly payments, and all four HoneyBook links are the
+$500 hold, the four monthly payments (five until 2 November 2026), and all four HoneyBook links are the
 same records the live page uses. Kept: every fact on the old page, the 24
 photograph gallery (verbatim, tools/gatlinburg_gallery.html), the three park
 figures (checkable, sourced in the old page's notes), both host bios, the
@@ -50,7 +50,7 @@ def room(name, price, later, bullets, hold, full, img, alt, w, h):
             <a class="hv-btn hv-btn--ink" href="%(hold)s" data-cta="gatlinburg-hold">Hold my room, $500 %(arw)s<span class="hv-vh"> (opens my booking page)</span></a>
             <a class="hv-btn hv-btn--line" href="%(full)s" data-cta="gatlinburg-full">Pay in full<span class="hv-vh"> (opens my booking page)</span></a>
           </div>
-          <p class="gt-room-note">$500 today holds it. The balance is five monthly payments, starting the month after.</p>
+          <p class="gt-room-note">$500 today holds it. The balance is four monthly payments, starting the month after.</p>
         </div>
       </article>""" % dict(name=name, price=price, later=later, lis=lis, hold=hold, full=full, img=IMG + img, alt=alt, w=w, h=h, arw=ARW)
 
@@ -249,7 +249,7 @@ MAIN = """<main id="main">
     <div>
       <span class="hv-label">13 to 18 April 2027 &middot; Gatlinburg</span>
       <h2 class="hv-h2" id="gt-book">Five days to <em>breathe in the Smokies.</em></h2>
-      <p class="sd-truth-copy">$500 holds your room today, and the balance is five monthly payments starting the month after. Or pay in full.</p>
+      <p class="sd-truth-copy">$500 holds your room today, and the balance is four monthly payments starting the month after. Or pay in full.</p>
     </div>
     <div class="gt-picks">
       <div class="gt-pick"><p class="gt-pick-name">Private king suite</p><p class="gt-pick-price">$2,900</p>
