@@ -54,11 +54,11 @@ def room(name, price, later, bullets, hold, full, img, alt, w, h):
         </div>
       </article>""" % dict(name=name, price=price, later=later, lis=lis, hold=hold, full=full, img=IMG + img, alt=alt, w=w, h=h, arw=ARW)
 
-KING = room("Private king suite", "$2,790", "Early rate through 31 October 2026, then $2,900.",
+KING = room("Private king suite", "$2,900", "Lodging, every meal, both workshops and both outings included.",
             ["A king bed, and the room is yours alone", "Your own bathroom", "A private balcony facing the mountains"],
             KING_HOLD, KING_FULL, "king-suite",
             "A four poster king bed with white linen, facing glass doors onto a private balcony with the mountains beyond.", 1000, 680)
-SHARED = room("Shared room", "$1,490", "Early rate through 31 October 2026, then $1,600.",
+SHARED = room("Shared room", "$1,600", "Lodging, every meal, both workshops and both outings included.",
               ["Bunk style, shared with other guests", "Bathrooms throughout the house, never a wait", "The natural fit if you are coming with a friend"],
               SHARED_HOLD, SHARED_FULL, "bunk-room",
               "A bunk room with white metal bunk beds made up in white and grey linen, under a pine ceiling.", 1000, 680)
@@ -80,13 +80,13 @@ MAIN = """<main id="main">
         <div><dt>Where</dt><dd>Gatlinburg, Tennessee</dd></div>
         <div><dt>Group</dt><dd>A small group of women</dd></div>
         <div><dt>With</dt><dd>Cydnie and Kayla</dd></div>
-        <div><dt>From</dt><dd>$1,490</dd></div>
+        <div><dt>From</dt><dd>$1,600</dd></div>
         <div><dt>To hold a room</dt><dd>$500</dd></div>
       </dl>
     </div>
     <figure class="ww-arch">
       <img src="%(IMG)shouse-dusk-portrait-834.webp" srcset="%(IMG)shouse-dusk-portrait-600.webp 600w, %(IMG)shouse-dusk-portrait-834.webp 834w" sizes="(min-width: 64rem) 30rem, 90vw" width="834" height="1112" alt="A timber house on a wooded slope at dusk, its windows lit, with the ridgeline of the Smoky Mountains behind it." fetchpriority="high">
-      <figcaption><span>Early rate through</span><b>31 October</b></figcaption>
+      <figcaption><span>Booking now</span><b>April 2027</b></figcaption>
     </figure>
   </div>
 </section>
@@ -136,7 +136,7 @@ MAIN = """<main id="main">
       <span class="hv-label">Where you stay</span>
       <h2 class="hv-h2" id="gt-house">A private house, and <em>all of it is ours.</em></h2>
       <p class="hv-lede">You sleep, eat, move and do both workshops here, with two hot tubs that belong to the house and a deck facing the mountains.</p>
-      <p class="gt-rate"><span>Early rate through 31 October</span> <b data-daysleft="2026-11-01T00:00:00-05:00" hidden></b></p>
+      <p class="gt-rate"><span>Booking now &middot; $500 holds your room</span></p>
     </div>
     <div class="gt-rooms">
       %(KING)s
@@ -242,29 +242,19 @@ MAIN = """<main id="main">
   </div>
 </section>
 
-<!-- BOOKING: the countdown to the real early-rate deadline, and both rooms
-     with both links. -->
+<!-- BOOKING: both rooms with both links. The early-rate countdown and its
+     rate line came out on 2 November 2026, when the early rate ended. -->
 <section class="hv-sec ww-standards gt-book" id="booking" aria-labelledby="gt-book">
   <div class="hv-wrap gt-book-grid">
     <div>
       <span class="hv-label">13 to 18 April 2027 &middot; Gatlinburg</span>
       <h2 class="hv-h2" id="gt-book">Five days to <em>breathe in the Smokies.</em></h2>
       <p class="sd-truth-copy">$500 holds your room today, and the balance is five monthly payments starting the month after. Or pay in full.</p>
-      <div class="gt-count" data-countdown="2026-11-01T00:00:00-05:00" hidden>
-        <p class="gt-count-label">The early rate ends in</p>
-        <div class="gt-count-cells" role="timer" aria-live="off">
-          <span><b data-unit="d">00</b><i>Days</i></span>
-          <span><b data-unit="h">00</b><i>Hours</i></span>
-          <span><b data-unit="m">00</b><i>Minutes</i></span>
-          <span><b data-unit="s">00</b><i>Seconds</i></span>
-        </div>
-      </div>
-      <p class="gt-rate-line">The early rate holds through 31 October 2026. From 1 November the rooms are $2,900 and $1,600.</p>
     </div>
     <div class="gt-picks">
-      <div class="gt-pick"><p class="gt-pick-name">Private king suite</p><p class="gt-pick-price">$2,790</p>
+      <div class="gt-pick"><p class="gt-pick-name">Private king suite</p><p class="gt-pick-price">$2,900</p>
         <div class="gt-pick-cta"><a class="hv-btn rx-btn-light" href="%(KING_HOLD)s" data-cta="gatlinburg-book-king-hold">Hold my room, $500<span class="hv-vh"> (opens my booking page)</span></a><a class="gt-full" href="%(KING_FULL)s" data-cta="gatlinburg-book-king-full">Pay in full<span class="hv-vh"> (opens my booking page)</span></a></div></div>
-      <div class="gt-pick"><p class="gt-pick-name">Shared room</p><p class="gt-pick-price">$1,490</p>
+      <div class="gt-pick"><p class="gt-pick-name">Shared room</p><p class="gt-pick-price">$1,600</p>
         <div class="gt-pick-cta"><a class="hv-btn rx-btn-light" href="%(SHARED_HOLD)s" data-cta="gatlinburg-book-shared-hold">Hold my room, $500<span class="hv-vh"> (opens my booking page)</span></a><a class="gt-full" href="%(SHARED_FULL)s" data-cta="gatlinburg-book-shared-full">Pay in full<span class="hv-vh"> (opens my booking page)</span></a></div></div>
       <p class="gt-pick-note">Your invoice, payment terms and contract come straight to your inbox.</p>
     </div>
@@ -306,6 +296,8 @@ SITE = "https://www.cydniejocelyn.com/"
 graph = [n for n in graph if n.get("@id") not in (URL + "#webpage", URL + "#faq")]
 for n in graph:
     if n.get("@type") == "Event":
+        # The early rate ended 31 October 2026: only the standard offers remain.
+        n["offers"] = [o for o in n.get("offers", []) if "early rate" not in o.get("name", "")]
         n["performer"] = [{"@id": SITE + "#cydnie"} if p.get("name") == "Cydnie Jocelyn Brown" else p
                           for p in n.get("performer", [])]
 graph.append({
@@ -336,7 +328,7 @@ n = L.render(
     description="Wide Open: five days in Gatlinburg, Tennessee, 13 to 18 April 2027. Lodging, every meal, daily movement, two workshops and two outings included.",
     canonical=URL,
     og_title="Wide Open: The Gatlinburg Edition | April 2027",
-    og_description="Five days in a private house in the Smokies, for a small group of women. From $1,490; $500 holds your room.",
+    og_description="Five days in a private house in the Smokies, for a small group of women. From $1,600; $500 holds your room.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
     og_image=L.SITE + "/assets/img/gatlinburg/house-dusk-1200.webp",
     reveal=(".ww-head", ".au-row > div", ".gt-days > li", ".gt-room", ".gt-inc", ".gt-nums > div", ".gt-legs > div",

@@ -16,15 +16,15 @@ PRIVATE = "https://www.honeybook.com/widget/cydnie_jocelyn_collective_299013/cf_
 GREECE_WAIT = "https://clients.cydniejocelyn.com/public/6a21d07b6dcfbe3d85c663b6"
 
 # The three retreats, as cards. Facts match the event pages on 5 October 2026.
-# 31 OCTOBER / 30 NOVEMBER: the early rates below change; update with
-# gen_gatlinburg.py and gen_arizona.py (HANDOFF 62 and 68).
+# 30 NOVEMBER: the Arizona early rate below changes; update with
+# gen_arizona.py (HANDOFF 68). Gatlinburg's ended 31 October 2026.
 RETREATS = {
   "gat": dict(
     tag="Booking now", when="13&ndash;18 April 2027", where="Gatlinburg, Tennessee",
     name="Wide Open: The Gatlinburg Edition", href="/retreats/gatlinburg/",
     text="Five days in a private house at the edge of the Great Smoky Mountains with Kayla Freeman and me. Lodging, every meal, daily movement, two workshops and two outings are included.",
-    price="Shared room $1,490 &middot; private king suite $2,790",
-    note="Early rate through 31 October. $500 holds your room."),
+    price="Shared room $1,600 &middot; private king suite $2,900",
+    note="$500 holds your room."),
   "az": dict(
     tag="Booking now", when="5&ndash;9 May 2027", where="Peoria, Arizona",
     name="Wild Canvas: The Arizona Edition", href="/retreats/arizona/",
@@ -109,7 +109,7 @@ PLACES = [
       ("When is the Smoky Mountains retreat?",
        "13 to 18 April 2027 in Gatlinburg, Tennessee. Five days in a private house at the edge of the Great Smoky Mountains."),
       ("What does it cost?",
-       "A shared room is $1,490 and a private king suite $2,790 at the early rate through 31 October 2026, then $1,600 and $2,900. $500 holds your room."),
+       "A shared room is $1,600 and a private king suite $2,900. $500 holds your room."),
       ("Which airport do I fly into?",
        "Knoxville (TYS), about an hour from Gatlinburg. If you live in the Southeast, driving is often easier. Airfare is not included."),
       ("Is it a wellness retreat?",

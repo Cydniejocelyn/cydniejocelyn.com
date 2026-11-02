@@ -39,7 +39,7 @@ FAQ = [
     ("What is included?",
      "In Gatlinburg: lodging, every meal, daily movement, two workshops and two outings. Airfare is not included; fly into Knoxville and from the airport forward the logistics are ours. Each retreat lists exactly what is included on its own page."),
     ("What does it cost and how do I hold a seat?",
-     "Gatlinburg is $1,490 for a shared room and $2,790 for the private king suite at the early rate, through 31 October 2026, and $500 holds your room. Greece is $3,450, with a $500 non-refundable deposit. Every figure is published on the retreat&rsquo;s own page."),
+     "Gatlinburg is $1,600 for a shared room and $2,900 for the private king suite, and $500 holds your room. Greece is $3,450, with a $500 non-refundable deposit. Every figure is published on the retreat&rsquo;s own page."),
     ("Do I need travel insurance?",
      "It is not required, and I would buy it the day you book. The deposit is non-refundable and your flight will be booked months out."),
     ("Are the retreats women only?",
@@ -115,7 +115,7 @@ MAIN = """<main id="main">
         <a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-hero-rooms">Choose your Gatlinburg room %(ARW)s</a>
         <a class="hv-btn hv-btn--line" href="#dates">See all dates</a>
       </div>
-      <div class="rx-next"><span>Next retreat</span><p><b>Gatlinburg, Tennessee &middot; 13&ndash;18 April 2027</b>From $1,490. The early rate ends 31 October, and $500 holds your room.</p></div>
+      <div class="rx-next"><span>Next retreat</span><p><b>Gatlinburg, Tennessee &middot; 13&ndash;18 April 2027</b>From $1,600, and $500 holds your room.</p></div>
     </div>
     <figure class="ww-arch">
       <img src="../assets/img/retreats/cr-floor-1000.webp" srcset="../assets/img/retreats/cr-floor-600.webp 600w, ../assets/img/retreats/cr-floor-1000.webp 1000w" sizes="(min-width: 64rem) 30rem, 90vw" width="1000" height="1613" alt="Women sitting together in a circle on the floor of an open-air pavilion in Costa Rica" fetchpriority="high">
@@ -148,8 +148,8 @@ MAIN = """<main id="main">
           <p class="rx-when">13&ndash;18 April 2027 &middot; Gatlinburg, Tennessee</p>
           <h3>Wide Open: The Gatlinburg Edition</h3>
           <p>Five days in a private house at the edge of the Smoky Mountains, with Kayla Freeman leading the morning movement. Lodging, every meal, two workshops and two outings are included.</p>
-          <dl><div><dt>Shared room</dt><dd>$1,490</dd></div><div><dt>Private king suite</dt><dd>$2,790</dd></div></dl>
-          <p class="rx-note">Early rate through 31 October. $500 holds your room. Fly into Knoxville; from the airport forward, the logistics are ours.</p>
+          <dl><div><dt>Shared room</dt><dd>$1,600</dd></div><div><dt>Private king suite</dt><dd>$2,900</dd></div></dl>
+          <p class="rx-note">$500 holds your room. Fly into Knoxville; from the airport forward, the logistics are ours.</p>
           <div class="hv-btns"><a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-card-rooms">Choose your room %(ARW)s</a><a class="hv-link" href="/retreats/gatlinburg/">See the week</a></div>
         </div>
       </li>
@@ -221,7 +221,7 @@ MAIN = """<main id="main">
         </div>
       </div>
     </div>
-    <div class="rx-proof-cta"><a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-proof-rooms">Choose your Gatlinburg room %(ARW)s</a><span>Early rate through 31 October</span></div>
+    <div class="rx-proof-cta"><a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-proof-rooms">Choose your Gatlinburg room %(ARW)s</a><span>$500 holds your room</span></div>
   </div>
 </section>
 
@@ -256,7 +256,7 @@ MAIN = """<main id="main">
   <div class="hv-wrap">
     <span class="hv-label hv-label--c">A small group</span>
     <h2 class="hv-h2" id="close-h">When the places go, <em>the date closes.</em></h2>
-    <p class="hv-lede">Each retreat has a set number of places. Gatlinburg is booking now, and the early rate holds through 31 October.</p>
+    <p class="hv-lede">Each retreat has a set number of places. Gatlinburg is booking now.</p>
     <div class="hv-btns">
       <a class="hv-btn hv-btn--ink" href="/retreats/gatlinburg/#rooms" data-cta="retreats-close-rooms">Choose your Gatlinburg room %(ARW)s</a>
       <a class="hv-btn hv-btn--line" href="%(GREECE_WAIT)s">Greece waitlist</a>

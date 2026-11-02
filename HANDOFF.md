@@ -8735,3 +8735,34 @@ blog home link to /the-build/, /a-sounding/ and /the-letters/. The 301s catch th
 after merging main, run the same replacements over tools/posts.py and gen_blog.py and
 regenerate, so no internal link goes through a redirect. The Sounding's name is still
 open; its URL no longer depends on it.
+
+## 83. 28 October and 2 November 2026. PHONE HEADER, GATLINBURG EARLY RATE REMOVED. PUSHED.
+
+**Phone header (28 Oct, 3c9a75f).** On iPhone Safari the menu bar looked as if
+it stopped short of the top: every page sets viewport-fit=cover and the header
+never filled the status-bar strip. lux.css: `.hv-hdr` pads by
+`env(safe-area-inset-top)`, `.hv-hdr-in` keeps clear of the notch in landscape,
+and below 64rem the header is solid #fff (Safari 26 tints the status bar only
+from an opaque header). Not yet confirmed on a real iPhone; no full Xcode here.
+
+**Gatlinburg early rate removed (2 Nov).** Cydnie: "change the gatlinburg
+early bird pricing and remove early bird." Prices are now $2,900 king suite and
+$1,600 shared, everywhere section 62 listed: gen_gatlinburg.py (room cards,
+hero facts and caption, rate strip, booking band, og description; countdown
+and daysleft markup removed; the Event schema drops the two "early rate"
+offers on every run), gen_retreats.py, retreat_places.py (three guides),
+index.html by hand, llms.txt, gatlinburg-popup.js NOTE. Reviewed by her from
+https://claude.ai/artifact/71TgSRC8KfBM1kJBFigpRy. Arizona's early rate
+(30 November) is untouched and is the next one due.
+
+**HoneyBook is hers:** if the four Gatlinburg HoneyBook links still charge
+$2,790 / $1,490, she changes them there.
+
+**The suite is stale, not broken by this.** Every page fails the same nine
+footer checks and the off-site-link check, identically before and after both
+changes (home 25/12, gatlinburg 57/10, retreats 31/10). Its footer assertions
+predate the rebuilt footer. Fix the suite, not the site.
+
+**Build gotcha:** after editing lux.css or site.css, `stamp.py` does not stamp
+the city or guide pages; run `gen_cities.py` and `gen_retreat_places.py` too,
+or the build refuses with STALE STAMPS and leaves dist/ untouched.
