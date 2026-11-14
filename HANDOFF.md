@@ -8821,3 +8821,25 @@ seams 0, desktop in a browser (photo and teal rule follow the day at
 mid-screen), 375 width (no overflow). tools/shot.sh shows the day text
 blank on this section because the reveal does not fire on an anchor jump;
 a real scroll reveals it.
+
+## 85. 14 November 2026 (GATHER night). THE QUESTIONS: HOLIDAY RETREATS SECTION. BUILT, NOT PUSHED.
+
+Cydnie: a "give yourself the gift this holiday season" part on /thequestions/,
+$250 off Gatlinburg for GATHER guests, Arizona's early rate, links to both.
+New `#retreats` section (white) between the twelve questions and "Who's
+asking", using the /retreats/ cards (.rx-date) and a link to /retreats/.
+"Who's asking" is now porcelain (tq-sec) so two white sections don't touch.
+lux.css: `.rx-date dd s` (struck $1,800) and `.tq-allret`.
+
+**Settled later that night:** GATHER is a HoneyBook code (her yes); the
+offer ends 30 November, as on her four flyers: $1,350 shared, $2,650 king.
+She asked for the offer at the top and a more festive page: the hero gets a
+second button and an rx-next line ("Rest in the mountains. Make something in
+the desert.", her flyer copy), and the section gets an ink band "Special
+retreat pricing through 30 November". Pine and pinecones cut from her flyers
+were tried and removed on her word ("doesn't work one bit"); don't re-add. **On 1 December
+the whole offer comes off this page** (hero line, button, band, both cards). Arizona's early rate copy ends 30 November;
+this section is one more place to change on 1 December.
+
+Checked: build, seams 0, 1280 and 375 (no overflow). Review:
+https://claude.ai/artifact/TvVACshSZnVCK8u5ixFhDR (version 1794656788-af3c).

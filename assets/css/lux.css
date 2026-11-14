@@ -1101,6 +1101,11 @@
 .tq-list p { margin: 0; font-family: var(--serif); font-size: clamp(1.375rem, 2.2vw, 1.75rem); line-height: 1.2; color: var(--ink); }
 .tq-who p + p { margin-top: 1.1rem; color: var(--ink-2); }
 .tq-who .hv-lede { margin-top: 0; }
+.rx-date dd s { margin-left: .4em; font-size: .55em; color: var(--ink-3); }
+.tq-allret { margin-top: 2rem; }
+.tq-next a { display: inline-block; margin-top: .35rem; }
+.tq-band { display: inline-block; margin-top: 1.75rem; padding: .85rem 1.5rem; background: var(--ink); color: #fff; font-size: .6875rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; line-height: 1.5; }
+.rx-note b { color: var(--ink); font-weight: 700; letter-spacing: .06em; }
 
 /* ==========================================================
    COOKIE BANNER (.cc, drawn by consent.js), 26 September 2026.
