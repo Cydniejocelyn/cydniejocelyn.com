@@ -188,7 +188,7 @@ def main_html(c):
       <p class="sd-ticket-price"><span>Strategy Day</span>$1,500</p>
       <ul role="list"><li>A full day on your brand and business</li><li>Audit, discovery, positioning and message</li><li>Your positioning and message in writing</li><li>In person or remote, your choice</li><li>$1,500 comes off a Full Brand Launch</li></ul>
       <a class="hv-btn hv-btn--ink" href="%(CALL)s" data-cta="free-call-city-book-%(slug)s">Book a free call to plan it %(ARW)s</a>
-      <p class="sd-ticket-note">Not ready for a full day? <a class="hv-inline" href="/brand-strategy/strategy-session/">The Sounding</a> is 90 minutes and a written roadmap for $300.</p>
+      <p class="sd-ticket-note">Not ready for a full day? <a class="hv-inline" href="/brand-strategy/strategy-session/">The Strategy Session</a> is 90 minutes and a written roadmap for $300.</p>
     </div>
   </div>
 </section>

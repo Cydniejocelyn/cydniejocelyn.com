@@ -8892,3 +8892,28 @@ GitHub caught up the same day: she ran `gh auth login --hostname github.com
 --git-protocol https --web` in the app's Terminal panel (answering the
 interactive prompts in chat did nothing), then setup-git, and both commits
 were pushed. Pushes work again.
+
+## 87. 25 November 2026. THE SOUNDING IS NOW THE STRATEGY SESSION. PUSHED.
+
+Closes the rename left open in section 79. Cydnie asked whether it could be "a
+strategy session or 30-minute consultation call"; told her the 30-minute call is
+the free one already, so the paid one would collide. Her answer: "call it
+Strategy Session". It is still 90 minutes, $300, a written roadmap, credited to
+a Build.
+
+Visible text only: gen_a_sounding.py (h1, lede, labels, quotes, schema, title,
+og), gen_work_with_me.py (step, item, FAQ, buttons, and the carried Offer "A
+Sounding" renamed in the schema loop), gen_cities.py, gen_404.py,
+gen_privacy_policy.py, privacy_body.html, index.html by hand (step, FAQ x2 and
+FAQPage x2, Offer, "Ready now?", footer link, which every page inherits),
+llms.txt, build_artifact.py title. Where "The Sounding, a 90-minute strategy
+session" would now repeat itself, the subtitle is "90 minutes on your
+business". Page buttons say "Book the session" ("Book the Strategy Session,
+$300" wraps at 375).
+
+Kept on purpose: the URL, file names (gen_a_sounding.py, sounding-popup.js),
+data-cta values (analytics continuity), comments, and "Sounding like everyone
+else" on a city page (a different sense). Every generator was rerun; the HTML
+diffs held nothing but the rename. Suite identical to section 83's baseline.
+HoneyBook's booking page, emails and contract still say Sounding: hers.
+Review: https://claude.ai/artifact/DssHAcZhyTcejNQUjtQSJi

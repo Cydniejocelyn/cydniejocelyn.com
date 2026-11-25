@@ -32,7 +32,7 @@ ARW = '<svg viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M11 1l4 
 
 FAQ = [
  ("Do you publish your pricing?", "Yes. Every service on this page has a published price or a starting price, and the full figure for your scope is in writing before you sign anything. Retreat pricing is on each retreat page."),
- ("How do I start working with you?", "Book a free 30-minute call. If we are a fit, the next step is the Sounding, a 90-minute strategy session with a written roadmap of findings and recommendations two days later. The $300 comes off your project."),
+ ("How do I start working with you?", "Book a free 30-minute call. If we are a fit, the next step is the Strategy Session: 90 minutes, with a written roadmap of findings and recommendations two days later. The $300 comes off your project."),
  ("Can we keep working together after the project?", "Yes. Once your first project is finished, you can stay on with a Monthly Partnership: strategy every month, and hands-on help with content, operations and business development. It is scoped with you at the end of that project."),
  ("How long does a Season Partnership take?", "It is scoped in a written proposal before either of us commits. The length depends on how much operations work is in play."),
  ("Can I edit the website myself?", "No, and that is on purpose. The site is written in code, so no theme limits it and no plugin update breaks it. Content changes come through me on the Complete care plan."),
@@ -70,7 +70,7 @@ menu = '''
         %s
       </div>''' % (
   item("Free Call", "Thirty minutes to see if we are a fit. No pitch, no pressure.", [], price("30 minutes", "Free"), link='<a class="hv-link" href="%s" data-cta="free-call-menu">Book the call</a>' % CALL),
-  item("The Sounding", "A 90-minute strategy session on the whole business, then my full take in writing two days later: what is load bearing, and my recommendations in order. The fee comes off your project.", [], price("Flat", "$300"), link='<a class="hv-link" href="%s">Book the Sounding</a>' % SOUND),
+  item("The Strategy Session", "90 minutes on the whole business, then my full take in writing two days later: what is load bearing, and my recommendations in order. The fee comes off your project.", [], price("Flat", "$300"), link='<a class="hv-link" href="%s">Book the Strategy Session</a>' % SOUND),
   item("Strategy Day", "When it needs deciding. One focused day on audit, positioning and message, delivered in writing.", [], price("Flat", "$1,500")),
   item("Season Partnership", "When it needs building. Positioning and message, then how the work moves and where the next client comes from.", ["Positioning", "Operations", "Growth plan"], price("From", "$6,000")),
   item('Full Brand Launch <span class="hv-tag">Signature</span>', "All three areas in one contract: brand guide and identity, a website built in code, and the content and launch plan.", ["Identity &amp; logo", "Website", "Launch plan"], price("From", "$15,000"), extra=" ww-item--sig"),
@@ -101,6 +101,10 @@ for n in g["@graph"]:
         if "Monthly partnership" not in names:
             cat.append({"@type": "Offer", "name": "Monthly partnership", "priceCurrency": "USD", "availability": "https://schema.org/InStock",
                         "description": "Ongoing monthly strategy and hands-on support with content, operations and business development, after a first project. Scoped with the client."})
+        # 25 Nov 2026: the Sounding is called the Strategy Session (her word).
+        for o in cat:
+            if o.get("name") == "A Sounding":
+                o["name"] = "Strategy Session"
         if "Free consultation" not in names:
             cat.insert(0, {"@type": "Offer", "name": "Free consultation", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock",
                            "description": "A free 30-minute call to see whether a partnership is a fit."})
@@ -259,7 +263,7 @@ page = '''<!DOCTYPE html>
     </div>
     <ol class="ww-steps" role="list">
       <li><h3>Free call</h3><p>Thirty minutes to see if we are a fit. No pitch, no pressure.</p><span class="hv-meta">Free</span></li>
-      <li><h3>The Sounding</h3><p>A 90-minute strategy session, then my full take and recommendations in writing two days later.</p><span class="hv-meta">$300, credited to your project</span></li>
+      <li><h3>The Strategy Session</h3><p>90 minutes on your business, then my full take and recommendations in writing two days later.</p><span class="hv-meta">$300, credited to your project</span></li>
       <li><h3>The Build</h3><p>The core work, scoped in writing before either of us commits.</p><span class="hv-meta">From $1,500</span></li>
       <li><h3>Monthly partnership</h3><p>If you want me in it with you after launch, I stay.</p><span class="hv-meta">Optional</span></li>
     </ol>
@@ -363,7 +367,7 @@ page = '''<!DOCTYPE html>
     <p class="hv-lede">Thirty minutes, free. You will leave knowing whether a partnership makes sense, and what the first move would be.</p>
     <div class="hv-btns">
       <a class="hv-btn hv-btn--ink" href="@@CALL@@" data-cta="free-call-close">Book a free 30-min call @@ARW@@</a>
-      <a class="hv-btn hv-btn--line" href="@@SOUND@@">Or book the Sounding, $300</a>
+      <a class="hv-btn hv-btn--line" href="@@SOUND@@">Or book the Strategy Session, $300</a>
     </div>
     <small>Or write to me at <a class="hv-inline" href="mailto:hello@cydniejocelyn.com">hello@cydniejocelyn.com</a></small>
   </div>

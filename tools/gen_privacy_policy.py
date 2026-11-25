@@ -59,7 +59,7 @@ OUT = "privacy-policy/index.html"
 L.render(
     out=OUT, depth=1, active=None,
     title="Privacy Policy and Terms of Use | Cydnie Jocelyn",
-    description="How Cydnie Jocelyn LLC collects and uses your information, and the terms that govern your use of this website, a Sounding, a Build engagement and a retreat.",
+    description="How Cydnie Jocelyn LLC collects and uses your information, and the terms that govern your use of this website, a Strategy Session, a Build engagement and a retreat.",
     canonical=URL,
     og_title="Privacy Policy and Terms of Use | Cydnie Jocelyn",
     og_description="How Cydnie Jocelyn LLC collects and uses your information, and the terms that govern your use of this website.",

@@ -18,7 +18,7 @@ CALL, SOUND, ARW = L.CALL, L.SOUND, L.ARW
 
 FAQ = [
     ("Do I need the free call first?",
-     "It is the recommended first step: thirty minutes to make sure the Sounding is right for you. If you already know it is, book the Sounding directly."),
+     "It is the recommended first step: thirty minutes to make sure the Strategy Session is right for you. If you already know it is, book the Strategy Session directly."),
     ("Is this a coaching call?",
      "No. There is no goal setting and nothing to work on between sessions. It is a strategy session: you describe how the business currently runs, and you leave with the pressure located and a written roadmap of what to address first."),
     ("Does the $300 count toward a larger project?",
@@ -37,11 +37,11 @@ MAIN = """<main id="main">
 <section class="ww-hero" aria-labelledby="sd-h">
   <div class="hv-wrap ww-hero-grid">
     <div class="ww-hero-copy">
-      <h1 class="hv-label" id="sd-h">The Sounding &middot; a 90-minute business strategy session</h1>
+      <h1 class="hv-label" id="sd-h">The Strategy Session &middot; 90 minutes on your whole business</h1>
       <p class="ww-display">Know exactly what to <em>fix first.</em></p>
-      <p class="hv-lede">The Sounding is a 90-minute strategy session across brand, operations and business development. Two days later you get my full take in writing: what is really going on, and what I recommend, in order. It becomes the roadmap for everything we build next.</p>
+      <p class="hv-lede">The Strategy Session is 90 minutes across brand, operations and business development. Two days later you get my full take in writing: what is really going on, and what I recommend, in order. It becomes the roadmap for everything we build next.</p>
       <div class="hv-btns">
-        <a class="hv-btn hv-btn--ink" href="%(SOUND)s" data-cta="sounding-hero">Book the Sounding, $300 %(ARW)s</a>
+        <a class="hv-btn hv-btn--ink" href="%(SOUND)s" data-cta="sounding-hero">Book the session, $300 %(ARW)s</a>
         <a class="hv-btn hv-btn--line" href="%(CALL)s" data-cta="free-call-sounding">Not sure? Free call first</a>
       </div>
       <ul class="ww-trust" role="list"><li>$300 flat</li><li>Credited to your project</li><li>Nothing to prepare</li></ul>
@@ -60,7 +60,7 @@ MAIN = """<main id="main">
     <div class="ww-head">
       <span class="hv-label">Why it works</span>
       <h2 class="hv-h2" id="sd-ff">What you feel is rarely <em>where it starts.</em></h2>
-      <p class="hv-lede">Most people who book a Sounding can list everything they have built. What they cannot find is the thing making all of it heavier every month. It is almost always structural, and almost never where it is felt.</p>
+      <p class="hv-lede">Most people who book a Strategy Session can list everything they have built. What they cannot find is the thing making all of it heavier every month. It is almost always structural, and almost never where it is felt.</p>
     </div>
     <div class="sd-ff">
       <div class="sd-ff-row"><p><span>What you feel</span>The bookkeeping is late.</p><p><span>What we find</span><em>Because the pricing is wrong.</em></p></div>
@@ -73,7 +73,7 @@ MAIN = """<main id="main">
 <section class="hv-sec ww-who sd-know" aria-labelledby="sd-know">
   <div class="hv-wrap">
     <div class="ww-head">
-      <span class="hv-label">After your Sounding</span>
+      <span class="hv-label">After your Strategy Session</span>
       <h2 class="hv-h2" id="sd-know">You will know <em>four things.</em></h2>
     </div>
     <ul class="ww-profiles sd-know-list" role="list">
@@ -106,7 +106,7 @@ MAIN = """<main id="main">
   <div class="hv-wrap sd-leave-grid">
     <div class="sd-doc" aria-hidden="true">
       <svg class="hv-wm sd-doc-mark" viewBox="0 0 504.2 54.4"><use href="#cj-wordmark"/></svg>
-      <p class="sd-doc-title">The Sounding <span>Your roadmap</span></p>
+      <p class="sd-doc-title">The Strategy Session <span>Your roadmap</span></p>
       <ol>
         <li><b>What I heard</b><i></i><i class="short"></i></li>
         <li><b>What is holding it back</b><i></i><i></i><i class="short"></i></li>
@@ -140,8 +140,8 @@ MAIN = """<main id="main">
       <h2 class="hv-h2" id="sd-proof">In <em>their words.</em></h2>
     </div>
     <ul class="hv-quotes sd-quotes" role="list">
-      <li><figure class="hv-q"><blockquote><p>&ldquo;She listens with intention, quickly understands your vision, and brings it to life with ease.&rdquo;</p><p>As a new business owner, she has lifted so much off my plate, allowing me to focus on what matters most.</p></blockquote><figcaption>Tamara &middot; Mane Alchemist Salon &middot; The Sounding, then a Full Brand Launch</figcaption></figure></li>
-      <li><figure class="hv-q"><blockquote><p>&ldquo;She helped redesign how I operate.&rdquo;</p><p>Cydnie is very knowledgeable and incredibly dedicated.</p></blockquote><figcaption>Spencer Scott &middot; SRS Performance &middot; The Sounding, then brand and operations</figcaption></figure></li>
+      <li><figure class="hv-q"><blockquote><p>&ldquo;She listens with intention, quickly understands your vision, and brings it to life with ease.&rdquo;</p><p>As a new business owner, she has lifted so much off my plate, allowing me to focus on what matters most.</p></blockquote><figcaption>Tamara &middot; Mane Alchemist Salon &middot; The Strategy Session, then a Full Brand Launch</figcaption></figure></li>
+      <li><figure class="hv-q"><blockquote><p>&ldquo;She helped redesign how I operate.&rdquo;</p><p>Cydnie is very knowledgeable and incredibly dedicated.</p></blockquote><figcaption>Spencer Scott &middot; SRS Performance &middot; The Strategy Session, then brand and operations</figcaption></figure></li>
     </ul>
   </div>
 </section>
@@ -150,14 +150,14 @@ MAIN = """<main id="main">
 <section class="hv-sec sd-buy" id="book" aria-labelledby="sd-buy">
   <div class="hv-wrap sd-buy-grid">
     <div>
-      <span class="hv-label">Book the Sounding</span>
+      <span class="hv-label">Book the Strategy Session</span>
       <h2 class="hv-h2" id="sd-buy">$300, <em>and it is never spent twice.</em></h2>
       <p class="hv-lede">The $300 comes off your Build, and your roadmap becomes the plan we work from.</p>
     </div>
     <div class="sd-ticket">
       <p class="sd-ticket-price"><span>Flat</span>$300</p>
       <ul role="list"><li>A 90-minute strategy session on the whole business</li><li>Your written roadmap: my full take and recommendations</li><li>$300 credited to your Build</li><li>Remote, or in person around the Twin Cities</li></ul>
-      <a class="hv-btn hv-btn--ink" href="%(SOUND)s" data-cta="sounding-book">Book the Sounding %(ARW)s</a>
+      <a class="hv-btn hv-btn--ink" href="%(SOUND)s" data-cta="sounding-book">Book the session %(ARW)s</a>
       <p class="sd-ticket-note">Usually booked two to three weeks out. <a class="hv-inline" href="%(CALL)s">Or start with a free call.</a></p>
     </div>
   </div>
@@ -184,14 +184,14 @@ graph = L.old_graph("brand-strategy/strategy-session/index.html")
 for n in graph:
     t = n.get("@type")
     if t == "WebPage":
-        n["name"] = "The Sounding: a 90-minute strategy session"
+        n["name"] = "The Strategy Session: 90 minutes on your business"
         # Home > Brand Strategy > The Sounding: it lives under /brand-strategy/ since 5 Oct 2026.
         n["breadcrumb"] = {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Home", "item": L.SITE + "/"},
             {"@type": "ListItem", "position": 2, "name": "Brand Strategy", "item": L.SITE + "/brand-strategy/"},
-            {"@type": "ListItem", "position": 3, "name": "The Sounding", "item": URL}]}
+            {"@type": "ListItem", "position": 3, "name": "Strategy Session", "item": URL}]}
     if t == "Service":
-        n["name"] = "The Sounding"
+        n["name"] = "The Strategy Session"
         n["serviceType"] = "Business strategy session"
         n["description"] = ("A 90-minute strategy session across brand, operations and business development, "
                             "with a written roadmap of findings and recommendations two days later. $300, credited to a Build.")
@@ -208,10 +208,10 @@ PRELOAD = ('<link rel="preload" as="image" href="../../assets/img/sounding/hero-
 
 n = L.render(
     out="brand-strategy/strategy-session/index.html", depth=2, active="/brand-strategy/",
-    title="The Sounding | 90-Minute Strategy Session, $300 | Cydnie Jocelyn",
+    title="Strategy Session | 90-Minute Business Strategy Session, $300 | Cydnie Jocelyn",
     description="A 90-minute strategy session on brand, operations and business development, with a written roadmap two days later. $300, credited to your project.",
     canonical=URL,
-    og_title="The Sounding | A 90-minute strategy session with Cydnie Jocelyn",
+    og_title="The Strategy Session | 90 minutes with Cydnie Jocelyn",
     og_description="Know exactly what to fix first: 90 minutes on the whole business, then my full take and recommendations in writing. $300, credited to your project.",
     graph=graph, main=MAIN, preload=PRELOAD, body_class="ww-page",
     reveal=(".ww-head", ".sd-ff-row", ".sd-know-list > li", ".ww-steps > li", ".sd-leave-grid > div:last-child", ".sd-truth .hv-wrap > *",

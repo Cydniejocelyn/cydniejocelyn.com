@@ -20,7 +20,7 @@ I = "/assets/img/"
 
 LINKS = (
     ("/brand-strategy/", "Work with me", "Services and every price"),
-    ("/brand-strategy/strategy-session/", "The Sounding", "A 90-minute strategy session"),
+    ("/brand-strategy/strategy-session/", "The Strategy Session", "90 minutes on your business"),
     ("/retreats/", "Retreats", "Small-group retreats for women"),
     ("/newsletter/", "The Letters", "A free weekly newsletter"),
     ("/about/", "About", "Who I am and how I work"),

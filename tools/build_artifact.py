@@ -27,7 +27,7 @@ PAGES = {
                  "Wide Open: The Gatlinburg Edition"),
     "arizona":  ("retreats/arizona/index.html", "cydnie-jocelyn-arizona.html",
                  "Wild Canvas: The Arizona Edition"),
-    "sounding": ("brand-strategy/strategy-session/index.html", "cydnie-jocelyn-sounding.html", "The Sounding"),
+    "sounding": ("brand-strategy/strategy-session/index.html", "cydnie-jocelyn-sounding.html", "Strategy Session"),
     "letters":  ("newsletter/index.html", "cydnie-jocelyn-letters.html", "The Letters"),
     "contact":  ("contact/index.html", "cydnie-jocelyn-contact.html", "Contact"),
     "privacy":  ("privacy-policy/index.html", "cydnie-jocelyn-privacy.html", "Privacy Policy and Terms"),
