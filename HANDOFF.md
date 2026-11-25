@@ -8878,3 +8878,15 @@ Not verifiable here: iPhone Safari (no full Xcode, no WebKit). Checked: build,
 seams 0, suite identical to the stale baseline in 83 on all 11 pages, 375 wide
 in Chrome (no sideways scroll; dots follow; last card reachable), desktop
 unchanged. Review: https://claude.ai/artifact/C2d5dfwrg79wzTDGS4gynf
+
+**How 86 went live (25 Nov): NOT through GitHub.** The GitHub token on this
+Mac is invalid (`gh auth status`: "The token in keyring is invalid"), so
+`git push` fails; Cydnie believed she was signed in, but the keychain token
+was never replaced. Deployed instead with `vercel deploy --prod --yes` from the
+REPO ROOT (Ready, verified on www: stamp a5026878, swipe dots, header sheet).
+`tools/ship.sh` is BROKEN for this project now: it deploys `dist/`, and
+vercel.json's buildCommand `python3 tools/build.py` then fails on Vercel
+because dist/ has no tools/ (deployment cydniejocelyn-v2-5ix12rqeg, Error).
+Deploy from the root; .vercelignore was written for that upload.
+**GitHub main is behind production** until the commits here are pushed. Fix
+the token (`gh auth login -h github.com`, then `gh auth setup-git`) and push.
