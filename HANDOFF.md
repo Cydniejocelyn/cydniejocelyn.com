@@ -8843,3 +8843,38 @@ this section is one more place to change on 1 December.
 
 Checked: build, seams 0, 1280 and 375 (no overflow). Review:
 https://claude.ai/artifact/TvVACshSZnVCK8u5ixFhDR (version 1794656788-af3c).
+
+## 86. 25 November 2026. PHONE POLISH: HEADER, MOTION, HOME LAYOUT, SWIPE ROWS, FOOTER, BUTTONS. PUSHED.
+
+Cydnie, from her phone: the header did not stay at the top and the page showed
+through a gap above it; words and sections looked "thrown together like a
+list"; no animations; the home review row scrolled badly; the footer looked
+choppy. Then: "are the button fonts too big making the buttons chunky?"
+
+  * **Header (lux.css, site.css).** `.hv-hdr::before`: a white sheet 100vh tall
+    above the bar, filling whatever strip iPhone Safari draws above a pinned
+    header. body `overflow-x: clip` after `hidden` (clip does not make the body
+    a scroll container). Section 83's safe-area padding stays.
+  * **Motion (site.js section 0).** The tween probe ran at DOMContentLoaded,
+    before a phone's first frame; WebKit does not advance a transition before
+    it, so the probe could fail and add `no-tween`, switching every transition
+    off. It now runs after two animation frames, with a 4s fallback for pages
+    that never draw. Also worth asking her: Reduce Motion on her iPhone turns
+    all motion off by design.
+  * **Home at phones (lux.css "PHONE POLISH" block, end of file).** One mint
+    ground under hero copy and buttons (the seam is gone); "How we begin" left
+    aligned like every other head; service body copy .9375rem like its summary;
+    `.hv-cases`/`.hv-quotes` cards are no longer per-card reveals (they waited,
+    invisible, until swiped in), one card per swipe, last card snaps to end
+    (its start could not reach the edge).
+  * **Swipe dots (site.js section 22, `initSwipeDots`).** Dots under each
+    swipe row, aria-hidden, hidden when the row does not scroll (desktop).
+  * **Footer (phones).** Work with me and More stacked left, Retreats beside
+    both; social marks pulled back to the text edge.
+  * **Buttons (phones).** `.hv-btn` 48px tall (was 56), padding .8/1.4rem,
+    tracking .16em. Type unchanged at 12px.
+
+Not verifiable here: iPhone Safari (no full Xcode, no WebKit). Checked: build,
+seams 0, suite identical to the stale baseline in 83 on all 11 pages, 375 wide
+in Chrome (no sideways scroll; dots follow; last card reachable), desktop
+unchanged. Review: https://claude.ai/artifact/C2d5dfwrg79wzTDGS4gynf

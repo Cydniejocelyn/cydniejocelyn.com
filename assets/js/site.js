@@ -24,6 +24,19 @@
      element lands on its final state immediately. A page that arrives
      finished beats a page that never arrives. */
   function initTweenProbe() {
+    /* 25 November 2026: this used to run at DOMContentLoaded, before a phone
+       had drawn its first frame. Safari does not move a transition before
+       the first frame, so on an iPhone the probe could read 0, decide
+       tweening was broken and switch every animation on the page off for
+       the visit. It now waits two frames, so it measures a page that is
+       drawing. A page that never draws (hidden, headless) still gets an
+       answer from the 4s fallback. */
+    var ran = false;
+    function once() { if (ran) return; ran = true; probe(); }
+    window.requestAnimationFrame(function () { window.requestAnimationFrame(once); });
+    window.setTimeout(once, 4000);
+  }
+  function probe() {
     var el = document.createElement("div");
     el.setAttribute("aria-hidden", "true");
     el.style.cssText = "position:fixed;left:-9999px;top:0;width:8px;height:8px;" +
@@ -1963,6 +1976,45 @@
     });
   }
 
+  /* ---------- 22. Swipe rows on phones -----------------------
+     Below 48rem the client work and the reviews on home become sideways
+     rows, and nothing said how many cards there were or which one you were
+     on. A row of dots under each: the current card's dot is long and dark.
+     Decorative (aria-hidden): every card is still in the row and in the
+     reading order. Hidden whenever the row does not actually scroll. */
+  function initSwipeDots() {
+    Array.prototype.slice.call(document.querySelectorAll(".hv-cases, .hv-quotes")).forEach(function (row) {
+      var items = Array.prototype.slice.call(row.children);
+      if (items.length < 2) return;
+      var dots = document.createElement("div");
+      dots.className = "hv-swipe-dots";
+      dots.setAttribute("aria-hidden", "true");
+      items.forEach(function () { dots.appendChild(document.createElement("span")); });
+      row.parentNode.insertBefore(dots, row.nextSibling);
+      function update() {
+        var max = row.scrollWidth - row.clientWidth;
+        dots.hidden = max < 4;
+        if (dots.hidden) return;
+        var edge = row.getBoundingClientRect().left + parseFloat(window.getComputedStyle(row).paddingLeft);
+        var on = 0, best = Infinity;
+        items.forEach(function (it, n) {
+          var d = Math.abs(it.getBoundingClientRect().left - edge);
+          if (d < best) { best = d; on = n; }
+        });
+        if (row.scrollLeft >= max - 2) on = items.length - 1;
+        Array.prototype.forEach.call(dots.children, function (s, n) { s.classList.toggle("is-on", n === on); });
+      }
+      var queued = false;
+      row.addEventListener("scroll", function () {
+        if (queued) return;
+        queued = true;
+        window.requestAnimationFrame(function () { queued = false; update(); });
+      }, { passive: true });
+      window.addEventListener("resize", update, { passive: true });
+      update();
+    });
+  }
+
   function boot() {
     initTweenProbe();
     document.querySelectorAll(".split").forEach(splitWords);
@@ -1991,6 +2043,7 @@
     initDaysLeft();
     initYear();
     initItin();
+    initSwipeDots();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

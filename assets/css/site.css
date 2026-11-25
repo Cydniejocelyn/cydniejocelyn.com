@@ -233,6 +233,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* clip, where supported: the same sideways cut without making the body a
+     scroll container, which can stop iPhone Safari pinning the header
+     (25 November 2026). `hidden` stays above for older browsers. */
+  overflow-x: clip;
 }
 
 img, svg, canvas, video { display: block; max-width: 100%; }

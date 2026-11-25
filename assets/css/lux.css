@@ -1194,7 +1194,13 @@
   .hv-ftr { padding: 3.25rem 0 1.75rem; }
   .hv-ftr .hv-ftr-mark { margin-bottom: 2.25rem; }
   .hv-ftr-top { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; padding-top: 2rem; }
-  .hv-ftr-brand, .hv-ftr-top > div:last-child { grid-column: 1 / -1; }
+  .hv-ftr-brand { grid-column: 1 / -1; }
+  /* 25 November 2026: More sat alone on its own row under the other two.
+     Now Work with me and More stack on the left and Retreats, the longest
+     list, runs beside both. */
+  .hv-ftr-top > div:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .hv-ftr-top > div:nth-child(3) { grid-column: 2; grid-row: 2 / span 2; }
+  .hv-ftr-top > div:nth-child(4) { grid-column: 1; grid-row: 3; }
   .hv-ftr-cta a { width: 100%; justify-content: center; }
   .hv-ftr-btm { margin-top: 2.25rem; flex-direction: column; gap: .75rem; }
 }
@@ -1294,3 +1300,61 @@
 .hv-rt-find a { font-family: var(--serif); font-size: 1.125rem; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line-2); transition: color .25s ease, border-color .25s ease; }
 .hv-rt-find a:hover { color: var(--blue-deep); border-color: var(--blue-deep); }
 .hv-rt-find a:focus-visible { outline: 2px solid var(--blue-deep); outline-offset: 3px; }
+
+
+/* PHONE POLISH, 25 November 2026. Cydnie, from her phone: the header did not
+   stay at the top and the page showed through a gap above it; sections read
+   as "thrown together like a list"; no movement; the review row scrolled
+   badly; the footer looked choppy. The motion fix is in site.js (the probe,
+   section 0) and the dots under the swipe rows are site.js section 22. */
+
+/* A white sheet above the header. iPhone Safari can draw the page in the
+   strip above a pinned bar (behind the clock, and while its toolbar
+   collapses); this fills that strip whatever the browser reports, so the
+   page never scrolls through above the menu. It sits above the top of the
+   page, so nothing else ever sees it. */
+.hv-hdr::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 100vh; background: #fff; pointer-events: none; }
+
+/* The social marks sit centred in 44px tap targets, so the row started
+   13px in from the text above it. Pulled back to the text edge. */
+.hv-ftr .hv-social { margin-left: calc((2.75rem - 1.15rem) / -2); }
+
+.hv-swipe-dots { display: flex; justify-content: center; gap: .5rem; margin-top: 1.5rem; }
+.hv-swipe-dots[hidden] { display: none; }
+.hv-swipe-dots span { width: .375rem; height: .375rem; border-radius: 999px; background: var(--line-2); transition: width .35s var(--ease), background-color .35s ease; }
+.hv-swipe-dots span.is-on { width: 1.25rem; background: var(--ink); }
+
+@media (max-width: 47.99rem) {
+  /* Hero: the mint ground under the headline ran out a line above the
+     buttons, leaving a hard edge across the screen. One ground now runs
+     from the headline to the bottom of the hero. */
+  .hv-hero-grid { padding-bottom: 0; }
+  .hv-act { margin: -1.25rem calc(var(--gut) * -1) 0; padding: 1.25rem var(--gut) 2.75rem; background: var(--blue-wash); }
+
+  /* How we begin was the one centred section head between left-aligned
+     ones, with its steps and buttons left again under it. Left, like the
+     rest, so the page reads down one edge. */
+  #start .hv-head--c { margin: 0; text-align: left; }
+  #start .hv-head--c .hv-label--c::after { display: none; }
+  .hv-start-cta { justify-content: flex-start; }
+
+  /* Services: the paragraph inside each service was larger than the line
+     above it. Same size now, so each one reads as one block. */
+  .hv-list-body p { font-size: .9375rem; line-height: 1.6; }
+
+  /* Swipe rows (client work and reviews). Each card used to wait, invisible,
+     until it was swiped into view and then rose in mid-swipe. They are
+     simply there now; the section heading still rises as you arrive. One
+     card per swipe, and the last card can be reached: its start could not
+     line up with the edge, so mandatory snapping fought the finger at the
+     end of the row. */
+  .js-motion .hv-cases > li.hv-rv, .js-motion .hv-quotes > li.hv-rv { opacity: 1; transform: none; transition: none; }
+  .hv-cases > li, .hv-quotes > li { scroll-snap-stop: always; }
+  .hv-cases > li:last-child, .hv-quotes > li:last-child { scroll-snap-align: end; }
+
+  /* Buttons. Cydnie: "are the button fonts too big making the buttons
+     chunky?" The type was already small (12px); the bulk was a 56px height,
+     wide tracking and the full screen width. 48px tall and tighter tracking,
+     same size and weight of type, still well over the 44px tap minimum. */
+  .hv-btn, .hv-nav .hv-btn { min-height: 3rem; padding: .8rem 1.4rem; gap: .7rem; letter-spacing: .16em; }
+}
