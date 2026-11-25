@@ -8888,5 +8888,7 @@ REPO ROOT (Ready, verified on www: stamp a5026878, swipe dots, header sheet).
 vercel.json's buildCommand `python3 tools/build.py` then fails on Vercel
 because dist/ has no tools/ (deployment cydniejocelyn-v2-5ix12rqeg, Error).
 Deploy from the root; .vercelignore was written for that upload.
-**GitHub main is behind production** until the commits here are pushed. Fix
-the token (`gh auth login -h github.com`, then `gh auth setup-git`) and push.
+GitHub caught up the same day: she ran `gh auth login --hostname github.com
+--git-protocol https --web` in the app's Terminal panel (answering the
+interactive prompts in chat did nothing), then setup-git, and both commits
+were pushed. Pushes work again.
