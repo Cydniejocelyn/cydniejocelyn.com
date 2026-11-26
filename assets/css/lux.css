@@ -1358,3 +1358,19 @@
      same size and weight of type, still well over the 44px tap minimum. */
   .hv-btn, .hv-nav .hv-btn { min-height: 3rem; padding: .8rem 1.4rem; gap: .7rem; letter-spacing: .16em; }
 }
+
+/* PHONE HEADER, FIXED NOT STICKY, 26 November 2026. Cydnie, from her iPhone
+   after the 25 November fixes: "when you first start scrolling ... there is a
+   brief second of seeing the page behind the navigation bar." A sticky bar is
+   repositioned by Safari as the page scrolls, and on the first scroll, while
+   the toolbar shrinks, it lands a frame late, so the page shows through for a
+   moment. A fixed bar is moved with the scroll by Safari itself and does not
+   lag. The body gets the bar's height back as padding so nothing starts under
+   it. The blur goes too: the bar is solid white below 64rem, so it only cost
+   Safari a filter pass on every scrolled frame. The open menu scrolls inside
+   itself if it is ever taller than the screen. */
+@media (max-width: 64rem) {
+  .hv-hdr { position: fixed; top: 0; left: 0; right: 0; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  body.hv2 { padding-top: calc(4rem + 1px + env(safe-area-inset-top, 0px)); }
+  .hv-hdr.is-open .hv-nav { max-height: calc(100vh - 4rem - env(safe-area-inset-top, 0px)); max-height: calc(100dvh - 4rem - env(safe-area-inset-top, 0px)); overflow-y: auto; overscroll-behavior: contain; }
+}

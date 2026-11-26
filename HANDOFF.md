@@ -8917,3 +8917,19 @@ else" on a city page (a different sense). Every generator was rerun; the HTML
 diffs held nothing but the rename. Suite identical to section 83's baseline.
 HoneyBook's booking page, emails and contract still say Sounding: hers.
 Review: https://claude.ai/artifact/DssHAcZhyTcejNQUjtQSJi
+
+## 88. 26 November 2026. PHONE HEADER IS FIXED, NOT STICKY. PUSHED.
+
+Cydnie, after 86 went live: "when you first start scrolling it does the same
+thing where there is a brief second of seeing the page behind the navigation
+bar." Sticky positioning lands a frame late on the first scroll in iPhone
+Safari while the toolbar collapses. Below 64rem `.hv-hdr` is now
+`position: fixed` (top/left/right 0), `body.hv2` gets
+`padding-top: calc(4rem + 1px + env(safe-area-inset-top))`, the backdrop
+blur is off (the bar is solid #fff there), and the open menu gets a
+max-height with its own scroll. Desktop keeps the sticky, blurred bar.
+lux.css block "PHONE HEADER, FIXED NOT STICKY", end of file.
+Checked: 13 pages at 375 (fixed, top 0 at 1500px scroll, main starts at 65 =
+header bottom, no sideways scroll), menu opens 64-469px, desktop sticky.
+Suite home 25/12 and gatlinburg 57/10, same as 83's baseline.
+Still unproven on a real iPhone: ask her whether the flash is gone.
